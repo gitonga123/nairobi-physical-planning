@@ -1,0 +1,185 @@
+# # Populate this file with data to be loaded by your ORM's *:data-load task.
+# # You can create multiple files in this directory (i.e. 010_users.yml,
+# # 020_articles.yml, etc) which will be loaded in alphabetical order.
+# # 
+# # See documentation for your ORM's *:data-load task for more information.
+# 
+# User:
+#   fabien:
+#     username: fabien
+#     password: changeme
+#     name:     Fabien Potencier
+#     email:    fabien.potencier@symfony-project.com
+#   kris:
+#     username: Kris.Wallsmith
+#     password: changeme
+#     name:     Kris Wallsmith
+#     email:    kris.wallsmith@symfony-project.com
+
+Content:
+  Content_1:
+    parent_id: '0'
+    created_on: null
+    published: '1'
+    menu_index: null
+    url: ''
+    top_article: "<section class=\"container\">\r\n<div class=\"icon-top-title aligncenter sixteen columns\">\r\n<hr class=\"vertical-space1\" />\r\n<h3><strong>Welcome to the Ministry of Software and Workflow Development.</strong></h3>\r\n\r\n<h3 class=\"slight\">You can now access the Ministry&#39;s services using your eCitizen account.</h3>\r\n\r\n<h6><strong>Apply and pay for your Ministry of Software and Workflow Development licenses online.</strong></h6>\r\n<br />\r\n<a class=\"btn btn-warning\" href=\"/index.php?id=1\">Learn More about eCitizen</a>\r\n\r\n<hr class=\"vertical-space2\" /></div>\r\n<!-- /end-two columns --></section>\r\n\r\n<section class=\"blox dark\">\r\n<div class=\"container\">\r\n<div class=\"sixteen columns\">\r\n<hr class=\"vertical-space1\" /><!-- Start - Icon Boxes -->\r\n<div class=\"one_third\">\r\n<div class=\"icon-box icon-colorx\">\r\n<div class=\"icomoon-checkmark-3 \">&nbsp;</div>\r\n\r\n<h4><strong><a href=\"http://account.ecitizen.go.ke/register\">Sign Up</a></strong></h4>\r\n\r\n<p>Take a few seconds to get yourself signed up. All you need is your ID number.</p>\r\n</div>\r\n</div>\r\n\r\n<div class=\"one_third\">\r\n<div class=\"icon-box icon-colorx\">\r\n<div class=\"icomoon-unlocked-2\">&nbsp;</div>\r\n\r\n<h4><strong><a href=\"http://account.ecitizen.go.ke/login\">Sign In</a></strong></h4>\r\n\r\n<p>Sign into your account and get access to all the government services you need</p>\r\n</div>\r\n</div>\r\n\r\n<div class=\"one_third column-last\">\r\n<div class=\"icon-box icon-colorx\">\r\n<div class=\"icomoon-laptop \">&nbsp;</div>\r\n\r\n<h4><strong><a href=\"http://account.ecitizen.go.ke/register\">Apply and Pay online</a></strong></h4>\r\n\r\n<p>You can now pay online and avoid queues at the bank.</p>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</section>"
+    menu_title: Home
+    breadcrumb_title: ''
+    last_modified_on: null
+    visibility: '1'
+    deleted: '0'
+MfGuardPermission:
+  MfGuardPermission_1:
+    name: viewaudittrail
+    description: 'View Audit Trail'
+  MfGuardPermission_2:
+    name: managedepartments
+    description: 'Manage Departments'
+  MfGuardPermission_3:
+    name: managepublication
+    description: 'Manage Articles'
+  MfGuardPermission_4:
+    name: manageusers
+    description: 'Manage Registered Members'
+  MfGuardPermission_5:
+    name: managegroups
+    description: 'Manage Groups'
+  MfGuardPermission_6:
+    name: manageroles
+    description: 'Manage Roles'
+  MfGuardPermission_7:
+    name: manageforms
+    description: 'Manage Forms'
+  MfGuardPermission_8:
+    name: managefees
+    description: 'Manage Fees'
+  MfGuardPermission_9:
+    name: managepermits
+    description: 'Manage Permits'
+  MfGuardPermission_10:
+    name: manageconditions
+    description: 'Manage Conditions'
+  MfGuardPermission_11:
+    name: manageplots
+    description: 'Manage Plots'
+  MfGuardPermission_12:
+    name: managereviewers
+    description: 'Manage Reviewers'
+  MfGuardPermission_13:
+    name: managecommentsheets
+    description: 'Manage Comment Sheets'
+  MfGuardPermission_14:
+    name: managestages
+    description: 'Manage Stages'
+  MfGuardPermission_15:
+    name: manageactions
+    description: 'Manage Actions'
+  MfGuardPermission_16:
+    name: managenotifications
+    description: 'Manage Notifications'
+  MfGuardPermission_17:
+    name: managewebpages
+    description: 'Manage Web Pages'
+  MfGuardPermission_18:
+    name: managefaqs
+    description: 'Manage FAQs'
+  MfGuardPermission_19:
+    name: managenews
+    description: 'Manage News Articles'
+  MfGuardPermission_20:
+    name: has_hod_access
+    description: 'Has Access to Head of Department Functions'
+  MfGuardPermission_21:
+    name: transfer_applications
+    description: 'Able to transfer ownership of applications between users'
+  MfGuardPermission_22:
+    name: editapplication
+    description: 'Edit Applications'
+  MfGuardPermission_23:
+    name: assigntask
+    description: 'Assign tasks'
+  MfGuardPermission_24:
+    name: createapplications
+    description: 'Create applications from backend'
+  MfGuardPermission_25:
+    name: access_applications
+    description: 'Access Applications Menu'
+  MfGuardPermission_26:
+    name: access_tasks
+    description: 'Access Tasks Menu'
+  MfGuardPermission_27:
+    name: access_members
+    description: 'Access Clients Page'
+  MfGuardPermission_28:
+    name: access_reviewers
+    description: 'Access Reviewers Page'
+  MfGuardPermission_29:
+    name: access_reports
+    description: 'Access Reports Menu'
+  MfGuardPermission_30:
+    name: access_help
+    description: 'Access Help Menu'
+  MfGuardPermission_31:
+    name: access_settings
+    description: 'Access Settings Menu'
+  MfGuardPermission_32:
+    name: access_content
+    description: 'Access Content Menu'
+  MfGuardPermission_33:
+    name: access_forms
+    description: 'Access Forms Menu'
+  MfGuardPermission_34:
+    name: access_security
+    description: 'Access Security Menu'
+  MfGuardPermission_35:
+    name: managelanguages
+    description: 'Manage Languages'
+  MfGuardPermission_36:
+    name: manageannouncements
+    description: 'Manage Announcements'
+  MfGuardPermission_37:
+    name: manageformgroups
+    description: 'Manage Form Groups'
+  MfGuardPermission_38:
+    name: manageinvoices
+    description: 'Manage Invoice Templates'
+  MfGuardPermission_39:
+    name: managereports
+    description: 'Manage Reports'
+  MfGuardPermission_40:
+    name: managecategories
+    description: 'Manage User Categories'
+  MfGuardPermission_41:
+    name: access_workflow
+    description: 'Access Workflow Menu'
+  MfGuardPermission_43:
+    name: approvepayments
+    description: 'Approve Payments'
+  MfGuardPermission_47:
+    name: cancel_permits
+    description: 'Can cancel permits'
+  MfGuardPermission_47:
+    name: addtopup
+    description: 'Add topup to applications directly without task'
+SfGuardUserCategories:
+  SfGuardUserCategories_1:
+    name: Citizen
+    description: Citizen
+    formid: '0'
+    orderid: '1'
+  SfGuardUserCategories_2:
+    name: Business
+    description: Business
+    formid: '0'
+    orderid: '2'
+  SfGuardUserCategories_3:
+    name: Foreigns
+    description: 'Foreign Resident'
+    formid: '0'
+    orderid: '3'
+  SfGuardUserCategories_4:
+    name: Testers
+    description: 'Test Users'
+    formid: '0'
+    orderid: '4'

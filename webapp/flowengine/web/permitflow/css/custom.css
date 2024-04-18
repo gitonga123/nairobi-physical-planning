@@ -1,0 +1,140 @@
+/*! Place your custom styles here */
+
+body{
+  font-family: 'Lato','Verdana','Helvetica', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6,
+.h1,.h2,.h3,.h4,.h5,.h6{
+  font-family: 'Ubuntu','Helvetica', sans-serif;
+}
+
+h5,h6,.h5,.h6{
+	font-weight: 500;
+}
+
+.menu > li{
+	font-family: 'Lato','Verdana','Helvetica', sans-serif;
+}
+
+.btn,.btn__text,button{
+	font-family: 'Lato','Verdana','Helvetica', sans-serif;
+}
+
+
+
+h2, .h2 {
+    font-size: 1.85714286em;
+    line-height: 1.36363636em;
+}
+
+.lead {
+    font-size: 1.15714286em;
+    line-height: 1.68421053em;
+}
+
+/*! -- Cover -- */
+
+.cover .lead {
+    font-size: 1.35714286em;
+    line-height: 1.68421053em;
+}
+
+.cover h1 {
+  font-size: 2.742857em;
+  line-height: 1.21818182em;
+}
+
+
+.cover h1:not(:last-child), .h1:not(:last-child) {
+    margin-bottom: 0.30090909090909em;
+}
+
+/*! -- End Cover -- */
+
+
+.image--sm {
+  max-height: 19.571429em;
+}
+
+.image--sm h1 {
+  font-size: 2.14285714em;
+  line-height: 0.31818182em;
+}
+section.image--sm {
+  padding-top: 5.428571em;
+}
+
+.image--sm .lead {
+    font-size: 1.15714286em;
+    line-height: 1.68421053em;
+}
+
+.bar .col-md-1 {
+  padding: 0;
+}
+
+.bar.bar--sm {
+    padding: 1.12857143em 0;
+}
+
+
+.bar-1 .menu-horizontal > li > .dropdown__trigger, .bar-1 .menu-horizontal > li > a {
+  font-size: 0.797142857142857em;
+}
+
+
+.imageblock > .container, .imageblock > div[class*='col-']:not(.imageblock__content) {
+  padding: 0;
+}
+
+
+
+section, footer {
+    padding-top: 5.42857143em;
+    padding-bottom: 5.42857143em;
+}
+
+
+
+.bar__module .btn {
+  margin-top: 10px;
+}
+
+@media (min-width: 990px) {
+  .menu-horizontal > li {
+      margin-top: 13px;
+  }
+}
+
+footer .logo {
+    max-height: 3.671429em;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+
+.btn--primary, .btn--primary:visited {
+    background: #2347b9;
+    border-color: #2347b9;
+}
+
+.btn--primary:hover {
+    background: #002085;
+}
+
+
+.btn--primary-1, .btn--primary-1:visited {
+    background: #f2af0b;
+    border-color: #f2af0b;
+}
+
+.btn--primary-1:hover {
+    background: #cba480;
+}
+
+.bg--dark {
+    background: #2347b9;
+}

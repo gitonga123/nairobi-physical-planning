@@ -1,0 +1,15 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/08-Security
+
+default:
+  is_secure: true
+login:
+  is_secure: false
+user:
+  is_secure: false
+group:
+  is_secure: false
+ifccallback:
+  is_secure: false
+ifc:
+  is_secure: false

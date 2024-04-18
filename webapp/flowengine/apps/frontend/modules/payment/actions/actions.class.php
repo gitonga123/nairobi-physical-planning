@@ -1,0 +1,260 @@
+<?php
+
+/**
+ * Payment actions.
+ *
+ * Payment api for a remote payment gateway
+ *
+ * @package    frontend
+ * @subpackage payment
+ * @author     Webmasters Africa / Thomas Juma (thomas.juma@webmastersafrica.com)
+ */
+use Exception;
+class paymentActions extends sfActions
+{
+  /**
+   * Executes 'Query' Action
+   *
+   * Query for invoice details using the bill number for KCB GATEWAY
+   *
+   **/
+  public function executeQuerybills(sfWebRequest $request)
+  {
+    $otb_helper = new OTBHelper();
+    $content = $request->getContent();
+    $contentR = json_decode($content);
+    error_log('ERROR: ' . $otb_helper->json_decode_error_list(json_last_error()));
+    $kcb = new KCBGateway();
+    $response = $kcb->searchBill($contentR->billId, $contentR->messageId);
+    return $this->renderText(json_encode($response));
+  }
+
+  /**
+   * Receive payment notifications from KCB
+   */
+  public function executePaymentnotificationsOLD(sfWebRequest $request)
+  {
+    $response = $request->getContent();
+    $response = json_decode($response);
+
+    $invoice = new InvoiceManager();
+
+    $invoice_no = trim($response->billId);
+    $message_id = trim($response->messageId);
+    $transaction_id = trim($response->transactionId);
+    $responseDetails = [
+      'messageId' => $message_id,
+    ];
+    try {
+
+      $invoiceDetails = $invoice->getInvoiceByNumberTransactionMessageId(
+        $invoice_no,
+        $message_id,
+        $transaction_id
+      );
+      if (!$invoiceDetails) {
+        $responseDetails['statusCode'] = '1';
+        $responseDetails['statusMessage'] = 'Invoice not found';
+        $responseDetails['transactionId'] = $transaction_id;
+      } else {
+        if ($invoiceDetails->getPaid() == 1) {
+          $payments_manager = new KCBGateway();
+          $responseDetails = $payments_manager->ipn($response, $invoiceDetails);
+        } else {
+          $responseDetails['statusCode'] = '1';
+          $responseDetails['statusMessage'] = 'Invoice Already Paid. Please re-check the invoice no.';
+          $responseDetails['transactionId'] = $transaction_id;
+        }
+      }
+      $responseDetails;
+    } catch (Exeception $e) {
+      $responseDetails['statusCode'] = '1';
+      $responseDetails['statusMessage'] = $e->getMessage();
+      $responseDetails['transactionId'] = $transaction_id;
+    }
+
+    return $this->renderText(json_encode($responseDetails));
+  }
+  /**
+   * Receive  notificiations from malipo
+   */
+  public function executePaymentnotifications(sfWebRequest $request)
+  {
+      $response = $request->getContent();
+      $response = json_decode($response);
+
+      $invoice = new InvoiceManager();
+      //
+      $invoice_no_only = false ;
+      // Split the string using the hyphen as the delimiter
+      $splitArray = explode('-', $response->billId);
+      //error_log(print_r($splitArray)) ;
+      /// Check if there are at least 4 parts
+      $invoice_no_only = implode('-', array_slice($splitArray, 0, 3));
+      // error_log("Debig >>>>>>>>>>> invoice_no_only ".$invoice_no_only ) ;
+       //$invoice_no_only = "NKR-INV-710" ;
+       // test
+       $q_test = Doctrine_Query::create()
+       ->from('MfInvoice a')
+       ->where('a.transaction_id = ?', $response->billId)
+       ->orWhere('a.invoice_number = ?', $invoice_no_only)
+       ->limit(1);
+      $invoice_r_test = $q_test->fetchOne();
+      $invoice_no = trim($invoice_r_test->getInvoiceNumber());
+      error_log($invoice_no) ;   
+      
+      // get invoice id
+      /* $q = Doctrine_Query::create()
+             ->from('MfInvoice a')
+             ->where('a.transaction_id = ?', $response->billId)
+             ->limit(1);
+            $invoice_r = $q->fetchOne();
+
+      $invoice_no = trim($invoice_r->getInvoiceNumber()); */
+      $message_id = trim($response->messageId);
+      $transaction_id = trim($response->billId);
+      $responseDetails = [
+        'messageId' => $message_id,
+      ];
+      try {
+     
+        $invoiceDetails = $invoice->getInvoiceByNumberTransactionMessageId(
+          $invoice_no,
+          $message_id,
+          $transaction_id
+        );
+        if (!$invoiceDetails) {
+          $responseDetails['statusCode'] = '1';
+          $responseDetails['statusMessage'] = 'Invoice not found';
+          $responseDetails['transactionId'] = $transaction_id;
+          $response['currency'] = 'KES';
+        } else {
+          if ($invoiceDetails->getPaid() == 1) {
+           // error_log("Debug MalipoGateway >> >Check invoice ".$invoiceDetails->getId()) ;
+              
+            $payments_manager = new MalipoGateway();
+            $responseDetails = $payments_manager->malipo_ipn($response, $invoiceDetails);
+          } else {
+            $responseDetails['statusCode'] = '1';
+            $responseDetails['statusMessage'] = 'Invoice Already Paid. Please re-check the invoice no.';
+            $responseDetails['transactionId'] = $transaction_id;
+          }
+        }
+        $responseDetails;
+      } catch (Exeception $e) {
+        $responseDetails['statusCode'] = '1';
+        $responseDetails['statusMessage'] = $e->getMessage();
+        $responseDetails['transactionId'] = $transaction_id;
+      }
+  
+      return $this->renderText(json_encode($responseDetails));
+  }
+  /**
+   * Executes 'Query' action
+   *
+   * Query for Invoice details
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeQueryinvoice(sfWebRequest $request)
+  {
+    $response_content = $request->getContent();
+    error_log('Decoding: ' . $response_content);
+    $response_content = json_decode($response_content);
+    $otb_helper = new OTBHelper();
+    error_log('ERROR: ' . $otb_helper->json_decode_error_list(json_last_error()));
+    $api_key = $response_content->api_key;
+    $api_secret = $response_content->api_secret;
+    $invoice_no = $response_content->invoice;
+    $merchant_identifier = trim($response_content->plan_id);
+
+    error_log('----api_key-----' . $api_key . '-----$api_secret----' . $api_secret . '-----invoice_no---' . $invoice_no . '-----merchant_identifier----' . $merchant_identifier);
+
+    $invoice_manager = new InvoiceManager();
+
+    $query_details = $invoice_manager->api_query_invoice($api_key, $api_secret, $invoice_no, $merchant_identifier);
+    $this->getResponse()->setHttpHeader('content-type', 'application/json');
+    error_log(print_r($query_details, true));
+    return $this->renderText(json_encode($query_details));
+  }
+
+  /**
+   * Executes 'Update' action
+   *
+   * Query for Invoice details
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeUpdateinvoice(sfWebRequest $request)
+  {
+    $query_details = [];
+    $response_content = $request->getContent();
+    error_log('Decoding: ' . $response_content);
+    $response_content = json_decode($response_content);
+    $otb_helper = new OTBHelper();
+    error_log('ERROR: ' . $otb_helper->json_decode_error_list(json_last_error()));
+
+    $api_key = $response_content->api_key;
+    $api_secret = $response_content->api_secret;
+    $invoice_no = trim($response_content->invoice);
+
+    error_log('----api_key-----' . $api_key . '-----$api_secret----' . $api_secret . '-----invoice_no---' . $invoice_no);
+    $this->getResponse()->setHttpHeader('content-type', 'application/json');
+    try {
+      $payments_manager = new PaymentsManager();
+
+      if ($payments_manager->api_validate_request($api_key, $api_secret)) {
+        //if valid get set merchant
+        $invoice_manager = new InvoiceManager();
+        $invoice = $invoice_manager->get_invoice_by_invoice_number($invoice_no);
+        if ($invoice && strlen($invoice->getFormEntry()->getForm()->getPaymentMerchantType())) {
+          $query_details = $payments_manager->process_ipn($invoice->getFormEntry()->getForm()->getPaymentMerchantType(), $response_content);
+        } else {
+          //failed merchant form
+          $query_details['status'] = '01';
+          $query_details['message'] = 'Not allowed';
+          $query_details['data'] = [];
+        }
+      } else {
+        //failed validation
+        $query_details['status'] = '01';
+        $query_details['message'] = 'Invalid API key/API secret';
+        $query_details['data'] = [];
+      }
+    } catch (Exception $ex) {
+      error_log("Debug-pesa: " . $ex);
+      $query_details['status'] = '01';
+      $query_details['message'] = 'Exception : ' . $ex->getMessage();
+      $query_details['data'] = [];
+    }
+    return $this->renderText(json_encode($query_details));
+  }
+
+  /**
+   * Executes 'Update' action
+   *
+   * Query for Profile details
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeUpdateprofile(sfWebRequest $request)
+  {
+    try {
+      $api_key = $request->getParameter("api_key");
+      $api_secret = $request->getParameter("api_secret");
+
+      $payments_manager = new PaymentsManager();
+
+      $update_details = array();
+
+      if ($payments_manager->api_validate_request($api_key, $api_secret)) {
+        $update_details = $payments_manager->process_ipn_profile("ecitizen", $_REQUEST);
+        return $this->renderText(json_encode($update_details));
+      } else {
+        return $this->renderText(json_encode($update_details));
+      }
+    } catch (Exception $ex) {
+      error_log("Debug-pesa: " . $ex);
+    }
+  }
+}

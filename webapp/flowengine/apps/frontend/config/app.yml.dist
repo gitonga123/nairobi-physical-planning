@@ -1,0 +1,50 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  fromemail: campfossa@gmail.com
+  mysql_host: %mysql_host%
+  mysql_db: %mysql_database%
+  mysql_user: %mysql_user%
+  mysql_pass: %mysql_pass%
+  currency: %currency%
+  organisation_email: "%organisation_email%"
+  organisation_name: "%organisation_name%"
+  organisation_description: "%organisation_description%"
+  locale: "%locale%"
+  sfApplyPlugin:
+    from:
+      email: "%organisation_email%"
+      fullname: "%organisation_name%"
+  .settings:
+    i18n: on
+  sfGuardPlugin:
+    allow_login_with_email: true
+
+  service_fee_percentage: 0
+
+  branch: Nairobi
+  mda_code: 001
+
+  public_permits: 1
+  
+  ifc_user: demo
+  ifc_user_api: dBEapvsdvRGRfAHL9QqAsrX7kR3F9KZdUYps9DV5Bd7Hk5PGpFdhrVsGbywV4F9Q9vrvpP
+
+  #google_analytics_id: UA-10179244-19
+
+  #set to false for countries that are not using single sign on
+  #sso_homepage: http://eservices.nyeri.go.ke
+  #sso_authorize_url: http://account.ecitizen.go.ke/authorize
+  #sso_logout_url: http://account.ecitizen.go.ke/logout
+  #sso_register_url: http://account.ecitizen.go.ke/register
+  #sso_secret: JDJ5JDEwJDBKTHdQTzV0S2NwcFZ5TVRwUVZBbk9nUm1KZThqOFFWcGROaTFHWmZibFYyRUM1N3o3cjBp
+
+  enable_categories: yes
+test:
+  fromemail: campfossa@gmail.com
+  mysql_host: localhost
+  mysql_db: permitflow_test
+  mysql_user: root
+  mysql_pass: manticore

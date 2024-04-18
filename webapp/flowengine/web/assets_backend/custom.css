@@ -1,0 +1,50 @@
+.headerbar {
+    border: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
+    box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
+    color: #fff;
+    background: #44ade2 !important;
+}
+
+.logopanel {
+    border-bottom: 0;
+    padding: 17px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
+    box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
+    background: #EC578b !important;
+}
+
+.searchform input.form-control {
+    height: 48px;
+    border: 0;
+    margin: 8px 8px;
+    max-width: 450px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: none;
+    background: #44ade2;
+    color: #fff;
+    padding: 7px 67px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.btn-advanced {
+    padding: 12px 25px;
+    height: 48px;
+    background: #000 !important;
+    color: #fff;
+    border-color: #374a53;
+    border-radius: 3px;
+}
+
+.nav-bracket>li.active>a, .nav-bracket>li.active>a:hover, .nav-bracket>li.active>a:focus {
+    background: transparent;
+    color: #EC578b;
+    box-shadow: none;
+}

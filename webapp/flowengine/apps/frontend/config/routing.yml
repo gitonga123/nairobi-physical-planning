@@ -1,0 +1,84 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+dashboard:
+  url:   /dashboard
+  param: { module: dashboard, action: index }
+
+apply:
+  url:  /apply
+  param: { module: sfApply, action: apply }
+
+#reset:
+#  url: /reset
+#  param: { module: sfApply, action: reset }
+
+resetRequest:
+  url: /reset-request
+  param: { module: sfApply, action: resetRequest }
+
+#validate:
+#  url: /confirm/:validate
+#  param: { module: sfApply, action: confirm }
+
+settings:
+  url: /settings
+  param: { module: sfApply, action: settings }
+
+#sf_guard_password:
+#  url: /reset-request
+#  param: { module: sfApply, action: resetRequest }
+
+#sf_guard_register:
+#  url:   /register
+#  param: { module: sfGuardRegister, action: index }
+
+sf_guard_signin:
+  url:   /login
+  param: { module: sfGuardAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: sfGuardAuth, action: signout }
+
+#sf_guard_password:
+#  url:   /request_password
+#  param: { module: sfGuardAuth, action: password }
+
+signon:
+  url:   /signon
+  param: { module: signon, action: signin }
+
+# RSS Feeds
+feeds_services:
+  url:   /feeds/services
+  param: { module: feeds, action: services }
+
+feeds_get_application:
+  url:   /feeds/getapplication/id/:id
+  param: { module: feeds, action: getapplication }
+
+feeds_get_user_applications:
+  url:   /feeds/getuserapplications/idnumber/:idnumber
+  param: { module: feeds, action: getuserapplications }
+
+# default rules
+homepage:
+  url:   /
+  param: { module: index, action: index }
+
+ifc_callback:
+  url: /ifccallback
+  param: { module: application, action: ifccallback}
+  
+resendRequest:
+  url: /resend
+  param: { module: sfApply, action: userresendvalidationemail}
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

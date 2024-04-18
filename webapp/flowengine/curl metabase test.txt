@@ -1,0 +1,33 @@
+################################################################################
+# Metabase Redirect Login
+################################################################################
+printf '%s' \
+    'http://localhost:8081/backend.php/reports/login' \
+    '?' 'key' '=' 'd4d99e6e4b7197492466cc1984df7857d52f5c3aefb91530bc8deaa796fde1a8' \
+    '&' 'timestamp' '=' '1519115674216' \
+> input.data \
+&& cat input.data | xargs curl --connect-timeout 1800 -D - > output.data
+
+
+################################################################################
+# Metabase Get User
+################################################################################
+printf '%s' \
+    'http://localhost:8081/backend.php/reports/user' \
+    '?' 'key' '=' 'd4d99e6e4b7197492466cc1984df7857d52f5c3aefb91530bc8deaa796fde1a8' \
+    '&' 'timestamp' '=' '1519115674216' \
+    '&' 'session_id' '=' 'j2rmdot1sgccoctj0f72cnkuba' \
+> input.data \
+&& cat input.data | xargs curl --connect-timeout 1800 -D - > output.data
+
+
+################################################################################
+# Metabase Get User Groups
+################################################################################
+printf '%s' \
+    'http://localhost:8081/backend.php/reports/group' \
+    '?' 'key' '=' 'd4d99e6e4b7197492466cc1984df7857d52f5c3aefb91530bc8deaa796fde1a8' \
+    '&' 'timestamp' '=' '1519115674216' \
+    '&' 'session_id' '=' 'j2rmdot1sgccoctj0f72cnkuba' \
+> input.data \
+&& cat input.data | xargs curl --connect-timeout 1800 -D - > output.data

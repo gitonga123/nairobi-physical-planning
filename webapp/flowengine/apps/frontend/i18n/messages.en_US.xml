@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="en_US" datatype="plaintext">
+    <body>
+  <trans-unit id="1">
+    <source>Sign In</source>
+    <target>Sign In</target>
+  </trans-unit>
+  <trans-unit id="2">
+    <source>Sign Up</source>
+    <target>Sign Up</target>
+  </trans-unit>
+  <trans-unit id="3">
+    <source>News</source>
+    <target>News</target>
+  </trans-unit>
+  <trans-unit id="4">
+    <source>FAQ</source>
+    <target>FAQ</target>
+  </trans-unit>
+  <trans-unit id="5">
+    <source>Contact Us</source>
+    <target>Contact Us</target>
+  </trans-unit>
+  <trans-unit id="6">
+    <source>Home</source>
+    <target>Home</target>
+  </trans-unit>
+  <trans-unit id="7">
+    <source>News Articles</source>
+    <target>News Articles</target>
+  </trans-unit>
+  <trans-unit id="8">
+    <source>No News Articles Posted</source>
+    <target>No News Articles Posted</target>
+  </trans-unit>
+  <trans-unit id="9">
+    <source>Frequently Asked Questions</source>
+    <target>Frequently Asked Questions</target>
+  </trans-unit>
+  <trans-unit id="10">
+    <source>Please Sign In</source>
+    <target>Please Sign In</target>
+  </trans-unit>
+  <trans-unit id="11">
+    <source>Login to access your account</source>
+    <target>Login to access your account</target>
+  </trans-unit>
+  <trans-unit id="12">
+    <source>Username or Email</source>
+    <target>Username or Email</target>
+  </trans-unit>
+  <trans-unit id="13">
+    <source>Password</source>
+    <target>Password</target>
+  </trans-unit>
+  <trans-unit id="14">
+    <source>Can't access your account?</source>
+    <target>Cant access your account?</target>
+  </trans-unit>
+  <trans-unit id="15">
+    <source>Permitflow LTD. ALL Rights Reserved</source>
+    <target>Permitflow LTD. ALL Rights Reserved</target>
+  </trans-unit>
+  <trans-unit id="16">
+    <source>Already a member?</source>
+    <target>Already a member?</target>
+  </trans-unit>
+  <trans-unit id="17">
+    <source>Full Name</source>
+    <target>Full Name</target>
+  </trans-unit>
+  <trans-unit id="18">
+    <source>Username</source>
+    <target>Username</target>
+  </trans-unit>
+  <trans-unit id="19">
+    <source>New Password</source>
+    <target>New Password</target>
+  </trans-unit>
+  <trans-unit id="20">
+    <source>Confirm Password</source>
+    <target>Confirm Password</target>
+  </trans-unit>
+  <trans-unit id="21">
+    <source>Enter Email</source>
+    <target>Enter Email</target>
+  </trans-unit>
+  <trans-unit id="22">
+    <source>Confirm Email</source>
+    <target>Confirm Email</target>
+  </trans-unit>
+  <trans-unit id="23">
+    <source>Mobile Phone (e.g 256700123456 or 0700123456)</source>
+    <target>Mobile Phone (e.g 256700123456 or 0700123456)</target>
+  </trans-unit>
+  <trans-unit id="24">
+    <source>Register As</source>
+    <target>Register As</target>
+  </trans-unit>
+  <trans-unit id="25">
+    <source>Terms and Conditions</source>
+    <target>Terms and Conditions</target>
+  </trans-unit>
+  <trans-unit id="26">
+    <source>By clicking on Save and Continue below, you are agreeing to the</source>
+    <target>By clicking on Save and Continue below, you are agreeing to the</target>
+  </trans-unit>
+  <trans-unit id="27">
+    <source>and the</source>
+    <target>and the</target>
+  </trans-unit>
+  <trans-unit id="28">
+    <source>Terms of Services</source>
+    <target>Terms of Services</target>
+  </trans-unit>
+  <trans-unit id="29">
+    <source>Privacy Policy</source>
+    <target>Privacy Policy</target>
+  </trans-unit>
+  <trans-unit id="30">
+    <source>Save and Continue</source>
+    <target>Save and Continue</target>
+  </trans-unit>
+  <trans-unit id="31">
+    <source>Languages</source>
+    <target>Change Language</target>
+  </trans-unit>
+  <trans-unit id="32">
+    <source>Welcome</source>
+    <target>Welcome</target>
+  </trans-unit>
+  <trans-unit id="33">
+    <source>Account Settings</source>
+    <target>Account Settings</target>
+  </trans-unit>
+  <trans-unit id="34">
+    <source>Log Out</source>
+    <target>Log Out</target>
+  </trans-unit>
+  <trans-unit id="35">
+    <source>Dashboard</source>
+    <target>Dashboard</target>
+  </trans-unit>
+  <trans-unit id="36">
+    <source>Applications</source>
+    <target>Applications</target>
+  </trans-unit>
+  <trans-unit id="37">
+    <source>Make Application</source>
+    <target>Make Application</target>
+  </trans-unit>
+  <trans-unit id="38">
+    <source>Support</source>
+    <target>Support</target>
+  </trans-unit>
+  <trans-unit id="39">
+    <source>Billing</source>
+    <target>Billing</target>
+  </trans-unit>
+  <trans-unit id="40">
+    <source>Permits</source>
+    <target>Services</target>
+  </trans-unit>
+  <trans-unit id="41">
+    <source>Please create an account</source>
+    <target>Please create an account</target>
+  </trans-unit>
+  <trans-unit id="42">
+    <source>Sorry! The username or password you entered is incorrect.</source>
+    <target>Sorry! The username or password you entered is incorrect.</target>
+  </trans-unit>
+  <trans-unit id="43">
+    <source>Did you forget?</source>
+    <target>Did you forget?</target>
+  </trans-unit>
+  <trans-unit id="44">
+    <source>Navigation</source>
+    <target>Navigation</target>
+  </trans-unit>
+  <trans-unit id="45">
+    <source>Drafts</source>
+    <target>Drafts</target>
+  </trans-unit>
+  <trans-unit id="46">
+    <source>Summary of all your alerts and applications</source>
+    <target>Summary of all your alerts and applications</target>
+  </trans-unit>
+  <trans-unit id="47">
+    <source>Total Applications</source>
+    <target>Total Applications</target>
+  </trans-unit>
+  <trans-unit id="48">
+    <source>Due Invoices</source>
+    <target>Due Invoices</target>
+  </trans-unit>
+  <trans-unit id="49">
+    <source>Resubmissions</source>
+    <target>Resubmissions</target>
+  </trans-unit>
+  <trans-unit id="50">
+    <source>Issued Permits</source>
+    <target>Issued Permits</target>
+  </trans-unit>
+  <trans-unit id="51">
+    <source>Latest Applications</source>
+    <target>Latest Applications</target>
+  </trans-unit>
+  <trans-unit id="52">
+    <source>View Applications</source>
+    <target>View Applications</target>
+  </trans-unit>
+  <trans-unit id="53">
+    <source>Date</source>
+    <target>Date</target>
+  </trans-unit>
+  <trans-unit id="54">
+    <source>Application</source>
+    <target>Application</target>
+  </trans-unit>
+  <trans-unit id="55">
+    <source>Status</source>
+    <target>Status</target>
+  </trans-unit>
+  <trans-unit id="56">
+    <source>View App</source>
+    <target>View App</target>
+  </trans-unit>
+  <trans-unit id="57">
+    <source>Due Invoices</source>
+    <target>Due Invoices</target>
+  </trans-unit>
+  <trans-unit id="58">
+    <source>Invoice Date</source>
+    <target>Invoice Date</target>
+  </trans-unit>
+  <trans-unit id="59">
+    <source>Total</source>
+    <target>Total</target>
+  </trans-unit>
+  <trans-unit id="60">
+    <source>Pay All Invoices</source>
+    <target>Pay All Invoices</target>
+  </trans-unit>
+  <trans-unit id="61">
+    <source>View All Invoices</source>
+    <target>View All Invoices</target>
+  </trans-unit>
+  <trans-unit id="62">
+    <source>Application Forms</source>
+    <target>Application Forms</target>
+  </trans-unit>
+  <trans-unit id="63">
+    <source>Account Information</source>
+    <target>Account Information</target>
+  </trans-unit>
+  <trans-unit id="64">
+    <source>New Messages</source>
+    <target>New Messages</target>
+  </trans-unit>
+  <trans-unit id="65">
+    <source>No Records Found</source>
+    <target>No Records Found</target>
+  </trans-unit>
+  <trans-unit id="66">
+    <source>Edit Account Details</source>
+    <target>Edit Account Details</target>
+  </trans-unit>
+  <trans-unit id="67">
+    <source>Announcement</source>
+    <target>Announcement</target>
+  </trans-unit>
+  <trans-unit id="68">
+    <source>Registration Successful</source>
+    <target>Registration Successful</target>
+  </trans-unit>
+  <trans-unit id="69">
+    <source>Check Your Email</source>
+    <target>Check Your Email</target>
+  </trans-unit>
+  <trans-unit id="70">
+    <source>Your registration is successful</source>
+    <target>Your registration is successful</target>
+  </trans-unit>
+  <trans-unit id="71">
+    <source>Thank you for Registering. An email has been sent to your account. Go to your email to verify your account.</source>
+    <target>Thank you for Registering. An email has been sent to your account. Go to your email to verify your account.</target>
+  </trans-unit>
+  <trans-unit id="72">
+    <source>Additional details</source>
+    <target>Additional details</target>
+  </trans-unit>
+  <trans-unit id="73">
+    <source>Forgot Your Password?</source>
+    <target>Forgot Your Password?</target>
+  </trans-unit>
+  <trans-unit id="74">
+    <source>Lost Password Recovery</source>
+    <target>Lost Password Recovery</target>
+  </trans-unit>
+  <trans-unit id="75">
+    <source>If you have forgotten your username or password, you can request to have your username emailed to you and to reset your password. When you fill in your registered email address, you will be sent instructions on how to reset your password.</source>
+    <target>If you have forgotten your username or password, you can request to have your username emailed to you and to reset your password. When you fill in your registered email address, you will be sent instructions on how to reset your password.</target>
+  </trans-unit>
+  <trans-unit id="76">
+    <source>Email or Username</source>
+    <target>Email or Username</target>
+  </trans-unit>
+  <trans-unit id="77">
+    <source>Reset My Password</source>
+    <target>Reset My Password</target>
+  </trans-unit>
+  <trans-unit id="78">
+    <source>Submit</source>
+    <target>Proceed</target>
+  </trans-unit>
+  <trans-unit id="79">
+    <source>Check Your E-Mail</source>
+    <target>Check Your E-Mail</target>
+  </trans-unit>
+  <trans-unit id="80">
+    <source>For security reasons, a confirmation message has been sent tothe email address associated with this account. Please check youremail for that message. You will need to click on a link providedin that email in order to change your password. If you do not seethe message, be sure to check your </source>
+    <target>For security reasons, a confirmation message has been sent tothe email address associated with this account. Please check youremail for that message. You will need to click on a link providedin that email in order to change your password. If you do not seethe message, be sure to check your "spam" and "bulk" email folders.</target>
+  </trans-unit>
+  <trans-unit id="81">
+    <source>Your password has been successfully reset. You are now loggedin to this site. In the future, be sure to log in with your new password.</source>
+    <target>Your password has been successfully reset. You are now loggedin to this site. In the future, be sure to log in with your new password.</target>
+  </trans-unit>
+  <trans-unit id="82">
+    <source>Thanks for confirming your email address. You may now change yourpassword using the form below.</source>
+    <target>Thanks for confirming your email address. You may now change yourpassword using the form below.</target>
+  </trans-unit>
+  <trans-unit id="83">
+    <source>My Account</source>
+    <target>My Account</target>
+  </trans-unit>
+  <trans-unit id="84">
+    <source>View account details</source>
+    <target>View account details</target>
+  </trans-unit>
+  <trans-unit id="85">
+    <source>You are here</source>
+    <target>You are here</target>
+  </trans-unit>
+  <trans-unit id="86">
+    <source>Edit Basic Details</source>
+    <target>Edit Basic Details</target>
+  </trans-unit>
+  <trans-unit id="87">
+    <source>Edit Additional Details</source>
+    <target>Edit Additional Details</target>
+  </trans-unit>
+  <trans-unit id="88">
+    <source>My Activity</source>
+    <target>My Activity</target>
+  </trans-unit>
+  <trans-unit id="89">
+    <source>Email Address</source>
+    <target>Email Address</target>
+  </trans-unit>
+  <trans-unit id="90">
+    <source>Is Active?</source>
+    <target>Is Active?</target>
+  </trans-unit>
+  <trans-unit id="91">
+    <source>Email is Validated?</source>
+    <target>Email is Validated?</target>
+  </trans-unit>
+  <trans-unit id="92">
+    <source>Yes</source>
+    <target>Yes</target>
+  </trans-unit>
+  <trans-unit id="93">
+    <source>No</source>
+    <target>No</target>
+  </trans-unit>
+  <trans-unit id="94">
+    <source>Add Additional Details</source>
+    <target>Add Additional Details</target>
+  </trans-unit>
+  <trans-unit id="95">
+    <source>ID</source>
+    <target>ID</target>
+  </trans-unit>
+  <trans-unit id="96">
+    <source>Date/Time</source>
+    <target>Date/Time</target>
+  </trans-unit>
+  <trans-unit id="97">
+    <source>Action</source>
+    <target>Action</target>
+  </trans-unit>
+  <trans-unit id="98">
+    <source>Submit An Application</source>
+    <target>Submit An Application</target>
+  </trans-unit>
+  <trans-unit id="99">
+    <source>Select Application Form</source>
+    <target>Select Application Form</target>
+  </trans-unit>
+  <trans-unit id="100">
+    <source>Click here to apply</source>
+    <target>Click here to apply</target>
+  </trans-unit>
+  <trans-unit id="101">
+    <source>Apply Now</source>
+    <target>Apply Now</target>
+  </trans-unit>
+  <trans-unit id="102">
+    <source>This page list all the applications you have submitted</source>
+    <target>This page list all the applications you have submitted</target>
+  </trans-unit>
+  <trans-unit id="103">
+    <source>Shared Applications</source>
+    <target>Shared Applications</target>
+  </trans-unit>
+  <trans-unit id="104">
+    <source>Drafts</source>
+    <target>Drafts</target>
+  </trans-unit>
+  <trans-unit id="105">
+    <source>My Applications</source>
+    <target>My Applications</target>
+  </trans-unit>
+  <trans-unit id="106">
+    <source>View and manage all applications you have submitted with us from here</source>
+    <target>View and manage all applications you have submitted with us from here</target>
+  </trans-unit>
+  <trans-unit id="107">
+    <source>Application No</source>
+    <target>Application No</target>
+  </trans-unit>
+  <trans-unit id="108">
+    <source>Stage</source>
+    <target>Stage</target>
+  </trans-unit>
+  <trans-unit id="109">
+    <source>Date Submitted</source>
+    <target>Date Submitted</target>
+  </trans-unit>
+  <trans-unit id="110">
+    <source>Level of Completion</source>
+    <target>Level of Completion</target>
+  </trans-unit>
+  <trans-unit id="111">
+    <source>Actions</source>
+    <target>Actions</target>
+  </trans-unit>
+  <trans-unit id="112">
+    <source>View Application</source>
+    <target>View Application</target>
+  </trans-unit>
+  <trans-unit id="113">
+    <source>Share Application</source>
+    <target>Share Application</target>
+  </trans-unit>
+  <trans-unit id="114">
+    <source>Application Summary</source>
+    <target>Application Summary</target>
+  </trans-unit>
+  <trans-unit id="115">
+    <source>Application details</source>
+    <target>Application details</target>
+  </trans-unit>
+  <trans-unit id="116">
+    <source>Submitted by</source>
+    <target>Submitted by</target>
+  </trans-unit>
+  <trans-unit id="117">
+    <source>Date of Submission</source>
+    <target>Date of Submission</target>
+  </trans-unit>
+  <trans-unit id="118">
+    <source>Days in progress</source>
+    <target>Days in progress</target>
+  </trans-unit>
+  <trans-unit id="119">
+    <source>Application Status</source>
+    <target>Application Status</target>
+  </trans-unit>
+  <trans-unit id="120">
+    <source>days</source>
+    <target>days</target>
+  </trans-unit>
+  <trans-unit id="121">
+    <source>Apply for</source>
+    <target>Apply for</target>
+  </trans-unit>
+  <trans-unit id="122">
+    <source>View Permit</source>
+    <target>View Permit</target>
+  </trans-unit>
+  <trans-unit id="123">
+    <source>Edit and Submit</source>
+    <target>Edit and Submit</target>
+  </trans-unit>
+  <trans-unit id="124">
+    <source>View</source>
+    <target>View</target>
+  </trans-unit>
+  <trans-unit id="125">
+    <source>Details</source>
+    <target>Details</target>
+  </trans-unit>
+  <trans-unit id="126">
+    <source>Reviewers</source>
+    <target>Reviewers</target>
+  </trans-unit>
+  <trans-unit id="127">
+    <source>Reviewer's Comments</source>
+    <target>Reviewer</target>
+  </trans-unit>
+  <trans-unit id="128">
+    <source>Invoices</source>
+    <target>Invoices</target>
+  </trans-unit>
+  <trans-unit id="129">
+    <source>Messages</source>
+    <target>Messages</target>
+  </trans-unit>
+  <trans-unit id="130">
+    <source>Permits</source>
+    <target>Permits</target>
+  </trans-unit>
+  <trans-unit id="131">
+    <source>Previous Submission</source>
+    <target>Previous Submission</target>
+  </trans-unit>
+  <trans-unit id="132">
+    <source>No Records Found</source>
+    <target>No Records Found</target>
+  </trans-unit>
+  <trans-unit id="133">
+    <source>Enter text here</source>
+    <target>Enter text here</target>
+  </trans-unit>
+  <trans-unit id="134">
+    <source>Send</source>
+    <target>Send</target>
+  </trans-unit>
+  <trans-unit id="135">
+    <source>Reviewer</source>
+    <target>Reviewer</target>
+  </trans-unit>
+  <trans-unit id="136">
+    <source>Task</source>
+    <target>Task</target>
+  </trans-unit>
+  <trans-unit id="137">
+    <source>Start Date</source>
+    <target>Start Date</target>
+  </trans-unit>
+  <trans-unit id="138">
+    <source>End Date</source>
+    <target>End Date</target>
+  </trans-unit>
+  <trans-unit id="139">
+    <source>Invoice</source>
+    <target>Invoice</target>
+  </trans-unit>
+  <trans-unit id="140">
+    <source>Paid</source>
+    <target>Paid</target>
+  </trans-unit>
+  <trans-unit id="141">
+    <source>Not Paid</source>
+    <target>Not Paid</target>
+  </trans-unit>
+  <trans-unit id="142">
+    <source>Print Invoice</source>
+    <target>Print Invoice</target>
+  </trans-unit>
+  <trans-unit id="143">
+    <source>Make Payment</source>
+    <target>Make Payment</target>
+  </trans-unit>
+  <trans-unit id="144">
+    <source>View Receipt</source>
+    <target>View Receipt</target>
+  </trans-unit>
+  <trans-unit id="145">
+    <source>Date Issued</source>
+    <target>Date Issued</target>
+  </trans-unit>
+  <trans-unit id="146">
+    <source>Invoice history</source>
+    <target>Invoice history</target>
+  </trans-unit>
+  <trans-unit id="147">
+    <source>Invoice No</source>
+    <target>Invoice No</target>
+  </trans-unit>
+  <trans-unit id="148">
+    <source>Date of Approval</source>
+    <target>Date of Approval</target>
+  </trans-unit>
+  <trans-unit id="149">
+    <source>Invoice Status</source>
+    <target>Invoice Status</target>
+  </trans-unit>
+  <trans-unit id="150">
+    <source>Invoice Details</source>
+    <target>Invoice Details</target>
+  </trans-unit>
+  <trans-unit id="151">
+    <source>Payment Details</source>
+    <target>Payment Details</target>
+  </trans-unit>
+  <trans-unit id="152">
+    <source>Receipts</source>
+    <target>Receipts</target>
+  </trans-unit>
+  <trans-unit id="153">
+    <source>No Payments Made</source>
+    <target>No Payments Made</target>
+  </trans-unit>
+  <trans-unit id="154">
+    <source>Receipt</source>
+    <target>Receipt</target>
+  </trans-unit>
+  <trans-unit id="155">
+    <source>View Receipt</source>
+    <target>View Receipt</target>
+  </trans-unit>
+  <trans-unit id="156">
+    <source>Inbox</source>
+    <target>Inbox</target>
+  </trans-unit>
+  <trans-unit id="157">
+    <source>Messages from Reviewers</source>
+    <target>Messages from Reviewers</target>
+  </trans-unit>
+  <trans-unit id="158">
+    <source>Message</source>
+    <target>Message</target>
+  </trans-unit>
+  <trans-unit id="159">
+    <source>Compose Message</source>
+    <target>Compose Message</target>
+  </trans-unit>
+  <trans-unit id="160">
+    <source>Sent Mail</source>
+    <target>Sent Mail</target>
+  </trans-unit>
+  <trans-unit id="161">
+    <source>From</source>
+    <target>From</target>
+  </trans-unit>
+  <trans-unit id="162">
+    <source>Ministry of Municipality, Erbil Municipality presidency. All Rights Reserved</source>
+    <target>Ministry of Municipality, Erbil Municipality presidency. All Rights Reserved</target>
+  </trans-unit>
+  <trans-unit id="163">
+    <source>Logout</source>
+    <target>Logout</target>
+  </trans-unit>
+  <trans-unit id="164">
+    <source>Notifications</source>
+    <target>Notifications</target>
+  </trans-unit>
+  <trans-unit id="165">
+    <source>Learn More</source>
+    <target>Learn More</target>
+  </trans-unit>
+  <trans-unit id="166">
+    <source>Reviewer Comments</source>
+    <target>Reviewer Comments</target>
+  </trans-unit>
+  <trans-unit id="167">
+    <source>Previous Reasons for Decline</source>
+    <target>Previous Reasons for Decline</target>
+  </trans-unit>
+  <trans-unit id="168">
+    <source>Conditions of Approval</source>
+    <target>Conditions of Approval</target>
+  </trans-unit>
+  <trans-unit id="169">
+    <source>Comments Summary</source>
+    <target>Comments Summary</target>
+  </trans-unit>
+  <trans-unit id="170">
+    <source>Your application has been declined. View the reasons in the comments tab</source>
+    <target>Your application has been declined. View the reasons in the comments tab</target>
+  </trans-unit>
+  <trans-unit id="171">
+    <source>Date Of Payment</source>
+    <target>Date Of Payment</target>
+  </trans-unit>
+  <trans-unit id="172">
+    <source>Paid By</source>
+    <target>Paid By</target>
+  </trans-unit>
+  <trans-unit id="173">
+    <source>Payment Status</source>
+    <target>Payment Status</target>
+  </trans-unit>
+  <trans-unit id="174">
+    <source>Mode of Payment</source>
+    <target>Mode of Payment</target>
+  </trans-unit>
+  <trans-unit id="175">
+    <source>Reference Number</source>
+    <target>Reference Number</target>
+  </trans-unit>
+  <trans-unit id="176">
+    <source>Amount Paid</source>
+    <target>Amount Paid</target>
+  </trans-unit>
+  <trans-unit id="177">
+    <source>Print Service</source>
+    <target>Print Service</target>
+  </trans-unit>
+  <trans-unit id="178">
+    <source>Print</source>
+    <target>Print</target>
+  </trans-unit>
+  <trans-unit id="179">
+    <source>Categories</source>
+    <target>Categories</target>
+  </trans-unit>
+  <trans-unit id="180">
+    <source>Mayoralty of Baghdad</source>
+    <target>Mayoralty of Baghdad</target>
+  </trans-unit>
+  <trans-unit id="181">
+    <source>All Rights Reserved</source>
+    <target>All Rights Reserved</target>
+  </trans-unit>
+  <trans-unit id="182">
+    <source>Construction Permit System</source>
+    <target>Construction Permit System</target>
+  </trans-unit>
+  <trans-unit id="183">
+    <source>Complete your application</source>
+    <target>Complete your application</target>
+  </trans-unit>
+  <trans-unit id="184">
+    <source>Saved as Draft! Your application has been saved as a Draft. To complete your application process at a later time, go to My Drafts from your dashboard, view your application and click on Edit and Submit.</source>
+    <target>Saved as Draft! Your application has been saved as a Draft. To complete your application process at a later time, go to My Drafts from your dashboard, view your application and click on Edit and Submit.</target>
+  </trans-unit>
+  <trans-unit id="185">
+    <source>Yes. Edit Draft and Submit</source>
+    <target>Yes. Edit Draft and Submit</target>
+  </trans-unit>
+  <trans-unit id="186">
+    <source>Yes. View this draft</source>
+    <target>Yes. View this draft</target>
+  </trans-unit>
+  <trans-unit id="187">
+    <source>No. Delete this draft</source>
+    <target>No. Delete this draft</target>
+  </trans-unit>
+  <trans-unit id="188">
+    <source>You have an incomplete application that was saved as a draft</source>
+    <target>You have an incomplete application that was saved as a draft</target>
+  </trans-unit>
+  <trans-unit id="189">
+    <source>Do you wish to complete this application and submit it?</source>
+    <target>Do you wish to complete this application and submit it?</target>
+  </trans-unit>
+  <trans-unit id="190">
+    <source>Complete your application</source>
+    <target>Complete your application</target>
+  </trans-unit>
+  <trans-unit id="191">
+    <source>You have an incomplete application that was saved as a draft</source>
+    <target>You have an incomplete application that was saved as a draft</target>
+  </trans-unit>
+  <trans-unit id="192">
+    <source>Do you wish to complete this application and submit it?</source>
+    <target>Do you wish to complete this application and submit it?</target>
+  </trans-unit>
+  <trans-unit id="193">
+    <source>No. Delete this draft</source>
+    <target>No. Delete this draft</target>
+  </trans-unit>
+  <trans-unit id="194">
+    <source>Yes. View this draft</source>
+    <target>Yes. View this draft</target>
+  </trans-unit>
+  <trans-unit id="195">
+    <source>Are you sure?</source>
+    <target>Are you sure?</target>
+  </trans-unit>
+  <trans-unit id="196">
+    <source>Make corrections on your application</source>
+    <target>Make corrections on your application</target>
+  </trans-unit>
+  <trans-unit id="197">
+    <source>You have an application that was marked for corrections</source>
+    <target>You have an application that was marked for corrections</target>
+  </trans-unit>
+  <trans-unit id="198">
+    <source>Do you wish to correct this application and submit it?</source>
+    <target>Do you wish to correct this application and submit it?</target>
+  </trans-unit>
+  <trans-unit id="199">
+    <source>Yes. View this application</source>
+    <target>Yes. View this application</target>
+  </trans-unit>
+  <trans-unit id="200">
+    <source>Description</source>
+    <target>Description</target>
+  </trans-unit>
+  <trans-unit id="201">
+    <source>Resolved?</source>
+    <target>Resolved?</target>
+  </trans-unit>
+  <trans-unit id="202">
+    <source>Resolved</source>
+    <target>Resolved</target>
+  </trans-unit>
+  <trans-unit id="203">
+    <source>Not Resolved</source>
+    <target>Not Resolved</target>
+  </trans-unit>
+  <trans-unit id="204">
+    <source>Selected?</source>
+    <target>Selected?</target>
+  </trans-unit>
+  <trans-unit id="205">
+    <source>Service Code</source>
+    <target>Service Code</target>
+  </trans-unit>
+  <trans-unit id="206">
+    <source>Service Description</source>
+    <target>Service Description</target>
+  </trans-unit>
+  <trans-unit id="207">
+    <source>Amount</source>
+    <target>Amount</target>
+  </trans-unit>
+  <trans-unit id="208">
+    <source>Back</source>
+    <target>Back</target>
+  </trans-unit>
+  <trans-unit id="209">
+    <source>Edit your basic details</source>
+    <target>Edit your basic details</target>
+  </trans-unit>
+  <trans-unit id="210">
+    <source>Edit your additional details</source>
+    <target>Edit your additional details</target>
+  </trans-unit>
+  <trans-unit id="211">
+    <source>There is already a user by that name. Choose another.</source>
+    <target>There is already a user by that name. Choose another.</target>
+  </trans-unit>
+  <trans-unit id="212">
+    <source>That password is too short. It must contain a minimum of %min_length% characters.</source>
+    <target>That password is too short. It must contain a minimum of %min_length% characters.</target>
+  </trans-unit>
+  <trans-unit id="213">
+    <source>That password is too short. It must contain a minimum length of</source>
+    <target>That password is too short. It must contain a minimum length of</target>
+  </trans-unit>
+  <trans-unit id="214">
+    <source>Enter the correct format for the mobile number e.g 0703138826</source>
+    <target>Enter the correct format for the mobile number e.g 7003138826</target>
+  </trans-unit>
+  <trans-unit id="215">
+    <source>Full names may not contain</source>
+    <target>Full names may not contain</target>
+  </trans-unit>
+  <trans-unit id="216">
+    <source>The passwords did not match.</source>
+    <target>The passwords did not match.</target>
+  </trans-unit>
+  <trans-unit id="217">
+    <source>The email addresses did not match.</source>
+    <target>The email addresses did not match.</target>
+  </trans-unit>
+  <trans-unit id="218">
+    <source>Delete this draft</source>
+    <target>Delete this draft</target>
+  </trans-unit>
+  <trans-unit id="219">
+    <source>Profile</source>
+    <target>Profile</target>
+  </trans-unit>
+  <trans-unit id="220">
+    <source>No Bill</source>
+    <target>No Bill</target>
+  </trans-unit>
+  <trans-unit id="221">
+    <source>Downloads</source>
+    <target>Downloads</target>
+  </trans-unit>
+  <trans-unit id="222">
+    <source>My Profile</source>
+    <target>My Profile</target>
+  </trans-unit>
+  <trans-unit id="223">
+    <source>Submitted On</source>
+    <target>Submitted On</target>
+  </trans-unit>
+  <trans-unit id="224">
+    <source>Approval</source>
+    <target>Approval</target>
+  </trans-unit>
+  <trans-unit id="225">
+    <source>Bill Status</source>
+    <target>Bill Status</target>
+  </trans-unit>
+  <trans-unit id="226">
+    <source>Ref No</source>
+    <target>Ref No</target>
+  </trans-unit>
+  <trans-unit id="227">
+    <source>Form</source>
+    <target>Form</target>
+  </trans-unit>
+  <trans-unit id="228">
+    <source>Recent Applications</source>
+    <target>Recent Applications</target>
+  </trans-unit>
+  <trans-unit id="229">
+    <source>Below are the applications you made recently</source>
+    <target>Below are the applications you made recently</target>
+  </trans-unit>
+  <trans-unit id="230">
+    <source>Corrections!</source>
+    <target>Corrections!</target>
+  </trans-unit>
+  <trans-unit id="231">
+    <source>You have an application that has been sent back to corrections. The following are the reasons for rejection:</source>
+    <target>You have an application that has been sent back to corrections. The following are the reasons for rejection:</target>
+  </trans-unit>
+  <trans-unit id="232">
+    <source>Resolved</source>
+    <target>Resolved</target>
+  </trans-unit>
+  <trans-unit id="233">
+    <source>Not Resolved</source>
+    <target>Not Resolved</target>
+  </trans-unit>
+  <trans-unit id="234">
+    <source>Click here to edit and resubmit</source>
+    <target>Click here to edit and resubmit</target>
+  </trans-unit>
+  <trans-unit id="235">
+    <source>Transfer!</source>
+    <target>Transfer!</target>
+  </trans-unit>
+  <trans-unit id="236">
+    <source>You have an application</source>
+    <target>You have an application</target>
+  </trans-unit>
+  <trans-unit id="237">
+    <source>that is being transferred to you from</source>
+    <target>that is being transferred to you from</target>
+  </trans-unit>
+  <trans-unit id="238">
+    <source>Cancel Transfer</source>
+    <target>Cancel Transfer</target>
+  </trans-unit>
+  <trans-unit id="239">
+    <source>Confirm Transfer</source>
+    <target>Confirm Transfer</target>
+  </trans-unit>
+  <trans-unit id="240">
+    <source>Edit</source>
+    <target>Edit</target>
+  </trans-unit>
+  <trans-unit id="241">
+    <source>Application History</source>
+    <target>Application History</target>
+  </trans-unit>
+  <trans-unit id="242">
+    <source>Enter your text</source>
+    <target>Enter your text</target>
+  </trans-unit>
+  <trans-unit id="243">
+    <source>No Messages</source>
+    <target>No Messages</target>
+  </trans-unit>
+  <trans-unit id="244">
+    <source>Security</source>
+    <target>Security</target>
+  </trans-unit>
+  <trans-unit id="245">
+    <source>My Businesses</source>
+    <target>My Businesses</target>
+  </trans-unit>
+  <trans-unit id="246">
+    <source>Business Name</source>
+    <target>Business Name</target>
+  </trans-unit>
+  <trans-unit id="247">
+    <source>Verified?</source>
+    <target>Verified?</target>
+  </trans-unit>
+  <trans-unit id="248">
+    <source>Active</source>
+    <target>Active</target>
+  </trans-unit>
+  <trans-unit id="249">
+    <source>Not Active</source>
+    <target>Not Active</target>
+  </trans-unit>
+  <trans-unit id="250">
+    <source>Add Business</source>
+    <target>Add Business</target>
+  </trans-unit>
+  <trans-unit id="251">
+    <source>Service</source>
+    <target>Service</target>
+  </trans-unit>
+  <trans-unit id="252">
+    <source>Ref no</source>
+    <target>Ref no</target>
+  </trans-unit>
+  <trans-unit id="253">
+    <source>Payment</source>
+    <target>Payment</target>
+  </trans-unit>
+  <trans-unit id="254">
+    <source>Recent Bills</source>
+    <target>Recent Bills</target>
+  </trans-unit>
+  <trans-unit id="255">
+    <source>The following bills require your action</source>
+    <target>The following bills require your action</target>
+  </trans-unit>
+  <trans-unit id="256">
+    <source>Bill Ref No.</source>
+    <target>Bill Ref No</target>
+  </trans-unit>
+  <trans-unit id="257">
+    <source>Bill Status</source>
+    <target>Bill Status</target>
+  </trans-unit>
+  <trans-unit id="258">
+    <source>Due Date</source>
+    <target>Due Date</target>
+  </trans-unit>
+  <trans-unit id="259">
+    <source>Pay now</source>
+    <target>Pay now</target>
+  </trans-unit>
+  <trans-unit id="260">
+    <source>invoices in this stage</source>
+    <target>invoices in this stage</target>
+  </trans-unit>
+  <trans-unit id="261">
+    <source>applications in this stage</source>
+    <target>applications in this stage</target>
+  </trans-unit>
+  <trans-unit id="262">
+    <source>Recent Services</source>
+    <target>Recent Services</target>
+  </trans-unit>
+  <trans-unit id="263">
+    <source>ID No</source>
+    <target>ID No</target>
+  </trans-unit>
+  <trans-unit id="264">
+    <source>Phone</source>
+    <target>Phone</target>
+  </trans-unit>
+  <trans-unit id="265">
+    <source>Pending</source>
+    <target>Pending</target>
+  </trans-unit>
+  <trans-unit id="266">
+    <source>Part Payment</source>
+    <target>Part Payment</target>
+  </trans-unit>
+  <trans-unit id="267">
+    <source>Cancelled</source>
+    <target>Cancelled</target>
+  </trans-unit>
+  <trans-unit id="268">
+    <source>Download</source>
+    <target>Download</target>
+  </trans-unit>
+  <trans-unit id="269">
+    <source>Payments</source>
+    <target>Payments</target>
+  </trans-unit>
+  <trans-unit id="270">
+    <source>Having a problem?</source>
+    <target>Having a problem?</target>
+  </trans-unit>
+  <trans-unit id="271">
+    <source>No Downloads</source>
+    <target>No Downloads</target>
+  </trans-unit>
+  <trans-unit id="272">
+    <source>Date Of Issue</source>
+    <target>Date Of Issue</target>
+  </trans-unit>
+  <trans-unit id="273">
+    <source>Total Paid</source>
+    <target>Total Paid</target>
+  </trans-unit>
+  <trans-unit id="274">
+    <source>Business Details</source>
+    <target>Business Details</target>
+  </trans-unit>
+  <trans-unit id="275">
+    <source>Services</source>
+    <target>Services</target>
+  </trans-unit>
+  <trans-unit id="276">
+    <source>Users</source>
+    <target>Users</target>
+  </trans-unit>
+  <trans-unit id="277">
+    <source>Inspections</source>
+    <target>Inspections</target>
+  </trans-unit>
+  <trans-unit id="278">
+    <source>Back to Dashboard</source>
+    <target>Back to Dashboard</target>
+  </trans-unit>
+  <trans-unit id="279">
+    <source>Add User</source>
+    <target>Add User</target>
+  </trans-unit>
+  <trans-unit id="280">
+    <source>Edit Profile</source>
+    <target>Edit Profile</target>
+  </trans-unit>
+  <trans-unit id="281">
+    <source>Ref No.</source>
+    <target>Ref No.</target>
+  </trans-unit>
+  <trans-unit id="282">
+    <source>services in this profile</source>
+    <target>services in this profile</target>
+  </trans-unit>
+  <trans-unit id="283">
+    <source>Full name</source>
+    <target>Full name</target>
+  </trans-unit>
+  <trans-unit id="284">
+    <source>ID number</source>
+    <target>ID number</target>
+  </trans-unit>
+  <trans-unit id="285">
+    <source>Email</source>
+    <target>Email</target>
+  </trans-unit>
+  <trans-unit id="286">
+    <source>Mobile</source>
+    <target>Mobile</target>
+  </trans-unit>
+  <trans-unit id="287">
+    <source>Date of Inspection</source>
+    <target>Date of Inspection</target>
+  </trans-unit>
+  <trans-unit id="288">
+    <source>Back to Profile</source>
+    <target>Back to Profile</target>
+  </trans-unit>
+  <trans-unit id="289">
+    <source>Add a user to</source>
+    <target>Add a user to</target>
+  </trans-unit>
+  <trans-unit id="290">
+    <source>This form enables you to add user to a business who can submit applications through the business</source>
+    <target>This form enables you to add user to a business who can submit applications through the business</target>
+  </trans-unit>
+  <trans-unit id="291">
+    <source>ID number of user</source>
+    <target>ID number of user</target>
+  </trans-unit>
+  <trans-unit id="292">
+    <source>Edit your profile details</source>
+    <target>Edit your profile details</target>
+  </trans-unit>
+    </body>
+  </file>
+</xliff>

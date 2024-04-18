@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="ar_AR" datatype="plaintext">
+    <body>
+  <trans-unit id="1">
+    <source>Sign In</source>
+    <target>تسجيل الدخول</target>
+  </trans-unit>
+  <trans-unit id="2">
+    <source>Sign Up</source>
+    <target>فتح حساب</target>
+  </trans-unit>
+  <trans-unit id="3">
+    <source>News</source>
+    <target>الأخبار</target>
+  </trans-unit>
+  <trans-unit id="4">
+    <source>FAQ</source>
+    <target>الأسئلة المتداولة</target>
+  </trans-unit>
+  <trans-unit id="5">
+    <source>Contact Us</source>
+    <target>اتصل بنا</target>
+  </trans-unit>
+  <trans-unit id="6">
+    <source>Home</source>
+    <target> الصفحة الرئيسية</target>
+  </trans-unit>
+  <trans-unit id="7">
+    <source>News Articles</source>
+    <target>المقالات الإخبارية</target>
+  </trans-unit>
+  <trans-unit id="8">
+    <source>No News Articles Posted</source>
+    <target>لا توجد مقالات منشورة</target>
+  </trans-unit>
+  <trans-unit id="9">
+    <source>Frequently Asked Questions</source>
+    <target>الأسئلة المتداولة</target>
+  </trans-unit>
+  <trans-unit id="10">
+    <source>Please Sign In</source>
+    <target>الرّجاء تسجيل الدخول</target>
+  </trans-unit>
+  <trans-unit id="11">
+    <source>Login to access your account</source>
+    <target>الرجاء تسجيل الدخول للوصول إلى حسابك</target>
+  </trans-unit>
+  <trans-unit id="12">
+    <source>Username or Email</source>
+    <target>اسم المستخدم أو عنوان البريد الإلكتروني</target>
+  </trans-unit>
+  <trans-unit id="13">
+    <source>Password</source>
+    <target>كلمة المرور</target>
+  </trans-unit>
+  <trans-unit id="14">
+    <source>Can't access your account?</source>
+    <target>تعذّر الدّخول إلى حسابك؟</target>
+  </trans-unit>
+  <trans-unit id="15">
+    <source>Permitflow LTD. ALL Rights Reserved</source>
+    <target>كافة الحقوق محفوظة</target>
+  </trans-unit>
+  <trans-unit id="16">
+    <source>Already a member?</source>
+    <target>عضو مسجّل؟</target>
+  </trans-unit>
+  <trans-unit id="17">
+    <source>Full Name</source>
+    <target>الاسم الكامل</target>
+  </trans-unit>
+  <trans-unit id="18">
+    <source>Username</source>
+    <target>اسم المستخدم</target>
+  </trans-unit>
+  <trans-unit id="19">
+    <source>New Password</source>
+    <target>كلمة المرور الجديدة</target>
+  </trans-unit>
+  <trans-unit id="20">
+    <source>Confirm Password</source>
+    <target>تأكيد كلمة المرور</target>
+  </trans-unit>
+  <trans-unit id="21">
+    <source>Enter Email</source>
+    <target>أكتب عنوان البريد الإلكتروني</target>
+  </trans-unit>
+  <trans-unit id="22">
+    <source>Confirm Email</source>
+    <target>تأكيد عنوان البريد الإلكتروني</target>
+  </trans-unit>
+  <trans-unit id="23">
+    <source>Mobile Phone (e.g 256700123456 or 0700123456)</source>
+    <target>رقم الهاتف المحمول</target>
+  </trans-unit>
+  <trans-unit id="24">
+    <source>Register As</source>
+    <target>تسجيل ك</target>
+  </trans-unit>
+  <trans-unit id="25">
+    <source>Terms and Conditions</source>
+    <target>البنود والشروط</target>
+  </trans-unit>
+  <trans-unit id="26">
+    <source>By clicking on Save and Continue below, you are agreeing to the</source>
+    <target>عند نقر على "الحفظ والمتابعة" أدناه، فإنّك توافق على</target>
+  </trans-unit>
+  <trans-unit id="27">
+    <source>and the</source>
+    <target>و</target>
+  </trans-unit>
+  <trans-unit id="28">
+    <source>Terms of Services</source>
+    <target>شروط الخدمة</target>
+  </trans-unit>
+  <trans-unit id="29">
+    <source>Privacy Policy</source>
+    <target>نهج الخصوصية</target>
+  </trans-unit>
+  <trans-unit id="30">
+    <source>Save and Continue</source>
+    <target>الحفظ والمتابعة</target>
+  </trans-unit>
+  <trans-unit id="31">
+    <source>Languages</source>
+    <target>اللغة</target>
+  </trans-unit>
+  <trans-unit id="32">
+    <source>Welcome</source>
+    <target>مرحباً</target>
+  </trans-unit>
+  <trans-unit id="33">
+    <source>Account Settings</source>
+    <target>إعدادات الحساب</target>
+  </trans-unit>
+  <trans-unit id="34">
+    <source>Log Out</source>
+    <target>تسجيل الخروج</target>
+  </trans-unit>
+  <trans-unit id="35">
+    <source>Dashboard</source>
+    <target>لوحة القيادة</target>
+  </trans-unit>
+  <trans-unit id="36">
+    <source>Applications</source>
+    <target>الطلبات</target>
+  </trans-unit>
+  <trans-unit id="37">
+    <source>Make Application</source>
+    <target>تقديم الطلب</target>
+  </trans-unit>
+  <trans-unit id="38">
+    <source>Support</source>
+    <target>الرسائل</target>
+  </trans-unit>
+  <trans-unit id="39">
+    <source>Billing</source>
+    <target>الفاتورة</target>
+  </trans-unit>
+  <trans-unit id="40">
+    <source>Permits</source>
+    <target>التصاريح</target>
+  </trans-unit>
+  <trans-unit id="41">
+    <source>Please create an account</source>
+    <target>الرجاء إنشاء حساب</target>
+  </trans-unit>
+  <trans-unit id="42">
+    <source>Sorry! The username or password you entered is incorrect.</source>
+    <target>آسف! اسم المستخدم أو كلمة المرور غير صحيحة.</target>
+  </trans-unit>
+  <trans-unit id="43">
+    <source>Did you forget?</source>
+    <target>هل نسيت؟</target>
+  </trans-unit>
+  <trans-unit id="44">
+    <source>Navigation</source>
+    <target>التنقل</target>
+  </trans-unit>
+  <trans-unit id="45">
+    <source>Drafts</source>
+    <target>المسودات</target>
+  </trans-unit>
+  <trans-unit id="46">
+    <source>Summary of all your alerts and applications</source>
+    <target>ملخص كافة التنبيهات والطلبات</target>
+  </trans-unit>
+  <trans-unit id="47">
+    <source>Total Applications</source>
+    <target>إجمالي الطلبات</target>
+  </trans-unit>
+  <trans-unit id="48">
+    <source>Due Invoices</source>
+    <target>الفواتير المستحقة</target>
+  </trans-unit>
+  <trans-unit id="49">
+    <source>Resubmissions</source>
+    <target>إعادات التقديم</target>
+  </trans-unit>
+  <trans-unit id="50">
+    <source>Issued Permits</source>
+    <target>التصاريح الصادرة</target>
+  </trans-unit>
+  <trans-unit id="51">
+    <source>Latest Applications</source>
+    <target>أحدث الطلبات</target>
+  </trans-unit>
+  <trans-unit id="52">
+    <source>View Applications</source>
+    <target>عرض الطلبات</target>
+  </trans-unit>
+  <trans-unit id="53">
+    <source>Date</source>
+    <target>التاريخ</target>
+  </trans-unit>
+  <trans-unit id="54">
+    <source>Application</source>
+    <target>الطلب</target>
+  </trans-unit>
+  <trans-unit id="55">
+    <source>Status</source>
+    <target>الحالة</target>
+  </trans-unit>
+  <trans-unit id="56">
+    <source>View App</source>
+    <target>عرض الطلبات</target>
+  </trans-unit>
+  <trans-unit id="57">
+    <source>Due Invoices</source>
+    <target>الفواتير المستحقة</target>
+  </trans-unit>
+  <trans-unit id="58">
+    <source>Invoice Date</source>
+    <target>تاريخ الفاتورة</target>
+  </trans-unit>
+  <trans-unit id="59">
+    <source>Total</source>
+    <target>الإجمالي</target>
+  </trans-unit>
+  <trans-unit id="60">
+    <source>Pay All Invoices</source>
+    <target>دفع كافة الفواتير</target>
+  </trans-unit>
+  <trans-unit id="61">
+    <source>View All Invoices</source>
+    <target>عرض كافة الفواتير</target>
+  </trans-unit>
+  <trans-unit id="62">
+    <source>Application Forms</source>
+    <target>نماذج الطلب</target>
+  </trans-unit>
+  <trans-unit id="63">
+    <source>Account Information</source>
+    <target>معلومات الحساب</target>
+  </trans-unit>
+  <trans-unit id="64">
+    <source>New Messages</source>
+    <target>الرسائل الجديدة</target>
+  </trans-unit>
+  <trans-unit id="65">
+    <source>No Records Found</source>
+    <target>لا سجلات موجودة</target>
+  </trans-unit>
+  <trans-unit id="66">
+    <source>Edit Account Details</source>
+    <target>تحرير تفاصيل الحساب</target>
+  </trans-unit>
+  <trans-unit id="67">
+    <source>Announcement</source>
+    <target>إعلان</target>
+  </trans-unit>
+  <trans-unit id="68">
+    <source>Registration Successful</source>
+    <target>تمّ التسجيل بنجاح</target>
+  </trans-unit>
+  <trans-unit id="69">
+    <source>Check Your Email</source>
+    <target>تحقق من بريدك الإلكتروني</target>
+  </trans-unit>
+  <trans-unit id="70">
+    <source>Your registration is successful</source>
+    <target>تمّ تسجيلك بنجاح</target>
+  </trans-unit>
+  <trans-unit id="71">
+    <source>Thank you for Registering. An email has been sent to your account. Go to your email to verify your account.</source>
+    <target>شكرا لتسجيلك. تمّ  إرسال رسالة إلى عنوان بريدك الالكتروني. يرجى الذهاب إلى بريدك الالكتروني للتحقق من حسابك</target>
+  </trans-unit>
+  <trans-unit id="72">
+    <source>Additional details</source>
+    <target>التفاصيل الإضافية</target>
+  </trans-unit>
+  <trans-unit id="73">
+    <source>Forgot Your Password?</source>
+    <target>هل نسيت كلمة المرور؟</target>
+  </trans-unit>
+  <trans-unit id="74">
+    <source>Lost Password Recovery</source>
+    <target>استرداد كلمة المرور</target>
+  </trans-unit>
+  <trans-unit id="75">
+    <source>If you have forgotten your username or password, you can request to have your username emailed to you and to reset your password. When you fill in your registered email address, you will be sent instructions on how to reset your password.</source>
+    <target>إن نسيت اسم المستخدم أو كلمة المرور، يمكن ارسال اسم المستخدم إلى بريدك الإلكتروني، وإستعادة كلمة المرور. أكتب عنوان بريدك الإلكتروني المسجل، سترسل اليك التعليمات حول كيفية إستعادة كلمة المرور الخاصة بك.</target>
+  </trans-unit>
+  <trans-unit id="76">
+    <source>Email or Username</source>
+    <target>البريد الإلكتروني أو اسم المستخدم</target>
+  </trans-unit>
+  <trans-unit id="77">
+    <source>Reset My Password</source>
+    <target>إعادة تعيين كلمة مرور</target>
+  </trans-unit>
+  <trans-unit id="78">
+    <source>Submit</source>
+    <target>تقديم</target>
+  </trans-unit>
+  <trans-unit id="79">
+    <source>Check Your E-Mail</source>
+    <target>‏‏تحقق من بريدك الإلكتروني</target>
+  </trans-unit>
+  <trans-unit id="80">
+    <source>For security reasons, a confirmation message has been sent tothe email address associated with this account. Please check youremail for that message. You will need to click on a link providedin that email in order to change your password. If you do not seethe message, be sure to check your </source>
+    <target>"سباب أمنية، تم إرسال رسالة التأكيد إلى عنوان البريد الإلكتروني المرتبط مع هذا الحساب. يرجى التحقق من بريدك الالكتروني لتلك الرسالة. ستحتاج إلى الضغط على وصلة المقدمة في البريد الإلكتروني من أجل تغيير كلمة المرور الخاصة بك. إذا كنت لا ترى الرسالة، كن متأكدا من التحقق لمجلدي "البريد غير همة" و "بريد إلكتروني مجمع</target>
+  </trans-unit>
+  <trans-unit id="81">
+    <source>Your password has been successfully reset. You are now loggedin to this site. In the future, be sure to log in with your new password.</source>
+    <target>تمّت إعادة تعيين كلمة المرور. لقد تم تسجيل الدخول لحسابك على الموقع هذا. لا تنسى استخدام كلمة المرور الجديدة عند تسجيل الدخول في المستقبل.</target>
+  </trans-unit>
+  <trans-unit id="82">
+    <source>Thanks for confirming your email address. You may now change yourpassword using the form below.</source>
+    <target>شكرا لتأكيد عنوان البريد الإلكتروني الخاص بك. يمكنك تغيير كلمة المرور باستخدام النموذخ أدناه.</target>
+  </trans-unit>
+  <trans-unit id="83">
+    <source>My Account</source>
+    <target>حسابي</target>
+  </trans-unit>
+  <trans-unit id="84">
+    <source>View account details</source>
+    <target>عرض تفاصيل الحساب</target>
+  </trans-unit>
+  <trans-unit id="85">
+    <source>You are here</source>
+    <target>أنت هنا</target>
+  </trans-unit>
+  <trans-unit id="86">
+    <source>Edit Basic Details</source>
+    <target>تحرير التفاصيل الأساسية</target>
+  </trans-unit>
+  <trans-unit id="87">
+    <source>Edit Additional Details</source>
+    <target>تحرير التفاصيل الإضافية</target>
+  </trans-unit>
+  <trans-unit id="88">
+    <source>My Activity</source>
+    <target>أنشطتي</target>
+  </trans-unit>
+  <trans-unit id="89">
+    <source>Email Address</source>
+    <target>عنوان البريد الإلكتروني</target>
+  </trans-unit>
+  <trans-unit id="90">
+    <source>Is Active?</source>
+    <target>ناشط؟</target>
+  </trans-unit>
+  <trans-unit id="91">
+    <source>Email is Validated?</source>
+    <target>تمّ التحقق من صحة عنوان البريد الإلكتروني؟</target>
+  </trans-unit>
+  <trans-unit id="92">
+    <source>Yes</source>
+    <target>نعم</target>
+  </trans-unit>
+  <trans-unit id="93">
+    <source>No</source>
+    <target>لا</target>
+  </trans-unit>
+  <trans-unit id="94">
+    <source>Add Additional Details</source>
+    <target>إضافة التفاصيل الإضافية</target>
+  </trans-unit>
+  <trans-unit id="95">
+    <source>ID</source>
+    <target>معرّف المستخدم</target>
+  </trans-unit>
+  <trans-unit id="96">
+    <source>Date/Time</source>
+    <target>التاريخ/الوقت</target>
+  </trans-unit>
+  <trans-unit id="97">
+    <source>Action</source>
+    <target>إجراء</target>
+  </trans-unit>
+  <trans-unit id="98">
+    <source>Submit An Application</source>
+    <target>تقديم طلب</target>
+  </trans-unit>
+  <trans-unit id="99">
+    <source>Select Application Form</source>
+    <target>تحديد نموذج الطلب</target>
+  </trans-unit>
+  <trans-unit id="100">
+    <source>Click here to apply</source>
+    <target>انقر هنا للتطبيق عن تصريح</target>
+  </trans-unit>
+  <trans-unit id="101">
+    <source>Apply Now</source>
+    <target>تقديم الطلب الآن</target>
+  </trans-unit>
+  <trans-unit id="102">
+    <source>This page list all the applications you have submitted</source>
+    <target> هذه الصفحة  تحوي على قائمة بكافة الطلبات التي قدمتها</target>
+  </trans-unit>
+  <trans-unit id="103">
+    <source>Shared Applications</source>
+    <target>الطلبات المشتركة</target>
+  </trans-unit>
+  <trans-unit id="104">
+    <source>Drafts</source>
+    <target>المسودات</target>
+  </trans-unit>
+  <trans-unit id="105">
+    <source>My Applications</source>
+    <target>طلباتي</target>
+  </trans-unit>
+  <trans-unit id="106">
+    <source>View and manage all applications you have submitted with us from here</source>
+    <target>عرض و إدارة كافة الطلبات التي قدّمتها هنا</target>
+  </trans-unit>
+  <trans-unit id="107">
+    <source>Application No</source>
+    <target>رقم الطلب</target>
+  </trans-unit>
+  <trans-unit id="108">
+    <source>Stage</source>
+    <target>المرحلة</target>
+  </trans-unit>
+  <trans-unit id="109">
+    <source>Date Submitted</source>
+    <target>تاريخ التقديم</target>
+  </trans-unit>
+  <trans-unit id="110">
+    <source>Level of Completion</source>
+    <target>المستوى الحالي من الاكتمال</target>
+  </trans-unit>
+  <trans-unit id="111">
+    <source>Actions</source>
+    <target>الإجراءات</target>
+  </trans-unit>
+  <trans-unit id="112">
+    <source>View Application</source>
+    <target>عرض الطلب</target>
+  </trans-unit>
+  <trans-unit id="113">
+    <source>Share Application</source>
+    <target>مشاركة الطلب</target>
+  </trans-unit>
+  <trans-unit id="114">
+    <source>Application Summary</source>
+    <target>ملخّص الطلب</target>
+  </trans-unit>
+  <trans-unit id="115">
+    <source>Application details</source>
+    <target>تفاصيل الطلب</target>
+  </trans-unit>
+  <trans-unit id="116">
+    <source>Submitted by</source>
+    <target>المقدّم</target>
+  </trans-unit>
+  <trans-unit id="117">
+    <source>Date of Submission</source>
+    <target>تاريخ التقديم</target>
+  </trans-unit>
+  <trans-unit id="118">
+    <source>Days in progress</source>
+    <target>أيّام تحت التنفيذ</target>
+  </trans-unit>
+  <trans-unit id="119">
+    <source>Application Status</source>
+    <target>حالة الطلب</target>
+  </trans-unit>
+  <trans-unit id="120">
+    <source>days</source>
+    <target>أيّام</target>
+  </trans-unit>
+  <trans-unit id="121">
+    <source>Apply for</source>
+    <target>قدّم الطلب ل</target>
+  </trans-unit>
+  <trans-unit id="122">
+    <source>View Permit</source>
+    <target>عرض الترخيص</target>
+  </trans-unit>
+  <trans-unit id="123">
+    <source>Edit and Submit</source>
+    <target>تحرير و إرسال</target>
+  </trans-unit>
+  <trans-unit id="124">
+    <source>View</source>
+    <target>عرض</target>
+  </trans-unit>
+  <trans-unit id="125">
+    <source>Details</source>
+    <target>التفاصيل</target>
+  </trans-unit>
+  <trans-unit id="126">
+    <source>Reviewers</source>
+    <target>المراجعون</target>
+  </trans-unit>
+  <trans-unit id="127">
+    <source>Reviewer's Comments</source>
+    <target>تعليقات المراجع</target>
+  </trans-unit>
+  <trans-unit id="128">
+    <source>Invoices</source>
+    <target>الفواتير</target>
+  </trans-unit>
+  <trans-unit id="129">
+    <source>Messages</source>
+    <target>الرسائل</target>
+  </trans-unit>
+  <trans-unit id="130">
+    <source>Permits</source>
+    <target>التصاريح</target>
+  </trans-unit>
+  <trans-unit id="131">
+    <source>Previous Submission</source>
+    <target>التقديمات السابقة</target>
+  </trans-unit>
+  <trans-unit id="132">
+    <source>No Records Found</source>
+    <target>لا سجلات موجودة</target>
+  </trans-unit>
+  <trans-unit id="133">
+    <source>Enter text here</source>
+    <target>إدخال النص هنا</target>
+  </trans-unit>
+  <trans-unit id="134">
+    <source>Send</source>
+    <target>إرسال</target>
+  </trans-unit>
+  <trans-unit id="135">
+    <source>Reviewer</source>
+    <target>مراجع</target>
+  </trans-unit>
+  <trans-unit id="136">
+    <source>Task</source>
+    <target>مهمة</target>
+  </trans-unit>
+  <trans-unit id="137">
+    <source>Start Date</source>
+    <target>تاريخ البدء</target>
+  </trans-unit>
+  <trans-unit id="138">
+    <source>End Date</source>
+    <target>تاريخ الانتهاء</target>
+  </trans-unit>
+  <trans-unit id="139">
+    <source>Invoice</source>
+    <target>فاتورة</target>
+  </trans-unit>
+  <trans-unit id="140">
+    <source>Paid</source>
+    <target>تم سدادها</target>
+  </trans-unit>
+  <trans-unit id="141">
+    <source>Not Paid</source>
+    <target>غير مدفوع</target>
+  </trans-unit>
+  <trans-unit id="142">
+    <source>Print Invoice</source>
+    <target>طباعة الفاتورة</target>
+  </trans-unit>
+  <trans-unit id="143">
+    <source>Make Payment</source>
+    <target>دفع</target>
+  </trans-unit>
+  <trans-unit id="144">
+    <source>View Receipt</source>
+    <target>عرض إيصال</target>
+  </trans-unit>
+  <trans-unit id="145">
+    <source>Date Issued</source>
+    <target>تاريخ الإصدار</target>
+  </trans-unit>
+  <trans-unit id="146">
+    <source>Invoice history</source>
+    <target>سجل الفاتورة</target>
+  </trans-unit>
+  <trans-unit id="147">
+    <source>Invoice No</source>
+    <target>رقم الفاتورة</target>
+  </trans-unit>
+  <trans-unit id="148">
+    <source>Date of Approval</source>
+    <target>تاريخ الموافقة</target>
+  </trans-unit>
+  <trans-unit id="149">
+    <source>Invoice Status</source>
+    <target>حالة الفاتورة</target>
+  </trans-unit>
+  <trans-unit id="150">
+    <source>Invoice Details</source>
+    <target>تفاصيل الفاتورة</target>
+  </trans-unit>
+  <trans-unit id="151">
+    <source>Payment Details</source>
+    <target>تفاصيل الدفع</target>
+  </trans-unit>
+  <trans-unit id="152">
+    <source>Receipts</source>
+    <target>وصولات</target>
+  </trans-unit>
+  <trans-unit id="153">
+    <source>No Payments Made</source>
+    <target>لا مدفوعات</target>
+  </trans-unit>
+  <trans-unit id="154">
+    <source>Receipt</source>
+    <target>وصل</target>
+  </trans-unit>
+  <trans-unit id="155">
+    <source>View Receipt</source>
+    <target>عرض وصل</target>
+  </trans-unit>
+  <trans-unit id="156">
+    <source>Inbox</source>
+    <target>البريد الوارد</target>
+  </trans-unit>
+  <trans-unit id="157">
+    <source>Messages from Reviewers</source>
+    <target>الرسائل من المقيّمين</target>
+  </trans-unit>
+  <trans-unit id="158">
+    <source>Message</source>
+    <target>رسالة</target>
+  </trans-unit>
+  <trans-unit id="159">
+    <source>Compose Message</source>
+    <target>إنشاء رسالة</target>
+  </trans-unit>
+  <trans-unit id="160">
+    <source>Sent Mail</source>
+    <target>البريد المرسل</target>
+  </trans-unit>
+  <trans-unit id="161">
+    <source>From</source>
+    <target>من</target>
+  </trans-unit>
+  <trans-unit id="162">
+    <source>Ministry of Municipality, Erbil Municipality presidency. All Rights Reserved</source>
+    <target>وزارة البلديات، رئاسة بلدية اربيل. جميع الحقوق محفوظة</target>
+  </trans-unit>
+  <trans-unit id="163">
+    <source>Logout</source>
+    <target>تسجيل خروج</target>
+  </trans-unit>
+  <trans-unit id="164">
+    <source>Notifications</source>
+    <target>الإخطارات</target>
+  </trans-unit>
+  <trans-unit id="165">
+    <source>Learn More</source>
+    <target>أعرف أكثر</target>
+  </trans-unit>
+  <trans-unit id="166">
+    <source>Reviewer Comments</source>
+    <target>تعليقات المراجع</target>
+  </trans-unit>
+  <trans-unit id="167">
+    <source>Previous Reasons for Decline</source>
+    <target>أسباب السابقة للتراجع</target>
+  </trans-unit>
+  <trans-unit id="168">
+    <source>Conditions of Approval</source>
+    <target>شروط الموافقة</target>
+  </trans-unit>
+  <trans-unit id="169">
+    <source>Comments Summary</source>
+    <target>موجز تعليقات</target>
+  </trans-unit>
+  <trans-unit id="170">
+    <source>Your application has been declined. View the reasons in the comments tab</source>
+    <target>تم رفض طلبك. عرض الأسباب في التبويب تعليقات</target>
+  </trans-unit>
+  <trans-unit id="171">
+    <source>Date Of Payment</source>
+    <target>تاريخ السداد</target>
+  </trans-unit>
+  <trans-unit id="172">
+    <source>Paid By</source>
+    <target>دفع من قبل</target>
+  </trans-unit>
+  <trans-unit id="173">
+    <source>Payment Status</source>
+    <target>حالة السداد</target>
+  </trans-unit>
+  <trans-unit id="174">
+    <source>Mode of Payment</source>
+    <target>طريقة الدفع</target>
+  </trans-unit>
+  <trans-unit id="175">
+    <source>Reference Number</source>
+    <target>الرقم المرجعي</target>
+  </trans-unit>
+  <trans-unit id="176">
+    <source>Amount Paid</source>
+    <target>المبلغ المدفوع</target>
+  </trans-unit>
+  <trans-unit id="177">
+    <source>Print Service</source>
+    <target>خدمة الطباعة</target>
+  </trans-unit>
+  <trans-unit id="178">
+    <source>Print</source>
+    <target>طباعة</target>
+  </trans-unit>
+  <trans-unit id="179">
+    <source>Categories</source>
+    <target>فئات</target>
+  </trans-unit>
+  <trans-unit id="180">
+    <source>Mayoralty of Baghdad</source>
+    <target>امانة بغداد</target>
+  </trans-unit>
+  <trans-unit id="181">
+    <source>All Rights Reserved</source>
+    <target>جميع الحقوق محفوظة</target>
+  </trans-unit>
+  <trans-unit id="182">
+    <source>Construction Permit System</source>
+    <target>بناء نظام تصاريح</target>
+  </trans-unit>
+  <trans-unit id="183">
+    <source>Complete your application</source>
+    <target>استكمال طلبك</target>
+  </trans-unit>
+  <trans-unit id="184">
+    <source>Saved as Draft! Your application has been saved as a Draft. To complete your application process at a later time, go to My Drafts from your dashboard, view your application and click on Edit and Submit.</source>
+    <target>حفظ كمسودة ! تم حفظ التطبيق ك مشروع . لإتمام عملية التطبيق الخاص بك في وقت لاحق ، انتقل إلى جهاز مسودات من لوحة المعلومات ، عرض التطبيق الخاص بك وانقر على تحرير و إرسال .</target>
+  </trans-unit>
+  <trans-unit id="185">
+    <source>Yes. Edit Draft and Submit</source>
+    <target>نعم . تعديل مشروع و إرسال</target>
+  </trans-unit>
+  <trans-unit id="186">
+    <source>Yes. View this draft</source>
+    <target>نعم . عرض هذا المشروع</target>
+  </trans-unit>
+  <trans-unit id="187">
+    <source>No. Delete this draft</source>
+    <target>رقم حذف هذا المشروع</target>
+  </trans-unit>
+  <trans-unit id="188">
+    <source>You have an incomplete application that was saved as a draft</source>
+    <target>لديك طلب غير مكتمل التي تم حفظها كمسودة</target>
+  </trans-unit>
+  <trans-unit id="189">
+    <source>Do you wish to complete this application and submit it?</source>
+    <target>هل ترغب في إكمال هذا الطلب وتقديمه ؟</target>
+  </trans-unit>
+  <trans-unit id="190">
+    <source>Complete your application</source>
+    <target>استكمال طلبك</target>
+  </trans-unit>
+  <trans-unit id="191">
+    <source>You have an incomplete application that was saved as a draft</source>
+    <target>لديك طلب غير مكتمل التي تم حفظها كمسودة</target>
+  </trans-unit>
+  <trans-unit id="192">
+    <source>Do you wish to complete this application and submit it?</source>
+    <target>هل ترغب في إكمال هذا الطلب وتقديمه ؟</target>
+  </trans-unit>
+  <trans-unit id="193">
+    <source>No. Delete this draft</source>
+    <target>رقم حذف هذا المشروع</target>
+  </trans-unit>
+  <trans-unit id="194">
+    <source>Yes. View this draft</source>
+    <target>نعم . عرض هذا المشروع</target>
+  </trans-unit>
+  <trans-unit id="195">
+    <source>Are you sure?</source>
+    <target>هل أنت متأكد؟</target>
+  </trans-unit>
+  <trans-unit id="196">
+    <source>Make corrections on your application</source>
+    <target>إجراء التصحيحات على طلبك</target>
+  </trans-unit>
+  <trans-unit id="197">
+    <source>You have an application that was marked for corrections</source>
+    <target>لديك أحد التطبيقات التي تم وضع علامة لل تصويبات</target>
+  </trans-unit>
+  <trans-unit id="198">
+    <source>Do you wish to correct this application and submit it?</source>
+    <target>هل ترغب في تصحيح هذا الطلب وتقديمه ؟</target>
+  </trans-unit>
+  <trans-unit id="199">
+    <source>Yes. View this application</source>
+    <target>نعم . عرض هذا التطبيق</target>
+  </trans-unit>
+  <trans-unit id="200">
+    <source>Description</source>
+    <target>الوصف</target>
+  </trans-unit>
+  <trans-unit id="201">
+    <source>Resolved?</source>
+    <target>حل ؟</target>
+  </trans-unit>
+  <trans-unit id="202">
+    <source>Resolved</source>
+    <target>حل</target>
+  </trans-unit>
+  <trans-unit id="203">
+    <source>Not Resolved</source>
+    <target>لم تحل</target>
+  </trans-unit>
+  <trans-unit id="204">
+    <source>Selected?</source>
+    <target>المختارة؟</target>
+  </trans-unit>
+  <trans-unit id="205">
+    <source>Service Code</source>
+    <target>رمز الخدمة</target>
+  </trans-unit>
+  <trans-unit id="206">
+    <source>Service Description</source>
+    <target>وصف الخدمة</target>
+  </trans-unit>
+  <trans-unit id="207">
+    <source>Amount</source>
+    <target>كمية</target>
+  </trans-unit>
+  <trans-unit id="208">
+    <source>Back</source>
+    <target>الى الخلف</target>
+  </trans-unit>
+  <trans-unit id="209">
+    <source>Edit your basic details</source>
+    <target>تعديل التفاصيل الأساسية الخاصة بك</target>
+  </trans-unit>
+  <trans-unit id="210">
+    <source>Edit your additional details</source>
+    <target>تعديل تفاصيل إضافية بك</target>
+  </trans-unit>
+  <trans-unit id="211">
+    <source>There is already a user by that name. Choose another.</source>
+    <target>هناك بالفعل مستخدم بهذا الاسم. اختر آخر.</target>
+  </trans-unit>
+  <trans-unit id="212">
+    <source>That password is too short. It must contain a minimum of %min_length% characters.</source>
+    <target>كلمة المرور قصيرة جدا. يجب أن تحتوي على حد أدنى من٪ min_length٪ من الأحرف.</target>
+  </trans-unit>
+  <trans-unit id="213">
+    <source>That password is too short. It must contain a minimum length of</source>
+    <target>كلمة المرور قصيرة جدا. يجب أن يحتوي على الحد الأدنى لطول</target>
+  </trans-unit>
+  <trans-unit id="214">
+    <source>Enter the correct format for the mobile number e.g 0703138826</source>
+    <target>أدخل التنسيق الصحيح لرقم الجوال على سبيل المثال 7003138826</target>
+  </trans-unit>
+  <trans-unit id="215">
+    <source>Full names may not contain</source>
+    <target>قد لا تحتوي الأسماء الكاملة على</target>
+  </trans-unit>
+  <trans-unit id="216">
+    <source>The passwords did not match.</source>
+    <target>لم تتطابق كلمات المرور.</target>
+  </trans-unit>
+  <trans-unit id="217">
+    <source>The email addresses did not match.</source>
+    <target>لم تتطابق عناوين البريد الإلكتروني.</target>
+  </trans-unit>
+  <trans-unit id="218">
+    <source>Delete this draft</source>
+    <target>تحذف هذه المسودة</target>
+  </trans-unit>
+  <trans-unit id="219">
+    <source>Profile</source>
+    <target>الملف الشخصي</target>
+  </trans-unit>
+  <trans-unit id="220">
+    <source>No Bill</source>
+    <target>لا بيل</target>
+  </trans-unit>
+  <trans-unit id="221">
+    <source>Downloads</source>
+    <target>التنزيلات</target>
+  </trans-unit>
+  <trans-unit id="222">
+    <source>My Profile</source>
+    <target>ملفي</target>
+  </trans-unit>
+  <trans-unit id="223">
+    <source>Submitted On</source>
+    <target>تم إرساله</target>
+  </trans-unit>
+  <trans-unit id="224">
+    <source>Approval</source>
+    <target>موافقة</target>
+  </trans-unit>
+  <trans-unit id="225">
+    <source>Bill Status</source>
+    <target>حالة بيل</target>
+  </trans-unit>
+  <trans-unit id="226">
+    <source>Ref No</source>
+    <target>مصدر رقم</target>
+  </trans-unit>
+  <trans-unit id="227">
+    <source>Form</source>
+    <target>شكل</target>
+  </trans-unit>
+  <trans-unit id="228">
+    <source>Recent Applications</source>
+    <target>التطبيقات الأخيرة</target>
+  </trans-unit>
+  <trans-unit id="229">
+    <source>Below are the applications you made recently</source>
+    <target>وفيما يلي التطبيقات التي قمت بها مؤخرا</target>
+  </trans-unit>
+  <trans-unit id="230">
+    <source>Corrections!</source>
+    <target>التصحيحات!</target>
+  </trans-unit>
+  <trans-unit id="231">
+    <source>You have an application that has been sent back to corrections. The following are the reasons for rejection:</source>
+    <target>لديك تطبيق تم إرساله مرة أخرى إلى التصحيحات. وفيما يلي أسباب الرفض:</target>
+  </trans-unit>
+  <trans-unit id="232">
+    <source>Resolved</source>
+    <target>حل</target>
+  </trans-unit>
+  <trans-unit id="233">
+    <source>Not Resolved</source>
+    <target>لم يتم حلها</target>
+  </trans-unit>
+  <trans-unit id="234">
+    <source>Click here to edit and resubmit</source>
+    <target>انقر هنا للتعديل وإعادة الإرسال</target>
+  </trans-unit>
+  <trans-unit id="235">
+    <source>Transfer!</source>
+    <target>تحويل!</target>
+  </trans-unit>
+  <trans-unit id="236">
+    <source>You have an application</source>
+    <target>لديك تطبيق</target>
+  </trans-unit>
+  <trans-unit id="237">
+    <source>that is being transferred to you from</source>
+    <target>التي يتم نقلها لك من</target>
+  </trans-unit>
+  <trans-unit id="238">
+    <source>Cancel Transfer</source>
+    <target>إلغاء النقل</target>
+  </trans-unit>
+  <trans-unit id="239">
+    <source>Confirm Transfer</source>
+    <target>تأكيد النقل</target>
+  </trans-unit>
+  <trans-unit id="240">
+    <source>Edit</source>
+    <target>Confirm Transfer</target>
+  </trans-unit>
+  <trans-unit id="241">
+    <source>Application History</source>
+    <target>تصحيح</target>
+  </trans-unit>
+  <trans-unit id="242">
+    <source>Enter your text</source>
+    <target>أدخل النص</target>
+  </trans-unit>
+  <trans-unit id="243">
+    <source>No Messages</source>
+    <target>لا توجد رسائل</target>
+  </trans-unit>
+  <trans-unit id="244">
+    <source>Security</source>
+    <target>الأمان</target>
+  </trans-unit>
+  <trans-unit id="245">
+    <source>My Businesses</source>
+    <target>نشاطي التجاري</target>
+  </trans-unit>
+  <trans-unit id="246">
+    <source>Business Name</source>
+    <target>نشاطي التجاري</target>
+  </trans-unit>
+  <trans-unit id="247">
+    <source>Verified?</source>
+    <target>الاسم التجاري</target>
+  </trans-unit>
+  <trans-unit id="248">
+    <source>Active</source>
+    <target>هل تم التحقق؟</target>
+  </trans-unit>
+  <trans-unit id="249">
+    <source>Not Active</source>
+    <target>نشيط</target>
+  </trans-unit>
+  <trans-unit id="250">
+    <source>Add Business</source>
+    <target>غير فعال</target>
+  </trans-unit>
+  <trans-unit id="251">
+    <source>Service</source>
+    <target>إضافة نشاط تجاري</target>
+  </trans-unit>
+  <trans-unit id="252">
+    <source>Ref no</source>
+    <target>الخدمات</target>
+  </trans-unit>
+  <trans-unit id="253">
+    <source>Payment</source>
+    <target>رقم المرجع</target>
+  </trans-unit>
+  <trans-unit id="254">
+    <source>Recent Bills</source>
+    <target>دفع</target>
+  </trans-unit>
+  <trans-unit id="255">
+    <source>The following bills require your action</source>
+    <target>فواتير الأخيرة</target>
+  </trans-unit>
+  <trans-unit id="256">
+    <source>Bill Ref No.</source>
+    <target>فواتير التالية تتطلب عملك</target>
+  </trans-unit>
+  <trans-unit id="257">
+    <source>Bill Status</source>
+    <target>بيل رقم المرجع</target>
+  </trans-unit>
+  <trans-unit id="258">
+    <source>Due Date</source>
+    <target>حالة بيل</target>
+  </trans-unit>
+  <trans-unit id="259">
+    <source>Pay now</source>
+    <target>تاريخ الاستحقاق</target>
+  </trans-unit>
+  <trans-unit id="260">
+    <source>invoices in this stage</source>
+    <target>ادفع الآن</target>
+  </trans-unit>
+  <trans-unit id="261">
+    <source>applications in this stage</source>
+    <target>الفواتير في هذه المرحلة</target>
+  </trans-unit>
+  <trans-unit id="262">
+    <source>Recent Services</source>
+    <target>الخدمات الحديثة</target>
+  </trans-unit>
+  <trans-unit id="263">
+    <source>ID No</source>
+    <target>رقم التعريف</target>
+  </trans-unit>
+  <trans-unit id="264">
+    <source>Phone</source>
+    <target>هاتف</target>
+  </trans-unit>
+  <trans-unit id="265">
+    <source>Pending</source>
+    <target>قيد الانتظار</target>
+  </trans-unit>
+  <trans-unit id="266">
+    <source>Part Payment</source>
+    <target>دفع جزء</target>
+  </trans-unit>
+  <trans-unit id="267">
+    <source>Cancelled</source>
+    <target>تم الالغاء</target>
+  </trans-unit>
+  <trans-unit id="268">
+    <source>Download</source>
+    <target>تحميل</target>
+  </trans-unit>
+  <trans-unit id="269">
+    <source>Payments</source>
+    <target>الدفعات</target>
+  </trans-unit>
+  <trans-unit id="270">
+    <source>Having a problem?</source>
+    <target>وجود مشكلة؟</target>
+  </trans-unit>
+  <trans-unit id="271">
+    <source>No Downloads</source>
+    <target>لا التنزيلات</target>
+  </trans-unit>
+  <trans-unit id="272">
+    <source>Date Of Issue</source>
+    <target>تاريخ المسألة</target>
+  </trans-unit>
+  <trans-unit id="273">
+    <source>Total Paid</source>
+    <target>مجموع المبالغ المدفوعة</target>
+  </trans-unit>
+  <trans-unit id="274">
+    <source>Business Details</source>
+    <target>تفاصيل العمل</target>
+  </trans-unit>
+  <trans-unit id="275">
+    <source>Services</source>
+    <target>خدمات</target>
+  </trans-unit>
+  <trans-unit id="276">
+    <source>Users</source>
+    <target>المستخدمون</target>
+  </trans-unit>
+  <trans-unit id="277">
+    <source>Inspections</source>
+    <target>عمليات التفتيش</target>
+  </trans-unit>
+  <trans-unit id="278">
+    <source>Back to Dashboard</source>
+    <target>الرجوع إلى لوحة التحكم</target>
+  </trans-unit>
+  <trans-unit id="279">
+    <source>Add User</source>
+    <target>إضافة مستخدم</target>
+  </trans-unit>
+  <trans-unit id="280">
+    <source>Edit Profile</source>
+    <target>تعديل الملف الشخصي</target>
+  </trans-unit>
+  <trans-unit id="281">
+    <source>Ref No.</source>
+    <target>مصدر رقم.</target>
+  </trans-unit>
+  <trans-unit id="282">
+    <source>services in this profile</source>
+    <target>الخدمات في هذا الملف الشخصي</target>
+  </trans-unit>
+  <trans-unit id="283">
+    <source>Full name</source>
+    <target>الاسم الكامل</target>
+  </trans-unit>
+  <trans-unit id="284">
+    <source>ID number</source>
+    <target>رقم التعريف</target>
+  </trans-unit>
+  <trans-unit id="285">
+    <source>Email</source>
+    <target>البريد الإلكتروني</target>
+  </trans-unit>
+  <trans-unit id="286">
+    <source>Mobile</source>
+    <target>التليفون المحمول</target>
+  </trans-unit>
+  <trans-unit id="287">
+    <source>Date of Inspection</source>
+    <target>تاريخ الفحص</target>
+  </trans-unit>
+  <trans-unit id="288">
+    <source>Back to Profile</source>
+    <target>الرجوع إلى الملف الشخصي</target>
+  </trans-unit>
+  <trans-unit id="289">
+    <source>Add a user to</source>
+    <target>إضافة مستخدم إلى</target>
+  </trans-unit>
+  <trans-unit id="290">
+    <source>This form enables you to add user to a business who can submit applications through the business</source>
+    <target>يتيح لك هذا النموذج إضافة مستخدم إلى نشاط تجاري يمكنه تقديم الطلبات من خلال النشاط التجاري</target>
+  </trans-unit>
+  <trans-unit id="291">
+    <source>ID number of user</source>
+    <target>رقم تعريف المستخدم</target>
+  </trans-unit>
+  <trans-unit id="292">
+    <source>Edit your profile details</source>
+    <target>عدل تفاصيل ملفك الشخصي</target>
+  </trans-unit>
+    </body>
+  </file>
+</xliff>

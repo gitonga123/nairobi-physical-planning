@@ -1,0 +1,26 @@
+{
+    "name": "fos1/sf-doctrine-guard-plugin",
+    "type": "symfony1-plugin",
+    "description": "Identity management plugin for Symfony",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan H. Wage",
+            "email": "jonwage@gmail.com",
+            "role": "Creator"
+        },
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien.potencier@symfony-project.com",
+            "role": "Creator"
+        },
+        {
+            "name": "Emanuele Panzeri",
+            "email": "thepanz@gmail.com",
+            "role": "Contributor"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

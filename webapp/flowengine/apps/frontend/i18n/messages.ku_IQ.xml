@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="ku_IQ" datatype="plaintext">
+    <body>
+  <trans-unit id="1">
+    <source>Sign In</source>
+    <target>چوونەژوورەوە</target>
+  </trans-unit>
+  <trans-unit id="2">
+    <source>Sign Up</source>
+    <target>خۆتۆمارکردن</target>
+  </trans-unit>
+  <trans-unit id="3">
+    <source>News</source>
+    <target>هەواڵ</target>
+  </trans-unit>
+  <trans-unit id="4">
+    <source>FAQ</source>
+    <target>ئەو پرسیارانەی زۆر دەکرێن</target>
+  </trans-unit>
+  <trans-unit id="5">
+    <source>Contact Us</source>
+    <target>پەیوەندی کردن</target>
+  </trans-unit>
+  <trans-unit id="6">
+    <source>Home</source>
+    <target>سەرەتا</target>
+  </trans-unit>
+  <trans-unit id="7">
+    <source>News Articles</source>
+    <target>هەواڵەکان</target>
+  </trans-unit>
+  <trans-unit id="8">
+    <source>No News Articles Posted</source>
+    <target>هیچ ووتارە هەواڵێک بڵاونەکراوەتەوە</target>
+  </trans-unit>
+  <trans-unit id="9">
+    <source>Frequently Asked Questions</source>
+    <target>ئەو پرسیارانەی زۆر دەکرێن</target>
+  </trans-unit>
+  <trans-unit id="10">
+    <source>Please Sign In</source>
+    <target>تکایە بچۆ ژوورەوە</target>
+  </trans-unit>
+  <trans-unit id="11">
+    <source>Login to access your account</source>
+    <target>بچۆ ناو هەژمارەکەت</target>
+  </trans-unit>
+  <trans-unit id="12">
+    <source>Username or Email</source>
+    <target>ناوی بەکارهێنەر یان ئیمەیل</target>
+  </trans-unit>
+  <trans-unit id="13">
+    <source>Password</source>
+    <target>ووشەی نهێنی</target>
+  </trans-unit>
+  <trans-unit id="14">
+    <source>Can't access your account?</source>
+    <target>ناتوانی بچیتە ناو هەژمارەکەت؟</target>
+  </trans-unit>
+  <trans-unit id="15">
+    <source>Permitflow LTD. ALL Rights Reserved</source>
+    <target>هەموو مافەکان پارێزراوە</target>
+  </trans-unit>
+  <trans-unit id="16">
+    <source>Already a member?</source>
+    <target>ئەندامیت؟</target>
+  </trans-unit>
+  <trans-unit id="17">
+    <source>Full Name</source>
+    <target>ناوی تەواو</target>
+  </trans-unit>
+  <trans-unit id="18">
+    <source>Username</source>
+    <target>ناوی بەکارهێنەر</target>
+  </trans-unit>
+  <trans-unit id="19">
+    <source>New Password</source>
+    <target>ووشەی نهێنی نوێ</target>
+  </trans-unit>
+  <trans-unit id="20">
+    <source>Confirm Password</source>
+    <target>ووشەی نهێنی پشتڕاست بکەوە</target>
+  </trans-unit>
+  <trans-unit id="21">
+    <source>Enter Email</source>
+    <target>ئیمەیل بنووسە</target>
+  </trans-unit>
+  <trans-unit id="22">
+    <source>Confirm Email</source>
+    <target>ئیمەیل پشتڕاست بکەوە</target>
+  </trans-unit>
+  <trans-unit id="23">
+    <source>Mobile Phone (e.g 256700123456 or 0700123456)</source>
+    <target>ژمارەی مۆبایل</target>
+  </trans-unit>
+  <trans-unit id="24">
+    <source>Register As</source>
+    <target>خۆتۆماربکە وەک</target>
+  </trans-unit>
+  <trans-unit id="25">
+    <source>Terms and Conditions</source>
+    <target>مەرجەکان</target>
+  </trans-unit>
+  <trans-unit id="26">
+    <source>By clicking on Save and Continue below, you are agreeing to the</source>
+    <target>بە کلیک کردن لەسەر "پاشەکەوت بکە و بەردەوام بە" لە خوارەوە. تۆ ڕازی دەبی بە</target>
+  </trans-unit>
+  <trans-unit id="27">
+    <source>and the</source>
+    <target>وە</target>
+  </trans-unit>
+  <trans-unit id="28">
+    <source>Terms of Services</source>
+    <target>مەرجی خزمەتگوزاریەکان</target>
+  </trans-unit>
+  <trans-unit id="29">
+    <source>Privacy Policy</source>
+    <target>ڕێوشوێنی تایبەتیێتی</target>
+  </trans-unit>
+  <trans-unit id="30">
+    <source>Save and Continue</source>
+    <target>پاشەکەوت بکە و بەردەوام بە</target>
+  </trans-unit>
+  <trans-unit id="31">
+    <source>Languages</source>
+    <target>گۆڕینی زمان</target>
+  </trans-unit>
+  <trans-unit id="32">
+    <source>Welcome</source>
+    <target>بەخێربێی</target>
+  </trans-unit>
+  <trans-unit id="33">
+    <source>Account Settings</source>
+    <target>ڕێکخستنی هەژمار</target>
+  </trans-unit>
+  <trans-unit id="34">
+    <source>Log Out</source>
+    <target>چوونەدەرەوە</target>
+  </trans-unit>
+  <trans-unit id="35">
+    <source>Dashboard</source>
+    <target>تەختەی بەڕێوەبردن</target>
+  </trans-unit>
+  <trans-unit id="36">
+    <source>Applications</source>
+    <target>داواکاریەکان</target>
+  </trans-unit>
+  <trans-unit id="37">
+    <source>Submit Application</source>
+    <target>ناردنی داواکاری</target>
+  </trans-unit>
+  <trans-unit id="38">
+    <source>Messages</source>
+    <target>نامەکان</target>
+  </trans-unit>
+  <trans-unit id="39">
+    <source>Billing</source>
+    <target>پسوولە (وەسڵ)</target>
+  </trans-unit>
+  <trans-unit id="40">
+    <source>Permits</source>
+    <target>خزمەتگوزاریەکان</target>
+  </trans-unit>
+  <trans-unit id="41">
+    <source>Please create an account</source>
+    <target>تکایە هەژمارێک دروست بکە</target>
+  </trans-unit>
+  <trans-unit id="42">
+    <source>Sorry! The username or password you entered is incorrect.</source>
+    <target>ببورە! ناوی بەکارهێنەر یان ووشە نهێنیەکەت هەڵەیە</target>
+  </trans-unit>
+  <trans-unit id="43">
+    <source>Did you forget?</source>
+    <target>لە بیرت چووە؟</target>
+  </trans-unit>
+  <trans-unit id="44">
+    <source>Navigation</source>
+    <target>گەڕان</target>
+  </trans-unit>
+  <trans-unit id="45">
+    <source>Drafts</source>
+    <target>ڕەشنووس</target>
+  </trans-unit>
+  <trans-unit id="46">
+    <source>Summary of all your alerts and applications</source>
+    <target>پوختەیەک دەربارەی ئاگاداری و داواکاریەکانت</target>
+  </trans-unit>
+  <trans-unit id="47">
+    <source>Total Applications</source>
+    <target>سەرجەم داواکاریەکانت</target>
+  </trans-unit>
+  <trans-unit id="48">
+    <source>Due Invoices</source>
+    <target>پسوولە قەرزەکان</target>
+  </trans-unit>
+  <trans-unit id="49">
+    <source>Resubmissions</source>
+    <target>دووبارە پێشکەشکردنەوە</target>
+  </trans-unit>
+  <trans-unit id="50">
+    <source>Issued Permits</source>
+    <target>مۆڵەتە دەرچووەکان</target>
+  </trans-unit>
+  <trans-unit id="51">
+    <source>Latest Applications</source>
+    <target>دوا داواکاریەکان</target>
+  </trans-unit>
+  <trans-unit id="52">
+    <source>View Applications</source>
+    <target>نیشاندانی داواکاریەکان</target>
+  </trans-unit>
+  <trans-unit id="53">
+    <source>Date</source>
+    <target>بەروار</target>
+  </trans-unit>
+  <trans-unit id="54">
+    <source>Application</source>
+    <target>داواکاری</target>
+  </trans-unit>
+  <trans-unit id="55">
+    <source>Status</source>
+    <target>ئەنجام</target>
+  </trans-unit>
+  <trans-unit id="56">
+    <source>View App</source>
+    <target>نیشاندانی داواکارییەکان</target>
+  </trans-unit>
+  <trans-unit id="57">
+    <source>Due Invoices</source>
+    <target>پسوولە قەرزەکان</target>
+  </trans-unit>
+  <trans-unit id="58">
+    <source>Invoice Date</source>
+    <target>بەرواری پسوولە</target>
+  </trans-unit>
+  <trans-unit id="59">
+    <source>Total</source>
+    <target>سەرجەم</target>
+  </trans-unit>
+  <trans-unit id="60">
+    <source>Pay All Invoices</source>
+    <target>پارەی پسوولەکان بدە</target>
+  </trans-unit>
+  <trans-unit id="61">
+    <source>View All Invoices</source>
+    <target>هەموو پسوولەکان پیشان بدە</target>
+  </trans-unit>
+  <trans-unit id="62">
+    <source>Application Forms</source>
+    <target>فۆرمی داواکردن</target>
+  </trans-unit>
+  <trans-unit id="63">
+    <source>Account Information</source>
+    <target>زانیاری هەژمار</target>
+  </trans-unit>
+  <trans-unit id="64">
+    <source>New Messages</source>
+    <target>نامە نوێیەکان</target>
+  </trans-unit>
+  <trans-unit id="65">
+    <source>No Records Found</source>
+    <target>هیچ تۆمارێک نەدۆزراوەتەوە</target>
+  </trans-unit>
+  <trans-unit id="66">
+    <source>Edit Account Details</source>
+    <target>دەستکاریکردنی ووردەکاری هەژمار</target>
+  </trans-unit>
+  <trans-unit id="67">
+    <source>Announcement</source>
+    <target>ئاگاداری</target>
+  </trans-unit>
+  <trans-unit id="68">
+    <source>Registration Successful</source>
+    <target>خۆتۆمارکردنەکەت سەرکەوتووبوو</target>
+  </trans-unit>
+  <trans-unit id="69">
+    <source>Check Your Email</source>
+    <target>تکایە ئیمەیلەکەت بکەوە</target>
+  </trans-unit>
+  <trans-unit id="70">
+    <source>Your registration is successful</source>
+    <target>خۆتۆمارکردنەکەت سەرکەوتووبوو</target>
+  </trans-unit>
+  <trans-unit id="71">
+    <source>Thank you for Registering. An email has been sent to your account. Go to your email to verify your account.</source>
+    <target>سوپاس بۆ خۆتۆمارکردنت. ئیمەیلێک بۆ هەژمارەکەت نێردرا. بچۆ بۆ ئیمەیلەکەت بۆ پشتڕاستکردنەوەی هەژمارەکەت.</target>
+  </trans-unit>
+  <trans-unit id="72">
+    <source>Additional details</source>
+    <target>ووردەکاری زیاتر</target>
+  </trans-unit>
+  <trans-unit id="73">
+    <source>Forgot Your Password?</source>
+    <target>ووشەی نهێنیت لەبیکردووە؟</target>
+  </trans-unit>
+  <trans-unit id="74">
+    <source>Lost Password Recovery</source>
+    <target>گەڕاندنەوەی ووشەی نهێنی</target>
+  </trans-unit>
+  <trans-unit id="75">
+    <source>If you have forgotten your username or password, you can request to have your username emailed to you and to reset your password. When you fill in your registered email address, you will be sent instructions on how to reset your password.</source>
+    <target>ئەگەر ناوی بەکارهێنەر یان ووشەی نهێنیت لە بیر چووە، دەتوانی ناوی بەکارهێنەر بگەڕێنیتەوە بۆ ئیمەیلەکەت وە ژمارەی نهێنیت ڕێکبخەیتەوه. کاتێ ناونیشانە ئەلیکتڕۆنییە (ئیمەیلە) تۆمارکراوەکەت دەنووسیت، ڕێنمایی دەربارەی چۆنیەتی ڕێکخستنەوەی ووشەی نهێنییەکەت بۆ دەنێردرێت.</target>
+  </trans-unit>
+  <trans-unit id="76">
+    <source>Email or Username</source>
+    <target>ناوی بەکارهێنەر یان ئیمەیل</target>
+  </trans-unit>
+  <trans-unit id="77">
+    <source>Reset My Password</source>
+    <target>ڕێکخستنەوەی ووشەی نهێنیەکەم</target>
+  </trans-unit>
+  <trans-unit id="78">
+    <source>Submit</source>
+    <target>پێشکەش بکە</target>
+  </trans-unit>
+  <trans-unit id="79">
+    <source>Check Your E-Mail</source>
+    <target>ئیمەیلەکەت بپشکنە</target>
+  </trans-unit>
+  <trans-unit id="80">
+    <source>For security reasons, a confirmation message has been sent tothe email address associated with this account. Please check youremail for that message. You will need to click on a link providedin that email in order to change your password. If you do not seethe message, be sure to check your </source>
+    <target>لەبەر هۆکاری ئاسایش، نامەیەکی پشتڕاستکردنەوە نێردرا بۆ ئەو ناونیشانە ئەلیکتڕۆنییەی (ئیمەیڵە)ی کە لەگەڵ ئەو هەژمارە لکێنراوە. تکایە سەردانی ئیمەیلەکەت بکەو بیپشکنە بۆ ئەو نامەیە. بۆ ئەوەی ژمارەی نهێنیت بگۆڕیت پێویستە تۆ کلیک لەسەر ئەو بەستەرە بکەی کە لە نامەکەدا دابین کراوە. ئەگەر نامەکە نابینی، دڵنیا بە کە "spam" وە "bulk"  ی ئیمەیڵەکەت بپشکنە.</target>
+  </trans-unit>
+  <trans-unit id="81">
+    <source>Your password has been successfully reset. You are now loggedin to this site. In the future, be sure to log in with your new password.</source>
+    <target>ژمارەی نهێنیەکەت بەسەرکەووتوویی گۆڕدرا. ئێستا چویتە ناو ئەم ماڵپەڕەیە. لە داهاتوو، دڵنیابە کە بچیتە ناو هەژمارەکەت بە ژمارە نهێنیە نوێیەکەت.</target>
+  </trans-unit>
+  <trans-unit id="82">
+    <source>Thanks for confirming your email address. You may now change yourpassword using the form below.</source>
+    <target>زۆر سوپاس بۆ پشتڕاستکردنەوەی ناونیشانە ئەلیکتڕۆنیەکەت (ئیمەیڵەکەت). لە ئێستادا دەتوانی ژمارەی نهێنییەکەت بگۆڕی بەبەکارهێنانی ئەم فۆڕمەی خوارەوە.</target>
+  </trans-unit>
+  <trans-unit id="83">
+    <source>My Account</source>
+    <target>هەژمارەکەم</target>
+  </trans-unit>
+  <trans-unit id="84">
+    <source>View account details</source>
+    <target>نیشاندانی ووردەکاریەکانی هەژمار</target>
+  </trans-unit>
+  <trans-unit id="85">
+    <source>You are here</source>
+    <target>تۆ لێرەی</target>
+  </trans-unit>
+  <trans-unit id="86">
+    <source>Edit Basic Details</source>
+    <target>دەستکاری کردنی ووردەکاریە سەرەتییەکان</target>
+  </trans-unit>
+  <trans-unit id="87">
+    <source>Edit Additional Details</source>
+    <target>دەستکاری کردنی ووردەکارییە زیادەکان</target>
+  </trans-unit>
+  <trans-unit id="88">
+    <source>My Activity</source>
+    <target>چاڵاکیەکانم</target>
+  </trans-unit>
+  <trans-unit id="89">
+    <source>Email Address</source>
+    <target>ناونیشانی ئەلیکتڕۆنی</target>
+  </trans-unit>
+  <trans-unit id="90">
+    <source>Is Active?</source>
+    <target>چاڵاکە؟</target>
+  </trans-unit>
+  <trans-unit id="91">
+    <source>Email is Validated?</source>
+    <target>ئیمەیڵەکە سەلمێندراوە</target>
+  </trans-unit>
+  <trans-unit id="92">
+    <source>Yes</source>
+    <target>بەڵێ</target>
+  </trans-unit>
+  <trans-unit id="93">
+    <source>No</source>
+    <target>نەخێر</target>
+  </trans-unit>
+  <trans-unit id="94">
+    <source>Add Additional Details</source>
+    <target>ووردەکاری زیاتر زیاد بکە</target>
+  </trans-unit>
+  <trans-unit id="95">
+    <source>ID</source>
+    <target>ناسنامە</target>
+  </trans-unit>
+  <trans-unit id="96">
+    <source>Date/Time</source>
+    <target>بەروار/کات</target>
+  </trans-unit>
+  <trans-unit id="97">
+    <source>Action</source>
+    <target>کردار</target>
+  </trans-unit>
+  <trans-unit id="98">
+    <source>Submit An Application</source>
+    <target>داواکارییەک پێشکەش بکە</target>
+  </trans-unit>
+  <trans-unit id="99">
+    <source>Select Application Form</source>
+    <target>فۆڕمی داواکاری هەڵبژێرە</target>
+  </trans-unit>
+  <trans-unit id="100">
+    <source>Click here to apply</source>
+    <target>کلیک لێرە بکە بۆ جێبەجێ کردن</target>
+  </trans-unit>
+  <trans-unit id="101">
+    <source>Apply Now</source>
+    <target>ئێستا داواکاری پێشکەش بکە</target>
+  </trans-unit>
+  <trans-unit id="102">
+    <source>This page list all the applications you have submitted</source>
+    <target>ئەم پەڕەیە هەموو داواکاریەکانی کە تۆ پێشکەشت کردوون لە خۆدەگرێ</target>
+  </trans-unit>
+  <trans-unit id="103">
+    <source>Shared Applications</source>
+    <target>داواکاریە هاوبەشەکان</target>
+  </trans-unit>
+  <trans-unit id="104">
+    <source>Drafts</source>
+    <target>ڕەشنووس</target>
+  </trans-unit>
+  <trans-unit id="105">
+    <source>My Applications</source>
+    <target>داواکاریەکانم</target>
+  </trans-unit>
+  <trans-unit id="106">
+    <source>View and manage all applications you have submitted with us from here</source>
+    <target>نیشاندان و بەڕێوەبردنی هەموو ئەو داواکاریانەی کە تۆ پێشکەشت کردوون لێرەدا لەگەڵ ئێمە</target>
+  </trans-unit>
+  <trans-unit id="107">
+    <source>Application No</source>
+    <target>ژمارەی داواکاری</target>
+  </trans-unit>
+  <trans-unit id="108">
+    <source>Stage</source>
+    <target>قۆناغ</target>
+  </trans-unit>
+  <trans-unit id="109">
+    <source>Date Submitted</source>
+    <target>پێشکەشی کرد لە بەرواری</target>
+  </trans-unit>
+  <trans-unit id="110">
+    <source>Level of Completion</source>
+    <target>قۆناغی تەواوبوون</target>
+  </trans-unit>
+  <trans-unit id="111">
+    <source>Actions</source>
+    <target>کردار</target>
+  </trans-unit>
+  <trans-unit id="112">
+    <source>View Application</source>
+    <target>نیشاندانی داواکاری</target>
+  </trans-unit>
+  <trans-unit id="113">
+    <source>Share Application</source>
+    <target>داواکاریە هاوبەشەکان</target>
+  </trans-unit>
+  <trans-unit id="114">
+    <source>Application Summary</source>
+    <target>پوختەی داواکاری</target>
+  </trans-unit>
+  <trans-unit id="115">
+    <source>Application details</source>
+    <target>ووردەکاری داواکاری</target>
+  </trans-unit>
+  <trans-unit id="116">
+    <source>Submitted by</source>
+    <target>پێشکەشکراوە لەلایەن</target>
+  </trans-unit>
+  <trans-unit id="117">
+    <source>Date of Submission</source>
+    <target>بەرواری پێشکەشکردن</target>
+  </trans-unit>
+  <trans-unit id="118">
+    <source>Days in progress</source>
+    <target>ڕۆژ لە چوونە پێش</target>
+  </trans-unit>
+  <trans-unit id="119">
+    <source>Application Status</source>
+    <target>ئەنجامی داواکاری</target>
+  </trans-unit>
+  <trans-unit id="120">
+    <source>days</source>
+    <target>رۆژەکان</target>
+  </trans-unit>
+  <trans-unit id="121">
+    <source>Apply for</source>
+    <target>داواکاری پێشکەش بکە بۆ</target>
+  </trans-unit>
+  <trans-unit id="122">
+    <source>View Permit</source>
+    <target>نیشاندانی مۆڵەت</target>
+  </trans-unit>
+  <trans-unit id="123">
+    <source>Edit and Submit</source>
+    <target>دەستکاری کردن و ناردن</target>
+  </trans-unit>
+  <trans-unit id="124">
+    <source>View</source>
+    <target>نیشاندان</target>
+  </trans-unit>
+  <trans-unit id="125">
+    <source>Details</source>
+    <target>ووردەکاری</target>
+  </trans-unit>
+  <trans-unit id="126">
+    <source>Reviewers</source>
+    <target>هەڵسەنگێنەرەکان</target>
+  </trans-unit>
+  <trans-unit id="127">
+    <source>Reviewer's Comments</source>
+    <target>سەرنجی هەڵسەنگێنەر</target>
+  </trans-unit>
+  <trans-unit id="128">
+    <source>Invoices</source>
+    <target>پسوولەکان</target>
+  </trans-unit>
+  <trans-unit id="129">
+    <source>Messages</source>
+    <target>نامەکان</target>
+  </trans-unit>
+  <trans-unit id="130">
+    <source>Permits</source>
+    <target>مۆڵەتەکان</target>
+  </trans-unit>
+  <trans-unit id="131">
+    <source>Previous Submission</source>
+    <target>پێشکەشکردنەکانی پێشوو</target>
+  </trans-unit>
+  <trans-unit id="132">
+    <source>No Records Found</source>
+    <target>هیچ تۆمارێک نەدۆزراوە</target>
+  </trans-unit>
+  <trans-unit id="133">
+    <source>Enter text here</source>
+    <target>نووسين لێرە دابنێ</target>
+  </trans-unit>
+  <trans-unit id="134">
+    <source>Send</source>
+    <target>بنێرە</target>
+  </trans-unit>
+  <trans-unit id="135">
+    <source>Reviewer</source>
+    <target>هەڵسەنگێنەر</target>
+  </trans-unit>
+  <trans-unit id="136">
+    <source>Task</source>
+    <target>ئیش</target>
+  </trans-unit>
+  <trans-unit id="137">
+    <source>Start Date</source>
+    <target>بەرواری دەستپێکردن</target>
+  </trans-unit>
+  <trans-unit id="138">
+    <source>End Date</source>
+    <target>بەرواری کۆتایی هاتن</target>
+  </trans-unit>
+  <trans-unit id="139">
+    <source>Invoice</source>
+    <target>پسوولە (وەسڵ)</target>
+  </trans-unit>
+  <trans-unit id="140">
+    <source>Paid</source>
+    <target>پارەی دراوە</target>
+  </trans-unit>
+  <trans-unit id="141">
+    <source>Not Paid</source>
+    <target>پارەی نەدراوە</target>
+  </trans-unit>
+  <trans-unit id="142">
+    <source>Print Invoice</source>
+    <target>پسوولە چاپ بکە</target>
+  </trans-unit>
+  <trans-unit id="143">
+    <source>Make Payment</source>
+    <target>پارەبدە</target>
+  </trans-unit>
+  <trans-unit id="144">
+    <source>View Receipt</source>
+    <target>نیشاندانی پسوولە</target>
+  </trans-unit>
+  <trans-unit id="145">
+    <source>Date Issued</source>
+    <target>رۆژی دەرچوون</target>
+  </trans-unit>
+  <trans-unit id="146">
+    <source>Invoice history</source>
+    <target>تۆماری پسوولە</target>
+  </trans-unit>
+  <trans-unit id="147">
+    <source>Invoice No</source>
+    <target>ژمارەی پسوولە</target>
+  </trans-unit>
+  <trans-unit id="148">
+    <source>Date of Approval</source>
+    <target>بەرواری ڕازیبوون</target>
+  </trans-unit>
+  <trans-unit id="149">
+    <source>Invoice Status</source>
+    <target>ئەنجامی پسوولە</target>
+  </trans-unit>
+  <trans-unit id="150">
+    <source>Invoice Details</source>
+    <target>ووردەکاری پسوولە</target>
+  </trans-unit>
+  <trans-unit id="151">
+    <source>Payment Details</source>
+    <target>ووردەکاری پارەدان</target>
+  </trans-unit>
+  <trans-unit id="152">
+    <source>Receipts</source>
+    <target>پسوولەکان</target>
+  </trans-unit>
+  <trans-unit id="153">
+    <source>No Payments Made</source>
+    <target>هیچ پارەیەک نەدراوە</target>
+  </trans-unit>
+  <trans-unit id="154">
+    <source>Receipt</source>
+    <target>پسوولە</target>
+  </trans-unit>
+  <trans-unit id="155">
+    <source>View Receipt</source>
+    <target>نیشاندانی پسوولە</target>
+  </trans-unit>
+  <trans-unit id="156">
+    <source>Inbox</source>
+    <target>سندووقی هاتوو</target>
+  </trans-unit>
+  <trans-unit id="157">
+    <source>Messages from Reviewers</source>
+    <target>نامە لە هەڵسەنگێنەرەکانەوە</target>
+  </trans-unit>
+  <trans-unit id="158">
+    <source>Message</source>
+    <target>نامە</target>
+  </trans-unit>
+  <trans-unit id="159">
+    <source>Compose Message</source>
+    <target>نامە دروستبکە</target>
+  </trans-unit>
+  <trans-unit id="160">
+    <source>Sent Mail</source>
+    <target>نامەی نێردراو</target>
+  </trans-unit>
+  <trans-unit id="161">
+    <source>From</source>
+    <target>لە</target>
+  </trans-unit>
+  <trans-unit id="162">
+    <source>Ministry of Municipality, Erbil Municipality presidency. All Rights Reserved</source>
+    <target>مافەکانی پارێزراوە لەلایەن وەزارەتی شارەوانی هەولێر</target>
+  </trans-unit>
+  <trans-unit id="163">
+    <source>Logout</source>
+    <target>چوونەدەرەوە</target>
+  </trans-unit>
+  <trans-unit id="164">
+    <source>Notifications</source>
+    <target>تێبینیەکان</target>
+  </trans-unit>
+  <trans-unit id="165">
+    <source>Learn More</source>
+    <target>زیاتر فێربە</target>
+  </trans-unit>
+  <trans-unit id="166">
+    <source>Reviewer Comments</source>
+    <target>سەرنجەکانی هەڵسەنگێنەر</target>
+  </trans-unit>
+  <trans-unit id="167">
+    <source>Previous Reasons for Decline</source>
+    <target>هۆکارەکانی پێشوو بۆ ڕەتکردنەوە</target>
+  </trans-unit>
+  <trans-unit id="168">
+    <source>Conditions of Approval</source>
+    <target>مەرجەکان بۆ پەسەندکردن</target>
+  </trans-unit>
+  <trans-unit id="169">
+    <source>Comments Summary</source>
+    <target>پوختەی سەرنجەکان</target>
+  </trans-unit>
+  <trans-unit id="170">
+    <source>Your application has been declined. View the reasons in the comments tab</source>
+    <target>داواکارییەکەت ڕەتکرایەوە. هۆکارەکانی ڕەتکردنەوە ببینە لە بەشی سەرنجەکان</target>
+  </trans-unit>
+  <trans-unit id="171">
+    <source>Date Of Payment</source>
+    <target>بەرواری پارەەدان</target>
+  </trans-unit>
+  <trans-unit id="172">
+    <source>Paid By</source>
+    <target>پارەدراوە  لەلایەن</target>
+  </trans-unit>
+  <trans-unit id="173">
+    <source>Payment Status</source>
+    <target>ئەنجامی پارەدان</target>
+  </trans-unit>
+  <trans-unit id="174">
+    <source>Mode of Payment</source>
+    <target>چۆنیەتی پارەدان</target>
+  </trans-unit>
+  <trans-unit id="175">
+    <source>Reference Number</source>
+    <target>ژمارەی داواکاری</target>
+  </trans-unit>
+  <trans-unit id="176">
+    <source>Amount Paid</source>
+    <target>بڕی پارەی دراو</target>
+  </trans-unit>
+  <trans-unit id="177">
+    <source>Print Service</source>
+    <target>خزمەتگوزاری چاپکردن</target>
+  </trans-unit>
+  <trans-unit id="178">
+    <source>Print</source>
+    <target>چاپکردن</target>
+  </trans-unit>
+  <trans-unit id="179">
+    <source>Categories</source>
+    <target>جۆرەکان</target>
+  </trans-unit>
+    </body>
+  </file>
+</xliff>

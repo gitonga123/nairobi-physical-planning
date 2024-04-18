@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  permitflow:
+    build: .
+    container_name: permitflow
+    hostname: permitflow
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - permitflow
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-permitflow
+    hostname: mysql-permitflow
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports: 
+      - 127.0.0.1:3306:3306
+    volumes: 
+    - mysql:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+    networks: 
+      - permitflow
+volumes: 
+  mysql:
+networks: 
+  permitflow:
+    driver: bridge

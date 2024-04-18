@@ -1,0 +1,1656 @@
+sfGuardUser:
+  sfGuardUser_1:
+    first_name: null
+    last_name: null
+    email_address: thomasjgx@gmail.com
+    username: '25649245'
+    algorithm: sha1
+    salt: null
+    password: null
+    is_active: true
+    is_super_admin: 0
+    last_login: '2017-07-04 12:54:39'
+    created_at: '2017-07-04 00:00:00'
+    updated_at: '2017-07-04 00:00:00'
+SfGuardUserCategories:
+  SfGuardUserCategories_1:
+    name: Citizen
+    description: Citizen
+    formid: '10997'
+    orderid: '1'
+  SfGuardUserCategories_22:
+    name: Business
+    description: Business
+    orderid: '2'
+  SfGuardUserCategories_23:
+    name: Foreigns
+    description: 'Foreign Resident'
+    orderid: '3'
+  SfGuardUserCategories_24:
+    name: Testers
+    description: 'Test Users'
+    orderid: '4'
+SfGuardUserCategoriesForms:
+  SfGuardUserCategoriesForms_2:
+    categoryid: '21'
+    formid: '10124'
+    islinkedto: '0'
+    islinkedtitle: null
+  SfGuardUserCategoriesForms_3:
+    categoryid: '1'
+    formid: '10124'
+    islinkedto: '0'
+    islinkedtitle: null
+ApColumnPreferences:
+  ApColumnPreferences_1:
+    form_id: '10997'
+    element_name: element_1
+    position: '1'
+    incomplete_entries: '0'
+    user_id: '1'
+ApElementOptions:
+  ApElementOptions_4:
+    form_id: '10124'
+    element_id: '2'
+    option_id: '1'
+    position: '1'
+    option_text: 'Override 1'
+    option_is_default: '0'
+    live: '1'
+  ApElementOptions_5:
+    form_id: '10124'
+    element_id: '2'
+    option_id: '2'
+    position: '2'
+    option_text: 'Override 2'
+    option_is_default: '0'
+    live: '1'
+  ApElementOptions_6:
+    form_id: '10124'
+    element_id: '2'
+    option_id: '3'
+    position: '3'
+    option_text: 'Override 3'
+    option_is_default: '0'
+    live: '1'
+  ApElementOptions_7:
+    form_id: '10997'
+    element_id: '2'
+    option_id: '1'
+    position: '1'
+    option_text: 'Override 1'
+    option_is_default: '0'
+    live: '1'
+  ApElementOptions_8:
+    form_id: '10997'
+    element_id: '2'
+    option_id: '2'
+    position: '2'
+    option_text: 'Override 2'
+    option_is_default: '0'
+    live: '1'
+  ApElementOptions_9:
+    form_id: '10997'
+    element_id: '2'
+    option_id: '3'
+    position: '3'
+    option_text: 'Override 3'
+    option_is_default: '0'
+    live: '1'
+ApEmailLogic:
+  ApEmailLogic_10997_1:
+    form_id: '10997'
+    rule_id: '1'
+    rule_all_any: all
+    target_email: ''
+    template_name: notification
+    custom_from_name: MachForm
+    custom_from_email: no-reply@localhost
+    custom_replyto_email: no-reply@localhost
+    custom_bcc: ''
+    custom_subject: '{form_name} [#{entry_no}]'
+    custom_content: '{entry_data}'
+    custom_plain_text: '0'
+    custom_pdf_enable: '0'
+    custom_pdf_content: null
+    delay_notification_until_paid: '0'
+ApEmailLogicConditions:
+  ApEmailLogicConditions_3:
+    form_id: '10997'
+    target_rule_id: '1'
+    element_name: element_1
+    rule_condition: is
+    rule_keyword: ''
+ApFormElements:
+  ApFormElements_10124_1:
+    form_id: '10124'
+    element_id: '1'
+    element_title: Description
+    element_guidelines: ''
+    element_size: medium
+    element_is_required: '0'
+    element_is_unique: '0'
+    element_is_readonly: '0'
+    element_is_private: '0'
+    element_enable_placeholder: '0'
+    element_text_default_type: static
+    element_text_default_length: '10'
+    element_text_default_random_type: letter
+    element_text_default_prefix: ''
+    element_text_default_case: u
+    element_type: textarea
+    element_position: '0'
+    element_default_value: ''
+    element_constraint: ''
+    element_total_child: '0'
+    element_css_class: ''
+    element_range_min: '0'
+    element_range_max: '0'
+    element_range_limit_by: c
+    element_status: '1'
+    element_choice_columns: '1'
+    element_choice_has_other: '0'
+    element_choice_other_label: null
+    element_choice_limit_rule: null
+    element_choice_limit_qty: '0'
+    element_choice_limit_range_min: '0'
+    element_choice_limit_range_max: '0'
+    element_choice_max_entry: '0'
+    element_time_showsecond: '0'
+    element_time_24hour: '0'
+    element_address_hideline2: '0'
+    element_address_us_only: '0'
+    element_date_enable_range: '0'
+    element_date_enable_selection_limit: '0'
+    element_date_selection_max: '1'
+    element_date_past_future: p
+    element_date_disable_past_future: '0'
+    element_date_disable_weekend: '0'
+    element_date_disable_specific: '0'
+    element_date_disabled_list: ''
+    element_file_enable_type_limit: '1'
+    element_file_block_or_allow: b
+    element_file_type_list: 'php,php3,php4,php5,phtml,exe,pl,cgi,html,htm,js'
+    element_file_as_attachment: '0'
+    element_file_enable_advance: '1'
+    element_file_auto_upload: '1'
+    element_file_enable_multi_upload: '1'
+    element_file_max_selection: '5'
+    element_file_enable_size_limit: '0'
+    element_file_size_max: '2'
+    element_matrix_allow_multiselect: '0'
+    element_matrix_parent_id: '0'
+    element_submit_use_image: '0'
+    element_submit_primary_text: Continue
+    element_submit_secondary_text: Previous
+    element_submit_primary_img: null
+    element_submit_secondary_img: null
+    element_page_title: null
+    element_page_number: '1'
+    element_section_display_in_email: '1'
+    element_section_enable_scroll: '0'
+    element_number_enable_quantity: '0'
+    element_number_quantity_link: null
+    element_table_name: null
+    element_field_value: null
+    element_field_name: null
+    element_option_query: null
+    element_existing_form: null
+    element_existing_stage: null
+    element_remote_username: null
+    element_remote_password: null
+    element_remote_value: null
+    element_price_class: null
+    element_remote_server_field: null
+    element_jsondef: null
+    element_remote_post: null
+    element_validator_class: null
+    element_field_error_message: null
+  ApFormElements_10124_2:
+    form_id: '10124'
+    element_id: '2'
+    element_title: Workflow
+    element_guidelines: ''
+    element_size: medium
+    element_is_required: '0'
+    element_is_unique: '0'
+    element_is_readonly: '0'
+    element_is_private: '0'
+    element_enable_placeholder: '0'
+    element_text_default_type: static
+    element_text_default_length: '10'
+    element_text_default_random_type: letter
+    element_text_default_prefix: ''
+    element_text_default_case: u
+    element_type: select
+    element_position: '1'
+    element_default_value: ''
+    element_constraint: ''
+    element_total_child: '0'
+    element_css_class: ''
+    element_range_min: '0'
+    element_range_max: '0'
+    element_range_limit_by: c
+    element_status: '1'
+    element_choice_columns: '1'
+    element_choice_has_other: '0'
+    element_choice_other_label: null
+    element_choice_limit_rule: null
+    element_choice_limit_qty: '0'
+    element_choice_limit_range_min: '0'
+    element_choice_limit_range_max: '0'
+    element_choice_max_entry: '0'
+    element_time_showsecond: '0'
+    element_time_24hour: '0'
+    element_address_hideline2: '0'
+    element_address_us_only: '0'
+    element_date_enable_range: '0'
+    element_date_enable_selection_limit: '0'
+    element_date_selection_max: '1'
+    element_date_past_future: p
+    element_date_disable_past_future: '0'
+    element_date_disable_weekend: '0'
+    element_date_disable_specific: '0'
+    element_date_disabled_list: ''
+    element_file_enable_type_limit: '1'
+    element_file_block_or_allow: b
+    element_file_type_list: 'php,php3,php4,php5,phtml,exe,pl,cgi,html,htm,js'
+    element_file_as_attachment: '0'
+    element_file_enable_advance: '1'
+    element_file_auto_upload: '1'
+    element_file_enable_multi_upload: '1'
+    element_file_max_selection: '5'
+    element_file_enable_size_limit: '0'
+    element_file_size_max: '2'
+    element_matrix_allow_multiselect: '0'
+    element_matrix_parent_id: '0'
+    element_submit_use_image: '0'
+    element_submit_primary_text: Continue
+    element_submit_secondary_text: Previous
+    element_submit_primary_img: null
+    element_submit_secondary_img: null
+    element_page_title: null
+    element_page_number: '1'
+    element_section_display_in_email: '1'
+    element_section_enable_scroll: '0'
+    element_number_enable_quantity: '0'
+    element_number_quantity_link: null
+    element_table_name: null
+    element_field_value: null
+    element_field_name: null
+    element_option_query: null
+    element_existing_form: null
+    element_existing_stage: null
+    element_remote_username: null
+    element_remote_password: null
+    element_remote_value: null
+    element_price_class: null
+    element_remote_server_field: null
+    element_jsondef: null
+    element_remote_post: null
+    element_validator_class: null
+    element_field_error_message: null
+  ApFormElements_10997_1:
+    form_id: '10997'
+    element_id: '1'
+    element_title: Description
+    element_guidelines: ''
+    element_size: medium
+    element_is_required: '0'
+    element_is_unique: '0'
+    element_is_readonly: '0'
+    element_is_private: '0'
+    element_enable_placeholder: '0'
+    element_text_default_type: static
+    element_text_default_length: '10'
+    element_text_default_random_type: letter
+    element_text_default_prefix: ''
+    element_text_default_case: u
+    element_type: textarea
+    element_position: '0'
+    element_default_value: ''
+    element_constraint: ''
+    element_total_child: '0'
+    element_css_class: ''
+    element_range_min: '0'
+    element_range_max: '0'
+    element_range_limit_by: c
+    element_status: '1'
+    element_choice_columns: '1'
+    element_choice_has_other: '0'
+    element_choice_other_label: null
+    element_choice_limit_rule: null
+    element_choice_limit_qty: '0'
+    element_choice_limit_range_min: '0'
+    element_choice_limit_range_max: '0'
+    element_choice_max_entry: '0'
+    element_time_showsecond: '0'
+    element_time_24hour: '0'
+    element_address_hideline2: '0'
+    element_address_us_only: '0'
+    element_date_enable_range: '0'
+    element_date_enable_selection_limit: '0'
+    element_date_selection_max: '1'
+    element_date_past_future: p
+    element_date_disable_past_future: '0'
+    element_date_disable_weekend: '0'
+    element_date_disable_specific: '0'
+    element_date_disabled_list: ''
+    element_file_enable_type_limit: '1'
+    element_file_block_or_allow: b
+    element_file_type_list: 'php,php3,php4,php5,phtml,exe,pl,cgi,html,htm,js'
+    element_file_as_attachment: '0'
+    element_file_enable_advance: '1'
+    element_file_auto_upload: '1'
+    element_file_enable_multi_upload: '1'
+    element_file_max_selection: '5'
+    element_file_enable_size_limit: '0'
+    element_file_size_max: '2'
+    element_matrix_allow_multiselect: '0'
+    element_matrix_parent_id: '0'
+    element_submit_use_image: '0'
+    element_submit_primary_text: Continue
+    element_submit_secondary_text: Previous
+    element_submit_primary_img: null
+    element_submit_secondary_img: null
+    element_page_title: null
+    element_page_number: '1'
+    element_section_display_in_email: '1'
+    element_section_enable_scroll: '0'
+    element_number_enable_quantity: '0'
+    element_number_quantity_link: null
+    element_table_name: null
+    element_field_value: null
+    element_field_name: null
+    element_option_query: null
+    element_existing_form: null
+    element_existing_stage: null
+    element_remote_username: null
+    element_remote_password: null
+    element_remote_value: null
+    element_price_class: null
+    element_remote_server_field: null
+    element_jsondef: null
+    element_remote_post: null
+    element_validator_class: null
+    element_field_error_message: null
+  ApFormElements_10997_2:
+    form_id: '10997'
+    element_id: '2'
+    element_title: Workflow
+    element_guidelines: ''
+    element_size: medium
+    element_is_required: '0'
+    element_is_unique: '0'
+    element_is_readonly: '0'
+    element_is_private: '0'
+    element_enable_placeholder: '0'
+    element_text_default_type: static
+    element_text_default_length: '10'
+    element_text_default_random_type: letter
+    element_text_default_prefix: ''
+    element_text_default_case: u
+    element_type: select
+    element_position: '1'
+    element_default_value: ''
+    element_constraint: ''
+    element_total_child: '0'
+    element_css_class: ''
+    element_range_min: '0'
+    element_range_max: '0'
+    element_range_limit_by: c
+    element_status: '1'
+    element_choice_columns: '1'
+    element_choice_has_other: '0'
+    element_choice_other_label: null
+    element_choice_limit_rule: null
+    element_choice_limit_qty: '0'
+    element_choice_limit_range_min: '0'
+    element_choice_limit_range_max: '0'
+    element_choice_max_entry: '0'
+    element_time_showsecond: '0'
+    element_time_24hour: '0'
+    element_address_hideline2: '0'
+    element_address_us_only: '0'
+    element_date_enable_range: '0'
+    element_date_enable_selection_limit: '0'
+    element_date_selection_max: '1'
+    element_date_past_future: p
+    element_date_disable_past_future: '0'
+    element_date_disable_weekend: '0'
+    element_date_disable_specific: '0'
+    element_date_disabled_list: ''
+    element_file_enable_type_limit: '1'
+    element_file_block_or_allow: b
+    element_file_type_list: 'php,php3,php4,php5,phtml,exe,pl,cgi,html,htm,js'
+    element_file_as_attachment: '0'
+    element_file_enable_advance: '1'
+    element_file_auto_upload: '1'
+    element_file_enable_multi_upload: '1'
+    element_file_max_selection: '5'
+    element_file_enable_size_limit: '0'
+    element_file_size_max: '2'
+    element_matrix_allow_multiselect: '0'
+    element_matrix_parent_id: '0'
+    element_submit_use_image: '0'
+    element_submit_primary_text: Continue
+    element_submit_secondary_text: Previous
+    element_submit_primary_img: null
+    element_submit_secondary_img: null
+    element_page_title: null
+    element_page_number: '1'
+    element_section_display_in_email: '1'
+    element_section_enable_scroll: '0'
+    element_number_enable_quantity: '0'
+    element_number_quantity_link: null
+    element_table_name: null
+    element_field_value: null
+    element_field_name: null
+    element_option_query: null
+    element_existing_form: null
+    element_existing_stage: null
+    element_remote_username: null
+    element_remote_password: null
+    element_remote_value: null
+    element_price_class: null
+    element_remote_server_field: null
+    element_jsondef: null
+    element_remote_post: null
+    element_validator_class: null
+    element_field_error_message: null
+ApFormLocks:
+  ApFormLocks_7:
+    form_id: '10124'
+    user_id: '1'
+    lock_date: '2017-07-04 13:18:52'
+ApForms:
+  ApForms_10124:
+    form_id: 10124
+    logic_permission_enable: '0'
+    logic_workflow_enable: '0'
+    form_name: 'Test Submission'
+    form_description: 'Test description of this application form'
+    form_name_hide: '0'
+    form_email: null
+    form_redirect: ''
+    form_success_message: 'Success! Your submission has been saved!'
+    form_password: ''
+    form_unique_ip: '0'
+    form_frame_height: '360'
+    form_has_css: '0'
+    form_captcha: '0'
+    form_active: '1'
+    form_review: '1'
+    form_default_application: '0'
+    esl_from_name: null
+    esl_from_email_address: null
+    esl_subject: null
+    esl_content: null
+    esl_plain_text: '0'
+    esr_email_address: null
+    esr_from_name: null
+    esr_from_email_address: null
+    esr_subject: null
+    esr_content: null
+    esr_plain_text: '0'
+    form_tags: null
+    form_redirect_enable: '0'
+    form_unique_ip_maxcount: '0'
+    form_unique_ip_period: '0'
+    form_captcha_type: r
+    form_theme_id: '0'
+    form_resume_enable: '0'
+    form_resume_subject: Submit
+    form_resume_content: Submit
+    form_resume_from_name: Submit
+    form_resume_from_email_address: Submit
+    form_custom_script_enable: '0'
+    form_custom_script_url: ''
+    form_limit_enable: '0'
+    form_limit: '0'
+    form_label_alignment: top_label
+    form_language: english
+    form_page_total: '1'
+    form_lastpage_title: 'Untitled Page'
+    form_submit_primary_text: Submit
+    form_submit_secondary_text: Previous
+    form_submit_primary_img: ''
+    form_submit_secondary_img: ''
+    form_submit_use_image: '0'
+    form_review_primary_text: Submit
+    form_review_secondary_text: Previous
+    form_review_primary_img: ''
+    form_review_secondary_img: ''
+    form_review_use_image: '0'
+    form_review_title: 'Review Your Entry'
+    form_review_description: 'Please review your entry below. Click Submit button to finish.'
+    form_pagination_type: steps
+    form_schedule_enable: '0'
+    form_schedule_start_hour: '00:00:00'
+    form_schedule_end_hour: '00:00:00'
+    esl_enable: '0'
+    esr_enable: '0'
+    payment_enable_merchant: '-1'
+    payment_merchant_type: pesaflow_standard
+    payment_paypal_email: ''
+    payment_paypal_language: US
+    payment_currency: KES
+    payment_show_total: '1'
+    payment_total_location: top
+    payment_enable_recurring: '0'
+    payment_recurring_cycle: '1'
+    payment_recurring_unit: month
+    payment_price_type: fixed
+    payment_price_amount: '10.00'
+    payment_price_name: 'Test Submission Fee'
+    payment_enable_discount: '0'
+    logic_field_enable: '0'
+    logic_page_enable: '0'
+    payment_enable_trial: '0'
+    payment_trial_period: '1'
+    payment_trial_unit: month
+    payment_trial_amount: '0.00'
+    payment_pesapal_live_secret_key: null
+    payment_pesapal_live_public_key: null
+    payment_pesapal_test_secret_key: null
+    payment_pesapal_test_public_key: null
+    payment_pesapal_enable_test_mode: '0'
+    payment_paypal_enable_test_mode: '0'
+    payment_enable_invoice: '0'
+    payment_invoice_email: null
+    payment_delay_notifications: '1'
+    payment_ask_billing: '0'
+    payment_ask_shipping: '0'
+    payment_discount_element_id: '0'
+    form_disabled_message: null
+    payment_enable_tax: '1'
+    payment_tax_rate: '5.00'
+    payment_tax_amount: null
+    payment_discount_code: null
+    webhook_enable: null
+    payment_discount_type: null
+    payment_discount_amount: '0'
+    logic_email_enable: '0'
+    form_stage: '1'
+    form_group: '1'
+    form_department: '0'
+    form_department_stage: '0'
+    form_idn: TEST-AAAA0A1
+    form_type: '1'
+    form_code: ''
+    payment_cellulant_checkout_url: '9'
+    payment_cellulant_merchant_username: 15A0P7PU63
+    payment_cellulant_merchant_password: JFSPFJ2YLVCP3WZ
+    payment_cellulant_service_id: '29'
+    payment_jambopay_business: null
+    payment_jambopay_shared_key: null
+    logic_webhook_enable: '0'
+    logic_success_enable: '0'
+    esl_bcc_email_address: null
+    esl_replyto_email_address: null
+    esl_pdf_enable: '0'
+    esl_pdf_content: null
+    esr_bcc_email_address: null
+    esr_replyto_email_address: null
+    esr_pdf_enable: '0'
+    esr_pdf_content: null
+    payment_enable_setupfee: '0'
+    payment_setupfee_amount: '0.00'
+    payment_stripe_live_secret_key: ''
+    payment_stripe_live_public_key: ''
+    payment_stripe_test_secret_key: ''
+    payment_stripe_test_public_key: ''
+    payment_stripe_enable_test_mode: '0'
+    payment_stripe_enable_receipt: '0'
+    payment_stripe_receipt_element_id: '0'
+    payment_authorizenet_live_apiloginid: ''
+    payment_authorizenet_live_transkey: ''
+    payment_authorizenet_test_apiloginid: ''
+    payment_authorizenet_test_transkey: ''
+    payment_authorizenet_enable_test_mode: '0'
+    payment_authorizenet_save_cc_data: '0'
+    payment_braintree_live_merchant_id: ''
+    payment_braintree_live_public_key: ''
+    payment_braintree_live_private_key: ''
+    payment_braintree_live_encryption_key: ''
+    payment_braintree_test_merchant_id: ''
+    payment_braintree_test_public_key: ''
+    payment_braintree_test_private_key: ''
+    payment_braintree_test_encryption_key: ''
+    payment_braintree_enable_test_mode: '0'
+    payment_paypal_rest_live_clientid: ''
+    payment_paypal_rest_live_secret_key: ''
+    payment_paypal_rest_test_clientid: ''
+    payment_paypal_rest_test_secret_key: ''
+    payment_paypal_rest_enable_test_mode: '0'
+    payment_discount_max_usage: '0'
+    payment_discount_expiry_date: null
+  ApForms_10997:
+    form_id: 10997
+    logic_permission_enable: '0'
+    logic_workflow_enable: '1'
+    form_name: Businesses
+    form_description: 'Test description of this cyclic billing form'
+    form_name_hide: '0'
+    form_email: null
+    form_redirect: ''
+    form_success_message: 'Success! Your submission has been saved!'
+    form_password: ''
+    form_unique_ip: '0'
+    form_frame_height: '360'
+    form_has_css: '0'
+    form_captcha: '0'
+    form_active: '1'
+    form_review: '1'
+    form_default_application: '0'
+    esl_from_name: null
+    esl_from_email_address: null
+    esl_subject: null
+    esl_content: null
+    esl_plain_text: '0'
+    esr_email_address: null
+    esr_from_name: null
+    esr_from_email_address: null
+    esr_subject: null
+    esr_content: null
+    esr_plain_text: '0'
+    form_tags: null
+    form_redirect_enable: '0'
+    form_unique_ip_maxcount: '0'
+    form_unique_ip_period: '0'
+    form_captcha_type: r
+    form_theme_id: '0'
+    form_resume_enable: '0'
+    form_resume_subject: Submit
+    form_resume_content: Submit
+    form_resume_from_name: Submit
+    form_resume_from_email_address: Submit
+    form_custom_script_enable: '0'
+    form_custom_script_url: ''
+    form_limit_enable: '0'
+    form_limit: '0'
+    form_label_alignment: top_label
+    form_language: english
+    form_page_total: '1'
+    form_lastpage_title: 'Untitled Page'
+    form_submit_primary_text: Submit
+    form_submit_secondary_text: Previous
+    form_submit_primary_img: ''
+    form_submit_secondary_img: ''
+    form_submit_use_image: '0'
+    form_review_primary_text: Submit
+    form_review_secondary_text: Previous
+    form_review_primary_img: ''
+    form_review_secondary_img: ''
+    form_review_use_image: '0'
+    form_review_title: 'Review Your Entry'
+    form_review_description: 'Please review your entry below. Click Submit button to finish.'
+    form_pagination_type: steps
+    form_schedule_enable: '0'
+    form_schedule_start_hour: '00:00:00'
+    form_schedule_end_hour: '00:00:00'
+    esl_enable: '0'
+    esr_enable: '0'
+    payment_enable_merchant: '-1'
+    payment_merchant_type: pesaflow_standard
+    payment_paypal_email: ''
+    payment_paypal_language: US
+    payment_currency: KES
+    payment_show_total: '0'
+    payment_total_location: top
+    payment_enable_recurring: '0'
+    payment_recurring_cycle: '1'
+    payment_recurring_unit: month
+    payment_price_type: fixed
+    payment_price_amount: '0.00'
+    payment_price_name: 'Businesses Fee'
+    payment_enable_discount: '0'
+    logic_field_enable: '0'
+    logic_page_enable: '0'
+    payment_enable_trial: '0'
+    payment_trial_period: '1'
+    payment_trial_unit: month
+    payment_trial_amount: '0.00'
+    payment_pesapal_live_secret_key: null
+    payment_pesapal_live_public_key: null
+    payment_pesapal_test_secret_key: null
+    payment_pesapal_test_public_key: null
+    payment_pesapal_enable_test_mode: '0'
+    payment_paypal_enable_test_mode: '0'
+    payment_enable_invoice: '0'
+    payment_invoice_email: null
+    payment_delay_notifications: '1'
+    payment_ask_billing: '0'
+    payment_ask_shipping: '0'
+    payment_discount_element_id: '0'
+    form_disabled_message: null
+    payment_enable_tax: '0'
+    payment_tax_rate: '0.00'
+    payment_tax_amount: null
+    payment_discount_code: null
+    webhook_enable: null
+    payment_discount_type: null
+    payment_discount_amount: '0'
+    logic_email_enable: '0'
+    form_stage: '1'
+    form_group: '0'
+    form_department: '0'
+    form_department_stage: '0'
+    form_idn: TEST-AAAA0A1
+    form_type: '1'
+    form_code: ''
+    payment_cellulant_checkout_url: '9'
+    payment_cellulant_merchant_username: 15A0P7PU63
+    payment_cellulant_merchant_password: JFSPFJ2YLVCP3WZ
+    payment_cellulant_service_id: '29'
+    payment_jambopay_business: null
+    payment_jambopay_shared_key: null
+    logic_webhook_enable: '0'
+    logic_success_enable: '0'
+    esl_bcc_email_address: null
+    esl_replyto_email_address: null
+    esl_pdf_enable: '0'
+    esl_pdf_content: null
+    esr_bcc_email_address: null
+    esr_replyto_email_address: null
+    esr_pdf_enable: '0'
+    esr_pdf_content: null
+    payment_enable_setupfee: '0'
+    payment_setupfee_amount: '0.00'
+    payment_stripe_live_secret_key: ''
+    payment_stripe_live_public_key: ''
+    payment_stripe_test_secret_key: ''
+    payment_stripe_test_public_key: ''
+    payment_stripe_enable_test_mode: '0'
+    payment_stripe_enable_receipt: '0'
+    payment_stripe_receipt_element_id: '0'
+    payment_authorizenet_live_apiloginid: ''
+    payment_authorizenet_live_transkey: ''
+    payment_authorizenet_test_apiloginid: ''
+    payment_authorizenet_test_transkey: ''
+    payment_authorizenet_enable_test_mode: '0'
+    payment_authorizenet_save_cc_data: '0'
+    payment_braintree_live_merchant_id: ''
+    payment_braintree_live_public_key: ''
+    payment_braintree_live_private_key: ''
+    payment_braintree_live_encryption_key: ''
+    payment_braintree_test_merchant_id: ''
+    payment_braintree_test_public_key: ''
+    payment_braintree_test_private_key: ''
+    payment_braintree_test_encryption_key: ''
+    payment_braintree_enable_test_mode: '0'
+    payment_paypal_rest_live_clientid: ''
+    payment_paypal_rest_live_secret_key: ''
+    payment_paypal_rest_test_clientid: ''
+    payment_paypal_rest_test_secret_key: ''
+    payment_paypal_rest_enable_test_mode: '0'
+    payment_discount_max_usage: '0'
+    payment_discount_expiry_date: null
+ApNumberGenerator:
+  ApNumberGenerator_10002:
+    form_id: '10002'
+    service_id: '2'
+    application_number: ARN-AAA00AA6
+  ApNumberGenerator_10124:
+    form_id: '10124'
+    service_id: '0'
+    application_number: TEST-AAAA0A1
+ApPermissions:
+  ApPermissions_10124_1:
+    form_id: '10124'
+    user_id: '1'
+    edit_form: '1'
+    edit_report: '0'
+    edit_entries: '1'
+    view_entries: '1'
+  ApPermissions_10997_1:
+    form_id: '10997'
+    user_id: '1'
+    edit_form: '1'
+    edit_report: '0'
+    edit_entries: '1'
+    view_entries: '1'
+ApSettings:
+  ApSettings_1:
+    smtp_enable: '0'
+    smtp_host: localhost
+    smtp_port: '25'
+    smtp_auth: '0'
+    smtp_username: null
+    smtp_password: null
+    smtp_secure: '0'
+    upload_dir: /vagrant/web/asset_data
+    data_dir: /vagrant/web/asset_data
+    upload_dir_web: null
+    data_dir_web: null
+    organisation_name: Nakuru County Government
+    organisation_email: info.eservices@nakuru.go.ke
+    organisation_description: null
+    form_manager_max_rows: '10'
+    admin_image_url: null
+    disable_machform_link: '0'
+    machform_version: '3.3'
+    admin_theme: null
+    organisation_help: null
+    organisation_sidebar: null
+    default_form_theme_id: '0'
+    first_run: '0'
+ApSuccessLogicConditions:
+  ApSuccessLogicConditions_3_10997_1:
+    slc_id: '3'
+    form_id: '10997'
+    target_rule_id: '1'
+    element_name: element_1
+    rule_condition: is
+    rule_keyword: ''
+ApSuccessLogicOptions:
+  ApSuccessLogicOptions_3_10997_1:
+    slo_id: '3'
+    form_id: '10997'
+    rule_id: '1'
+    rule_all_any: all
+    success_type: message
+    success_message: ''
+    redirect_url: ''
+ApWebhookLogicConditions:
+  ApWebhookLogicConditions_3_10997_1:
+    wlc_id: '3'
+    form_id: '10997'
+    target_rule_id: '1'
+    element_name: element_1
+    rule_condition: is
+    rule_keyword: ''
+ApWebhookOptions:
+  ApWebhookOptions_3_10997_1_0_0_0:
+    awo_id: '3'
+    form_id: '10997'
+    rule_id: '1'
+    rule_all_any: all
+    webhook_url: ''
+    webhook_method: post
+    webhook_format: key-value
+    webhook_raw_data: ''
+    enable_http_auth: '0'
+    http_username: ''
+    http_password: ''
+    enable_custom_http_headers: '0'
+    custom_http_headers: "{\r\n  \"Content-Type\": \"text/plain\",\r\n  \"User-Agent\": \"MachForm Webhook v3.3\"\r\n}"
+    delay_notification_until_paid: '0'
+ApWebhookParameters:
+  ApWebhookParameters_9_10997_1:
+    awp_id: '9'
+    form_id: '10997'
+    rule_id: '1'
+    param_name: FormID
+    param_value: '{form_id}'
+  ApWebhookParameters_10_10997_1:
+    awp_id: '10'
+    form_id: '10997'
+    rule_id: '1'
+    param_name: EntryNumber
+    param_value: '{entry_no}'
+  ApWebhookParameters_11_10997_1:
+    awp_id: '11'
+    form_id: '10997'
+    rule_id: '1'
+    param_name: DateCreated
+    param_value: '{date_created}'
+  ApWebhookParameters_12_10997_1:
+    awp_id: '12'
+    form_id: '10997'
+    rule_id: '1'
+    param_name: IpAddress
+    param_value: '{ip_address}'
+ApWorkflowLogicConditions:
+  ApWorkflowLogicConditions_5:
+    form_id: '10997'
+    target_element_id: '2'
+    element_name: '1'
+    rule_condition: is
+    rule_keyword: 'Override 1'
+  ApWorkflowLogicConditions_6:
+    form_id: '10997'
+    target_element_id: '2'
+    element_name: '1'
+    rule_condition: is
+    rule_keyword: 'Override 2'
+  ApWorkflowLogicConditions_7:
+    form_id: '10997'
+    target_element_id: '2'
+    element_name: '1'
+    rule_condition: is
+    rule_keyword: 'Override 3'
+ApWorkflowLogicElements:
+  ApWorkflowLogicElements_10997_2:
+    form_id: '10997'
+    element_id: '2'
+    rule_show_hide: show
+    rule_all_any: all
+SfGuardUser:
+  sfGuardUser_1:
+    id: 1
+    email_address: thomasjgx@gmail.com
+    username: '25649245'
+SfGuardUserProfile:
+  SfGuardUserProfile_1:
+    user_id: 1
+    email: thomasjgx@gmail.com
+    fullname: 'THOMAS ISAAC JUMA'
+    validate: null
+    created_at: '2017-07-04 00:00:00'
+    updated_at: '2017-07-04 00:00:00'
+    mobile: '+254703138826'
+    registeras: '1'
+Buttons:
+  Buttons_1:
+    img: ''
+    title: 'Send to Submissions'
+    tooltip: ''
+    link: '/backend.php/forms/move?moveto=2'
+  Buttons_2:
+    img: ''
+    title: 'Send to Review'
+    tooltip: ''
+    link: '/backend.php/forms/move?moveto=3'
+  Buttons_3:
+    img: ''
+    title: 'Send to Corrections'
+    tooltip: ''
+    link: '/backend.php/forms/move?moveto=6'
+  Buttons_4:
+    img: ''
+    title: 'Send to Submissions'
+    tooltip: ''
+    link: '/backend.php/forms/move?moveto=2'
+  Buttons_5:
+    img: ''
+    title: 'Send to Approved'
+    tooltip: ''
+    link: '/backend.php/forms/move?moveto=4'
+  Buttons_6:
+    img: ''
+    title: 'Send to Rejected'
+    tooltip: ''
+    link: '/backend.php/forms/move?moveto=5'
+SubMenuButtons:
+  SubMenuButtons_1:
+    Submenu: SubMenus_1
+    Button: Buttons_1
+    order_no: '0'
+    backend: '0'
+  SubMenuButtons_2:
+    Submenu: SubMenus_2
+    Button: Buttons_2
+    order_no: '0'
+    backend: '0'
+  SubMenuButtons_3:
+    Submenu: SubMenus_2
+    Button: Buttons_3
+    order_no: '0'
+    backend: '0'
+  SubMenuButtons_4:
+    Submenu: SubMenus_6
+    Button: Buttons_4
+    order_no: '0'
+    backend: '0'
+  SubMenuButtons_5:
+    Submenu: SubMenus_3
+    Button: Buttons_5
+    order_no: '0'
+    backend: '0'
+  SubMenuButtons_6:
+    Submenu: SubMenus_3
+    Button: Buttons_6
+    order_no: '0'
+    backend: '0'
+Menus:
+  Menus_1:
+    title: 'Test Workflow'
+    service_type: '1'
+    service_form: '0'
+    service_number: AAA00AA1
+    service_fee_field: '0'
+    order_no: '0'
+  Menus_2:
+    title: 'Test Renewal Service'
+    service_type: '2'
+    service_form: '10997'
+    service_number: ARN-AAA00AA1
+    service_fee_field: '2'
+    order_no: '0'
+ServiceFees:
+  ServiceFees_1:
+    Menus: Menus_2
+    ApFormElements: ApFormElements_10997_2
+    ApElementOptions: ApElementOptions_7
+    total_amount: '10.00'
+  ServiceFees_2:
+    Menus: Menus_2
+    ApFormElements: ApFormElements_10997_2
+    ApElementOptions: ApElementOptions_8
+    total_amount: '20.00'
+  ServiceFees_3:
+    Menus: Menus_2
+    ApFormElements: ApFormElements_10997_2
+    ApElementOptions: ApElementOptions_9
+    total_amount: '30.00'
+SubMenus:
+  SubMenus_1:
+    title: Payments
+    order_no: '0'
+    max_duration: '0'
+    deleted: '0'
+    change_identifier: '0'
+    new_identifier: null
+    new_identifier_start: null
+    Menus: Menus_1
+    hide_comments: '0'
+    allow_edit: '0'
+    stage_type: '3'
+    stage_property: '0'
+    stage_expired_movement: '0'
+    stage_type_movement: '0'
+    stage_type_notification: null
+    stage_type_movement_fail: '0'
+  SubMenus_2:
+    title: Submissions
+    order_no: '1'
+    max_duration: '0'
+    deleted: '0'
+    change_identifier: '0'
+    new_identifier: null
+    new_identifier_start: null
+    Menus: Menus_1
+    hide_comments: '0'
+    allow_edit: '0'
+    stage_type: '1'
+    stage_property: '0'
+    stage_expired_movement: '0'
+    stage_type_movement: '0'
+    stage_type_notification: null
+    stage_type_movement_fail: '0'
+  SubMenus_3:
+    title: Review
+    order_no: '2'
+    max_duration: '0'
+    deleted: '0'
+    change_identifier: '0'
+    new_identifier: null
+    new_identifier_start: null
+    Menus: Menus_1
+    hide_comments: '0'
+    allow_edit: '0'
+    stage_type: '2'
+    stage_property: '0'
+    stage_expired_movement: '0'
+    stage_type_movement: '0'
+    stage_type_notification: null
+    stage_type_movement_fail: '0'
+  SubMenus_4:
+    title: Approved
+    order_no: '3'
+    max_duration: '0'
+    deleted: '0'
+    change_identifier: '0'
+    new_identifier: null
+    new_identifier_start: null
+    Menus: Menus_1
+    hide_comments: '0'
+    allow_edit: '0'
+    stage_type: '4'
+    stage_property: '0'
+    stage_expired_movement: '0'
+    stage_type_movement: '0'
+    stage_type_notification: null
+    stage_type_movement_fail: '0'
+  SubMenus_5:
+    title: Rejected
+    order_no: '4'
+    max_duration: '0'
+    deleted: '0'
+    change_identifier: '0'
+    new_identifier: null
+    new_identifier_start: null
+    Menus: Menus_1
+    hide_comments: '0'
+    allow_edit: '0'
+    stage_type: '6'
+    stage_property: '0'
+    stage_expired_movement: '0'
+    stage_type_movement: '0'
+    stage_type_notification: null
+    stage_type_movement_fail: '0'
+  SubMenus_6:
+    title: Corrections
+    order_no: '5'
+    max_duration: '0'
+    deleted: '0'
+    change_identifier: '0'
+    new_identifier: null
+    new_identifier_start: null
+    Menus: Menus_1
+    hide_comments: '0'
+    allow_edit: '0'
+    stage_type: '5'
+    stage_property: '0'
+    stage_expired_movement: '0'
+    stage_type_movement: '0'
+    stage_type_notification: null
+    stage_type_movement_fail: '0'
+  SubMenus_7:
+    title: Payments
+    order_no: '7'
+    max_duration: '0'
+    deleted: '0'
+    change_identifier: '0'
+    new_identifier: ''
+    new_identifier_start: ''
+    Menus: Menus_2
+    hide_comments: '0'
+    allow_edit: '0'
+    stage_type: '1'
+    stage_property: '0'
+    stage_expired_movement: '0'
+    stage_type_movement: '0'
+    stage_type_notification: ''
+    stage_type_movement_fail: '0'
+CfUser:
+  CfUser_1:
+    strlastname: Administrator
+    strfirstname: System
+    stremail: thomasjgx@gmail.com
+    naccesslevel: '0'
+    struserid: admin
+    strpassword: $2y$10$T/et1IcOoeoOhNqg71Tkx.s50aNi2vLN9uy9g/f//mmauqydrXjL6
+    stremail_format: ''
+    stremail_values: ''
+    nsubstitudeid: '0'
+    tslastaction: '1499173150'
+    bdeleted: '0'
+    strstreet: ''
+    strcountry: ''
+    strzipcode: ''
+    strcity: ''
+    strphone_main1: ''
+    strphone_main2: ''
+    strphone_mobile: ''
+    strfax: ''
+    strorganisation: ''
+    strdepartment: '1'
+    strcostcenter: ''
+    userdefined1_value: ''
+    userdefined2_value: ''
+    nsubstitutetimevalue: '0'
+    strsubstitutetimeunit: '0'
+    busegeneralsubstituteconfig: '0'
+    busegeneralemailconfig: '0'
+    enable_email: '0'
+    enable_chat: '0'
+    about_me: ''
+    profile_pic: ''
+    address: ''
+    twitter: ''
+    facebook: ''
+    youtube: ''
+    linkedin: ''
+    pinterest: ''
+    instagram: ''
+    strtoken: ''
+    strtemppassword: ''
+Content:
+  Content_6:
+    id: 1
+    parent_id: '0'
+    created_on: null
+    published: '1'
+    menu_index: null
+    url: ''
+    top_article: "<section class=\"container\">\r\n<div class=\"icon-top-title aligncenter sixteen columns\">\r\n<hr class=\"vertical-space1\" />\r\n<h3><strong>Welcome to the Ministry of Software and Workflow Development.</strong></h3>\r\n\r\n<h3 class=\"slight\">You can now access the Ministry&#39;s services using your eCitizen account.</h3>\r\n\r\n<h6><strong>Apply and pay for your Ministry of Software and Workflow Development licenses online.</strong></h6>\r\n<br />\r\n<a class=\"btn btn-warning\" href=\"/index.php?id=1\">Learn More about eCitizen</a>\r\n\r\n<hr class=\"vertical-space2\" /></div>\r\n<!-- /end-two columns --></section>\r\n\r\n<section class=\"blox dark\">\r\n<div class=\"container\">\r\n<div class=\"sixteen columns\">\r\n<hr class=\"vertical-space1\" /><!-- Start - Icon Boxes -->\r\n<div class=\"one_third\">\r\n<div class=\"icon-box icon-colorx\">\r\n<div class=\"icomoon-checkmark-3 \">&nbsp;</div>\r\n\r\n<h4><strong><a href=\"http://account.ecitizen.go.ke/register\">Sign Up</a></strong></h4>\r\n\r\n<p>Take a few seconds to get yourself signed up. All you need is your ID number.</p>\r\n</div>\r\n</div>\r\n\r\n<div class=\"one_third\">\r\n<div class=\"icon-box icon-colorx\">\r\n<div class=\"icomoon-unlocked-2\">&nbsp;</div>\r\n\r\n<h4><strong><a href=\"http://account.ecitizen.go.ke/login\">Sign In</a></strong></h4>\r\n\r\n<p>Sign into your account and get access to all the government services you need</p>\r\n</div>\r\n</div>\r\n\r\n<div class=\"one_third column-last\">\r\n<div class=\"icon-box icon-colorx\">\r\n<div class=\"icomoon-laptop \">&nbsp;</div>\r\n\r\n<h4><strong><a href=\"http://account.ecitizen.go.ke/register\">Apply and Pay online</a></strong></h4>\r\n\r\n<p>You can now pay online and avoid queues at the bank.</p>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</section>"
+    menu_title: Home
+    breadcrumb_title: ''
+    last_modified_on: null
+    visibility: '1'
+    deleted: '0'
+Department:
+  Department_1:
+    department_name: 'Test Department'
+    department_head: null
+ExtLocales:
+  ExtLocales_1:
+    locale_identifier: en_US
+    local_title: English
+    locale_description: null
+    is_default: '1'
+    text_align: '0'
+FormGroups:
+  FormGroups_1:
+    group_parent: '0'
+    group_name: 'Test Form Category'
+    group_description: 'Sample application forms for testing'
+Invoicetemplates:
+  Invoicetemplates_1:
+    title: 'Test Invoice'
+    applicationform: '10124'
+    applicationstage: '1'
+    content: '{inv_fee_table}'
+    max_duration: '0'
+    due_duration: '0'
+    invoice_number: '0'
+    expiration_type: null
+    payment_type: null
+  Invoicetemplates_2:
+    title: 'Test Business Invoice 1'
+    applicationform: '10997'
+    applicationstage: '7'
+    content: '{inv_fee_table}'
+    max_duration: ''
+    due_duration: ''
+    invoice_number: ''
+    expiration_type: '1'
+    payment_type: '1'
+  Invoicetemplates_3:
+    title: 'Test Business Invoice 2'
+    applicationform: '10997'
+    applicationstage: '1'
+    content: '{inv_fee_table}'
+    max_duration: ''
+    due_duration: ''
+    invoice_number: ''
+    expiration_type: '1'
+    payment_type: '1'
+MfGuardGroup:
+  MfGuardGroup_1:
+    name: 'System Administrators'
+    description: 'System administrators who will manage the system'
+MfGuardGroupPermission:
+  MfGuardGroupPermission_1_216:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_216
+  MfGuardGroupPermission_1_217:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_217
+  MfGuardGroupPermission_1_218:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_218
+  MfGuardGroupPermission_1_219:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_219
+  MfGuardGroupPermission_1_220:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_220
+  MfGuardGroupPermission_1_221:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_221
+  MfGuardGroupPermission_1_222:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_222
+  MfGuardGroupPermission_1_223:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_223
+  MfGuardGroupPermission_1_224:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_224
+  MfGuardGroupPermission_1_225:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_225
+  MfGuardGroupPermission_1_226:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_226
+  MfGuardGroupPermission_1_227:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_227
+  MfGuardGroupPermission_1_228:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_228
+  MfGuardGroupPermission_1_229:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_229
+  MfGuardGroupPermission_1_230:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_230
+  MfGuardGroupPermission_1_231:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_231
+  MfGuardGroupPermission_1_232:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_232
+  MfGuardGroupPermission_1_233:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_233
+  MfGuardGroupPermission_1_234:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_234
+  MfGuardGroupPermission_1_235:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_235
+  MfGuardGroupPermission_1_236:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_236
+  MfGuardGroupPermission_1_237:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_237
+  MfGuardGroupPermission_1_238:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_238
+  MfGuardGroupPermission_1_239:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_239
+  MfGuardGroupPermission_1_240:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_240
+  MfGuardGroupPermission_1_241:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_241
+  MfGuardGroupPermission_1_242:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_242
+  MfGuardGroupPermission_1_243:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_243
+  MfGuardGroupPermission_1_244:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_244
+  MfGuardGroupPermission_1_245:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_245
+  MfGuardGroupPermission_1_246:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_246
+  MfGuardGroupPermission_1_247:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_247
+  MfGuardGroupPermission_1_248:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_248
+  MfGuardGroupPermission_1_249:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_249
+  MfGuardGroupPermission_1_250:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_250
+  MfGuardGroupPermission_1_251:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_251
+  MfGuardGroupPermission_1_252:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_252
+  MfGuardGroupPermission_1_253:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_253
+  MfGuardGroupPermission_1_254:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_254
+  MfGuardGroupPermission_1_255:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_255
+  MfGuardGroupPermission_1_256:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_256
+  MfGuardGroupPermission_1_257:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_257
+  MfGuardGroupPermission_1_258:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_258
+  MfGuardGroupPermission_1_259:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_259
+  MfGuardGroupPermission_1_260:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_260
+  MfGuardGroupPermission_1_261:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_261
+  MfGuardGroupPermission_1_262:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_262
+  MfGuardGroupPermission_1_263:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_263
+  MfGuardGroupPermission_1_264:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_264
+  MfGuardGroupPermission_1_265:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_265
+  MfGuardGroupPermission_1_266:
+    MfGuardGroup: MfGuardGroup_1
+    MfGuardPermission: MfGuardPermission_266
+MfGuardPermission:
+  MfGuardPermission_216:
+    name: viewaudittrail
+    description: 'View Audit Trail'
+  MfGuardPermission_217:
+    name: managedepartments
+    description: 'Manage Departments'
+  MfGuardPermission_218:
+    name: managepublication
+    description: 'Manage Articles'
+  MfGuardPermission_219:
+    name: manageusers
+    description: 'Manage Registered Members'
+  MfGuardPermission_220:
+    name: managegroups
+    description: 'Manage Groups'
+  MfGuardPermission_221:
+    name: manageroles
+    description: 'Manage Roles'
+  MfGuardPermission_222:
+    name: manageforms
+    description: 'Manage Forms'
+  MfGuardPermission_223:
+    name: managefees
+    description: 'Manage Fees'
+  MfGuardPermission_224:
+    name: managepermits
+    description: 'Manage Permits'
+  MfGuardPermission_225:
+    name: manageconditions
+    description: 'Manage Conditions'
+  MfGuardPermission_226:
+    name: manageplots
+    description: 'Manage Plots'
+  MfGuardPermission_227:
+    name: managereviewers
+    description: 'Manage Reviewers'
+  MfGuardPermission_228:
+    name: managecommentsheets
+    description: 'Manage Comment Sheets'
+  MfGuardPermission_229:
+    name: managestages
+    description: 'Manage Stages'
+  MfGuardPermission_230:
+    name: manageactions
+    description: 'Manage Actions'
+  MfGuardPermission_231:
+    name: managenotifications
+    description: 'Manage Notifications'
+  MfGuardPermission_232:
+    name: managewebpages
+    description: 'Manage Web Pages'
+  MfGuardPermission_233:
+    name: managefaqs
+    description: 'Manage FAQs'
+  MfGuardPermission_234:
+    name: managenews
+    description: 'Manage News Articles'
+  MfGuardPermission_235:
+    name: has_hod_access
+    description: 'Has Access to Head of Department Functions'
+  MfGuardPermission_236:
+    name: transfer_applications
+    description: 'Able to transfer ownership of applications between users'
+  MfGuardPermission_237:
+    name: editapplication
+    description: 'Edit Applications'
+  MfGuardPermission_238:
+    name: assigntask
+    description: 'Assign tasks'
+  MfGuardPermission_239:
+    name: createapplications
+    description: 'Create applications from backend'
+  MfGuardPermission_240:
+    name: access_applications
+    description: 'Access Applications Menu'
+  MfGuardPermission_241:
+    name: access_tasks
+    description: 'Access Tasks Menu'
+  MfGuardPermission_242:
+    name: access_members
+    description: 'Access Clients Page'
+  MfGuardPermission_243:
+    name: access_reviewers
+    description: 'Access Reviewers Page'
+  MfGuardPermission_244:
+    name: access_reports
+    description: 'Access Reports Menu'
+  MfGuardPermission_245:
+    name: access_help
+    description: 'Access Help Menu'
+  MfGuardPermission_246:
+    name: access_settings
+    description: 'Access Settings Menu'
+  MfGuardPermission_247:
+    name: access_content
+    description: 'Access Content Menu'
+  MfGuardPermission_248:
+    name: access_forms
+    description: 'Access Forms Menu'
+  MfGuardPermission_249:
+    name: access_security
+    description: 'Access Security Menu'
+  MfGuardPermission_250:
+    name: managelanguages
+    description: 'Manage Languages'
+  MfGuardPermission_251:
+    name: manageannouncements
+    description: 'Manage Announcements'
+  MfGuardPermission_252:
+    name: manageformgroups
+    description: 'Manage Form Groups'
+  MfGuardPermission_253:
+    name: manageinvoices
+    description: 'Manage Invoice Templates'
+  MfGuardPermission_254:
+    name: managereports
+    description: 'Manage Reports'
+  MfGuardPermission_255:
+    name: managecategories
+    description: 'Manage User Categories'
+  MfGuardPermission_256:
+    name: access_workflow
+    description: 'Access Workflow Menu'
+  MfGuardPermission_257:
+    name: approvepayments
+    description: 'Approve Payments'
+  MfGuardPermission_258:
+    name: addtopup
+    description: 'Add topup to applications directly without task'
+  MfGuardPermission_259:
+    name: accessmenu1
+    description: 'Access to Test Workflow stage'
+  MfGuardPermission_260:
+    name: accesssubmenu1
+    description: 'Access to Payments sub stage'
+  MfGuardPermission_261:
+    name: accesssubmenu2
+    description: 'Access to Submissions sub stage'
+  MfGuardPermission_262:
+    name: accesssubmenu3
+    description: 'Access to Review sub stage'
+  MfGuardPermission_263:
+    name: accesssubmenu4
+    description: 'Access to Approved sub stage'
+  MfGuardPermission_264:
+    name: accesssubmenu5
+    description: 'Access to Rejected sub stage'
+  MfGuardPermission_265:
+    name: accesssubmenu6
+    description: 'Access to Corrections sub stage'
+  MfGuardPermission_266:
+    name: accessmenu2
+    description: 'Access to Test Renewal Service menu'
+MfGuardUserGroup:
+  MfGuardUserGroup_1_1:
+    CfUser: CfUser_1
+    MfGuardGroup: MfGuardGroup_1
+PenaltyTemplate:
+  PenaltyTemplate_1:
+    description: 'Test Penalty 1'
+    Template: Permits_2
+    trigger_type: '2'
+    trigger_period: '1'
+    penalty_type: '2'
+    penalty_amount: '10'
+  PenaltyTemplate_2:
+    description: 'Test Penalty 2'
+    Template: Permits_2
+    trigger_type: '2'
+    trigger_period: '2'
+    penalty_type: '2'
+    penalty_amount: '12'
+  PenaltyTemplate_3:
+    description: 'Test Penalty 3'
+    Template: Permits_2
+    trigger_type: '2'
+    trigger_period: '3'
+    penalty_type: '2'
+    penalty_amount: '13'
+Permits:
+  Permits_1:
+    title: 'Test Permit'
+    applicationform: '10124'
+    SubMenu: SubMenus_4
+    parttype: '1'
+    content: "Test Permit:<br />\r\n{ap_application_id}"
+    footer: '0'
+    max_duration: '0'
+    remote_url: ''
+    remote_field: ''
+    remote_username: ''
+    remote_password: ''
+    remote_request_type: ''
+    expiration_type: null
+    page_type: ''
+    page_orientation: ''
+    qr_content: ''
+    expiry_type: null
+    expiry_trigger: null
+  Permits_2:
+    title: 'Test Business Permit 1'
+    applicationform: '10997'
+    SubMenu: SubMenus_7
+    parttype: '1'
+    content: 'Test Business Permit 1'
+    footer: ''
+    max_duration: ''
+    remote_url: ''
+    remote_field: ''
+    remote_username: ''
+    remote_password: ''
+    remote_request_type: ''
+    expiration_type: '1'
+    page_type: A4
+    page_orientation: potrait
+    qr_content: ''
+    expiry_type: null
+    expiry_trigger: '0'
+  Permits_3:
+    title: 'Test Business Permit 2'
+    applicationform: '10997'
+    SubMenu: SubMenus_4
+    parttype: '1'
+    content: 'Test Business Permit 2'
+    footer: ''
+    max_duration: ''
+    remote_url: ''
+    remote_field: ''
+    remote_username: ''
+    remote_password: ''
+    remote_request_type: ''
+    expiration_type: '1'
+    page_type: A4
+    page_orientation: potrait
+    qr_content: ''
+    expiry_type: null
+    expiry_trigger: '0'

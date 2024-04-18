@@ -1,0 +1,5 @@
+settings:
+  is_secure: false
+userresendvalidationemail:
+  is_secure: false
+

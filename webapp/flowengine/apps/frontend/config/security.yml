@@ -1,0 +1,49 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/08-Security
+
+default:
+  is_secure: true
+apply:
+  is_secure: false
+captcha:
+  is_secure: false
+architects:
+  is_secure: false
+approvals:
+  is_secure: false
+profile:
+  is_secure: false
+resetRequest:
+  is_secure: false
+confirm:
+  is_secure: false
+reset:
+  is_secure: false
+search:
+  is_secure: false
+validation:
+  is_secure: false
+checkusername:
+  is_secure: false
+checkemail:
+  is_secure: false
+faq:
+  is_secure: false
+contact:
+  is_secure: false
+pesapalipn:
+  is_secure: false
+jambopayipn:
+  is_secure: false
+openrequest:
+  is_secure: false
+querydailytotal:
+  is_secure: false
+queryperiodtotal:
+  is_secure: false
+querytransaction:
+  is_secure: false
+confirmtransaction:
+  is_secure: false
+updatetransaction:
+  is_secure: false

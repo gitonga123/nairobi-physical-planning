@@ -1,0 +1,26 @@
+all:
+  sms_api_key: %sms_api_key%
+  sms_shortcode: %sms_shortcode%
+  sms_url: %sms_url%
+  merchant_username: %merchant_username%
+  merchant_pwd: %merchant_pwd%
+  country_code: %country_code%
+  ifc_server: %ifc_server%
+  ifc_user: %ifc_user%
+  ifc_tkn: %ifc_tkn%
+  docusign_user_id: %docusign_user_id%
+  docusign_api_account_id: %docusign_api_account_id%
+  docusign_integration_key: %docusign_integration_key%
+  docusign_secret_key: %docusign_secret_key%
+  docusign_path: %docusign_path%
+
+  hellosign_client_id: %hellosign_client_id%
+  hellosign_api_key: %hellosign_api_key%
+
+  signing_agent: docusign
+  docusign_un_signed_files_store: app/permits/unsigned/
+  docusign_signed_files_store: app/permits/signed/
+  hellosign_useremail: %hellosign_useremail%
+  hellosign_username: %hellosign_username%
+
+  google_analytics_id: %google_analytics_id%

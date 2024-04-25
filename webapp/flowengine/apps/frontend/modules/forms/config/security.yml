@@ -1,0 +1,8 @@
+pesapalipn:
+  is_secure: false
+download:
+  is_secure: false
+upload:
+  is_secure: false
+filterdropdown:
+  is_secure: false

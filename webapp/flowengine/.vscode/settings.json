@@ -1,0 +1,30 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5438,
+            "driver": "PostgreSQL",
+            "name": "mwenda_db_instance",
+            "group": "postgres",
+            "database": "mwenda",
+            "username": "postgres",
+            "password": "newPassword"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "mysql-docker",
+            "group": "MYSQL",
+            "database": "nakuru_cp",
+            "username": "root",
+            "password": "daniel123"
+        }
+    ]
+}

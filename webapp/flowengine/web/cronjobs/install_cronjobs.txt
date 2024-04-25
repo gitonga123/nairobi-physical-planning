@@ -1,0 +1,13 @@
+Step 1: Edit crontab entries
+- crontab -e
+
+Step 2: Insert the cronjobs
+- 00 */3 * * * php ~/permitflow/html/cronjobs/update_duplicates.php
+- 00 01 * * * php ~/permitflow/html/cronjobs/update_remote.php 2014-10-01 2014-10-30 1592
+- 00 00 * * * php ~/permitflow/html/cronjobs/update_expiry.php
+- 00 00 * * * php ~/permitflow/html/cronjobs/update_stage_expiry.php stage_id
+- 0 */2 * * * php ~/permitflow/html/cronjobs/send_notifications.php
+- 00 00 * * * php ~/permitflow/html/cronjobs/pesaflow_reconcile_daily.php
+- 0 0 1 * * php ~/permitflow/html/cronjobs/pesaflow_reconcile_monthly.php
+
+Step 3: Save

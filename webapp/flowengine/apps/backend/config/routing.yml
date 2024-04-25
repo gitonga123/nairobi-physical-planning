@@ -1,0 +1,35 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+homepage:
+  url:   /
+  param: { module: dashboard, action: index }
+
+sf_guard_signin:
+  url:   /login
+  param: { module: login, action: index }
+
+sf_guard_signout:
+  url: /logout 
+  param: { module: login, action: logout }
+
+install_step_one:
+  url: /install 
+  param: { module: install, action: index }
+
+dashboard:
+  url: /dashboard 
+  param: { module: dashboard, action: index }
+  
+apply2:
+  url:  /apply2
+  param: { module: sfApply, action: apply2 }
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

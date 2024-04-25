@@ -1,0 +1,17 @@
+curl -X 'POST' \
+  'https://api.dev.malipo.org/circles/v1/merchant/payment/circle/LGEE6/payment-request-link' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im1hbGlwby1zYW5kYm94LWtleS1pZCIsImlzcyI6Imh0dHBzOi8vYXBpLmRldi5tYWxpcG8ub3JnL2F1dGgvLndlbGwta25vd24vandrcy5qc29uIn0.eyJhdWQiOlsibWFsaXBvX2NoZWNrb3V0cyIsIm1hbGlwb19leHBlcmllbmNlcyIsIm1hbGlwb19wYXltZW50cyIsIm1hbGlwb19kb2N1bWVudHMiLCJtYWxpcG9fYWNjb3VudHMiLCJtYWxpcG9fb3JnYW5pc2F0aW9ucyIsIm1hbGlwb19tZXJjaGFudHMiLCJtYWxpcG9fYXV0aCIsIm1hbGlwb19ub3RpZmljYXRpb25zIiwibWFsaXBvX2NpcmNsZXMiXSwibmFtZToiOiJNV0VORElBIElSVU5HVUgiLCJ1c2VyX25hbWUiOiJjb2RlYm9uaWJveUBnbWFpbC5jb20iLCJzY29wZSI6WyJtYWxpcG8tY2lyY2xlczpyZWFkIiwibWFsaXBvLWNpcmNsZXM6d3JpdGUiXSwiZW1haWw6IjoiY29kZWJvbmlib3lAZ21haWwuY29tIiwiZXhwIjoxNjg2Mzg5OTE4LCJ1c2VySWQiOiJPM0pORSIsImF1dGhvcml0aWVzIjpbIlVTRVIiXSwianRpIjoiNmU4OWJiNGEtYTk2Yy00OGZhLThiMjUtYTU2NTQ1ZmIyNTg1IiwiY2xpZW50X2lkIjoic3dhZ2dlckNsaWVudElkIn0.Lb4aMGf1S6cRFCIKvPt8BY2-uV3XaSWrdxEYzaPyDAyKR0dvBKyTscPVkKlCFlzJz-V28y9qKMwdaOT_W_vX9kDBvFASEt4rKJwnG5qRfIkMyT-80Vp9jrimtgCNZaabjiFLMbKseFftjX8UeRxFZtjvKTTn3-MB8P98znpi7ck817GSI-KOMp8kcVmH20axx7pMrAt05CM7vBwIIjNgolVJ82FtYQ0wJ-cG86BPV8TFmC_PEaI-AX6tMW54W2Ngfs5QwyhEgqrQYko74LS3MuPaIpHUVl8WTZGAj7hXnDz3pC4W90HUzYqwkK9Ju9_cTvWeWOlHlI6PQblL7t7k_Q' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "phoneNumber": "+254712122743",
+  "description": "Overdue Payment",
+  "checkoutItems": [
+    {
+      "name": "Loan Repayment",
+      "unitPrice": 500,
+      "quantity": 2,
+      "description": "Please confirm payment"
+    }
+  ]
+}'

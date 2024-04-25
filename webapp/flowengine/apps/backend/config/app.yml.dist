@@ -1,0 +1,17 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  sso: false
+  two_factor: false
+  currency: %currency%
+
+  business_filters: 66/65
+  api_key: %bi_apikey%
+  report_url: %server_name%:3000
+  
+  ifc_user: demo
+  ifc_user_api: dBEapvsdvRGRfAHL9QqAsrX7kR3F9KZdUYps9DV5Bd7Hk5PGpFdhrVsGbywV4F9Q9vrvpP
+#  custom_link: /statistics/web/backend.php
+#  custom_link_title: Management Reports and Statistics

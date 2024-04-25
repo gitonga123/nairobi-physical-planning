@@ -1,0 +1,796 @@
+<?php
+
+/**
+ * MobileAPP actions.
+ *
+ * @package    permit
+ * @subpackage news
+ * @author     Your name here
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
+class mobileappActions extends sfActions
+{
+  public function executeGetform(sfWebRequest $request)
+  {
+	error_log('-------------Getform----------------');
+	$prefix_folder = dirname(__FILE__)."/../../../../../lib/vendor/form_builder/";
+	  $user = $this->getUser();
+	  if(!$user || !$user->isAuthenticated()){
+		  $this->authenticationRequired($request);
+		  exit();
+	  }
+
+	require($prefix_folder.'../../../config/form_builder_config.php');
+      require($prefix_folder.'includes/db-core.php');
+      require($prefix_folder.'includes/helper-functions.php');
+		$form_id = $request->getParameter('form_id');
+		#$application_id = $request->getParameter('application_id');
+		$page_number = $request->getParameter('page_number') ? $request->getParameter('page_number') : 0;
+		$dbh 		= mf_connect_db();
+
+		//get elements data
+		//get element options first and store it into array
+		$query = "SELECT
+		        aeo_id,
+						element_id,
+						option_id,
+						`position`,
+						`option`,
+						option_is_default
+				    FROM
+				    	ap_element_options
+				   where
+				   		form_id = ? and live=1
+				order by
+						element_id asc,`option` asc";
+		$params = array($form_id);
+
+		$sth = mf_do_query($query,$params,$dbh);
+		while($row = mf_do_fetch_result($sth)){
+			$element_id = $row['element_id'];
+			$option_id  = $row['option_id'];
+			$options_lookup[$element_id][$option_id]['aeo_id'] 		  = $row['aeo_id'];
+			$options_lookup[$element_id][$option_id]['position'] 		  = $row['position'];
+			$options_lookup[$element_id][$option_id]['option'] 			  = $row['option'];
+
+
+
+			$sql = "SELECT * FROM ext_translations WHERE field_id = ? AND option_id = ? AND field_name = 'option' AND table_class = 'ap_element_options' AND locale = ?";
+			$params = array($row['aeo_id'], $option_id, $locale);
+			$translation_sth = mf_do_query($sql,$params,$dbh);
+			$translation_row = mf_do_fetch_result($translation_sth);
+			if($translation_row)
+			{
+				$options_lookup[$element_id][$option_id]['option']  = $translation_row['trl_content'];
+			}
+
+			$options_lookup[$element_id][$option_id]['option_is_default'] = $row['option_is_default'];
+
+			if(isset($element_prices_array[$element_id][$option_id])){
+				$options_lookup[$element_id][$option_id]['price_definition'] = $element_prices_array[$element_id][$option_id];
+			}
+		}
+
+		//get elements data
+		$element = array();
+
+		if($page_number === 0){ //if page_number is 0, display all pages (this is being used on edit_entry page)
+			$page_number_clause = '';
+			$params = array($form_id);
+		}else{
+			$page_number_clause = 'and element_page_number = ?';
+			$params = array($form_id,$page_number);
+		}
+
+		$query = "SELECT
+						element_id,
+						element_title,
+						element_guidelines,
+						element_size,
+						element_is_required,
+						element_is_unique,
+						element_is_private,
+						element_type,
+						element_position,
+						element_default_value,
+						element_constraint,
+						element_choice_has_other,
+						element_choice_other_label,
+						element_choice_columns,
+						element_time_showsecond,
+						element_time_24hour,
+						element_address_hideline2,
+						element_address_us_only,
+						element_date_enable_range,
+						element_date_range_min,
+						element_date_range_max,
+						element_date_enable_selection_limit,
+						element_date_selection_max,
+						element_date_disable_past_future,
+						element_date_past_future,
+						element_date_disable_weekend,
+						element_date_disable_specific,
+						element_date_disabled_list,
+						element_file_enable_type_limit,
+						element_file_block_or_allow,
+						element_file_type_list,
+						element_file_as_attachment,
+						element_file_enable_advance,
+						element_file_auto_upload,
+						element_file_enable_multi_upload,
+						element_file_max_selection,
+						element_file_enable_size_limit,
+						element_file_size_max,
+						element_matrix_allow_multiselect,
+						element_matrix_parent_id,
+						element_range_min,
+						element_range_max,
+						element_range_limit_by,
+						element_css_class,
+						element_section_display_in_email,
+						element_section_enable_scroll,
+						element_number_enable_quantity,
+						element_number_quantity_link,
+						element_table_name,
+						element_field_value,
+						element_field_name,
+						element_option_query,
+						element_existing_form,
+						element_existing_stage
+					FROM
+						ap_form_elements
+				   WHERE
+				   		form_id = ? and element_status='1' {$page_number_clause} and element_type <> 'page_break'
+				ORDER BY
+						element_position asc";
+
+		$sth = mf_do_query($query,$params,$dbh);
+
+		$j=0;
+		$has_calendar = false; //assume the form doesn't have calendar, so it won't load calendar.js
+		$has_advance_uploader = false;
+		$has_signature_pad = false;
+		$has_guidelines = false;
+
+		while($row = mf_do_fetch_result($sth)){
+
+			$element[$j] = new stdClass();
+
+			$element_id = $row['element_id'];
+
+			//lookup element options first
+			if(!empty($options_lookup[$element_id])){
+				$element_options = array();
+				$i=0;
+				foreach ($options_lookup[$element_id] as $option_id=>$data){
+					$element_options[$i] = new stdClass();
+					$element_options[$i]->id 		 = $option_id;
+					$element_options[$i]->option 	 = $data['option'];
+
+					$sql = "SELECT * FROM ext_translations WHERE field_id = ? AND option_id = ? AND field_name = 'option' AND table_class = 'ap_element_options' AND locale = ?";
+					$params = array($data['aeo_id'], $element_options[$i]->id, $locale);
+					$translation_sth = mf_do_query($sql,$params,$dbh);
+					$translation_row = mf_do_fetch_result($translation_sth);
+					if($translation_row)
+					{
+						$element_options[$i]->option = $translation_row['trl_content'];
+					}
+
+					$element_options[$i]->is_default = $data['option_is_default'];
+					$element_options[$i]->is_db_live = 1;
+
+					if(isset($data['price_definition'])){
+						$element_options[$i]->price_definition = $data['price_definition'];
+					}
+
+					$i++;
+				}
+			}
+
+
+			//populate elements
+			$element[$j]->title 		= nl2br($row['element_title']);
+
+			$sql = "SELECT * FROM ext_translations WHERE field_id = ? AND option_id = ? AND field_name = 'element_title' AND table_class = 'ap_form_elements' AND locale = ?";
+			$params = array($form_id, $element_id, $locale);
+			$translation_sth = mf_do_query($sql,$params,$dbh);
+			$translation_row = mf_do_fetch_result($translation_sth);
+			if($translation_row)
+			{
+				$element[$j]->title = $translation_row['trl_content'];
+			}
+
+
+			$element[$j]->guidelines 	= $row['element_guidelines'];
+
+			if(!empty($row['element_guidelines']) && ($row['element_type'] != 'section') && ($row['element_type'] != 'matrix') && empty($row['element_is_private'])){
+				$has_guidelines = true;
+			}
+
+			$element[$j]->size 			= $row['element_size'];
+			$element[$j]->is_required 	= $row['element_is_required'];
+			$element[$j]->is_unique 	= $row['element_is_unique'];
+			$element[$j]->is_private 	= $row['element_is_private'];
+			$element[$j]->type 			= $row['element_type'];
+			$element[$j]->position 		= $row['element_position'];
+			$element[$j]->id 			= $row['element_id'];
+			$element[$j]->is_db_live 	= 1;
+			$element[$j]->form_id 		= $form_id;
+			$element[$j]->choice_has_other   = (int) $row['element_choice_has_other'];
+			$element[$j]->choice_other_label = $row['element_choice_other_label'];
+			$element[$j]->choice_columns   	 = (int) $row['element_choice_columns'];
+			$element[$j]->time_showsecond    = (int) $row['element_time_showsecond'];
+			$element[$j]->time_24hour    	 = (int) $row['element_time_24hour'];
+			$element[$j]->address_hideline2	 = (int) $row['element_address_hideline2'];
+			$element[$j]->address_us_only	 = (int) $row['element_address_us_only'];
+			$element[$j]->date_enable_range	 = (int) $row['element_date_enable_range'];
+			$element[$j]->date_range_min	 = $row['element_date_range_min'];
+			$element[$j]->date_range_max	 = $row['element_date_range_max'];
+			$element[$j]->date_enable_selection_limit	 = (int) $row['element_date_enable_selection_limit'];
+			$element[$j]->date_selection_max	 		 = (int) $row['element_date_selection_max'];
+			$element[$j]->date_disable_past_future	 	= (int) $row['element_date_disable_past_future'];
+			$element[$j]->date_past_future	 			= $row['element_date_past_future'];
+			$element[$j]->date_disable_weekend	 		= (int) $row['element_date_disable_weekend'];
+			$element[$j]->date_disable_specific	 		= (int) $row['element_date_disable_specific'];
+			$element[$j]->date_disabled_list	 		= $row['element_date_disabled_list'];
+			$element[$j]->file_enable_type_limit	 	= (int) $row['element_file_enable_type_limit'];
+			$element[$j]->file_block_or_allow	 		= $row['element_file_block_or_allow'];
+			$element[$j]->file_type_list	 			= $row['element_file_type_list'];
+			$element[$j]->file_as_attachment	 		= (int) $row['element_file_as_attachment'];
+			$element[$j]->file_enable_advance	 		= (int) $row['element_file_enable_advance'];
+			$element[$j]->table_name	 		= $row['element_table_name'];
+			$element[$j]->field_value	 		= $row['element_field_value'];
+			$element[$j]->field_name	 		= $row['element_field_name'];
+			$element[$j]->option_query	 		= $row['element_option_query'];
+			$element[$j]->existing_form	 		= $row['element_existing_form'];
+			$element[$j]->existing_stage	 		= $row['element_existing_stage'];
+
+			if(!empty($element[$j]->file_enable_advance) && ($row['element_type'] == 'file')){
+				$has_advance_uploader = true;
+			}
+
+			$element[$j]->file_auto_upload	 			= (int) $row['element_file_auto_upload'];
+			$element[$j]->file_enable_multi_upload	 	= (int) $row['element_file_enable_multi_upload'];
+			$element[$j]->file_max_selection	 		= (int) $row['element_file_max_selection'];
+			$element[$j]->file_enable_size_limit	 	= (int) $row['element_file_enable_size_limit'];
+			$element[$j]->file_size_max	 				= (int) $row['element_file_size_max'];
+			$element[$j]->matrix_allow_multiselect	 	= (int) $row['element_matrix_allow_multiselect'];
+			$element[$j]->matrix_parent_id	 			= (int) $row['element_matrix_parent_id'];
+			$element[$j]->upload_dir	 				= $mf_settings['upload_dir'];
+			$element[$j]->range_min	 					= $row['element_range_min'];
+			$element[$j]->range_max	 					= $row['element_range_max'];
+			$element[$j]->range_limit_by	 			= $row['element_range_limit_by'];
+			$element[$j]->css_class	 					= $row['element_css_class'];
+			$element[$j]->machform_path	 				= $machform_path;
+			$element[$j]->machform_data_path	 		= $machform_data_path;
+			$element[$j]->section_display_in_email	 	= (int) $row['element_section_display_in_email'];
+			$element[$j]->section_enable_scroll	 		= (int) $row['element_section_enable_scroll'];
+
+			if(!empty($form->payment_enable_merchant) && !empty($row['element_number_enable_quantity']) && !empty($row['element_number_quantity_link'])){
+				$element[$j]->number_quantity_link	 	= $row['element_number_quantity_link'];
+			}
+
+			//this data came from db or form submit
+			//being used to display edit form or redisplay form with errors and previous inputs
+			//this should be optimized in the future, only pass necessary data, not the whole array
+			$element[$j]->populated_value = $populated_values;
+
+
+			//set prices for price-enabled field
+			if($row['element_type'] == 'money' && isset($element_prices_array[$row['element_id']][0])){
+				$element[$j]->price_definition = 0;
+			}
+
+			//if there is file upload type, set form enctype to multipart
+			if($row['element_type'] == 'file'){
+				$form_enc_type = 'enctype="multipart/form-data"';
+
+				//if this is single page form with review enabled or multipage form
+				if ((!empty($form->review) && !empty($_SESSION['review_id']) && !empty($populated_file_values)) ||
+					($form->page_total > 1 && !empty($populated_file_values))
+				) {
+					//populate the default value for uploaded files, when validation error occured
+
+					//make sure to keep the file token if exist
+					if(!empty($populated_values['element_'.$row['element_id']]['file_token'])){
+						$populated_file_values['element_'.$row['element_id']]['file_token'] = $populated_values['element_'.$row['element_id']]['file_token'];
+					}
+
+					$element[$j]->populated_value = $populated_file_values;
+				}
+
+				if(!empty($edit_id) && $_SESSION['mf_logged_in'] === true){
+					//if this is edit_entry page
+					$element[$j]->is_edit_entry = true;
+				}
+			}
+
+			if(!empty($error_elements[$element[$j]->id])){
+				$element[$j]->is_error 	    = 1;
+				$element[$j]->error_message = $error_elements[$element[$j]->id];
+			}
+
+
+			$element[$j]->default_value = htmlspecialchars($row['element_default_value']);
+
+
+			$element[$j]->constraint 	= $row['element_constraint'];
+			if(!empty($element_options)){
+				$element[$j]->options 	= $element_options;
+			}else{
+				$element[$j]->options 	= '';
+			}
+
+			//check for signature type
+			if($row['element_type'] == 'signature'){
+				$has_signature_pad = true;
+			}
+
+			//check for calendar type
+			if($row['element_type'] == 'date' || $row['element_type'] == 'europe_date'){
+				$has_calendar = true;
+
+				//if the field has date selection limit, we need to do query to existing entries and disable all date which reached the limit
+				if(!empty($row['element_date_enable_selection_limit']) && !empty($row['element_date_selection_max'])){
+					$sub_query = "select
+										selected_date
+									from (
+											select
+												  date_format(element_{$row['element_id']},'%m/%d/%Y') as selected_date,
+												  count(element_{$row['element_id']}) as total_selection
+										      from
+										      	  ".MF_TABLE_PREFIX."form_{$form_id}
+										     where
+										     	  status=1 and element_{$row['element_id']} is not null
+										  group by
+										  		  element_{$row['element_id']}
+										 ) as A
+								   where
+										 A.total_selection >= ?";
+					$params = array($row['element_date_selection_max']);
+					$sub_sth = mf_do_query($sub_query,$params,$dbh);
+					$current_date_disabled_list = array();
+					$current_date_disabled_list_joined = '';
+
+					while($sub_row = mf_do_fetch_result($sub_sth)){
+						$current_date_disabled_list[] = $sub_row['selected_date'];
+					}
+
+					$current_date_disabled_list_joined = implode(',',$current_date_disabled_list);
+					if(!empty($element[$j]->date_disable_specific)){ //add to existing disable date list
+						if(empty($element[$j]->date_disabled_list)){
+							$element[$j]->date_disabled_list = $current_date_disabled_list_joined;
+						}else{
+							$element[$j]->date_disabled_list .= ','.$current_date_disabled_list_joined;
+						}
+					}else{
+						//'disable specific date' is not enabled, we need to override and enable it from here
+						$element[$j]->date_disable_specific = 1;
+						$element[$j]->date_disabled_list = $current_date_disabled_list_joined;
+					}
+
+				}
+			}
+
+			//if the element is a matrix field and not the parent, store the data into a lookup array for later use when rendering the markup
+			if($row['element_type'] == 'matrix' && !empty($row['element_matrix_parent_id'])){
+
+				$parent_id 	 = $row['element_matrix_parent_id'];
+				$el_position = $row['element_position'];
+				$matrix_elements[$parent_id][$el_position]['title'] = $element[$j]->title;
+				$matrix_elements[$parent_id][$el_position]['id'] 	= $element[$j]->id;
+
+				$matrix_child_option_id = '';
+				foreach($element_options as $value){
+					$matrix_child_option_id .= $value->id.',';
+				}
+				$matrix_child_option_id = rtrim($matrix_child_option_id,',');
+				$matrix_elements[$parent_id][$el_position]['children_option_id'] = $matrix_child_option_id;
+
+				//remove it from the main element array
+				$element[$j] = array();
+				unset($element[$j]);
+				$j--;
+			}
+
+			$j++;
+		}
+
+		//add captcha if enabled
+		//on multipage form, captcha should be displayed on the last page only
+		if(!empty($form->captcha) && (empty($edit_id))){
+			if($form->page_total == 1 || ($form->page_total == $page_number)){
+				if($_SESSION['captcha_passed'][$form_id] !== true){
+					$element[$j] = new stdClass();
+					$element[$j]->type 			= 'captcha';
+					$element[$j]->captcha_type 	= $form->captcha_type;
+					$element[$j]->form_id 		= $form_id;
+					$element[$j]->is_private	= 0;
+					$element[$j]->machform_path	= $machform_path;
+
+					if(!empty($error_elements['element_captcha'])){
+						$element[$j]->is_error 	    = 1;
+						$element[$j]->error_message = $error_elements['element_captcha'];
+					}
+				}
+			}
+		}
+		
+		//generate html markup for each element
+		error_log("elemetnst gotten #### ".print_R($element,true));
+		$all_element_markup = '';
+		foreach ($element as $element_data){
+			if($element_data->is_private && empty($edit_id)){ //don't show private element on live forms
+				continue;
+			}
+
+			//if this is matrix field, build the children data from $matrix_elements array
+			if($element_data->type == 'matrix'){
+				$element_data->matrix_children = $matrix_elements[$element_data->id];
+			}
+		}
+
+		$app_json = array();
+//		$app_json['application_id'] = $application_id;
+//		$task = new Task();
+//		$task->setType(2);
+//		$task->setCreatorUserId(1);
+//		$task->setOwnerUserId(1);
+//		$task->setDuration("0");
+//		$task->setStartDate(date('Y-m-d'));
+//		$task->setEndDate(date('Y-m-d'));
+//		$task->setPriority('3');
+//		$task->setIsLeader("0");
+//		$task->setActive("1");
+//		$task->setStatus("1");
+//		$task->setLastUpdate(date('Y-m-d'));
+//		$task->setDateCreated(date('Y-m-d'));
+//		$task->setRemarks("");
+//OTB Start - save task stage
+//		$q = Doctrine_Query::create()
+//			->from('FormEntry a')
+//			->where('a.id = ?', $app_json['application_id']);
+//		$fullApplication = $q->fetchOne();
+
+
+//		$task->setTaskStage($fullApplication->getApproved());//OTB End - save task stage
+//		$task->setApplicationId($app_json['application_id']);
+//		$task->save();
+
+//		$app_json['task_id'] = $task->getId();
+//		$app_json['form_html_action'] =  $_SERVER['HTTP_HOST']."/backend.php/tasks/view/id/";
+		$app_json['field_name_prefix'] = "element_";
+		$app_json['form_elements'] = $element;
+		echo json_encode($app_json);
+		exit();
+  }
+
+	public function executeGetcsrftoken(sfWebRequest $request){
+		error_log('-------------Getcsrftoken----------------');
+		$form = new BackendSigninForm();
+		$token = $form->getCSRFToken();
+		echo json_encode(array('CSRF_token' => $token));
+		exit();
+	}
+
+	public function executeLogin(sfWebRequest $request){
+		error_log('-------------Login----------------');
+		if($request->isMethod(sfRequest::POST)) {
+			error_log('----------------POST-------------');
+			$request->setAttribute('no-redirect', true);
+			try {
+				ob_start();
+				$this->forward('login', 'index');
+			} catch(\Exception $e){
+				error_log('---------'.$e->getMessage());
+			}
+			$user = $this->getUser();
+			if ($user && $user->isAuthenticated()) {
+				error_log('-------------isAuthenticated----------');
+                                ob_end_clean();
+                                header('HTTP/1.0 200 OK');
+				echo json_encode(array('success' => 'true'));
+			} else {
+				error_log('-------------notAuthenticated----------');
+                                ob_end_clean();
+                                header('HTTP/1.0 403 Access Denied');
+				echo json_encode(array('error' => 'Athentication failed'));
+			}
+			exit();
+		} else{
+			$this->authenticationRequired($request);
+		}
+	}
+
+  public function executeGettasks(sfWebRequest $request)
+  {
+		error_log('-------------Gettasks----------------');
+		//$status = $request->getParameter('status');
+		$user = $this->getUser();
+	    if($user && $user->isAuthenticated()){
+		    $userId = $user->getAttribute('userid');
+		} else{
+			$this->authenticationRequired($request);
+		    exit();
+		}
+
+		$q = Doctrine_Query::create()
+			->from('Task a')
+			->where('a.owner_user_id = ?', $userId)
+			->andWhere('a.status = ?', 1);
+		$tasks = $q->execute();
+
+		$task_list = array();
+		
+		foreach($tasks as $task){
+			$q = Doctrine_Query::create()
+				->from('FormEntry a')
+				->where('a.id = ?', $task->getApplicationId());
+			$application = $q->fetchOne();
+			$task_obj = array();
+			if($application){
+				try
+				{
+					$q = Doctrine_Query::create()
+							->from('CfUser a')
+							->where('a.nid = ?', $userId);
+					$reviewer = $q->fetchOne();
+
+					$q = Doctrine_Query::create()
+							->from("TaskForms a")
+							->where("a.task_id = ?", $request->getParameter("taskid"));
+					$taskform = $q->fetchOne();
+					if($taskform)
+					{
+						$task_obj['form_id'] = $taskform->getFormId();
+					} else{
+						$q = Doctrine_Query::create()
+								->from('Department a')
+								->where('a.id = ?', $reviewer->getStrdepartment());
+						$department = $q->fetchOne();
+						
+
+						$q = Doctrine_Query::create()
+								->from("ApForms a")
+								->where("a.form_department = ?", $department->getId())
+								->andWhere("a.form_department_stage = ?", $application->getApproved());
+						$form = $q->fetchOne();
+						error_log('-------------'.$department->getDepartmentName());
+						if(empty($form))
+						{
+							$q = Doctrine_Query::create()
+									->from("ApForms a")
+									->where("a.form_department_stage = ?", $application->getApproved());
+							$form = $q->fetchOne();
+						}
+						if($form) {
+							$task_obj['form_id'] = $form->getFormId();
+						}
+					}
+				}
+				catch(Exception $ex)
+				{
+					header('HTTP/1.0 500 Internal Server Error');
+					echo "Review commit failed";
+					exit();
+				}
+
+
+				if(!empty($task_obj['form_id'])) {
+					$q = Doctrine_Query::create()
+							->from('SubMenus a')
+							->where('a.id = ?', $application->getApproved());
+					$stage = $q->fetchOne();
+					//$task_obj['form_id'] = $application->getFormId();
+					//$task_obj['application_number'] = $application->getApplicationId();
+					$task_obj['application_number'] = $application->getApplicationId();
+					$task_obj['application_id'] = $application->getId();
+					$task_obj['application_stage'] = $stage ? $stage->getTitle() : "";
+					$q = Doctrine_Query::create()
+							->from('CfUser a')
+							->where('a.nid = ?', $task->getCreatorUserId());
+					$assigner = $q->fetchOne();
+
+					$task_obj['task_id'] = $task->getId();
+					$task_obj['assigner'] = $assigner->getStrFirstName() . " " . $assigner->getStrLastName();
+					$task_obj['remarks'] = $task->getRemarks();
+					$task_obj['start_date'] = $task->getStartDate();
+					$task_obj['end_date'] = $task->getEndDate();
+					$task_obj['post_url'] = "/mobileapp/taskpost/id/" . $task->getId();
+					array_push($task_list, $task_obj);
+				}
+            }
+		}
+		echo json_encode($task_list);
+		exit();
+	}
+
+	public function executeApplicationjson(sfWebRequest $request)
+	{
+		error_log('-------------Applicationjson----------------');
+		$user = $this->getUser();
+		$application_id = $request->getParameter('id');
+		if($user && $user->isAuthenticated() && !empty($application_id)) {
+			try {
+				$this->forward('applications', 'viewjson');
+			} catch(\Exception $e){
+                header('HTTP/1.0 500 Unauthorized');
+                echo json_encode(array('error' => 'Internal Server Error'));
+			}
+			exit();
+		} if($user && $user->isAuthenticated()){
+            header('HTTP/1.0 400 Unauthorized');
+            echo json_encode(array('error' => 'bad request'));
+        } else {
+			$this->authenticationRequired($request);
+		}
+	}
+
+
+	public function executeTaskpost(sfWebRequest $request)
+	{
+		error_log('-------------Taskpost----------------');
+		$user = $this->getUser();
+		if($user && $user->isAuthenticated() && $request->isMethod(sfRequest::POST)) {
+			try {
+				ob_start();
+				$this->forward('tasks', 'view');
+				ob_end_clean();
+			} catch(\Exception $e){
+
+			}
+			echo json_encode(array('success' => 'true'));
+			exit();
+		} else{
+			$this->authenticationRequired($request);
+		}
+	}
+
+	private function authenticationRequired(sfWebRequest $request){
+		error_log('-------------authenticationRequired----------------');
+		header('HTTP/1.0 401 Unauthorized');
+		$this->executeGetcsrftoken($request);
+	}
+
+  public function executeApplicationstotask(sfWebRequest $request)
+  {
+		error_log('-------------Applicationstotask----------------');
+     $tasks_manager = new TasksManager();
+	$user = $this->getUser();
+	if($user && $user->isAuthenticated()){
+		error_log('----------User auth----------');
+		$userId = $user->getAttribute('userid');
+		$reviewer_id = $user->getAttribute('userid');
+		error_log('--------userId---------'.$userId.'---------------reviewer_id----------'.$reviewer_id);
+		//Get a list of all stages with automatic assignments
+		$q = Doctrine_Query::create()
+			->from("SubMenuTasks a")
+			->Where("a.task_id = ?", 2);
+		$task_stages = $q->execute();
+		//Filter out stages that we don't have permissions for
+		$allowed_stages = "";
+
+		$count = 0;
+		foreach($task_stages as $task_stage)
+		{
+		  if($tasks_manager->reviewer_has_credential($reviewer_id, 'accesssubmenu'.$task_stage->getSubMenuId()))
+		  {
+			$count++;
+			if($count == 1)
+			{
+			  $allowed_stages .= "a.approved = ".$task_stage->getSubMenuId();
+			}
+			else
+			{
+			  $allowed_stages .= " OR a.approved = ".$task_stage->getSubMenuId();
+			}
+		  }
+		}
+
+		if($allowed_stages <> "")
+		{
+			error_log('---------allowed_stages--------'.$allowed_stages);
+		  $q = Doctrine_Query::create()
+			  ->from("FormEntry a")
+			  ->where($allowed_stages)
+			  ->orderBy("a.id DESC");
+			$apps_to_task = $q->execute();
+			error_log("reviewer_id otb ## ".$reviewer_id);
+		}
+
+		$apps_to_task_list = array();
+
+		foreach($apps_to_task as $app){
+            $q = Doctrine_Query::create()
+                ->from("Task a")
+                ->where("a.status <> 25 AND a.active = 1")
+                ->andWhere("a.application_id = ?", $app->getId())
+                ->andWhere("a.task_stage = ?", $app->getApproved())
+                ->andWhere("a.owner_user_id = ?", $userId);
+            $assigned_tasks = $q->count();
+
+            if($assigned_tasks == 0) {
+                $app_obj = array();
+
+                try {
+                    $q = Doctrine_Query::create()
+                        ->from('CfUser a')
+                        ->where('a.nid = ?', $userId);
+                    $reviewer = $q->fetchOne();
+
+                    $q = Doctrine_Query::create()
+                        ->from('Department a')
+                        ->where('a.id = ?', $reviewer->getStrdepartment());
+                    $department = $q->fetchOne();
+
+                    $q = Doctrine_Query::create()
+                        ->from("ApForms a")
+                        ->where("a.form_department = ?", $department->getId())
+                        ->andWhere("a.form_department_stage = ?", $app->getApproved());
+                    $form = $q->fetchOne();
+
+                    if (empty($form)) {
+                        $q = Doctrine_Query::create()
+                            ->from("ApForms a")
+                            ->where("a.form_department_stage = ?", $app->getApproved());
+                        $form = $q->fetchOne();
+                    }
+                    if ($form) {
+                        $app_obj['form_id'] = $form->getFormId();
+                    }
+                } catch (Exception $ex) {
+                    header('HTTP/1.0 500 Internal Server Error');
+                    echo "Review commit failed";
+                    exit();
+                }
+
+                if (!empty($app_obj['form_id'])) {
+                    $q = Doctrine_Query::create()
+                        ->from('SubMenus a')
+                        ->where('a.id = ?', $app->getApproved());
+                    $stage = $q->fetchOne();
+                    $app_obj['application_id'] = $app ? $app->getId() : "";
+                    $app_obj['application_number'] = $app ? $app->getApplicationId() : "";
+                    $app_obj['application_stage'] = $stage ? $stage->getTitle() : "";
+                    $app_obj['submit_title'] = "Inspect Plan";
+                    $app_obj['post_url'] = "/mobileapp/selectapplication/application/" . $app->getId();
+
+                    array_push($apps_to_task_list, $app_obj);
+                }
+            }
+		}
+
+		echo json_encode($apps_to_task_list);
+		exit();
+	} else{
+		error_log('----------No User auth----------');
+		$this->authenticationRequired($request);
+		exit();
+	}
+  }
+
+  public function executeSelectapplication(sfWebRequest $request)
+  {
+		error_log('-------------Selectapplication----------------');
+     $tasks_manager = new TasksManager();
+	 $user = $this->getUser();
+	if($user && $user->isAuthenticated()){
+		$reviewer_id = $user->getAttribute('userid');
+
+		 $task_id = $tasks_manager->assign_task(2, $reviewer_id, $reviewer_id, date("Y-m-d"), date("Y-m-d"), $request->getParameter('application'));
+		 if($task_id){
+			$request->setParameter('id', $task_id);
+			 $this->executeTaskpost($request);
+			exit();
+		}else{
+			 header('HTTP/1.0 500 Internal Server Error');
+			echo json_encode(array("Pending task already exists"));
+			exit();	
+		}
+	} else{
+		$this->authenticationRequired($request);
+		exit();
+	}
+
+  }
+}

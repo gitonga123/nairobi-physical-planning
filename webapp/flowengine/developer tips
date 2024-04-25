@@ -1,0 +1,126 @@
+- Install multiple versions of php - https://askubuntu.com/questions/1230869/cant-install-php-7-2-on-ubuntu-20-04
+sudo add-apt-repository ppa:ondrej/php
+sudo apt install php7.4
+sudo update-alternatives --set php /usr/bin/php7.4
+sudo a2dismod php7.4
+sudo a2enmod php7.4
+sudo systemctl restart apache2
+-- certbot - https://certbot.eff.org/instructions?ws=apache&os=ubuntufocal
+>> sudo apt install php7.4-mbstring php7.4-zip php7.4-xml
+
+> sudo apt-get install php7.4-mysql
+> sudo apt-get install php7.4-curl
+> mariadb - https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04
+> https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-22-04
+>> Install Mariadb via docker on localhost - https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/
+>> Image --> docker run --name revenue_collection -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d docker.io/library/mariadb:10.3
+
+>> to connect to mysql on docker - 
+>> docker inspect -- docker inspect revenue_collection
+mysql -h 172.17.0.4 -P 3306 --protocol=TCP -u root -p
+mysql -h 192.168.16.4 -P 3306 --protocol=TCP -u root -p
+>>> on localhost use mysql in the folder /opt/mysql_docker
+
+>> to kill mysql process --- sudo pkill mysql
+
+>> check process using a port - sudo ss -lptn 'sport = :3306'
+
+>> gd for qr code -> sudo apt install php7.4-gd
+
+>> Manual user Activation - http://localhost:89/index.php/sfApply/confirm?validate=n779b9d0da6f4e374
+https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=n779b9d0da6f4e374
+-- Make sure u get the code from (select * from sf_guard_user_profile ;)
+
+>> db queries
+- ALTER TABLE mf_invoice ADD COLUMN message_id INT(10) NULL ;
+- ALTER TABLE mf_invoice ADD COLUMN transaction_id INT(10) NULL ;
+
+>> Groupings >> SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+>> sf-Guard change login screen action is in - /var/www/html/flowengine/plugins/sfDoctrineGuardPlugin/modules/sfGuardAuth/lib
+>> View for login screen - /var/www/html/flowengine/apps/frontend/modules/sfGuardAuth/templates
+>> updating currency - update ap_forms set payment_currency='KES' ;
+>> set GLOBAL sql_mode='ONLY_FULL_GROUP_BY,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+
+-- This system currently runs on php7 so disable 8 on dev server by 
+  >> DISABLE CMD "a2disconf php8.2-fpm"
+
+  mysqldump -u root -p@mk@tek2022 revenue_collection > database.sql
+
+  >>> missing 
+  CREATE TABLE `ap_merchant_generator` (
+  `form_id` int(4) NOT NULL,
+  `merchant_identifier` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+- Malipo Request API - https://api.dev.malipo.org/circles/swagger-ui/index.html?urls.primaryName=6.%20MERCHANT%20CIRCLES#/2.%20MERCHANT%20PAYMENTS%20MANAGEMENT/createPaymentLink
+- authentication url - https://api.dev.malipo.org/auth/
+- Logging in to your account and get circle id ---- https://app.dev.malipo.org/my-circles
+--> API users table 
+CREATE TABLE api_users (
+  id INT(10) AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(256) NOT NULL,
+  password VARCHAR(256) NOT NULL
+);
+
+// demo user
+INSERT INTO api_users VALUES(null,'nakuru','nakuru@_1_2023') ;
+INSERT INTO api_users VALUES(null,'demo1','demo1') ;
+//mod wsgi issue - https://stackoverflow.com/questions/33320889/invalid-command-wsgidaemonprocess-deploy-django-application-on-centos-6-7
+sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3
+// validate a user 
+/index.php/sfApply/confirm?validate=n7f3ddd94534ba07e&username=boniface
+live demo - https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=n7fe94d023406c08b&username=stella
+Live - 
+https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=rcf9d327cb6fda648&username=boniface
+https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=r97c6d5177098a833&username=boniface
+// strict mode disable
+SET @@global.sql_mode= '';
+
+-- complete removal of mysql > https://www.digitalocean.com/community/questions/completely-uninstall-mysql-server
+-- docker - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
+mariadb - https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04
+-- removing docker if there are issues 
+https://askubuntu.com/questions/1302371/docker-ce-post-installation-configuration-failure-on-ubuntu-20-04
+-- Docker installation that works well on localhost - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
+
+>> mysql upload data - login to mysql first
+load data local infile '/var/www/html/revenueportal/nakururevenueflowengine/flowengine-nakuru/demo_db/rates_data_formatted_to_upload_updated.csv' into table plot
+ fields terminated by ','
+ enclosed by '"'
+ lines terminated by '\n'
+ (upn,parent_upn,physical_address,measurements,po_box,postal_code,email,amount_land_rates,
+ town,customer_supplier_id,owner_name,owner_phone, 
+ plot_no,block_number,ward,plot_size,plot_size_ha,property_usage) ;
+
+ >>>> local 
+ load data local infile '/opt/rates_data_formatted_to_upload_updated.csv' into table plot
+ fields terminated by ','
+ enclosed by '"'
+ lines terminated by '\n'
+ (upn,parent_upn,physical_address,measurements,po_box,postal_code,email,amount_land_rates,
+ town,customer_supplier_id,owner_name,owner_phone, 
+ plot_no,block_number,ward,plot_size,plot_size_ha,property_usage) ;
+
+ >>>>
+ALTER TABLE plot ADD COLUMN upn VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN parent_upn VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN physical_address VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN measurements VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN po_box VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN postal_code VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN email VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN amount_land_rates VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN town VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN customer_supplier_id VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN owner_name VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN plot_no VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN block_number VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN ward VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN owner_phone VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN plot_size_ha VARCHAR(256) NULL ;
+ALTER TABLE plot ADD COLUMN property_usage VARCHAR(256) NULL ;
+// Add column to check emailing status
+ALTER TABLE cf_user ADD COLUMN emailing_status INTEGER DEFAULT 0 ;
+
+>>> plot check url - http://localhost:89/index.php/dashboard/plotinformation?q=684

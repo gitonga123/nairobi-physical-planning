@@ -145,7 +145,7 @@ class MembersManager
 			return array('member_no' => '', 'validated' => false, 'category' => '', 'database' => '');
 		}
 		if (($loggedInMfUserProfile && count($non_validated) == 0) or (!empty($UserCategory) && !$UserCategory->getMemberNoElementId())) {
-			return array('member_no' => $member_no, 'validated' => true, 'category' => $UserCategoryAssoc, 'database' => $memberships);
+			return array('member_no' => $member_no, 'validated' => true, 'category' => $UserCategoryAssoc, 'database' => is_null($memberships) ? '' : $memberships );
 		} else {
 			return array('member_no' => $member_no, 'validated' => false, 'category' => $UserCategoryAssoc, 'database' => $memberships, 'entries' => $non_validated);
 		}

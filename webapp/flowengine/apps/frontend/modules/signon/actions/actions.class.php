@@ -113,7 +113,7 @@ class signonActions extends sfActions
                 $profile->user_id = $this->sfGuardUser->id;
                 $profile->fullname = $fullname;
                 $profile->email = $email;
-                $profile->mobile = $mobile_number;
+                $profile->mobile = $username;
                 $profile->registeras = 6;
                 $profile->save();
             } else {
@@ -121,7 +121,7 @@ class signonActions extends sfActions
                 $profile->user_id = $this->sfGuardUser->id;
                 $profile->fullname = $fullname;
                 $profile->email = $email;
-                $profile->mobile = $mobile_number;
+                $profile->mobile = $username;
                 $profile->registeras = 6;
                 $profile->save();
             }

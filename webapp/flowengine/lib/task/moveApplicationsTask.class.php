@@ -46,7 +46,7 @@ EOF;
                     $q = Doctrine_Query::create()
                         ->from("FormEntry f")
                         ->where("f.approved = ?", $from)
-                        ->limit(5);
+                        ->limit(10);
                     $applications = $q->execute();
                     foreach ($applications as $application) {
                         $status = $application_manager->moveApplication($application, $to);

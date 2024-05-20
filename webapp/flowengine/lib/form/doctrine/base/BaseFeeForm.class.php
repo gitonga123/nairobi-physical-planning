@@ -17,27 +17,24 @@ abstract class BaseFeeForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'           => new sfWidgetFormInputHidden(),
       'fee_category'     => new sfWidgetFormChoice(
-        array(
-          'choices' => Doctrine_Core::getTable('FeeCategory')->getCategories()
+            array(
+                'choices' => Doctrine_Core::getTable('FeeCategory')->getCategories()
+            )
         ),
-        array('class' => 'form-control')
-      ),
-      'fee_code'     => new sfWidgetFormInputText(array(),array('class' => 'form-control')),
-      'description'  => new sfWidgetFormTextarea(array(),array('class' => 'form-control')),
-      'amount'       => new sfWidgetFormInputText(array(),array('class' => 'form-control')),
+      'fee_code'     => new sfWidgetFormInputText(),
+      'description'  => new sfWidgetFormTextarea(),
+      'amount'       => new sfWidgetFormInputText(),
       'invoiceid'    => new sfWidgetFormChoice(
-        array(
-          'choices' => Doctrine_Core::getTable('Invoicetemplates')->getInvoiceTemplates()
+            array(
+                'choices' => Doctrine_Core::getTable('Invoicetemplates')->getInvoiceTemplates()
+            )
         ),
-        array('class' => 'form-control')
-      ),
-      //OTB Start Patch - For Implementing Finance Bills
-      'percentage' => new sfWidgetFormInput(array(),array('class' => 'form-control')),
-      'fee_type'      => new sfWidgetFormSelect(array('choices' => array('fixed' => 'Fixed Amount', 'percentage' => 'Percentage of Base Field', 'range' => 'Finance Bill Calculation', 'formula' => 'Mathematical Formula')), array('class' => 'form-control')),
-      'base_field' => new sfWidgetFormChoice(array('choices' => array()), array('class' => 'form-control')),
-      'minimum_fee'      => new sfWidgetFormInputText(array(),array('class' => 'form-control')),
-      //OTB End Patch - For Implementing Finance Bills
-      'submission_fee' => new sfWidgetFormChoice(array('choices' => array('No','Yes')), array('class' => 'form-control'))
+	   //OTB Start Patch - For Implementing Finance Bills
+      'percentage' => new sfWidgetFormInput(),
+      'fee_type'      => new sfWidgetFormSelect(array('choices' => array('fixed' => 'Fixed Amount' , 'percentage' => 'Percentage of Base Field' ,'range' => 'Finance Bill Calculation' ,'formula' => 'Mathematical Formula'))),
+	  'base_field' => new sfWidgetFormChoice(array('choices' => array())),
+      'minimum_fee'      => new sfWidgetFormInputText(),
+	   //OTB End Patch - For Implementing Finance Bills
     ));
 
     $this->setValidators(array(
@@ -47,13 +44,12 @@ abstract class BaseFeeForm extends BaseFormDoctrine
       'description'  => new sfValidatorString(),
       'amount'       => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'invoiceid'    => new sfValidatorInteger(array('required' => false)),
-      //OTB Start Patch - For Implementing Finance Bills
-      'percentage' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'fee_type'      => new sfValidatorChoice(array('choices' => array('fixed', 'percentage', 'range', 'range_percentage', 'formula'))),
-      'base_field'    => new sfValidatorInteger(array('required' => false)),
+	   //OTB Start Patch - For Implementing Finance Bills
+      'percentage' => new sfValidatorString(array('max_length' => 100,'required' => false)),
+      'fee_type'      => new sfValidatorChoice(array('choices' => array('fixed', 'percentage','range','range_percentage','formula'))),
+	  'base_field'	  => new sfValidatorInteger(array('required' => false)),
       'minimum_fee'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'submission_fee'      => new sfValidatorBoolean(),
-      //OTB End Patch - For Implementing Finance Bills
+	   //OTB End Patch - For Implementing Finance Bills
     ));
 
     $this->widgetSchema->setNameFormat('fee[%s]');
@@ -69,4 +65,5 @@ abstract class BaseFeeForm extends BaseFormDoctrine
   {
     return 'Fee';
   }
+
 }

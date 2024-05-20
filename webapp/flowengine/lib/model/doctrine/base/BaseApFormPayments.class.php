@@ -313,7 +313,15 @@ abstract class BaseApFormPayments extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 255,
              ));
-
+	$this->hasColumn('invoice_id', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
         $this->hasColumn('narration', 'string', 255, array(
             'type' => 'string',
             'fixed' => 0,
@@ -340,15 +348,6 @@ abstract class BaseApFormPayments extends sfDoctrineRecord
             'notnull' => false,
             'autoincrement' => false,
             'length' => 255,
-        ));
-        $this->hasColumn('invoice_id', 'integer', 4, array(
-            'type' => 'integer',
-            'fixed' => 0,
-            'unsigned' => false,
-            'primary' => false,
-            'notnull' => false,
-            'autoincrement' => false,
-            'length' => 4,
         ));
     }
 

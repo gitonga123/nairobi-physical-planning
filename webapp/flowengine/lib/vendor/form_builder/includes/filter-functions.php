@@ -14,14 +14,16 @@
 	
 			if(is_array($input)){
 				$input = array_map('mf_trim_deep', $input);
-				// 
-				$input = array_map('mf_stripslashes_deep', $input);
 				
+				if(get_magic_quotes_gpc()){
+					$input = array_map('mf_stripslashes_deep', $input);
+				}
 			}else{
 				$input = trim($input);
-                //
-				$input = stripslashes($input);
-				
+
+				if(get_magic_quotes_gpc()){
+					$input = stripslashes($input);
+				}
 			}
 		}
 		

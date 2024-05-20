@@ -143,22 +143,22 @@ abstract class BaseSfGuardUser extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 128,
              ));
-        $this->hasColumn('is_active', 'integer', null, array(
+        $this->hasColumn('is_active', 'integer', 1, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'default' => true,
+             'default' => '1',
              'notnull' => false,
              'autoincrement' => false,
              'length' => 1,
              ));
-        $this->hasColumn('is_super_admin', 'integer', null, array(
+        $this->hasColumn('is_super_admin', 'integer', 1, array(
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'default' => false,
+             'default' => '0',
              'notnull' => false,
              'autoincrement' => false,
              'length' => 1,

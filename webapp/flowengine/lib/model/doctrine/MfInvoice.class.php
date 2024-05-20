@@ -1,5 +1,4 @@
 <?php
-
 /**
  * MfInvoice
  * 
@@ -13,117 +12,114 @@
  */
 class MfInvoice extends BaseMfInvoice
 {
-  public function getStatus()
-  {
-    if ($this->getPaid() == 1) {
-      return "Pending";
-    } elseif ($this->getPaid() == 15) {
-      return "Part Payment";
-    } elseif ($this->getPaid() == 2) {
-      return "Paid";
-    } elseif ($this->getPaid() == 3) {
-      return "Cancelled";
-    }
-  }
-
-  public function save(Doctrine_Connection $conn = null)
-  {
-    $application_manager = new ApplicationManager();
-    
-    $this->setUpdatedAt(date('Y-m-d H:i:s'));
-    $update = parent::save($conn);
-
-    //If the invoice is paid, check to see if there are properties set in the current stage
-    // to send notifications or send the application to another stage
-    if ($this->getPaid() == 2) {
-      //Load any neccesary classes
-      
-      $invoice_manager = new InvoiceManager();
-      $application = $this->getFormEntry();
-
-      // Possible Scenarios:
-      // 1. If nothing else is owed, then publish draft
-      //if ($application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->get_invoice_total_owed($invoice_id) <= 0) {
-      // disabled checking of owed until better integration with pesaflow
-      if ($application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId())) {
-        $application = $application_manager->publish_draft($application->getId());
-      }
-
-      // 2. If nothing else is owed and is already published, then update any missing services
-      //if (!$application_manager->is_draft($form_id, $entry_id) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->get_invoice_total_owed($invoice_id) <= 0) {
-      // disabled checking of owed until better integration with pesaflow
-      if (!$application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId())) {
-        $application_manager->update_services($application->getId());
-      }
-
-      // 3. If nothing else is owed then execute any movement to the next stage
-      //if (!$application_manager->is_draft($form_id, $entry_id) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->get_invoice_total_owed($invoice_id) <= 0) {
-      // disabled checking of owed until better integration with pesaflow
-      if (!$application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->invoice_count($application->getId()) > 0) {
-        $q = Doctrine_Query::create()
-          ->from("SubMenus a")
-          ->where("a.id = ?", $application->getApproved());
-        $stage = $q->fetchOne();
-
-        if ($stage && $stage->getStageType() == 3) {
-          if ($stage->getStageProperty() == 2) {
-            //Move application to another stage
-            $next_stage = $stage->getStageTypeMovement();
-
-            if (intval($next_stage) === 1) {
-              $stage_to_send =  $application_manager->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
-              if ($stage_to_send) {
-                $next_stage = $stage_to_send;
-              }
-              $application->setApproved($next_stage);
-            } else {
-              $application->setApproved($next_stage);
-            }
-            $application->save();
-          }
+    public function getStatus()
+    {
+        if($this->getPaid() == 1)
+        {
+          return "Pending";
         }
-      }
-
-      //4. Set all penalties tied to this invoice as paid
-      $q = Doctrine_Query::create()
-        ->from("Penalty a")
-        ->where("a.invoice_id = ?", $this->getId());
-      $penalties = $q->execute();
-
-      foreach ($penalties as $penalty) {
-        $penalty->setPaid(1);
-        $penalty->save();
-      }
-    } elseif ($this->getPaid() == 3) {
-      try {
-        $application = $this->getFormEntry();
-
-        $q = Doctrine_Query::create()
-          ->from("SubMenus a")
-          ->where("a.id = ?", $application->getApproved());
-        $stage = $q->fetchOne();
-
-        if ($stage && $stage->getStageType() == 3) {
-          if ($stage->getStageProperty() == 2) {
-            //Move application to another stage
-            $next_stage = $stage->getStageTypeMovementFail();
-            if (intval($next_stage) === 1) {
-              $stage_to_send =  $application_manager->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
-              if ($stage_to_send) {
-                $next_stage = $stage_to_send;
-              }
-              $application->setApproved($next_stage);
-            } else {
-              $application->setApproved($next_stage);
-            }
-            $application->save();
-          }
+        elseif($this->getPaid() == 15)
+        {
+          return "Part Payment";
         }
-      } catch (Exception $ex) {
-        error_log("Invoice Update Error: " . $ex);
-      }
+        elseif($this->getPaid() == 2)
+        {
+          return "Paid";
+        }
+        elseif($this->getPaid() == 3)
+        {
+          return "Cancelled";
+        }
     }
 
-    return parent::save($conn);
-  }
+    public function save(Doctrine_Connection $conn = null)
+    {
+		$this->setUpdatedAt(date('Y-m-d H:i:s'));
+        $update = parent::save($conn);
+
+        //If the invoice is paid, check to see if there are properties set in the current stage
+        // to send notifications or send the application to another stage
+        if($this->getPaid() == 2) {
+          //Load any neccesary classes
+          $application_manager = new ApplicationManager();
+          $invoice_manager = new InvoiceManager();
+          $application = $this->getFormEntry();
+
+          // Possible Scenarios:
+          // 1. If nothing else is owed, then publish draft
+          //if ($application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->get_invoice_total_owed($invoice_id) <= 0) {
+          // disabled checking of owed until better integration with pesaflow
+          if ($application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId())) {
+             $application = $application_manager->publish_draft($application->getId());
+          }
+
+          // 2. If nothing else is owed and is already published, then update any missing services
+          //if (!$application_manager->is_draft($form_id, $entry_id) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->get_invoice_total_owed($invoice_id) <= 0) {
+          // disabled checking of owed until better integration with pesaflow
+          if (!$application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId())) {
+             $application_manager->update_services($application->getId());
+          }
+
+          // 3. If nothing else is owed then execute any movement to the next stage
+          //if (!$application_manager->is_draft($form_id, $entry_id) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->get_invoice_total_owed($invoice_id) <= 0) {
+          // disabled checking of owed until better integration with pesaflow
+          if (!$application_manager->is_draft($application->getFormId(), $application->getEntryId()) && !$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->invoice_count($application->getId()) > 0) {
+            $q = Doctrine_Query::create()
+                ->from("SubMenus a")
+                ->where("a.id = ?", $application->getApproved());
+            $stage = $q->fetchOne();
+
+            if ($stage && $stage->getStageType() == 3) {
+                if($stage->getStageProperty() == 2)
+                {
+                    //Move application to another stage
+                    $next_stage = $stage->getStageTypeMovement();
+                    $application->setApproved($next_stage);
+                    $application->save();
+                }
+            }
+          }
+
+          //4. Set all penalties tied to this invoice as paid
+          $q = Doctrine_Query::create()
+             ->from("Penalty a")
+             ->where("a.invoice_id = ?", $this->getId());
+          $penalties = $q->execute();
+
+          foreach($penalties as $penalty)
+          {
+            $penalty->setPaid(1);
+            $penalty->save();
+          }
+        }
+        elseif($this->getPaid() == 3)
+        {
+            try
+            {
+                $application = $this->getFormEntry();
+
+                $q = Doctrine_Query::create()
+                    ->from("SubMenus a")
+                    ->where("a.id = ?", $application->getApproved());
+                $stage = $q->fetchOne();
+
+                if ($stage && $stage->getStageType() == 3) {
+                    if($stage->getStageProperty() == 2)
+                    {
+                        //Move application to another stage
+                        $next_stage = $stage->getStageTypeMovementFail();
+                        $application->setApproved($next_stage);
+                        $application->save();
+                    }
+                }
+            }
+            catch(Exception $ex)
+            {
+                error_log("Invoice Update Error: ".$ex);
+            }
+        }
+
+        return parent::save($conn);
+        
+    }
 }

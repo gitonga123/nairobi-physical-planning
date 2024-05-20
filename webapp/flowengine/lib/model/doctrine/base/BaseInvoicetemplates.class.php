@@ -47,119 +47,109 @@ Doctrine_Manager::getInstance()->bindComponent('Invoicetemplates', 'doctrine');
  */
 abstract class BaseInvoicetemplates extends sfDoctrineRecord
 {
-     public function setTableDefinition()
-     {
-          $this->setTableName('invoicetemplates');
-          $this->hasColumn('id', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => true,
-               'autoincrement' => true,
-               'length' => 4,
-          ));
-          $this->hasColumn('title', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 255,
-          ));
-          $this->hasColumn('applicationform', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          ));
-          $this->hasColumn('applicationstage', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          ));
-          $this->hasColumn('content', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => '',
-          ));
-          $this->hasColumn('max_duration', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '',
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 255,
-          ));
-          $this->hasColumn('due_duration', 'string', 250, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 250,
-          ));
-          $this->hasColumn('invoice_number', 'string', 250, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 250,
-          ));
-          $this->hasColumn('expiration_type', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          ));
-          $this->hasColumn('payment_type', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          ));
+    public function setTableDefinition()
+    {
+        $this->setTableName('invoicetemplates');
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => true,
+             'autoincrement' => true,
+             'length' => 4,
+             ));
+        $this->hasColumn('title', 'string', 255, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '',
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => 255,
+             ));
+        $this->hasColumn('applicationform', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+        $this->hasColumn('applicationstage', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+        $this->hasColumn('content', 'string', null, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => '',
+             ));
+        $this->hasColumn('max_duration', 'string', 255, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '',
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 255,
+             ));
+        $this->hasColumn('due_duration', 'string', 250, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 250,
+             ));
+        $this->hasColumn('invoice_number', 'string', 250, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 250,
+             ));
+        $this->hasColumn('expiration_type', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+        $this->hasColumn('payment_type', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+    }
 
-          $this->hasColumn('qr_content', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          ));
-     }
-
-     public function setUp()
-     {
-          parent::setUp();
-
-          $this->hasMany('Fee', array(
-               'local' => 'id',
-               'foreign' => 'invoiceid'
-          ));
-     }
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->hasMany('Fee', array(
+             'local' => 'id',
+             'foreign' => 'invoiceid'));
+        
+    }
 }

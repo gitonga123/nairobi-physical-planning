@@ -18,14 +18,18 @@ class KCBGateway
         $invoice = $this->invoice_manager->get_invoice_by_invoice_number($billId);
         // you can shift the condition to a switch.
         if ($invoice) {
+            error_log("Get invoice information ----> {$invoice->getPaid()} -----> {$invoice->getId()}");
+            error_log("Get invoice information ----> {$invoice->getTransactionId()}");
             if ($invoice->getPaid() == 1) {
                 if ($invoice->getTransactionId()) {
                     $transactionId = $invoice->getTransactionId();
                 } else {
                     $transactionId = $this->invoice_manager->getTransactionNumber($invoice->getId());
-                    $invoice->setMessageId($messageId);
-                    $invoice->setTransactionId("");
+                    // $invoice->setMessageId($messageId);
+                    $invoice->setTransactionId($transactionId);
                     $invoice->save();
+
+                    error_log("Invoice saved");
                 }
 
                 $application = $invoice->getFormEntry();
@@ -98,6 +102,12 @@ class KCBGateway
         $update_details = array();
         $transaction_id = strtoupper(trim($request_details->transactionId));
         $amount_paid = trim($request_details->transactionAmt);
+        if (empty($amount_paid)) {
+            $update_details['statusCode'] = '1';
+            $update_details['statusMessage'] = 'Invalid Amount';
+
+            return $update_details;
+        }
         $transaction_date = $request_details->transactionDate;
         $update_details = [];
         $update_details['transactionId'] = $transaction_id;

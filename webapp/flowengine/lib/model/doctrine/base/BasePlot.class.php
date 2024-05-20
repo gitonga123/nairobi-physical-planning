@@ -35,115 +35,48 @@
  */
 abstract class BasePlot extends sfDoctrineRecord
 {
-     public function setTableDefinition()
-     {
-          $this->setTableName('plot');
-          $this->hasColumn('plot_no', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_type', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_status', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_size', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_lat', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_long', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_location', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_comments', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('owner_name', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('owner_phone', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('physical_address', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('block_number', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('property_usage', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('plot_size_ha', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
+    public function setTableDefinition()
+    {
+        $this->setTableName('plot');
+        $this->hasColumn('plot_no', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('plot_type', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('plot_status', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('plot_size', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('plot_lat', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('plot_long', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('plot_location', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+        $this->hasColumn('plot_comments', 'string', 250, array(
+             'type' => 'string',
+             'length' => 250,
+             ));
+    }
 
-          $this->hasColumn('upn', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('ward', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('parent_upn', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('measurements', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('po_box', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('postal_code', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('email', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-
-          $this->hasColumn('amount_land_rates', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('town', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-          $this->hasColumn('customer_supplier_id', 'string', 250, array(
-               'type' => 'string',
-               'length' => 250,
-          ));
-     }
-
-     public function setUp()
-     {
-          parent::setUp();
-          $this->hasMany('PlotActivity', array(
-               'local' => 'id',
-               'foreign' => 'plot_id'
-          ));
-     }
+    public function setUp()
+    {
+        parent::setUp();
+        $this->hasMany('PlotActivity', array(
+             'local' => 'id',
+             'foreign' => 'plot_id'));
+    }
 }

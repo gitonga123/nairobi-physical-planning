@@ -14,121 +14,136 @@
 class FormEntry extends BaseFormEntry
 {
 	/**
-	 * Get Status Name
-	 *
-	 * Function to get the name of the stage where the application is at
-	 *
-	 * @return String
-	 */
+	* Get Status Name
+	*
+	* Function to get the name of the stage where the application is at
+	*
+	* @return String
+	*/
 	public function getStatusName()
 	{
 		$q = Doctrine_Query::create()
-			->from('SubMenus a')
-			->where('a.id = ?', $this->getApproved())
-			->limit(1);
+            ->from('SubMenus a')
+            ->where('a.id = ?', $this->getApproved())
+            ->limit(1);
 		$submenu = $q->fetchOne();
-		if ($submenu) {
-			return $submenu->getMenus()->getTitle() . " > " . $submenu->getTitle();
-		} else {
+		if($submenu)
+		{
+			return $submenu->getMenus()->getTitle()." > ".$submenu->getTitle();
+		}
+		else
+		{
 			return "Draft";
 		}
 	}
 
 	/**
-	 * Get Service Name
-	 *
-	 * Function to get the name of the service to which this application belongs
-	 *
-	 * @return String
-	 */
+	* Get Service Name
+	*
+	* Function to get the name of the service to which this application belongs
+	*
+	* @return String
+	*/
 	public function getServiceName()
 	{
 		$q = Doctrine_Query::create()
-			->from('SubMenus a')
-			//->where('a.id = ?', $this->getServiceId())//OTB MOD
-			->where('a.id = ?', $this->getApproved())
-			->limit(1);
+            ->from('SubMenus a')
+            //->where('a.id = ?', $this->getServiceId())//OTB MOD
+            ->where('a.id = ?', $this->getApproved())
+            ->limit(1);
 		$submenu = $q->fetchOne();
-		if ($submenu) {
+		if($submenu)
+		{
 			return $submenu->getMenus()->getTitle();
 		}
 	}
 
 	/**
-	 * Get title of the application
-	 *
-	 * Get either the application number or a field from the form if configured
-	 *
-	 * @return String
-	 */
+	* Get title of the application
+	*
+	* Get either the application number or a field from the form if configured
+	*
+	* @return String
+	*/
 	public function getTitle()
 	{
 		$q = Doctrine_Query::create()
-			->from("ApColumnPreferences a")
-			->where("a.form_id = ?", $this->getFormId());
+		   ->from("ApColumnPreferences a")
+		   ->where("a.form_id = ?", $this->getFormId());
 
-		if ($q->count() == 0) {
+		if($q->count() == 0)
+		{
 			return $this->getApplicationId();
-		} else {
-			$prefix_folder = dirname(__FILE__) . "/../../vendor/form_builder/";
-			require_once($prefix_folder . 'includes/init.php');
+		}
+		else
+		{
+			$prefix_folder = dirname(__FILE__)."/../../vendor/form_builder/";
+			require_once($prefix_folder.'includes/init.php');
 
-			require_once($prefix_folder . '../../../config/form_builder_config.php');
-			require_once($prefix_folder . 'includes/db-core.php');
-			require_once($prefix_folder . 'includes/helper-functions.php');
+			require_once($prefix_folder.'../../../config/form_builder_config.php');
+			require_once($prefix_folder.'includes/db-core.php');
+			require_once($prefix_folder.'includes/helper-functions.php');
 
 			$dbh = mf_connect_db();
 			$mf_settings = mf_get_settings($dbh);
-
+			
 			$column_settings = $q->execute();
 
 			$name = "";
-
-			foreach ($column_settings as $column_setting) {
+			
+			foreach($column_settings as $column_setting)
+			{
 				$element_name = $column_setting->getElementName();
 
-				$sql = "SELECT * FROM ap_form_" . $this->getFormId() . " WHERE id = ?";
+				$sql = "SELECT * FROM ap_form_".$this->getFormId()." WHERE id = ?";
 				$params = array($this->getEntryId());
-				$sth = mf_do_query($sql, $params, $dbh);
+				$sth = mf_do_query($sql,$params,$dbh);
 
-				while ($form_data = mf_do_fetch_result($sth)) {
-					$name .= strtoupper($form_data[$element_name]) . " ";
+				while($form_data = mf_do_fetch_result($sth))
+				{
+					$name .= strtoupper($form_data[$element_name])." ";
 				}
 			}
 
-			if ($name) {
-				return $name . " - " . $this->getServiceName();
-			} else {
+			if($name)
+			{
+				return $name." - ".$this->getServiceName();
+			}
+			else 
+			{
 				return $this->getApplicationId();
 			}
 		}
 	}
 
 	/**
-	 * Get the renewal status
-	 *
-	 * Check if there are any permits that need to be renewed
-	 *
-	 * @return String
-	 */
+	* Get the renewal status
+	*
+	* Check if there are any permits that need to be renewed
+	*
+	* @return String
+	*/
 	public function needsRenewal()
 	{
 		$q = Doctrine_Query::create()
-			->from("SavedPermit a")
-			->where("a.application_id = ?", $this->getId())
-			->andWhere("a.expiry_trigger = ? and a.permit_status <> ?", array(0, 3))
-			->andWhere("a.Template.expiry_trigger <> ?", 0); //OTB Patch, also check that permit template is set to expire
+		   ->from("SavedPermit a")
+		   ->where("a.application_id = ?", $this->getId())
+		   ->andWhere("a.expiry_trigger = ? and a.permit_status <> ?", array(0,3))
+		   ->andWhere("a.Template.expiry_trigger <> ?",0);//OTB Patch, also check that permit template is set to expire
 
-		if ($q->count()) {
+		if($q->count())
+		{
 			return false;
-		} else {
+		}
+		else
+		{
 			return true;
 		}
 	}
 	//OTB Add
 	public function declineType()
 	{
-		switch ($this->getDeclined()) {
+		switch($this->getDeclined()){
 			case 1:
 				return "back_to_client";
 				break;
@@ -142,46 +157,48 @@ class FormEntry extends BaseFormEntry
 
 
 	/**
-	 *
-	 * Execute Triggers on Updating an Application
-	 *
-	 **/
+	*
+	* Execute Triggers on Updating an Application
+	*
+	**/
 	public function save(Doctrine_Connection $conn = null)
 	{
 		$application_manager = new ApplicationManager();
 
+		//1. Add entry in application reference if it doesn't exist
+		$application_manager->insert_audit($this->getId(), $this->getApplicationId(), $this->getApproved(), "");
+
 		//2. Reset assessmentin_progress on save
 		$q = Doctrine_Query::create()
-			->from("Task a")
-			->where("a.status = ?", 1)
-			->andWhere("a.application_id = ?", $this->getId());
+		   ->from("Task a")
+		   ->where("a.status = ?", 1)
+		   ->andWhere("a.application_id = ?", $this->getId());
 
-		if ($q->count() == 0) {
-			$this->setAssessmentInprogress(0);
+		if($q->count() == 0)
+		{
+	          $this->setAssessmentInprogress(0);
 		}
 
 		//Update form data json
-		if ($this->getId()) {
-			$this->setFormData($application_manager->get_json_by_form($this->getFormId(), $this->getEntryId()));
+		if($this->getId())
+		{
+	    	  $this->setFormData($application_manager->get_json_by_form($this->getFormId(), $this->getEntryId()));
 		}
 		//3. Execute triggers for current stage if any
 		$application_manager->execute_triggers($this);
-
-		//1. Add entry in application reference if it doesn't exist
-
+		
 		$application = parent::save($conn);
 
 		//OTB Add
-		$application_manager->queue_notifications($this->getId(), $this->getFormId(), $this->getEntryId(), $this->getUserId(), $this->getApproved());
-		$application_manager->insert_audit($this->getId(), $this->getApplicationId(), $this->getApproved(), "");
-
+		$application_manager->queue_notifications($this->getId(),$this->getFormId(),$this->getEntryId(), $this->getUserId(), $this->getApproved());
+		
 		return $application;
 	}
-	public function getCurrentStage()
-	{
-		return Doctrine_Query::create()
-			->from('SubMenus a')
-			->where('id = ?', $this->getApproved())
-			->fetchOne();
-	}
+    public function getCurrentStage()
+    {
+        return Doctrine_Query::create()
+            ->from('SubMenus a')
+            ->where('id = ?', $this->getApproved())
+            ->fetchOne();
+    }
 }

@@ -111,7 +111,6 @@ abstract class BaseSubMenusForm extends BaseFormDoctrine
 		'stage_payment_confirmation'           => new sfWidgetFormChoice(array('choices' => Doctrine_Core::getTable('SubMenus')->getStages())),
 		'stage_expired_invoice_action' => new sfWidgetFormChoice(array('choices' => Doctrine_Core::getTable('SubMenus')->getExpiredInvoiceAction())),
 		'stage_expired_movement_decline'           => new sfWidgetFormChoice (array('choices' => array('No','Yes'))),
-		'distribute_equally'           => new sfWidgetFormChoice (array('choices' => array('No','Yes'))),
     ));
 
     $this->setValidators(array(
@@ -211,7 +210,6 @@ abstract class BaseSubMenusForm extends BaseFormDoctrine
       'shared_stage'           => new sfValidatorInteger  (array('required' => false)),
       'stage_payment_confirmation'           => new sfValidatorInteger (array('required' => false)),
 	  'stage_expired_movement_decline' => new sfValidatorChoice(array('choices' => array_keys(array('No','Yes')))),
-	  'distribute_equally' => new sfValidatorChoice(array('choices' => array_keys(array('No','Yes')))),
     ));
 
     $this->widgetSchema->setNameFormat('sub_menus[%s]');

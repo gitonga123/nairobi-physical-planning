@@ -35,123 +35,111 @@ Doctrine_Manager::getInstance()->bindComponent('Fee', 'doctrine');
  */
 abstract class BaseFee extends sfDoctrineRecord
 {
-     public function setTableDefinition()
-     {
-          $this->setTableName('fee');
-          $this->hasColumn('id', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => true,
-               'autoincrement' => true,
-               'length' => 4,
-          ));
-          $this->hasColumn('fee_category', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          ));
-          $this->hasColumn('fee_code', 'string', 100, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 100,
-          ));
-          $this->hasColumn('description', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => '',
-          ));
-          $this->hasColumn('amount', 'string', 100, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 100,
-          ));
-          $this->hasColumn('invoiceid', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          ));
-          //OTB Start Patch - For Implementing Finance Bills
-          $this->hasColumn('fee_type', 'string', 100, array(
-               'type' => 'string',
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 100,
-          ));
-          $this->hasColumn('percentage', 'string', 100, array(
-               'type' => 'string',
-               'unsigned' => false,
-               'length' => 100,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-          ));
-          $this->hasColumn('base_field', 'integer', 11, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 11,
-          ));
-          $this->hasColumn('minimum_fee', 'integer', 11, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 11,
-          ));
-          $this->hasColumn('submission_fee', 'boolean', null, array(
-               'type' => 'boolean',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 11,
-               'default' => 0
-          ));
-          //OTB End Patch - For Implementing Finance Bills
-     }
+    public function setTableDefinition()
+    {
+        $this->setTableName('fee');
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => true,
+             'autoincrement' => true,
+             'length' => 4,
+             ));
+        $this->hasColumn('fee_category', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+        $this->hasColumn('fee_code', 'string', 100, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 100,
+             ));
+        $this->hasColumn('description', 'string', null, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => '',
+             ));
+        $this->hasColumn('amount', 'string', 100, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 100,
+             ));
+        $this->hasColumn('invoiceid', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 4,
+             ));
+	   //OTB Start Patch - For Implementing Finance Bills
+        $this->hasColumn('fee_type', 'string', 100, array(
+             'type' => 'string',
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 100,
+             ));
+        $this->hasColumn('percentage', 'string', 100, array( 
+             'type' => 'string',
+             'unsigned' => false,
+             'length' => 100,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('base_field', 'integer', 11, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 11,
+             ));
+        $this->hasColumn('minimum_fee', 'integer', 11, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 11,
+             ));
+	   //OTB End Patch - For Implementing Finance Bills
+    }
 
-     public function setUp()
-     {
-          parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
 
-          $this->hasOne('FeeCategory', array(
-               'local' => 'fee_category',
-               'foreign' => 'id'
-          ));
+        $this->hasOne('FeeCategory', array(
+             'local' => 'fee_category',
+             'foreign' => 'id'));
 
-          $this->hasOne('Invoicetemplates', array(
-               'local' => 'invoiceid',
-               'foreign' => 'id'
-          ));
-     }
+        $this->hasOne('Invoicetemplates', array(
+             'local' => 'invoiceid',
+             'foreign' => 'id'));
+    }
 }

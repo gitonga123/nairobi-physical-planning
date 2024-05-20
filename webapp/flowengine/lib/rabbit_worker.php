@@ -32,7 +32,7 @@ function sendDetails($payment_details)
     error_log('-------STREAM RESPONSE---------');
     error_log(var_export($stream_response,true));
 
-    if ($stream_response->status != 200) {
+    if ($stream_response->status != 200 || $stream_response->content['status'] != "01") {
         updateQueueManagerOnError($payment_details);
         updateZizResponseFile($payment_details);
         updateZizResponseFile($stream_response);

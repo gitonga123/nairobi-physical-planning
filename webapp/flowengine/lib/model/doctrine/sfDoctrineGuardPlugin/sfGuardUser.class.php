@@ -20,7 +20,8 @@ class sfGuardUser extends PluginsfGuardUser
    */
   public function setPassword($password)
   {
-    if (!$password && 0 == strlen($password)) {
+    if (!$password && 0 == strlen($password))
+    {
       return;
     }
 
@@ -40,7 +41,8 @@ class sfGuardUser extends PluginsfGuardUser
       throw new sfException(sprintf('The algorithm callable "%s" is not callable.', $algorithmAsStr));
     }
     $this->setAlgorithm($algorithmAsStr);*/
-    $this->_set('password', password_hash($password, PASSWORD_BCRYPT, $options = array()));
+
+    $this->_set('password', password_hash($password,PASSWORD_DEFAULT));
   }
   /**
    * Returns whether or not the given password is valid.
@@ -51,19 +53,22 @@ class sfGuardUser extends PluginsfGuardUser
    */
   public function checkPasswordByGuard($password)
   {
-    if ($this->getSalt()) {
-      $algorithm = $this->getAlgorithm();
-      if (false !== $pos = strpos($algorithm, '::')) {
-        $algorithm = array(substr($algorithm, 0, $pos), substr($algorithm, $pos + 2));
-      }
-      if (!is_callable($algorithm)) {
-        throw new sfException(sprintf('The algorithm callable "%s" is not callable.', $algorithm));
-      }
-
-      return $this->getPassword() == call_user_func_array($algorithm, array($this->getSalt() . $password));
-    } else {
-      //hashed
-      return password_verify($password, $this->getPassword());
+    if($this->getSalt()){
+        $algorithm = $this->getAlgorithm();
+        if (false !== $pos = strpos($algorithm, '::'))
+        {
+          $algorithm = array(substr($algorithm, 0, $pos), substr($algorithm, $pos + 2));
+        }
+        if (!is_callable($algorithm))
+        {
+          throw new sfException(sprintf('The algorithm callable "%s" is not callable.', $algorithm));
+        }
+    
+        return $this->getPassword() == call_user_func_array($algorithm, array($this->getSalt().$password));
+    }else{
+        //hashed
+        return password_verify($password,$this->getPassword());
     }
   }
+  
 }

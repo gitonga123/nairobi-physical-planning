@@ -736,11 +736,11 @@ class HttpClient {
                 $location = isset($this->headers['location']) ? $this->headers['location'] : '';
                 $location .= isset($this->headers['uri']) ? $this->headers['uri'] : '';
                 if ($location) {
-                    $url = parse_url($location);
                     $this->debug("Following redirect to: $location" . (@$url['host'] ? ", host: ".$url['host'] : ''));
+                    $url = parse_url($location);
                     if (@$url['scheme']) $this->scheme = $url['scheme'];
                     if (@$url['host']) $this->host = $url['host'];
-                    return $this->get(($url['path'][0] == '/' ? '' : '/') . $url['path']);
+                    return $this->get(($url['path']{0} == '/' ? '' : '/') . $url['path']);
                 }
             }
         }

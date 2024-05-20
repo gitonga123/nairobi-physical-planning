@@ -12,37 +12,57 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 
-try {
+try
+{
 	sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
-} catch (Exception $ex) {
+}catch(Exception $ex)
+{
 	//error_log("Error generating context for Task doctirne class while importing i18N");
 }
 
 class Task extends BaseTask
 {
-	function getStatusName()
+    function getStatusName()
 	{
 		$status = "";
 
-		if ($this->getStatus() == "1") {
-			if ($this->getTaskStage() != $this->getApplication()->getApproved() && $this->getTaskStage() != "") {
+		if($this->getStatus() == "1")
+		{
+			if($this->getTaskStage() != $this->getApplication()->getApproved() && $this->getTaskStage() != "")
+			{
 				$status = __("Queued");
-			} else {
+			}
+			else
+			{
 				$status = __("Pending");
 			}
-		} else if ($this->getStatus() == "2") {
+		}
+		else if($this->getStatus() == "2")
+		{
 			$status = __("Completing");
-		} else if ($this->getStatus() == "25") {
+		}
+		else if($this->getStatus() == "25")
+		{
 			$status = __("Completed");
-		} else if ($this->getStatus() == "5") {
+		}
+		else if($this->getStatus() == "5")
+		{
 			$status = __("Cancelling");
-		} else if ($this->getStatus() == "55") {
+		}
+		else if($this->getStatus() == "55")
+		{
 			$status = __("Cancelled");
-		} else if ($this->getStatus() == "3") {
+		}
+		else if($this->getStatus() == "3")
+		{
 			$status = __("Postponed");
-		} else if ($this->getStatus() == "4") {
+		}
+		else if($this->getStatus() == "4")
+		{
 			$status = __("Transferring");
-		} else if ($this->getStatus() == "45") {
+		}
+		else if($this->getStatus() == "45")
+		{
 			$status = __("Transferred");
 		}
 
@@ -51,25 +71,26 @@ class Task extends BaseTask
 
 	function getTypeName()
 	{
-		$status = "";
-		if ($this->getType() == "3") {
-			$status = "Invoicing";
-		} else {
-			$status = "Assessment";
+		if($this->getType() == "3")
+		{
+			return __("Invoicing");
 		}
-
-		return $status;
-	}
-
-	function getPriorityName()
-	{
-		switch ($this->getPriority()) {
-			case 1:
-				return __("Critical");
-			case 2:
-				return __("Important");
-			case 3:
-				return __("Normal");
+		else 
+		{
+			return __("Assessment");
 		}
 	}
+
+    function getPriorityName()
+    {
+        switch($this->getPriority())
+        {
+            case 1:
+                return __("Critical");
+            case 2:
+                return __("Important");
+            case 3:
+                return __("Normal");
+        }
+    }
 }

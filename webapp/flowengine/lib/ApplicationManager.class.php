@@ -63,13 +63,13 @@ class ApplicationManager
             $audit->saveClientAudit($submission->getId(), "Draft application submitted");
         } else {
             $submission->setApplicationId($this->generate_application_number($form_id));
-            $submission->setApproved($this->get_submission_stage($form_id, $entry_id, false));
+            $submission->setApproved($this->get_submission_stage($form_id, $entry_id));
             $submission->setDateOfSubmission(date("Y-m-d H:i:s"));
 
             $audit->saveClientAudit($submission->getId(), "Submitted application");
         }
 
-        //Merchant ADD
+        //OTB ADD
         //Check merchant enable and merchant identifier
         $q = Doctrine_Query::create()
             ->from('ApForms f')
@@ -89,12 +89,12 @@ class ApplicationManager
         $submission->save();
 
         $this->update_services($submission->getId());
-        //send file(s)
-        //$this->sendIfc($submission);
+        //otb add send ifc file(s)
+        $this->sendIfc($submission);
 
         // register plan to zizi
-        //$api = new ApiCalls();
-        //$api->registerPlan($form_id, $submission);
+        $api = new ApiCalls();
+        $api->registerPlan($form_id, $submission);
         return $submission;
     }
 
@@ -118,7 +118,7 @@ class ApplicationManager
 
         //Check workflow override logic
         if ($form->getLogicWorkflowEnable()) {
-            $submission->setApproved($this->get_submission_stage($form_id, $entry_id, false));
+            $submission->setApproved($this->get_submission_stage($form_id, $entry_id));
         } else {
             $submission->setApproved($this->get_service_stage($service_id));
         }
@@ -147,7 +147,7 @@ class ApplicationManager
         if ($submission->getBusinessId()) {
             $submission->setApproved($this->get_service_stage($submission->getServiceId()));
         } else {
-            $submission->setApproved($this->get_submission_stage($submission->getFormId(), $submission->getEntryId(), false));
+            $submission->setApproved($this->get_submission_stage($submission->getFormId(), $submission->getEntryId()));
         }
         $submission->setDateOfSubmission(date("Y-m-d H:i:s"));
         $submission->save();
@@ -158,26 +158,6 @@ class ApplicationManager
         return $submission;
     }
 
-    public function getExtraApplicationInfo($form_id, $entry_id)
-    {
-        $details = ["", ""];
-        if (empty($form_id) || empty($entry_id)) {
-            return $details;
-        }
-        $sql_plot = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_plot_no = 1";
-        $sql_plot_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot);
-        if (!empty($sql_plot_element)) {
-            $sql_plot_details = "SELECT element_{$sql_plot_element} from ap_form_{$form_id} WHERE id = {$entry_id}";
-            $details[0] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot_details);
-        }
-        $sql_owner = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_ownertype = 1";
-        $sql_owner_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_owner);
-        if (!empty($sql_owner_element)) {
-            $sql_owner_details = "SELECT element_{$sql_owner_element} from ap_form_{$form_id} where id = {$entry_id}";
-            $details[1] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_owner_details);
-        }
-        return $details;
-    }
     //Push an application from drafts to a live workflow
     public function resubmit_application($application_id)
     {
@@ -191,55 +171,6 @@ class ApplicationManager
         //OTB don't replace inital data of submission
         //$submission->setDateOfSubmission(date("Y-m-d H:i:s"));
         $submission->save();
-
-        $q = Doctrine_Query::create()
-            ->from("WorkflowReviewers a")
-            ->where("a.workflow_id = ?", $submission->getApproved());
-        $workflow_reviewers = $q->execute();
-
-        $q = Doctrine_Query::create()
-            ->from('SubMenus a')
-            ->where('a.id = ?', $submission->getApproved())
-            ->limit(1);
-        $current_stage = $q->fetchOne();
-
-        $notification = "The client has made corrections for application <b>{$submission->getApplicationId()}</b>. <br /> Current Stage: <b>{$current_stage->getTitle()}</b><br /><br />";
-
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-            $is_http = "https";
-        } else {
-            $is_http = "http";
-        }
-
-        foreach ($workflow_reviewers as $cf_user) {
-
-            $q_user = Doctrine_Query::create()
-                ->from('CfUser a')
-                ->where('a.bdeleted = 0')
-                ->andWhere('a.nid = ?', $cf_user->getReviewerId());
-            $reviewer = $q_user->fetchOne();
-
-            if ($q_user->count() > 0) {
-                // send emails to reviewers client has made the corrections
-                $body = "
-        Dear " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",<br>
-        <br>
-        " . $notification . "
-
-        <br>
-        Click here to view the application: <br>
-        ------- <br>
-        <a href='{$is_http}://" . $_SERVER['HTTP_HOST'] . "/backend.php/applications/view/id/" . $submission->getId() . "'>Link to " . $submission->getApplicationId() . "</a><br>
-        ------- <br>
-
-        <br>
-        ";
-                $mailnotifications = new mailnotifications();
-                $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "Corrected Application", $body);
-            }
-        }
-
-
 
         $this->update_services($submission->getId());
 
@@ -462,7 +393,7 @@ class ApplicationManager
 
             $application_number = $service->getServiceNumber();
 
-            $form_id = 10000 + $service_id;
+            //$form_id = 10000 + $service_id;
 
             $form_numbers = new ApNumberGenerator();
             $form_numbers->setFormId($form_id);
@@ -475,79 +406,7 @@ class ApplicationManager
     }
 
     //Get the stage of submission for a form entry (Depends on whether logic for workflow is set or not)
-    public function get_submission_stage($form_id, $entry_id, $check_logic = true)
-    {
-        //Use the settings from ap_forms
-        $q = Doctrine_Query::create()
-            ->from("ApForms a")
-            ->where("a.form_id = ?", $form_id);
-        $form = $q->fetchOne();
-
-        //Check workflow override logic
-        if ($form->getLogicWorkflowEnable() && $check_logic) {
-            //error_log("Logic-Workflow #1: Enabled");
-            $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-            require_once($prefix_folder . 'includes/init.php');
-
-            require_once($prefix_folder . '../../../config/form_builder_config.php');
-            require_once($prefix_folder . 'includes/db-core.php');
-            require_once($prefix_folder . 'includes/helper-functions.php');
-
-            $dbh = mf_connect_db();
-            $mf_settings = mf_get_settings($dbh);
-
-            //Logic field
-            $sql = "SELECT * FROM ap_workflow_logic_elements WHERE form_id = ?";
-            $params = array($form_id);
-            $sth = mf_do_query($sql, $params, $dbh);
-            $element_values = mf_do_fetch_result($sth);
-
-            $element_id = $element_values['element_id'];
-
-            //error_log("Logic-Workflow #2: Element ".$element_id);
-
-            //Get element value
-            $sql = "SELECT * FROM ap_form_" . $form_id . " WHERE id = ?";
-            $params = array($entry_id);
-            $sth = mf_do_query($sql, $params, $dbh);
-            $entry_values = mf_do_fetch_result($sth);
-
-            $option_id = $entry_values['element_' . $element_id];
-
-            //error_log("Logic-Workflow #3: Option ID ".$option_id);
-
-            $sql = "SELECT * FROM ap_element_options WHERE form_id = ? AND element_id = ? AND option_id = ?";
-            $params = array($form_id, $element_id, $option_id);
-            $sth = mf_do_query($sql, $params, $dbh);
-            $option_values = mf_do_fetch_result($sth);
-
-            $option_value = $option_values['option_text'];
-
-            //error_log("Logic-Workflow #4: Option Value ".$option_value);
-
-            $sql = "SELECT * FROM ap_workflow_logic_conditions WHERE form_id = ? AND target_element_id = ? AND rule_keyword = ?";
-            $params = array($form_id, $element_id, $option_value);
-            $sth = mf_do_query($sql, $params, $dbh);
-            $stage_values = mf_do_fetch_result($sth);
-
-            //error_log("Logic-Workflow #5: SQL: ".$sql);
-
-            if ($stage_values) {
-                //error_log("Logic-Workflow #2: Found Override Stage");
-                $stage_value = $stage_values['element_name'];
-
-                return $stage_value;
-            } else {
-                //error_log("Logic-Workflow #2: No Override Stage");
-                return $form->getFormStage();
-            }
-        } else {
-            return $form->getFormStage();
-        }
-    }
-
-
-    public function get_submission_stage_nakuru($form_id, $entry_id)
+    public function get_submission_stage($form_id, $entry_id)
     {
         //Use the settings from ap_forms
         $q = Doctrine_Query::create()
@@ -614,7 +473,7 @@ class ApplicationManager
                 return $form->getFormStage();
             }
         } else {
-            return false;
+            return $form->getFormStage();
         }
     }
 
@@ -644,7 +503,7 @@ class ApplicationManager
     }
 
     //Get the stage of submission for a form entry (Depends on whether logic for workflow is set or not)
-    public function get_resubmission_stage($form_id, $entry_id, $logic = false)
+    public function get_resubmission_stage($form_id, $entry_id)
     {
         $submission = $this->get_application($form_id, $entry_id);
 
@@ -653,15 +512,9 @@ class ApplicationManager
             ->where('a.id = ?', $submission->getApproved())
             ->limit(1);
         $current_stage = $q->fetchOne();
-
-        if ($logic) {
-        }
         //corrections
         if ($current_stage && $current_stage->getStageType() == 5 && $current_stage->getStageProperty() == 2) {
-            // Nakuru is special, corrections stage is 1
-            $next_stage  = $this->get_submission_stage_nakuru($form_id, $entry_id);
-            return  $next_stage ? $next_stage : $current_stage->getStageTypeMovement();
-            //return $current_stage->getStageTypeMovement();
+            return $current_stage->getStageTypeMovement();
         } elseif ($current_stage && ($current_stage->getStageType() == 5 || $current_stage->getStageType() == 12) && $current_stage->getStageProperty() == 3) {
             //Send notification to reviewers
             $notification = $current_stage->getStageTypeNotification();
@@ -800,7 +653,6 @@ class ApplicationManager
     //Check if application requires generation of invoices
     public function update_invoices($application_id)
     {
-        $invoice = '';
         //Check if there is already an invoice generated for this application
         if ($this->invoice_manager->has_unpaid_invoice($application_id)) {
             //Try changing the invoice status to pending since the user is trying to
@@ -817,8 +669,6 @@ class ApplicationManager
                 $invoice = $this->invoice_manager->create_invoice_from_submission($application_id);
             }
         }
-
-        return $invoice;
     }
 
     //Determines whether the form can be autosubmitted
@@ -1051,36 +901,42 @@ class ApplicationManager
     {
         //Save an application specific log
         try {
-
-            //Update last reference as ended
             $q = Doctrine_Query::create()
                 ->from("ApplicationReference a")
                 ->where("a.application_id = ?", $id)
-                ->orderBy("a.id DESC");
-            $last_reference = $q->fetchOne();
+                ->andWhere("a.stage_id = ?", $stage_id);
 
-            if ($last_reference) {
-                $last_reference->setEndDate(date('Y-m-d H:i:s'));
-                $last_reference->save();
-            }
+            if ($q->count() == 0 && $id) {
+                //Update last reference as ended
+                $q = Doctrine_Query::create()
+                    ->from("ApplicationReference a")
+                    ->where("a.application_id = ?", $id)
+                    ->orderBy("a.id DESC");
+                $last_reference = $q->fetchOne();
+
+                if ($last_reference) {
+                    $last_reference->setEndDate(date('Y-m-d H:i:s'));
+                    $last_reference->save();
+                }
 
 
-            if (sfContext::getInstance()->getUser()->getAttribute('userid', 0)) {
-                $appref = new ApplicationReference();
-                $appref->setStageId($stage_id);
-                $appref->setApplicationId($id);
-                $appref->setApprovedBy(sfContext::getInstance()->getUser()->getAttribute('userid', 0));
-                $appref->setStartDate(date('Y-m-d H:i:s'));
-                $appref->setEndDate("");
-                $appref->save();
-            } else {
-                $appref = new ApplicationReference();
-                $appref->setStageId($stage_id);
-                $appref->setApplicationId($id);
-                $appref->setApprovedBy(0);
-                $appref->setStartDate(date('Y-m-d H:i:s'));
-                $appref->setEndDate("");
-                $appref->save();
+                if (sfContext::getInstance()->getUser()->getAttribute('userid', 0)) {
+                    $appref = new ApplicationReference();
+                    $appref->setStageId($stage_id);
+                    $appref->setApplicationId($id);
+                    $appref->setApprovedBy(sfContext::getInstance()->getUser()->getAttribute('userid', 0));
+                    $appref->setStartDate(date('Y-m-d H:i:s'));
+                    $appref->setEndDate("");
+                    $appref->save();
+                } else {
+                    $appref = new ApplicationReference();
+                    $appref->setStageId($stage_id);
+                    $appref->setApplicationId($id);
+                    $appref->setApprovedBy(0);
+                    $appref->setStartDate(date('Y-m-d H:i:s'));
+                    $appref->setEndDate("");
+                    $appref->save();
+                }
             }
         } catch (Exception $ex) {
             error_log("Application Reference Log Failed " . $ex->getMessage());
@@ -1172,10 +1028,10 @@ class ApplicationManager
         if ($q->count() > 0) {
             $notifier = new mailnotifications();
 
-            //$notifier->queueemail(sfConfig::get('app_organisation_email'), $userprofile->getEmail(), $body, $body, $user_id, $id);
+            $notifier->queueemail(sfConfig::get('app_organisation_email'), $userprofile->getEmail(), $body, $body, $user_id, $id);
 
             if ($sms) {
-                // $notifier->queuesms($userprofile->getMobile(), $sms, $user_id, $id);
+                $notifier->queuesms($userprofile->getMobile(), $sms, $user_id, $id);
             }
         }
     }
@@ -1192,43 +1048,39 @@ class ApplicationManager
 
         if ($current_stage) {
             //1. If stage has default reviewers, assign them
-            if ($current_stage->getDistributeEqually()) {
+            $q = Doctrine_Query::create()
+                ->from("WorkflowReviewers a")
+                ->where("a.workflow_id = ?", $application->getApproved());
+            $workflow_reviewers = $q->execute();
 
-                $selected_reviewer = $this->distributeEqually($application->getApproved());
+            foreach ($workflow_reviewers as $reviewer) {
+                //If already assigned then skip
+                $q = Doctrine_Query::create()
+                    ->from("Task a")
+                    ->where("a.status = 1")
+                    ->andWHere("a.owner_user_id = ?", $reviewer->getReviewerId());
 
-                if ($selected_reviewer >= 1) {
-
-                    //If already assigned then skip
-                    $q = Doctrine_Query::create()
-                        ->from("Task a")
-                        ->where("a.status = 1")
-                        ->where("a.application_id = ?", $application->getId())
-                        ->andWHere("a.owner_user_id = ?", $selected_reviewer);
-
-                    if ($q->count() > 0) {
-                        error_log("User already assigned this application ---->" . $q->count());
-                    } else {
-                        $task = new Task();
-                        $task->setType(2);
-                        $task->setCreatorUserId($selected_reviewer);
-                        $task->setOwnerUserId($selected_reviewer);
-                        $task->setDuration("0");
-                        $task->setStartDate(date('Y-m-d'));
-                        $task->setEndDate("");
-                        $task->setPriority('3');
-                        $task->setIsLeader("0");
-                        $task->setActive("1");
-                        $task->setStatus("1");
-                        $task->setLastUpdate(date('Y-m-d'));
-                        $task->setDateCreated(date('Y-m-d'));
-                        $task->setRemarks("");
-                        $task->setTaskStage($application->getApproved());
-                        $task->setApplicationId($application->getId());
-                        $task->save();
-                    }
+                if ($q->count() > 0) {
+                    continue;
                 }
-            } else {
-                $this->create_task_for_stage($application, $current_stage);
+
+                $task = new Task();
+                $task->setType(2);
+                $task->setCreatorUserId($reviewer->getReviewerId());
+                $task->setOwnerUserId($reviewer->getReviewerId());
+                $task->setDuration("0");
+                $task->setStartDate(date('Y-m-d'));
+                $task->setEndDate("");
+                $task->setPriority('3');
+                $task->setIsLeader("0");
+                $task->setActive("1");
+                $task->setStatus("1");
+                $task->setLastUpdate(date('Y-m-d'));
+                $task->setDateCreated(date('Y-m-d'));
+                $task->setRemarks("");
+                $task->setTaskStage($application->getApproved());
+                $task->setApplicationId($application->getId());
+                $task->save();
             }
 
             //2. Check if all invoices are paid and application needs movement
@@ -1239,16 +1091,8 @@ class ApplicationManager
                     if ($current_stage->getStageProperty() == 2) {
                         //Move application to another stage
                         $next_stage = $current_stage->getStageTypeMovement();
-
-                        if (intval($next_stage) === 1) {
-                            $stage_to_send =  $this->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
-                            if ($stage_to_send) {
-                                $next_stage = $stage_to_send;
-                            }
-                            $application->setApproved($next_stage);
-                        } else {
-                            $application->setApproved($next_stage);
-                        }
+                        $application->setApproved($next_stage);
+                        //$application->save();
                     }
                 }
             }
@@ -1264,8 +1108,7 @@ class ApplicationManager
                     $q = Doctrine_Query::create()
                         ->from("Task a")
                         ->where("a.status = ?", 1)
-                        ->andWhere("a.application_id = ?", $application->getId())
-                        ->andWhere("a.task_stage = ?", $application->getApproved());
+                        ->andWhere("a.application_id = ?", $application->getId());
                     $total_pending_tasks = $q->count();
 
                     $q = Doctrine_Query::create()
@@ -1304,15 +1147,7 @@ class ApplicationManager
                     if ($all_inspections_done && $total_pending_tasks == 0 && $total_tasks > 0) {
                         //Move application to another stage
                         $next_stage = $current_stage->getStageTypeMovement();
-                        if (intval($next_stage) === 1) {
-                            $stage_to_send =  $this->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
-                            if ($stage_to_send) {
-                                $next_stage = $stage_to_send;
-                            }
-                            $application->setApproved($next_stage);
-                        } else {
-                            $application->setApproved($next_stage);
-                        }
+                        $application->setApproved($next_stage);
                         //$application->save();
                     }
                 }
@@ -1657,124 +1492,6 @@ class ApplicationManager
             //OTB End - Add trigger for changing application number
 
         }
-    }
-
-    private function create_task_for_stage(FormEntry $application, $current_stage)
-    {
-        $q = Doctrine_Query::create()
-            ->from("WorkflowReviewers a")
-            ->where("a.workflow_id = ?", $application->getApproved());
-        $workflow_reviewers = $q->execute();
-
-        foreach ($workflow_reviewers as $reviewer) {
-
-            $q_tasks = Doctrine_Query::create()
-                ->from("Task a")
-                ->where("a.application_id = ?", $application->getId())
-                ->andWhere("a.owner_user_id = ?", $reviewer->getReviewerId())
-                ->orderBy("a.id DESC");
-            if ($q_tasks->count() > 0) {
-
-                // check if this user has pending task
-                $q_tasks_p = Doctrine_Query::create()
-                    ->from("Task a")
-                    ->Where("a.task_stage = ?", $application->getApproved())
-                    ->andWhere("a.application_id = ?", $application->getId())
-                    ->andWhere("a.owner_user_id = ?", $reviewer->getReviewerId())
-                    ->andWhere("a.status = ?", 1);
-
-                $q_tasks_check = Doctrine_Query::create()
-                    ->from("Task a")
-                    ->where("a.application_id = ?", $application->getId())
-                    ->orderBy("a.id desc");
-                $last_task = $q_tasks_check->fetchOne();
-
-                $q_movement = Doctrine_Query::create()
-                    ->from("ApplicationReference a")
-                    ->where("a.application_id = ?", $application->getId())
-                    ->orderBy("a.id DESC");
-                $move_history = $q_movement->fetchOne();
-
-                if ($q_tasks_p->count() === 0) {
-
-                    // check if the last task was done at this particular stage
-                    // if it was don't create task move to the next stage
-                    if ($last_task->getTaskStage() !== $application->getApproved() && $last_task->getOwnerUserId() !== $reviewer->getReviewerId()) {
-                        $this->createNewTask($application, $reviewer, $current_stage);
-                    } else if ($last_task->getTaskStage() == $application->getApproved() && $move_history->getStageId() !== $application->getApproved()) {
-                        $this->createNewTask($application, $reviewer, $current_stage);
-                    }
-                    //  else if (intval($last_task->getStatus()) !== 1 && $move_history->getStageId() == $application->getApproved() && empty($move_history->getEndDate())) {
-                    //     $this->createNewTask($application, $reviewer, $current_stage);
-                    // } 
-                    // else if ($last_task->getTaskStage() !== $application->getApproved()) {
-                    //     $this->createNewTask($application, $reviewer, $current_stage);
-                    // }
-                }
-            } else {
-                $this->createNewTask($application, $reviewer, $current_stage);
-            }
-        }
-    }
-
-    private function createNewTask(FormEntry $application, $reviewer, $current_stage)
-    {
-        $task = new Task();
-        $allowed_tasks = $current_stage->getSubMenuTasks();
-        foreach ($allowed_tasks as $allowed_task) {
-            $task->setType($allowed_task->getTaskId());
-            $task->setRemarks($task->getTypeName());
-        }
-        $task->setCreatorUserId($reviewer->getReviewerId());
-        $task->setOwnerUserId($reviewer->getReviewerId());
-        $task->setDuration("0");
-        $task->setStartDate(date("Y-m-d H:m:s"));
-        $task->setEndDate("");
-        $task->setPriority('3');
-        $task->setIsLeader("0");
-        $task->setActive("1");
-        $task->setStatus("1");
-        $task->setLastUpdate(date("Y-m-d H:m:s"));
-        $task->setDateCreated(date("Y-m-d H:m:s"));
-        $task->setRemarks("");
-        $task->setTaskStage($application->getApproved());
-        $task->setApplicationId($application->getId());
-        $task->save();
-    }
-
-
-
-    private function distributeEqually($stage_id)
-    {
-        $query_workers = "SELECT
-        `workflow_reviewers`.`reviewer_id` AS `reviewer_id`,
-        `Task`.`owner_user_id` AS `Task__owner_user_id`,
-        COUNT(*) AS `count`
-      FROM
-        `workflow_reviewers`
-       
-      LEFT JOIN `task` AS `Task` ON `workflow_reviewers`.`reviewer_id` = `Task`.`owner_user_id`
-      WHERE `workflow_reviewers`.`workflow_id` = {$stage_id}
-      GROUP BY
-        `workflow_reviewers`.`reviewer_id`,
-        `Task`.`owner_user_id`
-      ORDER BY
-        `workflow_reviewers`.`reviewer_id` ASC,
-        `Task`.`owner_user_id` ASC";
-        $reviewers_tasks = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAll($query_workers);
-        $selected_reviewer = 0;
-        $min_task = PHP_INT_MAX;
-
-        // get the reviewer with minimum tasks
-        for ($i = 0; $i < count($reviewers_tasks); $i++) {
-            $current_task_count = intval($reviewers_tasks[$i]['count']);
-            if ($current_task_count < $min_task) {
-                $selected_reviewer = $reviewers_tasks[$i]['reviewer_id'];
-                $min_task = $current_task_count;
-            }
-        }
-
-        return $selected_reviewer;
     }
 
     public function get_entry_details($form_id, $entry_id)
@@ -2167,8 +1884,8 @@ class ApplicationManager
         // return the new id
         return $new_id;
     }
-    //send file(s)
-    /* public function sendIfc($submission)
+    //OTB ADD send ifc file(s)
+    public function sendIfc($submission)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
         require_once($prefix_folder . 'includes/init.php');
@@ -2230,56 +1947,22 @@ class ApplicationManager
         } else {
             error_log('---------Not submission object!------');
         }
-    } */
+    }
 
-    public function moveApplication($application, $stageId)
+    public function moveApplication(FormEntry $application, $stageId)
     {
         try {
-
-            $next_stage = $stageId;
-
-            $q = Doctrine_Query::create()
-                ->from("ApForms a")
-                ->where("a.form_id = ?", $application->getFormId());
-            $form = $q->fetchOne();
-
-            //Check workflow override logic
-            if ($form->getLogicWorkflowEnable() &&  intval($next_stage) === 1) {
-                $stage_to_send =  $this->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
-                if ($stage_to_send) {
-                    $next_stage = $stage_to_send;
-                }
-            }
-
             $q = Doctrine_Query::create()
                 ->update('FormEntry a')
                 ->where('a.id = ?', $application->getId())
-                ->set(array('a.approved' => $next_stage));
+                ->set(array('a.approved' => $stageId));
             $q->execute();
 
-            $q = Doctrine_Query::create()
-                ->from('SubMenus s')
-                ->where('s.id = ?', $next_stage);
-
-            $current_stage = $q->fetchOne();
-
-            $this->create_task_for_stage($application, $current_stage);
-
+            $this->execute_triggers($application);
             return true;
         } catch (\Exception $er) {
             error_log($er->getMessage());
             return false;
-        }
-    }
-
-    public function cancelPendingTasks($initial_stage)
-    {
-        $tasks = Doctrine_Query::create()
-            ->from('Task t')->where('t.task_stage = ?', $initial_stage)->where('t.status = ? ', 1)->execute();
-
-        foreach ($tasks as $task) {
-            $task->setStatus(55);
-            $task->save();
         }
     }
 }

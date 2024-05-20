@@ -445,7 +445,7 @@ class OTBHelper {
      * Helper for calculating days. Borrowed from thomas work
      */
     public function GetDays($sStartDate, $sEndDate) {
-        $aDays[] = $sStartDate;
+        $aDays[] = $start_date;
         $start_date = $sStartDate;
         $end_date = $sEndDate;
         $current_date = $start_date;
@@ -466,8 +466,7 @@ class OTBHelper {
         $q = Doctrine_Query::create()
                 ->from('ApplicationReference b')
                 ->where('b.stage_id = ?', $stage_id)
-                ->andWhere('b.application_id = ?', $app_id)
-                ->orderBy('b.id DESC');
+                ->andWhere('b.application_id = ?', $app_id);
         $application_reference = $q->fetchOne();
         //
         if($application_reference){
@@ -1436,5 +1435,4 @@ public function formatFigures($number){
 			break;
 		}
 	}
-	
 }

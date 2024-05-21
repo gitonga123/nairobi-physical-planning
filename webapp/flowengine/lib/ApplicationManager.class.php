@@ -177,6 +177,27 @@ class ApplicationManager
         return $submission;
     }
 
+    public function getExtraApplicationInfo($form_id, $entry_id)
+    {
+        $details = ["", ""];
+        if (empty($form_id) || empty($entry_id)) {
+            return $details;
+        }
+        $sql_plot = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_plot_no = 1";
+        $sql_plot_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot);
+        if (!empty($sql_plot_element)) {
+            $sql_plot_details = "SELECT element_{$sql_plot_element} from ap_form_{$form_id} WHERE id = {$entry_id}";
+            $details[0] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot_details);
+        }
+        $sql_owner = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_ownertype = 1";
+        $sql_owner_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_owner);
+        if (!empty($sql_owner_element)) {
+            $sql_owner_details = "SELECT element_{$sql_owner_element} from ap_form_{$form_id} where id = {$entry_id}";
+            $details[1] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_owner_details);
+        }
+        return $details;
+    }
+
     //Check if an application already exists for a given form entry
     public function application_exists($form_id, $entry_id)
     {

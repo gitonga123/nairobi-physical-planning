@@ -2692,8 +2692,12 @@ class InvoiceManager
         $fee_amount = 0;
         $base_field_value = str_replace(',', '', $this->getFieldValue($fee->getBaseField(), $application_form, $application_form_id));
 
+        // extract integers from string
+        $base_field_value = preg_replace("/[^0-9\.]/", '', $base_field_value);
+
         if ($fee->getFeeType() == 'percentage') {
-            $fee_amount = (float($fee->getAmount()) / 100) * float($base_field_value);
+
+            $fee_amount = (floatval($fee->getAmount()) / 100) * floatval($base_field_value);
         } else if ($fee->getFeeType() == 'range' or $fee->getFeeType() == 'range_percentage') {
             $q = Doctrine_Query::create()
                 ->from('FeeRange a')
@@ -2713,53 +2717,76 @@ class InvoiceManager
                 $condition_met_array = array();
                 foreach ($fee_range_conditions as $f_con) {
                     $coniditon_field_value = $f_con->getConditionField() ? $this->getFieldValue($f_con->getConditionField(), $application_form, $application_form_id) : false;
-
-                    if ($coniditon_field_value and $f_con->getConditionOperator() == 1) {
-                        //error_log('-----Condition field value ---'.$coniditon_field_value.'----Condition value -- '.$f_con->getConditionValue());
+                    // error_log("<========== Fee Id =====>" . $fee->id);
+                    // error_log("Condition field value --->" . $coniditon_field_value);
+                    // error_log("getConditionOperator operator --->" . $f_con->getConditionOperator());
+                    // error_log("getConditionValue value --->" . $f_con->getConditionValue());
+                    // error_log("getConditionField field --->" . $f_con->getConditionField());
+                    if ($coniditon_field_value && $f_con->getConditionOperator() == 1) {
                         $condition_met = strtolower(str_replace(" ", "", $f_con->getConditionValue())) == strtolower(str_replace(" ", "", $coniditon_field_value)) ? true : false;
-                        //error_log('---Has condition been meet--'.$condition_met);
-                    } else if ($coniditon_field_value and $f_con->getConditionOperator() == 2) {
+                    } else if ($coniditon_field_value && $f_con->getConditionOperator() == 2) {
                         $condition_met = $coniditon_field_value < $f_con->getConditionValue() ? true : false;
-                    } else if ($coniditon_field_value and $f_con->getConditionOperator() == 3) {
+                    } else if ($coniditon_field_value && $f_con->getConditionOperator() == 3) {
                         $condition_met = $coniditon_field_value > $f_con->getConditionValue() ? true : false;
-                    } else if ($coniditon_field_value and $f_con->getConditionOperator() == 4) {
+                    } else if ($coniditon_field_value && $f_con->getConditionOperator() == 4) {
                         $condition_met = $coniditon_field_value <= $f_con->getConditionValue() ? true : false;
-                    } else if ($coniditon_field_value and $f_con->getConditionOperator() == 5) {
+                    } else if ($coniditon_field_value && $f_con->getConditionOperator() == 5) {
                         $condition_met = $coniditon_field_value >= $f_con->getConditionValue() ? true : false;
-                    } else if ($coniditon_field_value and $f_con->getConditionOperator() == 6) {
-                        $condition_met = strtolower(str_replace(" ", "", $f_con->getConditionValue())) != strtolower(str_replace(" ", "", $coniditon_field_value)) ? true : false;
-                    } else if ($coniditon_field_value and $f_con->getConditionOperator() == 7) {
-                        $needle = strtolower(str_replace(" ", "", $f_con->getConditionValue()));
-                        $haystack = strtolower(str_replace(" ", "", $coniditon_field_value));
-                        $condition_met =  strpos($haystack, $needle) !== false ? true : false;
+                    } else if ($coniditon_field_value && $f_con->getConditionOperator() == 6) {
+                        $condition_met = str_replace(' ', '', strtolower($f_con->getConditionValue())) !== str_replace(' ', '', strtolower($coniditon_field_value));
+                    } else if ($coniditon_field_value && $f_con->getConditionOperator() == 7) {
+                        // implement using arrays
+                        $conditional_array = explode(":", $f_con->getConditionValue());
+                        if (count($conditional_array) > 1) {
+                            $cleaned_array = array_map('trim', $conditional_array);
+                            $conditon_field_value = trim($coniditon_field_value);
+                            $condition_met = in_array(strtolower($conditon_field_value), array_map('strtolower', $cleaned_array));
+                        } else {
+                            $needle = strtolower(str_replace(" ", "", $f_con->getConditionValue()));
+                            $haystack = strtolower(str_replace(" ", "", $coniditon_field_value));
+                            $condition_met =  strpos($haystack, $needle) !== false ? true : false;
+                        }
+                        // error_log("===>Is like field checking for fee --->" . $fee->getId() . " Condition met --->" . $condition_met);
+                    } else if (!$coniditon_field_value && $f_con->getConditionField()) {
+                        $condition_met = false;
                     } else if (!$f_con->getConditionField()) {
                         $condition_met = true;
                     }
+                    // error_log("Condition checked and it " . $condition_met . "\n");
+
                     array_push($condition_met_array, $condition_met);
+                    $condition_met = false;
                 }
-                //error_log(print_r($condition_met_array,true));
+                // error_log("condition array values --->" . print_r($condition_met_array, true));
+                // error_log("\n\n");
                 if (count($condition_met_array) > 0) {
                     if ($r->getConditionSetOperator() == "and") {
                         $condition_met = !in_array(false, $condition_met_array); //all the conditions must be met i.e. true, if the configuration is "All of the conditions are met"
+                        // error_log("Condition's are meant ---->" . $condition_met);
                     } else {
-                        $condition_met = in_array(true, $condition_met_array) or in_array(false, $condition_met_array); //all the conditions do not have to be met i.e. true, if the configuration is "Any of the conditions are met"
+                        $condition_met = in_array(true, $condition_met_array); //all the conditions do not have to be met i.e. true, if the configuration is "Any of the conditions are met"
                     }
                 } else {
                     $condition_met = true;
                 }
-                //error_log('---Final condition --'.$condition_met);
+                // error_log('---Final condition --' . $condition_met);
+                // error_log('Get the value type --->' . $r->getValueType());
+
                 if ($r->getValueType() == "formula") {
-                    //require_once("vendor/otbafrica/eos-1.0.0/eos.class.php");
+                    //require_once("vendor/Noteafrica/eos-1.0.0/eos.class.php");
                     //$eq = new eqEOS();
                     $equation = str_replace('{base_field}', $base_field_value, $r->getResultValue());
                     $equation = str_replace('{conditon_value}', $coniditon_field_value, $equation);
+
                     $equation = $this->parseFormula($application_form, $application_form_id, $equation, $estimate_requested);
                     $range_result = Parser::solveIF($equation);
+
+                    // error_log("Formula Range Result --->" . $range_result);
                 } else {
                     $range_result = $r->getResultValue();
                 }
-                $range_result = round($range_result, 3); //round off to 3 decimal places
-                //error_log('-----Range value --'.$range_result);
+                $range_result = round($range_result); //round off to 3 decimal places
+                // error_log('-----Range value --' . $range_result);
                 if ($base_field_value && $condition_met) {
                     if ($fee->getFeeType() == 'range_percentage') {
                         $fee_amount += ($range_result / 100) * ($base_field_value);
@@ -2769,24 +2796,24 @@ class InvoiceManager
                 } else if (!$base_field_value && $condition_met) {
                     $fee_amount += $range_result;
                 }
-                //error_log('---Fee amount --'.$fee_amount);
+                // error_log('---Fee amount --' . $fee_amount);
             }
             if ($fee_amount < $fee->getMinimumFee()) {
                 $fee_amount = $fee->getMinimumFee();
             }
-            //error_log('---Fee amount after check minimum fee'.$fee->getMinimumFee().' --'.$fee_amount);
+            // error_log('---Fee amount after check minimum fee' . $fee->getMinimumFee() . ' --' . $fee_amount);
         } else if ($fee->getFeeType() == 'formula') {
-            //require_once("vendor/otbafrica/eos-1.0.0/eos.class.php");
+            //require_once("vendor/Noteafrica/eos-1.0.0/eos.class.php");
             //$eq = new eqEOS();
+            error_log("Am at this point ---- 6");
             $equation = str_replace('{base_field}', $base_field_value, $fee->getAmount());
             $equation = $this->parseFormula($application_form, $application_form_id, $equation, $estimate_requested);
             $fee_amount = Parser::solveIF($equation);
-            $fee_amount = round($fee_amount, 3); //round off to 3 decimal places
+            $fee_amount = round($fee_amount); //round off to 3 decimal places
         } else {
             $fee_amount = $fee->getAmount();
         }
-        //error_log('---Final fee to be returned --'.number_format($fee_amount));
-        return $fee_amount;
+        return round($fee_amount);
     }
     public function parseFormula($application_form, $application_form_id, $formula, $estimate_requested = false)
     {
@@ -2807,7 +2834,7 @@ class InvoiceManager
                 ->where('a.form_id = ? and a.entry_id = ?', array($application_form_id, $application_form['id']))
                 ->orderBy('a.id ASC');
             $app = $q->fetchOne();
-            error_log('--------Form ID PArseFormula----' . $app->getId());
+            error_log('--------Form ID PArseFormula----' . $app->getId() . "The formula ---->" . $formula);
             return $templateparser->parse($app->getId(), $application_form_id, $application_form['id'], $formula);
         }
     }
@@ -3090,7 +3117,7 @@ class InvoiceManager
 
     public function getInvoiceByNumberTransactionMessageId($invoice_no, $message_id, $transaction_id)
     {
-       $q = Doctrine_Query::create()
+        $q = Doctrine_Query::create()
             ->from('MfInvoice a')
             ->where('a.invoice_number LIKE ?', $invoice_no)
             //->andWhere('a.message_id LIKE ?', $message_id)
@@ -3152,4 +3179,3 @@ class InvoiceManager
         }
     }
 }
-

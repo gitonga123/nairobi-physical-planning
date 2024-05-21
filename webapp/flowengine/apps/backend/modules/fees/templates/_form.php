@@ -58,14 +58,7 @@ use_helper("I18N");
 					<?php echo $form['fee_category'] ?>
 				</div>
 			</div>
-
-			<div class="form-group">
-				<label class="col-sm-4 control-label"><?php echo __('Part of Submission Fees'); ?></label><br>
-				<div class="col-sm-12">
-					<?php echo $form['submission_fee']->renderError() ?>
-					<?php echo $form['submission_fee'] ?>
-				</div>
-			</div>
+			
 			<div class="form-group">
 				<label class="col-sm-4 control-label"><?php echo __('Fixed to a specific Invoice?'); ?></label><br>
 				<div class="col-sm-12">

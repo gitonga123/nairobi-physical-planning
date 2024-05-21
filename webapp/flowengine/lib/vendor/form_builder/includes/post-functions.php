@@ -3194,6 +3194,7 @@
 			$query_member_db.="id,element_".$usercategory['member_database_member_no_field']." , element_".$usercategory['member_database_member_email_field'];
 			$query_member_db.=" FROM ap_form_".$usercategory['member_database'];
 			$query_member_db.=" WHERE element_".$usercategory['member_database_member_no_field']." = '$member_no'";
+			$query_member_db .= isset($usercategory['member_database_member_one_single_use']) ?  " AND element_" . $usercategory['member_database_member_one_single_use'] . "_1 = 0" : "";
 			//error_log('------>'.$query.'<--------');
 			$memberships=Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query_member_db);
 			//error_log(print_r($memberships,true));

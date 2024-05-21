@@ -72,179 +72,179 @@ abstract class BaseSubMenus extends sfDoctrineRecord
     {
         $this->setTableName('sub_menus');
         $this->hasColumn('id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => true,
-             'autoincrement' => true,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => true,
+            'autoincrement' => true,
+            'length' => 4,
+        ));
         $this->hasColumn('title', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => '',
-             ));
+            'type' => 'string',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => true,
+            'autoincrement' => false,
+            'length' => '',
+        ));
         $this->hasColumn('order_no', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'default' => 0,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => true,
+            'autoincrement' => false,
+            'default' => 0,
+            'length' => 4,
+        ));
         $this->hasColumn('max_duration', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             'default' => 0
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+            'default' => 0
+        ));
         $this->hasColumn('deleted', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('change_identifier', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('new_identifier', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
+            'type' => 'string',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => '',
+        ));
         $this->hasColumn('new_identifier_start', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
+            'type' => 'string',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 250,
+        ));
         $this->hasColumn('menu_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('hide_comments', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => true,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('allow_edit', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => true,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('stage_type', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('stage_property', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('stage_expired_movement', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('stage_type_movement', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         $this->hasColumn('stage_type_notification', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
+            'type' => 'string',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => '',
+        ));
         $this->hasColumn('stage_type_movement_fail', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
+            'type' => 'integer',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'default' => '0',
+            'notnull' => false,
+            'autoincrement' => false,
+            'length' => 4,
+        ));
         //OTB patch - For application ordering. This can override the menus settings
-         $this->hasColumn('app_queuing', 'string', 256, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 256,
-             ));
+        $this->hasColumn('app_queuing', 'string', 256, array(
+            'type' => 'string',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => true,
+            'autoincrement' => false,
+            'length' => 256,
+        ));
         //OTB Start expired invoice action logic
         $this->hasColumn('stage_expired_invoice_action', 'integer', 4, array(
             'type' => 'integer',
@@ -256,7 +256,7 @@ abstract class BaseSubMenus extends sfDoctrineRecord
             'length' => 4,
         ));
         //OTB End expired invoice action logic
-		//OTB App change with condition
+        //OTB App change with condition
         $this->hasColumn('change_field_form', 'integer', 11, array(
             'type' => 'integer',
             'fixed' => 0,
@@ -938,8 +938,8 @@ abstract class BaseSubMenus extends sfDoctrineRecord
             'autoincrement' => false,
             'length' => 255,
         ));
-		//OTB END
-		//OTB Start - Combine Cash and electronic payments
+        //OTB END
+        //OTB Start - Combine Cash and electronic payments
         $this->hasColumn('stage_payment_confirmation', 'integer', 4, array(
             'type' => 'integer',
             'fixed' => 0,
@@ -949,8 +949,8 @@ abstract class BaseSubMenus extends sfDoctrineRecord
             'autoincrement' => false,
             'length' => 4,
         ));
-		//OTB End - Combine Cash and electronic payments
-		//OTB ADD - Shared applications to go to set stage
+        //OTB End - Combine Cash and electronic payments
+        //OTB ADD - Shared applications to go to set stage
         $this->hasColumn('shared_stage_move', 'integer', 1, array(
             'type' => 'integer',
             'fixed' => 0,
@@ -969,7 +969,7 @@ abstract class BaseSubMenus extends sfDoctrineRecord
             'autoincrement' => false,
             'length' => 4,
         ));
-		//OTB END
+        //OTB END
         //OTB Start Send to expired as declined logic
         $this->hasColumn('stage_expired_movement_decline', 'integer', 4, array(
             'type' => 'integer',
@@ -980,6 +980,15 @@ abstract class BaseSubMenus extends sfDoctrineRecord
             'autoincrement' => false,
             'length' => 4,
         ));
+        $this->hasColumn('distribute_equally', 'boolean', null, array(
+            'type' => 'boolean',
+            'fixed' => 0,
+            'unsigned' => false,
+            'primary' => false,
+            'notnull' => true,
+            'autoincrement' => false,
+            'length' => '',
+        ));
         //OTB End Send to expired as declined logic
     }
 
@@ -988,21 +997,24 @@ abstract class BaseSubMenus extends sfDoctrineRecord
         parent::setUp();
 
         $this->hasOne('Menus', array(
-             'local' => 'menu_id',
-             'foreign' => 'id'));
-             
+            'local' => 'menu_id',
+            'foreign' => 'id'
+        ));
+
         $this->hasMany('Buttons as Buttonsubs', array(
-             'refClass' => 'SubMenuButtons',
-             'local' => 'sub_menu_id',
-             'foreign' => 'button_id'));
+            'refClass' => 'SubMenuButtons',
+            'local' => 'sub_menu_id',
+            'foreign' => 'button_id'
+        ));
 
         $this->hasMany('SubMenuButtons', array(
             'local' => 'id',
-            'foreign' => 'sub_menu_id'));
+            'foreign' => 'sub_menu_id'
+        ));
 
         $this->hasMany('SubMenuTasks', array(
-             'local' => 'id',
-             'foreign' => 'sub_menu_id'));
-        
+            'local' => 'id',
+            'foreign' => 'sub_menu_id'
+        ));
     }
 }

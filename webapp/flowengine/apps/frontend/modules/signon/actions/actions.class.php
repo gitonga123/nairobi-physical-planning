@@ -19,6 +19,7 @@ class signonActions extends sfActions
         $referer = $this->getContext()->getActionStack()->getSize() > 1 ? $request->getUri() : $request->getReferer();
         $this->getUser()->setAttribute('referer', $referer);
 
+        // $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_authorize_url') . '?return_url=' . sfContext::getInstance()->getController()->genUrl('signon/signin', true) : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signin');
         $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_authorize_url') . '?return_url=' . sfContext::getInstance()->getController()->genUrl('signon/signin', true) : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signin');
         return $this->redirect($url);
     }

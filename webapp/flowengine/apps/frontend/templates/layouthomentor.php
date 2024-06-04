@@ -156,16 +156,16 @@
 								</li>
 
 								<li class="login-link">
-									<a href="<?php echo sfConfig::get('app_sso_authorize_url')?>">Login / Signup</a>
+									<a href="/index.php/login">Login / Signup</a>
 								</li>
 							</ul>
 						</div>
 						<ul class="nav header-navbar-rht">
 							<li class="nav-item">
-								<a class="nav-link header-login-two" href="<?php echo sfConfig::get('app_sso_authorize_url')?>">Login</a>
+								<a class="nav-link header-login-two" href="/index.php/login">Login</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link header-login" href="<?php echo sfConfig::get('app_sso_register_url')?>">Sign up</a>
+								<a class="nav-link header-login" href="/index.php/apply">Sign up</a>
 							</li>
 						</ul>
 					</div>

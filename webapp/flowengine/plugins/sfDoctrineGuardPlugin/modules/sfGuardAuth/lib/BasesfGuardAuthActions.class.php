@@ -21,12 +21,12 @@ class BasesfGuardAuthActions extends sfActions
   {
     $user = $this->getUser();
     $this->setLayout("layoutmentorlogin");
-    if ($user->isAuthenticated())
-    {
-      return $this->redirect('@homepage');
-    } else{
-      return $this->redirect(sfConfig::get('app_sso_authorize_url'));
-    }
+    // if ($user->isAuthenticated())
+    // {
+    //   return $this->redirect('@homepage');
+    // } else{
+    //   return $this->redirect(sfConfig::get('app_sso_authorize_url'));
+    // }
 
     $class = sfConfig::get('app_sf_guard_plugin_signin_form', 'sfGuardFormSignin'); 
     $this->form = new $class();

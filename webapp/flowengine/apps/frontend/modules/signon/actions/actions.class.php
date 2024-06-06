@@ -76,6 +76,12 @@ class signonActions extends sfActions
                 throw new sfException('Something Went Wrong. Please try again later.', 500);
             }
 
+            $_SESSION['jambo_token'] = $this->token;
+
+            error_log("Session key generate from jambo pay ---->");
+
+            error_log($this->token);
+
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/accounts/user_info/';
             // fetch user information
             $stream_response = $stream->sendRequest([

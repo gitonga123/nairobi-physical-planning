@@ -5978,8 +5978,8 @@ EOT;
 			if(!empty($form->name) || !empty($form->description)){
 				$form->description = nl2br($form->description);
 				$form_desc_div =<<<EOT
-		<div class="panel-heading">
-			<h3 class="panel-title">{$form->name}</h3>
+		<div class="card-heading">
+			<h3 class="card-title">{$form->name}</h3>
 		</div>
 EOT;
 			}
@@ -6544,10 +6544,10 @@ EOT;
 	<div id="form_container" class="{$form_container_class}">
 
 		<form id="form_{$form->id}" class="appnitro {$form->label_alignment}" {$form_enc_type} method="post" data-highlightcolor="{$field_highlight_color}" action="{$self_address}">
-		<div class="panel panel-default">
+		<div class="card card-default">
 			{$form_desc_div}
 			<ul {$ul_class}>
-			<div class="panel-body p-0 form-bordered form-horizontal">
+			<div class="card-body p-0 form-bordered form-horizontal">
 
 			{$pagination_header}
 
@@ -6558,7 +6558,7 @@ EOT;
 			{$payment_total_markup_bottom}
 			{$form_resume_markup}
 			</div>
-			<div class="panel-footer">
+			<div class="card-footer">
 			{$button_markup}
 			</div>
 
@@ -6918,8 +6918,8 @@ EOT;
 		if(!empty($form->name) || !empty($form->description)){
 			$form->description = nl2br($form->description);
 			$form_desc_div =<<<EOT
-		<div id="form_header" class="panel-heading">
-			<h2 id="form_header_title" class="panel-title">{$form->name}</h2>
+		<div id="form_header" class="card-heading">
+			<h2 id="form_header_title" class="card-title">{$form->name}</h2>
 			<p id="form_header_desc">{$form->description}</p>
 		</div>
 EOT;
@@ -7045,9 +7045,9 @@ EOT;
 				<div id="form_container">
 					<h1><a>{$form->name}</a></h1>
 					<form id="form_builder_preview" class="form-bordered form-horizontal appnitro {$form->label_alignment}" method="post" action="#main_body">
-					<div class="panel panel-default">
+					<div class="card card-default">
 						{$form_desc_div}
-						<div class="panel-body padding-0">
+						<div class="card-body padding-0">
 						<ul {$ul_class} id="form_builder_sortable" title="Click field to edit. Drag to reorder.">
 						{$pagination_header}
 						{$all_element_markup}
@@ -8010,18 +8010,18 @@ EOT;
 	<div id="form_container" class="{$form_container_class}">
 
 		<form id="form_{$form_id}" class="appnitro" method="post" action="{$self_address}">
-		<div class="panel panel-default">
-		    <div class="panel-heading">
-				<h3 class="panel-title">{$form_review_title}</h3>
+		<div class="card card-default">
+		    <div class="card-heading">
+				<h3 class="card-title">{$form_review_title}</h3>
 				{$form_review_description}
 			</div>
 
 			{$pagination_header}
 			{$payment_total_markup}
-			<div class="panel-body">
+			<div class="card-body">
 			{$entry_data}
 			</div>
-			<div id="li_buttons" class="panel-footer buttons">
+			<div id="li_buttons" class="card-footer buttons">
 			    <input type="hidden" name="id" value="{$form_id}" />
 			    <input type="hidden" name="mf_page_from" value="{$from_page_num}" />
 			    {$button_markup}
@@ -8873,16 +8873,17 @@ html{
 			{$pagination_header}
 
 			<ul class="payment_summary">
+				
+				<li class="payment_summary_list">
+					<ul class="payment_list_items">
+						{$payment_list_items_markup}
+					</ul>
+				</li>
 				<li class="payment_summary_amount total_payment" data-basetotal="{$total_payment_amount}">
 					<span>
 						<h3>{$currency_symbol}<var>0</var></h3>
 						<h5>{$mf_lang['payment_total']}</h5>
 					</span>
-				</li>
-				<li class="payment_summary_list">
-					<ul class="payment_list_items">
-						{$payment_list_items_markup}
-					</ul>
 				</li>
 				{$payment_term_markup}
 			</ul>
@@ -9074,16 +9075,17 @@ EOT;
 			{$pagination_header}
 
 			<ul class="payment_summary">
+				
+				<li class="payment_summary_list">
+					<ul class="payment_list_items">
+						{$payment_list_items_markup}
+					</ul>
+				</li>
 				<li class="payment_summary_amount total_payment" data-basetotal="{$total_payment_amount}">
 					<span>
 						<h3>{$currency_symbol}<var>0</var></h3>
 						<h5>{$mf_lang['payment_total']}</h5>
 					</span>
-				</li>
-				<li class="payment_summary_list">
-					<ul class="payment_list_items">
-						{$payment_list_items_markup}
-					</ul>
 				</li>
 				{$payment_term_markup}
 			</ul>

@@ -3259,6 +3259,7 @@ EOT;
 	text-align: right;
 }
 #main_body form li.payment_summary_amount{
+    margin-top: 50px;;
 	width: auto;
 	float: right;
 	clear: none;

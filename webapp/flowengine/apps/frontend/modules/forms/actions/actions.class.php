@@ -136,6 +136,8 @@ class formsActions extends sfActions
             if ($request->getParameter("invoice")) {
                   $_GET['invoice'] = $request->getParameter("invoice");
             }
+
+            $this->setLayout("layoutmentordash");
       }
 
       /**
@@ -263,8 +265,9 @@ class formsActions extends sfActions
             $this->invoice = $q->fetchOne();
 
             if (!$this->invoice || !$this->application) {
-                  return $this->renderText(json_encode([]));
+                  return $this->renderText(json_encode(['status' => 404, 'content' => ['msg' => 'invoice/application not found']]));
             }
+
             $q = Doctrine_Query::create()
                   ->from("ApFormPayments a")
                   ->where("a.invoice_id = ? AND a.status = ?", array($this->invoice->getId(), 1))
@@ -299,7 +302,7 @@ class formsActions extends sfActions
                   $transaction->setPaymentTestMode("0");
                   $transaction->setPaymentDate(date("Y-m-d H:i:s"));
                   $transaction->setInvoiceId($this->invoice->getId());
-                  $transaction->setStatus(2);
+                  $transaction->setStatus(1);
                   $transaction->setPaymentStatus("pending");
                   $transaction->setPaymentCurrency('KES');
                   $transaction->save();
@@ -308,6 +311,15 @@ class formsActions extends sfActions
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/initiate_payment/';
 
             $stream = new Stream();
+
+            if (isset($_SESSION['jambo_token'])) {
+                  $token = $_SESSION['jambo_token'];
+            } else {
+                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
+            }
+
+            error_log("Below is the amount ---->");
+            error_log($this->invoice->getTotalAmount());
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
@@ -319,19 +331,154 @@ class formsActions extends sfActions
                         'amount' => $this->invoice->getTotalAmount(),
                         'bill_number' => $billing_reference_number,
                         "callback_url" => 'http://localhost.uasin.test/index.php/forms/processPayment'
-                  ]
+                  ],
+                  'headers' => array(
+                        "Authorization" => "JWT " . $token,
+                  )
             ]);
 
-            error_log(print_r($query_response, true));
+            error_log(print_r($query_response->content, true));
 
+            if ($query_response->content['verify_otp']) {
+                  $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
+            }
+
+            $_SESSION['jambo_pay_ref'] = $query_response->content["ref"];
+
+            $transaction->setNarration($query_response->content["ref"]);
+
+            $transaction->save();
+
+
+            error_log("Session keys aare as at below");
+            error_log($_SESSION['jambo_pay_ref']);
             return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
+      }
+
+      public function executeVerifyOtp(sfWebRequest $request)
+      {
+            $user_otp = $request->getPostParameter('user_otp');
+
+            $otp = $_SESSION['jambo_wallet_otp'];
+
+            if (!($user_otp == $otp)) {
+                  return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
+            }
+            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/authorize_wallet_payment/';
+
+            $stream = new Stream();
+            if (isset($_SESSION['jambo_token'])) {
+                  $token = $_SESSION['jambo_token'];
+            } else {
+                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
+            }
+
+            $invoice_id = $request->getParameter('invoice');
+
+            $q = Doctrine_Query::create()
+                  ->from('MfInvoice a')
+                  ->where('a.id = ?', $invoice_id)
+                  ->limit(1);
+            $this->invoice = $q->fetchOne();
+
+            error_log("Below is the amount ---->");
+            error_log($this->invoice->getTotalAmount());
+
+            $ref = $_SESSION['jambo_pay_ref'];
+
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'POST',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'data' => [
+                        'ref' => $ref,
+                        'amount' => $this->invoice->getTotalAmount(),
+                  ],
+                  'headers' => array(
+                        "Authorization" => "JWT " . $token,
+                  )
+            ]);
+            
+            return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
+      }
+
+      public function executeRegenerateOTPToken($request)
+      {
+            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/regenerate_otp/';
+
+            $stream = new Stream();
+            if (isset($_SESSION['jambo_token'])) {
+                  $token = $_SESSION['jambo_token'];
+            } else {
+                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
+            }
+            $ref = $_SESSION['jambo_pay_ref'];
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'POST',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'data' => [
+                        'ref' => $ref
+                  ],
+                  'headers' => array(
+                        "Authorization" => "JWT " . $token,
+                  )
+            ]);
+
+            if ($query_response->status !== 200 || $query_response->status !== 201) {
+                  return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
+            }
+
+            $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
+
+            return $this->renderText(json_encode(['status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
       }
 
       public function executeProcessPayments(sfWebRequest $request)
       {
             $response = $request->getContent();
             $response = json_decode($response);
-            error_log("Api Response --->");
+
+            error_log("Below is is the error response recevied");
             error_log($response);
+            error("\n\n");
+
+
+            if (strtolower($response['status']) == 'success') {
+                  $q = Doctrine_Query::create()
+                        ->from("ApFormPayments a")
+                        ->where("a.payment_id = ?", $response['bill_number'])
+                        ->where("a.narration = ?", $response['reference'])
+                        ->orderBy('a.afp_id desc');
+                  $transaction = $q->fetchOne();
+
+                  if ($transaction) {
+                        $transaction->setPaymentTestMode($response['mode_of_payment']);
+
+                        $transaction->setPaymentStatus('paid');
+                        $transaction->setStatus(2);
+
+                        $transaction->save();
+
+
+                        $q =  Doctrine_Query::create()
+                              ->from('MfInvoice m')
+                              ->where('m.id = ?', $transaction->getInvoiceId());
+
+                        $invoice = $q->fetchOne();
+
+                        $invoice->setPaid(2);
+
+                        $invoice->save();
+
+                        return $this->renderText(json_encode(['status' => 200, 'data' => ['msg' => 'paid'], 'payload' => $response]));
+                  } else {
+                        return $this->renderText(json_encode(['status' => 404, 'data' => ['msg' => 'Bill Reference not found.'], 'payload' => $response]));
+                  }
+            } else {
+                  return $this->renderText(json_encode(['status' => 500, 'data' => ['msg' => 'Something went Wrong.'], 'payload' => $response]));
+            }
       }
 }

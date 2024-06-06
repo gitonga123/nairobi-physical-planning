@@ -80,7 +80,7 @@ $invoice_manager->update_invoices($application->getId());
                                 echo "Expired. No Payments Possible";
                             } else {
                                 if ($invoice->getPaid() == 1) { ?>
-                                    <button class="btn btn-primary" id="makepayment" type="button" onClick="window.location='/index.php/invoices/pay/id/<?php echo $invoice->getId(); ?>';">
+                                    <button class="btn btn-primary" id="makepayment" type="button" onClick="window.location='/index.php/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>';">
                                         <i class="fas fa-money-bill"></i> <?php echo __('Make Payment'); ?>
                                     </button>
                                 <?php }

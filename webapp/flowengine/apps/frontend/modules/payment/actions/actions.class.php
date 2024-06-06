@@ -67,7 +67,7 @@ class paymentActions extends sfActions
         }
       }
       $responseDetails;
-    } catch (Exeception $e) {
+    } catch (\Exeception $e) {
       $responseDetails['statusCode'] = '1';
       $responseDetails['statusMessage'] = $e->getMessage();
       $responseDetails['transactionId'] = $transaction_id;

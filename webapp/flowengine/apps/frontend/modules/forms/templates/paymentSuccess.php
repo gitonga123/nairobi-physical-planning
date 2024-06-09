@@ -297,15 +297,13 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 						} else {
 							payment_option += `
                                 <div class="card shadow mt-3 mb-4">
-                                    <div class="card-header bg-default text-white text-center d-flex align-items-center">
-                                        <img src="/asset_mentor/assets/img/icons8-mpesa-480.png" class="img-fluid mr-3" width="50px" height="auto">
-                                        <h4 class="mb-0">
-                                            M-PESA
-                                        </h4>
+                                    <div class="card-header bg-default text-white">
+                                        <img src="/asset_mentor/assets/img/mpesa_2.png" class="img-fluid mr-3" width="100px" height="auto">
+                                        
                                     </div>
                                     <div class="card-body">
 										<div id="mpesa_confirmation_id">
-											<div class="alert alert-success alert-dismissible fade show" role="alert">
+											<div class="alert alert-success fade show" role="alert">
 												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>

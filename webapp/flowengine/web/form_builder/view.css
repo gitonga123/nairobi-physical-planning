@@ -157,16 +157,16 @@
 }
 
 #main_body form li.total_payment {
-    /* padding-left: 17px;
+    padding-left: 17px;
     padding-right: 17px;
     padding-bottom: 0;
-    padding-top: 0; */
+    padding-top: 0;
     position: absolute;
-    /* right: 44px;
+    right: 44px;
     top: 50px;
     background-color: #fff;
     border-radius: 2px;
-    border: 1px solid #000; */
+    border: 1px solid #000;
 }
 
 #main_body form li.total_payment.mf_review {

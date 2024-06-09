@@ -137,7 +137,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 				<div class="card card-default p-b-0">
 					<div style="margin: 15px;">
 						<?php echo $markup; ?>
-						<div class="form_container">
+						<div class="form_container mt-5">
 							<h2>Checkout</h2>
 							<form class="form-horizontal" id="checkout_initial_payment" action="<?php echo '/index.php/forms/initiatePayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>">
 								<div id="response_area_id"></div>
@@ -167,6 +167,8 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 ?>
 <script>
 	const wallet_url = "<?php echo '/index.php/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const confirm_payment_url = "<?php echo '/index.php/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const redirect_url = "<?php echo '/index.php/invoices/view/id/' . $invoice->getId(); ?>";
 </script>
 
 <script>
@@ -190,6 +192,51 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 		);
 	}
 	$(document).ready(function() {
+
+		function confirmPayment(currentInterval = 1, maxInterval = 10) {
+			initializePaymentButtonLoading();
+			$.ajax({
+				url: confirm_payment_url,
+				type: "GET",
+				data: {},
+				success: function(response) {
+					const data = JSON.parse(response);
+
+					if (data?.content?.success) {
+						$("#mpesa_confirmation_id").html(
+							`<div class="alert alert-success fade show" role="alert" id="mpesa_confirmation_id">
+								<strong>Success!</strong> Redirecting...
+							</div>`
+						);
+						initializePaymentButtonDone();
+
+						window.location.href = redirect_url;
+					} else {
+						$("#mpesa_confirmation_id").html(
+							`<div class="alert alert-warning fade show" role="alert" id="mpesa_confirmation_id">
+								<strong>Failed!</strong> Waiting for Payment...
+							</div>`
+						);
+						initializePaymentButtonDone();
+					}
+				},
+				error: function(error) {
+					$("#mpesa_confirmation_id").html();
+					$("#mpesa_confirmation_id").html(
+						`<div class="alert alert-warning fade show" role="alert" id="mpesa_confirmation_id">
+								<strong>Failed!</strong> Something went Wrong. Please try again later.
+							</div>`
+					)
+					initializePaymentButtonDone();
+				}
+			});
+
+			// Increment the interval for the next check
+			currentInterval = Math.min(currentInterval + 1, maxInterval);
+			// Schedule the next check
+			setTimeout(confirmPayment, currentInterval * 60 * 1000);
+		}
+
 		function initiatePayment() {
 			initializePaymentButtonLoading();
 			var formData = $("#checkout_initial_payment").serialize(); // Serialize form data
@@ -230,6 +277,8 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
                                     </div>
                                     <div class="card-body">
                                         <form id="wallet_checkout_id" class="form-horizontal" action="${wallet_url}">
+											<div id="mpesa_confirmation_id">
+											</div>
                                             <div class="form-group row">
                                                 <label class="control-label col-sm-2" for="otp">OTP:</label>
                                                 <div class="col-sm-10">
@@ -255,13 +304,22 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
                                         </h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            <strong>Success!</strong> Please check your phone for an M-PESA POP UP.
-                                        </div>
-                                        <a class="btn btn-outline-success btn-block mt-3" href="#" id="resend_payment">Click here to resend the M-PESA Popup</a>
+										<div id="mpesa_confirmation_id">
+											<div class="alert alert-success alert-dismissible fade show" role="alert">
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+												<strong>Success!</strong> Please check your phone for an M-PESA POP UP.
+											</div>
+										</div>
+										<div class="d-flex justify-content-between mt-2 mb-3">
+											<div>
+												<a class="btn btn-outline-success btn-block mt-3" href="#" id="resend_payment">Click here to resend the M-PESA Popup</a>
+											</div>
+											<div>
+												<a class="btn btn-outline-dark btn-block mt-3" href="#" id="confirm_payment" title="I have paid">Complete Payment</a>
+											</div>
+										</div>
                                     </div>
                                 </div>
                                 `;
@@ -274,6 +332,11 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 						$("#resend_payment").click(function(event) {
 							event.preventDefault();
 							initiatePayment(); // Re-initiate the payment process
+						});
+
+						$("#confirm_payment").click(function(event) {
+							event.preventDefault();
+							confirmPayment();
 						});
 
 						$("#wallet_checkout_id").submit(function(event) {
@@ -297,6 +360,8 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
                                         </div>`
 										);
 
+										confirmPayment();
+
 										// ... your success logic here
 									} else {
 										// Handle invalid OTP error
@@ -308,6 +373,8 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
                                         </div>`
 										);
 									}
+
+
 								},
 								error: function(jqXHR, textStatus, errorThrown) {
 									$("#response_wallet_area_id").html(

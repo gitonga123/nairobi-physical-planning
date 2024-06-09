@@ -399,7 +399,7 @@ class formsActions extends sfActions
                         "Authorization" => "JWT " . $token,
                   )
             ]);
-            
+
             return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
       }
 
@@ -439,20 +439,19 @@ class formsActions extends sfActions
       public function executeProcessPayments(sfWebRequest $request)
       {
             $response = $request->getContent();
-            $response = json_decode($response);
+            $response = json_decode($response, true);
 
-            error_log("Below is is the error response recevied");
-            error_log($response);
-            error("\n\n");
-
+            error_log(print_r($response, true));
 
             if (strtolower($response['status']) == 'success') {
                   $q = Doctrine_Query::create()
                         ->from("ApFormPayments a")
                         ->where("a.payment_id = ?", $response['bill_number'])
-                        ->where("a.narration = ?", $response['reference'])
+                        ->where("a.narration = ?", $response['ref'])
                         ->orderBy('a.afp_id desc');
                   $transaction = $q->fetchOne();
+
+                  error_log($transaction);
 
                   if ($transaction) {
                         $transaction->setPaymentTestMode($response['mode_of_payment']);
@@ -480,5 +479,38 @@ class formsActions extends sfActions
             } else {
                   return $this->renderText(json_encode(['status' => 500, 'data' => ['msg' => 'Something went Wrong.'], 'payload' => $response]));
             }
+      }
+
+      public function executeConfirmMpesaPayment(sfWebRequest $request)
+      {
+            $invoice_id = $request->getParameter('invoice');
+            $q = Doctrine_Query::create()
+                  ->from('FormEntry a')
+                  ->where('a.id = ?', $request->getParameter("application"))
+                  ->andWhere('a.user_id = ?', $this->getUser()->getGuardUser()->getId());
+            $this->application = $q->fetchOne();
+
+            $q = Doctrine_Query::create()
+                  ->from('MfInvoice a')
+                  ->where('a.id = ?', $invoice_id)
+                  ->limit(1);
+            $this->invoice = $q->fetchOne();
+
+            if (!$this->invoice || !$this->application) {
+                  return $this->renderText(json_encode(['success' => false, 'status' => 404, 'content' => ['msg' => 'invoice/application not found']]));
+            }
+
+            $q = Doctrine_Query::create()
+                  ->from("ApFormPayments a")
+                  ->where("a.invoice_id = ? AND a.status = ?", array($this->invoice->getId(), 2))
+                  ->orderBy('a.afp_id desc');
+            $transaction = $q->fetchOne();
+
+
+            if ($transaction && $transaction->getStatus() == 2) {
+                  return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
+            }
+
+            return $this->renderText(json_encode(['success' => false, 'status' => 404, 'data' => ['msg' => 'Payment Not Found.']]));
       }
 }

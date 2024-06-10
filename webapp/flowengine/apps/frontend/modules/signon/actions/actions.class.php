@@ -123,7 +123,7 @@ class signonActions extends sfActions
                 $profile->setRegisteras(6);
                 $profile->save();
             } else {
-                $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findByUserId($this->sfGuardUser->id);
+                $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findByUserId($this->sfGuardUser->id)->fetchOne();
                 error_log("Profile exists yes or no");
                 error_log($user_share);
                 if ($user_share) {

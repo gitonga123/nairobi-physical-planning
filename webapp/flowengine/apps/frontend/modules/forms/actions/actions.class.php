@@ -420,27 +420,30 @@ class formsActions extends sfActions
 
             $response_content = $query_response->content;
 
-            $q = Doctrine_Query::create()
-                  ->from("ApFormPayments a")
-                  ->where("a.payment_id = ?", $response_content['bill_number'])
-                  ->where("a.narration = ?", $response_content['ref'])
-                  ->orderBy('a.afp_id desc');
-            $transaction = $q->fetchOne();
+            if (strtolower($response_content['status']) == 'success') {
 
-            if ($transaction) {
-                  $transaction->setPaymentMerchantType("Jambo Pay - " . $response_content['mode_of_payment']);
+                  $q = Doctrine_Query::create()
+                        ->from("ApFormPayments a")
+                        ->where("a.payment_id = ?", $response_content['bill_number'])
+                        ->where("a.narration = ?", $response_content['ref'])
+                        ->orderBy('a.afp_id desc');
+                  $transaction = $q->fetchOne();
 
-                  $transaction->setPaymentStatus('paid');
-                  $transaction->setStatus(2);
+                  if ($transaction) {
+                        $transaction->setPaymentMerchantType("Jambo Pay - " . $response_content['mode_of_payment']);
 
-                  $transaction->save();
+                        $transaction->setPaymentStatus('paid');
+                        $transaction->setStatus(2);
 
-                  $this->invoice->setPaid(2);
+                        $transaction->save();
 
-                  $this->invoice->save();
+                        $this->invoice->setPaid(2);
+
+                        $this->invoice->save();
+                  }
             }
-
-            return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
+            return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
+            // return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
       }
 
       public function executeRegenerateOTPToken($request)

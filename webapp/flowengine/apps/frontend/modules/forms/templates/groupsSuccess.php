@@ -17,7 +17,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 						$count = 0;
 						foreach ($groups as $group) { ?>
 							<li>
-								<a class="nav-link active" href="# <?php echo $group->getGroupName(); ?>" data-bs-toggle="tab"> <?php echo $group->getGroupName(); ?></a>
+								<a class="nav-link active" href="# <?php echo $group->getGroupName(); ?>" data-bs-toggle="tab"> Kenya -> <?php echo $group->getGroupName(); ?></a>
 							</li>
 						<?php } ?>
 					</ul>
@@ -37,6 +37,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 								->orderBy('a.form_name ASC');
 							$forms = $q->execute();
 							foreach ($forms as $form) {
+								var_dump($sf_user->getGuardUser()->getProfile()->getRegisteras());
 								if (sfConfig::get('app_enable_categories') == "yes") {
 									$q = Doctrine_Query::create()
 										->from('sfGuardUserCategoriesForms a')

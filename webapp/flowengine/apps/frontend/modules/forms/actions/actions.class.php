@@ -374,7 +374,7 @@ class formsActions extends sfActions
       {
             $user_otp = $request->getPostParameter('user_otp');
 
-            error_log("User otp --->", $user_otp);
+            error_log("User otp --->". $user_otp);
 
             // $otp = $_SESSION['jambo_wallet_otp'];
 

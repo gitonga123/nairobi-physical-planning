@@ -105,7 +105,7 @@ class signonActions extends sfActions
             $account_type = $user_api_data['account_type'];
             $fullname = $first_name . " " . $last_name;
 
-            $this->sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->createQuery('u')->where('username = ?', $username)->fetchOne();
+            $this->sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->createQuery('u')->where('username = ?', $username)->orderBy('u.id DESC')->fetchOne();
 
             if (!$this->sfGuardUser) {
                 // create user

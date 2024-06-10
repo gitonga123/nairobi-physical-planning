@@ -39,11 +39,24 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
 									->orderBy('a.form_name ASC');
 							} else {
+
+								// UASIN GISHU ISSUE ONLY
+								// Original
+								// $q = Doctrine_Query::create()
+								// 	->from('ApForms a')
+								// 	->andWhere('a.form_type = 1')
+								// 	->andWhere('a.form_active = 1')
+								// 	->andWhere('a.form_group = ?', $group->getGroupId())
+								// 	->orderBy('a.form_name ASC');
+
+								// Updated, on another platform you can revert
 								$q = Doctrine_Query::create()
 									->from('ApForms a')
+									->leftJoin('a.sfGuardUserCategoriesForms s')
 									->andWhere('a.form_type = 1')
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
+									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
 									->orderBy('a.form_name ASC');
 							}
 							$forms = $q->execute();

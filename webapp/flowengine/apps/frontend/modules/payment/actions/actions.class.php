@@ -152,7 +152,7 @@ class paymentActions extends sfActions
     return $this->renderText(json_encode($responseDetails));
   }
 
-  public function executeProcessPayments(sfWebRequest $request)
+  public function executeProcesspayments(sfWebRequest $request)
   {
     $response = $request->getContent();
     $response = json_decode($response, true);

@@ -330,7 +330,7 @@ class formsActions extends sfActions
                         'phone_number' => $request->getPostParameter('phone_number'),
                         'amount' => $this->invoice->getTotalAmount(),
                         'bill_number' => $billing_reference_number,
-                        "callback_url" => 'http://localhost.uasin.test/backend.php/api/processPayment'
+                        'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'backend.php/api/processPayment';
                   ],
                   'headers' => array(
                         "Authorization" => "JWT " . $token,
@@ -506,7 +506,7 @@ class formsActions extends sfActions
             }
 
             error_log($this->invoice->getPaid());
-            
+
             if ($this->invoice && $this->invoice->getPaid() == 2) {
                   return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
             }

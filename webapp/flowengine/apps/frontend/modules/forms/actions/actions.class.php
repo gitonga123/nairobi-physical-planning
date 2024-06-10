@@ -425,27 +425,8 @@ class formsActions extends sfActions
             error_log($response_content);
             error_log(print_r($response_content, true));
 
-            if (strtolower($response_content['status']) == 'success') {
-
-                  $q = Doctrine_Query::create()
-                        ->from("ApFormPayments a")
-                        ->where("a.payment_id = ?", $response_content['bill_number'])
-                        ->where("a.narration = ?", $response_content['ref'])
-                        ->orderBy('a.afp_id desc');
-                  $transaction = $q->fetchOne();
-
-                  if ($transaction) {
-                        $transaction->setPaymentMerchantType("Jambo Pay - " . $response_content['mode_of_payment']);
-
-                        $transaction->setPaymentStatus('paid');
-                        $transaction->setStatus(2);
-
-                        $transaction->save();
-
-                        $this->invoice->setPaid(2);
-
-                        $this->invoice->save();
-                  }
+            if (!empty($response_content['ref'])) {
+                  return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content])); 
             }
             return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
             // return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));

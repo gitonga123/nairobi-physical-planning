@@ -116,20 +116,29 @@ class signonActions extends sfActions
 
                 // create user profile
                 $profile = new sfGuardUserProfile();
-                $profile->user_id = $this->sfGuardUser->id;
-                $profile->fullname = $fullname;
-                $profile->email = $email;
-                $profile->mobile = $username;
-                $profile->registeras = 6;
+                $profile->setUserId($this->sfGuardUser->id);
+                $profile->setFullname($fullname);
+                $profile->setEmail($email);
+                $profile->setMobile($username);
+                $profile->setRegisteras(6);
                 $profile->save();
             } else {
-                $profile = new sfGuardUserProfile();
-                $profile->user_id = $this->sfGuardUser->id;
-                $profile->fullname = $fullname;
-                $profile->email = $email;
-                $profile->mobile = $username;
-                $profile->registeras = 6;
-                $profile->save();
+                $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findByUserId($this->sfGuardUser->id);
+                error_log("Profile exists yes or no");
+                error_log($user_share);
+                if ($user_share) {
+                    $user_share->setFullname($fullname);
+                    $user_share->setEmail($email);
+                    $user_share->setMobile($username);
+                } else {
+                    $profile = new sfGuardUserProfile();
+                    $profile->user_id = $this->sfGuardUser->id;
+                    $profile->setFullname($fullname);
+                    $profile->setEmail($email);
+                    $profile->setMobile($username);
+                    $profile->setRegisteras(6);
+                    $profile->save();
+                }
             }
 
             $this->getUser()->signin($this->sfGuardUser, false);

@@ -318,23 +318,30 @@ class formsActions extends sfActions
                   $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
             }
 
-            error_log("Below is the amount ---->");
-            error_log($this->invoice->getTotalAmount());
+            error_log("Amount to pay ---->" . $this->invoice->getTotalAmount());
 
-            error_log("Callback url below --->");
-            error_log(sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments');
+            $callback_url = sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments';
+
+            error_log("Callback url below --->".$callback_url);
+
+            error_log("initiate request payment ---->");
+
+            $payload = [
+                  'phone_number' => $request->getPostParameter('phone_number'),
+                  'amount' => $this->invoice->getTotalAmount(),
+                  'bill_number' => $billing_reference_number,
+                  'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments'
+            ];
+
+            error_log(print_r($payload));
+            
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
                   'ssl' => 'none',
                   'contentType' => 'json',
-                  'data' => [
-                        'phone_number' => $request->getPostParameter('phone_number'),
-                        'amount' => $this->invoice->getTotalAmount(),
-                        'bill_number' => $billing_reference_number,
-                        'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments'
-                  ],
+                  'data' => $payload,
                   'headers' => array(
                         "Authorization" => "JWT " . $token,
                   )

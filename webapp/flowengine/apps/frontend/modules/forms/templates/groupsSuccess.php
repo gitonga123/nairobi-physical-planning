@@ -61,19 +61,6 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 							}
 							$forms = $q->execute();
 							foreach ($forms as $form) {
-								var_dump($sf_user->getGuardUser()->getProfile()->getId());
-								var_dump($sf_user->getGuardUser()->getProfile()->getRegisteras());
-								// var_dump($form->getFormId());
-								// if (sfConfig::get('app_enable_categories') == "yes") {
-								// 	$q = Doctrine_Query::create()
-								// 		->from('sfGuardUserCategoriesForms a')
-								// 		->where('a.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-								// 		->andWhere('a.formid = ?', $form->getFormId());
-								// 	$category = $q->count();
-								// 	if ($category == 0) {
-								// 		continue;
-								// 	}
-								// }
 							?>
 								<!-- here -->
 								<div class="col-12 col-md-6 col-xl-4 d-flex">

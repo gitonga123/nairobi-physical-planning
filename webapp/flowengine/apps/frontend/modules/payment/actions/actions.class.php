@@ -9,7 +9,9 @@
  * @subpackage payment
  * @author     Webmasters Africa / Thomas Juma (thomas.juma@webmastersafrica.com)
  */
+
 use Exception;
+
 class paymentActions extends sfActions
 {
   /**
@@ -80,74 +82,119 @@ class paymentActions extends sfActions
    */
   public function executePaymentnotifications(sfWebRequest $request)
   {
-      $response = $request->getContent();
-      $response = json_decode($response);
+    $response = $request->getContent();
+    $response = json_decode($response);
 
-      $invoice = new InvoiceManager();
-      //
-      $invoice_no_only = false ;
-      // Split the string using the hyphen as the delimiter
-      $splitArray = explode('-', $response->billId);
-      //error_log(print_r($splitArray)) ;
-      /// Check if there are at least 4 parts
-      $invoice_no_only = implode('-', array_slice($splitArray, 0, 3));
-      // error_log("Debig >>>>>>>>>>> invoice_no_only ".$invoice_no_only ) ;
-       //$invoice_no_only = "NKR-INV-710" ;
-       // test
-       $q_test = Doctrine_Query::create()
-       ->from('MfInvoice a')
-       ->where('a.transaction_id = ?', $response->billId)
-       ->orWhere('a.invoice_number = ?', $invoice_no_only)
-       ->limit(1);
-      $invoice_r_test = $q_test->fetchOne();
-      $invoice_no = trim($invoice_r_test->getInvoiceNumber());
-      error_log($invoice_no) ;   
-      
-      // get invoice id
-      /* $q = Doctrine_Query::create()
+    $invoice = new InvoiceManager();
+    //
+    $invoice_no_only = false;
+    // Split the string using the hyphen as the delimiter
+    $splitArray = explode('-', $response->billId);
+    //error_log(print_r($splitArray)) ;
+    /// Check if there are at least 4 parts
+    $invoice_no_only = implode('-', array_slice($splitArray, 0, 3));
+    // error_log("Debig >>>>>>>>>>> invoice_no_only ".$invoice_no_only ) ;
+    //$invoice_no_only = "NKR-INV-710" ;
+    // test
+    $q_test = Doctrine_Query::create()
+      ->from('MfInvoice a')
+      ->where('a.transaction_id = ?', $response->billId)
+      ->orWhere('a.invoice_number = ?', $invoice_no_only)
+      ->limit(1);
+    $invoice_r_test = $q_test->fetchOne();
+    $invoice_no = trim($invoice_r_test->getInvoiceNumber());
+    error_log($invoice_no);
+
+    // get invoice id
+    /* $q = Doctrine_Query::create()
              ->from('MfInvoice a')
              ->where('a.transaction_id = ?', $response->billId)
              ->limit(1);
             $invoice_r = $q->fetchOne();
 
       $invoice_no = trim($invoice_r->getInvoiceNumber()); */
-      $message_id = trim($response->messageId);
-      $transaction_id = trim($response->billId);
-      $responseDetails = [
-        'messageId' => $message_id,
-      ];
-      try {
-     
-        $invoiceDetails = $invoice->getInvoiceByNumberTransactionMessageId(
-          $invoice_no,
-          $message_id,
-          $transaction_id
-        );
-        if (!$invoiceDetails) {
-          $responseDetails['statusCode'] = '1';
-          $responseDetails['statusMessage'] = 'Invoice not found';
-          $responseDetails['transactionId'] = $transaction_id;
-          $response['currency'] = 'KES';
-        } else {
-          if ($invoiceDetails->getPaid() == 1) {
-           // error_log("Debug MalipoGateway >> >Check invoice ".$invoiceDetails->getId()) ;
-              
-            $payments_manager = new MalipoGateway();
-            $responseDetails = $payments_manager->malipo_ipn($response, $invoiceDetails);
-          } else {
-            $responseDetails['statusCode'] = '1';
-            $responseDetails['statusMessage'] = 'Invoice Already Paid. Please re-check the invoice no.';
-            $responseDetails['transactionId'] = $transaction_id;
-          }
-        }
-        $responseDetails;
-      } catch (Exeception $e) {
+    $message_id = trim($response->messageId);
+    $transaction_id = trim($response->billId);
+    $responseDetails = [
+      'messageId' => $message_id,
+    ];
+    try {
+
+      $invoiceDetails = $invoice->getInvoiceByNumberTransactionMessageId(
+        $invoice_no,
+        $message_id,
+        $transaction_id
+      );
+      if (!$invoiceDetails) {
         $responseDetails['statusCode'] = '1';
-        $responseDetails['statusMessage'] = $e->getMessage();
+        $responseDetails['statusMessage'] = 'Invoice not found';
         $responseDetails['transactionId'] = $transaction_id;
+        $response['currency'] = 'KES';
+      } else {
+        if ($invoiceDetails->getPaid() == 1) {
+          // error_log("Debug MalipoGateway >> >Check invoice ".$invoiceDetails->getId()) ;
+
+          $payments_manager = new MalipoGateway();
+          $responseDetails = $payments_manager->malipo_ipn($response, $invoiceDetails);
+        } else {
+          $responseDetails['statusCode'] = '1';
+          $responseDetails['statusMessage'] = 'Invoice Already Paid. Please re-check the invoice no.';
+          $responseDetails['transactionId'] = $transaction_id;
+        }
       }
-  
-      return $this->renderText(json_encode($responseDetails));
+      $responseDetails;
+    } catch (Exeception $e) {
+      $responseDetails['statusCode'] = '1';
+      $responseDetails['statusMessage'] = $e->getMessage();
+      $responseDetails['transactionId'] = $transaction_id;
+    }
+
+    return $this->renderText(json_encode($responseDetails));
+  }
+
+  public function executeProcessPayments(sfWebRequest $request)
+  {
+    $response = $request->getContent();
+    $response = json_decode($response, true);
+
+    error_log(print_r($response, true));
+
+    if (strtolower($response['status']) == 'success') {
+      $q = Doctrine_Query::create()
+        ->from("ApFormPayments a")
+        ->where("a.payment_id = ?", $response['bill_number'])
+        ->where("a.narration = ?", $response['ref'])
+        ->orderBy('a.afp_id desc');
+      $transaction = $q->fetchOne();
+
+      error_log($transaction);
+
+      if ($transaction) {
+        $transaction->setPaymentTestMode($response['mode_of_payment']);
+
+        $transaction->setPaymentStatus('paid');
+        $transaction->setStatus(2);
+
+        $transaction->save();
+
+
+        $q =  Doctrine_Query::create()
+          ->from('MfInvoice m')
+          ->where('m.id = ?', $transaction->getInvoiceId());
+
+        $invoice = $q->fetchOne();
+
+        $invoice->setPaid(2);
+
+        $invoice->save();
+
+        return $this->json(['data' => ['msg' => 'paid', 'payload' => $response]]);
+      } else {
+        return $this->json(['data' => ['msg' => 'Bill Reference not found.', 'payload' => $response]], 404);
+      }
+    } else {
+      return $this->json(['data' => ['msg' => 'Something went Wrong.', 'payload' => $response]], 500);
+    }
   }
   /**
    * Executes 'Query' action

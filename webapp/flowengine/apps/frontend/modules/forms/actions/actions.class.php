@@ -330,7 +330,7 @@ class formsActions extends sfActions
                         'phone_number' => $request->getPostParameter('phone_number'),
                         'amount' => $this->invoice->getTotalAmount(),
                         'bill_number' => $billing_reference_number,
-                        'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'backend.php/api/processPayment'
+                        'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processPayment'
                   ],
                   'headers' => array(
                         "Authorization" => "JWT " . $token,

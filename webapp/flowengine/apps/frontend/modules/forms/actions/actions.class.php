@@ -333,8 +333,8 @@ class formsActions extends sfActions
                   'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments'
             ];
 
-            error_log(print_r($payload));
-            
+            error_log(print_r($payload, true));
+
 
             $query_response = $stream->sendRequest([
                   'url' => $url,

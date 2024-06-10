@@ -143,7 +143,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 								<div id="response_area_id"></div>
 								<div class="form-group" style="margin: 2px;">
 									<label for="phone_number">Phone Number:</label>
-									<input type="text" class="form-control" id="phone_number" placeholder="Phone Number" name="phone_number" value="254710594298">
+									<input type="text" class="form-control" id="phone_number" placeholder="Phone Number" name="phone_number" value="<?php echo $user->getMobile(); ?>">
 								</div>
 								<div class="form-group p-t-10" style="margin: 2px; margin-top:10px;">
 									<button type="submit" class="btn btn-sm btn-dark" id="initiate_payment_loader">
@@ -172,255 +172,215 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 </script>
 
 <script>
-	function initializePaymentButtonLoading() {
-		const text = `<span>
-					<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-						Initiating...
-				</span>
-				`;
-
-		$("#initiate_payment_loader").prop('disabled', true).html(
-			text
-		);
-	}
-
-	function initializePaymentButtonDone() {
-		const text = `Initiate Payment`;
-		$("#initiate_payment_loader").show();
-		$("#initiate_payment_loader").prop('disabled', false).html(
-			text
-		);
-	}
 	$(document).ready(function() {
+		function setButtonLoading(buttonId, isLoading) {
+			const button = $(`#${buttonId}`);
+			if (isLoading) {
+				button.prop('disabled', true).html('<span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Initiating...</span>');
+			} else {
+				button.prop('disabled', false).html('Initiate Payment');
+			}
+		}
+
+		function showAlert(areaId, type, message) {
+			let value_info = ''
+			switch (type) {
+				case 'success':
+					value_info = 'Success';
+					break;
+				case 'info':
+					value_info = 'Alert';
+					break;
+				case 'warning':
+					value_info = 'Failed';
+					break;
+				case 'error':
+					value_info = 'Error';
+					break;
+				default:
+					value_info = '';
+					break;
+			}
+			const alertHtml = `<div class="alert alert-${type} alert-dismissible">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>${value_info}!</strong> ${message}
+							</div>`;
+			$(`#${areaId}`).html(alertHtml);
+		}
 
 		function confirmPayment(currentInterval = 1, maxInterval = 10) {
-			initializePaymentButtonLoading();
+			console.log("Confirm payment being executed ---->", currentInterval, maxInterval);
+			setButtonLoading('initiate_payment_loader', true);
 			$.ajax({
 				url: confirm_payment_url,
-				type: "GET",
-				data: {},
+				type: 'GET',
 				success: function(response) {
 					const data = JSON.parse(response);
-
-					if (data?.content?.success) {
-						$("#mpesa_confirmation_id").html(
-							`<div class="alert alert-success fade show" role="alert" id="mpesa_confirmation_id">
-								<strong>Success!</strong> Redirecting...
-							</div>`
-						);
-						initializePaymentButtonDone();
-
+					if (data?.success) {
+						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');
 						window.location.href = redirect_url;
 					} else {
-						$("#mpesa_confirmation_id").html(
-							`<div class="alert alert-warning fade show" role="alert" id="mpesa_confirmation_id">
-								<strong>Failed!</strong> Waiting for Payment...
-							</div>`
-						);
-						initializePaymentButtonDone();
+						showAlert('mpesa_confirmation_id', 'info', 'Waiting for Payment to proceed...');
 					}
+					setButtonLoading('initiate_payment_loader', false);
 				},
-				error: function(error) {
-					$("#mpesa_confirmation_id").html();
-					$("#mpesa_confirmation_id").html(
-						`<div class="alert alert-warning fade show" role="alert" id="mpesa_confirmation_id">
-								<strong>Failed!</strong> Something went Wrong. Please try again later.
-							</div>`
-					)
-					initializePaymentButtonDone();
+				error: function() {
+					showAlert('mpesa_confirmation_id', 'warning', 'Failed! Something went Wrong. Please try again later.');
+					setButtonLoading('initiate_payment_loader', false);
 				}
 			});
+			setTimeout(confirmPayment, Math.min(currentInterval + 1, maxInterval) * 60 * 1000);
+		}
 
-			// Increment the interval for the next check
-			currentInterval = Math.min(currentInterval + 1, maxInterval);
-			// Schedule the next check
-			setTimeout(confirmPayment, currentInterval * 60 * 1000);
+		function initialCheckingPayment() {
+			setButtonLoading('initiate_payment_loader', true);
+			$.ajax({
+				url: confirm_payment_url,
+				type: 'GET',
+				success: function(response) {
+					const data = JSON.parse(response);
+					if (data?.success) {
+						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');
+						window.location.href = redirect_url;
+					} else {
+						showAlert('mpesa_confirmation_id', 'info', 'Waiting for Payment to proceed...');
+						confirmPayment();
+					}
+					setButtonLoading('initiate_payment_loader', false);
+				},
+				error: function() {
+					setButtonLoading('initiate_payment_loader', false);
+				}
+			});
+		}
+
+		function handleOTPVerification() {
+			$('#wallet_checkout_id').submit(function(event) {
+				event.preventDefault();
+				const verifyButton = $('#verify_otp_button');
+				verifyButton.prop('disabled', true).text('Verifying...');
+				$.ajax({
+					url: $(this).attr('action'),
+					type: 'POST',
+					data: $(this).serialize(),
+					success: function(response) {
+						const otpResponseData = JSON.parse(response);
+						if (otpResponseData.status === 200) {
+							showAlert('response_wallet_area_id', 'success', 'Redirecting...');
+							confirmPayment();
+						} else {
+							showAlert('response_wallet_area_id', 'danger', otpResponseData?.content?.msg || 'Invalid OTP. Please try again.');
+							verifyButton.prop('disabled', false).text('Verify');
+						}
+					},
+					error: function() {
+						showAlert('response_wallet_area_id', 'danger', 'Something Went Wrong! Try again later...');
+						verifyButton.prop('disabled', false).text('Verify');
+					}
+				});
+			});
 		}
 
 		function initiatePayment() {
-			initializePaymentButtonLoading();
-			var formData = $("#checkout_initial_payment").serialize(); // Serialize form data
-
+			setButtonLoading('initiate_payment_loader', true);
+			const formData = $('#checkout_initial_payment').serialize();
 			$.ajax({
-				url: $("#checkout_initial_payment").attr('action'), // Get form action URL
-				type: "POST", // Use POST method for form data
+				url: $('#checkout_initial_payment').attr('action'),
+				type: 'POST',
 				data: formData,
 				success: function(response) {
-					// Handle successful form submission
 					const data = JSON.parse(response);
-
-					console.log(JSON.stringify(data, null, 3));
-
 					if (data?.content?.errors) {
-						$("#response_area_id").html(
-							`<div class="alert alert-danger alert-dismissible">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Error!</strong> ${data?.content?.errors}.
-                                <strong>Please try again later.</strong>
-                            </div>`
-						);
-						$("#initiate_payment_loader").hide();
+						showAlert('response_area_id', 'danger', data.content.errors);
+						setButtonLoading('initiate_payment_loader', false);
 						return;
 					}
-
 					if (data.status === 201) {
-						let payment_option = ``;
-
+						let paymentOption = '';
 						if (data?.content?.content?.verify_otp) {
-							payment_option += `
-                                <div class="card shadow mt-3 mb-4">
-                                    <div class="card-header bg-default text-white text-center d-flex align-items-center">
-                                        <img src="/asset_mentor/assets/img/jambo_pay_wallet.png" class="img-fluid mr-3" width="100px" height="auto">
-                                        <h4 class="mb-0">
-                                            Wallet
-                                        </h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <form id="wallet_checkout_id" class="form-horizontal" action="${wallet_url}">
-											<div id="mpesa_confirmation_id">
-											</div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-sm-2" for="otp">OTP:</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="otp" placeholder="Enter OTP Sent to your phone" name="user_otp" autocomplete="off">
-                                                </div>
-                                            </div>
-											<div id="response_wallet_area_id"></div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-outline-primary" id="verify_otp_button">Verify</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>`;
+							paymentOption = `<div class="card shadow mt-3 mb-4">
+												<div class="card-header bg-default text-white text-center d-flex align-items-center">
+													<img src="/asset_mentor/assets/img/jambo_pay_wallet.png" class="img-fluid mr-3" width="100px" height="auto">
+													<h4 class="mb-0">Wallet</h4>
+												</div>
+												<div class="card-body">
+													<form id="wallet_checkout_id" class="form-horizontal" action="${wallet_url}">
+														<div id="mpesa_confirmation_id"></div>
+														<div class="form-group row">
+															<label class="control-label col-sm-2" for="otp">OTP:</label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control" id="otp" placeholder="Enter OTP Sent to your phone" name="user_otp" autocomplete="off">
+															</div>
+														</div>
+														<div id="response_wallet_area_id"></div>
+														<div class="form-group row">
+															<div class="col-sm-offset-2 col-sm-10">
+																<button type="submit" class="btn btn-outline-primary" id="verify_otp_button">Verify</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>`;
 						} else {
-							payment_option += `
-                                <div class="card shadow mt-3 mb-4">
-                                    <div class="card-header bg-default text-white">
-                                        <img src="/asset_mentor/assets/img/mpesa_2.png" class="img-fluid mr-3" width="100px" height="auto">
-                                        
-                                    </div>
-                                    <div class="card-body">
-										<div id="mpesa_confirmation_id">
-											<div class="alert alert-success fade show" role="alert">
-												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-												<strong>Success!</strong> Please check your phone for an M-PESA POP UP.
-											</div>
-										</div>
-										<div class="d-flex justify-content-between mt-2 mb-3">
-											<div>
-												<a class="btn btn-outline-success btn-block mt-3" href="#" id="resend_payment">Click here to resend the M-PESA Popup</a>
-											</div>
-											<div>
-												<a class="btn btn-outline-dark btn-block mt-3" href="#" id="confirm_payment" title="I have paid">Complete Payment</a>
-											</div>
-										</div>
-                                    </div>
-                                </div>
-                                `;
+							paymentOption = `<div class="card shadow mt-3 mb-4">
+												<div class="card-header bg-default text-white">
+													<img src="/asset_mentor/assets/img/mpesa_2.png" class="img-fluid mr-3" width="100px" height="auto">
+												</div>
+												<div class="card-body">
+													<div id="mpesa_confirmation_id">
+														<div class="alert alert-success fade show" role="alert">
+															<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+															<strong>Success!</strong> Please check your phone for an M-PESA POP UP.
+														</div>
+													</div>
+													<div class="d-flex justify-content-between mt-2 mb-3">
+														<div>
+															<a class="btn btn-outline-success btn-block mt-3" href="#" id="resend_payment">Click here to resend the M-PESA Popup</a>
+														</div>
+														<div>
+															<a class="btn btn-outline-dark btn-block mt-3" href="#" id="confirm_payment" title="I have paid">Complete Payment</a>
+														</div>
+													</div>
+												</div>
+											</div>`;
 						}
-						initializePaymentButtonDone();
 						$('#form_checkout_container').show();
-						$("#checkout_form_options_id").html(payment_option);
-
-						// Attach click event to the resend button
-						$("#resend_payment").click(function(event) {
+						$('#checkout_form_options_id').html(paymentOption);
+						$('#resend_payment').click(function(event) {
 							event.preventDefault();
-							initiatePayment(); // Re-initiate the payment process
-						});
+							initiatePayment();
 
-						$("#confirm_payment").click(function(event) {
+						});
+						$('#confirm_payment').click(function(event) {
 							event.preventDefault();
 							confirmPayment();
 						});
+						handleOTPVerification();
 
-						$("#wallet_checkout_id").submit(function(event) {
-							event.preventDefault(); // Prevent default form submission
-							$("#verify_otp_button").prop('disabled', true).text('Verifying...');
-							// Submit the OTP form using AJAX
-							$.ajax({
-								url: $("#wallet_checkout_id").attr('action'), // Get form action URL
-								type: "POST", // Use POST method for form data
-								data: $("#wallet_checkout_id").serialize(),
-								success: function(response) {
-									const otpResponseData = JSON.parse(response);
+						console.log("After one minute check if payment has gone through");
 
-									if (otpResponseData.status === 200) {
-										$("#verify_otp_button").prop('disabled', true).text('Processing...');
-										// OTP valid, handle successful verification (e.g., redirect to success page)
-										$("#response_wallet_area_id").html(
-											`<div class="alert alert-success alert-dismissible">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>Success!</strong> Redirecting...
-                                        </div>`
-										);
-
-										confirmPayment();
-
-										// ... your success logic here
-									} else {
-										// Handle invalid OTP error
-										$("#verify_otp_button").prop('disabled', false).text('Verify');
-										$("#response_wallet_area_id").html(
-											`<div class="alert alert-danger alert-dismissible">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>Error!</strong> ${otpResponseData?.content?.msg || "Invalid OTP. Please try again."}
-                                        </div>`
-										);
-									}
-
-
-								},
-								error: function(jqXHR, textStatus, errorThrown) {
-									$("#response_wallet_area_id").html(
-										`<div class="alert alert-danger alert-dismissible">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>Error!</strong> ${textStatus || "Something Went Wrong! Try Again later..."}
-                                        </div>`
-									);
-									$("#verify_otp_button").prop('disabled', false).text('Verify');
-								}
-							});
-						});
+						setTimeout(() => initialCheckingPayment(), 60 * 1000);
 					} else {
-						$("#response_area_id").html(
-							`<div class="alert alert-danger alert-dismissible">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Error!</strong> ${data?.content?.msg || "Something Went Wrong! Try again later."}.
-                                <strong>Please try again later.</strong>
-                            </div>`
-						);
-						$("#initiate_payment_loader").hide();
-						initializePaymentButtonDone();
+						showAlert('response_area_id', 'danger', data?.content?.msg || 'Something Went Wrong! Try again later.');
 					}
+					setButtonLoading('initiate_payment_loader', false);
 				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					initializePaymentButtonDone();
-					$("#response_area_id").html(
-						`<div class="alert alert-danger alert-dismissible">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Error!</strong> ${textStatus || "Something Went Wrong! Try again later."}.
-                                <strong>Please try again later.</strong>
-                            </div>`
-					);
-					// Handle errors during submission
-					console.error("Error submitting form:", textStatus, errorThrown);
-
+				error: function() {
+					showAlert('response_area_id', 'danger', 'Something Went Wrong! Try again later.');
+					setButtonLoading('initiate_payment_loader', false);
 				}
 			});
 		}
 
-		// Attach the initial form submission to initiatePayment function
-		$("#checkout_initial_payment").submit(function(event) {
-			event.preventDefault(); // Prevent default form submission
+		$('#checkout_initial_payment').submit(function(event) {
+			event.preventDefault();
 			initiatePayment();
 		});
-
 	});
 </script>
+
 
 <style>
 	.col-md-3 {

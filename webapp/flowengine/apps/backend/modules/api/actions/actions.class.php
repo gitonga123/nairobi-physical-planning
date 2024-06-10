@@ -89,7 +89,7 @@ class apiActions extends sfActions
 
         $temp = [];
         foreach ($app_results as $result) {
-            
+
             $temp['id'] = $result->id;
             $temp['plot_no'] = $result->plot_no;
             $temp['plot_type'] = $result->plot_type;
@@ -147,6 +147,51 @@ class apiActions extends sfActions
         ]));
     }
 
+
+    public function executeProcessPayments(sfWebRequest $request)
+    {
+        $response = $request->getContent();
+        $response = json_decode($response, true);
+
+        error_log(print_r($response, true));
+
+        if (strtolower($response['status']) == 'success') {
+            $q = Doctrine_Query::create()
+                ->from("ApFormPayments a")
+                ->where("a.payment_id = ?", $response['bill_number'])
+                ->where("a.narration = ?", $response['ref'])
+                ->orderBy('a.afp_id desc');
+            $transaction = $q->fetchOne();
+
+            error_log($transaction);
+
+            if ($transaction) {
+                $transaction->setPaymentTestMode($response['mode_of_payment']);
+
+                $transaction->setPaymentStatus('paid');
+                $transaction->setStatus(2);
+
+                $transaction->save();
+
+
+                $q =  Doctrine_Query::create()
+                    ->from('MfInvoice m')
+                    ->where('m.id = ?', $transaction->getInvoiceId());
+
+                $invoice = $q->fetchOne();
+
+                $invoice->setPaid(2);
+
+                $invoice->save();
+
+                return $this->json(['data' => ['msg' => 'paid', 'payload' => $response]]);
+            } else {
+                return $this->json(['data' => ['msg' => 'Bill Reference not found.', 'payload' => $response]], 404);
+            }
+        } else {
+            return $this->json(['data' => ['msg' => 'Something went Wrong.', 'payload' => $response]], 500);
+        }
+    }
 
     private function json($content, $status = 200)
     {

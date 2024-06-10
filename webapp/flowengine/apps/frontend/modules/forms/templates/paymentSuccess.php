@@ -297,7 +297,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 					}
 					if (data.status === 201) {
 						let paymentOption = '';
-						if (data?.content?.content?.verify_otp) {
+						if (data?.content?.verify_otp) {
 							paymentOption = `<div class="card shadow mt-3 mb-4">
 												<div class="card-header bg-default text-white text-center d-flex align-items-center">
 													<img src="/asset_mentor/assets/img/jambo_pay_wallet.png" class="img-fluid mr-3" width="100px" height="auto">

@@ -29,27 +29,38 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 					<div role="tabpanel" id="activeservice" class="tab-pane fade show active">
 						<div class="row">
 							<?php
-							$q = Doctrine_Query::create()
-								->from('ApForms a')
-								->andWhere('a.form_type = 1')
-								->andWhere('a.form_active = 1')
-								->andWhere('a.form_group = ?', $group->getGroupId())
-								->orderBy('a.form_name ASC');
+							if (sfConfig::get('app_enable_categories') == "yes") {
+								$q = Doctrine_Query::create()
+									->from('ApForms a')
+									->leftJoin('a.sfGuardUserCategoriesForms s')
+									->andWhere('a.form_type = 1')
+									->andWhere('a.form_active = 1')
+									->andWhere('a.form_group = ?', $group->getGroupId())
+									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
+									->orderBy('a.form_name ASC');
+							} else {
+								$q = Doctrine_Query::create()
+									->from('ApForms a')
+									->andWhere('a.form_type = 1')
+									->andWhere('a.form_active = 1')
+									->andWhere('a.form_group = ?', $group->getGroupId())
+									->orderBy('a.form_name ASC');
+							}
 							$forms = $q->execute();
 							foreach ($forms as $form) {
 								var_dump($sf_user->getGuardUser()->getProfile()->getId());
 								var_dump($sf_user->getGuardUser()->getProfile()->getRegisteras());
-								var_dump($form->getFormId());
-								if (sfConfig::get('app_enable_categories') == "yes") {
-									$q = Doctrine_Query::create()
-										->from('sfGuardUserCategoriesForms a')
-										->where('a.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-										->andWhere('a.formid = ?', $form->getFormId());
-									$category = $q->count();
-									if ($category == 0) {
-										continue;
-									}
-								}
+								// var_dump($form->getFormId());
+								// if (sfConfig::get('app_enable_categories') == "yes") {
+								// 	$q = Doctrine_Query::create()
+								// 		->from('sfGuardUserCategoriesForms a')
+								// 		->where('a.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
+								// 		->andWhere('a.formid = ?', $form->getFormId());
+								// 	$category = $q->count();
+								// 	if ($category == 0) {
+								// 		continue;
+								// 	}
+								// }
 							?>
 								<!-- here -->
 								<div class="col-12 col-md-6 col-xl-4 d-flex">

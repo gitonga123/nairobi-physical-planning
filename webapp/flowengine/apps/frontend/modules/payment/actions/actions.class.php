@@ -218,7 +218,7 @@ class paymentActions extends sfActions
       error_log($transaction);
 
       if ($transaction) {
-        $transaction->setPaymentTestMode($response['mode_of_payment']);
+        $transaction->setPaymentMerchantType('Jambo Payment' . $response['mode_of_payment']);
 
         $transaction->setPaymentStatus('paid');
         $transaction->setStatus(2);

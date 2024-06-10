@@ -282,7 +282,7 @@ class formsActions extends sfActions
                   //Update transaction details
                   $transaction->setStatus(1);
                   $transaction->setPaymentStatus("pending");
-                  $transaction->setPaymentMerchantType('Jambo Payment');
+                  $transaction->setPaymentMerchantType('Jambo Pay');
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
                   $transaction->setInvoiceId($this->invoice->getId());
                   $transaction->setPaymentCurrency('KES');
@@ -298,7 +298,7 @@ class formsActions extends sfActions
                   $transaction->setPaymentId($billing_reference_number);
                   $transaction->setDateCreated(date("Y-m-d H:i:s"));
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
-                  $transaction->setPaymentMerchantType('Jambo Payment');
+                  $transaction->setPaymentMerchantType('Jambo Pay');
                   $transaction->setPaymentTestMode("0");
                   $transaction->setPaymentDate(date("Y-m-d H:i:s"));
                   $transaction->setInvoiceId($this->invoice->getId());
@@ -322,7 +322,7 @@ class formsActions extends sfActions
 
             $callback_url = sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments';
 
-            error_log("Callback url below --->".$callback_url);
+            error_log("Callback url below --->" . $callback_url);
 
             error_log("initiate request payment ---->");
 
@@ -374,11 +374,13 @@ class formsActions extends sfActions
       {
             $user_otp = $request->getPostParameter('user_otp');
 
-            $otp = $_SESSION['jambo_wallet_otp'];
+            error_log("User otp --->", $user_otp);
 
-            if (!($user_otp == $otp)) {
-                  return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
-            }
+            // $otp = $_SESSION['jambo_wallet_otp'];
+
+            // if (!($user_otp == $otp)) {
+            //       return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
+            // }
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/authorize_wallet_payment/';
 
             $stream = new Stream();
@@ -408,12 +410,35 @@ class formsActions extends sfActions
                   'contentType' => 'json',
                   'data' => [
                         'ref' => $ref,
+                        "otp" => $user_otp,
                         'amount' => $this->invoice->getTotalAmount(),
                   ],
                   'headers' => array(
                         "Authorization" => "JWT " . $token,
                   )
             ]);
+
+            $response_content = $query_response->content;
+
+            $q = Doctrine_Query::create()
+                  ->from("ApFormPayments a")
+                  ->where("a.payment_id = ?", $response_content['bill_number'])
+                  ->where("a.narration = ?", $response_content['ref'])
+                  ->orderBy('a.afp_id desc');
+            $transaction = $q->fetchOne();
+
+            if ($transaction) {
+                  $transaction->setPaymentMerchantType("Jambo Pay - " . $response_content['mode_of_payment']);
+
+                  $transaction->setPaymentStatus('paid');
+                  $transaction->setStatus(2);
+
+                  $transaction->save();
+
+                  $this->invoice->setPaid(2);
+
+                  $this->invoice->save();
+            }
 
             return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
       }

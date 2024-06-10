@@ -374,7 +374,7 @@ class formsActions extends sfActions
       {
             $user_otp = $request->getPostParameter('user_otp');
 
-            error_log("User otp --->". $user_otp);
+            error_log("User otp --->" . $user_otp);
 
             // $otp = $_SESSION['jambo_wallet_otp'];
 
@@ -419,6 +419,11 @@ class formsActions extends sfActions
             ]);
 
             $response_content = $query_response->content;
+
+            error_log("Verify OTP Wallet response ---->");
+
+            error_log($response_content);
+            error_log(print_r($response_content, true));
 
             if (strtolower($response_content['status']) == 'success') {
 

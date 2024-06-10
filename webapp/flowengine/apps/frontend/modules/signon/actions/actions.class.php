@@ -130,6 +130,7 @@ class signonActions extends sfActions
                     $user_share->setFullname($fullname);
                     $user_share->setEmail($email);
                     $user_share->setMobile($username);
+                    $user_share->save();
                 } else {
                     $profile = new sfGuardUserProfile();
                     $profile->user_id = $this->sfGuardUser->id;

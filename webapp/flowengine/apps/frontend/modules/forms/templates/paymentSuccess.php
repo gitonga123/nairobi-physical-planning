@@ -143,7 +143,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 								<div id="response_area_id"></div>
 								<div class="form-group" style="margin: 2px;">
 									<label for="phone_number">Phone Number:</label>
-									<input type="text" class="form-control" id="phone_number" placeholder="Phone Number" name="phone_number" value="<?php echo $user->getMobile(); ?>">
+									<input type="text" class="form-control" id="phone_number" placeholder="Phone Number" name="phone_number" value="<?php echo $user->getProfile()->getMobile(); ?>">
 								</div>
 								<div class="form-group p-t-10" style="margin: 2px; margin-top:10px;">
 									<button type="submit" class="btn btn-sm btn-dark" id="initiate_payment_loader">

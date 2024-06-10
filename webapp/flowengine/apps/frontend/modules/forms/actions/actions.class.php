@@ -330,7 +330,7 @@ class formsActions extends sfActions
                         'phone_number' => $request->getPostParameter('phone_number'),
                         'amount' => $this->invoice->getTotalAmount(),
                         'bill_number' => $billing_reference_number,
-                        "callback_url" => 'http://localhost.uasin.test/index.php/forms/processPayment'
+                        "callback_url" => 'http://localhost.uasin.test/backend.php/api/processPayment'
                   ],
                   'headers' => array(
                         "Authorization" => "JWT " . $token,
@@ -345,10 +345,15 @@ class formsActions extends sfActions
 
             $_SESSION['jambo_pay_ref'] = $query_response->content["ref"];
 
-            $transaction->setNarration($query_response->content["ref"]);
+            if (!empty($query_response->content["ref"])) {
+                  $transaction->setNarration($query_response->content["ref"]);
 
-            $transaction->save();
-
+                  $transaction->save();
+      
+                  $this->invoice->setTransactionId($query_response->content["ref"]);
+                  $this->invoice->save();
+            }
+           
 
             error_log("Session keys aare as at below");
             error_log($_SESSION['jambo_pay_ref']);
@@ -500,14 +505,9 @@ class formsActions extends sfActions
                   return $this->renderText(json_encode(['success' => false, 'status' => 404, 'content' => ['msg' => 'invoice/application not found']]));
             }
 
-            $q = Doctrine_Query::create()
-                  ->from("ApFormPayments a")
-                  ->where("a.invoice_id = ? AND a.status = ?", array($this->invoice->getId(), 2))
-                  ->orderBy('a.afp_id desc');
-            $transaction = $q->fetchOne();
-
-
-            if ($transaction && $transaction->getStatus() == 2) {
+            error_log($this->invoice->getPaid());
+            
+            if ($this->invoice && $this->invoice->getPaid() == 2) {
                   return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
             }
 

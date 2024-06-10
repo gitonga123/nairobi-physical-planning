@@ -172,7 +172,7 @@ class paymentActions extends sfActions
       error_log($transaction);
 
       if ($transaction) {
-        $transaction->setPaymentTestMode($response['mode_of_payment']);
+        $transaction->setPaymentMerchantType('Jambo Payment' . $response['mode_of_payment']);
 
         $transaction->setPaymentStatus('paid');
         $transaction->setStatus(2);
@@ -197,7 +197,8 @@ class paymentActions extends sfActions
     } else {
       return $this->json(['data' => ['msg' => 'Something went Wrong.', 'payload' => $response]], 500);
     }
-  }  public function executeProcessPayment(sfWebRequest $request)
+  }
+  public function executeProcessPayment(sfWebRequest $request)
   {
     $response = $request->getContent();
     $response = json_decode($response, true);

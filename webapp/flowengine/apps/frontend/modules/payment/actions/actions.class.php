@@ -157,6 +157,8 @@ class paymentActions extends sfActions
     $response = $request->getContent();
     $response = json_decode($response, true);
 
+    error_log("Callback url coming hot");
+
     error_log(print_r($response, true));
 
     if (strtolower($response['status']) == 'success') {
@@ -303,5 +305,15 @@ class paymentActions extends sfActions
     } catch (Exception $ex) {
       error_log("Debug-pesa: " . $ex);
     }
+  }
+
+
+
+  private function json($content, $status = 200)
+  {
+    $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+    $this->getResponse()->setContent(json_encode($content));
+    $this->getResponse()->setStatusCode($status);
+    return sfView::NONE;
   }
 }

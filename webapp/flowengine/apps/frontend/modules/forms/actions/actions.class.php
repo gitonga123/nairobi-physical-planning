@@ -321,6 +321,9 @@ class formsActions extends sfActions
             error_log("Below is the amount ---->");
             error_log($this->invoice->getTotalAmount());
 
+            error_log("Callback url below --->");
+            error_log(sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processPayment');
+
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -349,11 +352,11 @@ class formsActions extends sfActions
                   $transaction->setNarration($query_response->content["ref"]);
 
                   $transaction->save();
-      
+
                   $this->invoice->setTransactionId($query_response->content["ref"]);
                   $this->invoice->save();
             }
-           
+
 
             error_log("Session keys aare as at below");
             error_log($_SESSION['jambo_pay_ref']);

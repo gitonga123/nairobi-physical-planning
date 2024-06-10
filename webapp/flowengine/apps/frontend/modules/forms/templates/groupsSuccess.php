@@ -57,7 +57,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
 									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-									->orderBy('a.form_name ASC');
+									->orderBy('a.form_name DESC');
 							}
 							$forms = $q->execute();
 							foreach ($forms as $form) {
@@ -72,11 +72,11 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 												<div class="col">
 													<a href="/index.php/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-primary"><i class="far fa-edit"></i> Apply </a>
 												</div>
-												<div class="col text-end">
+												<!-- <div class="col text-end">
 													<a href="javascript:void(0);" class="btn btn-secondary">
 														<i class="fas fa-envelope"></i> Help
 													</a>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>

@@ -227,7 +227,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 					showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
 					setTimeout(() => {
 						$('#response_wallet_area_id').html('');
-					})
+					}, 1000 * 30);
 					regenerateButton.prop('disabled', true);
 					$("#otp_value").val('');
 				} else {

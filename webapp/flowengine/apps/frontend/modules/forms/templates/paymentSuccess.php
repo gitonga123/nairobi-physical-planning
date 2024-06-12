@@ -174,10 +174,10 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 
 <script>
 	$(document).ready(function() {
-		function setButtonLoading(buttonId, isLoading) {
+		function setButtonLoading(buttonId, isLoading, message = 'Initiating') {
 			const button = $(`#${buttonId}`);
 			if (isLoading) {
-				button.prop('disabled', true).html('<span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Initiating...</span>');
+				button.prop('disabled', true).html('<span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + message + '...</span>');
 			} else {
 				button.prop('disabled', false).html('Initiate Payment');
 			}
@@ -262,7 +262,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 			$('#wallet_checkout_id').submit(function(event) {
 				event.preventDefault();
 				const verifyButton = $('#verify_otp_button');
-				const regenerateOTP = $("#regenerate_otp_function_div"); 
+				const regenerateOTP = $("#regenerate_otp_function_div");
 				verifyButton.prop('disabled', true).text('Verifying...');
 				$.ajax({
 					url: $(this).attr('action'),
@@ -277,7 +277,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 							showAlert('response_wallet_area_id', 'danger', otpResponseData?.content?.msg || 'Invalid OTP. Please try again.');
 							verifyButton.prop('disabled', false).text('Verify');
 							regenerateOTP.show();
-							
+
 						}
 					},
 					error: function() {
@@ -323,7 +323,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 														<div class="form-group row">
 															<div class="col-12 d-flex justify-content-between">
 																<div class="col-sm-offset-2 col-sm-10">
-																	<button type="submit" class="btn btn-outline-primary" id="verify_otp_button_1">Verify</button>
+																	<button type="submit" class="btn btn-outline-primary" id="verify_otp_button">Verify</button>
 																</div>
 																<div id="regenerate_otp_function_div" style="display: none;">
 																	<button type="submit" class="btn btn-outline-primary" id="regenerate_otp_function">Re-send OTP</button>

@@ -172,6 +172,44 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 	const redirect_url = "<?php echo '/index.php/invoices/view/id/' . $invoice->getId(); ?>";
 	const regenerate_otp_url = "<?php echo '/index.php/forms/regenerateOTPToken/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 
+	function setButtonLoading(buttonId, isLoading, message = 'Initiating') {
+		const button = $(`#${buttonId}`);
+		if (isLoading) {
+			button.prop('disabled', true).html('<span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + message + '...</span>');
+		} else {
+			button.prop('disabled', false).html('Initiate Payment');
+		}
+	}
+
+	function showAlert(areaId, type, message) {
+		let value_info = ''
+		switch (type) {
+			case 'success':
+				value_info = 'Success';
+				break;
+			case 'info':
+				value_info = 'Alert';
+				break;
+			case 'warning':
+				value_info = 'Failed';
+				break;
+			case 'error':
+				value_info = 'Error';
+				break;
+			case 'danger':
+				value_info = 'Error';
+				break;
+			default:
+				value_info = '';
+				break;
+		}
+		const alertHtml = `<div class="alert alert-${type} alert-dismissible">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>${value_info}!</strong> ${message}
+							</div>`;
+		$(`#${areaId}`).html(alertHtml);
+	}
+
 	function regenerateOtpFunction() {
 		$("#regenerate_otp_function_div").show();
 		const regenerateButton = $('#regenerate_otp_button');
@@ -205,44 +243,6 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 
 <script>
 	$(document).ready(function() {
-		function setButtonLoading(buttonId, isLoading, message = 'Initiating') {
-			const button = $(`#${buttonId}`);
-			if (isLoading) {
-				button.prop('disabled', true).html('<span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + message + '...</span>');
-			} else {
-				button.prop('disabled', false).html('Initiate Payment');
-			}
-		}
-
-		function showAlert(areaId, type, message) {
-			let value_info = ''
-			switch (type) {
-				case 'success':
-					value_info = 'Success';
-					break;
-				case 'info':
-					value_info = 'Alert';
-					break;
-				case 'warning':
-					value_info = 'Failed';
-					break;
-				case 'error':
-					value_info = 'Error';
-					break;
-				case 'danger':
-					value_info = 'Error';
-					break;
-				default:
-					value_info = '';
-					break;
-			}
-			const alertHtml = `<div class="alert alert-${type} alert-dismissible">
-								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>${value_info}!</strong> ${message}
-							</div>`;
-			$(`#${areaId}`).html(alertHtml);
-		}
-
 		function confirmPayment(currentInterval = 1, maxInterval = 10) {
 			console.log("Confirm payment being executed ---->", currentInterval, maxInterval);
 			setButtonLoading('initiate_payment_loader', true);

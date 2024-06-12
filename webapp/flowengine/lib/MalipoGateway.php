@@ -366,10 +366,15 @@ class MalipoGateway
 
 		$transaction->save();
 
+		error_log("Transaction updated above ---->");
+		error_log($transaction);
 
 		$invoice->setPaid(2);
 
 		$invoice->save();
+
+		error_log("Invoice updated above ---->");
+		error_log($invoice);
 
 		return 'paid';
 	}

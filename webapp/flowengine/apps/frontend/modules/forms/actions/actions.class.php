@@ -436,8 +436,9 @@ class formsActions extends sfActions
             // return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
       }
 
-      public function executeRegenerateOTPToken($request)
+      public function executeRegeneratejamboonetimepassword($request)
       {
+            error_log("Regenerate otp function triggered");
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/regenerate_otp/';
 
             $stream = new Stream();
@@ -466,8 +467,9 @@ class formsActions extends sfActions
 
             $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
 
-            error_log("Response status code below after regenerate token");
+            error_log("Response status code below after regenerate token---->");
             error_log($query_response->status);
+            error_log("\n\n");
             return $this->renderText(json_encode(['success' => true, 'status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
       }
 

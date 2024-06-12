@@ -170,7 +170,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 	const wallet_url = "<?php echo '/index.php/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 	const confirm_payment_url = "<?php echo '/index.php/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 	const redirect_url = "<?php echo '/index.php/invoices/view/id/' . $invoice->getId(); ?>";
-	const regenerate_otp_url = "<?php echo '/index.php/forms/regenerateOTPToken/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const regenerate_otp_url = "<?php echo '/index.php/forms/regeneratejamboonetimepassword/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 
 	function setButtonLoading(buttonId, isLoading, message = 'Initiating') {
 		const button = $(`#${buttonId}`);

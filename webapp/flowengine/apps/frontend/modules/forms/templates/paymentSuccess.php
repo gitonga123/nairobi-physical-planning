@@ -226,6 +226,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 				if (data.success) {
 					showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
 					regenerateButton.prop('disabled', true);
+					$("#otp_value").value('');
 				} else {
 					showAlert('response_wallet_area_id', 'danger', 'Failed to regenerate OTP. Please try again.');
 				}
@@ -347,7 +348,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 														<div class="form-group row">
 															<label class="control-label col-sm-2" for="otp">OTP:</label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control" id="otp" placeholder="Enter OTP Sent to your phone" name="user_otp" autocomplete="off">
+																<input type="text" class="form-control" id="otp_value" placeholder="Enter OTP Sent to your phone" name="user_otp" autocomplete="off">
 															</div>
 														</div>
 														<div id="response_wallet_area_id"></div>

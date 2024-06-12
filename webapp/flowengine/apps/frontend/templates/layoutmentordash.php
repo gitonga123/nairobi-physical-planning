@@ -262,9 +262,9 @@
 							<div class="footer-widget footer-menu">
 								<h2 class="footer-title">County Information</h2>
 								<ul>
-									<li><a href="https://nakuru.go.ke/finance-documents/">Finance Bill</a></li>
-									<li><a href="https://nakuru.go.ke/lands-physical-planning-housing-urban-development/">Lands Department</a></li>
-									<li><a href="https://nakuru.go.ke/">County Website</a></li>
+									<li><a href="https://https://uasingishu.go.ke/finance-documents/">Finance Bill</a></li>
+									<li><a href="https://uasingishu.go.ke/index.php/department/housing-and-land">Lands Department</a></li>
+									<li><a href="https://https://uasingishu.go.ke/">County Website</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->

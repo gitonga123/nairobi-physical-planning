@@ -197,7 +197,7 @@
 
                                 </div>
                                 <div class="footer-three-contact">
-                                    <p><span>info@nakuru.go.ke</span></p>
+                                    <p><span>info@https://uasingishu.go.ke</span></p>
                                     <p><span>(051) 2214142 / (051) 2216379/80</span></p>
                                 </div>
                             </div>

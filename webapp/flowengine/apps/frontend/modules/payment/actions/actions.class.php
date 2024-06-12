@@ -154,53 +154,108 @@ class paymentActions extends sfActions
 
   public function executeProcesspayments(sfWebRequest $request)
   {
-    error_log(print_r($request->getHttpHeader('Content-Type'), true));
-    error_log(print_r($request->getHttpHeader('Accept'), true));
-    $response = $request->getContent();
-    $response = json_decode($response, true);
+    try {
+      $response = $request->getContent();
+      $response = json_decode($response, true);
 
-    error_log("Callback url coming hot");
+      error_log("Callback url coming hot");
 
-    error_log(print_r($response, true));
+      error_log(print_r($response, true));
 
-    if (strtolower($response['status']) == 'success') {
-      $q = Doctrine_Query::create()
-        ->from("ApFormPayments a")
-        ->where("a.payment_id = ?", $response['bill_number'])
-        ->where("a.narration = ?", $response['ref'])
-        ->orderBy('a.afp_id desc');
-      $transaction = $q->fetchOne();
+      if (strtolower($response['status']) == 'success') {
+        $q = Doctrine_Query::create()
+          ->from("ApFormPayments a")
+          ->where("a.payment_id = ?", $response['bill_number'])
+          ->where("a.narration = ?", $response['ref'])
+          ->orderBy('a.afp_id desc');
+        $transaction = $q->fetchOne();
 
-      error_log($transaction);
+        error_log($transaction);
 
-      if ($transaction) {
-        $transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
+        if ($transaction) {
+          $transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
 
-        $transaction->setPaymentStatus('paid');
-        $transaction->setStatus(2);
+          $transaction->setPaymentStatus('paid');
+          $transaction->setStatus(2);
 
-        $transaction->save();
+          $transaction->save();
 
 
-        $q =  Doctrine_Query::create()
-          ->from('MfInvoice m')
-          ->where('m.id = ?', $transaction->getInvoiceId());
+          $q =  Doctrine_Query::create()
+            ->from('MfInvoice m')
+            ->where('m.id = ?', $transaction->getInvoiceId());
 
-        $invoice = $q->fetchOne();
+          $invoice = $q->fetchOne();
 
-        $invoice->setPaid(2);
+          $invoice->setPaid(2);
 
-        $invoice->save();
+          $invoice->save();
 
-        return $this->json(['data' => ['message' => 'paid', 'payload' => $response]]);
+          return $this->json(['data' => ['message' => 'paid', 'payload' => $response]]);
+        } else {
+          return $this->json(['data' => ['message' => 'Bill Reference not found.', 'payload' => $response]], 404);
+        }
       } else {
-        return $this->json(['data' => ['message' => 'Bill Reference not found.', 'payload' => $response]], 404);
+        return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 500);
       }
-    } else {
-      return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 422);
+    } catch (\Exception $error) {
+      return $this->json(['data' => ['message' => $error->getMessage(), 'payload' => $response]], 500);
     }
   }
+  public function executeProcessPayment(sfWebRequest $request)
+  {
+    try {
 
+      error_log(print_r($request->getHttpHeader('Content-Type'), true));
+      error_log(print_r($request->getHttpHeader('Accept'), true));
+
+      $response = $request->getContent();
+      $response = json_decode($response, true);
+
+      error_log("Callback url coming hot");
+
+      error_log(print_r($response, true));
+
+      if (strtolower($response['status']) == 'success') {
+        $q = Doctrine_Query::create()
+          ->from("ApFormPayments a")
+          ->where("a.payment_id = ?", $response['bill_number'])
+          ->where("a.narration = ?", $response['ref'])
+          ->orderBy('a.afp_id desc');
+        $transaction = $q->fetchOne();
+
+        error_log($transaction);
+
+        if ($transaction) {
+          $transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
+
+          $transaction->setPaymentStatus('paid');
+          $transaction->setStatus(2);
+
+          $transaction->save();
+
+
+          $q =  Doctrine_Query::create()
+            ->from('MfInvoice m')
+            ->where('m.id = ?', $transaction->getInvoiceId());
+
+          $invoice = $q->fetchOne();
+
+          $invoice->setPaid(2);
+
+          $invoice->save();
+
+          return $this->json(['data' => ['message' => 'paid', 'payload' => $response]]);
+        } else {
+          return $this->json(['data' => ['message' => 'Bill Reference not found.', 'payload' => $response]], 404);
+        }
+      } else {
+        return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 422);
+      }
+    } catch (\Exception $error) {
+      return $this->json(['data' => ['message' => $error->getMessage(), 'payload' => $response]], 500);
+    }
+  }
   /**
    * Executes 'Query' action
    *

@@ -163,38 +163,32 @@ class paymentActions extends sfActions
       error_log(print_r($response, true));
 
       if (strtolower($response['status']) == 'success') {
-        $q = Doctrine_Query::create()
-          ->from("ApFormPayments a")
-          ->where("a.payment_id = ?", $response['bill_number'])
-          ->where("a.narration = ?", $response['ref'])
-          ->orderBy('a.afp_id desc');
-        $transaction = $q->fetchOne();
+        $ipn = new MalipoGateway();
+        $message = '';
+        $status_code = '';
 
-        error_log($transaction);
+        $processing_response = $ipn->jambo_pay_ipn($response);
 
-        if ($transaction) {
-          $transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
-
-          $transaction->setPaymentStatus('paid');
-          $transaction->setStatus(2);
-
-          $transaction->save();
-
-
-          $q =  Doctrine_Query::create()
-            ->from('MfInvoice m')
-            ->where('m.id = ?', $transaction->getInvoiceId());
-
-          $invoice = $q->fetchOne();
-
-          $invoice->setPaid(2);
-
-          $invoice->save();
-
-          return $this->json(['data' => ['message' => 'paid', 'payload' => $response]]);
-        } else {
-          return $this->json(['data' => ['message' => 'Bill Reference not found.', 'payload' => $response]], 404);
+        switch ($processing_response) {
+          case 'transaction_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'invoice_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'paid':
+            $message = 'Paid';
+            $status_code = 200;
+            break;
+          default:
+            $message = 'Paid';
+            $status_code = 200;
+            break;
         }
+
+        return $this->json(['data' => ['message' => $message, 'payload' => $response]], $status_code);
       } else {
         return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 422);
       }
@@ -217,38 +211,32 @@ class paymentActions extends sfActions
       error_log(print_r($response, true));
 
       if (strtolower($response['status']) == 'success') {
-        $q = Doctrine_Query::create()
-          ->from("ApFormPayments a")
-          ->where("a.payment_id = ?", $response['bill_number'])
-          ->where("a.narration = ?", $response['ref'])
-          ->orderBy('a.afp_id desc');
-        $transaction = $q->fetchOne();
+        $ipn = new MalipoGateway();
+        $message = '';
+        $status_code = '';
 
-        error_log($transaction);
+        $processing_response = $ipn->jambo_pay_ipn($response);
 
-        if ($transaction) {
-          $transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
-
-          $transaction->setPaymentStatus('paid');
-          $transaction->setStatus(2);
-
-          $transaction->save();
-
-
-          $q =  Doctrine_Query::create()
-            ->from('MfInvoice m')
-            ->where('m.id = ?', $transaction->getInvoiceId());
-
-          $invoice = $q->fetchOne();
-
-          $invoice->setPaid(2);
-
-          $invoice->save();
-
-          return $this->json(['data' => ['message' => 'paid', 'payload' => $response]]);
-        } else {
-          return $this->json(['data' => ['message' => 'Bill Reference not found.', 'payload' => $response]], 404);
+        switch ($processing_response) {
+          case 'transaction_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'invoice_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'paid':
+            $message = 'Paid';
+            $status_code = 200;
+            break;
+          default:
+            $message = 'Paid';
+            $status_code = 200;
+            break;
         }
+
+        return $this->json(['data' => ['message' => $message, 'payload' => $response]], $status_code);
       } else {
         return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 422);
       }

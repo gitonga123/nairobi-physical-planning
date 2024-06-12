@@ -38,7 +38,6 @@ class InvoiceManager
             ->where('a.id = ?', $invoice->getAppId())
             ->limit(1);
         $application = $q->fetchOne();
-        error_log('-----Invoice template-----' . $invoice->getTemplateId());
         $q = Doctrine_Query::create()
             ->from('Invoicetemplates a')
             ->where("a.id = ?", $invoice->getTemplateId());
@@ -562,7 +561,6 @@ class InvoiceManager
     //Generate a new invoice on submission using form payment settings
     public function create_invoice_from_submission($application_id)
     {
-        error_log('----------INVOICE Submission-----' . $application_id);
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
 
         require_once($prefix_folder . 'includes/init.php');
@@ -582,7 +580,7 @@ class InvoiceManager
         $submission = $this->get_application_by_id($application_id);
 
         //Create invoice
-        //OTB ADD per stage
+        //Note ADD per stage
         $q = Doctrine_Query::create()
             ->from('Invoicetemplates a')
             ->where("a.applicationform = ? and a.applicationstage = ?", array($submission->getFormId(), $submission->getApproved()));
@@ -623,6 +621,8 @@ class InvoiceManager
             $invoice->setPaid(1);
             $invoice->setCreatedAt(date("Y-m-d H:i:s"));
             $invoice->setUpdatedAt(date("Y-m-d H:i:s"));
+            // option to set invoice as not approved 
+            $invoice->setInvoiceApproved(0); // This will set the invoice as not approved and allow us to control access to "Pay Now" option on an Invoice after generation.
 
             $invoice->save();
 
@@ -680,7 +680,7 @@ class InvoiceManager
                     $total_amount = $total_amount + $service_fee;
                 } else {
                     $before_total = ($total_amount * 100) / (100 + $payment_tax_rate);
-                    $service_fee = round(($total_amount - $before_total), 2); //round to 2 digits decimal
+                    $service_fee = round(($total_amount - $before_total)); //round to 2 digits decimal
                     $total_amount = $before_total;
                 }
             }
@@ -717,13 +717,48 @@ class InvoiceManager
             $invoicedetail->setCreatedAt(date("Y-m-d H:i:s"));
             $invoicedetail->setUpdatedAt(date("Y-m-d H:i:s"));
             $invoicedetail->save();
+
+            // check if there other submission fees for this particular form
+            // get a list of all submission fees
+            $q = Doctrine_Query::create()
+                ->from('fee a')
+                ->leftJoin('a.Invoicetemplates b')
+                ->andWhere("a.invoiceid = b.id")
+                ->Where('a.submission_fee = ?', true)
+                ->andWhere('b.applicationform = ?', $submission->getFormId());
+            $otherFees = $q->execute();
+            if ($otherFees) {
+                $query = "SELECT * FROM ap_form_" . $submission->getFormId() . " WHERE id = '" . $submission->getEntryId() . "'";
+
+                $application_form = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetchAll();
+                $fee_amount = 0;
+                foreach ($otherFees as $fee) {
+                    $amount_found = $this->getFeeAmount($fee, $application_form[0], $submission->getFormId());
+                    $fee_amount = $fee_amount + $amount_found;
+                    if ($amount_found > 0) {
+                        $invoicedetail = new MfInvoiceDetail();
+                        $invoicedetail->setInvoiceId($invoice->getId());
+                        $invoicedetail->setDescription($fee->getFeeCode() . " :" . $fee->getDescription());
+                        $invoicedetail->setAmount($amount_found);
+                        $invoicedetail->setCreatedAt(date("Y-m-d H:i:s"));
+                        $invoicedetail->setUpdatedAt(date("Y-m-d H:i:s"));
+                        $invoicedetail->save();
+                    }
+
+                    $amount_found = 0;
+                }
+
+                $payment_amount = $payment_amount + $fee_amount;
+            }
+
             $grand_total += $payment_amount;
+
 
             $invoice->setMdaCode(sfConfig::get('app_mda_code'));
             $invoice->setBranch(sfConfig::get('app_branch'));
 
-            $due_date = date("Y-m-d");
-            $expires_at = date("Y-m-d");
+            $due_date = date("Y-m-d H:i:s");
+            $expires_at = date("Y-m-d H:i:s");
 
             if ($invoicetemplate->getMaxDuration()) {
                 $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
@@ -877,7 +912,7 @@ class InvoiceManager
                 } else {
                     $invoicedetail->setDescription("Submission fee");
                 }*/
-                //OTB ADD
+                //Note ADD
                 $application_manager = new ApplicationManager();
                 $menu = Doctrine_Query::create()
                     ->from('Menus m')
@@ -909,8 +944,8 @@ class InvoiceManager
             $invoice->setMdaCode(sfConfig::get('app_mda_code'));
             $invoice->setBranch(sfConfig::get('app_branch'));
 
-            $due_date = date("Y-m-d");
-            $expires_at = date("Y-m-d");
+            $due_date = date("Y-m-d H:i:s");
+            $expires_at = date("Y-m-d H:i:s");
 
             if ($invoicetemplate->getMaxDuration()) {
                 $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
@@ -943,7 +978,7 @@ class InvoiceManager
     }
 
     //Generate a new invoice from invoicing task
-    public function create_invoice_from_task($application_id, $descriptions, $amounts)
+    public function create_invoice_from_task($application_id, $descriptions, $amounts, $task = false)
     {
         $descriptions1 = $descriptions;
         $amounts1 = $amounts;
@@ -961,7 +996,7 @@ class InvoiceManager
         $mf_settings = mf_get_settings($dbh);
 
         $submission = $this->get_application_by_id($application_id);
-        //OTB ADD per stage
+        //Note ADD per stage
         $q = Doctrine_Query::create()
             ->from('Invoicetemplates a')
             ->where("a.applicationform = ? and a.applicationstage = ?", array($submission->getFormId(), $submission->getApproved()));
@@ -981,9 +1016,11 @@ class InvoiceManager
             $q = Doctrine_Query::create()
                 ->from('MfInvoice a')
                 ->where("a.template_id = ?", $invoicetemplate->getId())
-                ->orderBy("a.invoice_number DESC")
+                ->orderBy("a.id DESC")
                 ->limit(1);
             $lastinvoice = $q->fetchOne();
+            $$invoice_number = '';
+            
             //incase of update of invoice number
             if ($lastinvoice && strpos($lastinvoice->getInvoiceNumber(), substr($invoicetemplate->getInvoiceNumber(), 0, 3)) !== false) {
                 $invoice_number = $lastinvoice->getInvoiceNumber();
@@ -995,11 +1032,11 @@ class InvoiceManager
 
             $invoice->setTemplateId($invoicetemplate->getId());
         } else {
-            $invoice->setInvoiceNumber("INV-" . $submission->getId());
+            $invoice->setInvoiceNumber("NKR-INV-" . $submission->getId());
         }
 
-        $invoice->setCreatedAt(date("Y-m-d"));
-        $invoice->setUpdatedAt(date("Y-m-d"));
+        $invoice->setCreatedAt(date("Y-m-d H:i:s"));
+        $invoice->setUpdatedAt(date("Y-m-d H:i:s"));
 
         $invoice->setPaid(1);
         $invoice->save();
@@ -1053,7 +1090,7 @@ class InvoiceManager
             }
             $index++;
         }
-        if (!$payment_onsubmission) {
+        if (!$payment_onsubmission && !$task) {
             //Add convenience fee
             if ($payment_price_type == 'variable') {
                 //calculate tax if enabled
@@ -1095,7 +1132,7 @@ class InvoiceManager
                         $invoicedetail->save();
                     } else {
                         $payment_tax_amount = ($payment_tax_rate / 100) * $total_taxable;
-                        $payment_tax_amount = round($payment_tax_amount, 2); //round to 2 digits decimal
+                        $payment_tax_amount = round($payment_tax_amount); //round to 2 digits decimal
 
                         $invoicedetail = new MfInvoiceDetail();
                         $invoicedetail->setDescription($payment_tax_code . " : Convenience Fee");
@@ -1106,7 +1143,7 @@ class InvoiceManager
                         $total_taxable += $payment_tax_amount;
                     }
                 } else {
-                    //OTB ADD
+                    //Note ADD
                     //Use payment_price_amount & payment_price_name
                     $invoicedetail = new MfInvoiceDetail();
                     $invoicedetail->setDescription($payment_price_name);
@@ -1119,6 +1156,13 @@ class InvoiceManager
         $index = 0;
 
         while (list($key, $val) = @each($descriptions1)) {
+            if ($task) {
+                $q = Doctrine_Query::create()
+                    ->from("Fee a")
+                    ->where("a.id = ?", $val);
+                $fee = $q->fetchOne();
+                $val = empty($fee) ? $val : $fee->getFeeCode() . ":" . $fee->getDescription();
+            }
             if ($val != "Total") {
                 if ($amounts1[$index] != 0) {
                     $invoicedetail = new MfInvoiceDetail();
@@ -1142,8 +1186,8 @@ class InvoiceManager
             $index++;
         }
 
-        $due_date = date("Y-m-d");
-        $expires_at = date("Y-m-d");
+        $due_date = date("Y-m-d H:i:s");
+        $expires_at = date("Y-m-d H:i:s");
 
         if ($invoicetemplate->getMaxDuration()) {
             $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
@@ -1191,6 +1235,8 @@ class InvoiceManager
             $api = new ApiCalls();
             $api->postInvoice($submission, $invoice);
         }
+
+        return $invoice;
     }
 
     //Update an existing unpaid invoice (Prevents an application from having many unused invoices)
@@ -1234,8 +1280,8 @@ class InvoiceManager
             $invoicedetail->setDescription($val);
             $invoicedetail->setAmount($amounts[$index]);
             $invoicedetail->setInvoiceId($invoice->getId());
-            $invoicedetail->setCreatedAt(date("Y-m-d"));
-            $invoicedetail->setUpdatedAt(date("Y-m-d"));
+            $invoicedetail->setCreatedAt(date("Y-m-d H:i:s"));
+            $invoicedetail->setUpdatedAt(date("Y-m-d H:i:s"));
             $invoicedetail->save();
             if ($val != "Total") {
                 $grand_total += $amounts[$index];
@@ -1265,8 +1311,8 @@ class InvoiceManager
         $service_code = $row['form_code'];
 
 
-        $due_date = date("Y-m-d");
-        $expires_at = date("Y-m-d");
+        $due_date = date("Y-m-d H:i:s");
+        $expires_at = date("Y-m-d H:i:s");
 
         if ($invoicetemplate->getMaxDuration()) {
             $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
@@ -1705,6 +1751,7 @@ class InvoiceManager
     //Checks for any invoice that should have been marked as paid becaused all partial payments were submitted
     public function update_invoices($application_id)
     {
+        $application_manager = new ApplicationManager();
         $q = Doctrine_Query::create()
             ->from("MfInvoice a")
             ->where("a.app_id = ?", $application_id);
@@ -1746,7 +1793,7 @@ class InvoiceManager
 
             //If there are no unpaid invoices and application is a draft then submit it 
             if ($this->has_unpaid_invoice($application_id) == false && $application->getApproved() == 0) {
-                $application_manager = new ApplicationManager();
+                //$application_manager = new ApplicationManager();
                 $application_manager->publish_draft($application->getId());
 
                 $application_manager->update_services($application->getId());
@@ -1764,7 +1811,17 @@ class InvoiceManager
                 if ($stage->getStageProperty() == 2) {
                     //Move application to another stage
                     $next_stage = $stage->getStageTypeMovement();
-                    $application->setApproved($next_stage);
+                    if (intval($next_stage) === 1) {
+                        error_log("Application form --- " . $application->getFormId());
+                        error_log("Form Entry ---" . $application->getEntryId());
+                        $stage_to_send =  $application_manager->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
+                        if ($stage_to_send) {
+                            $next_stage = $stage_to_send;
+                        }
+                        $application->setApproved($next_stage);
+                    } else {
+                        $application->setApproved($next_stage);
+                    }
                     $application->save();
                 }
             }
@@ -2206,12 +2263,12 @@ class InvoiceManager
 
             $penalty_amount = round(($penalty_template->getPenaltyAmount() / 100) * $total);
         }
-        //OTB ADD
+        //ADD
         elseif ($penalty_template->getPenaltyType() == 3) {
             //get service fee
             $application_manager = new ApplicationManager();
             //get menu
-            $application = Doctrine_Core::getTable('FormEntry')->find($application_id);
+            $application = Doctrine_Core::getTable('FormEntry')->findOneBy('id', $application_id);
             $menu_id = Doctrine_Core::getTable('Menus')->findByServiceForm($application->getFormId());
             //error_log('--------Menu id ------'.$menu_id[0]['id']);
             $service_fee = $application_manager->get_service_fee_desc($menu_id[0]['id'], $application_id);
@@ -2270,10 +2327,10 @@ class InvoiceManager
         //Does the application new renewal. If yes, then check the settings for the fees to regenerate
         error_log('------Renewal ------' . $application->needsRenewal());
         if ($application->needsRenewal() || $invoices_count == 0) {
-            //OTB ADD - TO PREVENT DOUBLE BILLING
+            // ADD - TO PREVENT DOUBLE BILLING
             $amount_payable = $this->get_total_payment_amount($application->getId());
             error_log('-----Payable amount---' . $amount_payable);
-            //OTB ADD - For +1 year
+            // ADD - For +1 year
             if ($year_plus) {
                 $q = Doctrine_Query::create()
                     ->from('MfInvoice i')
@@ -2457,13 +2514,13 @@ class InvoiceManager
         } else {
             $invoice->setInvoiceNumber("INV-" . $submission->getId());
         }
-        //OTB ADD - SET +1 Current year
+        //Note ADD - SET +1 Current year
         if ($year_plus) {
             $invoice->setCreatedAt((date("Y") + 1) . "-1-1");
         } else {
-            $invoice->setCreatedAt(date("Y-m-d"));
+            $invoice->setCreatedAt(date("Y-m-d H:i:s"));
         }
-        $invoice->setUpdatedAt(date("Y-m-d"));
+        $invoice->setUpdatedAt(date("Y-m-d H:i:s"));
 
         $invoice->setPaid(1);
         $invoice->save();
@@ -2488,7 +2545,7 @@ class InvoiceManager
 
         $grand_amount = $grand_amount + $amount;
 
-        $expires_at = date("Y-m-d");
+        $expires_at = date("Y-m-d H:i:s");
 
         if ($invoicetemplate->getMaxDuration() && $invoicetemplate->getExpirationType() == 1) {
             $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
@@ -2548,7 +2605,7 @@ class InvoiceManager
             ->where('a.id = ?', $application_id);
         $application = $q->fetchOne();
 
-        //OTB ADD allow old form to be billed
+        //Note ADD allow old form to be billed
         if ($application->getServiceId()) {
             $q = Doctrine_Query::create()
                 ->from('Menus a')
@@ -2636,7 +2693,7 @@ class InvoiceManager
                 $q = Doctrine_Query::create()
                     ->from("ServiceMoreFees a")
                     ->where("a.service_id = ?", $service->getId())
-                    //OTB ADD
+                    //Note ADD
                     ->andWhere("a.fee_id = ?", $more_fee->getId())
                     ->andWhere("a.field_id = ?", $more_fee->getFieldId())
                     ->andWhere("a.option_id = ?", $more_element_option->getAeoId());
@@ -2686,7 +2743,7 @@ class InvoiceManager
             $this->update_invoices($application->getId());
         }
     }
-    //OTB Start Patch - For Implementing Dynamic Fees
+    //Note Start Patch - For Implementing Dynamic Fees
     public function getFeeAmount($fee, $application_form, $application_form_id, $estimate_requested = false)
     {
         $fee_amount = 0;
@@ -2879,9 +2936,9 @@ class InvoiceManager
             return False;
         }
     }
-    //OTB End Patch - For Implementing Dynamic Fees
+    //Note End Patch - For Implementing Dynamic Fees
 
-    //OTB Start Patch - Only get invoices in an 'invoicing' type stage, where payments can be made
+    //Note Start Patch - Only get invoices in an 'invoicing' type stage, where payments can be made
     public function invoice_can_be_paid($invoice)
     {
         $q = Doctrine_Query::create()
@@ -2895,12 +2952,12 @@ class InvoiceManager
             return false;
         }
     }
-    //OTB End Patch - Only get invoices in an 'invoicing' type stage, where payments can be made\
+    //Note End Patch - Only get invoices in an 'invoicing' type stage, where payments can be made\
 
-    /* OTB - Start Calculator */
+    /* Note - Start Calculator */
     public function getEstimationInputFields($form_id)
     {
-        $otb_helper = new OTBHelper();
+        $Note_helper = new NoteHelper();
         $q = Doctrine_Query::create()
             ->from('Invoicetemplates a')
             ->where('a.applicationform = ?', $form_id)
@@ -2952,8 +3009,8 @@ class InvoiceManager
 
     public function getElementsInFormula($form_id, $formula, $element_ids)
     {
-        $otb_helper = new OTBHelper();
-        foreach ($otb_helper->getFormElements($form_id) as $element) {
+        $Note_helper = new NoteHelper();
+        foreach ($Note_helper->getFormElements($form_id) as $element) {
             if (strpos($formula, '{fm_element_' . $element->getElementId() . '}') !== false and !in_array($element->getElementId(), $element_ids)) {
                 array_push($element_ids, $element->getElementId());
             }
@@ -2976,6 +3033,7 @@ class InvoiceManager
             $q = Doctrine_Query::create()
                 ->from('Fee a')
                 ->where('a.invoiceid = ?', $inv_template->getId())
+                ->andWhere('a.submission_fee = ?', false)
                 ->orderBy('a.id ASC');
             $fees = $q->execute();
             foreach ($fees as $fee) {
@@ -2984,15 +3042,15 @@ class InvoiceManager
         }
         return $fee_arr;
     }
-    /* OTB - End Calculator */
-    //OTB Start - Use Expired stage settings to reset expired invoice accordingly - originated from Kisumu requirements
+    /* Note - End Calculator */
+    //Note Start - Use Expired stage settings to reset expired invoice accordingly - originated from Kisumu requirements
     public function update_expired_invoices($application_id, $stage_expired_invoice_action)
     {
         $application = $this->get_application_by_id($application_id);
 
         if ($application) {
             foreach ($application->getMfInvoice() as $invoice) {
-                //OTB only update for expired invoices
+                //Note only update for expired invoices
                 if ($this->is_invoice_expired($invoice->getId())) {
                     if ($stage_expired_invoice_action == 1) {
                         $invoice->setPaid(1);
@@ -3007,7 +3065,7 @@ class InvoiceManager
                             ->limit(1);
                         $invoicetemplate = $q->fetchOne();
 
-                        $expires_at = date("Y-m-d");
+                        $expires_at = date("Y-m-d H:i:s");
 
                         if ($invoicetemplate->getMaxDuration()) {
                             $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
@@ -3030,7 +3088,7 @@ class InvoiceManager
             error_log('---------No APP----' . $application_id);
         }
     }
-    //OTB End - Use Expired stage settings to reset expired invoice accordingly - originated from Kisumu requirements
+    //Note End - Use Expired stage settings to reset expired invoice accordingly - originated from Kisumu requirements
 
     //output invoice to html using the old parser
     public function generate_invoice_template_old_parser($invoice_id, $pdf = false)
@@ -3102,6 +3160,8 @@ class InvoiceManager
     //Returns an existing invoice
     public function get_invoice_by_invoice_number($invoice_number)
     {
+        error_log("Invoice Number ---->");
+        error_log($invoice_number);
         $q = Doctrine_Query::create()
             ->from('MfInvoice a')
             ->where('a.invoice_number LIKE ?', $invoice_number)
@@ -3117,11 +3177,24 @@ class InvoiceManager
 
     public function getInvoiceByNumberTransactionMessageId($invoice_no, $message_id, $transaction_id)
     {
+        /*  // spliting number 
+        $parts = explode("-", $invoice_no);
+        //
+        $result = $invoice_no;
+        //
+        if (count($parts) >= 4) {
+            $result = implode("-", array_slice($parts, 0, -1));
+            //echo $result;
+        } else {
+            $result = $invoice_no;
+        } */
+        //
+        error_log("Debug>>> getInvoiceByNumberTransactionMessageId ::::: " . $transaction_id);
         $q = Doctrine_Query::create()
             ->from('MfInvoice a')
-            ->where('a.invoice_number LIKE ?', $invoice_no)
+            //->where('a.invoice_number LIKE ?', $invoice_no)
             //->andWhere('a.message_id LIKE ?', $message_id)
-            ->andWhere('a.transaction_id LIKE ?', $transaction_id)
+            ->where('a.transaction_id LIKE ?', $transaction_id)
             ->limit(1);
         $existing_invoice = $q->fetchOne();
         if ($existing_invoice) {
@@ -3135,23 +3208,28 @@ class InvoiceManager
     {
         return uniqid($invoice_id);
     }
-    //OTB ADD
+    //
     public function check_total_amount_status($invoice_id, $amount = 0)
     {
         //check if partial is allowed
+        error_log("Debug:::: Invoice ID >>>>>>>>>>> " . $invoice_id);
         $invoice = $this->get_invoice_by_id($invoice_id);
         $q = Doctrine_Query::create()
             ->select('SUM(p.payment_amount) as total')
             ->from('ApFormPayments p');
         if (intval($invoice->getInvoicetemplates()->getPaymentType()) === 1) {
             //full
-            if (floatval($invoice->getTotalAmount()) === floatval($amount)) {
+            if (floatval($invoice->getTotalAmount()) >= floatval($amount)) {
                 //return paid
-                error_log('------TOTAL Amount match-----');
+                error_log('------TOTAL Amount match 1----- ' . $invoice->getTotalAmount());
+                error_log('------TOTAL Amount match 2----- ' . floatval($amount));
                 return 2;
             } else {
                 $q->where('p.invoice_id = ? and p.status = ?', array($invoice_id, 2));
                 $payments = $q->fetchArray();
+
+                error_log('------TOTAL Amount does not match 1----- ' . $invoice->getTotalAmount());
+                error_log('------TOTAL Amount does not match 2----- ' . floatval($amount));
                 //check payments
                 if (floatval($payments[0]['total']) >= floatval($invoice->getTotalAmount())) {
                     return 2;

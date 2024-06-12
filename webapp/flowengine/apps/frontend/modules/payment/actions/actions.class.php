@@ -154,6 +154,9 @@ class paymentActions extends sfActions
 
   public function executeProcesspayments(sfWebRequest $request)
   {
+    error_log(print_r($request->getHttpHeader('Content-Type'), true));
+    error_log(print_r($request->getHttpHeader('Accept'), true));
+
     try {
       $response = $request->getContent();
       $response = json_decode($response, true);

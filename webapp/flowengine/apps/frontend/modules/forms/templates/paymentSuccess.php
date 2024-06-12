@@ -326,7 +326,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 																	<button type="submit" class="btn btn-outline-primary" id="verify_otp_button">Verify</button>
 																</div>
 																<div id="regenerate_otp_function_div" style="display: none;">
-																	<button type="submit" class="btn btn-outline-primary" id="regenerate_otp_function">Re-send OTP</button>
+																	<button type="button" onclick="regenerateOtpFunction()" class="btn btn-outline-warning" id="regenerate_otp_function">Re-send OTP</button>
 																</div>
 															</div>
 														</div>
@@ -386,7 +386,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 			});
 		}
 
-		function regenerate_otp_function() {
+		function regenerateOtpFunction() {
 			$("#regenerate_otp_function_div").show();
 			const regenerateButton = $('#regenerate_otp_button');
 			setButtonLoading('initiate_payment_loader', true);
@@ -421,10 +421,10 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 			initiatePayment();
 		});
 
-		$(document).on('click', '#regenerate_otp_button', function(event) {
-			event.preventDefault();
-			regenerate_otp_function();
-		});
+		// $(document).on('click', '#regenerate_otp_button', function(event) {
+		// 	event.preventDefault();
+		// 	regenerate_otp_function();
+		// });
 	});
 </script>
 

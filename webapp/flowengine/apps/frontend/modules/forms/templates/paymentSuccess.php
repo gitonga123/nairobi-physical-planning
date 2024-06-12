@@ -169,6 +169,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 	const wallet_url = "<?php echo '/index.php/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 	const confirm_payment_url = "<?php echo '/index.php/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 	const redirect_url = "<?php echo '/index.php/invoices/view/id/' . $invoice->getId(); ?>";
+	const regenerate_otp_url = "<?php echo '/index.php/forms/regenerateOTPToken/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 </script>
 
 <script>
@@ -195,6 +196,9 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 					value_info = 'Failed';
 					break;
 				case 'error':
+					value_info = 'Error';
+					break;
+				case 'danger':
 					value_info = 'Error';
 					break;
 				default:
@@ -265,7 +269,6 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 					data: $(this).serialize(),
 					success: function(response) {
 						const otpResponseData = JSON.parse(response);
-						console.log(otpResponseData);
 						if (otpResponseData.status === 201 || otpResponseData.content.success) {
 							showAlert('response_wallet_area_id', 'success', 'Redirecting...');
 							confirmPayment();
@@ -315,8 +318,9 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 														</div>
 														<div id="response_wallet_area_id"></div>
 														<div class="form-group row">
-															<div class="col-sm-offset-2 col-sm-10">
-																<button type="submit" class="btn btn-outline-primary" id="verify_otp_button">Verify</button>
+															<div class="col-12 d-flex justify-content-between">
+																<button type="submit" class="btn btn-outline-primary" id="verify_otp_button_1">Verify</button>
+																<button type="submit" class="btn btn-outline-primary" id="regenerate_otp_function">Verify</button>
 															</div>
 														</div>
 													</form>
@@ -375,9 +379,42 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 			});
 		}
 
+		function regenerate_otp_function() {
+			const regenerateButton = $('#regenerate_otp_button');
+			setButtonLoading('initiate_payment_loader', true);
+			regenerateButton.prop('disabled', true).text('Regenerating...');
+			$.ajax({
+				url: regenerate_otp_url,
+				type: 'POST',
+				data: {
+					invoice_id: "<?php echo $invoice->getId(); ?>"
+				},
+				success: function(response) {
+					const data = JSON.parse(response);
+					if (data.success) {
+						showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
+					} else {
+						showAlert('response_wallet_area_id', 'danger', 'Failed to regenerate OTP. Please try again.');
+					}
+					regenerateButton.prop('disabled', false).text('Regenerate OTP');
+					setButtonLoading('initiate_payment_loader', false);
+				},
+				error: function() {
+					showAlert('response_wallet_area_id', 'danger', 'Something went wrong. Please try again later.');
+					regenerateButton.prop('disabled', false).text('Regenerate OTP');
+					setButtonLoading('initiate_payment_loader', false);
+				}
+			});
+		}
+
 		$('#checkout_initial_payment').submit(function(event) {
 			event.preventDefault();
 			initiatePayment();
+		});
+
+		$(document).on('click', '#regenerate_otp_button', function(event) {
+			event.preventDefault();
+			regenerate_otp_function();
 		});
 	});
 </script>

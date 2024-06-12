@@ -466,7 +466,9 @@ class formsActions extends sfActions
 
             $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
 
-            return $this->renderText(json_encode(['status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
+            error_log("Response status code below after regenerate token");
+            error_log($query_response->status);
+            return $this->renderText(json_encode(['success' => true, 'status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
       }
 
       public function executeProcessPayments(sfWebRequest $request)

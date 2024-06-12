@@ -361,6 +361,7 @@ class MalipoGateway
 		$transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
 
 		$transaction->setPaymentStatus('paid');
+		$transaction->setPaymentDate(date("Y-m-d H:i:s"));
 		$transaction->setStatus(2);
 
 		$transaction->save();

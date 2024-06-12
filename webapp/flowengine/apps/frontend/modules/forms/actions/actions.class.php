@@ -464,6 +464,7 @@ class formsActions extends sfActions
             error_log("Response code is this ---->");
 
             error_log($query_response->content);
+            error_log($query_response->status);
 
             if ($query_response->status !== 200 || $query_response->status !== 201) {
                   return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));

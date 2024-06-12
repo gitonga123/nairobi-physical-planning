@@ -226,7 +226,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 				if (data.success) {
 					showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
 					regenerateButton.prop('disabled', true);
-					$("#otp_value").value('');
+					$("#otp_value").val('');
 				} else {
 					showAlert('response_wallet_area_id', 'danger', 'Failed to regenerate OTP. Please try again.');
 				}

@@ -312,13 +312,12 @@ if (!empty($row)) {
 }
 ?>
 
+<?php if ($current_profile) : ?>
+    <div class="col-md-7 col-lg-8 col-xl-9">
 
-<div class="col-md-7 col-lg-8 col-xl-9">
-
-    <!-- here -->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
+        <!-- here -->
+        <div class="col-12">
+            <div class="card">
                 <!--div id="main_body" style="margin: 0px;"-->
                 <?php
 
@@ -329,54 +328,67 @@ if (!empty($row)) {
             </div>
         </div>
     </div>
-    <!-- end here -->
-    <script type="text/javascript">
-        $('#element_20').on('keyup', function(e) {
-
-            var value = document.getElementById("element_20").value;
-            $.ajax({
-                type: "GET",
-                url: 'https://livenakururevenue.amkatek.com/index.php/dashboard/plotinformation?q=' + value,
-                success: function(data) {
+<?php else : ?>
 
 
-                    console.log(data);
-                    const obj = JSON.parse(data);
+    <!-- here -->
+    <div class="col-12">
+        <!--div id="main_body" style="margin: 0px;"-->
+        <?php
 
-                    if (obj.plot_no != undefined) {
-                        console.log("Debug:: API plots.. >>>>> ");
-                        console.log(obj);
-                        //we statically set the fields we want
-                        // upn
-                        document.getElementById("element_9").value = obj.owner_name;
+        header("Content-Type: text/html; charset=UTF-8");
+        echo $markup;
+        ?>
+        <!--/div-->
+    </div>
+<?php endif; ?>
+<!-- end here -->
+<script type="text/javascript">
+    $('#element_20').on('keyup', function(e) {
 
-                        //  zone
-                        document.getElementById("element_22").value = obj.ward;
-                        // phyical address
-                        document.getElementById("element_26").value = obj.physical_address;
-                        // area in ha
-                        document.getElementById("element_29").value = obj.plot_size_ha;
-                        // usage
-                        document.getElementById("element_32").value = obj.property_usage;
-                        // town
-                        document.getElementById("element_36").value = obj.town;
-                        // amount
-                        document.getElementById("element_38").value = obj.amount_land_rates;
-                        //
-                        document.getElementById("element_13").value = obj.block_number;
-                        //owner_phone
-                        document.getElementById("element_17").value = obj.owner_phone;
-                        // p.o box
-                        document.getElementById("element_15").value = obj.po_box;
-                        // postacal code
-                        document.getElementById("element_16").value = obj.postal_code;
+        var value = document.getElementById("element_20").value;
+        $.ajax({
+            type: "GET",
+            url: 'https://livenakururevenue.amkatek.com/index.php/dashboard/plotinformation?q=' + value,
+            success: function(data) {
 
-                        // 
-                    } else {
-                        console.log("Debug>>> Plot not found!");
-                    }
+
+                console.log(data);
+                const obj = JSON.parse(data);
+
+                if (obj.plot_no != undefined) {
+                    console.log("Debug:: API plots.. >>>>> ");
+                    console.log(obj);
+                    //we statically set the fields we want
+                    // upn
+                    document.getElementById("element_9").value = obj.owner_name;
+
+                    //  zone
+                    document.getElementById("element_22").value = obj.ward;
+                    // phyical address
+                    document.getElementById("element_26").value = obj.physical_address;
+                    // area in ha
+                    document.getElementById("element_29").value = obj.plot_size_ha;
+                    // usage
+                    document.getElementById("element_32").value = obj.property_usage;
+                    // town
+                    document.getElementById("element_36").value = obj.town;
+                    // amount
+                    document.getElementById("element_38").value = obj.amount_land_rates;
+                    //
+                    document.getElementById("element_13").value = obj.block_number;
+                    //owner_phone
+                    document.getElementById("element_17").value = obj.owner_phone;
+                    // p.o box
+                    document.getElementById("element_15").value = obj.po_box;
+                    // postacal code
+                    document.getElementById("element_16").value = obj.postal_code;
+
+                    // 
+                } else {
+                    console.log("Debug>>> Plot not found!");
                 }
-            });
+            }
         });
-    </script>
-</div>
+    });
+</script>

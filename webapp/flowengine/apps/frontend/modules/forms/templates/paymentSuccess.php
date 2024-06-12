@@ -276,7 +276,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 						} else {
 							showAlert('response_wallet_area_id', 'danger', otpResponseData?.content?.msg || 'Invalid OTP. Please try again.');
 							verifyButton.prop('disabled', false).text('Verify');
-							regenerateOTP.prop('disabled', false);
+							regenerateOTP.show();
 							
 						}
 					},
@@ -387,6 +387,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 		}
 
 		function regenerate_otp_function() {
+			$("#regenerate_otp_function_div").show();
 			const regenerateButton = $('#regenerate_otp_button');
 			setButtonLoading('initiate_payment_loader', true);
 			regenerateButton.prop('disabled', true).text('Regenerating...');

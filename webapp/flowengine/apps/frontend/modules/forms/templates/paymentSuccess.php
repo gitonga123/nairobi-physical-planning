@@ -266,7 +266,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 					success: function(response) {
 						const otpResponseData = JSON.parse(response);
 						console.log(otpResponseData);
-						if (otpResponseData.status === 200) {
+						if (otpResponseData.status === 201 || otpResponseData.content.success) {
 							showAlert('response_wallet_area_id', 'success', 'Redirecting...');
 							confirmPayment();
 						} else {

@@ -20,6 +20,8 @@
 	<link rel="stylesheet" href="/asset_mentor/admin/assets/plugins/datatables/datatables.min.css">
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/style.css">
+	<!-- jQuery -->
+	<script src="/asset_mentor/assets/js/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -279,28 +281,22 @@
 										<span><i class="fas fa-map-marker-alt"></i></span>
 										<p>
 											Official Contacts
-											(051) 2214142 / (051) 2216379/80
-
-
-
+											(05320160000)
 									</div>
-									<p>
+									<!-- <p>
 										<i class="fas fa-phone-alt"></i>
-										0800720890
-										toll free for emergencies only
-									</p>
+										05320160000
+									</p> -->
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
 
-										Email: info@nakuru.go.ke
+										Email: info@uasingishu.go.ke
 
 
 									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-
-										P.O. BOX 2870-20100, Nakuru
-
+										P.O. Box 40-30100, Eldoret.
 									</p>
 								</div>
 							</div>
@@ -337,10 +333,6 @@
 		<!-- /Footer -->
 
 	</div>
-	<!-- /Main Wrapper -->
-
-	<!-- jQuery -->
-	<script src="/asset_mentor/assets/js/jquery-3.6.0.min.js"></script>
 
 	<!-- Bootstrap Core JS -->
 	<script src="/asset_mentor/assets/js/bootstrap.bundle.min.js"></script>

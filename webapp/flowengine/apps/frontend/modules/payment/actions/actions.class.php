@@ -191,12 +191,12 @@ class paymentActions extends sfActions
             break;
         }
 
-        return $this->json(['data' => ['message' => $message, 'payload' => $response]], $status_code);
+        return $this->json(['data' => ['success' => true, 'statusCode' => $status_code, 'message' => $message, 'payload' => $response]], $status_code);
       } else {
-        return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 422);
+        return $this->json(['data' => ['success' => false, 'statusCode' => 422, 'message' => 'Payload Required.', 'payload' => $response]], 422);
       }
     } catch (\Exception $error) {
-      return $this->json(['data' => ['message' => $error->getMessage(), 'payload' => $response]], 500);
+      return $this->json(['data' => ['success' => false, 'statusCode' => 500, 'message' => $error->getMessage(), 'payload' => $response]], 500);
     }
   }
   public function executeProcessPayment(sfWebRequest $request)

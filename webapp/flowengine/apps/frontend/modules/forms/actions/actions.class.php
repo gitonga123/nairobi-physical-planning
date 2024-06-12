@@ -320,7 +320,7 @@ class formsActions extends sfActions
 
             error_log("Amount to pay ---->" . $this->invoice->getTotalAmount());
 
-            $callback_url = sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments';
+            $callback_url = sfConfig::get('app_amkatek_callback_payment');
 
             error_log("Callback url below --->" . $callback_url);
 
@@ -330,7 +330,7 @@ class formsActions extends sfActions
                   'phone_number' => $request->getPostParameter('phone_number'),
                   'amount' => $this->invoice->getTotalAmount(),
                   'bill_number' => $billing_reference_number,
-                  'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'index.php/payment/processpayments'
+                  'callback_url' => $callback_url
             ];
 
             error_log(print_r($payload, true));

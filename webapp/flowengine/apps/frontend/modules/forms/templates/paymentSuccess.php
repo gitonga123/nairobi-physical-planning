@@ -1,32 +1,82 @@
 <div class="col-md-7 col-lg-8 col-xl-9">
-	<div class="row">
-		<div class="card card-default p-b-0">
-			<div style="margin: 15px;">
-				<?php echo $markup; ?>
-				<div class="form_container mt-5">
-					<h2>Checkout</h2>
-					<form class="form-horizontal" id="checkout_initial_payment" action="<?php echo '/index.php/forms/initiatePayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>">
-						<div id="response_area_id"></div>
-						<div class="form-group" style="margin: 2px;">
-							<label for="phone_number">Phone Number:</label>
-							<input type="text" class="form-control" id="phone_number" placeholder="Phone Number" name="phone_number" value="<?php echo $user->getProfile()->getMobile(); ?>">
+	<div class="col-12">
+		<nav class="user-tabs">
+			<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+				<li>
+					<a class="nav-link active" href="# <?php $application->getApplicationId(); ?>" data-bs-toggle="tab"> Payment for Application No. - <?php echo $application->getApplicationId(); ?></a>
+				</li>
+			</ul>
+		</nav>
+		<div class="accordion mb-3" id="accordionCheckoutForm">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingTwo">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+						Checkout
+					</button>
+				</h2>
+				<div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+					<div class="accordion-body">
+						<form class="form-horizontal" id="checkout_initial_payment" action="<?php echo '/index.php/forms/initiatePayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>">
+							<div id="response_area_id"></div>
+							<div class="form-group" style="margin: 2px;">
+								<label for="phone_number">Phone Number:</label>
+								<input type="text" class="form-control" id="phone_number" placeholder="Phone Number" name="phone_number" value="<?php echo $user->getProfile()->getMobile(); ?>">
+							</div>
+							<div class="form-group p-t-10" style="margin: 2px; margin-top:10px;">
+								<button type="submit" class="btn btn-sm btn-dark" id="initiate_payment_loader">
+									<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+									Initiate Payment
+								</button>
+							</div>
+
+						</form>
+						<div class="form_container" style="display: none;" id="form_checkout_container">
+							<div id="checkout_form_options_id"></div>
 						</div>
-						<div class="form-group p-t-10" style="margin: 2px; margin-top:10px;">
-							<button type="submit" class="btn btn-sm btn-dark" id="initiate_payment_loader">
-								<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
-								Initiate Payment
-							</button>
-						</div>
-					</form>
+					</div>
 				</div>
-				<div class="form_container" style="display: none;" id="form_checkout_container">
-					<div id="checkout_form_options_id"></div>
+			</div>
+		</div>
+		<div class="accordion mb-3" id="accordionInvoice Info">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingOne">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						Invoice # <?php echo $invoice->getInvoiceNumber(); ?>
+					</button>
+				</h2>
+
+				<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+					<div class="accordion-body">
+						<ul class="list-group">
+							<li class="list-group-item active d-flex justify-content-between align-items-center">
+								<strong>Description</strong>
+								<strong>Amount(<?php echo $invoice->getCurrency(); ?>)</strong>
+							</li>
+							<?php foreach ($invoice->MfInvoiceDetail as $fee) :
+								$code = '';
+								$description = $fee->getDescription();
+								$pieces = explode(":", $description);
+								if (sizeof($pieces) > 1) {
+									$description = $pieces[1];
+									$code = $pieces[0];
+
+									$description = "<span>{$code}</span><span>{$description}</span>";
+								}
+
+							?>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<?php echo $description; ?>
+									<span><?php echo $fee->getAmount(); ?></span>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+						<p class="mt-3"><strong>Total Amount: <?php echo  $invoice->getCurrency() . '&nbsp;&nbsp;' . $invoice->getTotalAmount(); ?></strong></p>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 <script>
 	// global files
 	const wallet_url = "<?php echo '/index.php/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
@@ -65,9 +115,9 @@
 				value_info = '';
 				break;
 		}
-		const alertHtml = `<div class="alert alert-${type} alert-dismissible">
-								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		const alertHtml = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
 								<strong>${value_info}!</strong> ${message}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>`;
 		$(`#${areaId}`).html(alertHtml);
 	}
@@ -130,7 +180,8 @@
 					setButtonLoading('initiate_payment_loader', false);
 				}
 			});
-			setTimeout(confirmPayment, Math.min(currentInterval + 1, maxInterval) * 60 * 1000);
+			currentInterval = currentInterval + 1;
+			setTimeout(confirmPayment, Math.min(currentInterval, maxInterval) * 60 * 1000);
 		}
 
 		function initialCheckingPayment() {
@@ -167,9 +218,14 @@
 					data: $(this).serialize(),
 					success: function(response) {
 						const otpResponseData = JSON.parse(response);
-						if (otpResponseData.status === 201 || otpResponseData.content.success) {
+						if (otpResponseData.status === 201 || otpResponseData.success) {
+							$("#regenerate_otp_function_div").hide();
 							showAlert('response_wallet_area_id', 'success', 'Redirecting...');
-							confirmPayment();
+							window.location.href = redirect_url;
+						} else if (otpResponseData.status == 400) {
+							$("#regenerate_otp_function_div").hide();
+							showAlert('response_wallet_area_id', 'info', otpResponseData.content?.message[0] || "Transaction already completed. Redirecting...");
+							window.location.href = redirect_url;
 						} else {
 							showAlert('response_wallet_area_id', 'danger', otpResponseData?.content?.msg || 'Invalid OTP. Please try again.');
 							verifyButton.prop('disabled', false).text('Verify');
@@ -186,6 +242,8 @@
 		}
 
 		function initiatePayment() {
+			$("#mpesa_confirmation_id").html();
+			$("#response_wallet_area_id").html();
 			setButtonLoading('initiate_payment_loader', true);
 			const formData = $('#checkout_initial_payment').serialize();
 			$.ajax({

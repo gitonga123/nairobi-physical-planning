@@ -17,7 +17,11 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 						$count = 0;
 						foreach ($groups as $group) { ?>
 							<li>
+<<<<<<< HEAD
 								<a class="nav-link active" href="# <?php echo $group->getGroupName(); ?>" data-bs-toggle="tab"> Kenya -> <?php echo $group->getGroupName(); ?></a>
+=======
+								<a class="nav-link active" href="# <?php echo $group->getGroupName(); ?>" data-bs-toggle="tab"> UASIN GISHU -> <?php echo $group->getGroupName(); ?></a>
+>>>>>>> main
 							</li>
 						<?php } ?>
 					</ul>
@@ -29,25 +33,38 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 					<div role="tabpanel" id="activeservice" class="tab-pane fade show active">
 						<div class="row">
 							<?php
-							$q = Doctrine_Query::create()
-								->from('ApForms a')
-								->andWhere('a.form_type = 1')
-								->andWhere('a.form_active = 1')
-								->andWhere('a.form_group = ?', $group->getGroupId())
-								->orderBy('a.form_name ASC');
+							if (sfConfig::get('app_enable_categories') == "yes") {
+								$q = Doctrine_Query::create()
+									->from('ApForms a')
+									->leftJoin('a.sfGuardUserCategoriesForms s')
+									->andWhere('a.form_type = 1')
+									->andWhere('a.form_active = 1')
+									->andWhere('a.form_group = ?', $group->getGroupId())
+									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
+									->orderBy('a.form_name ASC');
+							} else {
+
+								// UASIN GISHU ISSUE ONLY
+								// Original
+								// $q = Doctrine_Query::create()
+								// 	->from('ApForms a')
+								// 	->andWhere('a.form_type = 1')
+								// 	->andWhere('a.form_active = 1')
+								// 	->andWhere('a.form_group = ?', $group->getGroupId())
+								// 	->orderBy('a.form_name ASC');
+
+								// Updated, on another platform you can revert
+								$q = Doctrine_Query::create()
+									->from('ApForms a')
+									->leftJoin('a.sfGuardUserCategoriesForms s')
+									->andWhere('a.form_type = 1')
+									->andWhere('a.form_active = 1')
+									->andWhere('a.form_group = ?', $group->getGroupId())
+									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
+									->orderBy('a.form_name DESC');
+							}
 							$forms = $q->execute();
 							foreach ($forms as $form) {
-								var_dump($sf_user->getGuardUser()->getProfile()->getRegisteras());
-								if (sfConfig::get('app_enable_categories') == "yes") {
-									$q = Doctrine_Query::create()
-										->from('sfGuardUserCategoriesForms a')
-										->where('a.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-										->andWhere('a.formid = ?', $form->getFormId());
-									$category = $q->count();
-									if ($category == 0) {
-										continue;
-									}
-								}
 							?>
 								<!-- here -->
 								<div class="col-12 col-md-6 col-xl-4 d-flex">
@@ -59,11 +76,11 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 												<div class="col">
 													<a href="/index.php/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-primary"><i class="far fa-edit"></i> Apply </a>
 												</div>
-												<div class="col text-end">
+												<!-- <div class="col text-end">
 													<a href="javascript:void(0);" class="btn btn-secondary">
 														<i class="fas fa-envelope"></i> Help
 													</a>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>

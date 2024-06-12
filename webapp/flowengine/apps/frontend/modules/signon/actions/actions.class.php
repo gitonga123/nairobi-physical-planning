@@ -77,6 +77,12 @@ class signonActions extends sfActions
                 throw new sfException('Something Went Wrong. Please try again later.', 500);
             }
 
+            $_SESSION['jambo_token'] = $this->token;
+
+            error_log("Session key generate from jambo pay ---->");
+
+            error_log($this->token);
+
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/accounts/user_info/';
             // fetch user information
             $stream_response = $stream->sendRequest([
@@ -100,7 +106,7 @@ class signonActions extends sfActions
             $account_type = $user_api_data['account_type'];
             $fullname = $first_name . " " . $last_name;
 
-            $this->sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->createQuery('u')->where('username = ?', $username)->fetchOne();
+            $this->sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->createQuery('u')->where('username = ?', $username)->orderBy('u.id DESC')->fetchOne();
 
             if (!$this->sfGuardUser) {
                 // create user
@@ -111,20 +117,31 @@ class signonActions extends sfActions
 
                 // create user profile
                 $profile = new sfGuardUserProfile();
-                $profile->user_id = $this->sfGuardUser->id;
-                $profile->fullname = $fullname;
-                $profile->email = $email;
-                $profile->mobile = $username;
-                $profile->registeras = 6;
+                $profile->setUserId($this->sfGuardUser->id);
+                $profile->setFullname($fullname);
+                $profile->setEmail($email);
+                $profile->setMobile($username);
+                $profile->setRegisteras(6);
                 $profile->save();
             } else {
-                $profile = new sfGuardUserProfile();
-                $profile->user_id = $this->sfGuardUser->id;
-                $profile->fullname = $fullname;
-                $profile->email = $email;
-                $profile->mobile = $username;
-                $profile->registeras = 6;
-                $profile->save();
+                $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findOneByUserId($this->sfGuardUser->id);
+                error_log("Profile exists yes or no");
+                error_log($user_share);
+                if ($user_share) {
+                    $user_share->setFullname($fullname);
+                    $user_share->setEmail($email);
+                    $user_share->setMobile($username);
+                    $user_share->setRegisteras(6);
+                    $user_share->save();
+                } else {
+                    $profile = new sfGuardUserProfile();
+                    $profile->user_id = $this->sfGuardUser->id;
+                    $profile->setFullname($fullname);
+                    $profile->setEmail($email);
+                    $profile->setMobile($username);
+                    $profile->setRegisteras(6);
+                    $profile->save();
+                }
             }
 
             $this->getUser()->signin($this->sfGuardUser, false);

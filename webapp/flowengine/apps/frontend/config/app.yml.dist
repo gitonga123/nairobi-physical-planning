@@ -35,11 +35,14 @@ all:
   #google_analytics_id: UA-10179244-19
 
   #set to false for countries that are not using single sign on
+  site_base_url: http://usn.malipo.org/
+  sso_jambo_web_url: http://ugselfservice.jambopay.co.ke:8081
   sso_jambo_url: http://uasingishu.jambopay.co.ke:8080/
   sso_authorize_url: http://ugselfservice.jambopay.co.ke:8081/#/auth/login
   sso_logout_url: http://ugselfservice.jambopay.co.ke:8081/#/dashboard
   sso_register_url: http://ugselfservice.jambopay.co.ke:8081/#/auth/signup
   jambo_pay_callback: http://usn.malipo.org/
+  amkatek_callback_payment: https://revenueapi.amkatek.com/malipoapi/v1.0/payment/processpayments
   #sso_homepage: http://eservices.nyeri.go.ke
   #sso_authorize_url: http://account.ecitizen.go.ke/authorize
   #sso_logout_url: http://account.ecitizen.go.ke/logout

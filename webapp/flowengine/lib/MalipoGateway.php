@@ -5,13 +5,16 @@
  * Malipo Payments Gateway
  */
 
-class MalipoGateway {
+class MalipoGateway
+{
 	public $invoice_manager;
-	public function __construct() {
+	public function __construct()
+	{
 		$this->invoice_manager = new InvoiceManager();
 	}
 
-	public function searchBill($billId, $messageId) {
+	public function searchBill($billId, $messageId)
+	{
 		$invoice = $this->invoice_manager->get_invoice_by_invoice_number($billId);
 		// you can shift the condition to a switch.
 		if ($invoice) {
@@ -88,7 +91,8 @@ class MalipoGateway {
 	}
 	// generate bill send to malipo and redirect to malipo url for payments
 	// the response you get from malipo after bill creation is what you direct user to for payments
-	public function checkout_malipo_payment_links($invoice_id) {
+	public function checkout_malipo_payment_links($invoice_id)
+	{
 		error_log("---------- Start Malipo -----------------");
 		//error_log($application_id) ;
 
@@ -129,7 +133,7 @@ class MalipoGateway {
 
 		// current timestamp
 		$timestamp = time();
-		$transaction_details = $invoice->getInvoiceNumber()."-".$timestamp;
+		$transaction_details = $invoice->getInvoiceNumber() . "-" . $timestamp;
 		//$transaction_details = $timestamp ;
 		// Request data
 		$data = array(
@@ -195,10 +199,10 @@ class MalipoGateway {
 		//////////////////
 		//header("Location: ".$response);
 		exit;
-
 	}
 	// phone number processing
-	public function convertPhoneNumber($phoneNumber) {
+	public function convertPhoneNumber($phoneNumber)
+	{
 		// Remove any non-digit characters from the phone number
 		$phoneNumber = preg_replace('/\D/', '', $phoneNumber);
 
@@ -222,7 +226,8 @@ class MalipoGateway {
 
 	// process payment notifications received from external payment server
 	// process payments from malipo payments
-	public function malipo_ipn($request_details, $invoice) {
+	public function malipo_ipn($request_details, $invoice)
+	{
 
 		$update_details = array();
 		$transaction_id = strtoupper(trim($request_details->transactionId));
@@ -252,7 +257,7 @@ class MalipoGateway {
 		}
 
 		$amount_paid = floatval($amount_paid);
-		$paid_by = trim($request_details->firstName)+" "+trim($request_details->middleName)+" "+trim($request_details->lastName);
+		$paid_by = trim($request_details->firstName) + " " + trim($request_details->middleName) + " " + trim($request_details->lastName);
 		try {
 			if ($invoice->getPaid() == 1) {
 				$status = $this->invoice_manager->check_total_amount_status($invoice->getId(), $amount_paid);
@@ -328,5 +333,54 @@ class MalipoGateway {
 		}
 
 		return $update_details;
+	}
+
+
+	public function jambo_pay_ipn($response)
+	{
+		error_log("Bill Number details below ---->");
+
+		error_log($response['bill_number']);
+		error_log($response['reference']);
+
+		$q = Doctrine_Query::create()
+			->from("ApFormPayments a")
+			->where("a.payment_id = ?", $response['bill_number'])
+			->where("a.narration = ?", $response['reference'])
+			->orderBy('a.afp_id desc');
+		$transaction = $q->fetchOne();
+
+		if (!$transaction) {
+			return 'transaction_not_found';
+		}
+
+		$q_in = Doctrine_Query::create()
+			->from('MfInvoice m')
+			->where('m.id = ?', $transaction->getInvoiceId());
+		$invoice = $q_in->fetchOne();
+
+		if (!$invoice) {
+			return 'invoice_not_found';
+		}
+
+		$transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
+
+		$transaction->setPaymentStatus('paid');
+		$transaction->setPaymentDate(date("Y-m-d H:i:s"));
+		$transaction->setStatus(2);
+
+		$transaction->save();
+
+		error_log("Transaction updated above ---->");
+		error_log($transaction);
+
+		$invoice->setPaid(2);
+
+		$invoice->save();
+
+		error_log("Invoice updated above ---->");
+		error_log($invoice);
+
+		return 'paid';
 	}
 }

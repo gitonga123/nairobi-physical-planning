@@ -18,7 +18,6 @@
 	<link rel="stylesheet" href="/asset_mentor/assets/plugins/fontawesome/css/all.min.css">
 	<!-- Datatables CSS -->
 	<link rel="stylesheet" href="/asset_mentor/admin/assets/plugins/datatables/datatables.min.css">
-
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/style.css">
 
@@ -345,7 +344,6 @@
 
 	<!-- Bootstrap Core JS -->
 	<script src="/asset_mentor/assets/js/bootstrap.bundle.min.js"></script>
-
 	<!-- Sticky Sidebar JS -->
 	<script src="/asset_mentor/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
 	<script src="/asset_mentor/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
@@ -356,9 +354,22 @@
 	<!-- Datatables JS -->
 	<script src="/asset_mentor/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="/asset_mentor/admin/assets/plugins/datatables/datatables.min.js"></script>
-
 	<!-- Custom JS -->
 	<script src="/asset_mentor/assets/js/script.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.tabs.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.mouse.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.sortable.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.draggable.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.position.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.dialog.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery.mini_colors.js"></script>
+	<script type="text/javascript" src="/form_builder/js/uploadify/swfobject.js"></script>
+	<script type="text/javascript" src="/form_builder/js/uploadify/jquery.uploadify.js"></script>
+	<script type="text/javascript" src="/form_builder/js/uploadifive/jquery.uploadifive.js"></script>
+	<script type="text/javascript" src="/form_builder/js/jquery.jqplugin.min.js"></script>
+	<script type="text/javascript" src="/form_builder/js/theme_editor.js"></script>
 	<script>
 		$('.datatable').DataTable({
 			"bFilter": true,

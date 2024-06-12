@@ -2077,7 +2077,7 @@ abstract class BaseApForms extends sfDoctrineRecord
         $this->hasMany('ApFormGroups', array(
              'local' => 'form_id',
              'foreign' => 'form_id'));
-
+    
         $this->hasMany('FormEntry', array(
              'local' => 'form_id',
              'foreign' => 'form_id'));
@@ -2096,6 +2096,10 @@ abstract class BaseApForms extends sfDoctrineRecord
 		$this->hasMany('ApFormPayments', array(
 			'local' => 'form_id',
 			'foreign' => 'form_id'
+		));
+          $this->hasMany('sfGuardUserCategoriesForms', array(
+			'local' => 'form_id',
+			'foreign' => 'formid'
 		));
     }
 }

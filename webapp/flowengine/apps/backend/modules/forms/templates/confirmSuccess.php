@@ -60,7 +60,7 @@
 
 			unset($_SESSION['review_id']);
 
-			if(in_array($form_properties['payment_merchant_type'], array('malipo','stripe','authorizenet','paypal_rest','braintree','pesaflow_standard','pesaflow_cart'))){
+			if(in_array($form_properties['payment_merchant_type'], array('jambo_pay','malipo','stripe','authorizenet','paypal_rest','braintree','pesaflow_standard','pesaflow_cart'))){
 				if(mf_is_payment_has_value($dbh,$form_id,$commit_result['record_insert_id'])){
 					//allow access to payment page
 					$_SESSION['mf_form_payment_access'][$form_id] = true;

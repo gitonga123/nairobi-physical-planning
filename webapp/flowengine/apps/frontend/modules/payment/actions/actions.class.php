@@ -9,7 +9,9 @@
  * @subpackage payment
  * @author     Webmasters Africa / Thomas Juma (thomas.juma@webmastersafrica.com)
  */
+
 use Exception;
+
 class paymentActions extends sfActions
 {
   /**
@@ -80,74 +82,176 @@ class paymentActions extends sfActions
    */
   public function executePaymentnotifications(sfWebRequest $request)
   {
-      $response = $request->getContent();
-      $response = json_decode($response);
+    $response = $request->getContent();
+    $response = json_decode($response);
 
-      $invoice = new InvoiceManager();
-      //
-      $invoice_no_only = false ;
-      // Split the string using the hyphen as the delimiter
-      $splitArray = explode('-', $response->billId);
-      //error_log(print_r($splitArray)) ;
-      /// Check if there are at least 4 parts
-      $invoice_no_only = implode('-', array_slice($splitArray, 0, 3));
-      // error_log("Debig >>>>>>>>>>> invoice_no_only ".$invoice_no_only ) ;
-       //$invoice_no_only = "NKR-INV-710" ;
-       // test
-       $q_test = Doctrine_Query::create()
-       ->from('MfInvoice a')
-       ->where('a.transaction_id = ?', $response->billId)
-       ->orWhere('a.invoice_number = ?', $invoice_no_only)
-       ->limit(1);
-      $invoice_r_test = $q_test->fetchOne();
-      $invoice_no = trim($invoice_r_test->getInvoiceNumber());
-      error_log($invoice_no) ;   
-      
-      // get invoice id
-      /* $q = Doctrine_Query::create()
+    $invoice = new InvoiceManager();
+    //
+    $invoice_no_only = false;
+    // Split the string using the hyphen as the delimiter
+    $splitArray = explode('-', $response->billId);
+    //error_log(print_r($splitArray)) ;
+    /// Check if there are at least 4 parts
+    $invoice_no_only = implode('-', array_slice($splitArray, 0, 3));
+    // error_log("Debig >>>>>>>>>>> invoice_no_only ".$invoice_no_only ) ;
+    //$invoice_no_only = "NKR-INV-710" ;
+    // test
+    $q_test = Doctrine_Query::create()
+      ->from('MfInvoice a')
+      ->where('a.transaction_id = ?', $response->billId)
+      ->orWhere('a.invoice_number = ?', $invoice_no_only)
+      ->limit(1);
+    $invoice_r_test = $q_test->fetchOne();
+    $invoice_no = trim($invoice_r_test->getInvoiceNumber());
+    error_log($invoice_no);
+
+    // get invoice id
+    /* $q = Doctrine_Query::create()
              ->from('MfInvoice a')
              ->where('a.transaction_id = ?', $response->billId)
              ->limit(1);
             $invoice_r = $q->fetchOne();
 
       $invoice_no = trim($invoice_r->getInvoiceNumber()); */
-      $message_id = trim($response->messageId);
-      $transaction_id = trim($response->billId);
-      $responseDetails = [
-        'messageId' => $message_id,
-      ];
-      try {
-     
-        $invoiceDetails = $invoice->getInvoiceByNumberTransactionMessageId(
-          $invoice_no,
-          $message_id,
-          $transaction_id
-        );
-        if (!$invoiceDetails) {
-          $responseDetails['statusCode'] = '1';
-          $responseDetails['statusMessage'] = 'Invoice not found';
-          $responseDetails['transactionId'] = $transaction_id;
-          $response['currency'] = 'KES';
-        } else {
-          if ($invoiceDetails->getPaid() == 1) {
-           // error_log("Debug MalipoGateway >> >Check invoice ".$invoiceDetails->getId()) ;
-              
-            $payments_manager = new MalipoGateway();
-            $responseDetails = $payments_manager->malipo_ipn($response, $invoiceDetails);
-          } else {
-            $responseDetails['statusCode'] = '1';
-            $responseDetails['statusMessage'] = 'Invoice Already Paid. Please re-check the invoice no.';
-            $responseDetails['transactionId'] = $transaction_id;
-          }
-        }
-        $responseDetails;
-      } catch (Exeception $e) {
+    $message_id = trim($response->messageId);
+    $transaction_id = trim($response->billId);
+    $responseDetails = [
+      'messageId' => $message_id,
+    ];
+    try {
+
+      $invoiceDetails = $invoice->getInvoiceByNumberTransactionMessageId(
+        $invoice_no,
+        $message_id,
+        $transaction_id
+      );
+      if (!$invoiceDetails) {
         $responseDetails['statusCode'] = '1';
-        $responseDetails['statusMessage'] = $e->getMessage();
+        $responseDetails['statusMessage'] = 'Invoice not found';
         $responseDetails['transactionId'] = $transaction_id;
+        $response['currency'] = 'KES';
+      } else {
+        if ($invoiceDetails->getPaid() == 1) {
+          // error_log("Debug MalipoGateway >> >Check invoice ".$invoiceDetails->getId()) ;
+
+          $payments_manager = new MalipoGateway();
+          $responseDetails = $payments_manager->malipo_ipn($response, $invoiceDetails);
+        } else {
+          $responseDetails['statusCode'] = '1';
+          $responseDetails['statusMessage'] = 'Invoice Already Paid. Please re-check the invoice no.';
+          $responseDetails['transactionId'] = $transaction_id;
+        }
       }
-  
-      return $this->renderText(json_encode($responseDetails));
+      $responseDetails;
+    } catch (Exeception $e) {
+      $responseDetails['statusCode'] = '1';
+      $responseDetails['statusMessage'] = $e->getMessage();
+      $responseDetails['transactionId'] = $transaction_id;
+    }
+
+    return $this->renderText(json_encode($responseDetails));
+  }
+
+  public function executeProcesspayments(sfWebRequest $request)
+  {
+    error_log(print_r($request->getHttpHeader('Content-Type'), true));
+    error_log(print_r($request->getHttpHeader('Accept'), true));
+
+    try {
+      $response = $request->getContent();
+      $response = json_decode($response, true);
+
+      error_log("Callback url coming hot");
+
+      error_log(print_r($response, true));
+
+      error_log("Response ---->");
+      error_log(strtolower($response['status']));
+
+      if (strtolower($response['status']) == 'success') {
+        $ipn = new MalipoGateway();
+        $message = '';
+        $status_code = '';
+
+        $processing_response = $ipn->jambo_pay_ipn($response);
+
+        switch ($processing_response) {
+          case 'transaction_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'invoice_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'paid':
+            $message = 'Paid';
+            $status_code = 200;
+            break;
+          default:
+            $message = 'Paid';
+            $status_code = 200;
+            break;
+        }
+
+        error_log("Jambo Pay PIN Response ---->");
+        error_log($processing_response);
+
+        return $this->json(['data' => ['success' => true, 'statusCode' => $status_code, 'message' => $message, 'payload' => $response]], $status_code);
+      } else {
+        return $this->json(['data' => ['success' => false, 'statusCode' => 422, 'message' => 'Payload Required.', 'payload' => $response]], 422);
+      }
+    } catch (\Exception $error) {
+      return $this->json(['data' => ['success' => false, 'statusCode' => 500, 'message' => $error->getMessage(), 'payload' => $response]], 500);
+    }
+  }
+  public function executeProcessPayment(sfWebRequest $request)
+  {
+    try {
+
+      error_log(print_r($request->getHttpHeader('Content-Type'), true));
+      error_log(print_r($request->getHttpHeader('Accept'), true));
+
+      $response = $request->getContent();
+      $response = json_decode($response, true);
+
+      error_log("Callback url coming hot");
+
+      error_log(print_r($response, true));
+
+      if (strtolower($response['status']) == 'success') {
+        $ipn = new MalipoGateway();
+        $message = '';
+        $status_code = '';
+
+        $processing_response = $ipn->jambo_pay_ipn($response);
+
+        switch ($processing_response) {
+          case 'transaction_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'invoice_not_found':
+            $message = 'Bill Reference not found.';
+            $status_code = 404;
+            break;
+          case 'paid':
+            $message = 'Paid';
+            $status_code = 200;
+            break;
+          default:
+            $message = 'Paid';
+            $status_code = 200;
+            break;
+        }
+
+        return $this->json(['data' => ['message' => $message, 'payload' => $response]], $status_code);
+      } else {
+        return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 422);
+      }
+    } catch (\Exception $error) {
+      return $this->json(['data' => ['message' => $error->getMessage(), 'payload' => $response]], 500);
+    }
   }
   /**
    * Executes 'Query' action
@@ -256,5 +360,15 @@ class paymentActions extends sfActions
     } catch (Exception $ex) {
       error_log("Debug-pesa: " . $ex);
     }
+  }
+
+
+
+  private function json($content, $status = 200)
+  {
+    $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+    $this->getResponse()->setContent(json_encode($content));
+    $this->getResponse()->setStatusCode($status);
+    return sfView::NONE;
   }
 }

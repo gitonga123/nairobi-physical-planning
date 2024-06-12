@@ -282,7 +282,7 @@ class formsActions extends sfActions
                   //Update transaction details
                   $transaction->setStatus(1);
                   $transaction->setPaymentStatus("pending");
-                  $transaction->setPaymentMerchantType('Jambo Payment');
+                  $transaction->setPaymentMerchantType('Jambo Pay');
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
                   $transaction->setInvoiceId($this->invoice->getId());
                   $transaction->setPaymentCurrency('KES');
@@ -298,7 +298,7 @@ class formsActions extends sfActions
                   $transaction->setPaymentId($billing_reference_number);
                   $transaction->setDateCreated(date("Y-m-d H:i:s"));
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
-                  $transaction->setPaymentMerchantType('Jambo Payment');
+                  $transaction->setPaymentMerchantType('Jambo Pay');
                   $transaction->setPaymentTestMode("0");
                   $transaction->setPaymentDate(date("Y-m-d H:i:s"));
                   $transaction->setInvoiceId($this->invoice->getId());
@@ -318,20 +318,30 @@ class formsActions extends sfActions
                   $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
             }
 
-            error_log("Below is the amount ---->");
-            error_log($this->invoice->getTotalAmount());
+            error_log("Amount to pay ---->" . $this->invoice->getTotalAmount());
+
+            $callback_url = sfConfig::get('app_amkatek_callback_payment');
+
+            error_log("Callback url below --->" . $callback_url);
+
+            error_log("initiate request payment ---->");
+
+            $payload = [
+                  'phone_number' => $request->getPostParameter('phone_number'),
+                  'amount' => $this->invoice->getTotalAmount(),
+                  'bill_number' => $billing_reference_number,
+                  'callback_url' => $callback_url
+            ];
+
+            error_log(print_r($payload, true));
+
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
                   'ssl' => 'none',
                   'contentType' => 'json',
-                  'data' => [
-                        'phone_number' => $request->getPostParameter('phone_number'),
-                        'amount' => $this->invoice->getTotalAmount(),
-                        'bill_number' => $billing_reference_number,
-                        'callback_url' => sfConfig::get('app_jambo_pay_callback') . 'backend.php/api/processPayment'
-                  ],
+                  'data' => $payload,
                   'headers' => array(
                         "Authorization" => "JWT " . $token,
                   )
@@ -349,11 +359,11 @@ class formsActions extends sfActions
                   $transaction->setNarration($query_response->content["ref"]);
 
                   $transaction->save();
-      
+
                   $this->invoice->setTransactionId($query_response->content["ref"]);
                   $this->invoice->save();
             }
-           
+
 
             error_log("Session keys aare as at below");
             error_log($_SESSION['jambo_pay_ref']);
@@ -364,11 +374,13 @@ class formsActions extends sfActions
       {
             $user_otp = $request->getPostParameter('user_otp');
 
-            $otp = $_SESSION['jambo_wallet_otp'];
+            error_log("User otp --->" . $user_otp);
 
-            if (!($user_otp == $otp)) {
-                  return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
-            }
+            // $otp = $_SESSION['jambo_wallet_otp'];
+
+            // if (!($user_otp == $otp)) {
+            //       return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
+            // }
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/authorize_wallet_payment/';
 
             $stream = new Stream();
@@ -398,6 +410,7 @@ class formsActions extends sfActions
                   'contentType' => 'json',
                   'data' => [
                         'ref' => $ref,
+                        "otp" => $user_otp,
                         'amount' => $this->invoice->getTotalAmount(),
                   ],
                   'headers' => array(
@@ -405,11 +418,27 @@ class formsActions extends sfActions
                   )
             ]);
 
-            return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
+            $response_content = $query_response->content;
+
+            error_log("Verify OTP Wallet response ---->");
+
+            error_log($response_content);
+            error_log(print_r($response_content, true));
+            error_log("Status code ---->" . $query_response->status);
+
+            error_log("Response content code is ---->");
+            error_log($response_content['ref']);
+
+            if (isset($response_content['ref']) || $query_response->status == 201) {
+                  return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content, 'success' => true]));
+            }
+            return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.', 'success' => false]]));
+            // return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
       }
 
-      public function executeRegenerateOTPToken($request)
+      public function executeRegeneratejamboonetimepassword($request)
       {
+            error_log("Regenerate otp function triggered");
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/regenerate_otp/';
 
             $stream = new Stream();
@@ -432,13 +461,21 @@ class formsActions extends sfActions
                   )
             ]);
 
-            if ($query_response->status !== 200 || $query_response->status !== 201) {
-                  return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
+            error_log("Response code is this ---->");
+
+            error_log($query_response->content);
+            error_log($query_response->status);
+
+            if ($query_response->status == 201) {
+                  return $this->renderText(json_encode(['success' => true, 'status' => $query_response->status, 'content' => $query_response->content]));
             }
 
             $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
 
-            return $this->renderText(json_encode(['status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
+            error_log("Response status code below after regenerate token---->");
+            error_log($query_response->status);
+            error_log("\n\n");
+            return $this->renderText(json_encode(['success' => false, 'status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
       }
 
       public function executeProcessPayments(sfWebRequest $request)

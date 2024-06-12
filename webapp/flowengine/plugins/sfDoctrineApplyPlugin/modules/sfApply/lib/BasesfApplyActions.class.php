@@ -361,7 +361,7 @@ class BasesfApplyActions extends sfActions
     $user = $this->getUser();
     if ($user->isAuthenticated()) {
       if (sfConfig::get('app_sso_secret', null)) {
-        $this->redirect("http://account.ecitizen.go.ke/profile");
+        $this->redirect(sfConfig::get('app_sso_jambo_web_url') . "/#/profile");
         exit;
       }
       // sfApplySettingsForm inherits from sfApplyApplyForm, which

@@ -65,7 +65,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
         $commit_options = array();
 
         //delay notifications only available on some merchants
-        if(!empty($form_properties['payment_delay_notifications']) && in_array($form_properties['payment_merchant_type'], array('malipo','stripe','paypal_standard','authorizenet','paypal_rest','braintree','pesaflow_standard','pesaflow_cart'))){
+        if(!empty($form_properties['payment_delay_notifications']) && in_array($form_properties['payment_merchant_type'], array('jambo_pay', 'malipo','stripe','paypal_standard','authorizenet','paypal_rest','braintree','pesaflow_standard','pesaflow_cart'))){
             $commit_options['send_notification'] = false;
         }
         error_log('--------mf_success_entry_id-------'.$_SESSION['mf_success_entry_id']);
@@ -76,7 +76,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
         error_log(print_r($commit_result,true));
         unset($_SESSION['review_id']);
 
-        if(in_array($form_properties['payment_merchant_type'], array('malipo','stripe','authorizenet','paypal_rest','braintree','pesaflow_standard','pesaflow_cart')) || $form_properties['payment_onsubmission']){
+        if(in_array($form_properties['payment_merchant_type'], array('jambo_pay', 'malipo','stripe','authorizenet','paypal_rest','braintree','pesaflow_standard','pesaflow_cart')) || $form_properties['payment_onsubmission']){
             if(mf_is_payment_has_value($dbh,$form_id,$commit_result['record_insert_id'])){
                 error_log('-------mf_is_payment_has_value true---');
                 //allow access to payment page

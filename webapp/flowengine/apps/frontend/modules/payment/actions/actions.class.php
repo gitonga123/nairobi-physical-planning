@@ -196,7 +196,7 @@ class paymentActions extends sfActions
           return $this->json(['data' => ['message' => 'Bill Reference not found.', 'payload' => $response]], 404);
         }
       } else {
-        return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 500);
+        return $this->json(['data' => ['message' => 'Payload Required.', 'payload' => $response]], 422);
       }
     } catch (\Exception $error) {
       return $this->json(['data' => ['message' => $error->getMessage(), 'payload' => $response]], 500);

@@ -217,27 +217,17 @@
 										<span><i class="fas fa-map-marker-alt"></i></span>
 										<p>
 											Official Contacts
-											(051) 2214142 / (051) 2216379/80
-
-
-
+											05320160000
 									</div>
-									<p>
-										<i class="fas fa-phone-alt"></i>
-										0800720890
-										toll free for emergencies only
+
+									<p class="mb-0">
+										<i class="fas fa-envelope"></i>
+										Email: info@uasingishu.go.ke
 									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
 
-										Email: info@nakuru.go.ke
-
-
-									</p>
-									<p class="mb-0">
-										<i class="fas fa-envelope"></i>
-
-										P.O. BOX 2870-20100, Nakuru
+										P.O. Box 40-30100, Eldoret.
 
 									</p>
 								</div>

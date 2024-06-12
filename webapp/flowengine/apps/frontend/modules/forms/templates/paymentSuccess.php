@@ -262,6 +262,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 			$('#wallet_checkout_id').submit(function(event) {
 				event.preventDefault();
 				const verifyButton = $('#verify_otp_button');
+				const regenerateOTP = $("#regenerate_otp_function_div"); 
 				verifyButton.prop('disabled', true).text('Verifying...');
 				$.ajax({
 					url: $(this).attr('action'),
@@ -275,6 +276,8 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 						} else {
 							showAlert('response_wallet_area_id', 'danger', otpResponseData?.content?.msg || 'Invalid OTP. Please try again.');
 							verifyButton.prop('disabled', false).text('Verify');
+							regenerateOTP.prop('disabled', false);
+							
 						}
 					},
 					error: function() {
@@ -319,8 +322,12 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 														<div id="response_wallet_area_id"></div>
 														<div class="form-group row">
 															<div class="col-12 d-flex justify-content-between">
-																<button type="submit" class="btn btn-outline-primary" id="verify_otp_button_1">Verify</button>
-																<button type="submit" class="btn btn-outline-primary" id="regenerate_otp_function">Verify</button>
+																<div class="col-sm-offset-2 col-sm-10">
+																	<button type="submit" class="btn btn-outline-primary" id="verify_otp_button_1">Verify</button>
+																</div>
+																<div id="regenerate_otp_function_div" style="display: none;">
+																	<button type="submit" class="btn btn-outline-primary" id="regenerate_otp_function">Re-send OTP</button>
+																</div>
 															</div>
 														</div>
 													</form>
@@ -393,6 +400,7 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 					const data = JSON.parse(response);
 					if (data.success) {
 						showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
+						regenerateButton.prop('disabled', true);
 					} else {
 						showAlert('response_wallet_area_id', 'danger', 'Failed to regenerate OTP. Please try again.');
 					}

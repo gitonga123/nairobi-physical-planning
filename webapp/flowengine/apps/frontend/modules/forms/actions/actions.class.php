@@ -76,7 +76,7 @@ class formsActions extends sfActions
       public function executeView(sfWebRequest $request)
       {
             if ($this->getUser()->getAttribute("current_profile")) {
-                  $this->setLayout("layoutprofile");
+                  $this->setLayout("layoutmentordash");
             } else {
                   //$this->setLayout("layoutformbuilder");
                   $this->setLayout("layoutmentordashsubmit");

@@ -424,9 +424,13 @@ class formsActions extends sfActions
 
             error_log($response_content);
             error_log(print_r($response_content, true));
+            error_log("Status code ---->" . $query_response->status);
 
-            if (!empty($response_content['ref'])) {
-                  return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content])); 
+            error_log("Response content code is ---->");
+            error_log($response_content['ref']);
+
+            if (!empty($response_content['ref']) || $query_response->status == 200) {
+                  return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
             }
             return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
             // return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));

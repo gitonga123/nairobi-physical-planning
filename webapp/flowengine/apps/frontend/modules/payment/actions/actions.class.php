@@ -165,6 +165,9 @@ class paymentActions extends sfActions
 
       error_log(print_r($response, true));
 
+      error_log("Response ---->");
+      error_log(strtolower($response['status']));
+
       if (strtolower($response['status']) == 'success') {
         $ipn = new MalipoGateway();
         $message = '';

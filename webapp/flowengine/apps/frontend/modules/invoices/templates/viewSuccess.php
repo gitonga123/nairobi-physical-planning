@@ -35,8 +35,8 @@ $invoice_manager->update_invoices($application->getId());
             <?php
             if ($invoice->getFormEntry()->getUserId() == $sf_user->getGuardUser()->getId()) { ?>
                 <ul class="nav nav-tabs nav-tabs-top">
-                    <li class="nav-item"><a class="nav-link active" href="#solid-justified-tab1" data-bs-toggle="tab"><?php echo __('Invoice Details'); ?></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#solid-justified-tab2" data-bs-toggle="tab"><?php echo __('Payment Details'); ?></a></li>
+                    <!-- <li class="nav-item"><a class="nav-link active" href="#solid-justified-tab1" data-bs-toggle="tab"><?php echo __('Invoice Details'); ?></a></li> -->
+                    <!-- <li class="nav-item"><a class="nav-link" href="#solid-justified-tab2" data-bs-toggle="tab"><?php echo __('Payment Details'); ?></a></li> -->
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane show active" id="solid-justified-tab1">

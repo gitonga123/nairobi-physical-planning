@@ -166,10 +166,41 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 }
 ?>
 <script>
+	// global files
 	const wallet_url = "<?php echo '/index.php/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 	const confirm_payment_url = "<?php echo '/index.php/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 	const redirect_url = "<?php echo '/index.php/invoices/view/id/' . $invoice->getId(); ?>";
 	const regenerate_otp_url = "<?php echo '/index.php/forms/regenerateOTPToken/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+
+	function regenerateOtpFunction() {
+		$("#regenerate_otp_function_div").show();
+		const regenerateButton = $('#regenerate_otp_button');
+		setButtonLoading('initiate_payment_loader', true);
+		regenerateButton.prop('disabled', true).text('Regenerating...');
+		$.ajax({
+			url: regenerate_otp_url,
+			type: 'POST',
+			data: {
+				invoice_id: "<?php echo $invoice->getId(); ?>"
+			},
+			success: function(response) {
+				const data = JSON.parse(response);
+				if (data.success) {
+					showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
+					regenerateButton.prop('disabled', true);
+				} else {
+					showAlert('response_wallet_area_id', 'danger', 'Failed to regenerate OTP. Please try again.');
+				}
+				regenerateButton.prop('disabled', false).text('Regenerate OTP');
+				setButtonLoading('initiate_payment_loader', false);
+			},
+			error: function() {
+				showAlert('response_wallet_area_id', 'danger', 'Something went wrong. Please try again later.');
+				regenerateButton.prop('disabled', false).text('Regenerate OTP');
+				setButtonLoading('initiate_payment_loader', false);
+			}
+		});
+	}
 </script>
 
 <script>
@@ -181,36 +212,6 @@ if (!empty($paid_form_id) && $_SESSION['mf_payment_completed'][$paid_form_id] ==
 			} else {
 				button.prop('disabled', false).html('Initiate Payment');
 			}
-		}
-
-		function regenerateOtpFunction() {
-			$("#regenerate_otp_function_div").show();
-			const regenerateButton = $('#regenerate_otp_button');
-			setButtonLoading('initiate_payment_loader', true);
-			regenerateButton.prop('disabled', true).text('Regenerating...');
-			$.ajax({
-				url: regenerate_otp_url,
-				type: 'POST',
-				data: {
-					invoice_id: "<?php echo $invoice->getId(); ?>"
-				},
-				success: function(response) {
-					const data = JSON.parse(response);
-					if (data.success) {
-						showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
-						regenerateButton.prop('disabled', true);
-					} else {
-						showAlert('response_wallet_area_id', 'danger', 'Failed to regenerate OTP. Please try again.');
-					}
-					regenerateButton.prop('disabled', false).text('Regenerate OTP');
-					setButtonLoading('initiate_payment_loader', false);
-				},
-				error: function() {
-					showAlert('response_wallet_area_id', 'danger', 'Something went wrong. Please try again later.');
-					regenerateButton.prop('disabled', false).text('Regenerate OTP');
-					setButtonLoading('initiate_payment_loader', false);
-				}
-			});
 		}
 
 		function showAlert(areaId, type, message) {

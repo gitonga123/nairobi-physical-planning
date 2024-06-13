@@ -224,6 +224,10 @@ class dashboardActions extends sfActions
                 );
                 //ORDER
                 $q->orderBy($columns[$request->getParameter('order')[0]['column']] . ' ' . $request->getParameter('order')[0]['dir']);
+
+                error_log("get set limit  --->");
+                error_log("Start ---->".$request->getParameter('start'));
+                error_log("Length ---->".$request->getParameter('length'));
                 //For pagination
                 $q->offset($request->getParameter('start'));
                 $q->limit($request->getParameter('length'));

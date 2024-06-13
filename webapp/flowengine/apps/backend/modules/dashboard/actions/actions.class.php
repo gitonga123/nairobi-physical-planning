@@ -222,6 +222,8 @@ class dashboardActions extends sfActions
                     "recordsFiltered" => $q->count(),
                     "data" => []
                 );
+
+                if ()
                 //ORDER
                 $q->orderBy($columns[$request->getParameter('order')[0]['column']] . ' ' . $request->getParameter('order')[0]['dir']);
                 //For pagination
@@ -230,6 +232,8 @@ class dashboardActions extends sfActions
                 error_log('query ------------'.$q->getSqlQuery());
                 error_log('Results ------------' . $q->count());
                 $applications = $q->execute();
+                error_log("execution results count ". count($applications));
+
                 $helper = new OTBHelper();
                 foreach ($applications as $application) {
                     $days_in_stage = $helper->getAppStageStayedDays($application->getApproved(), $application->getId());

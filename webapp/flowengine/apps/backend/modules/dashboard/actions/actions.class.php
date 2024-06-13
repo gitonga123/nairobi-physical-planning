@@ -471,6 +471,8 @@ class dashboardActions extends sfActions
                 }
             }
         }
+
+        error_log("\n\n");
         if (null === $cols || empty($cols)) return $q;
 
         $search = $request->getParameter('search')['value'];

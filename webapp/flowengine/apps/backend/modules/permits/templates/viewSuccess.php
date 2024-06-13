@@ -70,54 +70,81 @@ if ($permit || $application) {
 
                         <div class="text-right btn-invoice" style="padding-right: 10px; margin-top: 10px;">
                             <?php
-                            if (!empty($document_key)) :
+                            if (!empty($document_key)) {
                             ?>
                                 <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/uploads/<?php echo $document_key; ?>';"><i class="fa fa-print mr5"></i> Download Service</button>
+
                             <?php
-                            endif;
-                            if (!Functions::isSignable($permit->getTypeId())) :
+                            } else {
                             ?>
-                                <a href="<?php echo url_for('/backend.php/permits/downloadpermit/permit_id/' . $permit->getId() . '/') ?>" class="btn btn-info">
+                                <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/backend.php/applications/viewpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Download Permit</button>
+                            <?php
+                            }
+
+                            // if (!Functions::isSignable($permit->getTypeId())) :
+                            ?>
+                            <!-- <a href="<?php // echo url_for('/backend.php/permits/downloadpermit/permit_id/' . $permit->getId() . '/') 
+                                            ?>" class="btn btn-info">
                                     <i class="fa fa-download"></i>
-                                    Download Document
+<<<<<<< HEAD
+                                    Download Permit Document
                                 </a>
                                 <!--button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/backend.php/applications/viewpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Print Service</button-->
+=======
+                                    Download Document
+                                </a> -->
+                            <!--button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/backend.php/applications/viewpermit/id/<?php // echo $permit->getId(); 
+                                                                                                                                                                    ?>';"><i class="fa fa-print mr5"></i> Print Service</button-->
+>>>>>>> c04489861e446a35047c83a4f921120bb36c9821
                             <?php
-                            endif;
+                            //endif;
                             ?>
                             <?php
-                            if ($sf_user->mfHasCredential('can-sign-permit-' . $permit->getTypeId()) && $permit->getPermitStatus() != "3") :
-                                if ($is_signed) : ?>
-                                    <a href="<?php echo url_for('/backend.php/permits/downloadsignedpermit/id/' . $permit->getId() . '/') ?>" class="btn btn-primary" id="downloaddocument">
+                            // if ($sf_user->mfHasCredential('can-sign-permit-' . $permit->getTypeId()) && $permit->getPermitStatus() != "3") :
+                            //if ($is_signed) : 
+                            ?>
+                            <!-- <a href="<?php //echo url_for('/backend.php/permits/downloadsignedpermit/id/' . $permit->getId() . '/') 
+                                            ?>" class="btn btn-primary" id="downloaddocument">
                                         <i class="fa fa-print mr5"></i> Print Document
-                                    </a>
-                                    <?php else :
-                                    if ($sf_user->mfHasCredential('can-sign-permit-' . $permit->getTypeId())) :
-                                    ?>
+                                    </a> -->
+                            <?php //else :
+                            //if ($sf_user->mfHasCredential('can-sign-permit-' . $permit->getTypeId())) :
+                            ?>
 
-                                        <!--                                    <a href="--><? //= url_for("/backend.php/permits/signing/id/$permit_id/permitaction/signdocument") 
-                                                                                            ?><!--"-->
-                                        <!--                                       class="btn btn-success" id="signdocument" type="button">-->
-                                        <!--                                        <i class="fa fa-edit mr5"></i> Sign Document-->
-                                        <!--                                    </a>-->
+                            <!--                                    <a href="--><? //= url_for("/backend.php/permits/signing/id/$permit_id/permitaction/signdocument") 
+                                                                                ?><!--"-->
+                            <!--                                       class="btn btn-success" id="signdocument" type="button">-->
+                            <!--                                        <i class="fa fa-edit mr5"></i> Sign Document-->
+                            <!--                                    </a>-->
 
-                                        <?php
-                                        $redirect_to = '/backend.php/permits/view/id/' . $permit->getId();
-                                        if (Functions::isDocumentInSigningSession($permit->getUnSignedFilePath())) : ?>
-                                            <a class="btn btn-danger" href="/backend.php/signingsessions/remove?document=<?php echo $permit->getUnSignedFilePath(); ?>&redirect_to=<?php echo $redirect_to ?>">
+                            <?php
+                            //$redirect_to = '/backend.php/permits/view/id/' . $permit->getId();
+                            // if (Functions::isDocumentInSigningSession($permit->getUnSignedFilePath())) : 
+                            ?>
+                            <!-- <a class="btn btn-danger" href="/backend.php/signingsessions/remove?document=<?php //echo $permit->getUnSignedFilePath(); 
+                                                                                                                ?>&redirect_to=<?php // echo $redirect_to 
+                                                                                                                                                                            ?>">
                                                 <i class="fa fa-minus"></i> Remove from Signing list
-                                            </a>
-                                        <?php else : ?>
-                                            <a href="/backend.php/signingsessions/add?document=<?php echo $permit->getUnSignedFilePath(); ?>&id=<?php echo $permit->getId() ?>&type=SavedPermit&slug=<?php echo $permit->getTaskSlug(); ?>&name=<?php echo $permit->getTemplate()->getTitle(); ?>&application_id=<?php echo $permit->getApplicationId(); ?>&redirect_to=<?php echo $redirect_to ?>" class="btn btn-info">
+                                            </a> -->
+                            <?php // else : 
+                            ?>
+                            <!-- <a href="/backend.php/signingsessions/add?document=<?php // echo $permit->getUnSignedFilePath(); 
+                                                                                    ?>&id=<? php // echo $permit->getId() 
+                                                                                                                                        ?>&type=SavedPermit&slug=<?php // echo $permit->getTaskSlug(); 
+                                                                                                                                                                                                ?>&name=<?php // echo $permit->getTemplate()->getTitle(); 
+                                                                                                                                                                                                                                                ?>&application_id=<?php // echo $permit->getApplicationId(); 
+                                                                                                                                                                                                                                                                                                                    ?>&redirect_to=<?php //echo $redirect_to 
+                                                                                                                                                                                                                                                                                                                                                                            ?>" class="btn btn-info">
                                                 <i class="fa fa-plus"></i> Add to Signing list
-                                            </a>
-                                        <?php endif; ?>
+                                            </a> -->
+                            <?php // endif; 
+                            ?>
 
 
                             <?php
-                                    endif;
-                                endif;
-                            endif;
+                            //         endif;
+                            //     endif;
+                            // endif;
                             ?>
                             <?php
 

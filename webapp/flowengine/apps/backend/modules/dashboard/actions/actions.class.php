@@ -214,7 +214,7 @@ class dashboardActions extends sfActions
             if ($request->isXmlHttpRequest() || $request->getParameter('draw')) {
                 //COLUMNS
                 $columns = array('a.id', 'a.application_id', 's.title', 'a.date_of_submission', 'p.fullname');
-                $q = $this->_entiresQuery($columns, $request, $app_list);
+                $q = $this->_entiresQuery(null, $request, $app_list);
                 $q_extra = $this->_entiresQuery(null, $request, $app_list);
                 $result = array(
                     "draw" => intval($request->getParameter('draw')),

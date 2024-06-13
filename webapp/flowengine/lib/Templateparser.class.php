@@ -373,7 +373,7 @@ class Templateparser
                                             $content = str_replace('{sf_element_' . $element->getElementId() . '}', $option[$element->getElementFieldName()], $content);
                                         }
                                     }
-                                } elseif ($element_select_options == 'application') {
+                                } elseif ($element->getElementSelectOptions() == 'application') {
                                     $application = Doctrine_Core::getTable("FormEntry")->find($profile_form['element_' . $element->getElementId()]);
                                     if ($application) {
                                         $content = str_replace('{sf_element_' . $element->getElementId() . '}', $application->getApplicationId(), $content);
@@ -551,7 +551,7 @@ class Templateparser
                                     $content = str_replace('{fm_element_' . $element->getElementId() . '}', $option[$element->getElementFieldName()], $content);
                                 }
                             }
-                        } elseif ($element_select_options == 'application') {
+                        } elseif ($element->getElementSelectOptions() == 'application') {
                             $application = Doctrine_Core::getTable("FormEntry")->find($apform['element_' . $element->getElementId()]);
                             if ($application) {
                                 $content = str_replace('{fm_element_' . $element->getElementId() . '}', $application->getApplicationId(), $content);
@@ -652,6 +652,10 @@ class Templateparser
         $application_details = $this->getApplicationDetails($application_id);
 
         $values = array_merge($user_details, $application_details);
+
+        error_log("Values as of below ---->");
+        var_dump($content, $values);
+        die;
 
         $content = static::parseWithDust($content, $values);
 
@@ -1679,7 +1683,7 @@ class Templateparser
                                     $values['sf_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];
                                 }
                             }
-                        } elseif ($element_select_options == 'application') {
+                        } elseif ($element->getElementSelectOptions() == 'application') {
                             $application = Doctrine_Core::getTable("FormEntry")->find($user_profile_details['element_' . $element->getElementId()]);
                             if ($application) {
                                 $values['sf_element_' . $element->getElementId()] = $application->getApplicationId();
@@ -1821,7 +1825,7 @@ class Templateparser
         //ap_application_id
         $values['ap' . $prefix . '_application_id'] = $application->getApplicationId();
         $values['ap' . $prefix . '_merchant_identifier'] = $application->getMerchantIdentifier();
-
+        $values['fm_id'] = $application->getId();
         //Get Form Details (anything starting with fm_ )
         //fm_created_at, fm_updated_at.....fm_element_1
 
@@ -1957,7 +1961,7 @@ class Templateparser
                                 $values['fm' . $prefix . '_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];
                             }
                         }
-                    } elseif ($element_select_options == 'application') {
+                    } elseif ($element->getElementSelectOptions() == 'application') {
                         $application_select = Doctrine_Core::getTable("FormEntry")->find($apform['element_' . $element->getElementId()]);
                         if ($application_select) {
                             $values['fm' . $prefix . '_element_' . $element->getElementId()] = $application_select->getApplicationId();
@@ -1988,6 +1992,25 @@ class Templateparser
                 }
             }
         }
+
+        $invoices = $application->getMfInvoice();
+
+
+        if ($invoices) {
+            $total = 0;
+            $currency = 'KES';
+            foreach ($invoices as $invoice) {
+                if ($invoice->getPaid() == 1) {
+                    $currency = $invoice->getCurrency();
+                    $total += $invoice->getTotalAmount();
+                }
+            }
+
+            $values['inv_total'] = $currency . ' ' . $total;
+            $values['in_total'] = $currency . ' ' . $total;
+        }
+
+
         //}
 
         return $values;
@@ -4520,7 +4543,7 @@ class Templateparser
                                         $values['fm_c' . $prefix . '_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];
                                     }
                                 }
-                            } elseif ($element_select_options == 'application') {
+                            } elseif ($element->getElementSelectOptions() == 'application') {
                                 $application = Doctrine_Core::getTable("FormEntry")->find($apform['element_' . $element->getElementId()]);
                                 if ($application) {
                                     $values['fm_c' . $prefix . '_element_' . $element->getElementId()] = $application->getApplicationId();

@@ -466,12 +466,12 @@ class dashboardActions extends sfActions
         if (null === $cols || empty($cols)) return $q;
 
         $search = $request->getParameter('search')['value'];
-
+        error_log("Search is equal to ---->".$search);
+        
         if ("" === $search) return $q;
         $sql = [];
         $params = [];
 
-        error_log("Search is equal to ---->".$search);
 
         foreach ($cols as $i => $col) {
             $sql[] = $col . " LIKE ?";

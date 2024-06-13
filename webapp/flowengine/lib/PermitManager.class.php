@@ -1277,13 +1277,13 @@ class PermitManager {
         if(!$savedpermit)
             return $savedpermit;
         $file_name = $this->permit_file_name($savedpermit);
-        return file_exists("app/permits/signed/$file_name");
+        return file_exists("apps/permits/signed/$file_name");
     }
 
 
     public function is_applications_permit_signed($permit){
         $file_name = $this->permit_file_name($permit);
-        return file_exists("app/permits/signed/$file_name");
+        return file_exists("apps/permits/signed/$file_name");
     }
     public function get_pdf_output($permit_id)
     {

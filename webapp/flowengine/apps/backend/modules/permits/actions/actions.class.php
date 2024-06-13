@@ -775,10 +775,10 @@ class permitsActions extends sfActions
 
     function executeDownloadsignedpermit(sfRequest $request)
     {
-        $permit_id = $request->getParameter('id');
+        $permit_id = $request->getParameter('permit_id');
         $permit = Doctrine_Query::create()->from("SavedPermit a")->where('a.id = ?', $permit_id)->fetchOne();
         $file_name = (new PermitManager())->permit_file_name($permit);
-        $file_name = "app/permits/signed/$file_name";
+        $file_name = "apps/permits/signed/$file_name";
         error_log('----------FileName-------' . $file_name);
         if (file_exists($file_name)) {
             header('Content-Description: File Transfer');

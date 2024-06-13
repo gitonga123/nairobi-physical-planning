@@ -653,10 +653,6 @@ class Templateparser
 
         $values = array_merge($user_details, $application_details);
 
-        error_log("Values as of below ---->");
-        var_dump($content, $values);
-        die;
-
         $content = static::parseWithDust($content, $values);
 
         return $content;

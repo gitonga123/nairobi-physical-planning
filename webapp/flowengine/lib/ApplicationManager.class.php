@@ -974,7 +974,6 @@ class ApplicationManager
     //Send notifications for current stage of the application
     public function queue_notifications($application_id, $form_id, $entry_id, $user_id, $stage_id)
     {
-        error_log("We are about to send this application to payment notifications ---->");
         $q = Doctrine_Query::create()
             ->from('Notifications b')
             ->where('b.submenu_id = ?', $stage_id)
@@ -989,9 +988,6 @@ class ApplicationManager
             $subject = $template_parser->parseApplication($application_id, $subject);
             $sms = trim($notification->getSms());
             $sms = $template_parser->parseApplication($application_id, $sms);
-
-            error_log("Body is here ----->");
-            error_log($body);
 
             $q = Doctrine_Query::create()
                 ->from('sfGuardUserProfile b')

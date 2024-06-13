@@ -17,33 +17,33 @@ abstract class BaseApSettingsForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                       => new sfWidgetFormInputHidden(),
       'smtp_enable'              => new sfWidgetFormChoice(
-            array(
-                'choices' => array(
-                    0 => "Disable",
-                    1 => "Enable"
-                )
-            )
-        ),
+        array(
+          'choices' => array(
+            0 => "Disable",
+            1 => "Enable"
+          )
+        )
+      ),
       'smtp_host'                => new sfWidgetFormInputText(),
       'smtp_port'                => new sfWidgetFormInputText(),
       'smtp_auth'                => new sfWidgetFormChoice(
-            array(
-                'choices' => array(
-                    0 => "Disable",
-                    1 => "Enable"
-                )
-            )
-        ),
+        array(
+          'choices' => array(
+            0 => "Disable",
+            1 => "Enable"
+          )
+        )
+      ),
       'smtp_username'            => new sfWidgetFormInputText(),
       'smtp_password'            => new sfWidgetFormInputText(),
       'smtp_secure'              => new sfWidgetFormChoice(
-            array(
-                'choices' => array(
-                    'tls' => "tls",
-                    'ssl' => "ssl"
-                )
-            )
-        ),
+        array(
+          'choices' => array(
+            'tls' => "tls",
+            'ssl' => "ssl"
+          )
+        )
+      ),
       'upload_dir'               => new sfWidgetFormInputText(),
       'data_dir'                 => new sfWidgetFormInputText(),
       'upload_dir_web'           => new sfWidgetFormInputText(),
@@ -70,7 +70,7 @@ abstract class BaseApSettingsForm extends BaseFormDoctrine
       'smtp_auth'                => new sfValidatorInteger(array('required' => false)),
       'smtp_username'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'smtp_password'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'smtp_secure'              => new sfValidatorChoice(array('choices' => array('tls','ssl'),'required' => false)),
+      'smtp_secure'              => new sfValidatorChoice(array('choices' => array('tls', 'ssl'), 'required' => false)),
       'upload_dir'               => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'data_dir'                 => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'upload_dir_web'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
@@ -80,9 +80,9 @@ abstract class BaseApSettingsForm extends BaseFormDoctrine
       'organisation_description' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'form_manager_max_rows'    => new sfValidatorInteger(array('required' => false)),
       'admin_image_url'                 => new sfValidatorFile(array(
-          'required'   => false,
-          'path'       => dirname(__FILE__).'/../../../../web/asset_data',
-          'mime_types' => 'web_images',
+        'required'   => false,
+        'path'       => dirname(__FILE__) . '/../../../../web/asset_data',
+        'mime_types' => 'web_images',
       )),
       'disable_machform_link'    => new sfValidatorInteger(array('required' => false)),
       'machform_version'         => new sfValidatorString(array('max_length' => 10, 'required' => false)),
@@ -106,5 +106,4 @@ abstract class BaseApSettingsForm extends BaseFormDoctrine
   {
     return 'ApSettings';
   }
-
 }

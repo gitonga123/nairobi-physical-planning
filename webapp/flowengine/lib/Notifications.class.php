@@ -250,7 +250,7 @@ class mailnotifications
 										<!--Logo and Social Start-->
 										<table width="180" border="0" align="left" cellpadding="0" cellspacing="0">
 											<tr>
-											<td valign="top"><a href="#" target="_blank"><img mc:edit="logo" src="http://'.$_SERVER['HTTP_HOST'].''.$organisation_logo.'" width="219" height="59" alt="logo"/></a></td>
+											<td valign="top"><a href="#" target="_blank"><img mc:edit="logo" src="http://'.$_SERVER['HTTP_HOST'].''.$organisation_logo.'" width="150" height="50" alt="logo"/></a></td>
 											</tr>
 										</table>
 										<!--Logo and Social End-->

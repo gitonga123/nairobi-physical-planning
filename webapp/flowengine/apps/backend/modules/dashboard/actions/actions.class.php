@@ -444,9 +444,7 @@ class dashboardActions extends sfActions
             ->leftJoin("a.Stage s")
             ->where('a.deleted_status = ? and a.parent_submission =?', [0, 0]);
         $allowed_stages = Functions::get_allowed_stages();
-        if (sizeof($allowed_stages)) {
-            $q->andWhereIn('s.id', $allowed_stages);
-        } else {
+        if (sizeof($allowed_stages) == 0) {
             $q->andWhereIn('s.id', [0]);
         }
 
@@ -455,6 +453,8 @@ class dashboardActions extends sfActions
                 $q->andWhereIn('a.id', $app_list);
             } else if ($request->getParameter("filter") && $request->getParameter("filter") != 0) {
                 $q->andWhere("a.approved = ? ", $request->getParameter("filter"));
+            } else {
+                $q->andWhereIn('s.id', $allowed_stages[0]);
             }
         }
         if (null === $cols || empty($cols)) return $q;

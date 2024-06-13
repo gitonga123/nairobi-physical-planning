@@ -28,7 +28,7 @@
                         <div class="logo_02">
                         <a href="/">
                             <?php if($site_settings->getAdminImageUrl()): ?>
-                              <img src="<?php echo '/'.$site_settings->getUploadDir().'/'.$site_settings->getAdminImageUrl() ?>" alt="Logo" >
+                              <img src="<?php echo '/'.$site_settings->getUploadDir().'/'.$site_settings->getAdminImageUrl() ?>" alt="" >
                             <?php else: ?>
                                     <img src="/assets_backend/img_nakuru/logo.png" alt="Logo" >
                             <?php endif; ?>

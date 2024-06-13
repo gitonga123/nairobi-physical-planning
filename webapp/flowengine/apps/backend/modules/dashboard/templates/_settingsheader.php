@@ -16,7 +16,7 @@
 	$agency_manager = new AgencyManager();
 	$logo = $agency_manager->getLogo($sf_user->getAttribute('userid'));
 	?>
-      <h1> <img src="<?php echo strlen($logo)? $logo:'/assets_backend/images/logo.png' ?>" alt="" /></h1>
+      <h1> <img src="<?php echo strlen($logo)? $logo:'https://uasingishu.go.ke/wp-content/uploads/2023/06/COUNTY-LOGO-FAVICON-01.png' ?>" alt="" /></h1>
   </div><!-- logopanel -->
   <?php
   //Displays the sidemenu

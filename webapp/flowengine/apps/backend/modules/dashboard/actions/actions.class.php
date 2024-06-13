@@ -224,18 +224,14 @@ class dashboardActions extends sfActions
                 );
                 //ORDER
                 $q->orderBy($columns[$request->getParameter('order')[0]['column']] . ' ' . $request->getParameter('order')[0]['dir']);
-
-                error_log("get set limit  --->");
-                error_log("Start ---->".$request->getParameter('start'));
-                error_log("Length ---->".$request->getParameter('length'));
                 //For pagination
                 $q->offset($request->getParameter('start'));
                 $q->limit($request->getParameter('length'));
-                error_log('get results all ------------' . $q->count());
+                error_log('query ------------'.$q->getSqlQuery());
+                error_log('Results ------------' . $q->count());
                 $applications = $q->execute();
                 $helper = new OTBHelper();
                 foreach ($applications as $application) {
-                    error_log("Count three times ---->");
                     $days_in_stage = $helper->getAppStageStayedDays($application->getApproved(), $application->getId());
                     $cl_date_highlight = '';
                     $max_days = $helper->getStageMaxDays($application->getApproved());

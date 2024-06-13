@@ -214,7 +214,7 @@ class dashboardActions extends sfActions
             if ($request->isXmlHttpRequest() || $request->getParameter('draw')) {
                 //COLUMNS
                 $columns = array('a.id', 'a.application_id', 's.title', 'a.date_of_submission', 'p.fullname');
-                $q = $this->_entiresQuery(null, $request, $app_list);
+                $q = $this->_entiresQuery($columns, $request, $app_list);
                 $q_extra = $this->_entiresQuery(null, $request, $app_list);
                 $result = array(
                     "draw" => intval($request->getParameter('draw')),
@@ -439,8 +439,6 @@ class dashboardActions extends sfActions
     {
         $q = Doctrine_Query::create()
             ->from("FormEntry a")
-            ->leftJoin("a.SfGuardUser u")
-            ->leftJoin("u.Profile p")
             ->leftJoin("a.Stage s")
             ->where('a.deleted_status = ? and a.parent_submission =?', [0, 0]);
         $allowed_stages = Functions::get_allowed_stages();

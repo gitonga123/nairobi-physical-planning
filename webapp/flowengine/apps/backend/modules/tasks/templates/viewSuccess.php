@@ -23,7 +23,7 @@ use_helper("I18N");
 </div>
 
 <!-- Modal -->
-<div id="assessmentModal" class="modal fade <?php echo $task->getType() == 3 && $task->getStatus() == 1 ? "task modal-md" : "" ?>" role="dialog" data-backdrop="static" data-keyboard="false" href="#">
+<div id="assessmentModal" class="modal fade <?php echo $task->getType() == 3 && $task->getStatus() == 1 ? "task modal-md" : "task_normal modal-md" ?>" role="dialog" data-backdrop="static" data-keyboard="false" href="#">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -315,6 +315,12 @@ use_helper("I18N");
 
     .task .modal-content {
       height: 100%;
-      /* = 100% of the .modal-dialog block */
+     
+    }
+
+    .task_normal .modal-dialog {
+      width: 50%;
+      margin: 0 auto;
+      height: 80%;
     }
   </style>

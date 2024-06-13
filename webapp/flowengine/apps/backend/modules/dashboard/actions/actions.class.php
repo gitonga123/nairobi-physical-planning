@@ -461,6 +461,7 @@ class dashboardActions extends sfActions
             } else if ($request->getParameter("filter") && $request->getParameter("filter") != 0) {
                 error_log("Filter items is ---->");
                 error_log($request->getParameter("filter"));
+                error_log(print_r($allowed_stages, true));
                 $q->where("a.approved = ? and a.deleted_status = ? and a.parent_submission =?", [$request->getParameter("filter"), 0, 0])
                     ->andWhereIn('s.id', $allowed_stages);
             } else {

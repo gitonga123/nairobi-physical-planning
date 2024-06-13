@@ -451,13 +451,21 @@ class dashboardActions extends sfActions
             $q->andWhereIn('s.id', [0]);
             return $q;
         }
+        error_log("App list is below ---->");
+        error_log(print_r($app_list, true));
         if ($request->getParameter("current") == "available" || empty($request->getParameter("current"))) {
-            if ($app_list) {
+            error_log("We are in the current ---->");
+            if (sizeof($app_list) > 0) {
+                error_log("App list is greater than 1 ---->" . count($app_list));
                 $q->whereIn('a.id', $app_list);
             } else if ($request->getParameter("filter") && $request->getParameter("filter") != 0) {
+                error_log("Filter items is ---->");
+                error_log($request->getParameter("filter"));
                 $q->where("a.approved = ? and a.deleted_status = ? and a.parent_submission =?", [$request->getParameter("filter"), 0, 0])
                     ->andWhereIn('s.id', $allowed_stages);
             } else {
+                error_log("Allowed stages ---->");
+                error_log(print_r($allowed_stages));
                 if (sizeof($allowed_stages) > 0) {
                     $q->where("a.approved = ? and a.deleted_status = ? and a.parent_submission =?", [$allowed_stages[0], 0, 0]);
                 }
@@ -466,9 +474,8 @@ class dashboardActions extends sfActions
         if (null === $cols || empty($cols)) return $q;
 
         $search = $request->getParameter('search')['value'];
-        error_log("Search is equal to ---->".$search);
-        
-        if ("" === $search) return $q;
+
+        if ("" === $search || empty($search)) return $q;
         $sql = [];
         $params = [];
 

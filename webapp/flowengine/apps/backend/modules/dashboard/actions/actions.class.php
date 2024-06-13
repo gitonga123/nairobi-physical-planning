@@ -446,7 +446,7 @@ class dashboardActions extends sfActions
             ->leftJoin("u.Profile p")
             ->leftJoin("a.Stage s")
             ->where('a.deleted_status = ?', 0);
-        $allowed_stages = Functions::get_allowed_stages();
+
         if (empty($allowed_stages)) {
             $q->andWhereIn('s.id', [0]);
             return $q;
@@ -461,14 +461,15 @@ class dashboardActions extends sfActions
             } else if ($request->getParameter("filter") && $request->getParameter("filter") != 0) {
                 error_log("Filter items is ---->");
                 error_log($request->getParameter("filter"));
-                error_log(print_r($allowed_stages, true));
-                $q->where("a.approved = ? and a.deleted_status = ? and a.parent_submission =?", [$request->getParameter("filter"), 0, 0])
-                    ->andWhereIn('s.id', $allowed_stages);
+                $q->where("a.approved = ? and a.deleted_status = ? and a.parent_submission =?", [$request->getParameter("filter"), 0, 0]);
             } else {
+                $allowed_stages = Functions::get_allowed_stages();
                 error_log("Allowed stages ---->");
                 error_log(print_r($allowed_stages));
                 if (sizeof($allowed_stages) > 0) {
-                    $q->where("a.approved = ? and a.deleted_status = ? and a.parent_submission =?", [$allowed_stages[0], 0, 0]);
+                    $q->where("a.deleted_status = ? and a.parent_submission =?", [0, 0]);
+                    $q->andWhereIn('a.approved', $allowed_stages);
+                    $q->andWhereIn('s.id', $allowed_stages);
                 }
             }
         }

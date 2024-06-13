@@ -227,10 +227,10 @@ class dashboardActions extends sfActions
                 //For pagination
                 $q->offset($request->getParameter('start'));
                 $q->limit($request->getParameter('length'));
-                //error_log('------------'.$q->getSqlQuery());
-                //$tasks = $q->execute();
+                error_log('get results all ------------' . $q->count());
+                $applications = $q->execute();
                 $helper = new OTBHelper();
-                foreach ($q->execute() as $application) {
+                foreach ($applications as $application) {
                     $days_in_stage = $helper->getAppStageStayedDays($application->getApproved(), $application->getId());
                     $cl_date_highlight = '';
                     $max_days = $helper->getStageMaxDays($application->getApproved());

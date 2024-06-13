@@ -439,6 +439,8 @@ class dashboardActions extends sfActions
     {
         $q = Doctrine_Query::create()
             ->from("FormEntry a")
+            // ->leftJoin("a.SfGuardUser u") // in case of issues in filtering uncomment this
+            // ->leftJoin("u.Profile p")
             ->leftJoin("a.Stage s")
             ->where('a.deleted_status = ? and a.parent_submission =?', [0, 0]);
         $allowed_stages = Functions::get_allowed_stages();

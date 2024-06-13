@@ -447,10 +447,6 @@ class dashboardActions extends sfActions
             ->leftJoin("a.Stage s")
             ->where('a.deleted_status = ?', 0);
 
-        if (empty($allowed_stages)) {
-            $q->andWhereIn('s.id', [0]);
-            return $q;
-        }
         error_log("App list is below ---->");
         error_log(print_r($app_list, true));
         if ($request->getParameter("current") == "available" || empty($request->getParameter("current"))) {

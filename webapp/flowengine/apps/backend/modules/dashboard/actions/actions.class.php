@@ -229,7 +229,7 @@ class dashboardActions extends sfActions
                 //For pagination
                 $q->offset($request->getParameter('start'));
                 $q->limit($request->getParameter('length'));
-                error_log('query ------------' . $q->getSqlQuery());
+                // error_log('query ------------' . $q->getSqlQuery());
                 error_log('Results ------------' . $q->count());
                 $applications = $q->execute();
                 error_log("execution results count " . count($applications));
@@ -470,6 +470,8 @@ class dashboardActions extends sfActions
         if ("" === $search) return $q;
         $sql = [];
         $params = [];
+
+        error_log("Search is equal to ---->".$search);
 
         foreach ($cols as $i => $col) {
             $sql[] = $col . " LIKE ?";

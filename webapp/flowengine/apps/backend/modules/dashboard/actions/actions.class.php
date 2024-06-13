@@ -445,7 +445,7 @@ class dashboardActions extends sfActions
             ->leftJoin("a.SfGuardUser u")
             ->leftJoin("u.Profile p")
             ->leftJoin("a.Stage s")
-            ->where('a.deleted_status = ?', 0);
+            ->where('a.deleted_status = ? and a.parent_submission =?', [0, 0]);
 
         error_log("App list is below ---->");
         error_log(print_r($app_list, true));
@@ -457,13 +457,12 @@ class dashboardActions extends sfActions
             } else if ($request->getParameter("filter") && $request->getParameter("filter") != 0) {
                 error_log("Filter items is ---->");
                 error_log($request->getParameter("filter"));
-                $q->where("a.approved = ? and a.deleted_status = ? and a.parent_submission =?", [$request->getParameter("filter"), 0, 0]);
+                $q->andWhere("a.approved = ? ", $request->getParameter("filter"));
             } else {
                 $allowed_stages = Functions::get_allowed_stages();
                 error_log("Allowed stages ---->");
                 error_log(print_r($allowed_stages));
                 if (sizeof($allowed_stages) > 0) {
-                    $q->where("a.deleted_status = ? and a.parent_submission =?", [0, 0]);
                     $q->andWhereIn('a.approved', $allowed_stages);
                     $q->andWhereIn('s.id', $allowed_stages);
                 }

@@ -231,6 +231,7 @@ class dashboardActions extends sfActions
                 $applications = $q->execute();
                 $helper = new OTBHelper();
                 foreach ($applications as $application) {
+                    error_log("Count three times ---->");
                     $days_in_stage = $helper->getAppStageStayedDays($application->getApproved(), $application->getId());
                     $cl_date_highlight = '';
                     $max_days = $helper->getStageMaxDays($application->getApproved());

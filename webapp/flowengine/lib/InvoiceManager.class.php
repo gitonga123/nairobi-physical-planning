@@ -1480,6 +1480,44 @@ class InvoiceManager
         }
     }
 
+    public function get_invoice_total_owed($invoice_id)
+    {
+        $q = Doctrine_Query::create()
+            ->from('MfInvoice a')
+            ->where('a.id = ?', $invoice_id)
+            ->limit(1);
+        $existing_invoice = $q->fetchOne();
+        if ($existing_invoice) //Already submitted then tell client its already submitted
+        {
+            $total_amount = $existing_invoice->getTotalAmount();
+
+            //Get all ap_form_payments that are paid and subtract from total amount
+            $prefix_folder = dirname(__FILE__) . "/vendor/cp_machform/";
+
+            require_once($prefix_folder . 'includes/init.php');
+
+            require_once($prefix_folder . 'config.php');
+            require_once($prefix_folder . 'includes/db-core.php');
+            require_once($prefix_folder . 'includes/helper-functions.php');
+
+            $dbh         = mf_connect_db();
+
+            $submission = $this->get_application_by_id($existing_invoice->getAppId());
+
+            $query = "select payment_amount from " . MF_TABLE_PREFIX . "form_payments where form_id = ? and record_id = ? and (payment_status = ? or payment_status = ?)";
+            $params = array($submission->getFormId(), $submission->getEntryId(), 'paid', 'completed');
+            $sth = mf_do_query($query, $params, $dbh);
+            $count = 0;
+            while ($row = mf_do_fetch_result($sth)) {
+                $total_amount = $total_amount - $row['payment_amount'];
+            }
+
+            return $total_amount;
+        } else {
+            return false;
+        }
+    }
+
     //Returns an existing invoice
     public function get_merchant_reference($invoice_id)
     {

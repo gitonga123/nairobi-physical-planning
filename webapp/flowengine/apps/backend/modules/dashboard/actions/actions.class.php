@@ -230,12 +230,9 @@ class dashboardActions extends sfActions
                 $q->offset($request->getParameter('start'));
                 $q->limit($request->getParameter('length'));
                 // error_log('query ------------' . $q->getSqlQuery());
-                error_log('Results ------------' . $q->count());
-                $applications = $q->execute();
-                error_log("execution results count " . count($applications));
 
                 $helper = new OTBHelper();
-                foreach ($applications as $application) {
+                foreach ($q->execute() as $application) {
                     $days_in_stage = $helper->getAppStageStayedDays($application->getApproved(), $application->getId());
                     $cl_date_highlight = '';
                     $max_days = $helper->getStageMaxDays($application->getApproved());
@@ -446,30 +443,19 @@ class dashboardActions extends sfActions
             ->leftJoin("u.Profile p")
             ->leftJoin("a.Stage s")
             ->where('a.deleted_status = ? and a.parent_submission =?', [0, 0]);
-
-        error_log("App list is below ---->");
-        error_log(print_r($app_list, true));
         if ($request->getParameter("current") == "available" || empty($request->getParameter("current"))) {
-            error_log("We are in the current ---->");
             if (sizeof($app_list) > 0) {
-                error_log("App list is greater than 1 ---->" . count($app_list));
-                $q->whereIn('a.id', $app_list);
+                $q->andWhereIn('a.id', $app_list);
             } else if ($request->getParameter("filter") && $request->getParameter("filter") != 0) {
-                error_log("Filter items is ---->");
-                error_log($request->getParameter("filter"));
                 $q->andWhere("a.approved = ? ", $request->getParameter("filter"));
             } else {
                 $allowed_stages = Functions::get_allowed_stages();
-                error_log("Allowed stages ---->");
-                error_log(print_r($allowed_stages));
                 if (sizeof($allowed_stages) > 0) {
                     $q->andWhereIn('a.approved', $allowed_stages);
                     $q->andWhereIn('s.id', $allowed_stages);
                 }
             }
         }
-
-        error_log("\n\n");
         if (null === $cols || empty($cols)) return $q;
 
         $search = $request->getParameter('search')['value'];

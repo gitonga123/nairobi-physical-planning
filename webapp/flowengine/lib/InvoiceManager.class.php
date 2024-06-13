@@ -1817,7 +1817,7 @@ class InvoiceManager
                     if (intval($next_stage) === 1) {
                         error_log("Application form --- " . $application->getFormId());
                         error_log("Form Entry ---" . $application->getEntryId());
-                        $stage_to_send =  $application_manager->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
+                        $stage_to_send =  $application_manager->get_submission_stage($application->getFormId(), $application->getEntryId());
                         if ($stage_to_send) {
                             $next_stage = $stage_to_send;
                         }

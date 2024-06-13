@@ -805,7 +805,7 @@ class formsActions extends sfActions
         error_log("Check next Stage ---->");
         error_log($next_stage);
         if (intval($next_stage) === 1) {
-          $stage_to_send =  $application_manager->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
+          $stage_to_send =  $application_manager->get_submission_stage($application->getFormId(), $application->getEntryId());
           if ($stage_to_send) {
             $next_stage = $stage_to_send;
           }
@@ -841,7 +841,7 @@ class formsActions extends sfActions
 
       if ($request->getParameter("moveto")) {
         if (intval($next_stage) === 1) {
-          $stage_to_send =  $application_manager->get_submission_stage_nakuru($application->getFormId(), $application->getEntryId());
+          $stage_to_send =  $application_manager->get_submission_stage($application->getFormId(), $application->getEntryId());
           if ($stage_to_send) {
             $next_stage = $stage_to_send;
           }

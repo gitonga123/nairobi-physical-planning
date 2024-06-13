@@ -483,6 +483,11 @@ class Templateparser
         //ap_application_id
         if ($this->find('{ap_application_id}', $content)) {
             $content = str_replace('{ap_application_id}', $saved_application->getApplicationId(), $content);
+
+        }
+
+        if ($this->find('{fm_id}', $content)) {
+            $content = str_replace('{fm_id}', $saved_application->getId(), $content);
         }
 
         //Get Form Details (anything starting with fm_ )
@@ -1001,6 +1006,9 @@ class Templateparser
             $content = str_replace('{ap_application_id}', $saved_application->getApplicationId(), $content);
         }
 
+        if ($this->find('{fm_id}', $content)) {
+            $content = str_replace('{fm_id}', $saved_application->getId(), $content);
+        }
         if ($this->find('{ap_permit_id}', $content)) {
             $content = str_replace('{ap_permit_id}', $saved_permit->getPermitId(), $content);
         }
@@ -3742,6 +3750,10 @@ class Templateparser
         //ap_application_id
         if ($this->find('ap_application_id', $content)) {
             $content = str_replace('ap_application_id', $saved_application->getApplicationId(), $content);
+        }
+
+        if ($this->find('fm_id', $content)) {
+            $content = str_replace('{fm_id}', $saved_application->getId(), $content);
         }
 
         //Get Form Details (anything starting with fm_ )

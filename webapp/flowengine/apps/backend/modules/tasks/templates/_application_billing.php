@@ -92,21 +92,7 @@ use_helper("I18N");
                                                                                                                                                                                         ?></a>
                             <?php
                             }
-
-                            if (($invoice->getPaid() == "1" && $sf_user->mfHasCredential('approvepaymentoverride') && $sf_user->mfHasCredential('code_access_rights')) || ($invoice->getPaid() == "15" && $sf_user->mfHasCredential('approvepaymentoverride2') && $sf_user->mfHasCredential('code_access_rights2')) || ($invoice->getPaid() == "2" && $application->getApproved() == 0  && $sf_user->mfHasCredential('approvepaymentoverride') && $sf_user->mfHasCredential('code_access_rights'))) {
-                            ?>
-                                <a class="btn btn-success btn-xs" onClick="if(confirm('Are you sure you want to confirm this invoice?')){ return true; }else{ return false; }" href="/backend.php/applications/confirmpayment/id/<?php echo $invoice->getId(); ?>" id="printinvoice" type="button"><i class="fa fa-check mr5"></i> <?php echo __("Confirm Payment");
-                                                                                                                                                                                                                                                                                                                                    ?></a>
-                            <?php
-                            }
-
-                            if ($invoice->getPaid() == 3 && $sf_user->mfHasCredential('approvepaymentoverride')) {
-                            ?>
-                                <!-- <a class="btn btn-primary btn-xs" id="makepayment" onClick="if(confirm('Are you sure you want to uncancel this invoice?')){ return true; }else{ return false; }" href="/backend.php/applications/uncancelpayment/id/<?php // echo $invoice->getId(); 
-                                                                                                                                                                                                                                                            ?>"><i class="fa fa-check mr5"></i> <?php //echo __('UnCancel Payment'); 
-                                                                                                                                                                                                                                                                                                ?></a> -->
-                            <?php
-                            }
+                            
                             if ($invoice->getPaid() <> 3 && $invoice->getPaid() <> 2 && $sf_user->mfHasCredential('code_access_rights')) {
                             ?>
                                 <a title="Cancel Invoice" class="btn btn-danger btn-xs" id="makepayment" onClick="if(confirm('Are you sure you want to cancel this invoice?')){ return true; }else{ return false; }" href="/backend.php/applications/cancelpayment/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-times mr5"></i> <?php echo __('Cancel Invoice'); ?></a>

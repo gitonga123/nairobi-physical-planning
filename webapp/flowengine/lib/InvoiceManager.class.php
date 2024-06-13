@@ -763,10 +763,11 @@ class InvoiceManager
             if ($invoicetemplate->getMaxDuration()) {
                 $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
                 $expires_at = date('Y-m-d', $date);
-            }
-
-            if ($invoicetemplate->getDueDuration()) {
+            } else if ($invoicetemplate->getDueDuration()) {
                 $date = strtotime("+" . $invoicetemplate->getDueDuration() . " day", time());
+                $expires_at = date('Y-m-d', $date);
+            } else {
+                $date = strtotime("+" . 30 . " day", time());
                 $expires_at = date('Y-m-d', $date);
             }
 
@@ -950,10 +951,11 @@ class InvoiceManager
             if ($invoicetemplate->getMaxDuration()) {
                 $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
                 $expires_at = date('Y-m-d', $date);
-            }
-
-            if ($invoicetemplate->getDueDuration()) {
+            } else if ($invoicetemplate->getDueDuration()) {
                 $date = strtotime("+" . $invoicetemplate->getDueDuration() . " day", time());
+                $expires_at = date('Y-m-d', $date);
+            } else {
+                $date = strtotime("+" . 30 . " day", time());
                 $expires_at = date('Y-m-d', $date);
             }
 
@@ -1020,7 +1022,6 @@ class InvoiceManager
                 ->limit(1);
             $lastinvoice = $q->fetchOne();
             $$invoice_number = '';
-            
             //incase of update of invoice number
             if ($lastinvoice && strpos($lastinvoice->getInvoiceNumber(), substr($invoicetemplate->getInvoiceNumber(), 0, 3)) !== false) {
                 $invoice_number = $lastinvoice->getInvoiceNumber();
@@ -1192,10 +1193,11 @@ class InvoiceManager
         if ($invoicetemplate->getMaxDuration()) {
             $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
             $expires_at = date('Y-m-d', $date);
-        }
-
-        if ($invoicetemplate->getDueDuration()) {
+        } else if ($invoicetemplate->getDueDuration()) {
             $date = strtotime("+" . $invoicetemplate->getDueDuration() . " day", time());
+            $expires_at = date('Y-m-d', $date);
+        } else {
+            $date = strtotime("+" . 30 . " day", time());
             $expires_at = date('Y-m-d', $date);
         }
 
@@ -1317,10 +1319,11 @@ class InvoiceManager
         if ($invoicetemplate->getMaxDuration()) {
             $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
             $expires_at = date('Y-m-d', $date);
-        }
-
-        if ($invoicetemplate->getDueDuration()) {
+        } else if ($invoicetemplate->getDueDuration()) {
             $date = strtotime("+" . $invoicetemplate->getDueDuration() . " day", time());
+            $expires_at = date('Y-m-d', $date);
+        } else {
+            $date = strtotime("+" . 30 . " day", time());
             $expires_at = date('Y-m-d', $date);
         }
 
@@ -2554,8 +2557,10 @@ class InvoiceManager
             $expires_at = date('Y-m-t');
         } elseif ($invoicetemplate->getExpirationType() == 3) {
             $expires_at = date('Y-12-t');
+        } else {
+            $date = strtotime("+" . 30 . " day", time());
+            $expires_at = date('Y-m-d', $date);
         }
-
 
         $invoice->setMdaCode(sfConfig::get('app_mda_code'));
         $invoice->setBranch(sfConfig::get('app_branch'));
@@ -3070,10 +3075,11 @@ class InvoiceManager
                         if ($invoicetemplate->getMaxDuration()) {
                             $date = strtotime("+" . $invoicetemplate->getMaxDuration() . " day", time());
                             $expires_at = date('Y-m-d', $date);
-                        }
-
-                        if ($invoicetemplate->getDueDuration()) {
+                        } else if ($invoicetemplate->getDueDuration()) {
                             $date = strtotime("+" . $invoicetemplate->getDueDuration() . " day", time());
+                            $expires_at = date('Y-m-d', $date);
+                        } else {
+                            $date = strtotime("+" . 30 . " day", time());
                             $expires_at = date('Y-m-d', $date);
                         }
 

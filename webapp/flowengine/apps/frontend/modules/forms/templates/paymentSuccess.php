@@ -221,11 +221,17 @@
 						if (otpResponseData.status === 201 || otpResponseData.success) {
 							$("#regenerate_otp_function_div").hide();
 							showAlert('response_wallet_area_id', 'success', 'Redirecting...');
-							window.location.href = redirect_url;
+							setTimeout(() => {
+								window.location.href = redirect_url;
+							}, 60 * 1000);
+
 						} else if (otpResponseData.status == 400) {
 							$("#regenerate_otp_function_div").hide();
 							showAlert('response_wallet_area_id', 'info', otpResponseData.content?.message[0] || "Transaction already completed. Redirecting...");
-							window.location.href = redirect_url;
+							setTimeout(() => {
+								window.location.href = redirect_url;
+							}, 60 * 1000);
+
 						} else {
 							showAlert('response_wallet_area_id', 'danger', otpResponseData?.content?.msg || 'Invalid OTP. Please try again.');
 							verifyButton.prop('disabled', false).text('Verify');

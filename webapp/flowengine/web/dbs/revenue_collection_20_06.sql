@@ -2645,6 +2645,7 @@ CREATE TABLE `ap_form_elements` (
   `element_grandtotalplintharea` int(11) DEFAULT 0,
   `element_file_ifc` int(11) DEFAULT 0,
   `element_plot_no` int(11) DEFAULT 0,
+  `element_subcounty` int(11) DEFAULT 0,
   `element_ownertype` int(11) DEFAULT 0,
   `element_select_options` varchar(100) DEFAULT 'default',
   PRIMARY KEY (`form_id`,`element_id`)

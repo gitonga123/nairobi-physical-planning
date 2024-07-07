@@ -17,14 +17,13 @@ if ($translation->IsLeftAligned()) {
 <?php
 } else {
 	//If language is right aligned
-	/**
+
 ?>
-	<link href="/assets_backend/css3.0/style.default-rtl.css" rel="stylesheet">
+	<!-- <link href="/assets_backend/css3.0/style.default-rtl.css" rel="stylesheet">
 	<link href="/assets_backend/css3.0/bootstrap-override-rtl.css" rel="stylesheet">
-	<link href="/assets_backend/css3.0/bootsrap-rtl.min.css" rel="stylesheet">
+	<link href="/assets_backend/css3.0/bootsrap-rtl.min.css" rel="stylesheet"> -->
 
 <?php
-	 **/
 }
 ?>
 

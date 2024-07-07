@@ -210,9 +210,9 @@ if ($sf_context->getModuleName() == "tasks") {
     self.xmlHttpReq1.onreadystatechange = function() {
       if (self.xmlHttpReq1.readyState == 4) {
         //document.getElementById(div).innerHTML = "<span class='glyphicon glyphicon-ok'></span>";
-        //OTB Patch
+        // Patch
         document.getElementById(div).innerHTML = "<a title='Click to Mark as Not Selected.' href='' onClick=\"ajaxunselect('" + strURL + "','" + div + "'); return false;\"><span class='glyphicon glyphicon-ok'></span>";
-        //OTB end
+        // end
       } else {
         document.getElementById(div).innerHTML = "<img src='/assets_unified/images/loaders/loader1.gif' alt=''> Loading, Please wait...";
       }
@@ -237,9 +237,9 @@ if ($sf_context->getModuleName() == "tasks") {
     self.xmlHttpReq1.onreadystatechange = function() {
       if (self.xmlHttpReq1.readyState == 4) {
         //document.getElementById(div).innerHTML = "<span class='glyphicon glyphicon-remove'></span>";
-        //OTB Patch - Return link
+        // Patch - Return link
         document.getElementById(div).innerHTML = "<a title='Click to Mark as Selected' href='' onClick=\"ajaxselect('" + strURL + "','" + div + "'); return false;\">" + "<span class='glyphicon glyphicon-remove'></span>";
-        //OTB end
+        // end
       } else {
         document.getElementById(div).innerHTML = "<img src='/assets_unified/images/loaders/loader1.gif' alt=''> Loading, Please wait...";
       }
@@ -287,7 +287,7 @@ if (sfConfig::get('app_enable_livechat')) {
 }
 ?>
 
-  <!-- Google tag (gtag.js) 
+<!-- Google tag (gtag.js) 
   -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4BM5P1Z0W"></script>
 <script>

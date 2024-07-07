@@ -184,6 +184,7 @@
 						element_grandtotalplintharea,
 						element_file_ifc,
 						element_plot_no,
+						element_subcounty,
 						element_ownertype,
 						element_table_name,
 						element_field_value,
@@ -251,6 +252,7 @@
 			$element_info[$row['element_id']]['remote_server_field'] = $row['element_remote_server_field'];
 			$element_info[$row['element_id']]['remote_post'] = $row['element_remote_post'];
 			$element_info[$row['element_id']]['plot_no'] = $row['element_plot_no'];
+			$element_info[$row['element_id']]['subcounty'] = $row['element_subcounty'];
 			$element_info[$row['element_id']]['file_ifc'] = $row['element_file_ifc'];
 			$element_info[$row['element_id']]['ownertype'] = $row['element_ownertype'];
 			$element_info[$row['element_id']]['table_name'] = $row['element_table_name'];
@@ -609,6 +611,11 @@
 				if($element_info[$element_id]['plot_no']){
 					error_log('-------Plot-----');
 					$rules[$element_name]['plot_no'] 	= true;
+					$target_input['dbh'] = $dbh; //we need to pass the $dbh
+				}//OTB Add
+				if($element_info[$element_id]['subcounty']){
+					error_log('-------Plot-----');
+					$rules[$element_name]['subcounty'] 	= true;
 					$target_input['dbh'] = $dbh; //we need to pass the $dbh
 				}
 

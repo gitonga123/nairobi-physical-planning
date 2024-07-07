@@ -11,3 +11,6 @@ ADD
 ALTER TABLE `invoicetemplates` ADD COLUMN `qr_content` TEXT NULL;
 
 ALTER TABLE sub_menus ADD COLUMN distribute_equally boolean DEFAULT FALSE;
+element_subcounty
+
+ALTER TABLE `ap_form_elements` ADD COLUMN  `element_subcounty` int(11) default 0;

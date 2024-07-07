@@ -41,6 +41,7 @@
 						 element_permitteduser,
 						 element_file_ifc,
 						 element_plot_no,
+						 element_subcounty,
 						 element_ownertype,
 						 element_table_name,
 						 element_field_value,
@@ -78,6 +79,7 @@
 			$form_elements[$i]['element_permitteduser'] 		 			   = $row['element_permitteduser']; //OTB patch
 			$form_elements[$i]['element_file_ifc'] 		 			   = $row['element_file_ifc']; //OTB patch
 			$form_elements[$i]['element_plot_no'] 		 			   = $row['element_plot_no']; //OTB patch
+			$form_elements[$i]['element_subcounty'] 		 			   = $row['element_subcounty']; //OTB patch
 			$form_elements[$i]['element_ownertype'] 		 			   = $row['element_ownertype']; //OTB patch
 			$form_elements[$i]['element_table_name'] 		 			   = $row['element_table_name']; //OTB patch
 			$form_elements[$i]['element_field_value'] 		 			   = $row['element_field_value']; //OTB patch
@@ -135,6 +137,7 @@
 			$element_permitteduser		= $element['element_permitteduser']; // OTB patch
 			$element_file_ifc		= $element['element_file_ifc']; // OTB patch
 			$element_plot_no		= $element['element_plot_no']; // OTB patch
+			$element_subcounty		= $element['element_subcounty']; // OTB patch
 			$element_ownertype		= $element['element_ownertype']; // OTB patch
 			$element_table_name		= $element['element_table_name']; // OTB patch
 			$element_field_value		= $element['element_field_value']; // OTB patch
@@ -413,6 +416,7 @@
 						element_permitteduser,
 						element_file_ifc,
 						element_plot_no,
+						element_subcounty,
 						element_ownertype,
 						element_position,
 						element_select_options,
@@ -462,6 +466,7 @@
 			$form_elements[$i]['element_permitteduser'] = $row['element_permitteduser']; //OTB patch
 			$form_elements[$i]['element_file_ifc'] = $row['element_file_ifc']; //OTB patch
 			$form_elements[$i]['element_plot_no'] = $row['element_plot_no']; //OTB patch
+			$form_elements[$i]['element_subcounty'] = $row['element_subcounty']; //OTB patch
 			$form_elements[$i]['element_ownertype'] = $row['element_ownertype']; //OTB patch
 			$trans_text = $translation->getOptionTranslationManual("ap_form_elements", "element_guidelines", $form_id, $row['element_id'], $locale);
 			if($trans_text){
@@ -589,6 +594,7 @@
 			$element_file_qr_users = $element['element_file_qr_users'];//OTB Add QR on attachments
 			$element_file_ifc = $element['element_file_ifc'];//OTB Add QR on attachments
 			$element_plot_no = $element['element_plot_no'];//OTB Add QR on attachments
+			$element_subcounty = $element['element_subcounty'];//OTB Add QR on attachments
 			$element_ownertype = $element['element_ownertype'];//OTB Add QR on attachments
 			$element_select_options = $element['element_select_options'];
 			$element_existing_form = $element['element_existing_form'];
@@ -618,6 +624,7 @@
 			$entry_details[$i]['element_file_qr_users'] 	= $element_file_qr_users;
 			$entry_details[$i]['element_file_ifc'] 	= $element_file_ifc;
 			$entry_details[$i]['element_plot_no'] 	= $element_plot_no;
+			$entry_details[$i]['element_subcounty'] 	= $element_subcounty;
 			$entry_details[$i]['element_ownertype'] 	= $element_ownertype;
 			$entry_details[$i]['element_select_options'] 	= $element_select_options;
 			$entry_details[$i]['element_table_name'] 	= $element_table_name;

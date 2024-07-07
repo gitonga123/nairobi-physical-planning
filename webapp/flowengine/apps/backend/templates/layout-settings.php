@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Layout template.
  *
@@ -15,6 +16,7 @@ $site_settings = Functions::site_settings();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -24,28 +26,30 @@ $site_settings = Functions::site_settings();
 
   <link rel="shortcut icon" href="/assets_backend/images/favicon.png" type="image/png">
   <?php
-	//Displays all required stylesheets
-	include_component('dashboard', 'stylesheets');
+  //Displays all required stylesheets
+  include_component('dashboard', 'stylesheets');
 
-	//Displays all required javascripts
-	include_component('dashboard', 'javascripts');
-?>
+  //Displays all required javascripts
+  include_component('dashboard', 'javascripts');
+  ?>
 </head>
+
 <body id="body">
 
-    <div id="preloader">
-        <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
-    </div>
+  <div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+  </div>
 
-    <section>
-        <?php
-        //Displays the header
-        include_component('dashboard', 'settingsheader');
-        ?>
+  <section>
+    <?php
+    //Displays the header
+    include_component('dashboard', 'settingsheader');
+    ?>
 
-        <?php echo $sf_content ?>
-        </div><!-- mainpanel -->
-	</section>
+    <?php echo $sf_content ?>
+    </div><!-- mainpanel -->
+  </section>
 
 </body>
+
 </html>

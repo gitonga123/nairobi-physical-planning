@@ -233,7 +233,12 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                         } else {
                         ?>
                           <a title="Deactivate Reviewer" onclick="if(confirm('Are you sure you want to deactivate this user?')){ return true; }else{ return false; }" href="/backend.php/users/delete/id/<?php echo $reviewer->getNid(); ?>"><span class="label label-danger"><i class="fa fa-times" aria-hidden="true"></i></span></a>
+                          <?php
+                          if ($sf_user->mfHasCredential("managereviewers_delete") && $department) {?>
+                          
+                            <a title="Complete Deletion" onclick="if(confirm('Are you sure you want to delete this user?')){ return true; }else{ return false; }" href="/backend.php/users/deletecompletely/id/<?php echo $reviewer->getNid(); ?>/department/<?php echo $department->getId(); ?>"><span class="label label-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></span></a>
                       <?php
+                          }
                         }
                       }
                       ?>
@@ -260,10 +265,10 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                         <li><a href="/backend.php/users/index/page/1<?php if ($filter) {
                                                                       echo "/filter/" . $filter;
                                                                     } ?><?php if ($department_filter) {
-                                                                                                                      echo "/department_filter/" . $department_filter;
-                                                                                                                    } ?><?php if ($fromdate) {
-                                                                                                                                                                                                        echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                                                                                      } ?>">
+                                                                          echo "/department_filter/" . $department_filter;
+                                                                        } ?><?php if ($fromdate) {
+                                                                              echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                            } ?>">
                             <?php
                             if ($translation->IsLeftAligned()) {
                             ?>
@@ -280,10 +285,10 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                         <li><a href="/backend.php/users/index/page/<?php echo $pager->getPreviousPage() ?><?php if ($department_filter) {
                                                                                                             echo "/department_filter/" . $department_filter;
                                                                                                           } ?><?php if ($filter) {
-                                                                                                                                                                                              echo "/filter/" . $filter;
-                                                                                                                                                                                            } ?><?php if ($fromdate) {
-                                                                                                                                                                                                                                              echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                                                                                                                            } ?>">
+                                                                                                                echo "/filter/" . $filter;
+                                                                                                              } ?><?php if ($fromdate) {
+                                                                                                                    echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                                  } ?>">
                             <?php
                             if ($translation->IsLeftAligned()) {
                             ?>
@@ -304,20 +309,20 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                             <li><a href="/backend.php/users/index/page/<?php echo $page ?><?php if ($department_filter) {
                                                                                             echo "/department_filter/" . $department_filter;
                                                                                           } ?><?php if ($filter) {
-                                                                                                                                                                              echo "/filter/" . $filter;
-                                                                                                                                                                            } ?><?php if ($fromdate) {
-                                                                                                                                                                                                                              echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                                                                                                            } ?>"><?php echo $page ?></a></li>
+                                                                                                echo "/filter/" . $filter;
+                                                                                              } ?><?php if ($fromdate) {
+                                                                                                    echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                  } ?>"><?php echo $page ?></a></li>
                           <?php endif; ?>
                         <?php endforeach; ?>
 
                         <li><a href="/backend.php/users/index/page/<?php echo $pager->getNextPage() ?><?php if ($department_filter) {
                                                                                                         echo "/department_filter/" . $department_filter;
                                                                                                       } ?><?php if ($filter) {
-                                                                                                                                                                                          echo "/filter/" . $filter;
-                                                                                                                                                                                        } ?><?php if ($fromdate) {
-                                                                                                                                                                                                                                          echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                                                                                                                        } ?>">
+                                                                                                            echo "/filter/" . $filter;
+                                                                                                          } ?><?php if ($fromdate) {
+                                                                                                                echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                              } ?>">
                             <?php
                             if ($translation->IsLeftAligned()) {
                             ?>
@@ -334,10 +339,10 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                         <li><a href="/backend.php/users/index/page/<?php echo $pager->getLastPage() ?><?php if ($department_filter) {
                                                                                                         echo "/department_filter/" . $department_filter;
                                                                                                       } ?><?php if ($filter) {
-                                                                                                                                                                                          echo "/filter/" . $filter;
-                                                                                                                                                                                        } ?><?php if ($fromdate) {
-                                                                                                                                                                                                                                          echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                                                                                                                        } ?>">
+                                                                                                            echo "/filter/" . $filter;
+                                                                                                          } ?><?php if ($fromdate) {
+                                                                                                                echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                              } ?>">
                             <?php
                             if ($translation->IsLeftAligned()) {
                             ?>

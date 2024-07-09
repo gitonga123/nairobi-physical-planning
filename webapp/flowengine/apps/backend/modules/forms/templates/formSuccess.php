@@ -526,7 +526,6 @@ $query = "select
 					element_file_qr_users,
 					element_notify_contact,
                     element_plotsize,
-					element_subcounty,
 					element_actualplotratio,
 					element_permittedgroundcoverage,
 					element_zone,
@@ -535,6 +534,7 @@ $query = "select
 					element_grandtotalplintharea,
 					element_file_ifc,
 					element_plot_no,
+					element_subcounty,
 					element_ownertype,
 					element_table_name,
 					element_existing_form,
@@ -661,14 +661,14 @@ while ($row = mf_do_fetch_result($sth)) {
 	$element[$j]->notify_contact	 			= $row['element_notify_contact']; //OTB Africa - Additional notify contacts
 	$element[$j]->footprint 	= $row['element_footprint']; //OTB patch footprint property
 	$element[$j]->plotsize 	= $row['element_plotsize']; //OTB patch 
-	$element[$j]->subcounty 	= $row['element_subcounty']; //OTB patch 
 	$element[$j]->actualplotratio 	= $row['element_actualplotratio']; //OTB patch 
 	$element[$j]->permittedgroundcoverage 	= $row['element_permittedgroundcoverage']; //OTB patch
 	$element[$j]->zone 	= $row['element_zone']; //OTB patch 
 	$element[$j]->permitteduser 	= $row['element_permitteduser']; //OTB patch 
 	$element[$j]->grandtotalplintharea 	= $row['element_grandtotalplintharea']; //OTB patch 
 	$element[$j]->file_ifc 	= $row['element_file_ifc']; //OTB patch 
-	$element[$j]->plot_no 	= $row['element_plot_no']; //OTB patch 
+	$element[$j]->plot_no 	= $row['element_plot_no']; //OTB patch
+	$element[$j]->subcounty 	= $row['element_subcounty']; //OTB patch
 	$element[$j]->ownertype 	= $row['element_ownertype']; //OTB patch 
 	$element[$j]->table_name 	= $row['element_table_name']; //OTB patch 
 	$element[$j]->existing_form 	= $row['element_existing_form']; //OTB patch 
@@ -1457,7 +1457,7 @@ require($prefix_folder . 'includes/header.php');
 										<img class="helpmsg" src="/form_builder/images/icons/help2.png" style="vertical-align: top" title="Checking this will identify this field use as plot no" /> </span><br>
 
 									<!-- Identify plot no -->
-									<span id="element_plot_no_span">
+									<span id="element_subcounty_span">
 										<input id="element_subcounty" class="checkbox" value="" type="checkbox">
 										<label class="choice" for="element_subcounty"><?php echo __('Is SubCounty field'); ?></label>
 										<img class="helpmsg" src="/form_builder/images/icons/help2.png" style="vertical-align: top" title="Checking this will identify this field use as subcounty field." /> </span><br>

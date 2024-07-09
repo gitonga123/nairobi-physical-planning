@@ -1155,6 +1155,15 @@ abstract class BaseApFormElements extends sfDoctrineRecord
                'autoincrement' => false,
                'length' => 4,
                ));
+          $this->hasColumn('element_subcounty', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+               ));
           $this->hasColumn('element_plotsize', 'integer', 4, array(
                'type' => 'integer',
                'fixed' => 0,

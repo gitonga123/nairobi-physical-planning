@@ -203,6 +203,19 @@ class formsActions extends sfActions
     $this->setLayout("layout-settings");
   }
 
+
+  /**
+   * Executes 'Ajaxindex' action
+   *
+   * Displays list of dynamically generated forms
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeAjaxindex(sfWebRequest $request)
+  {
+    $this->setLayout(false);
+  }
+
   /**
    * Executes logicsettings action
    *

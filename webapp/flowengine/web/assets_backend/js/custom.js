@@ -57,12 +57,17 @@ jQuery(document).ready(function() {
    }
    adjustmainpanelheight();
    
-   
    // Tooltip
-   jQuery('.tooltips').tooltip({ container: 'body'});
+   if ($('.tooltips').length > 0) {
+      jQuery('.tooltips').tooltip({ container: 'body'});
+
+   }
+   
    
    // Popover
-   jQuery('.popovers').popover();
+   if ($('.popovers').length > 0){
+      jQuery('.popovers').popover();
+   }
    
    // Close Button in Panels
    jQuery('.panel .panel-close').click(function(){

@@ -214,22 +214,30 @@
 		function confirmPayment(currentInterval = 1, maxInterval = 10) {
 			console.log("Confirm payment being executed ---->", currentInterval, maxInterval);
 			setButtonLoading('initiate_payment_loader', true);
+			setButtonLoading('confirm_payment', true);
 			$.ajax({
 				url: confirm_payment_url,
 				type: 'GET',
 				success: function(response) {
+					console.log(response);
 					const data = JSON.parse(response);
 					if (data?.success) {
 						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');
 						window.location.href = redirect_url;
 					} else {
-						showAlert('mpesa_confirmation_id', 'info', 'Waiting for Payment to proceed...');
+						showAlert('mpesa_confirmation_id', 'info', data?.data?.msg);
+						setTimeout(function() {
+							showAlert('mpesa_confirmation_id', 'info', 'Waiting for Payment to proceed...');
+						}, 5000); // 5000 milliseconds = 5 seconds
+
 					}
 					setButtonLoading('initiate_payment_loader', false);
+					setButtonLoading('confirm_payment', false);
 				},
 				error: function() {
 					showAlert('mpesa_confirmation_id', 'warning', 'Failed! Something went Wrong. Please try again later.');
 					setButtonLoading('initiate_payment_loader', false);
+					setButtonLoading('confirm_payment', false);
 				}
 			});
 			currentInterval = currentInterval + 1;
@@ -242,6 +250,7 @@
 				url: confirm_payment_url,
 				type: 'GET',
 				success: function(response) {
+					console.log(response);
 					const data = JSON.parse(response);
 					if (data?.success) {
 						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');

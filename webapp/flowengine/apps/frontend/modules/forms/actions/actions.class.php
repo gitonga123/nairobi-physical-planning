@@ -76,10 +76,9 @@ class formsActions extends sfActions
       public function executeView(sfWebRequest $request)
       {
             $this->current_profile = $this->getUser()->getAttribute("current_profile");
-            
+
             if ($this->current_profile) {
                   $this->setLayout("layoutmentordash");
-                  
             } else {
                   //$this->setLayout("layoutformbuilder");
                   $this->setLayout("layoutmentordashsubmit");
@@ -249,17 +248,13 @@ class formsActions extends sfActions
       {
             $invoice_id = $request->getParameter('invoice');
 
-            error_log("Invoice id is -->");
-            error_log($invoice_id);
+            $applicationManager = new ApplicationManager();
 
             $q = Doctrine_Query::create()
                   ->from('FormEntry a')
                   ->where('a.id = ?', $request->getParameter("application"))
                   ->andWhere('a.user_id = ?', $this->getUser()->getGuardUser()->getId());
             $this->application = $q->fetchOne();
-
-            error_log("application  id is -->");
-            error_log($request->getParameter("application"));
 
             $q = Doctrine_Query::create()
                   ->from('MfInvoice a')
@@ -273,7 +268,7 @@ class formsActions extends sfActions
 
             $q = Doctrine_Query::create()
                   ->from("ApFormPayments a")
-                  ->where("a.invoice_id = ? AND a.status = ?", array($this->invoice->getId(), 1))
+                  ->where("a.invoice_id = ? AND a.status = ?", [$this->invoice->getId(), 1])
                   ->orderBy('a.afp_id desc');
             $transaction = $q->fetchOne();
 
@@ -281,7 +276,6 @@ class formsActions extends sfActions
 
 
             if ($transaction) {
-                  error_log('----Transaction found----');
                   //Update transaction details
                   $transaction->setStatus(1);
                   $transaction->setPaymentStatus("pending");
@@ -292,7 +286,6 @@ class formsActions extends sfActions
 
                   $transaction->save();
             } else {
-                  error_log('----Transaction not found----');
 
                   //Add a new transaction if one doesn't exist
                   $transaction = new ApFormPayments();
@@ -319,15 +312,26 @@ class formsActions extends sfActions
                   $token = $_SESSION['jambo_token'];
             } else {
                   $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
+                  $_SESSION['jambo_token'] = $token;
             }
 
-            error_log("Amount to pay ---->" . $this->invoice->getTotalAmount());
+            $subcounty_name = $applicationManager->getSubCountyNameFromApplication(
+                  $this->application->getFormId(),
+                  $this->application->getEntryId()
+            );
 
+            error_log("Sub county name is ----> {$subcounty_name}");
+
+            $subcounty = $this->subcountyList($subcounty_name);
+            $this->createBill(
+                  [
+                        'sub_county' => $subcounty,
+                        'bill_number' => $billing_reference_number,
+                        "revenue_stream" => "Physical_Planning"
+                  ],
+                  $this->invoice->getId()
+            );
             $callback_url = sfConfig::get('app_amkatek_callback_payment');
-
-            error_log("Callback url below --->" . $callback_url);
-
-            error_log("initiate request payment ---->");
 
             $payload = [
                   'phone_number' => $request->getPostParameter('phone_number'),
@@ -336,21 +340,16 @@ class formsActions extends sfActions
                   'callback_url' => $callback_url
             ];
 
-            error_log(print_r($payload, true));
-
-
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
                   'ssl' => 'none',
                   'contentType' => 'json',
                   'data' => $payload,
-                  'headers' => array(
+                  'headers' => [
                         "Authorization" => "JWT " . $token,
-                  )
+                  ]
             ]);
-
-            error_log(print_r($query_response->content, true));
 
             if ($query_response->content['verify_otp']) {
                   $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
@@ -367,9 +366,6 @@ class formsActions extends sfActions
                   $this->invoice->save();
             }
 
-
-            error_log("Session keys aare as at below");
-            error_log($_SESSION['jambo_pay_ref']);
             return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
       }
 
@@ -377,13 +373,6 @@ class formsActions extends sfActions
       {
             $user_otp = $request->getPostParameter('user_otp');
 
-            error_log("User otp --->" . $user_otp);
-
-            // $otp = $_SESSION['jambo_wallet_otp'];
-
-            // if (!($user_otp == $otp)) {
-            //       return $this->renderText(json_encode(['status' => 403, 'content' => ['msg' => 'OTP Invalid regenerate a new one.']]));
-            // }
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/authorize_wallet_payment/';
 
             $stream = new Stream();
@@ -401,8 +390,6 @@ class formsActions extends sfActions
                   ->limit(1);
             $this->invoice = $q->fetchOne();
 
-            error_log("Below is the amount ---->");
-            error_log($this->invoice->getTotalAmount());
 
             $ref = $_SESSION['jambo_pay_ref'];
 
@@ -423,15 +410,6 @@ class formsActions extends sfActions
 
             $response_content = $query_response->content;
 
-            error_log("Verify OTP Wallet response ---->");
-
-            error_log($response_content);
-            error_log(print_r($response_content, true));
-            error_log("Status code ---->" . $query_response->status);
-
-            error_log("Response content code is ---->");
-            error_log($response_content['ref']);
-
             if (isset($response_content['ref']) || $query_response->status == 201) {
                   return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content, 'success' => true]));
             }
@@ -441,7 +419,6 @@ class formsActions extends sfActions
 
       public function executeRegeneratejamboonetimepassword($request)
       {
-            error_log("Regenerate otp function triggered");
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/regenerate_otp/';
 
             $stream = new Stream();
@@ -449,6 +426,7 @@ class formsActions extends sfActions
                   $token = $_SESSION['jambo_token'];
             } else {
                   $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
+                  $_SESSION['jambo_token'] = $token;
             }
             $ref = $_SESSION['jambo_pay_ref'];
             $query_response = $stream->sendRequest([
@@ -464,20 +442,12 @@ class formsActions extends sfActions
                   )
             ]);
 
-            error_log("Response code is this ---->");
-
-            error_log($query_response->content);
-            error_log($query_response->status);
-
             if ($query_response->status == 201) {
                   return $this->renderText(json_encode(['success' => true, 'status' => $query_response->status, 'content' => $query_response->content]));
             }
 
             $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
 
-            error_log("Response status code below after regenerate token---->");
-            error_log($query_response->status);
-            error_log("\n\n");
             return $this->renderText(json_encode(['success' => false, 'status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
       }
 
@@ -486,8 +456,6 @@ class formsActions extends sfActions
             $response = $request->getContent();
             $response = json_decode($response, true);
 
-            error_log(print_r($response, true));
-
             if (strtolower($response['status']) == 'success') {
                   $q = Doctrine_Query::create()
                         ->from("ApFormPayments a")
@@ -495,8 +463,6 @@ class formsActions extends sfActions
                         ->where("a.narration = ?", $response['ref'])
                         ->orderBy('a.afp_id desc');
                   $transaction = $q->fetchOne();
-
-                  error_log($transaction);
 
                   if ($transaction) {
                         $transaction->setPaymentTestMode($response['mode_of_payment']);
@@ -526,6 +492,34 @@ class formsActions extends sfActions
             }
       }
 
+      public function updateInvoiceToPaid($billing_reference_number, $invoice_id)
+      {
+            $q = Doctrine_Query::create()
+                  ->from("ApFormPayments a")
+                  ->where("a.payment_id = ?", $billing_reference_number)
+                  ->where("a.invoice_id = ?", $invoice_id)
+                  ->orderBy('a.afp_id desc');
+            $transaction = $q->fetchOne();
+
+            $transaction->setPaymentStatus('paid');
+            $transaction->setStatus(2);
+
+            $transaction->save();
+
+
+            $q =  Doctrine_Query::create()
+                  ->from('MfInvoice m')
+                  ->where('m.id = ?', $transaction->getInvoiceId());
+
+            $invoice = $q->fetchOne();
+
+            $invoice->setPaid(2);
+
+            $invoice->save();
+
+            return true;
+      }
+
       public function executeConfirmMpesaPayment(sfWebRequest $request)
       {
             $invoice_id = $request->getParameter('invoice');
@@ -545,12 +539,145 @@ class formsActions extends sfActions
                   return $this->renderText(json_encode(['success' => false, 'status' => 404, 'content' => ['msg' => 'invoice/application not found']]));
             }
 
-            error_log($this->invoice->getPaid());
-
             if ($this->invoice && $this->invoice->getPaid() == 2) {
                   return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
             }
 
-            return $this->renderText(json_encode(['success' => false, 'status' => 404, 'data' => ['msg' => 'Payment Not Found.']]));
+            $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
+
+            $result = $this->check_payment_jambo_pay($billing_reference_number);
+            
+            if (!$result) {
+                  return $this->renderText(json_encode(['success' => false, 'status' => 404, 'data' => ['msg' => 'Payment Not Found.']]));
+            } else {
+
+                  $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id);
+                  return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
+            }
+      }
+
+      public function check_payment_jambo_pay($billing_reference_number)
+      {
+            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/bill/status/';
+
+            $stream = new Stream();
+
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'POST',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'headers' => array(
+                        "Authorization" => "JWT " . $_SESSION['jambo_token'],
+                  ),
+                  'data' => [
+                        'bill_number' => $billing_reference_number
+                  ]
+            ]);
+
+            if ($query_response->status == 200 || $query_response->status == 201) {
+                  $content = $query_response->content;
+                  error_log("Payment confirmation is ---->");
+                  error_log(print_r($content, true));
+                  if (strtolower($content['status']) == 'paid') {
+                        return true;
+                  }
+                  return false;
+            } else {
+                  return false;
+            }
+      }
+
+      public function subcountyList($subcounty_name)
+      {
+            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/county/sub_counties/';
+
+            $stream = new Stream();
+
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'GET',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'headers' => array(
+                        "Authorization" => "JWT " . $_SESSION['jambo_token'],
+                  )
+            ]);
+
+            if ($query_response->status == 200 || $query_response->status == 201) {
+                  $content = $query_response->content['results'];
+                  $found_result = $this->search_county_by_name($content, 'title', $subcounty_name);
+
+                  if ($found_result['success']) {
+                        return $found_result['id'];
+                  }
+
+                  return '';
+            }
+
+            return '';
+      }
+
+      public function createBill($data, $invoice)
+      {
+            $stream = new Stream();
+
+            $q = Doctrine_Query::create()
+                  ->from("MfInvoiceDetail a")
+                  ->where("a.invoice_id = ?", $invoice);
+            $invoice_details = $q->execute();
+            $items = [];
+
+            foreach ($invoice_details as $detail) {
+                  array_push($items, [
+                        'description' => $detail->description,
+                        'amount' => $detail->amount
+                  ]);
+            }
+
+            $data['items'] = $items;
+
+            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/create_bill/';
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'POST',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'headers' => [
+                        "Authorization" => "JWT " . $_SESSION['jambo_token'],
+                  ],
+                  'data' => $data
+            ]);
+
+            if ($query_response->status == 200 || $query_response->status == 201) {
+                  $_SESSION['bill_ref'] = $query_response->content['bill_ref'];
+
+                  error_log($query_response->content['bill_ref']);
+            } else {
+                  error_log("Unable to create the bill at the moment");
+            }
+      }
+
+      public function search_county_by_name($array, $key, $name)
+      {
+            $results = ['success' => false];
+
+            $random = $results;
+
+            if (is_array($array)) {
+
+                  foreach ($array as $subarray => $value) {
+                        if (strtolower($value['title']) == strtolower($name)) {
+                              $results = ['success' => true, 'name' => $value['title'], 'id' => $value['id']];
+                        }
+
+                        $random = ['success' => true, 'name' => $value['title'], 'id' => $value['id']];
+                  }
+            }
+
+            if (!$results['success']) {
+                  return $random;
+            }
+            return $results;
       }
 }

@@ -472,6 +472,7 @@ function load_properties(p) {
         $("#element_permittedgroundcoverage_span").hide();
         $("#element_file_ifc_span").hide();
         $("#element_plot_no_span").hide();
+        $("#element_subcounty_span").hide();
         $("#element_ownertype_span").hide();
         $("#prop_element_select_options").hide();
         $("#prop_table_name_conf").hide();
@@ -483,6 +484,7 @@ function load_properties(p) {
          $("#element_footprint_span").hide(); //OTB Patch
          $("#element_file_ifc_span").hide(); //OTB Patch
          $("#element_plot_no_span").hide(); //OTB Patch
+         $("#element_subcounty_span").hide();
          $("#element_ownertype_span").hide(); //OTB Patch
          $("#prop_element_select_options").hide();
          $("#prop_table_name_conf").hide();
@@ -498,6 +500,7 @@ function load_properties(p) {
         $("#element_permittedgroundcoverage_span").hide();
         $("#element_file_ifc_span").hide();
         $("#element_plot_no_span").hide();
+        $("#element_subcounty_span").hide();
         $("#element_ownertype_span").hide();
         $("#prop_element_select_options").hide();
         $("#prop_table_name_conf").hide();
@@ -513,6 +516,7 @@ function load_properties(p) {
              $("#element_permittedgroundcoverage_span").hide();
              $("#element_file_ifc_span").hide();
              $("#element_plot_no_span").hide();
+             $("#element_subcounty_span").hide();
              $("#element_ownertype_span").hide();
              $("#prop_element_select_options").hide();
              $("#prop_table_name_conf").hide();
@@ -527,6 +531,7 @@ function load_properties(p) {
 				$("#element_permittedgroundcoverage_span").hide();
 				$("#element_file_ifc_span").hide();
 				$("#element_plot_no_span").hide();
+                $("#element_subcounty_span").hide();
                 $("#element_ownertype_span").hide();
                 $("#prop_element_select_options").hide();
                 $("#prop_table_name_conf").hide();
@@ -655,6 +660,12 @@ function load_properties(p) {
     else {
         $("#element_plot_no").prop("checked", false)
     }
+    if (v.subcounty == "1") {
+        $("#element_subcounty").prop("checked", true)
+    }
+    else {
+        $("#element_subcounty").prop("checked", false)
+    }
     if (v.ownertype == "1") {
         $("#element_ownertype").prop("checked", true)
     }
@@ -715,6 +726,7 @@ function load_properties(p) {
         $("#element_actualplotration_span").show();//OTB Patch
         $("#element_permittedgroundcoverage_span").show(); //OTB Patch
         $("#element_plot_no_span").show(); //OTB Patch
+        $("#element_subcounty_span").show(); //OTB Patch
         $("#element_ownertype_span").show(); //OTB Patch
         $("#prop_element_select_options").hide();
         $("#prop_table_name_conf").hide();
@@ -773,6 +785,7 @@ function load_properties(p) {
             $("#prop_number_advance_options").show();
             $("#element_file_ifc_span").hide();
             $("#element_plot_no_span").hide();
+            $("#element_subcounty_span").hide();
             $("#element_ownertype_span").hide();
             $("#prop_element_select_options").hide();
             $("#prop_table_name_conf").hide();
@@ -812,6 +825,7 @@ function load_properties(p) {
                 $("#prop_placeholder").show();
                 $("#element_file_ifc_span").hide();
                 $("#element_plot_no_span").hide();
+                $("#element_subcounty_span").hide();
                 $("#element_ownertype_span").hide();
                 $("#prop_element_select_options").hide();
                 $("#prop_table_name_conf").hide();
@@ -828,6 +842,7 @@ function load_properties(p) {
 					$("#prop_notify_others").show();
 					$("#element_file_ifc_span").hide();
 					$("#element_plot_no_span").hide();
+                    $("#element_subcounty_span").hide();
                     $("#element_ownertype_span").hide();
                     $("#prop_element_select_options").hide();
                     $("#prop_table_name_conf").hide();
@@ -846,6 +861,7 @@ function load_properties(p) {
                         $("#element_readonly_span").hide();
                         $("#element_file_ifc_span").hide();
                         $("#element_plot_no_span").hide();
+                        $("#element_subcounty_span").hide();
                         $("#element_ownertype_span").hide();
                         $("#prop_element_select_options").hide();
                         $("#prop_table_name_conf").hide();
@@ -968,6 +984,7 @@ function load_properties(p) {
                                 $("#prop_range").show();
                                 $("#element_file_ifc_span").hide();
                                 $("#element_plot_no_span").hide();
+                                $("#element_subcounty_span").hide();
                                 $("#element_ownertype_span").hide();
                                 $("#prop_element_select_options").hide();
                                 $("#prop_table_name_conf").hide();
@@ -985,6 +1002,7 @@ function load_properties(p) {
                                     $("#element_unique_span").hide();
                                     $("#element_file_ifc_span").hide();
                                     $("#element_plot_no_span").hide();
+                                    $("#element_subcounty_span").hide();
                                     $("#element_ownertype_span").hide();
                                     $("#prop_element_select_options").hide();
                                     $("#prop_table_name_conf").hide();
@@ -1007,6 +1025,7 @@ function load_properties(p) {
                                         $("#prop_time_options").show();
                                         $("#element_file_ifc_span").hide();
                                         $("#element_plot_no_span").hide();
+                                        $("#element_subcounty_span").hide();
                                         $("#element_ownertype_span").hide();
                                         $("#prop_element_select_options").hide();
                                         $("#prop_table_name_conf").hide();
@@ -1607,6 +1626,9 @@ function set_properties(D, x) {
 	else if(D == "element_plot_no")
     {
         A.plot_no = x;	
+    }else if(D == "element_subcounty")
+    {
+        A.subcounty = x;	
     }
 	else if(D == "element_ownertype")
     {
@@ -4154,6 +4176,15 @@ $(function() {
             b = "0"
         }
         set_properties("element_plot_no", b)
+    });
+    $("#element_subcounty").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1"
+        } else {
+            b = "0"
+        }
+        set_properties("element_subcounty", b)
     });
     $("#element_ownertype").bind("change", function () {
         var b;

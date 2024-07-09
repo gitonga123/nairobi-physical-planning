@@ -198,6 +198,28 @@ class ApplicationManager
         return $details;
     }
 
+    public function getSubCountyNameFromApplication($form_id, $entry_id)
+    {
+        if (empty($form_id) || empty($entry_id)) {
+            return '';
+        }
+        $sql_subcounty = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_subcounty = 1";
+        $sql_subcounty_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_subcounty);
+
+        if (!empty($sql_subcounty_element)) {
+            $sql_subcounty_option_element = "SELECT element_{$sql_subcounty_element} from ap_form_{$form_id} WHERE id = {$entry_id}";
+            $sql_subcounty_option_id =  Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_subcounty_option_element);
+
+            if (!empty($sql_subcounty_option_id)) {
+                $subcounty_name_query = "select option_text from ap_element_options where form_id = {$form_id} and element_id = {$sql_subcounty_element} and option_id = {$sql_subcounty_option_id}";
+                return Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($subcounty_name_query);
+            }
+            return '';
+        }
+
+        return '';
+    }
+
     //Check if an application already exists for a given form entry
     public function application_exists($form_id, $entry_id)
     {

@@ -10,7 +10,7 @@ require($prefix_folder . 'includes/helper-functions.php');
 require($prefix_folder . 'includes/check-session.php');
 
 require($prefix_folder . 'includes/language.php');
-require($prefix_folder . 'includes/view-functions.php');
+require($prefix_folder . 'includes/view-functions_backend.php');
 require($prefix_folder . 'includes/users-functions.php');
 
 

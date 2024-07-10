@@ -291,7 +291,7 @@ class apiActions extends sfActions
             }
 
             if (isset($content['balance'])) {
-                $message .= "Balance: KES {$content['balance']}";
+                $message .= " Balance: KES {$content['balance']}";
             }
             return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $message . '</p>']);
 

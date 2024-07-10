@@ -601,33 +601,49 @@ class formsActions extends sfActions
 
       public function subcountyList($subcounty_name)
       {
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/county/sub_counties/';
-
-            $stream = new Stream();
-
-            $query_response = $stream->sendRequest([
-                  'url' => $url,
-                  'method' => 'GET',
-                  'ssl' => 'none',
-                  'contentType' => 'json',
-                  'headers' => array(
-                        "Authorization" => "JWT " . $this->token,
-                  )
-            ]);
-
-            if ($query_response->status == 200 || $query_response->status == 201) {
-                  $content = $query_response->content['results'];
-                  $found_result = $this->search_county_by_name($content, 'title', $subcounty_name);
+            $sub_counties_key = "subcounty_list_jambo";
+            $counties_list = $this->cache->get($sub_counties_key);
+            if ($counties_list) {
+                  $counties = json_decode($counties_list, true);
+                  $found_result = $this->search_county_by_name($counties, 'title', $subcounty_name);
 
                   if ($found_result['success']) {
                         return $found_result['id'];
                   }
 
                   return '';
+            } else {
+                  $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/county/sub_counties/';
+
+                  $stream = new Stream();
+
+                  $query_response = $stream->sendRequest([
+                        'url' => $url,
+                        'method' => 'GET',
+                        'ssl' => 'none',
+                        'contentType' => 'json',
+                        'headers' => [
+                              "Authorization" => "JWT {$this->token}",
+                        ]
+                  ]);
+
+                  if ($query_response->status == 200 || $query_response->status == 201) {
+                        $content = $query_response->content['results'];
+                        $this->cache->set($sub_counties_key, json_encode($content), 3600);
+                        $found_result = $this->search_county_by_name($content, 'title', $subcounty_name);
+
+                        if ($found_result['success']) {
+                              return $found_result['id'];
+                        }
+
+                        return '';
+                  }
             }
 
             return '';
       }
+
+
 
       public function createBill($data, $invoice)
       {
@@ -662,7 +678,7 @@ class formsActions extends sfActions
 
             if ($query_response->status == 200 || $query_response->status == 201) {
                   $this->cache->set("{$this->key}_bill_ref", $query_response->content['bill_ref'], 3600);
-                  
+
 
                   error_log($query_response->content['bill_ref']);
             } else {

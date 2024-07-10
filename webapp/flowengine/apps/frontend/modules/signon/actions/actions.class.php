@@ -77,11 +77,11 @@ class signonActions extends sfActions
                 throw new sfException('Something Went Wrong. Please try again later.', 500);
             }
 
+            $this->cache = new sfFileCache([
+                'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+            ]);
+
             $_SESSION['jambo_token'] = $this->token;
-
-            error_log("Session key generate from jambo pay ---->");
-
-            error_log($this->token);
 
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/accounts/user_info/';
             // fetch user information
@@ -107,6 +107,7 @@ class signonActions extends sfActions
             $fullname = $first_name . " " . $last_name;
 
             $this->sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->createQuery('u')->where('username = ?', $username)->orderBy('u.id DESC')->fetchOne();
+            $this->cache->set("jambo_token_{$username}", $this->token, 3600);
 
             if (!$this->sfGuardUser) {
                 // create user

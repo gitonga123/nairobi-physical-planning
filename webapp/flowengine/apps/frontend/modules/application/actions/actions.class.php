@@ -99,7 +99,7 @@ class applicationActions extends sfActions
         $user_registered_as = Doctrine_Query::create()
             ->from('sfGuardUserProfile u')
             ->where('u.user_id = ?', $this->getUser()->getGuardUser()->getId());
-        $user_registered_as_res =   $user_registered_as->fetchOne();
+        $user_registered_as_res = $user_registered_as->fetchOne();
         //if we have something
         if ($user_registered_as_res) {
             $q = Doctrine_Query::create()
@@ -134,17 +134,17 @@ class applicationActions extends sfActions
     public function executeViewentrypdf(sfWebRequest $request)
     {
         $prefix_folder = dirname(__FILE__) . "/../../../../../lib/vendor/form_builder/";
-        require($prefix_folder . 'includes/init.php');
+        require ($prefix_folder . 'includes/init.php');
 
-        require($prefix_folder . '../../../config/form_builder_config.php');
-        require($prefix_folder . 'includes/db-core.php');
-        require($prefix_folder . 'includes/helper-functions.php');
-        require($prefix_folder . 'includes/check-session.php');
+        require ($prefix_folder . '../../../config/form_builder_config.php');
+        require ($prefix_folder . 'includes/db-core.php');
+        require ($prefix_folder . 'includes/helper-functions.php');
+        require ($prefix_folder . 'includes/check-session.php');
 
-        require($prefix_folder . 'includes/language.php');
-        require($prefix_folder . 'includes/entry-functions.php');
-        require($prefix_folder . 'includes/post-functions.php');
-        require($prefix_folder . 'includes/users-functions.php');
+        require ($prefix_folder . 'includes/language.php');
+        require ($prefix_folder . 'includes/entry-functions.php');
+        require ($prefix_folder . 'includes/post-functions.php');
+        require ($prefix_folder . 'includes/users-functions.php');
         //require($prefix_folder.'lib/dompdf/dompdf_config.inc.php');
 
         $q = Doctrine_Query::create()
@@ -153,7 +153,7 @@ class applicationActions extends sfActions
             ->andWhere('a.user_id = ?', $this->getUser()->getGuardUser()->getId());
         $application = $q->fetchOne();
 
-        $form_id  = (int) $application->getFormId();
+        $form_id = (int) $application->getFormId();
         $entry_id = (int) $application->getEntryId();
 
         if (empty($form_id) || empty($entry_id)) {
@@ -179,16 +179,16 @@ class applicationActions extends sfActions
 
         $template_data_options = array();
 
-        $template_data_options['as_plain_text']           = false;
-        $template_data_options['target_is_admin']        = true;
-        $template_data_options['machform_path']        = $mf_settings['base_url'];
-        $template_data_options['show_image_preview']   = true;
-        $template_data_options['use_list_layout']       = true;
+        $template_data_options['as_plain_text'] = false;
+        $template_data_options['target_is_admin'] = true;
+        $template_data_options['machform_path'] = $mf_settings['base_url'];
+        $template_data_options['show_image_preview'] = true;
+        $template_data_options['use_list_layout'] = true;
 
         $template_data = mf_get_template_variables($dbh, $form_id, $entry_id, $template_data_options);
 
         $template_variables = $template_data['variables'];
-        $template_values    = $template_data['values'];
+        $template_values = $template_data['values'];
 
         $pdf_content = '<html><body>{entry_data}</body></html>';
 
@@ -391,11 +391,11 @@ class applicationActions extends sfActions
         exit;
     }
     /* Executes 'Share' action
-	 *
-	 * Allows the client to share selected application with another client
-	 *
-	 * @param sfRequest $request A request object
-	 */
+     *
+     * Allows the client to share selected application with another client
+     *
+     * @param sfRequest $request A request object
+     */
     public function executeShare(sfWebRequest $request)
     {
 
@@ -445,19 +445,19 @@ class applicationActions extends sfActions
     }
 
     /* Executes 'Shared' action
-	 *
-	 * Shows success message if application is shared successfully
-	 *
-	 * @param sfRequest $request A request object
-	 */
+     *
+     * Shows success message if application is shared successfully
+     *
+     * @param sfRequest $request A request object
+     */
     public function executeShared(sfWebRequest $request)
     {
         $this->setLayout("layoutdash");
     }
     /*
-	* Search for application 
-	* OTB patch
-	*/
+     * Search for application 
+     * OTB patch
+     */
     public function executeSearch(sfWebRequest $request)
     {
         $user = $this->getUser();

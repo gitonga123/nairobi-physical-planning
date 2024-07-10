@@ -1818,6 +1818,57 @@ EOT;
 	function mf_strtolower_value(&$value){ 
     	$value = strtolower($value); 
 	}
+
+	function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_number)
+	{
+		// $form_id = (int) $form_id;
+
+		// $query_1 = "SELECT element_id from" . MF_TABLE_PREFIX. "elements where form_id = ? and element_plot_no = 1";
+		
+		// $params = array($form_id, $page_number);
+		// $sth = mf_do_query($query_1, $params, $dbh);
+
+		// $element_plot_id = '';
+		// $element_block_id = '';
+
+		// $logic_code = '';
+
+		// while($row = mf_do_fetch_result($sth)) {
+		// 	$element_plot_id = (int) $row['element_id'];
+		// }
+
+		// if (!isset($element_plot_id) || !is_null($element_plot_id)) {
+		// 	return $logic_code;
+		// }
+		
+		// $logic_code .= "\$('#element_{$element_plot_id}').bind('keyup change', function() {\n";
+		// $logic_code .="\$('#element_{$element_plot_id}').val;\n";
+		// $.ajax({
+		// 	url: '/application/validateplotdetails',
+		// 	data: {
+		// 		'plot_number': $("#element_{$element_plot_id}").val,
+		// 		'block_number': $("#element_{$element_block_id}").val
+		// 	},
+		// 	type: 'POST',
+		// 	success: function(response) {
+		// 		const response_data = JSON.parse(response);
+		// 		if (response_data?.success) {
+		// 			$("#element_{$query_element_id}").addClass('valid');
+		// 			$("#element_{$element_block_id}").addClass('valid');
+		// 		} else {
+		// 			$("#element_{$query_element_id}").addClass('invalid');
+		// 			$("#element_{$element_block_id}").addClass('invalid');
+		// 		}
+		// 	},
+		// 	error: function(error) {
+		// 		$("#element_{$query_element_id}").addClass('invalid');
+		// 		$("#element_{$element_block_id}").addClass('invalid');
+		// 	}
+		// })
+		// $logic_code .= "});";
+
+
+	}
 	
 	//generate the javascript code for conditional logic
 	function mf_get_logic_javascript($dbh,$form_id,$page_number){

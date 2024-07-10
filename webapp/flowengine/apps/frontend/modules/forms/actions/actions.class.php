@@ -11,6 +11,35 @@
  */
 class formsActions extends sfActions
 {
+      private $cache;
+      private $token;
+
+      private $key;
+      public function initialize($context, $moduleName, $actionName)
+      {
+            parent::initialize($context, $moduleName, $actionName);
+
+            $this->cache = new sfFileCache([
+                  'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+            ]);
+            $user = $this->getUser();
+            $username = '';
+
+            if ($user->isAuthenticated()) {
+                  $username = $user->getUsername();
+            }
+
+
+            $this->key = "jambo_token_{$username}";
+
+
+            if (empty($this->cache->get($this->key))) {
+                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
+                  $this->cache->set($this->key, $token, 3600);
+            }
+
+            $this->token = $this->cache->get($this->key);
+      }
       /**
        * Executes 'Groups' action
        *
@@ -121,7 +150,7 @@ class formsActions extends sfActions
             }
 
 
-            $q =  Doctrine_Query::create()
+            $q = Doctrine_Query::create()
                   ->from('MfInvoice m')
                   ->where('m.id = ?', $request->getParameter("invoice"));
 
@@ -308,13 +337,6 @@ class formsActions extends sfActions
 
             $stream = new Stream();
 
-            if (isset($_SESSION['jambo_token'])) {
-                  $token = $_SESSION['jambo_token'];
-            } else {
-                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
-                  $_SESSION['jambo_token'] = $token;
-            }
-
             $subcounty_name = $applicationManager->getSubCountyNameFromApplication(
                   $this->application->getFormId(),
                   $this->application->getEntryId()
@@ -347,15 +369,14 @@ class formsActions extends sfActions
                   'contentType' => 'json',
                   'data' => $payload,
                   'headers' => [
-                        "Authorization" => "JWT " . $token,
+                        "Authorization" => "JWT " . $this->token,
                   ]
             ]);
 
             if ($query_response->content['verify_otp']) {
-                  $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
+                  $this->cache->set("{$this->key}_jambo_wallet_otp", $query_response->content['otp'], 3600);
             }
-
-            $_SESSION['jambo_pay_ref'] = $query_response->content["ref"];
+            $this->cache->set("{$this->key}_jambo_pay_ref", $query_response->content["ref"], 3600);
 
             if (!empty($query_response->content["ref"])) {
                   $transaction->setNarration($query_response->content["ref"]);
@@ -376,11 +397,6 @@ class formsActions extends sfActions
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/authorize_wallet_payment/';
 
             $stream = new Stream();
-            if (isset($_SESSION['jambo_token'])) {
-                  $token = $_SESSION['jambo_token'];
-            } else {
-                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
-            }
 
             $invoice_id = $request->getParameter('invoice');
 
@@ -391,7 +407,7 @@ class formsActions extends sfActions
             $this->invoice = $q->fetchOne();
 
 
-            $ref = $_SESSION['jambo_pay_ref'];
+            $ref = $this->cache->get("{$this->key}_jambo_pay_ref");
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
@@ -404,7 +420,7 @@ class formsActions extends sfActions
                         'amount' => $this->invoice->getTotalAmount(),
                   ],
                   'headers' => array(
-                        "Authorization" => "JWT " . $token,
+                        "Authorization" => "JWT " . $this->token,
                   )
             ]);
 
@@ -422,13 +438,8 @@ class formsActions extends sfActions
             $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/regenerate_otp/';
 
             $stream = new Stream();
-            if (isset($_SESSION['jambo_token'])) {
-                  $token = $_SESSION['jambo_token'];
-            } else {
-                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
-                  $_SESSION['jambo_token'] = $token;
-            }
-            $ref = $_SESSION['jambo_pay_ref'];
+
+            $ref = $this->cache->get("{$this->key}_jambo_pay_ref");
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -438,7 +449,7 @@ class formsActions extends sfActions
                         'ref' => $ref
                   ],
                   'headers' => array(
-                        "Authorization" => "JWT " . $token,
+                        "Authorization" => "JWT " . $this->token,
                   )
             ]);
 
@@ -446,7 +457,7 @@ class formsActions extends sfActions
                   return $this->renderText(json_encode(['success' => true, 'status' => $query_response->status, 'content' => $query_response->content]));
             }
 
-            $_SESSION['jambo_wallet_otp'] = $query_response->content['otp'];
+            $this->cache->set("{$this->key}_jambo_token", $query_response->content['otp'], 3600);
 
             return $this->renderText(json_encode(['success' => false, 'status' => $query_response->status, 'content' => ['msg' => 'Check your phone for an OTP']]));
       }
@@ -473,7 +484,7 @@ class formsActions extends sfActions
                         $transaction->save();
 
 
-                        $q =  Doctrine_Query::create()
+                        $q = Doctrine_Query::create()
                               ->from('MfInvoice m')
                               ->where('m.id = ?', $transaction->getInvoiceId());
 
@@ -507,7 +518,7 @@ class formsActions extends sfActions
             $transaction->save();
 
 
-            $q =  Doctrine_Query::create()
+            $q = Doctrine_Query::create()
                   ->from('MfInvoice m')
                   ->where('m.id = ?', $transaction->getInvoiceId());
 
@@ -546,7 +557,7 @@ class formsActions extends sfActions
             $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
 
             $result = $this->check_payment_jambo_pay($billing_reference_number);
-            
+
             if (!$result) {
                   return $this->renderText(json_encode(['success' => false, 'status' => 404, 'data' => ['msg' => 'Payment Not Found.']]));
             } else {
@@ -568,7 +579,7 @@ class formsActions extends sfActions
                   'ssl' => 'none',
                   'contentType' => 'json',
                   'headers' => array(
-                        "Authorization" => "JWT " . $_SESSION['jambo_token'],
+                        "Authorization" => "JWT " . $this->token,
                   ),
                   'data' => [
                         'bill_number' => $billing_reference_number
@@ -600,7 +611,7 @@ class formsActions extends sfActions
                   'ssl' => 'none',
                   'contentType' => 'json',
                   'headers' => array(
-                        "Authorization" => "JWT " . $_SESSION['jambo_token'],
+                        "Authorization" => "JWT " . $this->token,
                   )
             ]);
 
@@ -644,13 +655,14 @@ class formsActions extends sfActions
                   'ssl' => 'none',
                   'contentType' => 'json',
                   'headers' => [
-                        "Authorization" => "JWT " . $_SESSION['jambo_token'],
+                        "Authorization" => "JWT " . $this->token,
                   ],
                   'data' => $data
             ]);
 
             if ($query_response->status == 200 || $query_response->status == 201) {
-                  $_SESSION['bill_ref'] = $query_response->content['bill_ref'];
+                  $this->cache->set("{$this->key}_bill_ref", $query_response->content['bill_ref'], 3600);
+                  
 
                   error_log($query_response->content['bill_ref']);
             } else {

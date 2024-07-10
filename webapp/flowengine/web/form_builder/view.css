@@ -948,7 +948,7 @@
 }
 
 #main_body input[type="text"] {
-    min-height: 34px;
+    /* min-height: 34px; */
     padding: 6px 8px;
     font-size: 14px;
     line-height: 20px;

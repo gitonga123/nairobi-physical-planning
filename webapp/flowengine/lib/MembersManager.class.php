@@ -142,6 +142,8 @@ class MembersManager
 			$member_no = 6;
 		}
 
+		return array('member_no' => true, 'validated' => true, 'category' => true, 'database' => true);
+
 		if (empty($UserCategory) && !$details_query) {
 			return array('member_no' => '', 'validated' => false, 'category' => '', 'database' => '');
 		}

@@ -269,7 +269,7 @@ $element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class} class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
 		<div class="col-sm-10">
-			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} {$maxlength} class="element form-control text {$element->size}" type="{$element_type}" value="{$element->default_value}"  {$input_handler} {$element->edit_style}/>
+			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} {$maxlength} class="element form-control text large" type="{$element_type}" value="{$element->default_value}"  {$input_handler} {$element->edit_style}/>
 			{$range_limit_markup}
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
@@ -437,7 +437,7 @@ $element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
 		<div class="col-sm-10">
-			<textarea id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control textarea {$element->size}" rows="8" cols="90" {$input_handler} {$element->edit_style}>{$element->default_value}</textarea>
+			<textarea id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control textarea large" rows="8" cols="90" {$input_handler} {$element->edit_style}>{$element->default_value}</textarea>
 			{$range_limit_markup}
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
@@ -3576,7 +3576,7 @@ $element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group" {$element->edit_style}>
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
 		<div class="col-sm-10">
-			<input id="element_{$element->id}" name="element_{$element->id}" class="element form-control text {$element->size}" {$attr_placeholder} {$attr_readonly} type="number" {$maxlength} {$quantity_link_data_tag} value="{$element->default_value}" {$input_handler}/>
+			<input id="element_{$element->id}" name="element_{$element->id}" class="element form-control text large" {$attr_placeholder} {$attr_readonly} type="number" {$maxlength} {$quantity_link_data_tag} value="{$element->default_value}" {$input_handler}/>
 			{$range_limit_markup}
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
@@ -4378,7 +4378,7 @@ EOT;
 			$element->title = $mf_lang['captcha_simple_image_title'];
 $captcha_html = <<<EOT
 <img id="captcha_image" src="/form_builder/captcha.php?t={$timestamp}" width="200" height="60" alt="Please refresh your browser to see this image." /><br />
-<input id="captcha_response_field" name="captcha_response_field" class="element form-control text small" type="text" /><div id="dummy_captcha_internal"></div>
+<input id="captcha_response_field" name="captcha_response_field" class="element form-control text large" type="text" /><div id="dummy_captcha_internal"></div>
 EOT;
 
 		}else if($element->captcha_type == 'r'){ //if this is recaptcha
@@ -4442,7 +4442,7 @@ EOT;
 
 			$captcha_html = <<<EOT
 <span class="text_captcha">{$text_captcha_question}</span>
-<input id="captcha_response_field" name="captcha_response_field" class="element form-control text small" type="text" />
+<input id="captcha_response_field" name="captcha_response_field" class="element form-control text large" type="text" />
 EOT;
 		}
 
@@ -5712,7 +5712,7 @@ EOT;
 			//error_log('------------VALUE ARRAY--------');
 			//error_log(print_r($value[default_value],true));
 			  if($key == 'element_'.$element_data->id or preg_match('/element_'.$element_data->id.'_\d/',$key)){
-					$populated_elem_values[] = $value[default_value];
+					$populated_elem_values[] = $value['default_value'];
 					$element_keys[] = $key;
 				}
 			}
@@ -6046,11 +6046,15 @@ EOT;
 			$signature_pad_init = '';
 		}
 
+		// uasin gishu logic, it might be hard coded a bit
+		
+		$logic_js = mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_number);
+		
 		//generate conditional logic code, if enabled and not on edit entry page
 		if(!empty($form->logic_field_enable) && empty($edit_id)){
-			$logic_js = mf_get_logic_javascript($dbh,$form_id,$page_number);
+			$logic_js .= mf_get_logic_javascript($dbh,$form_id,$page_number);
 		}else{
-			$logic_js = '';
+			$logic_js .= '';
 		}
 
 		$page_main_title = $form->name;

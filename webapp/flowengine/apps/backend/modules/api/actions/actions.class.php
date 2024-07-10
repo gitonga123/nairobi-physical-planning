@@ -282,90 +282,22 @@ class apiActions extends sfActions
             }
         } else {
             error_log("Failed response with status code: " . $query_response->status);
-            echo false;
-            return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
+
+            $message = '';
+            if (isset($content['errors'])) {
+                $message .= $content['errors'];
+            } else {
+                $message .= $content['message'];
+            }
+
+            if (isset($content['balance'])) {
+                $message .= "Balance: KES {$content['balance']}";
+            }
+            return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $message . '</p>']);
+
+
         }
     }
-
-    // public function executeValidateplotdetails(sfWebRequest $request)
-    // {
-    //     $block_number = trim($request->getParameter('block_number'));
-
-    //     $plot_number = trim($request->getParameter('plot_no'));
-
-    //     error_log("\n\n");
-
-    //     $stream = new Stream();
-    //     $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/land/bill/land_payment_status/';
-    //     if ($block_number) {
-    //         $_SESSION['block_number'] = $block_number;
-    //     }
-
-    //     error_log("Block number --->" . $_SESSION['block_number']);
-
-    //     if ($plot_number) {
-    //         $_SESSION['plot_number'] = $plot_number;
-
-    //         return $this->renderText(true);
-    //     }
-
-
-    //     if (!isset($_SESSION['block_number'])) {
-    //         return $this->renderText(false);
-    //     }
-
-    //     if (!isset($_SESSION['plot_number'])) {
-    //         return $this->renderText(false);
-    //     }
-
-
-    //     error_log("Plot number --->" . $_SESSION['plot_number']);
-
-    //     error_log("Found both so we continue --->");
-
-    //     if (!isset($_SESSION['jambo_token'])) {
-    //         $_SESSION['jambo_token'] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
-    //     }
-
-
-    //     $query_response = $stream->sendRequest([
-    //         'url' => $url,
-    //         'method' => 'GET',
-    //         'ssl' => 'none',
-    //         'contentType' => 'json',
-    //         'headers' => [
-    //             "Authorization" => "JWT " . $_SESSION['jambo_token'],
-    //         ],
-    //         'data' => [
-    //             'plot_number' => $_SESSION['plot_number'],
-    //             'block_number' => $_SESSION['block_number']
-    //         ]
-    //     ]);
-
-    //     error_log("Response status code is ----> {$query_response->status}");
-    //     $content = $query_response->content;
-
-    //     if ($query_response->status == 200 || $query_response->status == 201) {
-
-    //         error_log("Content is below so we continue ---->");
-
-    //         error_log("<pre>" . print_r($content, true) . "</pre>");
-
-    //         error_log("\n\n");
-
-    //         if ($content['upto_date']) {
-    //             return $this->renderText(true);
-    //         } else {
-    //             return $this->renderText(false);
-    //         }
-    //     } else {
-    //         error_log("Response cde is not 200 or 201");
-    //         error_log("\n\n");
-    //         return $this->renderText(false);
-    //     }
-
-    //     return sfView::NONE;
-    // }
 
     private function json($content, $status = 200)
     {

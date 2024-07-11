@@ -30,7 +30,10 @@ class signonActions extends sfActions
             $this->getUser()->signOut();
             $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_logout_url') . '?return_url=' . sfConfig::get('app_sso_homepage') : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signout');
         } else {
-            $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_logout_url') . '?return_url=' . sfContext::getInstance()->getController()->genUrl('logout/index', true) : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signout');
+            if ($this->getUser()->isAuthenticated()) {
+                $this->getUser()->signOut();
+            }
+            $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_logout_url') . '?return_url=' . sfConfig::get('app_sso_homepage') : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signout');
         }
         return $this->redirect($url);
     }

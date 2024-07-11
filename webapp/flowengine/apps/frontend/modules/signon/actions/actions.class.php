@@ -147,10 +147,17 @@ class signonActions extends sfActions
             $this->getUser()->signin($this->sfGuardUser, false);
 
             if ($this->getUser()->getAttribute('referer')) {
+                var_dump("1");
+                var_dump(sfConfig::get('sso_jambo_web_url'));
+                die;
                 // return $this->redirect($this->getUser()->getAttribute('referer'));
                 return $this->redirect(sfConfig::get('sso_jambo_web_url'));
             } else {
-                return $this->redirect(sfConfig::get('sso_jambo_web_url') . "/plan");
+                $url = sfConfig::get('sso_jambo_web_url') . "/plan";
+                var_dump("2");
+                var_dump($url);
+                die;
+                return $this->redirect($url);
             }
         } catch (\Exception $error) {
             throw new sfException($error->getMessage(), $stream_response->status);

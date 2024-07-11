@@ -153,7 +153,7 @@ class signonActions extends sfActions
                 var_dump($url);
                 die;
                 // return $this->redirect($this->getUser()->getAttribute('referer'));
-                return $this->redirect(sfConfig::get('sso_jambo_web_url'));
+                return $this->redirect($url);
             } else {
                 $url = sfConfig::get('sso_jambo_web_url') . "/plan";
                 var_dump("2");

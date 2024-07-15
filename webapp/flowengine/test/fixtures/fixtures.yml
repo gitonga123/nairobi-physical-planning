@@ -823,8 +823,8 @@ ApSettings:
     data_dir: /vagrant/web/asset_data
     upload_dir_web: null
     data_dir_web: null
-    organisation_name: Nakuru County Government
-    organisation_email: info.eservices@nakuru.go.ke
+    organisation_name: Uasin Gishu County Government
+    organisation_email: info.eservices@uasin.go.ke
     organisation_description: null
     form_manager_max_rows: '10'
     admin_image_url: null

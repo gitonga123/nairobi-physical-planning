@@ -265,7 +265,7 @@
                             </div>
                             <div class="col-md-6 ">
                                 <div class="copyright-text">
-                                    <p class="mb-0">&copy; <?php echo date("Y") ?> Nakuru County E-services. All rights reserved.</p>
+                                    <p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County E-services. All rights reserved.</p>
                                 </div>
                             </div>
                         </div>

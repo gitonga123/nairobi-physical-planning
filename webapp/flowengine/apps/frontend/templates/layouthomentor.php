@@ -324,7 +324,7 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="Nakuru County">
+									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="Uasin Gishu County">
 								</div>
 								<div class="footer-about-content">
 									<p class="footer-sub-text">Uasin Gishu County e-Services portal - Access County services now from the comfort of your desk!</p>

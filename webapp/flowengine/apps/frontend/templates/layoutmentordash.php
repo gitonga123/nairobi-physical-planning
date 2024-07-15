@@ -318,7 +318,7 @@
 						<div class="row">
 							<div class="col-12 text-center">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php date('Y') ?> Nakuru County eServices. All rights reserved.</p>
+									<p class="mb-0">&copy; <?php date('Y') ?> Uasin Gishu County - Physical Planning. All rights reserved.</p>
 								</div>
 							</div>
 						</div>

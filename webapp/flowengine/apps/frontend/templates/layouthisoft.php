@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Hi-soft - IT Solutions and Services Company HTML5 Template" />
+    <meta name="description" content="UASIN GISHU - PHYSICAL PLANNING" />
     <meta name="author" content="potenzaglobalsolutions.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nakuru County e-Services</title>
+    <title>Uasin Gishu - Physical Planning</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico" />
@@ -439,7 +439,7 @@
                   <p class="mt-3 text-dark">We also know those epic stories</p>
                 </div>
                 <div class="col-lg-6">
-                  <h5 class="text-primary">Nakuru County HQ office</h5>
+                  <h5 class="text-primary">Uasin Gishu County HQ office</h5>
                   <p class="text-dark">P.O BOX 2870-20100</p>
                   <p class="text-dark"><i class="fab fa-whatsapp me-2 text-primary"></i>+(051) 2214142
 </p>

@@ -329,7 +329,7 @@
 						if (data?.content?.verify_otp) {
 							paymentOption = `<div class="card shadow mt-3 mb-4">
 												<div class="card-header bg-default text-white text-center d-flex align-items-center">
-													<img src="/asset_mentor/assets/img/jambo_pay_wallet.png" class="img-fluid mr-3" width="100px" height="auto">
+													<img src="/asset_mentor/assets/img/ALT_SISIBOPAY_LOGO.svg" class="img-fluid mr-3" width="100px" height="auto">
 													<h4 class="mb-0">Wallet</h4>
 												</div>
 												<div class="card-body">

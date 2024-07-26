@@ -13,11 +13,13 @@ use_helper("I18N");
 
 //Invoicing Task
 if ($task->getType() == "3" && $task->getStatus() != 25) {
-?>
+    ?>
     <div class="alert alert-success">
         <strong>Please!</strong> Select a fee(s) from the list to create an invoice.
     </div>
-    <form class="form-bordered" id="feeform" method="post" action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" id="MailContentForm" name="MailContentForm" onSubmit="return validate_editfield();" autocomplete="off" data-ajax="false">
+    <form class="form-bordered" id="feeform" method="post"
+        action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" id="MailContentForm" name="MailContentForm"
+        onSubmit="return validate_editfield();" autocomplete="off" data-ajax="false">
         <?php
         $grandtotal = 0;
         $q = Doctrine_Query::create()
@@ -27,35 +29,6 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
         $invoicetemplate = $q->fetchOne();
         $invoicemanager = new InvoiceManager();
 
-        // if ($invoicetemplate && $task->getStatus() != 25) {
-            // $q = Doctrine_Query::create()
-            //     ->from('fee a')
-            //     ->where('a.invoiceid = ?', $invoicetemplate->getId());
-            // $fixedfees = $q->execute();
-
-            // $count = 0;
-            //OTB Start Patch - For Implementing Dynamic Fees
-            
-            //OTB End Patch - For Implementing Dynamic Fees
-            //foreach ($fixedfees as $fee) {
-                // $count++;
-                //OTB Start Patch - For Implementing Dynamic Fees
-                // $fee_amount = $invoicemanager->getFeeAmount($fee, $application_form[0], $application->getFormId());
-                //OTB End Patch - For Implementing Dynamic Fees
-        ?>
-                <!-- <div class="form-group">
-                    <label class="col-sm-6">
-                        <?php // echo $fee->getFeeCode(); ?>: <?php // echo $fee->getDescription(); ?>
-                        <input type='hidden' name='feetitle[]' value="<?php // echo $fee->getFeeCode() . ": " . $fee->getDescription(); ?>">
-                    </label>
-                    <div class="col-sm-6">
-                        <input class="form-control" type='number' id='fee<?php //echo $count; ?>' name='feevalue[]' value="<?php //echo $fee_amount; ?>" onkeyup='updatefee()'>
-                    </div>
-                </div> -->
-        <?php
-               // $grandtotal = $grandtotal + $fee_amount;
-            //}
-        //}
         $feeselect = "<option>" . __("Choose Fee") . "</option>";
 
         $q = Doctrine_Query::create()
@@ -98,7 +71,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                 }
                 self.xmlHttpReq1.open('POST', '/backend.php/fees/getfee', true);
                 self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                self.xmlHttpReq1.onreadystatechange = function() {
+                self.xmlHttpReq1.onreadystatechange = function () {
                     if (self.xmlHttpReq1.readyState == 4) {
                         if (document.getElementById(id).value != "") {
                             document.getElementById(id).value = self.xmlHttpReq1.responseText;
@@ -125,7 +98,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             function updateTotal() {
                 var total = 0;
 
-                $("#feeform input[type=number]").each(function() {
+                $("#feeform input[type=number]").each(function () {
                     if ($(this).attr('id') == 'servicefee' || $(this).attr('id') == 'totalfee') {
 
                     } else {
@@ -140,63 +113,157 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
         <div class="more_fees_id">
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control input-md' onChange='getFee("inv_1", this.value)' id="select_fee_1" data-width="100%">
+                    <select name='feetitle[]' class='form-control input-md' onChange='getFee("inv_1", this.value)'
+                        id="select_fee_1" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
                 </label>
-                <div class='col-sm-8'> <input type='number' id='inv_1' onkeyup='updateTotal();' name='feevalue[]' disabled='disabled' class='form-control' value="0" /></div>
+                <div class='col-sm-8'> <input type='number' id='inv_1' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
             </div>
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control input-md' onChange='getFee("inv_2", this.value)' id="select_fee_2" data-width="100%">
-                        <?php  echo $feeselect; ?>
+                    <select name='feetitle[]' class='form-control input-md' onChange='getFee("inv_2", this.value)'
+                        id="select_fee_2" data-width="100%">
+                        <?php echo $feeselect; ?>
                     </select>
                 </label>
-                <div class='col-sm-8'> <input type='number' id='inv_2' onkeyup='updateTotal();' name='feevalue[]' disabled='disabled' class='form-control' value="0" /></div>
+                <div class='col-sm-8'> <input type='number' id='inv_2' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
             </div>
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_3", this.value)' id="select_fee_3" data-width="100%">
-                        <?php  echo $feeselect; ?>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_3", this.value)' id="select_fee_3"
+                        data-width="100%">
+                        <?php echo $feeselect; ?>
                     </select>
                 </label>
-                <div class='col-sm-8'> <input type='number' id='inv_3' onkeyup='updateTotal();' name='feevalue[]' disabled='disabled' class='form-control' value="0" /></div>
+                <div class='col-sm-8'> <input type='number' id='inv_3' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
             </div>
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_4", this.value)' id="select_fee_4" data-width="100%">
-                        <?php  echo $feeselect; ?>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_4", this.value)' id="select_fee_4"
+                        data-width="100%">
+                        <?php echo $feeselect; ?>
                     </select>
                 </label>
-                <div class='col-sm-8'> <input type='number' id='inv_4' onkeyup='updateTotal();' name='feevalue[]' disabled='disabled' class='form-control' value="0" /></div>
+                <div class='col-sm-8'> <input type='number' id='inv_4' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
             </div>
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_5", this.value)' id="select_fee_5" data-width="100%">
-                        <?php  echo $feeselect; ?>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_5", this.value)' id="select_fee_5"
+                        data-width="100%">
+                        <?php echo $feeselect; ?>
                     </select>
                 </label>
-                <div class='col-sm-8'> <input type='number' id='inv_5' onkeyup='updateTotal();' name='feevalue[]' disabled='disabled' class='form-control' value="0" /></div>
+                <div class='col-sm-8'> <input type='number' id='inv_5' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_6", this.value)' id="select_fee_6" data-width="100%">
-                        <?php  echo $feeselect; ?>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_6", this.value)' id="select_fee_6"
+                        data-width="100%">
+                        <?php echo $feeselect; ?>
                     </select>
                 </label>
-                <div class='col-sm-8'> <input type='number' id='inv_6' onkeyup='updateTotal();' name='feevalue[]' disabled='disabled' class='form-control' value="0" /></div>
+                <div class='col-sm-8'> <input type='number' id='inv_6' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_7", this.value)' id="select_fee_7" data-width="100%">
-                        <?php  echo $feeselect; ?>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_7", this.value)' id="select_fee_7"
+                        data-width="100%">
+                        <?php echo $feeselect; ?>
                     </select>
                 </label>
-                <div class='col-sm-8'> <input type='number' id='inv_7' onkeyup='updateTotal();' name='feevalue[]' disabled='disabled' class='form-control' value="0" /></div>
+                <div class='col-sm-8'> <input type='number' id='inv_7' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_8", this.value)' id="select_fee_8"
+                        data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_8' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_9", this.value)' id="select_fee_9"
+                        data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_9' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_10", this.value)'
+                        id="select_fee_10" data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_10' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_11", this.value)'
+                        id="select_fee_11" data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_11' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_12", this.value)'
+                        id="select_fee_12" data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_12' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_13", this.value)'
+                        id="select_fee_13" data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_13' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_14", this.value)'
+                        id="select_fee_14" data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_14' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
+            </div>
+            <div class='form-group' class='formgroup'>
+                <label class='col-sm-4'>
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_15", this.value)'
+                        id="select_fee_15" data-width="100%">
+                        <?php echo $feeselect; ?>
+                    </select>
+                </label>
+                <div class='col-sm-8'> <input type='number' id='inv_15' onkeyup='updateTotal();' name='feevalue[]'
+                        disabled='disabled' class='form-control' value="0" /></div>
             </div>
         </div>
 
@@ -212,7 +279,8 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 
         <div class="form-group">
             <div class="col-sm-12" style="padding: 10px;" align="right">
-                <button class="btn btn-primary" type="submit" name="submitbuttonname" value="submitbuttonvalue"> <?php echo __("Submit"); ?> </button>
+                <button class="btn btn-primary" type="submit" name="submitbuttonname" value="submitbuttonvalue">
+                    <?php echo __("Submit"); ?> </button>
             </div>
         </div>
     </form>
@@ -268,11 +336,11 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                 }
             }
 
-    ?>
+            ?>
             <ul>
                 <?php echo $action_string; ?>
             </ul>
-<?php
+            <?php
         }
     } else {
         //If task is marked as pending, display form for entering comments
@@ -369,11 +437,16 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 ?>
 
 <style>
+
+    #assessmentModal {
+        max-height: max-content;
+    }
     .more_fees_id {
         min-width: auto;
-        max-height: 30%;
+        max-height: 60vh;
         overflow: auto;
     }
+
 
     .select2-selection__rendered {
         line-height: 31px !important;

@@ -960,23 +960,23 @@ button.bg-danger:hover {
     border-color: #1e88e5!important;
 }
 .btn-primary {
-	background-color: #1e88e5;
-    border: 1px solid #1e88e5;
+	background-color: #006838;
+    border: 1px solid #006838;
 }
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary.active,
 .btn-primary:active,
 .open > .dropdown-toggle.btn-primary {
-	background-color: #1879cd;
-	border: 1px solid #1879cd;
+	background-color: #006838;
+	border: 1px solid #006838;
 }
 .btn-primary:focus{
 	color: #fff;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #1e88e5;
+    background-color: #006838;
 }
 .btn-primary.active.focus,
 .btn-primary.active:focus,
@@ -1609,8 +1609,8 @@ button.bg-danger:hover {
 .nav-tabs.nav-tabs-bottom > li > a.active:focus {
 	border-bottom-width: 1px;
 	border-color: transparent;
-	border-bottom-color: #1e88e5;
-	color: #1e88e5;
+	border-bottom-color: #006838;
+	color: #006838;
 	background-color: transparent;
 	transition: none 0s ease 0s; 
 	-moz-transition: none 0s ease 0s; 
@@ -6611,8 +6611,8 @@ div.table-responsive>div.dataTables_wrapper>div.row {
 }
 .invoice-setting-btn .btn-primary {
     background: #fff;
-    border: 1px solid #1e88e5;
-    color: #1e88e5;
+    border: 1px solid #006838;
+    color: #006838;
 }
 .invoices-items-main-tabs {
     border-bottom: 3px solid #F3F3F3;

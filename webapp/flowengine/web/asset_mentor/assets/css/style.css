@@ -1624,7 +1624,7 @@ button.close {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-	background-color: #1a234f;
+	background-color: #006838;
 	border: 0;
 	color: #fff;
 	border-bottom: 1px solid #e3e8eb;
@@ -1979,7 +1979,7 @@ button.close {
     border-bottom: 1px solid #006838;
 }
 .header-three .header-navbar-rht li a.header-login {
-    background-color: #FFB54A;
+    background-color: #EBB422;
     border-radius: 5px;
     padding: 9px 32px !important;
     font-size: 15px;
@@ -2163,7 +2163,7 @@ html.menu-opened body {
 -----------------------*/
 
 .footer {
-    background-color: #1a234f;
+    background-color: #006838;
 	border-top: 1px solid #eceff0;
 	position: relative;
 }
@@ -3869,7 +3869,7 @@ html.menu-opened body {
 	margin-bottom: 50px;
 }
 .best-course-detail h2 {
-	color: #FFB54A;
+	color: #EBB422;
 	font-weight: 700;
 	margin-bottom: 6px;
 	font-size: 30px;
@@ -3886,7 +3886,7 @@ html.menu-opened body {
 	color: #fff;
 }
 .best-course-detail .bg-find {
-	background: #FFB54A;
+	background: #EBB422;
 	color: #fff;
 	padding: 7px 29px;
 	font-weight: 700;
@@ -5228,7 +5228,7 @@ html.menu-opened body {
     border: 1px solid #e3e8eb;
 }
 .new-course-three .course-mail .bg-course-subscribe {
-	background: #FFB54A;
+	background: #EBB422;
 	color: #fff;
 	line-height: 2.9;
 	padding: 6px 17px;
@@ -5406,7 +5406,7 @@ html.menu-opened body {
 	color: #000;
 }
 .featured-course-design .rating .rate-point {
-	color: #FFB54A;
+	color: #EBB422;
 }
 .featured-course-design .rating {
 	width: auto;

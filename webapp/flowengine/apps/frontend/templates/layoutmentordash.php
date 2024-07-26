@@ -43,13 +43,13 @@
 							</span>
 						</a>
 						<a href="/index.php/dashboard" class="navbar-brand logo">
-							<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid" alt="Logo">
+							<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid" alt="Uasin Gishu Logo">
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
 							<a href="/index.php/dashboard" class="menu-logo">
-								<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid" alt="Logo">
+								<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"  alt="Uasin Gishu Logo">
 							</a>
 							<a id="menu_close" class="menu-close" href="javascript:void(0);">
 								<i class="fas fa-times"></i>
@@ -211,7 +211,7 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="logo">
+									<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"  alt="Uasin Gishu Logo">
 								</div>
 								<div class="footer-about-content">
 									<p> Access your applications, invoices received, download permits and much more.. </p>

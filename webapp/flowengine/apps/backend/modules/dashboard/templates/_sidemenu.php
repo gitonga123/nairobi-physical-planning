@@ -80,7 +80,7 @@ $site_settings = Functions::site_settings();
         }
       }
       ?>
-      <?php if ($sf_user->mfHasCredential("manageplots")) {
+      <?php if ($sf_user->mfHasCredential("manageplotsdisabled")) {
       ?>
         <li <?php if ($sf_context->getModuleName() == "plot") {
               echo "class='active'";

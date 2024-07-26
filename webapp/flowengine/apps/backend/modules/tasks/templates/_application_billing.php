@@ -28,7 +28,7 @@ use_helper("I18N");
                 $invoices = $q->execute();
 
                 if (sizeof($invoices) > 0) {
-                ?>
+                    ?>
                     <tr>
                         <th width="60px">#</th>
                         <th><?php echo __("Date Of Issue"); ?></th>
@@ -38,9 +38,9 @@ use_helper("I18N");
                         <th><?php echo __("Status"); ?></th>
                         <th></th>
                     </tr>
-                <?php
+                    <?php
                 } else {
-                ?>
+                    ?>
                     <tr>
                         <th>
                             <div align="left">
@@ -48,7 +48,7 @@ use_helper("I18N");
                             </div>
                         </th>
                     </tr>
-                <?php
+                    <?php
                 }
                 ?>
             </thead>
@@ -66,37 +66,44 @@ use_helper("I18N");
                     $invcount++;
 
                     $inv_currency = $invoice->getCurrency();
-                ?>
+                    ?>
                     <tr>
                         <td><?php echo $invoice->getId(); ?></td>
                         <td><?php echo $invoice->getCreatedAt(); ?></td>
                         <td><?php if ($invoice->getCurrency()) {
-                                echo "KES";
-                            } else {
-                                echo "KES";
-                            } ?>. <?php echo number_format($invoice->getTotalAmount()); ?></td>
+                            echo "KES";
+                        } else {
+                            echo "KES";
+                        } ?>. <?php echo number_format($invoice->getTotalAmount()); ?></td>
                         <td><?php echo $invoice->getInvoiceNumber(); ?></td>
                         <td><?php echo $invoice->getTransactionId(); ?></td>
                         <td><?php echo $invoice->getStatus(); ?></td>
                         <td>
-                            <a class="btn btn-success btn-xs" id="printinvoice" href="/backend.php/invoices/view/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-print"></i></a>
+                            <a class="btn btn-success btn-xs" id="printinvoice"
+                                href="/backend.php/invoices/view/id/<?php echo $invoice->getId(); ?>"><i
+                                    class="fa fa-print"></i></a>
 
                             <?php
                             $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                             $sf_user->setAttribute('resume_url', $url);
 
                             if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('code_access_rights')) {
-                            ?>
-                                <a class="btn btn-success btn-xs" href="/backend.php/applications/paynow/id/<?php echo $invoice->getId(); 
-                                                                                                                    ?>" id="printinvoice" type="button"><i class="fa fa-check mr5"></i> <?php echo __("Pay Now"); 
-                                                                                                                                                                                        ?></a>
-                            <?php
+                                ?>
+                                <a class="btn btn-success btn-xs" href="/backend.php/applications/paynow/id/<?php echo $invoice->getId();
+                                ?>"
+                                    id="printinvoice" type="button"><i class="fa fa-check mr5"></i>
+                                    <?php echo __("Pay Now");
+                                    ?></a>
+                                <?php
                             }
-                            
+
                             if ($invoice->getPaid() <> 3 && $invoice->getPaid() <> 2 && $sf_user->mfHasCredential('code_access_rights')) {
-                            ?>
-                                <a title="Cancel Invoice" class="btn btn-danger btn-xs" id="makepayment" onClick="if(confirm('Are you sure you want to cancel this invoice?')){ return true; }else{ return false; }" href="/backend.php/applications/cancelpayment/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-times mr5"></i> <?php echo __('Cancel Invoice'); ?></a>
-                            <?php
+                                ?>
+                                <a title="Cancel Invoice" class="btn btn-danger btn-xs" id="makepayment"
+                                    onClick="if(confirm('Are you sure you want to cancel this invoice?')){ return true; }else{ return false; }"
+                                    href="/backend.php/applications/cancelpayment/id/<?php echo $invoice->getId(); ?>"><i
+                                        class="fa fa-times mr5"></i> <?php echo __('Cancel Invoice'); ?></a>
+                                <?php
                             }
                             ?>
                         </td>
@@ -113,10 +120,11 @@ use_helper("I18N");
                         <td></td>
                         <td></td>
                         <td colspan="5">
-                            <p><?php echo __("Total Paid"); ?> <?php echo $inv_currency . " " . number_format($invtotal); ?></p>
+                            <p><?php echo __("Total Paid"); ?>     <?php echo $inv_currency . " " . number_format($invtotal); ?>
+                            </p>
                         </td>
                     </tr>
-                <?php
+                    <?php
                 }
                 ?>
             </tbody>
@@ -124,13 +132,14 @@ use_helper("I18N");
 
         <?php
         if ($sf_user->mfHasCredential('addtopup') && !empty($task)) {
-        ?>
+            ?>
             <table class="table table-special m-b-0">
                 <thead>
                     <tr>
                         <td>
                             <div align="right">
-                                <a class="btn btn-success btn-xs" id="addtopup" href="#" data-toggle="modal" data-target="#topupModal"><i class="fa fa-plus mr5"></i> <?php echo __('Top Up'); ?></a>
+                                <a class="btn btn-success btn-xs" id="addtopup" href="#" data-toggle="modal"
+                                    data-target="#topupModal"><i class="fa fa-plus mr5"></i> <?php echo __('Top Up'); ?></a>
                             </div>
                         </td>
                     </tr>
@@ -152,7 +161,9 @@ use_helper("I18N");
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-bordered" id="topupform" method="post" action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" autocomplete="off" data-ajax="false">
+                            <form class="form-bordered" id="topupform" method="post"
+                                action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" autocomplete="off"
+                                data-ajax="false">
                                 <?php
                                 $grandtotal = 0;
                                 $q = Doctrine_Query::create()
@@ -171,17 +182,20 @@ use_helper("I18N");
 
                                     foreach ($fixedfees as $fee) {
                                         $count++;
-                                ?>
+                                        ?>
                                         <div class="form-group">
                                             <label class="col-sm-4">
                                                 <?php echo $fee->getFeeCode(); ?>: <?php echo $fee->getDescription(); ?>
-                                                <input type='hidden' name='feetitle[]' value="<?php echo $fee->getFeeCode() . ": " . $fee->getDescription(); ?>">
+                                                <input type='hidden' name='feetitle[]'
+                                                    value="<?php echo $fee->getFeeCode() . ": " . $fee->getDescription(); ?>">
                                             </label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type='number' id='fee<?php echo $count; ?>' name='feevalue[]' value="<?php echo number_format($fee->getAmount()); ?>" onkeyup='updatefee()'>
+                                                <input class="form-control" type='number' id='fee<?php echo $count; ?>'
+                                                    name='feevalue[]' value="<?php echo number_format($fee->getAmount()); ?>"
+                                                    onkeyup='updatefee()'>
                                             </div>
                                         </div>
-                                <?php
+                                        <?php
                                         $grandtotal = $grandtotal + $fee->getAmount();
                                     }
                                 }
@@ -228,7 +242,7 @@ use_helper("I18N");
                                         }
                                         self.xmlHttpReq1.open('POST', '/backend.php/fees/getfee', true);
                                         self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                        self.xmlHttpReq1.onreadystatechange = function() {
+                                        self.xmlHttpReq1.onreadystatechange = function () {
                                             if (self.xmlHttpReq1.readyState == 4) {
                                                 if (document.getElementById(id).value != "") {
                                                     document.getElementById(id).value = self.xmlHttpReq1.responseText;
@@ -255,7 +269,7 @@ use_helper("I18N");
                                     function updateTotal(amount) {
                                         var total = 0;
 
-                                        $("#topupform input[type=text]").each(function() {
+                                        $("#topupform input[type=text]").each(function () {
                                             if ($(this).attr('id') == 'servicefee' || $(this).attr('id') == 'totalfee') {
 
                                             } else {
@@ -269,63 +283,172 @@ use_helper("I18N");
 
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control' onChange='getFee("inv_1", this.value)'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_1", this.value)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_1' onkeyup='updateTotal();' name='feevalue[]' class='form-control' value="0" /></div>
+                                    <div class='col-sm-8'> <input type='number' id='inv_1' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
                                 </div>
 
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control' onChange='getFee("inv_2", this.value)'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_2", this.value)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_2' onkeyup='updateTotal();' name='feevalue[]' class='form-control' value="0" /></div>
+                                    <div class='col-sm-8'> <input type='number' id='inv_2' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
                                 </div>
 
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control' onChange='getFee("inv_3", this.value)'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_3", this.value)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_3' onkeyup='updateTotal();' name='feevalue[]' class='form-control' value="0" /></div>
+                                    <div class='col-sm-8'> <input type='number' id='inv_3' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
                                 </div>
 
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control' onChange='getFee("inv_4", this.value)'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_4", this.value)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_4' onkeyup='updateTotal();' name='feevalue[]' class='form-control' value="0" /></div>
+                                    <div class='col-sm-8'> <input type='number' id='inv_4' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
                                 </div>
 
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control' onChange='getFee("inv_5", this.value)'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_5", this.value)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_5' onkeyup='updateTotal();' name='feevalue[]' class='form-control' value="0" /></div>
+                                    <div class='col-sm-8'> <input type='number' id='inv_5' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
                                 </div>
 
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control' onChange='getFee("inv_6", this.value)'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_6", this.value)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_6' onkeyup='updateTotal();' name='feevalue[]' class='form-control' value="0" /></div>
+                                    <div class='col-sm-8'> <input type='number' id='inv_6' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_7", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_7' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_8", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_8' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_9", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_9' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_10", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_10' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
                                 </div>
 
-                                <input type='hidden' id='totalfee' name='feevalue[]' value="<?php echo number_format($grandtotal); ?>">
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_11", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_11' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_12", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_12' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_13", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_13' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_14", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_14' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+
+                                <div class='form-group' class='formgroup'>
+                                    <label class='col-sm-4'>
+                                        <select name='feetitle[]' class='form-control'
+                                            onChange='getFee("inv_15", this.value)'>
+                                            <?php echo $feeselect; ?>
+                                        </select>
+                                    </label>
+                                    <div class='col-sm-8'> <input type='number' id='inv_15' onkeyup='updateTotal();'
+                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                </div>
+
+                                <input type='hidden' id='totalfee' name='feevalue[]'
+                                    value="<?php echo number_format($grandtotal); ?>">
 
                                 <div class="form-group">
                                     <div class="col-sm-12" style="padding: 10px;" align="right">
-                                        <button class="btn btn-primary" type="submit" name="submitbuttonname" value="submitbuttonvalue"> <?php echo __("Submit"); ?> </button>
+                                        <button class="btn btn-primary" type="submit" name="submitbuttonname"
+                                            value="submitbuttonvalue"> <?php echo __("Submit"); ?> </button>
                                     </div>
                                 </div>
                             </form>
@@ -334,7 +457,7 @@ use_helper("I18N");
 
                 </div>
             </div>
-        <?php
+            <?php
         }
         ?>
 

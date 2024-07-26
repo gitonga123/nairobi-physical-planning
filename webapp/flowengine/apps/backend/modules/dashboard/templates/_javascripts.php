@@ -51,48 +51,71 @@
 <script src="/assets_backend/js/bootstrap-wysihtml5.js"></script>
 <script src="/assets_backend/js/easy-number-separator.js"></script>
 
-<script type="text/javascript" src="<?php echo public_path('assets_unified/js/bootstrap-duallistbox/src/jquery.bootstrap-duallistbox.js') ?>"></script>
+<script type="text/javascript"
+  src="<?php echo public_path('assets_unified/js/bootstrap-duallistbox/src/jquery.bootstrap-duallistbox.js') ?>"></script>
 
 <?php
 if ($sf_context->getModuleName() == "tasks") {
-?>
+  ?>
   <script src="/assets_backend/js/slide-in/js/main.js"></script> <!-- Resource jQuery NEW JS -->
   <script src="/assets_backend/js/slide-in/js/modernizr.js"></script> <!-- Modernizr NEW JS -->
-<?php
+  <?php
 }
 ?>
 <script src="/assets_backend/js/select2.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-  
+  $(document).ready(function () {
+
     if ($('#filter_applications_id').length > 0) {
       $('#filter_applications_id').select2();
     }
     if ($('#select_fee_1').length > 0) {
-        $('#select_fee_1').select2();
+      $('#select_fee_1').select2();
     }
     if ($('#select_fee_2').length > 0) {
-        $('#select_fee_2').select2();
+      $('#select_fee_2').select2();
     }
     if ($('#select_fee_3').length > 0) {
-        $('#select_fee_3').select2();
+      $('#select_fee_3').select2();
     }
     if ($('#select_fee_4').length > 0) {
-        $('#select_fee_4').select2();
+      $('#select_fee_4').select2();
     }
     if ($('#select_fee_5').length > 0) {
-        $('#select_fee_5').select2();
+      $('#select_fee_5').select2();
     }
     if ($('#select_fee_6').length > 0) {
-        $('#select_fee_6').select2();
+      $('#select_fee_6').select2();
     }
-    if ($('#select_fee_7').length > 0) {
-        $('#select_fee_7').select2();
+    if ($('#select_fee_8').length > 0) {
+      $('#select_fee_8').select2();
+    }
+
+    if ($('#select_fee_9').length > 0) {
+      $('#select_fee_9').select2();
+    }
+    if ($('#select_fee_10').length > 0) {
+      $('#select_fee_10').select2();
+    }
+    if ($('#select_fee_11').length > 0) {
+      $('#select_fee_11').select2();
+    }
+    if ($('#select_fee_12').length > 0) {
+      $('#select_fee_12').select2();
+    }
+    if ($('#select_fee_13').length > 0) {
+      $('#select_fee_13').select2();
+    }
+    if ($('#select_fee_14').length > 0) {
+      $('#select_fee_14').select2();
+    }
+    if ($('#select_fee_15').length > 0) {
+      $('#select_fee_15').select2();
     }
 
   });
-  jQuery(document).ready(function() {
+  jQuery(document).ready(function () {
 
     "use strict";
 
@@ -119,17 +142,17 @@ if ($sf_context->getModuleName() == "tasks") {
     //Replaces data-rel attribute to rel.
     //We use data-rel because of w3c validation issue
     if ($('a[data-rel]').length > 0) {
-    jQuery('a[data-rel]').each(function() {
-      jQuery(this).attr('rel', jQuery(this).data('rel'));
-    });
-  }
+      jQuery('a[data-rel]').each(function () {
+        jQuery(this).attr('rel', jQuery(this).data('rel'));
+      });
+    }
 
-  if ($('#basicWizard').length > 0) {
-    // Basic Wizard
-    jQuery('#basicWizard').bootstrapWizard();
-  }
+    if ($('#basicWizard').length > 0) {
+      // Basic Wizard
+      jQuery('#basicWizard').bootstrapWizard();
+    }
 
-  function initializeDatepicker(elementId) {
+    function initializeDatepicker(elementId) {
       if ($(elementId).length > 0) {
         $(elementId).datepicker();
       }
@@ -190,7 +213,7 @@ if ($sf_context->getModuleName() == "tasks") {
     }
     self.xmlHttpReq1.open('POST', strURL, true);
     self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    self.xmlHttpReq1.onreadystatechange = function() {
+    self.xmlHttpReq1.onreadystatechange = function () {
       if (self.xmlHttpReq1.readyState == 4) {
         document.getElementById(div).innerHTML = "<span class='glyphicon glyphicon-ok'></span> Resolved.";
       } else {
@@ -214,7 +237,7 @@ if ($sf_context->getModuleName() == "tasks") {
     }
     self.xmlHttpReq1.open('POST', strURL, true);
     self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    self.xmlHttpReq1.onreadystatechange = function() {
+    self.xmlHttpReq1.onreadystatechange = function () {
       if (self.xmlHttpReq1.readyState == 4) {
         document.getElementById(div).innerHTML = "<span class='glyphicon glyphicon-remove'></span> Not Resolved.";
       } else {
@@ -238,7 +261,7 @@ if ($sf_context->getModuleName() == "tasks") {
     }
     self.xmlHttpReq1.open('POST', strURL, true);
     self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    self.xmlHttpReq1.onreadystatechange = function() {
+    self.xmlHttpReq1.onreadystatechange = function () {
       if (self.xmlHttpReq1.readyState == 4) {
         //document.getElementById(div).innerHTML = "<span class='glyphicon glyphicon-ok'></span>";
         // Patch
@@ -265,7 +288,7 @@ if ($sf_context->getModuleName() == "tasks") {
     }
     self.xmlHttpReq1.open('POST', strURL, true);
     self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    self.xmlHttpReq1.onreadystatechange = function() {
+    self.xmlHttpReq1.onreadystatechange = function () {
       if (self.xmlHttpReq1.readyState == 4) {
         //document.getElementById(div).innerHTML = "<span class='glyphicon glyphicon-remove'></span>";
         // Patch - Return link
@@ -281,7 +304,7 @@ if ($sf_context->getModuleName() == "tasks") {
 
 <?php
 if (sfConfig::get('app_google_analytics_id')) {
-?>
+  ?>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XE6F7DLZG"></script>
   <script>
@@ -294,17 +317,17 @@ if (sfConfig::get('app_google_analytics_id')) {
 
     gtag('config', '<?php echo sfConfig::get('app_google_analytics_id'); ?>');
   </script>
-<?php
+  <?php
 }
 
 //Only display livechat if it is enabled
 if (sfConfig::get('app_enable_livechat')) {
-?>
+  ?>
   <!-- Start of LiveChat (www.livechatinc.com) code -->
   <script type="text/javascript">
     window.__lc = window.__lc || {};
     window.__lc.license = 7766711;
-    (function() {
+    (function () {
       var lc = document.createElement('script');
       lc.type = 'text/javascript';
       lc.async = true;
@@ -314,7 +337,7 @@ if (sfConfig::get('app_enable_livechat')) {
     })();
   </script>
   <!-- End of LiveChat code -->
-<?php
+  <?php
 }
 ?>
 

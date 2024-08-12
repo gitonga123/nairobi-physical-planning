@@ -481,7 +481,7 @@ button.bg-danger:hover {
 }
 .text-success,
 .dropdown-menu > li > a.text-success {
-	color: #00cc52 !important;
+	color: #006838 !important;
 }
 .text-danger,
 .dropdown-menu > li > a.text-danger {
@@ -493,7 +493,7 @@ button.bg-danger:hover {
 }
 .text-warning,
 .dropdown-menu > li > a.text-warning {
-	color: #ffbc34 !important;
+	color: #EBB422 !important;
 }
 .text-purple,
 .dropdown-menu > li > a.text-purple {
@@ -549,17 +549,18 @@ button.bg-danger:hover {
 	box-shadow: unset;
 }
 .btn-success {
-	background-color: #00e65b;
-	border: 1px solid #00e65b
+	background-color: #006838;
+	border: 1px solid #006838;
+	color: #EBB422;
 }
 .btn-success:hover,
 .btn-success:focus,
 .btn-success.active,
 .btn-success:active,
 .open > .dropdown-toggle.btn-success {
-	background-color: #00cc52;
-	border: 1px solid #00cc52;
-	color: #fff;
+	background-color: #006838;
+	border: 1px solid #006838;
+	color: #EBB422;
 }
 .btn-success.active.focus,
 .btn-success.active:focus,
@@ -570,15 +571,15 @@ button.bg-danger:hover {
 .open > .dropdown-toggle.btn-success.focus,
 .open > .dropdown-toggle.btn-success:focus,
 .open > .dropdown-toggle.btn-success:hover {
-	background-color: #00cc52;
-	border: 1px solid #00cc52
+	background-color: #006838;
+	border: 1px solid #006838
 }
 .btn-success.active:not(:disabled):not(.disabled),
 .btn-success:active:not(:disabled):not(.disabled),
 .show > .btn-success.dropdown-toggle {
-	background-color: #00cc52;
-	border-color: #00cc52;
-	color: #fff;
+	background-color: #006838;
+	border-color: #006838;
+	color: #EBB422;
 }
 .btn-success.active:focus:not(:disabled):not(.disabled), 
 .btn-success:active:focus:not(:disabled):not(.disabled), 
@@ -588,7 +589,7 @@ button.bg-danger:hover {
 .btn-success.disabled, .btn-success:disabled {
     background-color: #00e65b;
     border-color: #00e65b;
-    color: #fff;
+    color: #EBB422;
 }
 .btn-info {
 	background-color: #009efb;
@@ -640,8 +641,8 @@ button.bg-danger:hover {
 .btn-warning.active,
 .btn-warning:active,
 .open > .dropdown-toggle.btn-warning {
-	background-color: #e9ab2e;
-	border: 1px solid #e9ab2e
+	background-color: #EBB422;
+	border: 1px solid #EBB422
 }
 .btn-warning.active.focus,
 .btn-warning.active:focus,
@@ -652,14 +653,14 @@ button.bg-danger:hover {
 .open > .dropdown-toggle.btn-warning.focus,
 .open > .dropdown-toggle.btn-warning:focus,
 .open > .dropdown-toggle.btn-warning:hover {
-	background-color: #e9ab2e;
-	border: 1px solid #e9ab2e
+	background-color: #EBB422;
+	border: 1px solid #EBB422
 }
 .btn-warning.active:not(:disabled):not(.disabled),
 .btn-warning:active:not(:disabled):not(.disabled),
 .show > .btn-warning.dropdown-toggle {
-	background-color: #e9ab2e;
-	border-color: #e9ab2e;
+	background-color: #EBB422;
+	border-color: #EBB422;
 	color: #fff;
 }
 .btn-warning.active:focus:not(:disabled):not(.disabled), 
@@ -668,8 +669,8 @@ button.bg-danger:hover {
 	box-shadow: unset;
 }
 .btn-warning.disabled, .btn-warning:disabled {
-    background-color: #ffbc34;
-    border-color: #ffbc34;
+    background-color: #EBB422;
+    border-color: #EBB422;
     color: #fff;
 }
 .btn-danger {
@@ -10600,7 +10601,7 @@ html.menu-opened body {
 	background-color: rgba(0,84,254,0.07);
 }
 .dash-board-list.yellow .dash-widget {
-	background-color: rgba(249,206,35,0.1);
+	background-color: rgba(235, 180, 34,0.1);
 }
 .dash-board-list.pink .dash-widget {
 	background-color: #FD51811A;
@@ -10609,7 +10610,7 @@ html.menu-opened body {
 	background-color: rgba(0,84,254,0.07);
 }
 .dash-board-list.yellow .icon-col {
-	background-color: rgba(249,206,35,0.1);
+	background-color: rgba(235, 180, 34,0.1);
 }
 .dash-board-list.pink .icon-col {
 	background-color: #FD51811A;

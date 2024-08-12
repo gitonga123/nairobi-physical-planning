@@ -67,7 +67,7 @@
                     <h4 class="mb-4">Latest Applications</h4>
                 </div>
                 <div class="col-auto">
-                    <a href="/plan/forms/groups" class="btn btn-success btn-sm">Submit New Application</a>
+                    <a href="/plan/forms/groups" class="btn btn-success btn-sm"><i class="far fa-edit" aria-hidden="true"></i> Submit New Application</a>
                 </div>
             </div>
             <div class="card flex-fill">

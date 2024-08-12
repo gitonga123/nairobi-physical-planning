@@ -15,7 +15,7 @@ use_helper("I18N");
                         <tr>
 
                             <th><?php echo __("Invoice no"); ?></th>
-                            <th><?php echo __("Due date"); ?></th>
+                            <th><?php echo __("Payment Date"); ?></th>
                             <th><?php echo __("Amount"); ?></th>
                             <th><?php echo __("Application id"); ?></th>
                             <th><?php echo __("Status"); ?></th>
@@ -28,7 +28,7 @@ use_helper("I18N");
 
                                 <td><?php echo $invoice->getInvoiceNumber() ?></td>
 
-                                <td><?php echo date('jS M Y H:i:s', strtotime($invoice->getDueDate())) ?></td>
+                                <td><?php echo date('jS M Y H:i:s', strtotime($invoice->getUpdatedAt())) ?></td>
                                 <td><?php echo $invoice->getCurrency() . " " . $invoice->getTotalAmount(); ?></td>
                                 <td><?php echo $invoice->getFormEntry()->getApplicationId() ?></td>
                                 <td><?php echo $invoice->getStatus() ?></td>

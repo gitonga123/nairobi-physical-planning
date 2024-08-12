@@ -276,7 +276,7 @@ class apiActions extends sfActions
             ]
         ]);
 
-        
+
         error_log("Response status code is ----> {$query_response->status}");
         $content = $query_response->content;
 
@@ -296,12 +296,12 @@ class apiActions extends sfActions
         } else {
             error_log("Failed response with status code: {$query_response->status}");
 
-            $message = 'Something Went Wrong. Please try again later.';
+            $message = '';
 
             if (isset($content['errors'])) {
                 $message .= $content['errors'];
             } else {
-                
+
                 if (isset($content['errors'])) {
                     $message .= $content['errors'];
                 } else {
@@ -310,6 +310,10 @@ class apiActions extends sfActions
 
                 if (isset($content['balance'])) {
                     $message .= " Balance: KES {$content['balance']}";
+                }
+
+                if (strlen($message) < 2) {
+                    $message = 'Something Went Wrong. Please try again later.';
                 }
             }
 

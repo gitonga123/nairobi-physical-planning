@@ -40,17 +40,17 @@ $child_pages_count=$q->count();
     </li>
 <?php 
 } 
-$cls = ($_SERVER['REQUEST_URI'] == "plan/news/index" || $_SERVER['REQUEST_URI'] == "plan/new/index") ? 'current': '';
+$cls = ($_SERVER['REQUEST_URI'] == "/plan/news/index" || $_SERVER['REQUEST_URI'] == "/plan/new/index") ? 'current': '';
 ?>
-    <li class="<?php echo $cls ?>"><a href="plan/news/index" title="<?php echo __('News'); ?>"><?php echo __('News'); ?> </a></li>
+    <li class="<?php echo $cls ?>"><a href="/plan/news/index" title="<?php echo __('News'); ?>"><?php echo __('News'); ?> </a></li>
 <?php
-$cls = ($_SERVER['REQUEST_URI'] == "plan/help/faq" || $_SERVER['REQUEST_URI'] == "plan/help/faq") ? 'current': '';
+$cls = ($_SERVER['REQUEST_URI'] == "/plan/help/faq" || $_SERVER['REQUEST_URI'] == "/plan/help/faq") ? 'current': '';
 ?>
-    <li class="<?php echo $cls ?>"><a href="plan/help/faq" title="<?php echo __('FAQs'); ?>"><?php echo __('FAQs'); ?> </a></li>
+    <li class="<?php echo $cls ?>"><a href="/plan/help/faq" title="<?php echo __('FAQs'); ?>"><?php echo __('FAQs'); ?> </a></li>
 <?php
-$cls = ($_SERVER['REQUEST_URI'] == "plan/help/contact" || $_SERVER['REQUEST_URI'] == "plan/help/contact") ? 'current': '';
+$cls = ($_SERVER['REQUEST_URI'] == "/plan/help/contact" || $_SERVER['REQUEST_URI'] == "/plan/help/contact") ? 'current': '';
 ?>
-    <li class="<?php echo $cls ?>"><a href="plan/help/contact" title="<?php echo __('Contact Us'); ?>"><?php echo __('Contact Us'); ?> </a></li>
+    <li class="<?php echo $cls ?>"><a href="/plan/help/contact" title="<?php echo __('Contact Us'); ?>"><?php echo __('Contact Us'); ?> </a></li>
 
     <li>
         <a href="<?php echo url_for('signon/login') ?>" class="text-center"><span><?php echo __('Log in'); ?></span></a>

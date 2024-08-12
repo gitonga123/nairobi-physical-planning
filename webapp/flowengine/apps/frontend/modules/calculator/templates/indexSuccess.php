@@ -26,7 +26,7 @@ $otb_helper = new OTBHelper();
 	<div class="panel panel-bordered radius-all">
 		<div class="panel-body panel-body-nopadding">
 						   <form method="post">
-							<select size="1" class='form-control' name="table2_length" aria-controls="table2" class="select2" onChange="window.location='plan/calculator/index/filter/' + this.value;">
+							<select size="1" class='form-control' name="table2_length" aria-controls="table2" class="select2" onChange="window.location='/plan/calculator/index/filter/' + this.value;">
 								<option value="0" selected="selected">Select Product/Service</option>
 								<?php
 								$user_category=$sf_user->getGuardUser()->getProfile()->getRegisteras();

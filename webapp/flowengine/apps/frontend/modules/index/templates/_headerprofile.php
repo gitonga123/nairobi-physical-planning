@@ -31,15 +31,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown hidden-xs"><a><?php echo __("Welcome"); ?>, <?php echo $sf_user->getProfile()->getFullname(); ?></a></li>
                     <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "dashboard"){ ?>active<?php } ?>"><a href="/plan/"><span class="fa fa-dashboard"></span> <?php echo __("Dashboard"); ?></a></li>
-                    <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "forms"){ ?>active<?php } ?>"><a href="plan/forms/groups/profile/<?php echo $profile->getId(); ?>"><span class="fa fa-plus-circle"></span> <?php echo __("Make Application"); ?></a></li>
-                    <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "support"){ ?>active<?php } ?>"><a href="plan/support/index"><span class="fa fa-question-circle"></span> <?php echo __("Support"); ?></a></li>
-                    <li class="hidden-sm hidden-md hidden-lg"><a href="plan/settings"><?php echo __("My Profile"); ?></a></li>
+                    <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "forms"){ ?>active<?php } ?>"><a href="/plan/forms/groups/profile/<?php echo $profile->getId(); ?>"><span class="fa fa-plus-circle"></span> <?php echo __("Make Application"); ?></a></li>
+                    <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "support"){ ?>active<?php } ?>"><a href="/plan/support/index"><span class="fa fa-question-circle"></span> <?php echo __("Support"); ?></a></li>
+                    <li class="hidden-sm hidden-md hidden-lg"><a href="/plan/settings"><?php echo __("My Profile"); ?></a></li>
                     <li class="hidden-sm hidden-md hidden-lg"><a href="<?php echo url_for('signon/logout') ?>"><?php echo __("Logout"); ?></a></li>
                     <li class="dropdown hidden-xs m-r-30 dropdown-bordered">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-sign-out" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header"><?php echo __("Security"); ?></li>
-                            <li><a href="plan/settings"><?php echo __("Account Settings"); ?></a></li>
+                            <li><a href="/plan/settings"><?php echo __("Account Settings"); ?></a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<?php echo url_for('signon/logout') ?>"><?php echo __("Logout"); ?></a></li>
                         </ul>
@@ -63,8 +63,8 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li class="<?php if($sf_context->getModuleName() == "dashboard"){ ?>active<?php } ?>"><a href="/plan/"><span class="fa fa-dashboard"></span> <?php echo __("Dashboard"); ?></a></li>
-                  <li class="<?php if($sf_context->getModuleName() == "forms"){ ?>active<?php } ?>"><a href="plan/forms/groups/profile/<?php echo $profile->getId(); ?>"><span class="fa fa-plus-circle"></span> <?php echo __("Make Application"); ?></a></li>
-                  <li class="<?php if($sf_context->getModuleName() == "support"){ ?>active<?php } ?>"><a href="plan/support/index"><span class="fa fa-question-circle"></span> <?php echo __("Support"); ?></a></li>
+                  <li class="<?php if($sf_context->getModuleName() == "forms"){ ?>active<?php } ?>"><a href="/plan/forms/groups/profile/<?php echo $profile->getId(); ?>"><span class="fa fa-plus-circle"></span> <?php echo __("Make Application"); ?></a></li>
+                  <li class="<?php if($sf_context->getModuleName() == "support"){ ?>active<?php } ?>"><a href="/plan/support/index"><span class="fa fa-question-circle"></span> <?php echo __("Support"); ?></a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

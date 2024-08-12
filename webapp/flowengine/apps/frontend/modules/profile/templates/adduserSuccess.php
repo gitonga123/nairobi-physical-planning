@@ -24,7 +24,7 @@ use_helper('I18N');
 
 				echo $profile->getTitle().$status;
 			?>
-			<a href="plan/profile/view/id/<?php echo $profile->getId(); ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF; margin-left: 5px;  margin-right: 5px;"><?php echo __("Back to Profile"); ?></a>
+			<a href="/plan/profile/view/id/<?php echo $profile->getId(); ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF; margin-left: 5px;  margin-right: 5px;"><?php echo __("Back to Profile"); ?></a>
         </h3>
     </div>
     <div class="panel-body">
@@ -36,7 +36,7 @@ use_helper('I18N');
         <div id="main_body" class=" integrated">
             <div id="form_container" style="padding-top: 5px;">
 
-                <form class="appnitro 1 top_label" method="post" data-highlightcolor="#FFF7C0" action="plan/profile/saveuser">
+                <form class="appnitro 1 top_label" method="post" data-highlightcolor="#FFF7C0" action="/plan/profile/saveuser">
                     <div class="panel-heading">
                         <h3 class="panel-title"><?php echo __("Add a user to"); ?> <?php echo $profile->getTitle(); ?></h3>
                         <p><?php echo __("This form enables you to add user to a business who can submit applications through the business"); ?></p>

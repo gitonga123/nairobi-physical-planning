@@ -103,9 +103,9 @@ class frusersActions extends sfActions
 			$sf_guard_user->save();
 
 			$audit = new Audit();
-			$audit->saveAudit("", "<a href=\"plan/frusers/show/id/" . $sf_guard_user->getId() . "\">Updated a user account</a>");
+			$audit->saveAudit("", "<a href=\"/plan/frusers/show/id/" . $sf_guard_user->getId() . "\">Updated a user account</a>");
 
-			$this->redirect('plan/settings');
+			$this->redirect('/plan/settings');
 		}
 	}
 }

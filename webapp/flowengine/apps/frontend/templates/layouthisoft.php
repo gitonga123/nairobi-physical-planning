@@ -72,7 +72,7 @@
             <li class="dropdown nav-item">
               <a href="properties.html" class="nav-link" data-bs-toggle="dropdown">Connect</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="plan/login">Login<i class="fas fa-arrow-right"></i></a></li>
+                <li><a class="dropdown-item" href="/plan/login">Login<i class="fas fa-arrow-right"></i></a></li>
                 <li><a class="dropdown-item" href="careers.html">Register<i class="fas fa-arrow-right"></i></a></li>
                 <li><a class="dropdown-item" href="about-us.html">About Us<i class="fas fa-arrow-right"></i></a></li>
                 <li><a class="dropdown-item" href="careers.html">Careers<i class="fas fa-arrow-right"></i></a></li>

@@ -32,7 +32,7 @@ foreach ($corrections_applications as $application) {
             <?php } ?>
         </ul>
         <strong> <a
-                href="plan/application/edit/id/<?php echo $application->getId(); ?>"><?php echo ("Click here to edit and resubmit"); ?></a></strong>
+                href="/plan/application/edit/id/<?php echo $application->getId(); ?>"><?php echo ("Click here to edit and resubmit"); ?></a></strong>
     </div>
     <?php
 }
@@ -47,7 +47,7 @@ foreach ($transferring_applications as $application) {
     ?>
     <!-- <div class="alert alert-success">
         <h4><?php // echo ("Transfer!"); ?></h4> <?php // echo ("You have an application"); ?> (<?php //echo $application->getApplicationId(); ?> ) <?php // echo ("that is being transferred to you from"); ?> <?php //echo $origin_user_profile->getFullname()." (".$origin_user_profile->getEmail().")"; ?>. <br><br>
-        <a href="plan/application/accepttransfer/code/<?php //echo $encryptdata; ?>" class="btn btn-success"><?php //echo ("Confirm Transfer"); ?></a>  <a class="btn btn-danger" href="plan/application/canceltransfer/code/<?php // echo $encryptdata; ?>"><? php// echo ("Cancel Transfer"); ?></a>
+        <a href="/plan/application/accepttransfer/code/<?php //echo $encryptdata; ?>" class="btn btn-success"><?php //echo ("Confirm Transfer"); ?></a>  <a class="btn btn-danger" href="/plan/application/canceltransfer/code/<?php // echo $encryptdata; ?>"><? php// echo ("Cancel Transfer"); ?></a>
     </div> -->
     <?php
 }

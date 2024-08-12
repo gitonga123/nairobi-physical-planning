@@ -71,7 +71,7 @@ use_helper('I18N', 'Date');
                     <!-- Display summary of the news article -->
                     <div class="fifteen columns omega">
                         <h3>
-                            <a href="plan/news/article/id/<?php echo $content->getId(); ?>"><?php echo html_entity_decode($content->getTitle()); ?></a>
+                            <a href="/plan/news/article/id/<?php echo $content->getId(); ?>"><?php echo html_entity_decode($content->getTitle()); ?></a>
                         </h3>
                         <div class="postmetadata">
                             <!-- Name of author -->
@@ -95,7 +95,7 @@ use_helper('I18N', 'Date');
                         $newscontent = html_entity_decode($content->getArticle());
                         if (strlen($newscontent) > 400) {
                             echo substr($newscontent, 0, 400) . ".....";
-                            echo '</p><a class="readmore" href="plan/news/article/id/' . $content->getId() . '">'.__("Read more").'</a>';
+                            echo '</p><a class="readmore" href="/plan/news/article/id/' . $content->getId() . '">'.__("Read more").'</a>';
                         } else {
                             echo html_entity_decode($content->getArticle());
                         }

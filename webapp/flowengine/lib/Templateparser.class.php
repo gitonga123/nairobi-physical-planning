@@ -2785,7 +2785,7 @@ class Templateparser
         } else {
             $is_http = "http";
         }
-        $invoice_verification_link = "{$is_http}://{$_SERVER['HTTP_HOST']}plan/permitchecker/invoiceRequest?invoiceref={$invoice->getId()}";
+        $invoice_verification_link = "{$is_http}://{$_SERVER['HTTP_HOST']}/plan/permitchecker/invoiceRequest?invoiceref={$invoice->getId()}";
         $qrCode
             ->setText("Amount: " . $invoice->getCurrency() . ' ' . $invoice->getTotalAmount() . "\n" . "STATUS: " . $plain_status . "\n" . "VIEW MORE..." . "\n" . $invoice_verification_link)
             ->setSize(100)
@@ -3054,7 +3054,7 @@ class Templateparser
         #$bar	= new BARCODE();
         $qrCode = new QrCode();
         $qrCode
-            ->setText("http://" . $_SERVER['HTTP_HOST'] . "plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
+            ->setText("http://" . $_SERVER['HTTP_HOST'] . "/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
             ->setSize(200)
             ->setPadding(10)
             ->setErrorCorrection('high')
@@ -3063,12 +3063,12 @@ class Templateparser
             ->setLabel('Scan Qr Code')
             ->setLabelFontSize(15)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
-        #$qr_values[0] 	= "http://".$_SERVER['HTTP_HOST']."plan/permitchecker/openrequest?permitref=".$saved_permit->getId();
+        #$qr_values[0] 	= "http://".$_SERVER['HTTP_HOST']."/plan/permitchecker/openrequest?permitref=".$saved_permit->getId();
 
         $values['qr_code'] = '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
         $qrCode = new QrCode();
         $qrCode
-            ->setText("http://" . $_SERVER['HTTP_HOST'] . "plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
+            ->setText("http://" . $_SERVER['HTTP_HOST'] . "/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
             ->setSize(100)
             ->setPadding(5)
             ->setErrorCorrection('high')

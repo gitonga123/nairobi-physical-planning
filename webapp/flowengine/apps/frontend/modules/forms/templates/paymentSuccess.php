@@ -28,7 +28,7 @@
 					</h2>
 					<div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							<form class="form-horizontal" id="checkout_initial_payment" action="<?php echo 'plan/forms/initiatePayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>">
+							<form class="form-horizontal" id="checkout_initial_payment" action="<?php echo '/plan/forms/initiatePayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>">
 								<div id="response_area_id"></div>
 								<div class="form-group" style="margin: 2px;">
 									<label for="phone_number">Phone Number:</label>
@@ -62,9 +62,9 @@
 			<div class="mb-3">
 
 				<div class="d-flex justify-content-between">
-					<a class="btn btn-outline-info btn-block me-5" href="plan/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
+					<a class="btn btn-outline-info btn-block me-5" href="/plan/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
 
-					<a class="btn btn-outline-success btn-block" href="plan/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
+					<a class="btn btn-outline-success btn-block" href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
 
 				</div>
 
@@ -81,9 +81,9 @@
 			<div class="mb-3">
 
 				<div class="d-flex justify-content-between">
-					<a class="btn btn-outline-info btn-block me-5" href="plan/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
+					<a class="btn btn-outline-info btn-block me-5" href="/plan/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
 
-					<a class="btn btn-outline-success btn-block" href="plan/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
+					<a class="btn btn-outline-success btn-block" href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
 
 				</div>
 
@@ -131,10 +131,10 @@
 </div>
 <script>
 	// global files
-	const wallet_url = "<?php echo 'plan/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
-	const confirm_payment_url = "<?php echo 'plan/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
-	const redirect_url = "<?php echo 'plan/invoices/view/id/' . $invoice->getId(); ?>";
-	const regenerate_otp_url = "<?php echo 'plan/forms/regeneratejamboonetimepassword/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const wallet_url = "<?php echo '/plan/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const confirm_payment_url = "<?php echo '/plan/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const redirect_url = "<?php echo '/plan/invoices/view/id/' . $invoice->getId(); ?>";
+	const regenerate_otp_url = "<?php echo '/plan/forms/regeneratejamboonetimepassword/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 
 	function setButtonLoading(buttonId, isLoading, message = 'Initiating') {
 		const button = $(`#${buttonId}`);

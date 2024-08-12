@@ -74,7 +74,7 @@ try
                       if($redirect_to_service)
                       {
                         //If no permit needs to be signed then just redirect to the application
-                        $link = "plan/permits/create/id/".$service_id;
+                        $link = "/plan/permits/create/id/".$service_id;
                         ?>
                           <div class="alert alert-success" align="center">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -93,7 +93,7 @@ try
                       else
                       {
                       //If no permit needs to be signed then just redirect to the application
-                      $link = "plan/application/view/id/".$invoice->getFormEntry()->getId();
+                      $link = "/plan/application/view/id/".$invoice->getFormEntry()->getId();
                       ?>
                         <div class="alert alert-success" align="center">
                           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -112,7 +112,7 @@ try
                    }
                    elseif($invoice->getPaid() == 3)
                    {
-                      $link = "plan/invoices/view/id/".$invoice->getId();
+                      $link = "/plan/invoices/view/id/".$invoice->getId();
                       ?>
                       <div class="alert alert-danger" align="center">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -130,7 +130,7 @@ try
                    }
                    else
                    {
-                      $link = "plan/application/view/id/".$invoice->getFormEntry()->getId();
+                      $link = "/plan/application/view/id/".$invoice->getFormEntry()->getId();
                       ?>
                       <div class="alert alert-info" align="center">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -150,7 +150,7 @@ try
                 else
                 {
 					error_log('------------- false process_validation----------');
-                    $link = "plan/application/view/id/".$invoice->getFormEntry()->getId();
+                    $link = "/plan/application/view/id/".$invoice->getFormEntry()->getId();
                       ?>
                       <div class="alert alert-info" align="center">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -170,7 +170,7 @@ try
               else
               {
 					error_log('------------- false authorize_validation----------');
-                    $link = "plan/application/view/id/".$invoice->getFormEntry()->getId();
+                    $link = "/plan/application/view/id/".$invoice->getFormEntry()->getId();
                       ?>
                       <div class="alert alert-info" align="center">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

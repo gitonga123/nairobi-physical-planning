@@ -11,7 +11,7 @@
             )
         ) ?>
         <div class="col-md-12 col-lg-4 dash-board-list blue">
-            <a href="plan/dashboard/applicationslist">
+            <a href="/plan/dashboard/applicationslist">
                 <div class="dash-widget">
                     <div class="circle-bar">
                         <div class="icon-col">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col-md-12 col-lg-4 dash-board-list yellow">
-            <a href="plan/dashboard/invoiceslist">
+            <a href="/plan/dashboard/invoiceslist">
                 <div class="dash-widget">
                     <div class="circle-bar">
                         <div class="icon-col">
@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-md-12 col-lg-4 dash-board-list pink">
-            <a href="plan/permits">
+            <a href="/plan/permits">
                 <div class="dash-widget">
                     <div class="circle-bar">
                         <div class="icon-col">
@@ -67,7 +67,7 @@
                     <h4 class="mb-4">Latest Applications</h4>
                 </div>
                 <div class="col-auto">
-                    <a href="plan/forms/groups" class="btn btn-success btn-sm"><i class="far fa-edit"
+                    <a href="/plan/forms/groups" class="btn btn-success btn-sm"><i class="far fa-edit"
                             aria-hidden="true"></i> Submit New Application</a>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                                         ?>
                                         <td class="text-start"> <?php echo $application->getForm()->getFormName() ?> </td>
                                         <td> <a class="link-primary"
-                                                href="plan/application/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId() ?>
+                                                href="/plan/application/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId() ?>
                                             </a></td>
                                         <td class="text-start">
                                             <?php echo date('d-m-Y H:i:s', strtotime($application->getDateOfSubmission())) ?>
@@ -114,12 +114,12 @@
                                         </td>
                                         <td class="text-start">
                                             <?php if ($application->getDeclined()): ?>
-                                                <a href="plan/application/edit/id/<?php echo $application->getId() ?>"
+                                                <a href="/plan/application/edit/id/<?php echo $application->getId() ?>"
                                                     class="btn btn-outline-danger btn-sm"> <i class="far fa-edit"></i> Edit &
                                                     Resubmit</a>
                                                
                                             <?php else: ?>
-                                                <a href="plan/application/view/id/<?php echo $application->getId() ?>"
+                                                <a href="/plan/application/view/id/<?php echo $application->getId() ?>"
                                                 class="btn btn-outline-info btn-sm"> View</a>
                                             <?php endif ?>
                                         </td>

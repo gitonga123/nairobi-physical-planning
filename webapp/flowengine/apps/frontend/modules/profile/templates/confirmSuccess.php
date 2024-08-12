@@ -118,7 +118,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
         $userprofile->setDeleted(0);
         $userprofile->save();
 
-        header("Location: plan/dashboard");
+        header("Location: /plan/dashboard");
         exit;
     }else{
         if(empty($_SESSION['review_id'])){

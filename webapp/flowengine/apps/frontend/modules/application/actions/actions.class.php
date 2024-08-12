@@ -53,7 +53,7 @@ class applicationActions extends sfActions
 
         //If page does not exist then redirect to 404
         if (empty($this->application)) {
-            return $this->redirect("plan/errors/notfound");
+            return $this->redirect("/plan/errors/notfound");
         }
 
         $this->getUser()->setAttribute("checkout", false);
@@ -232,7 +232,7 @@ class applicationActions extends sfActions
         $this->application->save();
 
         $this->getUser()->setFlash('notice', 'The request for transfer of ownership has been cancelled');
-        return $this->redirect("plan/dashboard");
+        return $this->redirect("/plan/dashboard");
     }
 
 
@@ -281,7 +281,7 @@ class applicationActions extends sfActions
                 Application '" . $this->application->getApplicationId() . "' has been transferred to your account from '" . $previous_user->getFullname() . "'. <br>
                 <br>
                 Click here to view the application details:<br>
-                <a href='http://" . $_SERVER['HTTP_HOST'] . "plan/application/view/id/" . $this->application->getId() . "'>" . $this->application->getApplicationId() . "</a>
+                <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/application/view/id/" . $this->application->getId() . "'>" . $this->application->getApplicationId() . "</a>
                 <br>
                 <br>
                 Thanks,<br>
@@ -293,7 +293,7 @@ class applicationActions extends sfActions
 
 
         $this->getUser()->setFlash('notice', 'The request for transfer of ownership has been accepted');
-        return $this->redirect("plan/dashboard");
+        return $this->redirect("/plan/dashboard");
     }
 
     /**
@@ -314,7 +314,7 @@ class applicationActions extends sfActions
 
         //If page does not exist then redirect to 404
         if (empty($this->application)) {
-            return $this->redirect("plan/errors/notfound");
+            return $this->redirect("/plan/errors/notfound");
         }
 
         $q = Doctrine_Query::create()
@@ -438,7 +438,7 @@ class applicationActions extends sfActions
                 $notify = new mailnotifications();
                 $body = "<p>User " . $this->getUser() . " has shared application " . $this->application->getApplicationId() . " with you (" . $user_share[0]['fullname'] . " (" . $user_share[0]['email'] . ")).</p><p>Kindly login to " . sfConfig::get('app_organisation_name') . " " . sfConfig::get('app_organisation_description') . " to proceed";
                 $notify->sendemail('', $user_share[0]['email'], 'Shared Application', $body);
-                $this->redirect("plan/application/shared");
+                $this->redirect("/plan/application/shared");
             }
         }
         $this->setLayout("layoutdash");
@@ -526,10 +526,10 @@ class applicationActions extends sfActions
                 $this->application->setApproved($this->application->getStage()->getSharedStage());
                 $this->application->save();
             }
-            $this->redirect("plan/application/shared");
+            $this->redirect("/plan/application/shared");
         } else {
             $this->getUser()->setFlash('shared_error', htmlentities('<p>Application wasn\'t shared with the user!</p>'));
-            $this->redirect("plan/application/share");
+            $this->redirect("/plan/application/share");
         }
     }
     //OTB END

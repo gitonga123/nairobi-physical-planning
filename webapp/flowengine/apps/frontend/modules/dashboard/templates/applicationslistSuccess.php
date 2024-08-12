@@ -21,7 +21,7 @@ $applicationM = new ApplicationManager();
                             <th>Owner's Name</th>
                             <th>Plot Details.</th>
                             <th>Stage</th>
-                            <th class="text-end">ACTION</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +47,7 @@ $applicationM = new ApplicationManager();
                                         <?php } ?>
                                     </span>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-start">
                                     <a href="/index.php//application/view/id/<?php echo $application->getId() ?>"
                                         class="btn btn-outline-info btn-sm"> View</a>
                                     <?php if ($application->getDeclined()): ?>

@@ -79,7 +79,7 @@ if($sf_user->getGuardUser()->getId() == $application->getUserId())
           if($permittype->getPartType() != 3)
           {
               ?>
-              <a class="btn btn-primary" onClick="window.location = '/index.php/archivedpermits/view/id/<?php echo $permit->getId(); ?>';"><?php echo __('View'); ?> <?php echo $permittype->getTitle()." (".$permit->getDateOfIssue().")"; ?></a>
+              <a class="btn btn-primary" onClick="window.location = '/plan/archivedpermits/view/id/<?php echo $permit->getId(); ?>';"><?php echo __('View'); ?> <?php echo $permittype->getTitle()." (".$permit->getDateOfIssue().")"; ?></a>
               <?php
                   $action_count++;
            }
@@ -343,7 +343,7 @@ if($sf_user->getGuardUser()->getId() == $application->getUserId())
 
                                 <div class="col-sm-8"><h4 style="color:#fff;"> Your application has been declined. View the reasons in the comments tab.</h4></div>
                                  <div class="col-sm-4" style="text-align:right;">
-                                    <a class="btn btn-default mt5" href="/index.php/application/edit?application_id=<?php echo $application->getId(); ?>"><?php echo __('Edit and Submit'); ?></a>
+                                    <a class="btn btn-default mt5" href="/plan/application/edit?application_id=<?php echo $application->getId(); ?>"><?php echo __('Edit and Submit'); ?></a>
                                  </div>
 
                                 </div>

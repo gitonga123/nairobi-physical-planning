@@ -8,7 +8,7 @@
 		<div class="table-box">
             <div class="alert alert-info">
                  <h4 class="alert-heading">Thank you for activating your account</h4>
-                 You may now <a href="/index.php"> login </a> and submit an application for review and approval. 
+                 You may now <a href="/plan"> login </a> and submit an application for review and approval. 
 			</div>
 			
 		</div>

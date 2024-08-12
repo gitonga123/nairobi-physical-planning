@@ -309,7 +309,7 @@ if(!empty($payment_enable_merchant)){
 			$payment_resume_url = mf_get_merchant_redirect_url($dbh,$form_id,$entry_id);
 		}else if(in_array($payment_merchant_type, array('stripe','paypal_rest','authorizenet','braintree'))){
 			$payment_resume_token = base64_encode($entry_id.'-'.md5($date_created_raw));
-			$payment_resume_url   = "/index.php/forms/payment?id={$form_id}&pay_token={$payment_resume_token}";
+			$payment_resume_url   = "/plan/forms/payment?id={$form_id}&pay_token={$payment_resume_token}";
 		}
 	}
 
@@ -406,12 +406,12 @@ if(!empty($row['total_signature_field'])){
 				if($profile->getUserId() == $current_user->getId() && !$profile->getDeleted())
 				{
 					?>
-					<a href="/index.php/profile/edit/id/<?php echo $profile->getId() ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;"><span class="fa fa-pencil"></span> <?php echo __("Edit Profile"); ?></a>
-					<a href="/index.php/profile/adduser/id/<?php echo $profile->getId() ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; margin-right: 5px; color: #FFFFFF;"><span class="fa fa-plus"></span>  <?php echo __("Add User"); ?></a>
+					<a href="/plan/profile/edit/id/<?php echo $profile->getId() ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;"><span class="fa fa-pencil"></span> <?php echo __("Edit Profile"); ?></a>
+					<a href="/plan/profile/adduser/id/<?php echo $profile->getId() ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; margin-right: 5px; color: #FFFFFF;"><span class="fa fa-plus"></span>  <?php echo __("Add User"); ?></a>
 					<?php 
 				}
 			?>
-			<a href="/index.php/dashboard" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF; margin-left: 5px;  margin-right: 5px;"><span class="fa fa-arrow-circle-left"></span>  <?php echo __("Back to Dashboard"); ?></a>
+			<a href="/plan/dashboard" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF; margin-left: 5px;  margin-right: 5px;"><span class="fa fa-arrow-circle-left"></span>  <?php echo __("Back to Dashboard"); ?></a>
         </h3>
     </div>
     <div class="panel-body">
@@ -448,7 +448,7 @@ if(!empty($row['total_signature_field'])){
 							?>
 							<div class="alert alert-success">
 								<h4><?php echo __("Profile Activation Payment"); ?></h4> <?php echo __("Payment Reference"); ?>: <?php echo $profile->getFormId()."/".$profile->getEntryId()."/".$profile->getId(); ?>. <br><br>
-								<a href="/index.php/profile/payment" class="btn btn-success"><?php echo __("Add Payment"); ?></a>
+								<a href="/plan/profile/payment" class="btn btn-success"><?php echo __("Add Payment"); ?></a>
 							</div>
 							<?php 
 						}
@@ -560,7 +560,7 @@ EOT;
 										<td><?php echo $application->getApplicationId(); ?></td>
 										<td><span class="label label-success"><?php echo $application->getStatusName(); ?></span></td>
 										<td class="text-right">
-											<a class="btn btn-xs btn-default"  title='<?php echo __('View Service'); ?>' href='/index.php/application/view/id/<?php echo $application->getId(); ?>/profile/<?php echo $profile->getId(); ?>'><?php echo __("View"); ?> </a>
+											<a class="btn btn-xs btn-default"  title='<?php echo __('View Service'); ?>' href='/plan/application/view/id/<?php echo $application->getId(); ?>/profile/<?php echo $profile->getId(); ?>'><?php echo __("View"); ?> </a>
 										</td>
 									</tr>
 									<?php endforeach; ?>
@@ -576,11 +576,11 @@ EOT;
 
 										<?php if ($latest_services->haveToPaginate()): ?>
 											<ul class="pagination pagination-sm mb0 mt0 pull-right">
-												<li><a href="/index.php/dashboard/index/bpage/1">
+												<li><a href="/plan/dashboard/index/bpage/1">
 														<i class="fa fa-angle-left"></i>
 													</a></li>
 
-												<li> <a href="/index.php/dashboard/index/bpage/<?php echo $latest_services->getPreviousPage() ?>">
+												<li> <a href="/plan/dashboard/index/bpage/<?php echo $latest_services->getPreviousPage() ?>">
 														<i class="fa fa-angle-left"></i>
 													</a></li>
 
@@ -588,15 +588,15 @@ EOT;
 													<?php if ($page == $latest_services->getPage()): ?>
 														<li class="active"><a href=""><?php echo $page ?></a>
 													<?php else: ?>
-														<li><a href="/index.php/dashboard/index/bpage/<?php echo $page ?>"><?php echo $page ?></a></li>
+														<li><a href="/plan/dashboard/index/bpage/<?php echo $page ?>"><?php echo $page ?></a></li>
 													<?php endif; ?>
 												<?php endforeach; ?>
 
-												<li> <a href="/index.php/dashboard/index/bpage/<?php echo $latest_services->getNextPage() ?>">
+												<li> <a href="/plan/dashboard/index/bpage/<?php echo $latest_services->getNextPage() ?>">
 														<i class="fa fa-angle-right"></i>
 													</a></li>
 
-												<li> <a href="/index.php/dashboard/index/bpage/<?php echo $latest_services->getLastPage() ?>">
+												<li> <a href="/plan/dashboard/index/bpage/<?php echo $latest_services->getLastPage() ?>">
 														<i class="fa fa-angle-right"></i>
 													</a></li>
 											</ul>
@@ -636,10 +636,10 @@ EOT;
 										<td><?php echo $invoice->getCurrency()." ".$invoice->getTotalAmount(); ?></td>
 										<td><?php echo $invoice->getCreatedAt(); ?></td>
 										<td class="text-right">
-											<a class="btn btn-xs btn-default"  title='<?php echo __('View Invoice'); ?>' href='/index.php/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
+											<a class="btn btn-xs btn-default"  title='<?php echo __('View Invoice'); ?>' href='/plan/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
 
 											<?php if($invoice->getPaid() == 1 || $invoice->getPaid() == 15){ ?>
-											<a href="/index.php/forms/payment?id=<?php echo $application->getFormId(); ?>&app_id=<?php echo $application->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-primary btn-xs">
+											<a href="/plan/forms/payment?id=<?php echo $application->getFormId(); ?>&app_id=<?php echo $application->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-primary btn-xs">
 											<?php echo __("Pay now"); ?>
 											</a>
 											<?php } ?>
@@ -658,11 +658,11 @@ EOT;
 
 										<?php if ($latest_invoices->haveToPaginate()): ?>
 											<ul class="pagination pagination-sm mb0 mt0 pull-right">
-												<li><a href="/index.php/dashboard/index/bpage/1">
+												<li><a href="/plan/dashboard/index/bpage/1">
 														<i class="fa fa-angle-left"></i>
 													</a></li>
 
-												<li> <a href="/index.php/dashboard/index/bpage/<?php echo $latest_invoices->getPreviousPage() ?>">
+												<li> <a href="/plan/dashboard/index/bpage/<?php echo $latest_invoices->getPreviousPage() ?>">
 														<i class="fa fa-angle-left"></i>
 													</a></li>
 
@@ -670,15 +670,15 @@ EOT;
 													<?php if ($page == $latest_invoices->getPage()): ?>
 														<li class="active"><a href=""><?php echo $page ?></a>
 													<?php else: ?>
-														<li><a href="/index.php/dashboard/index/bpage/<?php echo $page ?>"><?php echo $page ?></a></li>
+														<li><a href="/plan/dashboard/index/bpage/<?php echo $page ?>"><?php echo $page ?></a></li>
 													<?php endif; ?>
 												<?php endforeach; ?>
 
-												<li> <a href="/index.php/dashboard/index/bpage/<?php echo $latest_invoices->getNextPage() ?>">
+												<li> <a href="/plan/dashboard/index/bpage/<?php echo $latest_invoices->getNextPage() ?>">
 														<i class="fa fa-angle-right"></i>
 													</a></li>
 
-												<li> <a href="/index.php/dashboard/index/bpage/<?php echo $latest_invoices->getLastPage() ?>">
+												<li> <a href="/plan/dashboard/index/bpage/<?php echo $latest_invoices->getLastPage() ?>">
 														<i class="fa fa-angle-right"></i>
 													</a></li>
 											</ul>
@@ -715,7 +715,7 @@ EOT;
 									<td><?php echo $user->getEmailAddress(); ?></td>
 									<td><?php echo $user_profile->getMobile(); ?></td>
 									<td>
-										<a onclick="return confirm('Are you sure?');" href="/index.php/profile/removeuser/id/<?php echo $user->getId(); ?>" class="btn btn-danger pull-right"><?php echo __("Remove User"); ?></a>
+										<a onclick="return confirm('Are you sure?');" href="/plan/profile/removeuser/id/<?php echo $user->getId(); ?>" class="btn btn-danger pull-right"><?php echo __("Remove User"); ?></a>
 									</td>
 								</tr>
 							<?php
@@ -748,7 +748,7 @@ EOT;
 											</td>
 											<td><?php echo $inspect->getCreatedAt(); ?></td>
 											<td class="text-right">
-												<a class="btn btn-xs btn-default"  title='<?php echo __('View'); ?>' href='/index.php/profile/inspection/id/<?php echo $inspect->getId(); ?>'><?php echo __("View"); ?> </a>
+												<a class="btn btn-xs btn-default"  title='<?php echo __('View'); ?>' href='/plan/profile/inspection/id/<?php echo $inspect->getId(); ?>'><?php echo __("View"); ?> </a>
 											</td>
 										</tr>
 										<?php

@@ -36,10 +36,10 @@ use_helper('I18N');
 		</div>
 	</div>
 	<div class="text-end">
-		<a class="forgot-link" href="/index.php/reset-request">Forgot Password ?</a> <!-- /index.php/reset-request -->
+		<a class="forgot-link" href="/plan/reset-request">Forgot Password ?</a> <!-- /plan/reset-request -->
 	</div>
 	<button class="btn btn-primary login-btn" type="submit">Login</button>
-	<div class="text-center dont-have">Don’t have an account? <a href="/index.php/apply">Register</a></div>
+	<div class="text-center dont-have">Don’t have an account? <a href="/plan/apply">Register</a></div>
 </form>
 <?php if ($form['username']->hasError()): ?>
 <div class="login-or">

@@ -28,22 +28,24 @@ use_helper("I18N");
                     <th><?php echo __("Action"); ?></th>
                 </thead>
                 <tbody>
-                    <?php foreach($latest_applications as $application): ?>
+                    <?php foreach ($latest_applications as $application): ?>
                         <tr>
                             <td><?php echo $application->getId() ?></td>
                             <td><?php echo $application->getForm()->getFormName() ?></td>
                             <td><?php echo $application->getApplicationId() ?></td>
-                            <td>
-                            <?php if($application->getStage()): ?>
-                                <?php echo $application->getStage()->getTitle() ?>
-                            <?php endif; ?>
+                            <td class="text-center">
+                                <?php if ($application->getStage()): ?>
+                                    <?php echo $application->getStage()->getTitle() ?>
+                                <?php endif; ?>
                             </td>
-                            <td><?php echo date('jS M Y H:i:s',strtotime($application->getDateOfSubmission())) ?></td>
-                            <td><a title="<?php echo __('View Application') ?>" href="/index.php/application/view/id/<?php echo $application->getId() ?>"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a></td>
+                            <td><?php echo date('jS M Y H:i:s', strtotime($application->getDateOfSubmission())) ?></td>
+                            <td><a title="<?php echo __('View Application') ?>"
+                                    href="/plan/application/view/id/<?php echo $application->getId() ?>"><span
+                                        class="badge badge-primary"><i class="fa fa-eye"></i></span></a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-       </div>
+        </div>
     </div>
 </div>

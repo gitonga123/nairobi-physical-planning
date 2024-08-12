@@ -128,9 +128,9 @@ if(sizeof($banners) > 0)
                             <i class="bigger icofont-safety-hat"></i>
                             <i class="smaller icofont-safety-hat"></i>
                             <span></span>
-                            <a href="#inspec"><h3>Advertising <br/> permit</h3></a>
+                            <a href="#inspec"><h3>Outdoor Advertising <br/> permit</h3></a>
                             <p>
-                                Apply for Adversting License to market your business
+                                Apply for Outdoor Advertising License to market your business
                             </p>
                         </div>
                     </div>
@@ -144,7 +144,7 @@ if(sizeof($banners) > 0)
                         <h3>FlowEngine</h3>
                     </div>
                     <div class="col-xl-9 col-lg-9 col-md-9">
-                        <h3>Uasin Gishu County</h3>
+                        <h3>Kisii County</h3>
                         <h4>Online County Service Portal<h4>
                     </div>
                 </div>

@@ -10,14 +10,14 @@ $applicationM = new ApplicationManager();
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="datatable table table-stripped">
+                <table class="datatable_permits table table-stripped">
 
                     <thead>
                         <tr>
                             <th><?php echo __("Application Reference"); ?></th>
                             <th><?php echo __("Service"); ?></th>
                             <th><?php echo __("Owner's Name"); ?></th>
-                            <th><?php echo __("Plot No."); ?></th>
+                            <th><?php echo __("Plot Details."); ?></th>
                             <th><?php echo __("Date of Issue"); ?></th>
                             <th><?php echo __("Date of Expiry"); ?></th>
                             <th><?php echo __("Status"); ?></th>
@@ -43,7 +43,7 @@ $applicationM = new ApplicationManager();
                                     $expired = "EXPIRED";
                                 }
                                 ?>
-                                <td><a href="/index.php/application/view/id/<?php echo $permit->getFormEntry()->getId(); ?>" class="link-primary"><?php echo $permit->getFormEntry()->getApplicationId(); ?></a></td>
+                                <td><a href="/plan/application/view/id/<?php echo $permit->getFormEntry()->getId(); ?>" class="link-primary"><?php echo $permit->getFormEntry()->getApplicationId(); ?></a></td>
                                 <td><?php echo $permit->getTemplate()->getTitle(); ?></td>
                                 <td>
                                     <?php echo $owner_plot[1]; ?>
@@ -53,10 +53,10 @@ $applicationM = new ApplicationManager();
                                 <td><?php echo !empty($permit->getDateOfExpiry()) ? date('jS M Y', strtotime($permit->getDateOfExpiry())) : ""; ?></td>
                                 <td><?php echo  $expired; ?></td>
                                 <td>
-                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Permit'); ?>' href='/index.php/permits/view/id/<?php echo $permit->getId(); ?>'><?php echo __("View"); ?> </a>
+                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Permit'); ?>' href='/plan/permits/view/id/<?php echo $permit->getId(); ?>'><?php echo __("View"); ?> </a>
 
                                     <?php if ($expired == "VALID") { ?>
-                                        <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/index.php/permits/print/id/<?php echo $permit->getId(); ?>';">
+                                        <button class="btn btn-sm btn-success" id="printinvoice" type="button" onClick="window.location='/index.php/permits/print/id/<?php echo $permit->getId(); ?>';">
                                             <i class="fa fa-print mr5"></i> <?php echo __("Download"); ?>
                                         </button>
                                     <?php } ?>

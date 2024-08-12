@@ -189,7 +189,15 @@ function mf_process_form($dbh, $input)
 						element_grandtotalplintharea,
 						element_file_ifc,
 						element_plot_no,
+						element_block_no,
 						element_subcounty,
+						element_owner_phone,
+						element_owner_address,
+						element_owner_email,
+						element_ward,
+						element_plot_area,
+						element_plot_length,
+						element_plot_width,
 						element_ownertype,
 						element_table_name,
 						element_field_value,
@@ -248,7 +256,6 @@ function mf_process_form($dbh, $input)
 		$element_info[$row['element_id']]['date_disable_weekend'] = (int) $row['element_date_disable_weekend'];
 		$element_info[$row['element_id']]['date_disable_specific'] = (int) $row['element_date_disable_specific'];
 		$element_info[$row['element_id']]['date_disabled_list'] = $row['element_date_disabled_list'];
-
 		$element_info[$row['element_id']]['option_query'] = $row['element_option_query'];
 		$element_info[$row['element_id']]['field_name'] = $row['element_field_name'];
 		$element_info[$row['element_id']]['field_value'] = $row['element_remote_value'];
@@ -257,7 +264,15 @@ function mf_process_form($dbh, $input)
 		$element_info[$row['element_id']]['remote_server_field'] = $row['element_remote_server_field'];
 		$element_info[$row['element_id']]['remote_post'] = $row['element_remote_post'];
 		$element_info[$row['element_id']]['plot_no'] = $row['element_plot_no'];
+		$element_info[$row['element_id']]['block_no'] = $row['element_block_no'];
 		$element_info[$row['element_id']]['subcounty'] = $row['element_subcounty'];
+		$element_info[$row['element_id']]['owner_phone'] = $row['element_owner_phone'];
+		$element_info[$row['element_id']]['owner_address'] = $row['element_owner_address'];
+		$element_info[$row['element_id']]['owner_email'] = $row['element_owner_email'];
+		$element_info[$row['element_id']]['ward'] = $row['element_ward'];
+		$element_info[$row['element_id']]['plot_area'] = $row['element_plot_area'];
+		$element_info[$row['element_id']]['plot_length'] = $row['element_plot_length'];
+		$element_info[$row['element_id']]['plot_width'] = $row['element_plot_width'];
 		$element_info[$row['element_id']]['file_ifc'] = $row['element_file_ifc'];
 		$element_info[$row['element_id']]['ownertype'] = $row['element_ownertype'];
 		$element_info[$row['element_id']]['table_name'] = $row['element_table_name'];

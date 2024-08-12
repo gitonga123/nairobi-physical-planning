@@ -51,11 +51,11 @@ use_helper("I18N");
                         <td><?php echo $invoice->getCurrency(); ?>. <?php echo $invoice->getTotalAmount(); ?></td>
                         <td><?php echo $invoice->getStatus(); ?></td>
                         <td>
-                            <a class="btn btn-outline-info btn-sm" id="printinvoice" href="/index.php/invoices/view/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-eye mr5"></i> <?php echo __("View Invoice"); ?></a> |
-                            <a class="btn btn-dark btn-sm" id="printinvoice" href="/index.php/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-print mr5"></i> <?php echo __("Print Invoice"); ?></a>
+                            <a class="btn btn-outline-info btn-sm" id="printinvoice" href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-eye mr5"></i> <?php echo __("View Invoice"); ?></a> |
+                            <a class="btn btn-dark btn-sm" id="printinvoice" href="/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-print mr5"></i> <?php echo __("Print Invoice"); ?></a>
 
                             <?php if ($invoice->getPaid() == 1 || $invoice->getPaid() == 15) { ?>
-                                | <a class="btn btn-primary btn-sm" id="makeinvoice" href="/index.php/forms/payment?id=<?php echo $application->getFormId(); ?>&app_id=<?php echo $application->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>">
+                                | <a class="btn btn-primary btn-sm" id="makeinvoice" href="/plan/forms/payment?id=<?php echo $application->getFormId(); ?>&app_id=<?php echo $application->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>">
                                     <i class="fa fa-credit-card mr5"></i> <?php echo __("Pay now"); ?>
                                 </a>
                             <?php } ?>

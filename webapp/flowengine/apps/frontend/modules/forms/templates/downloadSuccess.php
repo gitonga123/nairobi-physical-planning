@@ -168,7 +168,7 @@
 		$ssl_suffix = mf_get_ssl_suffix();
 		#$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/".$target_file;
 				//$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/backend.php/forms/download?q=".$_GET['q'];//Show original file with login required
-				$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/index.php/forms/download?q=".$_GET['q'];//Show original file with login required
+				$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
 
 		$filename = $PNG_TEMP_DIR.'test'.md5($link.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
 

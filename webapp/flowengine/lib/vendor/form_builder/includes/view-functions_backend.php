@@ -130,7 +130,8 @@ function mf_display_text($element)
 	}
 
 	//check for placeholder
-	if ((!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
+	if (
+		(!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
 		(!empty($element->enable_placeholder) && ($element->default_value === '') && ($original_default_value !== ''))
 	) {
 		$attr_placeholder = 'placeholder="' . $original_default_value . '"';
@@ -358,7 +359,8 @@ function mf_display_textarea($element)
 	}
 
 	//check for placeholder
-	if ((!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
+	if (
+		(!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
 		(!empty($element->enable_placeholder) && ($element->default_value === '') && ($original_default_value !== ''))
 	) {
 		$attr_placeholder = 'placeholder="' . $original_default_value . '"';
@@ -675,10 +677,10 @@ EOT;
 						$file_size = '(' . $file_size . ')';
 					}
 
-					$tmp_filename_only =  basename($tmp_filename_path);
-					$filename_value    =  substr($tmp_filename_only, strpos($tmp_filename_only, '-') + 1);
-					$filename_value    =  str_replace('.tmp', '', $filename_value);
-					$filename_value	   =  str_replace('|', '', $filename_value);
+					$tmp_filename_only = basename($tmp_filename_path);
+					$filename_value = substr($tmp_filename_only, strpos($tmp_filename_only, '-') + 1);
+					$filename_value = str_replace('.tmp', '', $filename_value);
+					$filename_value = str_replace('|', '', $filename_value);
 
 					$queue_id = "element_{$element->id}" . substr(strtoupper(md5(mt_rand())), 0, 6);
 
@@ -716,17 +718,17 @@ EOT;
 		//generate parameters for multi upload
 		if (!empty($element->file_enable_multi_upload)) {
 			$multi_upload = 'true';
-			$queue_limit  = $element->file_max_selection;
+			$queue_limit = $element->file_max_selection;
 		} else {
 			$multi_upload = 'false';
-			$queue_limit  = 1;
+			$queue_limit = 1;
 		}
 
 		//generate parameters for file size limit
 		if (!empty($element->file_enable_size_limit)) {
 			if (!empty($element->file_size_max)) {
 				$file_size_max_bytes = 1048576 * $element->file_size_max;
-				$size_limit 			= "'sizeLimit' : {$file_size_max_bytes},";
+				$size_limit = "'sizeLimit' : {$file_size_max_bytes},";
 				$size_limit_uploadifive = "'fileSizeLimit'  : '{$element->file_size_max}MB',";
 			} else {
 				$size_limit = "'sizeLimit' : 10485760,"; //default 10MB
@@ -751,22 +753,22 @@ EOT;
 				$blocked_file_types = explode(',', $element->file_type_list);
 				// array_walk($blocked_file_types, create_function('&$val', '$val = strtolower(trim($val));'));
 				array_walk($blocked_file_types, fn(&$val) => $val = strtolower(trim($val)));
-				
+
 				$blocked_file_types_joined = implode(',', $blocked_file_types);
 
 				$file_type_limit_block = "'fileExtBlocked'  : '{$blocked_file_types_joined}',";
-				$file_type_limit_exts  = $blocked_file_types_joined;
+				$file_type_limit_exts = $blocked_file_types_joined;
 			}
 		}
 
 		$msg_queue_limited = sprintf($mf_lang['file_queue_limited'], $queue_limit);
-		$msg_upload_max	   = sprintf($mf_lang['file_upload_max'], $element->file_size_max);
+		$msg_upload_max = sprintf($mf_lang['file_upload_max'], $element->file_size_max);
 		$uploader_script = <<<EOT
 <script type="text/javascript">
 	$(function(){
-		 if(is_support_html5_uploader()){
+		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){
 		 	$('#element_{$element->id}').uploadifive({
-		 		'uploadScript'     : '/index.php/forms/upload',
+		 		'uploadScript'     : '/plan/forms/upload',
 		 		'buttonText'	   : '{$mf_lang['file_select']}',
 		 		'removeCompleted' : false,
 				'dnd' : true,
@@ -841,7 +843,7 @@ EOT;
 		 }else if($.browser.flash == true){
 		      $('#element_{$element->id}').uploadify({
 		        'uploader'   	  : '/form_builder/js/uploadify/uploadify.swf',
-		        'script'     	  : '/index.php/forms/upload',
+		        'script'     	  : '/plan/forms/upload',
 		        'cancelImg'  	  : '/form_builder/images/icons/stop.png',
 		        'removeCompleted' : false,
 		        'displayData' 	  : 'percentage',
@@ -1023,7 +1025,8 @@ function mf_display_url($element)
 	}
 
 	//check for placeholder
-	if ((!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
+	if (
+		(!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
 		(!empty($element->enable_placeholder) && ($element->default_value === '') && ($original_default_value !== ''))
 	) {
 		$attr_placeholder = 'placeholder="' . $original_default_value . '"';
@@ -1111,7 +1114,8 @@ function mf_display_email($element)
 	}
 
 	//check for placeholder
-	if ((!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
+	if (
+		(!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
 		(!empty($element->enable_placeholder) && ($element->default_value === '') && ($original_default_value !== ''))
 	) {
 		$attr_placeholder = 'placeholder="' . $original_default_value . '"';
@@ -1445,9 +1449,9 @@ function mf_display_date($element)
 				$date_range_min[0] = (int) $date_range_min[0];
 
 				if ($date_range_min[2] == '00') {
-					$cal_min_date =  ", minDate: -{$date_range_min[0]}";
+					$cal_min_date = ", minDate: -{$date_range_min[0]}";
 				} else if ($date_range_min[2] == '01') { //if the value is negatove
-					$cal_min_date =  ", minDate: +{$date_range_min[0]}";
+					$cal_min_date = ", minDate: +{$date_range_min[0]}";
 				}
 			} else {
 				//minDate: YYYY, MM - 1, DD
@@ -1463,9 +1467,9 @@ function mf_display_date($element)
 				$date_range_max[0] = (int) $date_range_max[0];
 
 				if ($date_range_max[2] == '00') {
-					$cal_max_date =  ", maxDate: +{$date_range_max[0]}";
+					$cal_max_date = ", maxDate: +{$date_range_max[0]}";
 				} else if ($date_range_max[2] == '01') { //if the value is negative
-					$cal_max_date =  ", maxDate: -{$date_range_max[0]}";
+					$cal_max_date = ", maxDate: -{$date_range_max[0]}";
 				}
 			} else {
 				//maxDate: YYYY, MM - 1, DD
@@ -1715,9 +1719,9 @@ function mf_display_europe_date($element)
 				$date_range_min[0] = (int) $date_range_min[0];
 
 				if ($date_range_min[2] == '00') {
-					$cal_min_date =  ", minDate: -{$date_range_min[0]}";
+					$cal_min_date = ", minDate: -{$date_range_min[0]}";
 				} else if ($date_range_min[2] == '01') { //if the value is negatove
-					$cal_min_date =  ", minDate: +{$date_range_min[0]}";
+					$cal_min_date = ", minDate: +{$date_range_min[0]}";
 				}
 			} else {
 				//minDate: YYYY, MM - 1, DD
@@ -1733,9 +1737,9 @@ function mf_display_europe_date($element)
 				$date_range_max[0] = (int) $date_range_max[0];
 
 				if ($date_range_max[2] == '00') {
-					$cal_max_date =  ", maxDate: +{$date_range_max[0]}";
+					$cal_max_date = ", maxDate: +{$date_range_max[0]}";
 				} else if ($date_range_max[2] == '01') { //if the value is negative
-					$cal_max_date =  ", maxDate: -{$date_range_max[0]}";
+					$cal_max_date = ", maxDate: -{$date_range_max[0]}";
 				}
 			} else {
 				//maxDate: YYYY, MM - 1, DD
@@ -2393,7 +2397,7 @@ function mf_display_select($element)
 	//OTB ADD
 	$element_disabled = '';
 	if ($element->is_readonly == 'disabled') {
-		$element_disabled = "<input type=\"hidden\" name=\"element_{$element->id}\" value=\"{$element->populated_value['element_' .$element->id]['default_value']}\" />";
+		$element_disabled = "<input type=\"hidden\" name=\"element_{$element->id}\" value=\"{$element->populated_value['element_' . $element->id]['default_value']}\" />";
 	}
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$price_data_tag} {$li_style} {$li_class}>
@@ -2915,8 +2919,8 @@ function mf_display_time($element)
 			$default_value_1 = '';
 			$default_value_2 = '';
 			$default_value_3 = '';
-			$selected_am	 = '';
-			$selected_pm     = '';
+			$selected_am = '';
+			$selected_pm = '';
 		}
 	}
 
@@ -3091,67 +3095,67 @@ function mf_display_money($element)
 
 	if ($element->constraint != 'yen') {
 		if ($element->constraint == 'pound') {
-			$main_cur  = $mf_lang['price_pound_main'];
+			$main_cur = $mf_lang['price_pound_main'];
 			$child_cur = $mf_lang['price_pound_sub'];
 			$cur_symbol = '&#163;';
 		} elseif ($element->constraint == 'euro') {
-			$main_cur  = $mf_lang['price_euro_main'];
+			$main_cur = $mf_lang['price_euro_main'];
 			$child_cur = $mf_lang['price_euro_sub'];
 			$cur_symbol = '&#8364;';
 		} elseif ($element->constraint == 'baht') {
-			$main_cur  = $mf_lang['price_baht_main'];
+			$main_cur = $mf_lang['price_baht_main'];
 			$child_cur = $mf_lang['price_baht_sub'];
 			$cur_symbol = '&#3647;';
 		} elseif ($element->constraint == 'rupees') {
-			$main_cur  = $mf_lang['price_rupees_main'];
+			$main_cur = $mf_lang['price_rupees_main'];
 			$child_cur = $mf_lang['price_rupees_sub'];
 			$cur_symbol = 'Rs';
 		} elseif ($element->constraint == 'rand') {
-			$main_cur  = $mf_lang['price_rand_main'];
+			$main_cur = $mf_lang['price_rand_main'];
 			$child_cur = $mf_lang['price_rand_sub'];
 			$cur_symbol = 'R';
 		} elseif ($element->constraint == 'reais') {
-			$main_cur  = $mf_lang['price_reais_main'];
+			$main_cur = $mf_lang['price_reais_main'];
 			$child_cur = $mf_lang['price_reais_sub'];
 			$cur_symbol = 'R&#36;';
 		} elseif ($element->constraint == 'forint') {
-			$main_cur  = $mf_lang['price_forint_main'];
+			$main_cur = $mf_lang['price_forint_main'];
 			$child_cur = $mf_lang['price_forint_sub'];
 			$cur_symbol = '&#70;&#116;';
 		} elseif ($element->constraint == 'franc') {
-			$main_cur  = $mf_lang['price_franc_main'];
+			$main_cur = $mf_lang['price_franc_main'];
 			$child_cur = $mf_lang['price_franc_sub'];
 			$cur_symbol = 'CHF';
 		} elseif ($element->constraint == 'koruna') {
-			$main_cur  = $mf_lang['price_koruna_main'];
+			$main_cur = $mf_lang['price_koruna_main'];
 			$child_cur = $mf_lang['price_koruna_sub'];
 			$cur_symbol = '&#75;&#269;';
 		} elseif ($element->constraint == 'krona') {
-			$main_cur  = $mf_lang['price_krona_main'];
+			$main_cur = $mf_lang['price_krona_main'];
 			$child_cur = $mf_lang['price_krona_sub'];
 			$cur_symbol = 'kr';
 		} elseif ($element->constraint == 'pesos') {
-			$main_cur  = $mf_lang['price_pesos_main'];
+			$main_cur = $mf_lang['price_pesos_main'];
 			$child_cur = $mf_lang['price_pesos_sub'];
 			$cur_symbol = '&#36;';
 		} elseif ($element->constraint == 'ringgit') {
-			$main_cur  = $mf_lang['price_ringgit_main'];
+			$main_cur = $mf_lang['price_ringgit_main'];
 			$child_cur = $mf_lang['price_ringgit_sub'];
 			$cur_symbol = 'RM';
 		} elseif ($element->constraint == 'zloty') {
-			$main_cur  = $mf_lang['price_zloty_main'];
+			$main_cur = $mf_lang['price_zloty_main'];
 			$child_cur = $mf_lang['price_zloty_sub'];
 			$cur_symbol = '&#122;&#322;';
 		} elseif ($element->constraint == 'riyals') {
-			$main_cur  = $mf_lang['price_riyals_main'];
+			$main_cur = $mf_lang['price_riyals_main'];
 			$child_cur = $mf_lang['price_riyals_sub'];
 			$cur_symbol = '&#65020;';
 		} elseif ($element->constraint == 'KES') {
-			$main_cur  = "KES";
+			$main_cur = "KES";
 			$child_cur = "Cents";
 			$cur_symbol = 'KES';
 		} else { //dollar
-			$main_cur  = $mf_lang['price_dollar_main'];
+			$main_cur = $mf_lang['price_dollar_main'];
 			$child_cur = $mf_lang['price_dollar_sub'];
 			$cur_symbol = '$';
 		}
@@ -3159,7 +3163,7 @@ function mf_display_money($element)
 		//populate default value
 		if (isset($element->default_value)) {
 			$default_value_1_2 = mf_to_float($element->default_value);
-			$default_value_1   = floor($default_value_1_2);
+			$default_value_1 = floor($default_value_1_2);
 
 			$exp = array();
 			$exp = explode('.', $default_value_1_2 - $default_value_1);
@@ -3175,7 +3179,7 @@ function mf_display_money($element)
 		}
 		if (isset($_GET['element_' . $element->id])) {
 			$default_value_1_2 = mf_to_float(htmlspecialchars(mf_sanitize($_GET['element_' . $element->id]), ENT_QUOTES));
-			$default_value_1   = floor($default_value_1_2);
+			$default_value_1 = floor($default_value_1_2);
 
 			$exp = array();
 			$exp = explode('.', $default_value_1_2 - $default_value_1);
@@ -3194,8 +3198,8 @@ function mf_display_money($element)
 		}
 
 		if (isset($element->price_definition)) {
-			$price_value  = $default_value_1 . '.' . $default_value_2;
-			$price_value  = (float) $price_value;
+			$price_value = $default_value_1 . '.' . $default_value_2;
+			$price_value = (float) $price_value;
 
 			$price_data_tag = 'data-pricevalue="' . $price_value . '" data-pricefield="money"';
 		}
@@ -3217,7 +3221,7 @@ function mf_display_money($element)
 		</li>
 EOT;
 	} else { //for yen, only display one textfield
-		$main_cur  = $mf_lang['price_yen'];
+		$main_cur = $mf_lang['price_yen'];
 		$cur_symbol = '&#165;';
 
 		$default_value = $element->default_value;
@@ -3234,8 +3238,8 @@ EOT;
 		}
 
 		if (isset($element->price_definition)) {
-			$price_value  = $default_value;
-			$price_value  = (float) $price_value;
+			$price_value = $default_value;
+			$price_value = (float) $price_value;
 
 			$price_data_tag = 'data-pricevalue="' . $price_value . '" data-pricefield="money_simple"';
 		}
@@ -3424,7 +3428,8 @@ function mf_display_number($element)
 	}
 
 	//check for placeholder
-	if ((!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
+	if (
+		(!empty($element->enable_placeholder) && ($element->default_value !== '') && ($element->default_value == $original_default_value)) ||
 		(!empty($element->enable_placeholder) && ($element->default_value === '') && ($original_default_value !== ''))
 	) {
 		$attr_placeholder = 'placeholder="' . $original_default_value . '"';
@@ -4241,7 +4246,7 @@ function mf_display_address($element)
 	} else {
 
 		if ($element->is_readonly) {
-			$state_disabled_attr   = 'disabled="disabled"';
+			$state_disabled_attr = 'disabled="disabled"';
 		}
 
 		//display us state dropdown
@@ -4548,7 +4553,7 @@ function mf_display_matrix($element)
 			}
 		}
 
-		$th_markup 	  .= "<th id=\"mc_{$element->id}_{$option->id}\" style=\"width: {$other_col_width}%\" scope=\"col\">{$option->option}</th>\n";
+		$th_markup .= "<th id=\"mc_{$element->id}_{$option->id}\" style=\"width: {$other_col_width}%\" scope=\"col\">{$option->option}</th>\n";
 		$first_row_td .= "<td><label style=\"display: none\" for=\"element_{$element->id}_{$option->id}\">{$option_titles[$i]}</label><input id=\"element_{$element->id}_{$option->id}\" name=\"element_{$element->id}{$option_id_var}\" type=\"{$input_type}\" value=\"{$option->id}\" {$checked_markup} /></td>\n";
 		$i++;
 	}
@@ -4697,8 +4702,8 @@ function mf_display_plinth_area($element)
 		$default_value_2 = 0;
 	}
 	//THIS can WORk for the purpose of the field
-	$plinth_area_first  = 'Existing';
-	$plinth_area_new  = 'New';
+	$plinth_area_first = 'Existing';
+	$plinth_area_new = 'New';
 	//check for footprint
 	//variable to hold identifier for footprint
 	$identifier_existing = "plintharea_existing";
@@ -4707,12 +4712,12 @@ function mf_display_plinth_area($element)
 	// error_log("this element footprint is >>>>".$element->footprint." And element id ".$element->id) ;
 	//for elements that act as our footprint and also plinth area
 	/*if(!empty($element->footprint))
-                {
-                   // error_log("this element is used as footprint >>>>".$element->id) ;
-                    $identifier_existing = "footprint_existing" ;
-                    $identifier_new = "footprint_new" ;
-                    
-                }*/
+				   {
+					  // error_log("this element is used as footprint >>>>".$element->id) ;
+					   $identifier_existing = "footprint_existing" ;
+					   $identifier_new = "footprint_new" ;
+					   
+				   }*/
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class} {$element->edit_style} class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}"><i class="bold-label">{$element->title} {$span_required}</i> </label>
@@ -4800,8 +4805,8 @@ function mf_display_total_plinth_area($element)
 		$li_class = 'class="form-group' . rtrim($li_class) . '"';
 	}
 	//TODO Please change me - have been hard-coded
-	$total_plinth_area_first  = 'Total Existing';
-	$total_plinth_area_new  = 'Total New';
+	$total_plinth_area_first = 'Total Existing';
+	$total_plinth_area_new = 'Total New';
 	$element_markup = <<<EOT
 
 		<li id="li_{$element->id}" {$li_style} {$li_class} class="form-group">
@@ -4918,7 +4923,7 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 	}
 
 	//get form properties data
-	$query 	= "SELECT
+	$query = "SELECT
 						 form_name,
 						 form_name_hide,
 						 form_description,
@@ -5000,88 +5005,88 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 
 	$form = new stdClass();
 
-	$form->id 				= $form_id;
-	$form->name 			= $row['form_name'];
+	$form->id = $form_id;
+	$form->name = $row['form_name'];
 
 
 	$trans_text = $translation->getTranslationManual("ap_forms", "form_name", $form_id, $locale);
 	if ($trans_text) {
-		$form->name 			= $trans_text;
+		$form->name = $trans_text;
 	}
 
-	$form->name_hide 		= (int) $row['form_name_hide'];
-	$form->description 		= $row['form_description'];
+	$form->name_hide = (int) $row['form_name_hide'];
+	$form->description = $row['form_description'];
 	$trans_text = $translation->getTranslationManual("ap_forms", "form_description", $form_id, $locale);
 	if ($trans_text) {
-		$form->description 		= $trans_text;
+		$form->description = $trans_text;
 	}
 
-	$form->redirect 		= $row['form_redirect'];
-	$form->success_message  = $row['form_success_message'];
+	$form->redirect = $row['form_redirect'];
+	$form->success_message = $row['form_success_message'];
 	$trans_text = $translation->getTranslationManual("ap_forms", "form_success_message", $form_id, $locale);
 	if ($trans_text) {
-		$form->success_message 	= $trans_text;
+		$form->success_message = $trans_text;
 	}
 
-	$form->password 		= $row['form_password'];
-	$form->frame_height 	= $row['form_frame_height'];
-	$form->unique_ip 		= $row['form_unique_ip'];
-	$form->has_css 			= $row['form_has_css'];
-	$form->active 			= $row['form_active'];
+	$form->password = $row['form_password'];
+	$form->frame_height = $row['form_frame_height'];
+	$form->unique_ip = $row['form_unique_ip'];
+	$form->has_css = $row['form_has_css'];
+	$form->active = $row['form_active'];
 	$form->disabled_message = $row['form_disabled_message'];
-	$form->captcha 			= $row['form_captcha'];
-	$form->captcha_type 	= $row['form_captcha_type'];
-	$form->review 			= $row['form_review'];
-	$form->label_alignment  = $row['form_label_alignment'];
-	$form->page_total 		= $row['form_page_total'];
+	$form->captcha = $row['form_captcha'];
+	$form->captcha_type = $row['form_captcha_type'];
+	$form->review = $row['form_review'];
+	$form->label_alignment = $row['form_label_alignment'];
+	$form->page_total = $row['form_page_total'];
 	if ($page_number === 0) { //this is edit_entry page
 		$form->page_total = 1;
 	}
 
-	$form->lastpage_title 	= $row['form_lastpage_title'];
-	$form->submit_primary_text 	 = $row['form_submit_primary_text'];
+	$form->lastpage_title = $row['form_lastpage_title'];
+	$form->submit_primary_text = $row['form_submit_primary_text'];
 	$form->submit_secondary_text = $row['form_submit_secondary_text'];
-	$form->submit_primary_img 	 = $row['form_submit_primary_img'];
-	$form->submit_secondary_img  = $row['form_submit_secondary_img'];
-	$form->submit_use_image  	 = (int) $row['form_submit_use_image'];
-	$form->pagination_type		 = $row['form_pagination_type'];
-	$form->review_primary_text 	 = $row['form_review_primary_text'];
+	$form->submit_primary_img = $row['form_submit_primary_img'];
+	$form->submit_secondary_img = $row['form_submit_secondary_img'];
+	$form->submit_use_image = (int) $row['form_submit_use_image'];
+	$form->pagination_type = $row['form_pagination_type'];
+	$form->review_primary_text = $row['form_review_primary_text'];
 	$form->review_secondary_text = $row['form_review_secondary_text'];
-	$form->review_primary_img 	 = $row['form_review_primary_img'];
-	$form->review_secondary_img  = $row['form_review_secondary_img'];
-	$form->review_use_image  	 = (int) $row['form_review_use_image'];
-	$form->review_title			 = $row['form_review_title'];
-	$form->review_description	 = $row['form_review_description'];
-	$form->resume_enable	 	 = $row['form_resume_enable'];
-	$form->theme_id	    	 	 = (int) $row['form_theme_id'];
-	$form->payment_show_total	 = (int) $row['payment_show_total'];
+	$form->review_primary_img = $row['form_review_primary_img'];
+	$form->review_secondary_img = $row['form_review_secondary_img'];
+	$form->review_use_image = (int) $row['form_review_use_image'];
+	$form->review_title = $row['form_review_title'];
+	$form->review_description = $row['form_review_description'];
+	$form->resume_enable = $row['form_resume_enable'];
+	$form->theme_id = (int) $row['form_theme_id'];
+	$form->payment_show_total = (int) $row['payment_show_total'];
 	$form->payment_total_location = $row['payment_total_location'];
 	$form->payment_enable_merchant = (int) $row['payment_enable_merchant'];
-	$form->payment_currency 	   = $row['payment_currency'];
-	$form->payment_price_type 	   = $row['payment_price_type'];
-	$form->payment_price_amount    = $row['payment_price_amount'];
-	$form->limit_enable  	= (int) $row['form_limit_enable'];
-	$form->limit  			= (int) $row['form_limit'];
-	$form->schedule_enable  = (int) $row['form_schedule_enable'];
-	$form->schedule_start_date  = $row['form_schedule_start_date'];
-	$form->schedule_end_date  	= $row['form_schedule_end_date'];
-	$form->schedule_start_hour  = $row['form_schedule_start_hour'];
-	$form->schedule_end_hour  	= $row['form_schedule_end_hour'];
-	$form->language 			= trim($row['form_language']);
-	$form->logic_field_enable  	= (int) $row['logic_field_enable'];
-	$form->logic_page_enable  	= (int) $row['logic_page_enable'];
+	$form->payment_currency = $row['payment_currency'];
+	$form->payment_price_type = $row['payment_price_type'];
+	$form->payment_price_amount = $row['payment_price_amount'];
+	$form->limit_enable = (int) $row['form_limit_enable'];
+	$form->limit = (int) $row['form_limit'];
+	$form->schedule_enable = (int) $row['form_schedule_enable'];
+	$form->schedule_start_date = $row['form_schedule_start_date'];
+	$form->schedule_end_date = $row['form_schedule_end_date'];
+	$form->schedule_start_hour = $row['form_schedule_start_hour'];
+	$form->schedule_end_hour = $row['form_schedule_end_hour'];
+	$form->language = trim($row['form_language']);
+	$form->logic_field_enable = (int) $row['logic_field_enable'];
+	$form->logic_page_enable = (int) $row['logic_page_enable'];
 
-	$form->enable_discount 		= (int) $row['payment_enable_discount'];
-	$form->discount_type 	 	= $row['payment_discount_type'];
-	$form->discount_amount 		= (float) $row['payment_discount_amount'];
-	$form->discount_element_id 	= (int) $row['payment_discount_element_id'];
+	$form->enable_discount = (int) $row['payment_enable_discount'];
+	$form->discount_type = $row['payment_discount_type'];
+	$form->discount_amount = (float) $row['payment_discount_amount'];
+	$form->discount_element_id = (int) $row['payment_discount_element_id'];
 
-	$form->enable_tax 		 	= (int) $row['payment_enable_tax'];
-	$form->tax_rate 			= (float) $row['payment_tax_rate'];
+	$form->enable_tax = (int) $row['payment_enable_tax'];
+	$form->tax_rate = (float) $row['payment_tax_rate'];
 
 	$form->custom_script_enable = (int) $row['form_custom_script_enable'];
-	$form->custom_script_url 	= $row['form_custom_script_url'];
-	$form->payment_onsubmission 	= $row['payment_onsubmission'];
+	$form->custom_script_url = $row['form_custom_script_url'];
+	$form->payment_onsubmission = $row['payment_onsubmission'];
 
 	//if the form has page logic enabled, store the page history
 	if (!empty($form->logic_page_enable) && !empty($page_number)) {
@@ -5106,9 +5111,9 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 	}
 
 	if (empty($error_elements)) {
-		$form->is_error 	= 0;
+		$form->is_error = 0;
 	} else {
-		$form->is_error 	= 1;
+		$form->is_error = 1;
 	}
 
 	if (!empty($edit_id)) {
@@ -5144,7 +5149,7 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 			mf_do_query($query, $params, $dbh);
 
 			//copy data from ap_form_x table to ap_form_x_review table
-			$query  = "SELECT * FROM `" . MF_TABLE_PREFIX . "form_{$form_id}` WHERE resume_key=?";
+			$query = "SELECT * FROM `" . MF_TABLE_PREFIX . "form_{$form_id}` WHERE resume_key=?";
 			$params = array($resume_key);
 
 			$sth = mf_do_query($query, $params, $dbh);
@@ -5188,7 +5193,7 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 
 			//load files from ap_form_xxx_files into the filesystem
 			if (MF_STORE_FILES_AS_BLOB === true) {
-				$query  = "SELECT element_id FROM " . MF_TABLE_PREFIX . "form_elements WHERE form_id = ? and element_status = 1 and element_type = 'file'";
+				$query = "SELECT element_id FROM " . MF_TABLE_PREFIX . "form_elements WHERE form_id = ? and element_status = 1 and element_type = 'file'";
 				$params = array($form_id);
 
 				$saved_files_id = array();
@@ -5198,7 +5203,7 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 				}
 
 				if (!empty($saved_files_id)) {
-					$query  = "SELECT * FROM `" . MF_TABLE_PREFIX . "form_{$form_id}_review` WHERE session_id=? and resume_key=?";
+					$query = "SELECT * FROM `" . MF_TABLE_PREFIX . "form_{$form_id}_review` WHERE session_id=? and resume_key=?";
 					$params = array($session_id, $resume_key);
 
 					$sth = mf_do_query($query, $params, $dbh);
@@ -5283,10 +5288,10 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 	$sth = mf_do_query($query, $params, $dbh);
 	while ($row = mf_do_fetch_result($sth)) {
 		$element_id = $row['element_id'];
-		$option_id  = $row['option_id'];
-		$options_lookup[$element_id][$option_id]['aeo_id'] 		  = $row['aeo_id'];
-		$options_lookup[$element_id][$option_id]['position'] 		  = $row['position'];
-		$options_lookup[$element_id][$option_id]['option'] 			  = $row['option_text'];
+		$option_id = $row['option_id'];
+		$options_lookup[$element_id][$option_id]['aeo_id'] = $row['aeo_id'];
+		$options_lookup[$element_id][$option_id]['position'] = $row['position'];
+		$options_lookup[$element_id][$option_id]['option'] = $row['option_text'];
 
 		$trans_text = $translation->getOptionTranslationManual("ap_element_options", "option_text", $row['aeo_id'], $option_id, $locale);
 		if ($trans_text) {
@@ -5407,8 +5412,8 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 			$i = 0;
 			foreach ($options_lookup[$element_id] as $option_id => $data) {
 				$element_options[$i] = new stdClass();
-				$element_options[$i]->id 		 = $option_id;
-				$element_options[$i]->option 	 = $data['option'];
+				$element_options[$i]->id = $option_id;
+				$element_options[$i]->option = $data['option'];
 				$element_options[$i]->is_default = $data['option_is_default'];
 				$element_options[$i]->is_db_live = 1;
 
@@ -5422,99 +5427,99 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 
 
 		//populate elements
-		$element[$j]->title 		= nl2br($row['element_title']);
+		$element[$j]->title = nl2br($row['element_title']);
 		$trans_text = $translation->getOptionTranslationManual("ap_form_elements", "element_title", $form_id, $element_id, $locale);
 		if ($trans_text) {
-			$element[$j]->title  			= $trans_text;
+			$element[$j]->title = $trans_text;
 		}
 
-		$element[$j]->guidelines 	= nl2br($row['element_guidelines']);
+		$element[$j]->guidelines = nl2br($row['element_guidelines']);
 		$trans_text = $translation->getOptionTranslationManual("ap_form_elements", "element_guidelines", $form_id, $element_id, $locale);
 		if ($trans_text) {
-			$element[$j]->guidelines  			= $trans_text;
+			$element[$j]->guidelines = $trans_text;
 		}
 
 		if (!empty($row['element_guidelines']) && ($row['element_type'] != 'section') && ($row['element_type'] != 'matrix') && ($row['element_is_private'] == 0)) {
 			$has_guidelines = true;
 		}
 
-		$element[$j]->size 			= $row['element_size'];
-		$element[$j]->is_required 	= $row['element_is_required'];
-		$element[$j]->is_readonly 	= $row['element_is_readonly'];
-		$element[$j]->is_unique 	= $row['element_is_unique'];
-		$element[$j]->is_private 	= $row['element_is_private'];
-		$element[$j]->type 			= $row['element_type'];
-		$element[$j]->position 		= $row['element_position'];
-		$element[$j]->id 			= $row['element_id'];
-		$element[$j]->is_db_live 	= 1;
-		$element[$j]->form_id 		= $form_id;
-		$element[$j]->choice_has_other   = (int) $row['element_choice_has_other'];
+		$element[$j]->size = $row['element_size'];
+		$element[$j]->is_required = $row['element_is_required'];
+		$element[$j]->is_readonly = $row['element_is_readonly'];
+		$element[$j]->is_unique = $row['element_is_unique'];
+		$element[$j]->is_private = $row['element_is_private'];
+		$element[$j]->type = $row['element_type'];
+		$element[$j]->position = $row['element_position'];
+		$element[$j]->id = $row['element_id'];
+		$element[$j]->is_db_live = 1;
+		$element[$j]->form_id = $form_id;
+		$element[$j]->choice_has_other = (int) $row['element_choice_has_other'];
 		$element[$j]->choice_other_label = $row['element_choice_other_label'];
-		$element[$j]->choice_columns   	 = (int) $row['element_choice_columns'];
+		$element[$j]->choice_columns = (int) $row['element_choice_columns'];
 
-		$element[$j]->choice_max_entry   = (int) $row['element_choice_max_entry'];
+		$element[$j]->choice_max_entry = (int) $row['element_choice_max_entry'];
 		if (!empty($element[$j]->choice_max_entry)) {
 			$element[$j]->dbh = $dbh;
 		}
-		$element[$j]->time_showsecond    = (int) $row['element_time_showsecond'];
-		$element[$j]->time_24hour    	 = (int) $row['element_time_24hour'];
-		$element[$j]->address_hideline2	 = (int) $row['element_address_hideline2'];
-		$element[$j]->address_us_only	 = (int) $row['element_address_us_only'];
-		$element[$j]->date_enable_range	 = (int) $row['element_date_enable_range'];
-		$element[$j]->date_range_min	 = $row['element_date_range_min'];
-		$element[$j]->date_range_max	 = $row['element_date_range_max'];
-		$element[$j]->date_enable_selection_limit	 = (int) $row['element_date_enable_selection_limit'];
-		$element[$j]->date_selection_max	 		 = (int) $row['element_date_selection_max'];
-		$element[$j]->date_disable_past_future	 	= (int) $row['element_date_disable_past_future'];
-		$element[$j]->date_past_future	 			= $row['element_date_past_future'];
-		$element[$j]->date_disable_weekend	 		= (int) $row['element_date_disable_weekend'];
-		$element[$j]->date_disable_specific	 		= (int) $row['element_date_disable_specific'];
-		$element[$j]->date_disabled_list	 		= $row['element_date_disabled_list'];
-		$element[$j]->file_enable_type_limit	 	= (int) $row['element_file_enable_type_limit'];
-		$element[$j]->file_block_or_allow	 		= $row['element_file_block_or_allow'];
-		$element[$j]->file_type_list	 			= $row['element_file_type_list'];
-		$element[$j]->file_as_attachment	 		= (int) $row['element_file_as_attachment'];
-		$element[$j]->file_enable_advance	 		= (int) $row['element_file_enable_advance'];
+		$element[$j]->time_showsecond = (int) $row['element_time_showsecond'];
+		$element[$j]->time_24hour = (int) $row['element_time_24hour'];
+		$element[$j]->address_hideline2 = (int) $row['element_address_hideline2'];
+		$element[$j]->address_us_only = (int) $row['element_address_us_only'];
+		$element[$j]->date_enable_range = (int) $row['element_date_enable_range'];
+		$element[$j]->date_range_min = $row['element_date_range_min'];
+		$element[$j]->date_range_max = $row['element_date_range_max'];
+		$element[$j]->date_enable_selection_limit = (int) $row['element_date_enable_selection_limit'];
+		$element[$j]->date_selection_max = (int) $row['element_date_selection_max'];
+		$element[$j]->date_disable_past_future = (int) $row['element_date_disable_past_future'];
+		$element[$j]->date_past_future = $row['element_date_past_future'];
+		$element[$j]->date_disable_weekend = (int) $row['element_date_disable_weekend'];
+		$element[$j]->date_disable_specific = (int) $row['element_date_disable_specific'];
+		$element[$j]->date_disabled_list = $row['element_date_disabled_list'];
+		$element[$j]->file_enable_type_limit = (int) $row['element_file_enable_type_limit'];
+		$element[$j]->file_block_or_allow = $row['element_file_block_or_allow'];
+		$element[$j]->file_type_list = $row['element_file_type_list'];
+		$element[$j]->file_as_attachment = (int) $row['element_file_as_attachment'];
+		$element[$j]->file_enable_advance = (int) $row['element_file_enable_advance'];
 
 		if (!empty($element[$j]->file_enable_advance) && ($row['element_type'] == 'file')) {
 			$has_advance_uploader = true;
 		}
 
-		$element[$j]->file_auto_upload	 			= (int) $row['element_file_auto_upload'];
-		$element[$j]->file_enable_multi_upload	 	= (int) $row['element_file_enable_multi_upload'];
-		$element[$j]->file_max_selection	 		= (int) $row['element_file_max_selection'];
-		$element[$j]->file_enable_size_limit	 	= (int) $row['element_file_enable_size_limit'];
-		$element[$j]->file_size_max	 				= (int) $row['element_file_size_max'];
-		$element[$j]->matrix_allow_multiselect	 	= (int) $row['element_matrix_allow_multiselect'];
-		$element[$j]->matrix_parent_id	 			= (int) $row['element_matrix_parent_id'];
-		$element[$j]->upload_dir	 				= $mf_settings['upload_dir'];
-		$element[$j]->range_min	 					= $row['element_range_min'];
-		$element[$j]->range_max	 					= $row['element_range_max'];
-		$element[$j]->range_limit_by	 			= $row['element_range_limit_by'];
-		$element[$j]->css_class	 					= $row['element_css_class'];
-		$element[$j]->machform_path	 				= $machform_path;
-		$element[$j]->machform_data_path	 		= $machform_data_path;
-		$element[$j]->section_display_in_email	 	= (int) $row['element_section_display_in_email'];
-		$element[$j]->section_enable_scroll	 		= (int) $row['element_section_enable_scroll'];
-		$element[$j]->text_default_type	 			= $row['element_text_default_type'];
-		$element[$j]->text_default_length	 		= (int) $row['element_text_default_length'];
-		$element[$j]->text_default_random_type	 	= $row['element_text_default_random_type'];
-		$element[$j]->text_default_prefix	 		= $row['element_text_default_prefix'];
-		$element[$j]->text_default_case	 			= $row['element_text_default_case'];
+		$element[$j]->file_auto_upload = (int) $row['element_file_auto_upload'];
+		$element[$j]->file_enable_multi_upload = (int) $row['element_file_enable_multi_upload'];
+		$element[$j]->file_max_selection = (int) $row['element_file_max_selection'];
+		$element[$j]->file_enable_size_limit = (int) $row['element_file_enable_size_limit'];
+		$element[$j]->file_size_max = (int) $row['element_file_size_max'];
+		$element[$j]->matrix_allow_multiselect = (int) $row['element_matrix_allow_multiselect'];
+		$element[$j]->matrix_parent_id = (int) $row['element_matrix_parent_id'];
+		$element[$j]->upload_dir = $mf_settings['upload_dir'];
+		$element[$j]->range_min = $row['element_range_min'];
+		$element[$j]->range_max = $row['element_range_max'];
+		$element[$j]->range_limit_by = $row['element_range_limit_by'];
+		$element[$j]->css_class = $row['element_css_class'];
+		$element[$j]->machform_path = $machform_path;
+		$element[$j]->machform_data_path = $machform_data_path;
+		$element[$j]->section_display_in_email = (int) $row['element_section_display_in_email'];
+		$element[$j]->section_enable_scroll = (int) $row['element_section_enable_scroll'];
+		$element[$j]->text_default_type = $row['element_text_default_type'];
+		$element[$j]->text_default_length = (int) $row['element_text_default_length'];
+		$element[$j]->text_default_random_type = $row['element_text_default_random_type'];
+		$element[$j]->text_default_prefix = $row['element_text_default_prefix'];
+		$element[$j]->text_default_case = $row['element_text_default_case'];
 
-		$element[$j]->field_error_message	 		= $row['element_field_error_message'];
+		$element[$j]->field_error_message = $row['element_field_error_message'];
 
 		if ($form->payment_enable_merchant && !empty($row['element_number_enable_quantity']) && !empty($row['element_number_quantity_link'])) {
-			$element[$j]->number_quantity_link	 	= $row['element_number_quantity_link'];
+			$element[$j]->number_quantity_link = $row['element_number_quantity_link'];
 		}
 		//OTB ADD dropdown element attr
-		$element[$j]->table_name	 		= $row['element_table_name'];
-		$element[$j]->field_value	 		= $row['element_field_value'];
-		$element[$j]->field_name	 		= $row['element_field_name'];
-		$element[$j]->option_query	 		= $row['element_option_query'];
-		$element[$j]->existing_form	 		= $row['element_existing_form'];
-		$element[$j]->existing_stage	 	= $row['element_existing_stage'];
-		$element[$j]->select_options	 	= $row['element_select_options'];
+		$element[$j]->table_name = $row['element_table_name'];
+		$element[$j]->field_value = $row['element_field_value'];
+		$element[$j]->field_name = $row['element_field_name'];
+		$element[$j]->option_query = $row['element_option_query'];
+		$element[$j]->existing_form = $row['element_existing_form'];
+		$element[$j]->existing_stage = $row['element_existing_stage'];
+		$element[$j]->select_options = $row['element_select_options'];
 
 		//this data came from db or form submit
 		//being used to display edit form or redisplay form with errors and previous inputs
@@ -5532,7 +5537,8 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 			$form_enc_type = 'enctype="multipart/form-data"';
 
 			//if this is single page form with review enabled or multipage form
-			if ((!empty($form->review) && !empty($_SESSION['review_id']) && !empty($populated_file_values)) ||
+			if (
+				(!empty($form->review) && !empty($_SESSION['review_id']) && !empty($populated_file_values)) ||
 				($form->page_total > 1 && !empty($populated_file_values))
 			) {
 				//populate the default value for uploaded files, when validation error occured
@@ -5553,7 +5559,7 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 		}
 
 		if (!empty($error_elements[$element[$j]->id])) {
-			$element[$j]->is_error 	    = 1;
+			$element[$j]->is_error = 1;
 			$element[$j]->error_message = $error_elements[$element[$j]->id];
 		}
 
@@ -5561,11 +5567,11 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 		$element[$j]->enable_placeholder = $row['element_enable_placeholder'];
 
 
-		$element[$j]->constraint 	= $row['element_constraint'];
+		$element[$j]->constraint = $row['element_constraint'];
 		if (!empty($element_options)) {
-			$element[$j]->options 	= $element_options;
+			$element[$j]->options = $element_options;
 		} else {
-			$element[$j]->options 	= '';
+			$element[$j]->options = '';
 		}
 
 		//check for signature type
@@ -5621,10 +5627,10 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 		//if the element is a matrix field and not the parent, store the data into a lookup array for later use when rendering the markup
 		if ($row['element_type'] == 'matrix' && !empty($row['element_matrix_parent_id'])) {
 
-			$parent_id 	 = $row['element_matrix_parent_id'];
+			$parent_id = $row['element_matrix_parent_id'];
 			$el_position = $row['element_position'];
 			$matrix_elements[$parent_id][$el_position]['title'] = $element[$j]->title;
-			$matrix_elements[$parent_id][$el_position]['id'] 	= $element[$j]->id;
+			$matrix_elements[$parent_id][$el_position]['id'] = $element[$j]->id;
 
 			$matrix_child_option_id = '';
 			foreach ($element_options as $value) {
@@ -5652,15 +5658,15 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 		if ($form->page_total == 1 || ($form->page_total == $page_number)) {
 			if ($_SESSION['captcha_passed'][$form_id] !== true) {
 				$element[$j] = new stdClass();
-				$element[$j]->type 			= 'captcha';
-				$element[$j]->captcha_type 	= $form->captcha_type;
-				$element[$j]->form_id 		= $form_id;
-				$element[$j]->is_private	= 0;
-				$element[$j]->recaptcha_site_key   = $mf_settings['recaptcha_site_key'];
+				$element[$j]->type = 'captcha';
+				$element[$j]->captcha_type = $form->captcha_type;
+				$element[$j]->form_id = $form_id;
+				$element[$j]->is_private = 0;
+				$element[$j]->recaptcha_site_key = $mf_settings['recaptcha_site_key'];
 				$element[$j]->recaptcha_secret_key = $mf_settings['recaptcha_secret_key'];
 
 				if (!empty($error_elements['element_captcha'])) {
-					$element[$j]->is_error 	    = 1;
+					$element[$j]->is_error = 1;
 					$element[$j]->error_message = $error_elements['element_captcha'];
 				}
 
@@ -5739,7 +5745,7 @@ function mf_display_form($dbh, $form_id, $form_params = array())
 							break;
 					}
 
-					$recaptcha2_header 	 = "<script type=\"text/javascript\" src=\"https://www.google.com/recaptcha/api.js?hl={$recaptcha2_language}\"></script>\n";
+					$recaptcha2_header = "<script type=\"text/javascript\" src=\"https://www.google.com/recaptcha/api.js?hl={$recaptcha2_language}\"></script>\n";
 				}
 			}
 		}
@@ -5844,8 +5850,8 @@ EOT;
 		$sth = mf_do_query($query, $params, $dbh);
 		$row = mf_do_fetch_result($sth);
 
-		$form_shadow_style 		= $row['form_shadow_style'];
-		$form_shadow_size 		= $row['form_shadow_size'];
+		$form_shadow_style = $row['form_shadow_style'];
+		$form_shadow_size = $row['form_shadow_size'];
 		$form_shadow_brightness = $row['form_shadow_brightness'];
 		$theme_has_css = (int) $row['theme_has_css'];
 
@@ -5883,7 +5889,7 @@ EOT;
 			//example: RightPerspectiveShadow result to RPS and then being sliced to RP
 			$form_shadow_prefix_code = substr(implode("", $prefix_matches[0]), 0, -1);
 
-			$form_shadow_size_class  = $form_shadow_prefix_code . ucfirst($form_shadow_size);
+			$form_shadow_size_class = $form_shadow_prefix_code . ucfirst($form_shadow_size);
 			$form_shadow_brightness_class = $form_shadow_prefix_code . ucfirst($form_shadow_brightness);
 
 			if (empty($integration_method)) { //only display shadow if the form is not being embedded using any method
@@ -5970,7 +5976,7 @@ EOT;
 		$sth = mf_do_query($query, $params, $dbh);
 		$row = mf_do_fetch_result($sth);
 
-		$total_entries  = $row['total_row'];
+		$total_entries = $row['total_row'];
 
 		if ($total_entries >= $form->limit) {
 			$form_has_maximum_entries = true;
@@ -6135,7 +6141,7 @@ EOT;
 		}
 
 		if (!empty($datepick_lang)) {
-			$datepick_lang =  '<script type="text/javascript" src="' . $machform_path . $datepick_lang . '"></script>';
+			$datepick_lang = '<script type="text/javascript" src="' . $machform_path . $datepick_lang . '"></script>';
 		}
 
 		$calendar_init = '<script type="text/javascript" src="' . $machform_path . 'js/datepick/jquery.datepick.js"></script>' . "\n" .
@@ -6194,21 +6200,21 @@ EOT;
 		$sth = mf_do_query($query, $params, $dbh);
 		while ($row = mf_do_fetch_result($sth)) {
 			$temp_page_number = $row['element_page_number'];
-			$page_breaks_data[$temp_page_number]['use_image'] 		= $row['element_submit_use_image'];
-			$page_breaks_data[$temp_page_number]['primary_text'] 	= $row['element_submit_primary_text'];
-			$page_breaks_data[$temp_page_number]['secondary_text'] 	= $row['element_submit_secondary_text'];
-			$page_breaks_data[$temp_page_number]['primary_img']		= $row['element_submit_primary_img'];
-			$page_breaks_data[$temp_page_number]['secondary_img'] 	= $row['element_submit_secondary_img'];
+			$page_breaks_data[$temp_page_number]['use_image'] = $row['element_submit_use_image'];
+			$page_breaks_data[$temp_page_number]['primary_text'] = $row['element_submit_primary_text'];
+			$page_breaks_data[$temp_page_number]['secondary_text'] = $row['element_submit_secondary_text'];
+			$page_breaks_data[$temp_page_number]['primary_img'] = $row['element_submit_primary_img'];
+			$page_breaks_data[$temp_page_number]['secondary_img'] = $row['element_submit_secondary_img'];
 
 			$page_title_array[] = $row['element_page_title'];
 		}
 
 		//add the last page buttons info into the array for easy lookup
-		$page_breaks_data[$form->page_total]['use_image'] 		= $form->submit_use_image;
-		$page_breaks_data[$form->page_total]['primary_text'] 	= $form->submit_primary_text;
-		$page_breaks_data[$form->page_total]['secondary_text'] 	= $form->submit_secondary_text;
-		$page_breaks_data[$form->page_total]['primary_img'] 	= $form->submit_primary_img;
-		$page_breaks_data[$form->page_total]['secondary_img'] 	= $form->submit_secondary_img;
+		$page_breaks_data[$form->page_total]['use_image'] = $form->submit_use_image;
+		$page_breaks_data[$form->page_total]['primary_text'] = $form->submit_primary_text;
+		$page_breaks_data[$form->page_total]['secondary_text'] = $form->submit_secondary_text;
+		$page_breaks_data[$form->page_total]['primary_img'] = $form->submit_primary_img;
+		$page_breaks_data[$form->page_total]['secondary_img'] = $form->submit_secondary_img;
 
 		$page_total = count($page_title_array) + 1;
 
@@ -6323,9 +6329,9 @@ EOT;
 			if (empty($page_breaks_data[$page_number]['use_image'])) { //if using text buttons as submit
 
 				if ($page_number > 1) {
-					$button_secondary_markup = '<input class="button_text btn-form btn_secondary" type="submit" id="submit_secondary" name="submit_secondary" value="' . $page_breaks_data[$page_number]['secondary_text'] . '" />';
+					$button_secondary_markup = '<input class="btn btn-primary" type="submit" id="submit_secondary" name="submit_secondary" value="' . $page_breaks_data[$page_number]['secondary_text'] . '" />';
 					if (!empty($form->resume_enable)) {
-						$button_secondary_markup .= ' <input class="button_text btn-form btn_secondary" type="submit" onClick="document.getElementById(\'save_as_draft\').value = 1;" value="' . $mf_lang['resume_checkbox_title'] . '" /> <input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
+						$button_secondary_markup .= ' <input class="btn btn-primary" type="submit" onClick="document.getElementById(\'save_as_draft\').value = 1;" value="' . $mf_lang['resume_checkbox_title'] . '" /> <input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
 					}
 				}
 
@@ -6336,7 +6342,7 @@ EOT;
 				    <input type="hidden" name="submit_form" value="1" />
 				    <input type="hidden" name="page_number" value="{$page_number}" />
 					{$button_secondary_markup}
-					<input class="button_text btn-form btn_primary" type="submit" id="submit_primary" name="submit_primary" value="{$page_breaks_data[$page_number]['primary_text']}" />
+					<input class="btn btn-success" type="submit" id="submit_primary" name="submit_primary" value="{$page_breaks_data[$page_number]['primary_text']}" />
 			</li>
 EOT;
 			} else { //if using images as submit
@@ -6366,7 +6372,7 @@ EOT;
 				    {$edit_markup}
 				    <input type="hidden" name="submit_form" value="1" />
 				    <input type="hidden" name="page_number" value="{$page_number}" />
-					<input class="button_text btn-form btn_primary" type="submit" id="submit_primary" name="submit_primary" value="Save Changes" />
+					<input class="btn btn-success" type="submit" id="submit_primary" name="submit_primary" value="Save Changes" />
 			</li>
 EOT;
 		}
@@ -6405,37 +6411,37 @@ EOT;
 	//if the form has resume enabled and this is multi page form (single page form doesn't have resume option)
 	/*if(!empty($form->resume_enable) && $form->page_total > 1 && $show_password_form === false && empty($inactive_message)){
 
-			if(!empty($error_elements['element_resume_email'])){
-				$li_resume_email_style = '';
-				$li_resume_error_message = "<p class=\"error\">{$error_elements['element_resume_email']}</p>";
-				$li_resume_class = 'class="error"';
-				$li_resume_checked = 'checked="checked"';
-				$li_resume_button_status = 1;
-			}else{
-				$li_resume_email_style = 'style="display: none"';
-				$li_resume_error_message = '';
-				$li_resume_class = '';
-				$li_resume_checked = '';
-				$li_resume_button_status = 0;
-			}
+			   if(!empty($error_elements['element_resume_email'])){
+				   $li_resume_email_style = '';
+				   $li_resume_error_message = "<p class=\"error\">{$error_elements['element_resume_email']}</p>";
+				   $li_resume_class = 'class="error"';
+				   $li_resume_checked = 'checked="checked"';
+				   $li_resume_button_status = 1;
+			   }else{
+				   $li_resume_email_style = 'style="display: none"';
+				   $li_resume_error_message = '';
+				   $li_resume_class = '';
+				   $li_resume_checked = '';
+				   $li_resume_button_status = 0;
+			   }
 
-			$form_resume_markup = <<<EOT
-			<li id="li_resume_checkbox">
-			<div>
-				<span><input type="checkbox" value="1" class="element form-control checkbox" name="element_resume_checkbox" id="element_resume_checkbox" {$li_resume_checked}>
-					<label for="element_resume_checkbox" class="choice">{$mf_lang['resume_checkbox_title']}</label>
-				</span>
-			</div>
-			</li>
-			<li id="li_resume_email" {$li_resume_class} {$li_resume_email_style} data-resumebutton="{$li_resume_button_status}" data-resumelabel="{$mf_lang['resume_submit_button_text btn-form']}">
-				<label for="element_resume_email" class="description">{$mf_lang['resume_email_input_label']} <span class="required">*</span></label>
-				<div>
-					<input type="text" value="{$populated_values['element_resume_email']}" class="element form-control text medium" name="element_resume_email" id="element_resume_email">
-				</div><p id="guide_resume_email" class="guidelines"><small>{$mf_lang['resume_guideline']}</small></p> {$li_resume_error_message}
-			</li>
-EOT;
+			   $form_resume_markup = <<<EOT
+			   <li id="li_resume_checkbox">
+			   <div>
+				   <span><input type="checkbox" value="1" class="element form-control checkbox" name="element_resume_checkbox" id="element_resume_checkbox" {$li_resume_checked}>
+					   <label for="element_resume_checkbox" class="choice">{$mf_lang['resume_checkbox_title']}</label>
+				   </span>
+			   </div>
+			   </li>
+			   <li id="li_resume_email" {$li_resume_class} {$li_resume_email_style} data-resumebutton="{$li_resume_button_status}" data-resumelabel="{$mf_lang['resume_submit_button_text btn-form']}">
+				   <label for="element_resume_email" class="description">{$mf_lang['resume_email_input_label']} <span class="required">*</span></label>
+				   <div>
+					   <input type="text" value="{$populated_values['element_resume_email']}" class="element form-control text medium" name="element_resume_email" id="element_resume_email">
+				   </div><p id="guide_resume_email" class="guidelines"><small>{$mf_lang['resume_guideline']}</small></p> {$li_resume_error_message}
+			   </li>
+   EOT;
 
-		}*/
+		   }*/
 
 	//if the form has enabled merchant support and set the total payment to be displayed
 	if ($form->payment_enable_merchant && $form->payment_onsubmission && !empty($form->payment_show_total)) {
@@ -6603,7 +6609,7 @@ EOT;
 		} else if ($form->payment_total_location == 'bottom') {
 			$payment_total_markup_bottom = $payment_total_markup;
 		} else if ($form->payment_total_location == 'top-bottom' || $form->payment_total_location == 'all') {
-			$payment_total_markup_top 	 = $payment_total_markup;
+			$payment_total_markup_top = $payment_total_markup;
 			$payment_total_markup_bottom = $payment_total_markup;
 		}
 	}
@@ -6733,7 +6739,7 @@ EOT;
                 document.getElementById("li_" + link_id + "_filter").innerHTML = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "/index.php/forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
+        xhttp.open("GET", "/plan/forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
         xhttp.send();
     }
 	</script>
@@ -6755,7 +6761,7 @@ function mf_display_raw_form($dbh, $form_id)
 
 
 	//get form properties data
-	$query 	= "select
+	$query = "select
 						 form_name,
 						 form_description,
 						 form_label_alignment,
@@ -6778,18 +6784,18 @@ function mf_display_raw_form($dbh, $form_id)
 
 	$form = new stdClass();
 
-	$form->id 				= $form_id;
-	$form->name 			= $row['form_name'];
-	$form->description 		= $row['form_description'];
-	$form->label_alignment 	= $row['form_label_alignment'];
-	$form->page_total 		= $row['form_page_total'];
-	$form->lastpage_title 	= $row['form_lastpage_title'];
-	$form->submit_primary_text 	 = $row['form_submit_primary_text'];
+	$form->id = $form_id;
+	$form->name = $row['form_name'];
+	$form->description = $row['form_description'];
+	$form->label_alignment = $row['form_label_alignment'];
+	$form->page_total = $row['form_page_total'];
+	$form->lastpage_title = $row['form_lastpage_title'];
+	$form->submit_primary_text = $row['form_submit_primary_text'];
 	$form->submit_secondary_text = $row['form_submit_secondary_text'];
-	$form->submit_primary_img 	 = $row['form_submit_primary_img'];
-	$form->submit_secondary_img  = $row['form_submit_secondary_img'];
-	$form->submit_use_image  	 = (int) $row['form_submit_use_image'];
-	$form->pagination_type		 = $row['form_pagination_type'];
+	$form->submit_primary_img = $row['form_submit_primary_img'];
+	$form->submit_secondary_img = $row['form_submit_secondary_img'];
+	$form->submit_use_image = (int) $row['form_submit_use_image'];
+	$form->pagination_type = $row['form_pagination_type'];
 
 	$matrix_elements = array();
 
@@ -6812,9 +6818,9 @@ function mf_display_raw_form($dbh, $form_id)
 
 	while ($row = mf_do_fetch_result($sth)) {
 		$element_id = $row['element_id'];
-		$option_id  = $row['option_id'];
-		$options_lookup[$element_id][$option_id]['position'] 		  = $row['position'];
-		$options_lookup[$element_id][$option_id]['option'] 			  = $row['option_text'];
+		$option_id = $row['option_id'];
+		$options_lookup[$element_id][$option_id]['position'] = $row['position'];
+		$options_lookup[$element_id][$option_id]['option'] = $row['option_text'];
 		$options_lookup[$element_id][$option_id]['option_is_default'] = $row['option_is_default'];
 	}
 
@@ -6925,8 +6931,8 @@ function mf_display_raw_form($dbh, $form_id)
 			$i = 0;
 			foreach ($options_lookup[$element_id] as $option_id => $data) {
 				$element_options[$i] = new stdClass();
-				$element_options[$i]->id 		 = $option_id;
-				$element_options[$i]->option 	 = $data['option'];
+				$element_options[$i]->id = $option_id;
+				$element_options[$i]->option = $data['option'];
 				$element_options[$i]->is_default = $data['option_is_default'];
 				$element_options[$i]->is_db_live = 1;
 				$i++;
@@ -6935,95 +6941,95 @@ function mf_display_raw_form($dbh, $form_id)
 
 		//populate elements
 		$element[$j] = new stdClass();
-		$element[$j]->title 		= nl2br($row['element_title']);
-		$element[$j]->guidelines 	= nl2br($row['element_guidelines']);
+		$element[$j]->title = nl2br($row['element_title']);
+		$element[$j]->guidelines = nl2br($row['element_guidelines']);
 
 		if (!empty($row['element_guidelines']) && ($row['element_type'] != 'section') && ($row['element_type'] != 'matrix')) {
 			$has_guidelines = true;
 		}
 
-		$element[$j]->size 			= $row['element_size'];
+		$element[$j]->size = $row['element_size'];
 		$element[$j]->default_value = htmlspecialchars($row['element_default_value']);
-		$element[$j]->is_required 	= $row['element_is_required'];
-		$element[$j]->is_readonly 	= $row['element_is_readonly'];
-		$element[$j]->is_unique 	= $row['element_is_unique'];
-		$element[$j]->is_private 	= $row['element_is_private'];
-		$element[$j]->type 			= $row['element_type'];
-		$element[$j]->position 		= $row['element_position'];
-		$element[$j]->id 			= $row['element_id'];
-		$element[$j]->is_db_live 	 = 1;
+		$element[$j]->is_required = $row['element_is_required'];
+		$element[$j]->is_readonly = $row['element_is_readonly'];
+		$element[$j]->is_unique = $row['element_is_unique'];
+		$element[$j]->is_private = $row['element_is_private'];
+		$element[$j]->type = $row['element_type'];
+		$element[$j]->position = $row['element_position'];
+		$element[$j]->id = $row['element_id'];
+		$element[$j]->is_db_live = 1;
 		$element[$j]->is_design_mode = true;
 		$element[$j]->enable_placeholder = (int) $row['element_enable_placeholder'];
-		$element[$j]->choice_has_other   = (int) $row['element_choice_has_other'];
+		$element[$j]->choice_has_other = (int) $row['element_choice_has_other'];
 		$element[$j]->choice_other_label = $row['element_choice_other_label'];
-		$element[$j]->choice_columns   	 = (int) $row['element_choice_columns'];
-		$element[$j]->time_showsecond	 = (int) $row['element_time_showsecond'];
-		$element[$j]->time_24hour	 	 = (int) $row['element_time_24hour'];
-		$element[$j]->address_hideline2	 = (int) $row['element_address_hideline2'];
-		$element[$j]->address_us_only	 = (int) $row['element_address_us_only'];
-		$element[$j]->date_enable_range	 = (int) $row['element_date_enable_range'];
-		$element[$j]->date_range_min	 = $row['element_date_range_min'];
-		$element[$j]->date_range_max	 = $row['element_date_range_max'];
-		$element[$j]->date_enable_selection_limit	= (int) $row['element_date_enable_selection_limit'];
-		$element[$j]->date_selection_max	 		= (int) $row['element_date_selection_max'];
-		$element[$j]->date_disable_past_future	 	= (int) $row['element_date_disable_past_future'];
-		$element[$j]->date_past_future	 			= $row['element_date_past_future'];
-		$element[$j]->date_disable_weekend	 		= (int) $row['element_date_disable_weekend'];
-		$element[$j]->date_disable_specific	 		= (int) $row['element_date_disable_specific'];
-		$element[$j]->date_disabled_list	 		= $row['element_date_disabled_list'];
-		$element[$j]->file_enable_type_limit	 	= (int) $row['element_file_enable_type_limit'];
-		$element[$j]->file_block_or_allow	 		= $row['element_file_block_or_allow'];
-		$element[$j]->file_type_list	 			= $row['element_file_type_list'];
-		$element[$j]->file_as_attachment	 		= (int) $row['element_file_as_attachment'];
-		$element[$j]->file_enable_advance	 		= (int) $row['element_file_enable_advance'];
-		$element[$j]->file_auto_upload	 			= (int) $row['element_file_auto_upload'];
-		$element[$j]->file_enable_multi_upload	 	= (int) $row['element_file_enable_multi_upload'];
-		$element[$j]->file_max_selection	 		= (int) $row['element_file_max_selection'];
-		$element[$j]->file_enable_size_limit	 	= (int) $row['element_file_enable_size_limit'];
-		$element[$j]->file_size_max	 				= (int) $row['element_file_size_max'];
-		$element[$j]->submit_use_image	 			= (int) $row['element_submit_use_image'];
-		$element[$j]->submit_primary_text	 		= $row['element_submit_primary_text'];
-		$element[$j]->submit_secondary_text	 		= $row['element_submit_secondary_text'];
-		$element[$j]->submit_primary_img	 		= $row['element_submit_primary_img'];
-		$element[$j]->submit_secondary_img	 		= $row['element_submit_secondary_img'];
-		$element[$j]->page_title	 				= $row['element_page_title'];
-		$element[$j]->page_number	 				= (int) $row['element_page_number'];
-		$element[$j]->page_total	 				= $form->page_total;
-		$element[$j]->matrix_allow_multiselect	 	= (int) $row['element_matrix_allow_multiselect'];
-		$element[$j]->matrix_parent_id	 			= (int) $row['element_matrix_parent_id'];
-		$element[$j]->range_min	 					= $row['element_range_min'];
-		$element[$j]->range_max	 					= $row['element_range_max'];
-		$element[$j]->range_limit_by	 			= $row['element_range_limit_by'];
-		$element[$j]->section_display_in_email	 	= (int) $row['element_section_display_in_email'];
-		$element[$j]->section_enable_scroll	 		= (int) $row['element_section_enable_scroll'];
-		$element[$j]->text_default_type	 			= $row['element_text_default_type'];
-		$element[$j]->text_default_length	 		= (int) $row['element_text_default_length'];
-		$element[$j]->text_default_random_type	 	= $row['element_text_default_random_type'];
-		$element[$j]->text_default_prefix	 		= $row['element_text_default_prefix'];
-		$element[$j]->text_default_case	 			= $row['element_text_default_case'];
-		$element[$j]->footprint 		= nl2br($row['element_footprint']); //OTB patch
-		$element[$j]->plotsize 		= nl2br($row['element_plotsize']); //OTB patch
-		$element[$j]->actualplotratio 		= nl2br($row['element_actualplotratio']); //OTB patch
-		$element[$j]->permittedgroundcoverage 		= nl2br($row['element_permittedgroundcoverage']); //OTB patch
-		$element[$j]->zone 		= nl2br($row['element_zone']); //OTB patch
-		$element[$j]->projectcost 		= nl2br($row['element_projectcost']); //OTB patch
-		$element[$j]->grandtotalplintharea 		= nl2br($row['element_grandtotalplintharea']); //OTB patch
-		$element[$j]->groundcoveragereason 		= nl2br($row['element_groundcoveragereason']); //OTB patch
-		$element[$j]->plotratioreason 		= nl2br($row['element_plotratioreason']); //OTB patch
-		$element[$j]->permitteduser 		= nl2br($row['element_permitteduser']);
-		$element[$j]->select_options 		= nl2br($row['element_select_options']);
-		$element[$j]->table_name	 		= $row['element_table_name'];
-		$element[$j]->field_value	 		= $row['element_field_value'];
-		$element[$j]->field_name	 		= $row['element_field_name'];
-		$element[$j]->option_query	 		= $row['element_option_query'];
-		$element[$j]->existing_form	 		= $row['element_existing_form'];
-		$element[$j]->existing_stage	 	= $row['element_existing_stage'];
+		$element[$j]->choice_columns = (int) $row['element_choice_columns'];
+		$element[$j]->time_showsecond = (int) $row['element_time_showsecond'];
+		$element[$j]->time_24hour = (int) $row['element_time_24hour'];
+		$element[$j]->address_hideline2 = (int) $row['element_address_hideline2'];
+		$element[$j]->address_us_only = (int) $row['element_address_us_only'];
+		$element[$j]->date_enable_range = (int) $row['element_date_enable_range'];
+		$element[$j]->date_range_min = $row['element_date_range_min'];
+		$element[$j]->date_range_max = $row['element_date_range_max'];
+		$element[$j]->date_enable_selection_limit = (int) $row['element_date_enable_selection_limit'];
+		$element[$j]->date_selection_max = (int) $row['element_date_selection_max'];
+		$element[$j]->date_disable_past_future = (int) $row['element_date_disable_past_future'];
+		$element[$j]->date_past_future = $row['element_date_past_future'];
+		$element[$j]->date_disable_weekend = (int) $row['element_date_disable_weekend'];
+		$element[$j]->date_disable_specific = (int) $row['element_date_disable_specific'];
+		$element[$j]->date_disabled_list = $row['element_date_disabled_list'];
+		$element[$j]->file_enable_type_limit = (int) $row['element_file_enable_type_limit'];
+		$element[$j]->file_block_or_allow = $row['element_file_block_or_allow'];
+		$element[$j]->file_type_list = $row['element_file_type_list'];
+		$element[$j]->file_as_attachment = (int) $row['element_file_as_attachment'];
+		$element[$j]->file_enable_advance = (int) $row['element_file_enable_advance'];
+		$element[$j]->file_auto_upload = (int) $row['element_file_auto_upload'];
+		$element[$j]->file_enable_multi_upload = (int) $row['element_file_enable_multi_upload'];
+		$element[$j]->file_max_selection = (int) $row['element_file_max_selection'];
+		$element[$j]->file_enable_size_limit = (int) $row['element_file_enable_size_limit'];
+		$element[$j]->file_size_max = (int) $row['element_file_size_max'];
+		$element[$j]->submit_use_image = (int) $row['element_submit_use_image'];
+		$element[$j]->submit_primary_text = $row['element_submit_primary_text'];
+		$element[$j]->submit_secondary_text = $row['element_submit_secondary_text'];
+		$element[$j]->submit_primary_img = $row['element_submit_primary_img'];
+		$element[$j]->submit_secondary_img = $row['element_submit_secondary_img'];
+		$element[$j]->page_title = $row['element_page_title'];
+		$element[$j]->page_number = (int) $row['element_page_number'];
+		$element[$j]->page_total = $form->page_total;
+		$element[$j]->matrix_allow_multiselect = (int) $row['element_matrix_allow_multiselect'];
+		$element[$j]->matrix_parent_id = (int) $row['element_matrix_parent_id'];
+		$element[$j]->range_min = $row['element_range_min'];
+		$element[$j]->range_max = $row['element_range_max'];
+		$element[$j]->range_limit_by = $row['element_range_limit_by'];
+		$element[$j]->section_display_in_email = (int) $row['element_section_display_in_email'];
+		$element[$j]->section_enable_scroll = (int) $row['element_section_enable_scroll'];
+		$element[$j]->text_default_type = $row['element_text_default_type'];
+		$element[$j]->text_default_length = (int) $row['element_text_default_length'];
+		$element[$j]->text_default_random_type = $row['element_text_default_random_type'];
+		$element[$j]->text_default_prefix = $row['element_text_default_prefix'];
+		$element[$j]->text_default_case = $row['element_text_default_case'];
+		$element[$j]->footprint = nl2br($row['element_footprint']); //OTB patch
+		$element[$j]->plotsize = nl2br($row['element_plotsize']); //OTB patch
+		$element[$j]->actualplotratio = nl2br($row['element_actualplotratio']); //OTB patch
+		$element[$j]->permittedgroundcoverage = nl2br($row['element_permittedgroundcoverage']); //OTB patch
+		$element[$j]->zone = nl2br($row['element_zone']); //OTB patch
+		$element[$j]->projectcost = nl2br($row['element_projectcost']); //OTB patch
+		$element[$j]->grandtotalplintharea = nl2br($row['element_grandtotalplintharea']); //OTB patch
+		$element[$j]->groundcoveragereason = nl2br($row['element_groundcoveragereason']); //OTB patch
+		$element[$j]->plotratioreason = nl2br($row['element_plotratioreason']); //OTB patch
+		$element[$j]->permitteduser = nl2br($row['element_permitteduser']);
+		$element[$j]->select_options = nl2br($row['element_select_options']);
+		$element[$j]->table_name = $row['element_table_name'];
+		$element[$j]->field_value = $row['element_field_value'];
+		$element[$j]->field_name = $row['element_field_name'];
+		$element[$j]->option_query = $row['element_option_query'];
+		$element[$j]->existing_form = $row['element_existing_form'];
+		$element[$j]->existing_stage = $row['element_existing_stage'];
 
-		$element[$j]->constraint 	= $row['element_constraint'];
+		$element[$j]->constraint = $row['element_constraint'];
 		if (!empty($element_options)) {
-			$element[$j]->options 	= $element_options;
+			$element[$j]->options = $element_options;
 		} else {
-			$element[$j]->options 	= '';
+			$element[$j]->options = '';
 		}
 
 		if ($row['element_type'] == 'page_break') {
@@ -7033,10 +7039,10 @@ function mf_display_raw_form($dbh, $form_id)
 		//if the element is a matrix field and not the parent, store the data into a lookup array for later use when rendering the markup
 		if ($row['element_type'] == 'matrix' && !empty($row['element_matrix_parent_id'])) {
 
-			$parent_id 	 = $row['element_matrix_parent_id'];
+			$parent_id = $row['element_matrix_parent_id'];
 			$el_position = $row['element_position'];
 			$matrix_elements[$parent_id][$el_position]['title'] = $element[$j]->title;
-			$matrix_elements[$parent_id][$el_position]['id'] 	= $element[$j]->id;
+			$matrix_elements[$parent_id][$el_position]['id'] = $element[$j]->id;
 
 			$matrix_child_option_id = '';
 			foreach ($element_options as $value) {
@@ -7064,6 +7070,7 @@ function mf_display_raw_form($dbh, $form_id)
 		if ($element_data->type == 'matrix') {
 			$element_data->matrix_children = $matrix_elements[$element_data->id];
 		}
+
 		$all_element_markup .= call_user_func('mf_display_' . $element_data->type, $element_data);
 	}
 
@@ -7244,7 +7251,7 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 	$mf_settings = mf_get_settings($dbh);
 
 	//get form properties data
-	$query 	= "select
+	$query = "select
 						  form_success_message,
 						  form_has_css,
 						  form_name,
@@ -7264,16 +7271,16 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 
 	$form = new stdClass();
 
-	$form->id 				= $form_id;
-	$form->success_message  = $row['form_success_message'];
-	$form->logic_success_enable  = (int) $row['logic_success_enable'];
-	$form->has_css 			= $row['form_has_css'];
-	$form->name 			= $row['form_name'];
-	$form->theme_id 		= $row['form_theme_id'];
-	$form->language 		= trim($row['form_language']);
+	$form->id = $form_id;
+	$form->success_message = $row['form_success_message'];
+	$form->logic_success_enable = (int) $row['logic_success_enable'];
+	$form->has_css = $row['form_has_css'];
+	$form->name = $row['form_name'];
+	$form->theme_id = $row['form_theme_id'];
+	$form->language = trim($row['form_language']);
 
 	$form->custom_script_enable = (int) $row['form_custom_script_enable'];
-	$form->custom_script_url 	= $row['form_custom_script_url'];
+	$form->custom_script_url = $row['form_custom_script_url'];
 
 	if (!empty($form->language)) {
 		mf_set_language($form->language);
@@ -7299,9 +7306,9 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 		$success_logic_array = array();
 		$i = 0;
 		while ($row = mf_do_fetch_result($sth)) {
-			$success_logic_array[$i]['rule_id'] 	   		= $row['rule_id'];
-			$success_logic_array[$i]['rule_all_any'] 		= $row['rule_all_any'];
-			$success_logic_array[$i]['success_message'] 	= $row['success_message'];
+			$success_logic_array[$i]['rule_id'] = $row['rule_id'];
+			$success_logic_array[$i]['rule_all_any'] = $row['rule_all_any'];
+			$success_logic_array[$i]['success_message'] = $row['success_message'];
 			$i++;
 		}
 
@@ -7311,7 +7318,7 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 
 			foreach ($success_logic_array as $value) {
 				$target_rule_id = $value['rule_id'];
-				$rule_all_any 	= $value['rule_all_any'];
+				$rule_all_any = $value['rule_all_any'];
 
 				$success_message = $value['success_message'];
 
@@ -7331,12 +7338,12 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 				while ($row = mf_do_fetch_result($sth)) {
 
 					$condition_params = array();
-					$condition_params['form_id']		= $form_id;
-					$condition_params['element_name'] 	= $row['element_name'];
+					$condition_params['form_id'] = $form_id;
+					$condition_params['element_name'] = $row['element_name'];
 					$condition_params['rule_condition'] = $row['rule_condition'];
-					$condition_params['rule_keyword'] 	= $row['rule_keyword'];
+					$condition_params['rule_keyword'] = $row['rule_keyword'];
 					$condition_params['use_main_table'] = true;
-					$condition_params['entry_id'] 		= $_SESSION['mf_success_entry_id'];
+					$condition_params['entry_id'] = $_SESSION['mf_success_entry_id'];
 
 					$current_rule_conditions_status[] = mf_get_condition_status_from_table($dbh, $condition_params);
 				}
@@ -7398,8 +7405,8 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 		$sth = mf_do_query($query, $params, $dbh);
 		$row = mf_do_fetch_result($sth);
 
-		$form_shadow_style 		= $row['form_shadow_style'];
-		$form_shadow_size 		= $row['form_shadow_size'];
+		$form_shadow_style = $row['form_shadow_style'];
+		$form_shadow_size = $row['form_shadow_size'];
 		$form_shadow_brightness = $row['form_shadow_brightness'];
 		$theme_has_css = (int) $row['theme_has_css'];
 
@@ -7429,7 +7436,7 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 			//example: RightPerspectiveShadow result to RPS and then being sliced to RP
 			$form_shadow_prefix_code = substr(implode("", $prefix_matches[0]), 0, -1);
 
-			$form_shadow_size_class  = $form_shadow_prefix_code . ucfirst($form_shadow_size);
+			$form_shadow_size_class = $form_shadow_prefix_code . ucfirst($form_shadow_size);
 			$form_shadow_brightness_class = $form_shadow_prefix_code . ucfirst($form_shadow_brightness);
 
 			if (empty($integration_method)) { //only display shadow if the form is not being embedded using any method
@@ -7569,7 +7576,7 @@ function mf_display_form_review($dbh, $form_id, $record_id, $from_page_num, $for
 	$mf_settings = mf_get_settings($dbh);
 
 	//get form properties data
-	$query 	= "select
+	$query = "select
 						  form_name,
 						  form_has_css,
 						  form_redirect,
@@ -7616,48 +7623,48 @@ function mf_display_form_review($dbh, $form_id, $record_id, $from_page_num, $for
 		mf_set_language($locale);
 	}
 
-	$form_has_css 			= $row['form_has_css'];
-	$form_redirect			= $row['form_redirect'];
-	$form_review_primary_text 	 = $mf_lang['submit_button'];
-	$form_review_secondary_text  = $mf_lang['back_button'];
-	$form_review_primary_img 	 = $row['form_review_primary_img'];
-	$form_review_secondary_img   = $row['form_review_secondary_img'];
-	$form_review_use_image  	 = (int) $row['form_review_use_image'];
-	$form_review_title			 = $mf_lang['review_title'];
-	$form_review_description	 = $mf_lang['review_message'];
-	$form_page_total 			 = $row['form_page_total'];
-	$form_lastpage_title 		 = $row['form_lastpage_title'];
-	$form_pagination_type		 = $row['form_pagination_type'];
-	$form_name					 = htmlspecialchars($row['form_name'], ENT_QUOTES);
-	$form_theme_id				 = $row['form_theme_id'];
-	$form_resume_enable  	 	 = (int) $row['form_resume_enable'];
-	$logic_field_enable 		 = (int) $row['logic_field_enable'];
+	$form_has_css = $row['form_has_css'];
+	$form_redirect = $row['form_redirect'];
+	$form_review_primary_text = $mf_lang['submit_button'];
+	$form_review_secondary_text = $mf_lang['back_button'];
+	$form_review_primary_img = $row['form_review_primary_img'];
+	$form_review_secondary_img = $row['form_review_secondary_img'];
+	$form_review_use_image = (int) $row['form_review_use_image'];
+	$form_review_title = $mf_lang['review_title'];
+	$form_review_description = $mf_lang['review_message'];
+	$form_page_total = $row['form_page_total'];
+	$form_lastpage_title = $row['form_lastpage_title'];
+	$form_pagination_type = $row['form_pagination_type'];
+	$form_name = htmlspecialchars($row['form_name'], ENT_QUOTES);
+	$form_theme_id = $row['form_theme_id'];
+	$form_resume_enable = (int) $row['form_resume_enable'];
+	$logic_field_enable = (int) $row['logic_field_enable'];
 
-	$payment_show_total	 		 = (int) $row['payment_show_total'];
-	$payment_total_location 	 = $row['payment_total_location'];
-	$payment_enable_merchant 	 = (int) $row['payment_enable_merchant'];
-	$payment_currency 	   		 = $row['payment_currency'];
-	$payment_price_type 	     = $row['payment_price_type'];
-	$payment_price_amount    	 = $row['payment_price_amount'];
+	$payment_show_total = (int) $row['payment_show_total'];
+	$payment_total_location = $row['payment_total_location'];
+	$payment_enable_merchant = (int) $row['payment_enable_merchant'];
+	$payment_currency = $row['payment_currency'];
+	$payment_price_type = $row['payment_price_type'];
+	$payment_price_amount = $row['payment_price_amount'];
 
-	$payment_enable_discount 		= (int) $row['payment_enable_discount'];
-	$payment_discount_type 	 		= $row['payment_discount_type'];
-	$payment_discount_amount 		= (float) $row['payment_discount_amount'];
-	$payment_discount_element_id 	= (int) $row['payment_discount_element_id'];
+	$payment_enable_discount = (int) $row['payment_enable_discount'];
+	$payment_discount_type = $row['payment_discount_type'];
+	$payment_discount_amount = (float) $row['payment_discount_amount'];
+	$payment_discount_element_id = (int) $row['payment_discount_element_id'];
 
-	$payment_enable_tax 		 	= (int) $row['payment_enable_tax'];
-	$payment_tax_rate 				= (float) $row['payment_tax_rate'];
+	$payment_enable_tax = (int) $row['payment_enable_tax'];
+	$payment_tax_rate = (float) $row['payment_tax_rate'];
 
-	$form_custom_script_enable 		= (int) $row['form_custom_script_enable'];
-	$form_custom_script_url 		= $row['form_custom_script_url'];
+	$form_custom_script_enable = (int) $row['form_custom_script_enable'];
+	$form_custom_script_url = $row['form_custom_script_url'];
 
 	//prepare entry data for previewing
 	$param['strip_download_link'] = true;
-	$param['review_mode']    	  = true;
-	$param['show_attach_image']   = true;
-	$param['machform_data_path']   = $machform_data_path;
-	$param['machform_path']   	   = $machform_path;
-	$param['locale']   	   = $locale;
+	$param['review_mode'] = true;
+	$param['show_attach_image'] = true;
+	$param['machform_data_path'] = $machform_data_path;
+	$param['machform_path'] = $machform_path;
+	$param['locale'] = $locale;
 
 
 	$entry_details = mf_get_entry_details($dbh, $form_id, $record_id, $param);
@@ -7874,8 +7881,8 @@ EOT;
 EOT;
 	} else {
 		$button_markup = <<<EOT
-<input id="review_back" class="button_text btn-form btn_secondary" type="submit" name="review_back" value="{$form_review_secondary_text}" />
-<input id="review_submit" class="button_text btn-form btn_primary" type="submit" name="review_submit" value="{$form_review_primary_text}" />
+<input id="review_back" class="btn btn-primary" type="submit" name="review_back" value="{$form_review_secondary_text}" />
+<input id="review_submit" class="btn btn-success" type="submit" name="review_submit" value="{$form_review_primary_text}" />
 EOT;
 	}
 
@@ -7901,8 +7908,8 @@ EOT;
 		$sth = mf_do_query($query, $params, $dbh);
 		$row = mf_do_fetch_result($sth);
 
-		$form_shadow_style 		= $row['form_shadow_style'];
-		$form_shadow_size 		= $row['form_shadow_size'];
+		$form_shadow_style = $row['form_shadow_style'];
+		$form_shadow_size = $row['form_shadow_size'];
 		$form_shadow_brightness = $row['form_shadow_brightness'];
 		$theme_has_css = (int) $row['theme_has_css'];
 
@@ -7932,7 +7939,7 @@ EOT;
 			//example: RightPerspectiveShadow result to RPS and then being sliced to RP
 			$form_shadow_prefix_code = substr(implode("", $prefix_matches[0]), 0, -1);
 
-			$form_shadow_size_class  = $form_shadow_prefix_code . ucfirst($form_shadow_size);
+			$form_shadow_size_class = $form_shadow_prefix_code . ucfirst($form_shadow_size);
 			$form_shadow_brightness_class = $form_shadow_prefix_code . ucfirst($form_shadow_brightness);
 
 			if (empty($integration_method)) { //only display shadow if the form is not being embedded using any method
@@ -8123,7 +8130,7 @@ EOT;
 	}
 
 	$self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
-	$jquery_url	  = '/form_builder/js/jquery.min.js';
+	$jquery_url = '/form_builder/js/jquery.min.js';
 
 	if ($integration_method == 'php') {
 
@@ -8274,7 +8281,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 		$payment_resume_token = trim($form_params['pay_token']);
 		$payment_resume_token = base64_decode($payment_resume_token);
 
-		$exploded  = explode('-', $payment_resume_token);
+		$exploded = explode('-', $payment_resume_token);
 		$record_id = (int) $exploded[0];
 		$date_created_md5 = $exploded[1];
 
@@ -8287,20 +8294,20 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 		if (md5($row['date_created']) == $date_created_md5) {
 			$_SESSION['mf_payment_record_id'][$form_id] = $record_id;
-			$_SESSION['mf_form_payment_access'][$form_id]  = true;
+			$_SESSION['mf_form_payment_access'][$form_id] = true;
 			$_SESSION['mf_form_completed'][$form_id] = true;
 		}
 	}
 
 	//check permission to access this page
 	if ($_SESSION['mf_form_payment_access'][$form_id] !== true) {
-		return "Your session has been expired. Please <a href='/index.php/forms/view?id={$form_id}'>click here</a> to start again.";
+		return "Your session has been expired. Please <a href='/plan/forms/view?id={$form_id}'>click here</a> to start again.";
 	}
 
 	$mf_settings = mf_get_settings($dbh);
 
 	//get form properties data
-	$query 	= "select
+	$query = "select
 						  form_name,
 						  form_has_css,
 						  form_redirect,
@@ -8367,54 +8374,54 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 		mf_set_language($form_language);
 	}
 
-	$form_payment_title			 = $mf_lang['form_payment_title'];
-	$form_payment_description	 = $mf_lang['form_payment_description'];
+	$form_payment_title = $mf_lang['form_payment_title'];
+	$form_payment_description = $mf_lang['form_payment_description'];
 
-	$form_has_css 			= $row['form_has_css'];
-	$form_redirect			= $row['form_redirect'];
-	$form_review  	 		= (int) $row['form_review'];
-	$form_review_primary_text 	 = $row['form_review_primary_text'];
-	$form_review_secondary_text  = $row['form_review_secondary_text'];
-	$form_review_primary_img 	 = $row['form_review_primary_img'];
-	$form_review_secondary_img   = $row['form_review_secondary_img'];
-	$form_review_use_image  	 = (int) $row['form_review_use_image'];
-	$form_review_title			 = $row['form_review_title'];
-	$form_review_description	 = $row['form_review_description'];
-	$form_page_total 			 = (int) $row['form_page_total'];
-	$form_lastpage_title 		 = $row['form_lastpage_title'];
-	$form_pagination_type		 = $row['form_pagination_type'];
-	$form_name					 = htmlspecialchars($row['form_name'], ENT_QUOTES);
-	$form_theme_id				 = $row['form_theme_id'];
-	$form_resume_enable  	 	 = (int) $row['form_resume_enable'];
+	$form_has_css = $row['form_has_css'];
+	$form_redirect = $row['form_redirect'];
+	$form_review = (int) $row['form_review'];
+	$form_review_primary_text = $row['form_review_primary_text'];
+	$form_review_secondary_text = $row['form_review_secondary_text'];
+	$form_review_primary_img = $row['form_review_primary_img'];
+	$form_review_secondary_img = $row['form_review_secondary_img'];
+	$form_review_use_image = (int) $row['form_review_use_image'];
+	$form_review_title = $row['form_review_title'];
+	$form_review_description = $row['form_review_description'];
+	$form_page_total = (int) $row['form_page_total'];
+	$form_lastpage_title = $row['form_lastpage_title'];
+	$form_pagination_type = $row['form_pagination_type'];
+	$form_name = htmlspecialchars($row['form_name'], ENT_QUOTES);
+	$form_theme_id = $row['form_theme_id'];
+	$form_resume_enable = (int) $row['form_resume_enable'];
 
-	$form_custom_script_enable 	= (int) $row['form_custom_script_enable'];
-	$form_custom_script_url 	= $row['form_custom_script_url'];
+	$form_custom_script_enable = (int) $row['form_custom_script_enable'];
+	$form_custom_script_url = $row['form_custom_script_url'];
 
-	$payment_show_total	 		 = (int) $row['payment_show_total'];
-	$payment_total_location 	 = $row['payment_total_location'];
-	$payment_enable_merchant 	 = (int) $row['payment_enable_merchant'];
-	$payment_onsubmission 	 = (int) $row['payment_onsubmission'];
-	$payment_enable_tax 		 = (int) $row['payment_enable_tax'];
-	$payment_tax_rate 			 = (float) $row['payment_tax_rate'];
+	$payment_show_total = (int) $row['payment_show_total'];
+	$payment_total_location = $row['payment_total_location'];
+	$payment_enable_merchant = (int) $row['payment_enable_merchant'];
+	$payment_onsubmission = (int) $row['payment_onsubmission'];
+	$payment_enable_tax = (int) $row['payment_enable_tax'];
+	$payment_tax_rate = (float) $row['payment_tax_rate'];
 
-	$payment_currency 	   		 = $row['payment_currency'];
-	$payment_price_type 	     = $row['payment_price_type'];
-	$payment_price_amount    	 = $row['payment_price_amount'];
-	$payment_price_name			 = htmlspecialchars($row['payment_price_name'], ENT_QUOTES);
-	$payment_ask_billing 	 	 = (int) $row['payment_ask_billing'];
-	$payment_ask_shipping 	 	 = (int) $row['payment_ask_shipping'];
-	$payment_merchant_type		 = $row['payment_merchant_type'];
+	$payment_currency = $row['payment_currency'];
+	$payment_price_type = $row['payment_price_type'];
+	$payment_price_amount = $row['payment_price_amount'];
+	$payment_price_name = htmlspecialchars($row['payment_price_name'], ENT_QUOTES);
+	$payment_ask_billing = (int) $row['payment_ask_billing'];
+	$payment_ask_shipping = (int) $row['payment_ask_shipping'];
+	$payment_merchant_type = $row['payment_merchant_type'];
 	$payment_stripe_enable_test_mode = (int) $row['payment_stripe_enable_test_mode'];
-	$payment_stripe_live_public_key	 = trim($row['payment_stripe_live_public_key']);
-	$payment_stripe_test_public_key	 = trim($row['payment_stripe_test_public_key']);
+	$payment_stripe_live_public_key = trim($row['payment_stripe_live_public_key']);
+	$payment_stripe_test_public_key = trim($row['payment_stripe_test_public_key']);
 
-	$payment_braintree_live_encryption_key  = trim($row['payment_braintree_live_encryption_key']);
-	$payment_braintree_test_encryption_key  = trim($row['payment_braintree_test_encryption_key']);
-	$payment_braintree_enable_test_mode 	= (int) $row['payment_braintree_enable_test_mode'];
+	$payment_braintree_live_encryption_key = trim($row['payment_braintree_live_encryption_key']);
+	$payment_braintree_test_encryption_key = trim($row['payment_braintree_test_encryption_key']);
+	$payment_braintree_enable_test_mode = (int) $row['payment_braintree_enable_test_mode'];
 
 	$payment_enable_recurring = (int) $row['payment_enable_recurring'];
-	$payment_recurring_cycle  = (int) $row['payment_recurring_cycle'];
-	$payment_recurring_unit   = $row['payment_recurring_unit'];
+	$payment_recurring_cycle = (int) $row['payment_recurring_cycle'];
+	$payment_recurring_unit = $row['payment_recurring_unit'];
 
 	$payment_enable_setupfee = (int) $row['payment_enable_setupfee'];
 	$payment_setupfee_amount = (float) $row['payment_setupfee_amount'];
@@ -8426,11 +8433,11 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 	$payment_enable_trial = (int) $row['payment_enable_trial'];
 	$payment_trial_period = (int) $row['payment_trial_period'];
-	$payment_trial_unit   = $row['payment_trial_unit'];
+	$payment_trial_unit = $row['payment_trial_unit'];
 	$payment_trial_amount = (float) $row['payment_trial_amount'];
 
 	$payment_enable_discount = (int) $row['payment_enable_discount'];
-	$payment_discount_type 	 = $row['payment_discount_type'];
+	$payment_discount_type = $row['payment_discount_type'];
 	$payment_discount_amount = (float) $row['payment_discount_amount'];
 	$payment_discount_element_id = (int) $row['payment_discount_element_id'];
 
@@ -8464,7 +8471,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 	if (strlen($payment_currency)) {
 		$currency_symbol = $payment_currency;
 	} else {
-		$currency_symbol 	  = '&#36;';
+		$currency_symbol = '&#36;';
 	}
 
 	switch ($payment_currency) {
@@ -8591,7 +8598,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 					//the discount is percentage
 					$payment_calculated_discount = ($payment_discount_amount / 100) * $total_payment_amount;
 					$payment_calculated_discount = round($payment_calculated_discount, 2); //round to 2 digits decimal
-					$discount_percentage_label  = '(' . $payment_discount_amount . '%)';
+					$discount_percentage_label = '(' . $payment_discount_amount . '%)';
 				} else {
 					//the discount is fixed amount
 					$payment_calculated_discount = sprintf("%.2f", round($payment_discount_amount, 2)); //round to 2 digits decimal
@@ -8646,7 +8653,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 					//the discount is percentage
 					$payment_calculated_discount = ($payment_discount_amount / 100) * $total_payment_amount;
 					$payment_calculated_discount = round($payment_calculated_discount, 2); //round to 2 digits decimal
-					$discount_percentage_label  = '(' . $payment_discount_amount . '%)';
+					$discount_percentage_label = '(' . $payment_discount_amount . '%)';
 				} else {
 					//the discount is fixed amount
 					$payment_calculated_discount = sprintf("%.2f", round($payment_discount_amount, 2)); //round to 2 digits decimal
@@ -8841,7 +8848,7 @@ EOT;
 
 	//build the button markup
 	$button_markup = <<<EOT
-<input id="btn_submit_payment" class="button_text btn-form btn_primary" type="submit" data-originallabel="{$mf_lang['payment_submit_button']}" value="{$mf_lang['payment_submit_button']}" />
+<input id="btn_submit_payment" class="btn btn-success" type="submit" data-originallabel="{$mf_lang['payment_submit_button']}" value="{$mf_lang['payment_submit_button']}" />
 EOT;
 
 	//if this form is using custom theme
@@ -8866,8 +8873,8 @@ EOT;
 		$sth = mf_do_query($query, $params, $dbh);
 		$row = mf_do_fetch_result($sth);
 
-		$form_shadow_style 		= $row['form_shadow_style'];
-		$form_shadow_size 		= $row['form_shadow_size'];
+		$form_shadow_style = $row['form_shadow_style'];
+		$form_shadow_size = $row['form_shadow_size'];
 		$form_shadow_brightness = $row['form_shadow_brightness'];
 		$theme_has_css = (int) $row['theme_has_css'];
 
@@ -8897,7 +8904,7 @@ EOT;
 			//example: RightPerspectiveShadow result to RPS and then being sliced to RP
 			$form_shadow_prefix_code = substr(implode("", $prefix_matches[0]), 0, -1);
 
-			$form_shadow_size_class  = $form_shadow_prefix_code . ucfirst($form_shadow_size);
+			$form_shadow_size_class = $form_shadow_prefix_code . ucfirst($form_shadow_size);
 			$form_shadow_brightness_class = $form_shadow_prefix_code . ucfirst($form_shadow_brightness);
 
 			if (empty($integration_method)) { //only display shadow if the form is not being embedded using any method
@@ -9012,12 +9019,12 @@ EOT;
 	}
 
 	$credit_card_logos = array();
-	$credit_card_logos['visa'] 		 = '<img src="/form_builder/images/cards/visa.png" alt="Visa" title="Visa" />';
+	$credit_card_logos['visa'] = '<img src="/form_builder/images/cards/visa.png" alt="Visa" title="Visa" />';
 	$credit_card_logos['mastercard'] = '<img src="/form_builder/images/cards/mastercard.png" alt="MasterCard" title="MasterCard" />';
-	$credit_card_logos['amex'] 		 = '<img src="/form_builder/images/cards/amex.png" alt="American Express" title="American Express" />';
-	$credit_card_logos['jcb'] 		 = '<img src="/form_builder/images/cards/jcb.png" alt="JCB" title="JCB" />';
-	$credit_card_logos['discover']   = '<img src="/form_builder/images/cards/discover.png" alt="Discover" title="Discover" />';
-	$credit_card_logos['diners'] 	 = '<img src="/form_builder/images/cards/diners.png" alt="Diners Club" title="Diners Club" />';
+	$credit_card_logos['amex'] = '<img src="/form_builder/images/cards/amex.png" alt="American Express" title="American Express" />';
+	$credit_card_logos['jcb'] = '<img src="/form_builder/images/cards/jcb.png" alt="JCB" title="JCB" />';
+	$credit_card_logos['discover'] = '<img src="/form_builder/images/cards/discover.png" alt="Discover" title="Discover" />';
+	$credit_card_logos['diners'] = '<img src="/form_builder/images/cards/diners.png" alt="Diners Club" title="Diners Club" />';
 
 	$accepted_card_types = array('visa', 'mastercard', 'amex', 'jcb', 'discover', 'diners'); //the default accepted credit card types
 	error_log('--------payment_merchant_type------' . $payment_merchant_type);
@@ -9258,7 +9265,7 @@ EOT;
 							$form_markup = $pesaflow->checkout_cart($application->getId(), false);
 						}
 					} else {
-						$form_markup = "<h1>Sorry! We experience an error. Please go back to <a href='/index.php'>dashboard</a> and select your invoice and try again.</h1>";
+						$form_markup = "<h1>Sorry! We experience an error. Please go back to <a href='/plan'>dashboard</a> and select your invoice and try again.</h1>";
 						error_log("Error-Payment-Fatal: Could not find application for: " . $form_id . "/" . $record_id);
 					}
 				}

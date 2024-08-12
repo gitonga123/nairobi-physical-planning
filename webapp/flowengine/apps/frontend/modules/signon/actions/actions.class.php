@@ -57,7 +57,7 @@ class signonActions extends sfActions
             $is_valid = true;
 
             $stream = new Stream();
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/accounts/login/token/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/accounts/login/token/';
             $stream_response = $stream->sendRequest([
                 'url' => $url,
                 'method' => 'POST', // GET, POST, PUT, DELETE,
@@ -69,9 +69,8 @@ class signonActions extends sfActions
             ]);
 
             if ($stream_response->status !== 200) {
-                throw new sfException('Something Went Wrong. Please try again later.', $stream_response->status);
+                throw new sfException($stream_response->content['error'], $stream_response->status);
             }
-
 
             $this->token = $stream_response->content['token'];
 
@@ -85,7 +84,7 @@ class signonActions extends sfActions
 
             $_SESSION['jambo_token'] = $this->token;
 
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/accounts/user_info/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/accounts/user_info/';
             // fetch user information
             $stream_response = $stream->sendRequest([
                 'url' => $url,
@@ -149,16 +148,23 @@ class signonActions extends sfActions
 
             $this->getUser()->signin($this->sfGuardUser, false);
 
+            $url = '';
+
             if ($this->getUser()->getAttribute('referer')) {
-                $url = sfConfig::get('app_sso_jambo_web_url') . "/#/dashboard";
-                // return $this->redirect($this->getUser()->getAttribute('referer'));
-                return $this->redirect($url);
+                $url = sfConfig::get('app_sso_jambo_web_url') . "/home";
             } else {
                 $url = sfConfig::get('app_sso_jambo_web_url') . "/plan" . "/";
+            }
+
+            if (empty($url)) {
+                return $this->redirect('@homepage');
+            } else {
                 return $this->redirect($url);
             }
+
+
         } catch (\Exception $error) {
-            throw new sfException($error->getMessage(), $stream_response->status);
+            throw new sfException($error->getMessage(), 500);
         }
     }
 
@@ -226,7 +232,7 @@ class signonActions extends sfActions
                 //  until their account is activated in the backend
                 if (sfConfig::get('app_enable_categories') == "yes") {
                     //if(!$this->sfGuardUser->getIsActive()) {
-                    //    return $this->redirect("/index.php/index/inactive?reg=1");
+                    //    return $this->redirect("/plan/index/inactive?reg=1");
                     //}
                 }
             } else {
@@ -234,7 +240,7 @@ class signonActions extends sfActions
                 //  until their account is activated in the backend
                 if (sfConfig::get('app_enable_categories') == "yes") {
                     //if(!$this->sfGuardUser->getIsActive()) {
-                    //    return $this->redirect("/index.php/index/inactive?reg=0");
+                    //    return $this->redirect("/plan/index/inactive?reg=0");
                     //}
                 }
 
@@ -265,7 +271,7 @@ class signonActions extends sfActions
             // //If form_categories have been configured, redirect user to choose user category or enter additional details
             // if(sfConfig::get('app_enable_categories') == "yes" && sizeof($profiles) == 0)
             // {
-            //     return $this->redirect("/index.php/frusers/category");
+            //     return $this->redirect("/plan/frusers/category");
             // }
 
             //Redirect to referer if exists else redirect to homepage

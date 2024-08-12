@@ -34,7 +34,7 @@ class formsActions extends sfActions
 
 
             if (empty($this->cache->get($this->key))) {
-                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcxNzY1MjU4OCwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.o-l-orFsrCuGHYYqmPYGkjnj-NuAduj6rjdsLxUPphc";
+                  $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2ODgzLCJpc19hY3RpdmUiOnRydWUsInVzZXJuYW1lIjoiMjU0NzEwNTk0Mjk4IiwiZmlyc3RfbmFtZSI6IkRhbmllbCIsImxhc3RfbmFtZSI6Ik1VVFdJUkkiLCJleHAiOjE3MjE3NDIwNDMsInBlcm1pc3Npb25zIjp7ImFjY2Vzc19zZWxmX3NlcnZpY2VfcG9ydGFsIjp0cnVlLCJjcmVhdGVfYmlsbCI6dHJ1ZSwicmVnaXN0ZXJfYnVzaW5lc3MiOnRydWUsInJlcXVlc3RfaW5zcGVjdGlvbiI6dHJ1ZSwicmVxdWVzdF9saWNlbnNlIjp0cnVlLCJsb2dfcGF5bWVudCI6dHJ1ZSwiYWNjZXNzX2FkbWluIjpmYWxzZSwidmlld19kYXNoYm9hcmQiOmZhbHNlfSwicm9sZXMiOlsiY2l0aXplbiJdLCJyZXZlbnVlX3N0cmVhbV9yb2xlcyI6e30sImN1c3RvbWVyIjoiNjUzNGFjN2MtNDViZC00MmU5LTlmOWQtN2RjMTA0MzVhMWQ1IiwiaWRfbm8iOiIzMDExNTgzNSIsInN1Yl9jb3VudGllcyI6W10sImVtYWlsIjoibXV0d2lyaWRhbmllbHNjaUBnbWFpbC5jb20iLCJwaG9uZSI6IjI1NDcxMDU5NDI5OCJ9.DBZ3IgiuUwZRhesRIRfkIojZu6bnnNBCfZTzBEdRa7k";
                   $this->cache->set($this->key, $token, 3600);
             }
 
@@ -62,7 +62,7 @@ class formsActions extends sfActions
                         $this->getUser()->setAttribute("current_profile", $request->getParameter("profile"));
                         $this->setLayout("layoutprofile");
                   } else {
-                        $this->redirect("/index.php/profile/view/id/" . $profile->getId());
+                        $this->redirect("/plan/profile/view/id/" . $profile->getId());
                   }
             } else {
                   $this->getUser()->setAttribute("current_profile", false);
@@ -333,7 +333,7 @@ class formsActions extends sfActions
                   $transaction->save();
             }
 
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/initiate_payment/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/initiate_payment/';
 
             $stream = new Stream();
 
@@ -394,7 +394,7 @@ class formsActions extends sfActions
       {
             $user_otp = $request->getPostParameter('user_otp');
 
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/authorize_wallet_payment/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/authorize_wallet_payment/';
 
             $stream = new Stream();
 
@@ -435,7 +435,7 @@ class formsActions extends sfActions
 
       public function executeRegeneratejamboonetimepassword($request)
       {
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/regenerate_otp/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/regenerate_otp/';
 
             $stream = new Stream();
 
@@ -569,7 +569,7 @@ class formsActions extends sfActions
 
       public function check_payment_jambo_pay($billing_reference_number)
       {
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/bill/status/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/bill/status/';
 
             $stream = new Stream();
 
@@ -613,7 +613,7 @@ class formsActions extends sfActions
 
                   return '';
             } else {
-                  $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/county/sub_counties/';
+                  $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/sub_counties/';
 
                   $stream = new Stream();
 
@@ -664,7 +664,7 @@ class formsActions extends sfActions
 
             $data['items'] = $items;
 
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/create_bill/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/create_bill/';
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',

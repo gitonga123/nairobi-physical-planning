@@ -20,7 +20,7 @@
                                 <?php if($site_settings->getAdminImageUrl()): ?>
                                 <img src="<?php echo '/'.$site_settings->getUploadDir().'/'.$site_settings->getAdminImageUrl() ?>" alt="Logo" >
                                 <?php else: ?>
-                                <img src="/assets_backend/img_nakuru/logo.png" alt="Logo" >
+                                <img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="Logo" >
                                 <?php endif; ?>
                                 </a>
                                 <p>
@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="siteinfo">
-                            Copyright By &COPY;<a href="https://https://uasingishu.go.ke"><?php echo $site_settings->getOrganisationName() ?></a> - <?php echo date("Y") ?>
+                            Copyright By &COPY;<a href="https://https://kisii.go.ke"><?php echo $site_settings->getOrganisationName() ?></a> - <?php echo date("Y") ?>
                         </div>
                     </div>
                 </div>

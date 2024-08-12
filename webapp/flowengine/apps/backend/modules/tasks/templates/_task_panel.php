@@ -437,10 +437,10 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 ?>
 
 <style>
-
     #assessmentModal {
         max-height: max-content;
     }
+
     .more_fees_id {
         min-width: auto;
         max-height: 60vh;

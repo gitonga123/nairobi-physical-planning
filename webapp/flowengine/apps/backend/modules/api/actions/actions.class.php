@@ -153,7 +153,7 @@ class apiActions extends sfActions
         $response = $request->getContent();
         $response = json_decode($response, true);
 
-        error_log(print_r($response, true));
+        error_log(json_encode($response));
 
         if (strtolower($response['status']) == 'success') {
             $q = Doctrine_Query::create()
@@ -198,36 +198,45 @@ class apiActions extends sfActions
         $block_number = trim($request->getParameter('block_number'));
         $plot_number = trim($request->getParameter('plot_no'));
 
+        $username = $request->getParameter('username');
+
+        error_log("Username is --->{$username}");
+
+        $block_number_key = "block_number_{$username}";
+        $plot_number_key = "plot_number_{$username}";
+
         error_log("\n\n");
 
         $stream = new Stream();
-        $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/land/bill/land_payment_status/';
+        $url = sfConfig::get('app_api_jambo_url') . 'api/v1/land/bill/land_payment_status/';
+
 
         // Initialize cache
         $cache = new sfFileCache([
             'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
         ]);
+        error_log("Query url is this one ---->1 --->{$url}");
 
         // Store block_number in cache
         if ($block_number) {
-            $cache->set('block_number', $block_number, 3600); // expires in 1 hour
-            error_log("Block number set in cache --->" . $block_number);
+            $cache->set($block_number_key, $block_number, 3600); // expires in 1 hour
+            error_log("Block number set in cache ---> {$block_number}");
         }
 
         // Store plot_number in cache
         if ($plot_number) {
-            $cache->set('plot_number', $plot_number, 3600); // expires in 1 hour
-            error_log("Plot number set in cache --->" . $plot_number);
+            $cache->set($plot_number_key, $plot_number, 3600); // expires in 1 hour
+            error_log("Plot number set in cache ---> {$plot_number}");
             return $this->json(['success' => true, 'value' => true, 'message' => '']);
             // return $this->renderText(json_encode(['success' => true, 'value' => true, 'message' => '']));
         }
 
         // Retrieve block_number and plot_number from cache
-        $block_number = $cache->get('block_number');
-        $plot_number = $cache->get('plot_number');
+        $block_number = $cache->get($block_number_key);
+        $plot_number = $cache->get($plot_number_key);
 
-        error_log("Block number from cache --->" . $block_number);
-        error_log("Plot number from cache --->" . $plot_number);
+        error_log("Block number from cache --->{$block_number}");
+        error_log("Plot number from cache --->{$plot_number}");
 
         if (empty($block_number)) {
             error_log("Block number not set in cache, returning false.");
@@ -239,13 +248,14 @@ class apiActions extends sfActions
             return $this->json(['success' => false, 'value' => false, 'message' => 'Something Went Wrong!. Try Again later.']);
         }
 
-        $username = $request->getParameter('username');
-
         $token = $cache->get("jambo_token_{$username}");
+
+        // $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2ODgzLCJpc19hY3RpdmUiOnRydWUsInVzZXJuYW1lIjoiMjU0NzEwNTk0Mjk4IiwiZmlyc3RfbmFtZSI6IkRhbmllbCIsImxhc3RfbmFtZSI6Ik1VVFdJUkkiLCJleHAiOjE3MjE3NDIwNDMsInBlcm1pc3Npb25zIjp7ImFjY2Vzc19zZWxmX3NlcnZpY2VfcG9ydGFsIjp0cnVlLCJjcmVhdGVfYmlsbCI6dHJ1ZSwicmVnaXN0ZXJfYnVzaW5lc3MiOnRydWUsInJlcXVlc3RfaW5zcGVjdGlvbiI6dHJ1ZSwicmVxdWVzdF9saWNlbnNlIjp0cnVlLCJsb2dfcGF5bWVudCI6dHJ1ZSwiYWNjZXNzX2FkbWluIjpmYWxzZSwidmlld19kYXNoYm9hcmQiOmZhbHNlfSwicm9sZXMiOlsiY2l0aXplbiJdLCJyZXZlbnVlX3N0cmVhbV9yb2xlcyI6e30sImN1c3RvbWVyIjoiNjUzNGFjN2MtNDViZC00MmU5LTlmOWQtN2RjMTA0MzVhMWQ1IiwiaWRfbm8iOiIzMDExNTgzNSIsInN1Yl9jb3VudGllcyI6W10sImVtYWlsIjoibXV0d2lyaWRhbmllbHNjaUBnbWFpbC5jb20iLCJwaG9uZSI6IjI1NDcxMDU5NDI5OCJ9.DBZ3IgiuUwZRhesRIRfkIojZu6bnnNBCfZTzBEdRa7k";
 
 
         error_log("Token is this --->" . $token);
 
+        error_log("Query url is this one ----> 2" . $url);
 
         // $url .= "?plot_number={$plot_number}&block_number={$block_number}";
 
@@ -256,7 +266,7 @@ class apiActions extends sfActions
             'ssl' => 'none',
             'contentType' => 'json',
             'headers' => [
-                "Authorization" => "JWT " . $token,
+                "Authorization" => "JWT {$token}",
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json'
             ],
@@ -266,37 +276,58 @@ class apiActions extends sfActions
             ]
         ]);
 
-        error_log(print_r($query_response, true));
+        
         error_log("Response status code is ----> {$query_response->status}");
         $content = $query_response->content;
+
         if ($query_response->status == 200 || $query_response->status == 201) {
             error_log("Content received, proceeding...");
             error_log($content);
 
             if (isset($content['upto_date']) && $content['upto_date']) {
-                error_log("Payments are up to date.");
+                $cache->set("{$username}_{$block_number}_{$plot_number}", json_encode($content), 3600);
+
                 return $this->json(['success' => true, 'value' => true, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
             } else {
-                error_log("Payments are not up to date.");
                 return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
             }
         } else {
-            error_log("Failed response with status code: " . $query_response->status);
+            error_log("Failed response with status code: {$query_response->status}");
 
-            $message = '';
+            $message = 'Something Went Wrong. Please try again later.';
+
             if (isset($content['errors'])) {
                 $message .= $content['errors'];
             } else {
-                $message .= $content['message'];
+                
+                if (isset($content['errors'])) {
+                    $message .= $content['errors'];
+                } else {
+                    $message .= $content['message'];
+                }
+
+                if (isset($content['balance'])) {
+                    $message .= " Balance: KES {$content['balance']}";
+                }
             }
 
-            if (isset($content['balance'])) {
-                $message .= " Balance: KES {$content['balance']}";
-            }
+
             return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $message . '</p>']);
 
-
         }
+    }
+
+    public function executeCachedPlotDetails(sfWebRequest $request)
+    {
+        $cache = new sfFileCache([
+            'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+        ]);
+
+        $cached_key = trim($request->getParameter('key'));
+
+        $cached_plot_details = $cache->get($cached_key);
+
+        return $this->json(['success' => true, 'plot_details' => $cached_plot_details]);
     }
 
     private function json($content, $status = 200)

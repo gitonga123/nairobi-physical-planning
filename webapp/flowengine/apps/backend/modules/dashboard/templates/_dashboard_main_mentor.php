@@ -6,7 +6,7 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12">
-								<h3 class="page-title">Uasin Gishu County eServices Admin Portal. Welcome , - <?php echo $user->getStrfirstname()." ".$user->getStrlastname() ?></h3>
+								<h3 class="page-title">Kisii County Physical Planning Admin Portal. Welcome , - <?php echo $user->getStrfirstname()." ".$user->getStrlastname() ?></h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item active">Access your Dashboard & much more...</li>
 								</ul>

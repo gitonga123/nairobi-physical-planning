@@ -5,11 +5,11 @@ use_helper("I18N");
 <div class="col-md-8 col-lg-9 col-xl-10">
     <div class="card flex-fill">
         <div class="card-header">
-            <h3 class="card-title mb-0"><?php echo __("Paid Bills"); ?></h3>
+            <h3 class="card-title mb-0"><?php echo __("Paid Invoices"); ?></h3>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="datatable table table-stripped">
+                <table class="datatable_invoices table table-stripped">
 
                     <thead>
                         <tr>
@@ -33,10 +33,10 @@ use_helper("I18N");
                                 <td><?php echo $invoice->getFormEntry()->getApplicationId() ?></td>
                                 <td><?php echo $invoice->getStatus() ?></td>
                                 <td>
-                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>' href='/index.php/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
+                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>' href='/plan/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
 
                                     <?php if ($invoice->getPaid() == 1 || $invoice->getPaid() == 15) { ?>
-                                        <a href="/index.php/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-primary btn-sm"><i class="fas fa-money-bill"></i>
+                                        <a href="/plan/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-primary btn-sm"><i class="fas fa-money-bill"></i>
                                             <?php echo __(" Pay now");
                                             ?>
                                         </a>

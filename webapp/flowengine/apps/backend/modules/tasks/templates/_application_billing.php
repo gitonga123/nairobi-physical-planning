@@ -90,8 +90,7 @@ use_helper("I18N");
                             if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('code_access_rights')) {
                                 ?>
                                 <a class="btn btn-success btn-xs" href="/backend.php/applications/paynow/id/<?php echo $invoice->getId();
-                                ?>"
-                                    id="printinvoice" type="button"><i class="fa fa-check mr5"></i>
+                                ?>" id="printinvoice" type="button"><i class="fa fa-check mr5"></i>
                                     <?php echo __("Pay Now");
                                     ?></a>
                                 <?php

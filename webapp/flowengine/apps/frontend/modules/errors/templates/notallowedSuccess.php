@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Uasin Gishu County eServices - Error 401</title>
+	<title>Kisii County Physical Planning - Error 401</title>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -31,7 +31,7 @@
 			<h1>401</h1>
 			<h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Not allowed</h3>
 			<p class="h4 font-weight-normal">Sorry you do not have permissions to access this page.</p>
-			<a href="/index.php" class="btn btn-warning">Go Back to Home</a>
+			<a href="/plan" class="btn btn-warning">Go Back to Home</a>
 		</div>
 
 	</div>

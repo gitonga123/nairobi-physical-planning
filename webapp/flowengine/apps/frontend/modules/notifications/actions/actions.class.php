@@ -52,7 +52,7 @@ class notificationsActions extends sfActions
             {
                $notif->setConfirmedReceipt('1');
                $notif->save();
-                $this->redirect("/index.php/dashboard");
+                $this->redirect("/plan/dashboard");
             }
          }
 		$this->setLayout("layoutdash");
@@ -79,16 +79,16 @@ class notificationsActions extends sfActions
             $alert->save();
 
             if($alert->getApplicationId()) {
-                $this->redirect("/index.php/application/view/id/" . $alert->getApplicationId());
+                $this->redirect("/plan/application/view/id/" . $alert->getApplicationId());
             }
             else
             {
-                $this->redirect("/index.php/notifications/index");
+                $this->redirect("/plan/notifications/index");
             }
         }
         else
         {
-            $this->redirect("/index.php/notifications/index");
+            $this->redirect("/plan/notifications/index");
         }
     }
 }

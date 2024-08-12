@@ -30,8 +30,9 @@
 <script src="/assets_backend/js/flot/jquery.flot.crosshair.min.js"></script>
 <script src="/assets_backend/js/flot/jquery.flot.categories.min.js"></script>
 <script src="/assets_backend/js/flot/jquery.flot.pie.min.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="/assets_backend/js/jquery.datatables.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
 <script src="/assets_backend/js/jquery.autogrow-textarea.js"></script>
 <script src="/assets_backend/js/bootstrap-fileupload.min.js"></script>
 <script src="/assets_backend/js/bootstrap-timepicker.min.js"></script>

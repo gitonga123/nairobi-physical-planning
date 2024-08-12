@@ -16,7 +16,7 @@ use_helper("I18N");
     <div class="panel-heading">
         <h3 class="panel-title">
             <?php echo __("My Businesses"); ?>
-            <a href="/index.php/profile/create" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;"><?php echo __("Add Business"); ?></a>
+            <a href="/plan/profile/create" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;"><?php echo __("Add Business"); ?></a>
         </h3>
     </div>
     <div class="panel-body">
@@ -55,7 +55,7 @@ use_helper("I18N");
                             ?>
                         </td>
                         <td>
-                            <a class="btn btn-xs btn-default"  title='<?php echo __('View Profile'); ?>' href='/index.php/profile/view/id/<?php echo $my_business->getId(); ?>'><?php echo __("View"); ?> </a>
+                            <a class="btn btn-xs btn-default"  title='<?php echo __('View Profile'); ?>' href='/plan/profile/view/id/<?php echo $my_business->getId(); ?>'><?php echo __("View"); ?> </a>
                         </td>
                     </tr>
 
@@ -70,11 +70,11 @@ use_helper("I18N");
 
                            <?php if ($my_businesses->haveToPaginate()): ?>
                                <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                   <li><a href="/index.php/dashboard/index/apage/1">
+                                   <li><a href="/plan/dashboard/index/apage/1">
                                            <i class="fa fa-angle-left"></i>
                                        </a></li>
 
-                                   <li> <a href="/index.php/dashboard/index/apage/<?php echo $my_businesses->getPreviousPage() ?>">
+                                   <li> <a href="/plan/dashboard/index/apage/<?php echo $my_businesses->getPreviousPage() ?>">
                                            <i class="fa fa-angle-left"></i>
                                        </a></li>
 
@@ -82,15 +82,15 @@ use_helper("I18N");
                                        <?php if ($page == $my_businesses->getPage()): ?>
                                            <li class="active"><a href=""><?php echo $page ?></a>
                                        <?php else: ?>
-                                           <li><a href="/index.php/dashboard/index/apage/<?php echo $page ?>"><?php echo $page ?></a></li>
+                                           <li><a href="/plan/dashboard/index/apage/<?php echo $page ?>"><?php echo $page ?></a></li>
                                        <?php endif; ?>
                                    <?php endforeach; ?>
 
-                                   <li> <a href="/index.php/dashboard/index/apage/<?php echo $my_businesses->getNextPage() ?>">
+                                   <li> <a href="/plan/dashboard/index/apage/<?php echo $my_businesses->getNextPage() ?>">
                                            <i class="fa fa-angle-right"></i>
                                        </a></li>
 
-                                   <li> <a href="/index.php/dashboard/index/apage/<?php echo $my_businesses->getLastPage() ?>">
+                                   <li> <a href="/plan/dashboard/index/apage/<?php echo $my_businesses->getLastPage() ?>">
                                            <i class="fa fa-angle-right"></i>
                                        </a></li>
                                </ul>

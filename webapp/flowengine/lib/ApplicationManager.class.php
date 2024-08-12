@@ -27,11 +27,11 @@ class ApplicationManager
     public function get_field_data($form_id, $entry_id, $element_id)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once($prefix_folder . 'includes/init.php');
+        require_once ($prefix_folder . 'includes/init.php');
 
-        require_once($prefix_folder . '../../../config/form_builder_config.php');
-        require_once($prefix_folder . 'includes/db-core.php');
-        require_once($prefix_folder . 'includes/helper-functions.php');
+        require_once ($prefix_folder . '../../../config/form_builder_config.php');
+        require_once ($prefix_folder . 'includes/db-core.php');
+        require_once ($prefix_folder . 'includes/helper-functions.php');
 
         $dbh = mf_connect_db();
         $mf_settings = mf_get_settings($dbh);
@@ -183,12 +183,34 @@ class ApplicationManager
         if (empty($form_id) || empty($entry_id)) {
             return $details;
         }
+
+        $sql_block = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_block_no = 1";
+        $sql_block_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_block);
+
+        if (!empty($sql_block_element)) {
+            $sql_block_details = "SELECT element_{$sql_block_element} from ap_form_{$form_id} WHERE id = {$entry_id}";
+            $details[0] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_block_details);
+        }
+
+
+        error_log("Details is here ----->" . $details[0]);
+
+        error_log("Time for testing");
+
         $sql_plot = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_plot_no = 1";
         $sql_plot_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot);
+        
         if (!empty($sql_plot_element)) {
             $sql_plot_details = "SELECT element_{$sql_plot_element} from ap_form_{$form_id} WHERE id = {$entry_id}";
-            $details[0] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot_details);
+            $plot_no = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot_details);
+
+            if (!empty($details[0])) {
+                $details[0] += "/{$plot_no}";
+            } else {
+                $details[0] = $plot_no;
+            }
         }
+
         $sql_owner = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_ownertype = 1";
         $sql_owner_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_owner);
         if (!empty($sql_owner_element)) {
@@ -208,7 +230,7 @@ class ApplicationManager
 
         if (!empty($sql_subcounty_element)) {
             $sql_subcounty_option_element = "SELECT element_{$sql_subcounty_element} from ap_form_{$form_id} WHERE id = {$entry_id}";
-            $sql_subcounty_option_id =  Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_subcounty_option_element);
+            $sql_subcounty_option_id = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_subcounty_option_element);
 
             if (!empty($sql_subcounty_option_id)) {
                 $subcounty_name_query = "select option_text from ap_element_options where form_id = {$form_id} and element_id = {$sql_subcounty_element} and option_id = {$sql_subcounty_option_id}";
@@ -461,11 +483,11 @@ class ApplicationManager
         if ($form->getLogicWorkflowEnable()) {
             //error_log("Logic-Workflow #1: Enabled");
             $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-            require_once($prefix_folder . 'includes/init.php');
+            require_once ($prefix_folder . 'includes/init.php');
 
-            require_once($prefix_folder . '../../../config/form_builder_config.php');
-            require_once($prefix_folder . 'includes/db-core.php');
-            require_once($prefix_folder . 'includes/helper-functions.php');
+            require_once ($prefix_folder . '../../../config/form_builder_config.php');
+            require_once ($prefix_folder . 'includes/db-core.php');
+            require_once ($prefix_folder . 'includes/helper-functions.php');
 
             $dbh = mf_connect_db();
             $mf_settings = mf_get_settings($dbh);
@@ -609,11 +631,11 @@ class ApplicationManager
             //Check workflow override logic
             if ($form->getLogicWorkflowEnable()) {
                 $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-                require_once($prefix_folder . 'includes/init.php');
+                require_once ($prefix_folder . 'includes/init.php');
 
-                require_once($prefix_folder . '../../../config/form_builder_config.php');
-                require_once($prefix_folder . 'includes/db-core.php');
-                require_once($prefix_folder . 'includes/helper-functions.php');
+                require_once ($prefix_folder . '../../../config/form_builder_config.php');
+                require_once ($prefix_folder . 'includes/db-core.php');
+                require_once ($prefix_folder . 'includes/helper-functions.php');
 
                 $dbh = mf_connect_db();
                 $mf_settings = mf_get_settings($dbh);
@@ -682,13 +704,13 @@ class ApplicationManager
                 $permit = $q->fetchOne();
 
                 if ($permit) {
-                    echo "<script language='javascript'>window.parent.location.href = '/index.php/permits/view/id/" . $permit->getId() . "/done/1';</script>";
+                    echo "<script language='javascript'>window.parent.location.href = '/plan/permits/view/id/" . $permit->getId() . "/done/1';</script>";
                     exit;
                 }
             }
             //OTB causes infinity loading since on submission doesn't find permit and reloads the same action over and over
             //Redirect to applications page if permit is not available
-            //echo "<script language='javascript'>window.parent.location.href = '/index.php/application/view/id/" . $application_id."/done/1';</script>";
+            //echo "<script language='javascript'>window.parent.location.href = '/plan/application/view/id/" . $application_id."/done/1';</script>";
             //exit;
         }
     }
@@ -767,11 +789,11 @@ class ApplicationManager
     public function autosubmit_form($form_id, $user_id)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once($prefix_folder . 'includes/init.php');
+        require_once ($prefix_folder . 'includes/init.php');
 
-        require_once($prefix_folder . '../../../config/form_builder_config.php');
-        require_once($prefix_folder . 'includes/db-core.php');
-        require_once($prefix_folder . 'includes/helper-functions.php');
+        require_once ($prefix_folder . '../../../config/form_builder_config.php');
+        require_once ($prefix_folder . 'includes/db-core.php');
+        require_once ($prefix_folder . 'includes/helper-functions.php');
 
         $dbh = mf_connect_db();
         $mf_settings = mf_get_settings($dbh);
@@ -788,10 +810,10 @@ class ApplicationManager
 
         $default_value = $element->getElementDefaultValue();
 
-        $entry_data  = $template_parser->parseUser($user_id, $default_value);
+        $entry_data = $template_parser->parseUser($user_id, $default_value);
 
         //First check if data is in remote database
-        $remote_url  = $element->getElementOptionQuery(); //http://remote
+        $remote_url = $element->getElementOptionQuery(); //http://remote
         $criteria = $element->getElementFieldName(); //can be 'records', 'norecords' or 'value'
         $result_value = $element->getElementFieldValue(); //If criteria is 'value'
         $remote_username = $element->getElementRemoteUsername(); //Remote username
@@ -847,7 +869,7 @@ class ApplicationManager
                         $_SESSION['review_id'] = (int) $dbh->lastInsertId();
 
                         //Redirect to review page
-                        header("Location: /index.php/forms/confirm?id={$form_id}");
+                        header("Location: /plan/forms/confirm?id={$form_id}");
                         exit;
                     } else {
                         echo "<div class='contentpanel'><div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'>Your application cannot be submitted at this time:</h4></div> <div class='panel-body'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You must enable review page for this form if you want to use automatic submission</div></div></div></div>";
@@ -882,7 +904,7 @@ class ApplicationManager
                         $_SESSION['review_id'] = (int) $dbh->lastInsertId();
 
                         //Redirect to review page
-                        header("Location: /index.php/forms/confirm?id={$form_id}");
+                        header("Location: /plan/forms/confirm?id={$form_id}");
                         exit;
                     } else {
                         echo "<div class='contentpanel'><div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'>Your application cannot be submitted at this time:</h4></div> <div class='panel-body'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You must enable review page for this form if you want to use automatic submission</div></div></div></div>";
@@ -1505,7 +1527,7 @@ class ApplicationManager
                 error_log('--APP identifier--' . $app_identifier . '----');
                 $new_app_id = str_replace("{Y}", date("Y"), $app_identifier); //OTB Replace, Y in identifier with current year
                 //OTB ADD Only change no. if current app_id doesn't match the identifier
-                if (strpos($application->getApplicationId(), $new_app_id) === false) :
+                if (strpos($application->getApplicationId(), $new_app_id) === false):
                     $starting_number = $current_stage->getNewIdentifierStart();
                     error_log('--APP identifier Year replaced--' . $new_app_id . '----');
                     $q = Doctrine_Query::create()
@@ -1531,7 +1553,7 @@ class ApplicationManager
                         Doctrine_Manager::getInstance()->getCurrentConnection()->execute("Insert into application_number_history (form_entry_id,application_number) Values ('" . $application->getId() . "','" . $application->getApplicationId() . "')");
                     }
                     $application->setApplicationId($new_app_id);
-                //$application->save();
+                    //$application->save();
                 endif;
             }
             //OTB End - Add trigger for changing application number
@@ -1542,17 +1564,17 @@ class ApplicationManager
     public function get_entry_details($form_id, $entry_id)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once($prefix_folder . 'includes/init.php');
+        require_once ($prefix_folder . 'includes/init.php');
 
-        require_once($prefix_folder . '../../../config/form_builder_config.php');
-        require_once($prefix_folder . 'includes/db-core.php');
-        require_once($prefix_folder . 'includes/helper-functions.php');
-        require_once($prefix_folder . 'includes/check-session.php');
+        require_once ($prefix_folder . '../../../config/form_builder_config.php');
+        require_once ($prefix_folder . 'includes/db-core.php');
+        require_once ($prefix_folder . 'includes/helper-functions.php');
+        require_once ($prefix_folder . 'includes/check-session.php');
 
-        require_once($prefix_folder . 'includes/language.php');
-        require_once($prefix_folder . 'includes/entry-functions.php');
-        require_once($prefix_folder . 'includes/post-functions.php');
-        require_once($prefix_folder . 'includes/users-functions.php');
+        require_once ($prefix_folder . 'includes/language.php');
+        require_once ($prefix_folder . 'includes/entry-functions.php');
+        require_once ($prefix_folder . 'includes/post-functions.php');
+        require_once ($prefix_folder . 'includes/users-functions.php');
 
         $nav = trim($_GET['nav']);
 
@@ -1577,24 +1599,24 @@ class ApplicationManager
         $application_data_json = $this->get_json($application_id);
 
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once($prefix_folder . 'includes/init.php');
+        require_once ($prefix_folder . 'includes/init.php');
 
-        require_once($prefix_folder . '../../../config/form_builder_config.php');
-        require_once($prefix_folder . 'includes/db-core.php');
-        require_once($prefix_folder . 'includes/helper-functions.php');
-        require_once($prefix_folder . 'includes/check-session.php');
+        require_once ($prefix_folder . '../../../config/form_builder_config.php');
+        require_once ($prefix_folder . 'includes/db-core.php');
+        require_once ($prefix_folder . 'includes/helper-functions.php');
+        require_once ($prefix_folder . 'includes/check-session.php');
 
-        require_once($prefix_folder . 'includes/language.php');
-        require_once($prefix_folder . 'includes/entry-functions.php');
-        require_once($prefix_folder . 'includes/post-functions.php');
-        require_once($prefix_folder . 'includes/users-functions.php');
+        require_once ($prefix_folder . 'includes/language.php');
+        require_once ($prefix_folder . 'includes/entry-functions.php');
+        require_once ($prefix_folder . 'includes/post-functions.php');
+        require_once ($prefix_folder . 'includes/users-functions.php');
 
         $nav = trim($_GET['nav']);
 
         $dbh = mf_connect_db();
         $mf_settings = mf_get_settings($dbh);
 
-        $query  = "UPDATE form_entry SET form_data = ? WHERE id = ?";
+        $query = "UPDATE form_entry SET form_data = ? WHERE id = ?";
 
         $params = array($application_data_json, $application_id);
 
@@ -1611,17 +1633,17 @@ class ApplicationManager
         $application_data_json = $this->get_json($application_id);
         if ($application->getFormData() == null || strcmp($application->getFormData(), $application_data_json) !== 0) {
             $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-            require_once($prefix_folder . 'includes/init.php');
+            require_once ($prefix_folder . 'includes/init.php');
 
-            require_once($prefix_folder . '../../../config/form_builder_config.php');
-            require_once($prefix_folder . 'includes/db-core.php');
-            require_once($prefix_folder . 'includes/helper-functions.php');
-            require_once($prefix_folder . 'includes/check-session.php');
+            require_once ($prefix_folder . '../../../config/form_builder_config.php');
+            require_once ($prefix_folder . 'includes/db-core.php');
+            require_once ($prefix_folder . 'includes/helper-functions.php');
+            require_once ($prefix_folder . 'includes/check-session.php');
 
-            require_once($prefix_folder . 'includes/language.php');
-            require_once($prefix_folder . 'includes/entry-functions.php');
-            require_once($prefix_folder . 'includes/post-functions.php');
-            require_once($prefix_folder . 'includes/users-functions.php');
+            require_once ($prefix_folder . 'includes/language.php');
+            require_once ($prefix_folder . 'includes/entry-functions.php');
+            require_once ($prefix_folder . 'includes/post-functions.php');
+            require_once ($prefix_folder . 'includes/users-functions.php');
 
             $nav = trim($_GET['nav']);
 
@@ -1629,7 +1651,7 @@ class ApplicationManager
             $mf_settings = mf_get_settings($dbh);
 
 
-            $query  = "UPDATE form_entry SET form_data = ? WHERE id = ?";
+            $query = "UPDATE form_entry SET form_data = ? WHERE id = ?";
 
             $params = array($application_data_json, $application->getId());
 
@@ -1933,11 +1955,11 @@ class ApplicationManager
     public function sendIfc($submission)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once($prefix_folder . 'includes/init.php');
+        require_once ($prefix_folder . 'includes/init.php');
 
-        require_once($prefix_folder . '../../../config/form_builder_config.php');
-        require_once($prefix_folder . 'includes/db-core.php');
-        require_once($prefix_folder . 'includes/helper-functions.php');
+        require_once ($prefix_folder . '../../../config/form_builder_config.php');
+        require_once ($prefix_folder . 'includes/db-core.php');
+        require_once ($prefix_folder . 'includes/helper-functions.php');
 
         if ($submission) {
             //get if form has ifc file
@@ -1966,16 +1988,21 @@ class ApplicationManager
                             error_log('--------IFC token-----' . sfConfig::get('app_ifc_tkn'));
                             $abs_url = "http" . mf_get_ssl_suffix() . "://" . $_SERVER['HTTP_HOST'];
                             error_log('------VAR EXPORT------');
-                            error_log(var_export(array(
-                                'api'   => sfConfig::get('app_ifc_server'),
-                                'user'  => sfConfig::get('app_ifc_user'),
+                            error_log(
+                                var_export(
+                                    array(
+                                        'api' => sfConfig::get('app_ifc_server'),
+                                        'user' => sfConfig::get('app_ifc_user'),
+                                        'token' => sfConfig::get('app_ifc_tkn')
+                                    ),
+                                    true
+                                )
+                            );
+                            $fm = new FileManager((object) array(
+                                'api' => sfConfig::get('app_ifc_server'),
+                                'user' => sfConfig::get('app_ifc_user'),
                                 'token' => sfConfig::get('app_ifc_tkn')
-                            ), true));
-                            $fm = new FileManager((object)array(
-                                'api'   => sfConfig::get('app_ifc_server'),
-                                'user'  => sfConfig::get('app_ifc_user'),
-                                'token' => sfConfig::get('app_ifc_tkn')
-                            ), (object)['ifcAPI' => null]);
+                            ), (object) ['ifcAPI' => null]);
                             $filesend = $fm->sendFile(
                                 $ifc_file,
                                 $_SERVER['DOCUMENT_ROOT'] . '/' . $mf_settings['upload_dir'] . $ifc_file,

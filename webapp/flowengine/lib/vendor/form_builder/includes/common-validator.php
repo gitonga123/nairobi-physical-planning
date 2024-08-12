@@ -807,16 +807,16 @@ function mf_validate_rules($input, $rules)
 function mf_validate_element($input, $rules)
 {
 	global $mf_lang;
+	$error_message = '';
 	//traverse for each input, check for rules to be applied
 	foreach ($input as $key => $value) {
 		$current_rules = @$rules[$key];
-		$error_message = array();
 		$last_error_message = '';
 
 		if (!empty($current_rules)) {
 			//an input can be validated by many rules, check that here
 			foreach ($current_rules as $key2 => $value2) {
-				$argument_array = array($value, $value2, $input);
+				$argument_array = [$value, $value2, $input];
 				$result = call_user_func('mf_validate_' . $key2, $argument_array);
 
 				if ($result !== true) { //if we got error message, break the loop
@@ -826,8 +826,8 @@ function mf_validate_element($input, $rules)
 			}
 		}
 
-		
-		if (count($error_message) > 0) {
+
+		if (strlen($error_message) > 0) {
 			$last_error_message = $error_message;
 			break;
 		}

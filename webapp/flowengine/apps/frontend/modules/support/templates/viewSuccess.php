@@ -24,7 +24,7 @@ $application = $q->fetchOne();
             <div class="panel-btns">
                 <div class="pull-right">
                     <div class="top-btn">
-                        <a class="btn btn-primary" href="/index.php/application/view/id/<?php echo $communication->getApplicationId(); ?>"><?php echo __('View Application'); ?></a>
+                        <a class="btn btn-primary" href="/plan/application/view/id/<?php echo $communication->getApplicationId(); ?>"><?php echo __('View Application'); ?></a>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@ $application = $q->fetchOne();
             <?php
             }
             ?>
-            <form id="reply_form" name="reply_form" method="post" action="/index.php/messages/view/id/<?php echo $communication->getId(); ?>" autocomplete="off" data-ajax="false">
+            <form id="reply_form" name="reply_form" method="post" action="/plan/messages/view/id/<?php echo $communication->getId(); ?>" autocomplete="off" data-ajax="false">
 
                 <textarea name="reply" id="wysiwyg" placeholder="<?php echo __('Enter text here'); ?>..." class="form-control" rows="10" data-autogrow="true"></textarea>
 

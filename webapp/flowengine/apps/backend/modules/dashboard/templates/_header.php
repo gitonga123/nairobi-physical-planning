@@ -18,7 +18,8 @@ $site_settings = Functions::site_settings();
     <?php
     // $agency_manager = new AgencyManager();
     // $logo = $agency_manager->getLogo($sf_user->getAttribute('userid'));
-    ?><img src="/asset_mentor/admin/assets/img/logo2.png" alt="" class="img img-fluid img--fullwidth" />
+    ?>
+    <img src="/asset_mentor/admin/assets/img/logo2.png" alt="" class="img image-fluid" />
   </div><!-- logopanel -->
   <?php
   //Displays the sidemenu

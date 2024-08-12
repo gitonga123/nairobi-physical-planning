@@ -58,6 +58,9 @@ class signonActions extends sfActions
 
             $stream = new Stream();
             $url = sfConfig::get('app_api_jambo_url') . 'api/v1/accounts/login/token/';
+
+            error_log("Verification url is ---->{$url}");
+            
             $stream_response = $stream->sendRequest([
                 'url' => $url,
                 'method' => 'POST', // GET, POST, PUT, DELETE,

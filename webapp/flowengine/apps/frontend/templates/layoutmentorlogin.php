@@ -7,7 +7,7 @@
 	<title>Login - Access your account</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->
@@ -29,7 +29,7 @@
 					<div class="account-box">
 						<div class="login-right">
 							<div class="login-header">
-								<h3>Welcome to <span>Uasin Gishu County e-Services</span></h3>
+								<h3>Welcome to <span>Kisii County Physical Planning </span></h3>
 								<p class="text-muted">Please Login to your personal account to submit applications..</p>
 							</div>
 							<?php echo $sf_content ?>

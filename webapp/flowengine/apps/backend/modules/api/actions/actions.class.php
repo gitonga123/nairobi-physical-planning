@@ -280,6 +280,8 @@ class apiActions extends sfActions
         error_log("Response status code is ----> {$query_response->status}");
         $content = $query_response->content;
 
+        error_log(json_encode($content));
+
         if ($query_response->status == 200 || $query_response->status == 201) {
             error_log("Content received, proceeding...");
             error_log($content);

@@ -4,11 +4,11 @@
 <head>
 
 	<meta charset="utf-8">
-	<title>Uasin Gishu County - eServices Portal</title>
+	<title>Kisii County - Physical Planning Portal</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/bootstrap.min.css">
@@ -42,50 +42,68 @@
 								<span></span>
 							</span>
 						</a>
-						<a href="/index.php/dashboard" class="navbar-brand logo">
-							<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid" alt="Uasin Gishu Logo">
+						<a href="/plan/dashboard" class="navbar-brand logo">
+							<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+								alt="Logo">
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
-							<a href="/index.php/dashboard" class="menu-logo">
-								<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"  alt="Uasin Gishu Logo">
+							<a href="/plan/dashboard" class="menu-logo">
+								<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+									alt="Logo">
 							</a>
 							<a id="menu_close" class="menu-close" href="javascript:void(0);">
 								<i class="fas fa-times"></i>
 							</a>
 						</div>
 						<ul class="main-nav">
-							<li class="<?php echo $sf_context->getModuleName() == 'dashboard'  && $sf_context->getActionName() == "index" ? 'active' : ''; ?>">
-								<a href="/index.php/dashboard">Dashboard</a>
+							<li
+								class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "index" ? 'active' : ''; ?>">
+								<a href="/plan/dashboard">Dashboard</a>
 
 							</li>
-							<li class="has-submenu <?php echo $sf_context->getModuleName() == 'dashboard' && ($sf_context->getActionName() == "applicationslist" || $sf_context->getActionName() == "correctionsList") ? 'active' : ''; ?>">
+							<li
+								class="has-submenu <?php echo ($sf_context->getModuleName() == 'dashboard' || $sf_context->getModuleName() == 'forms') && ($sf_context->getActionName() == "applicationslist" || $sf_context->getActionName() == "correctionsList" || $sf_context->getActionName() == "groups") ? 'active' : ''; ?>">
 								<a href="">Applications <i class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
-									<li class="<?php echo $sf_context->getModuleName() == 'dashboard' ? 'active' : ''; ?>"><a href="/index.php/forms/groups/">Submit New</a></li>
-									<li class="<?php echo $sf_context->getModuleName() == 'dashboard'  && $sf_context->getActionName() == "correctionsList" ? 'active' : ''; ?>"><a href="/index.php/dashboard/correctionsList">Corrections Applications</a></li>
-									<li class="<?php echo $sf_context->getModuleName() == 'dashboard'  && $sf_context->getActionName() == "applicationslist" ? 'active' : ''; ?>"><a href="/index.php/dashboard/applicationslist">All Applications</a></li>
+									<li
+										class="<?php echo ($sf_context->getModuleName() == 'forms' && $sf_context->getActionName() == "groups") ? 'active' : ''; ?>">
+										<a href="/plan/forms/groups/">Submit New</a>
+									</li>
+									<li
+										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "correctionsList" ? 'active' : ''; ?>">
+										<a href="/plan/dashboard/correctionsList">Corrections Applications</a>
+									</li>
+									<li
+										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "applicationslist" ? 'active' : ''; ?>">
+										<a href="/plan/dashboard/applicationslist">All Applications</a>
+									</li>
 								</ul>
 							</li>
 
-							<li class="has-submenu <?php echo ($sf_context->getModuleName() == 'dashboard' || $sf_context->getModuleName() == 'invoices')  && ($sf_context->getActionName() == "invoiceslist" || $sf_context->getActionName() == "paidinvoices" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
-								<a href="/index.php/dashboard/invoiceslist">Invoices <i class="fas fa-chevron-down"></i></a>
+							<li
+								class="has-submenu <?php echo ($sf_context->getModuleName() == 'dashboard' || $sf_context->getModuleName() == 'invoices') && ($sf_context->getActionName() == "invoiceslist" || $sf_context->getActionName() == "paidinvoices" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
+								<a href="/plan/dashboard/invoiceslist">Invoices <i class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
-									<li class="<?php echo ($sf_context->getModuleName() == 'dashboard'  && $sf_context->getActionName() == "invoiceslist") ? 'active' : ''; ?>"><a href="/index.php/dashboard/invoiceslist">Pending Invoices</a></li>
-									<li class="<?php echo $sf_context->getModuleName() == 'dashboard'  && $sf_context->getActionName() == "paidinvoices" ? 'active' : ''; ?>"><a href="/index.php/dashboard/paidinvoices">Paid Invoices</a></li>
+									<li
+										class="<?php echo ($sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "invoiceslist") ? 'active' : ''; ?>">
+										<a href="/plan/dashboard/invoiceslist">Pending Invoices</a>
+									</li>
+									<li
+										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "paidinvoices" ? 'active' : ''; ?>">
+										<a href="/plan/dashboard/paidinvoices">Paid Invoices</a>
+									</li>
 								</ul>
 							</li>
-							<li class="<?php echo $sf_context->getModuleName() == 'permits'  && ($sf_context->getActionName() == "index" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
-								<a href="/index.php/permits">Permits & Licenses</a>
+							<li
+								class="<?php echo $sf_context->getModuleName() == 'permits' && ($sf_context->getActionName() == "index" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
+								<a href="/plan/permits">Permits & Licenses</a>
 
 							</li>
-							<li class="<?php echo $sf_context->getModuleName() == 'support'  && ($sf_context->getActionName() == "index" || $sf_context->getActionName() == "view" || $sf_context->getActionName() == "create") ? 'active' : ''; ?>">
-								<a href="/index.php/support">Messages</a>
-
-							</li>
-							<li>
-								<a href="/index.php/feedback">Help Center</a>
+							<li
+								class="<?php echo $sf_context->getModuleName() == 'support' && ($sf_context->getActionName() == "index" || $sf_context->getActionName() == "view" || $sf_context->getActionName() == "create") ? 'active' : ''; ?>">
+								<a href="/plan/support">Messages</a>
 
 							</li>
 						</ul>
@@ -96,21 +114,23 @@
 						<li class="nav-item dropdown has-arrow logged-item">
 							<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 								<span class="user-img">
-									<img class="rounded-circle" src="/asset_mentor/assets/img/user/user.jpg" width="31" alt="Darren Elder">
+									<img class="rounded-circle" src="/asset_mentor/assets/img/user/user.jpg" width="31"
+										alt="Darren Elder">
 								</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<div class="user-header">
 									<div class="avatar avatar-sm">
-										<img src="/asset_mentor/assets/img/user/user.jpg" alt="User Image" class="avatar-img rounded-circle">
+										<img src="/asset_mentor/assets/img/user/user.jpg" alt="User Image"
+											class="avatar-img rounded-circle">
 									</div>
 									<div class="user-text">
 										<h6><?php echo $sf_user->getProfile()->getFullname(); ?></h6>
 										<p class="text-muted mb-0"><?php echo $sf_user->getProfile()->getEmail(); ?></p>
 									</div>
 								</div>
-								<a class="dropdown-item" href="/index.php/settings">Account Settings</a>
-								<a class="dropdown-item text-primary" href="/index.php/signon/logout">Logout</a>
+								<a class="dropdown-item" href="/plan/settings">Account Settings</a>
+								<a class="dropdown-item text-primary" href="/plan/signon/logout">Logout</a>
 							</div>
 						</li>
 						<!-- /User Menu -->
@@ -122,13 +142,13 @@
 		<!-- /Header -->
 
 		<!-- Breadcrumb -->
-		<div class="breadcrumb-bar">
+		<!-- <div class="breadcrumb-bar">
 			<div class="container-fluid">
 				<div class="row align-items-center">
 					<div class="col-md-12 col-12">
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/index.php">Home</a></li>
+								<li class="breadcrumb-item"><a href="/plan">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 							</ol>
 						</nav>
@@ -136,7 +156,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- /Breadcrumb -->
 
 		<!-- Page Content -->
@@ -161,7 +181,9 @@
 						<!-- Sidebar -->
 						<div class="profile-sidebar">
 							<div class="user-widget">
-								<div class="pro-avatar"><?php echo getInitials($sf_user->getProfile()->getFullname()); ?></div>
+								<div class="pro-avatar">
+									<?php echo getInitials($sf_user->getProfile()->getFullname()); ?>
+								</div>
 								<div class="rating">
 								</div>
 
@@ -169,9 +191,11 @@
 									<h4 class="usr-name"><?php echo $sf_user->getProfile()->getFullname(); ?></h4>
 									<div class="justify-content-start">
 
-										<p class="mentor-type"><strong class="px-2"><?php echo ("Phone"); ?>:</strong> <?php echo $sf_user->getProfile()->getMobile(); ?></p>
+										<p class="mentor-type"><strong class="px-2"><?php echo ("Phone"); ?>:</strong>
+											<?php echo $sf_user->getProfile()->getMobile(); ?></p>
 
-										<p class="mentor-type"><strong class="px-2"><?php echo ("Email"); ?>:</strong> <?php echo $sf_user->getProfile()->getEmail(); ?></p>
+										<p class="mentor-type"><strong class="px-2"><?php echo ("Email"); ?>:</strong>
+											<?php echo $sf_user->getProfile()->getEmail(); ?></p>
 
 									</div>
 								</div>
@@ -181,8 +205,10 @@
 
 							<div class="custom-sidebar-nav mt-5">
 								<ul>
-									<li><a href="/index.php/settings"><i class="fas fa-user-cog"></i>Profile <span><i class="fas fa-chevron-right"></i></span></a></li>
-									<li><a href="/index.php/signon/logout"><i class="fas fa-sign-out-alt"></i>Logout <span><i class="fas fa-chevron-right"></i></span></a></li>
+									<li><a href="/plan/settings"><i class="fas fa-user-cog"></i>Profile <span><i
+													class="fas fa-chevron-right"></i></span></a></li>
+									<li><a href="/plan/signon/logout"><i class="fas fa-sign-out-alt"></i>Logout
+											<span><i class="fas fa-chevron-right"></i></span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -211,10 +237,11 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"  alt="Uasin Gishu Logo">
+									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="logo">
 								</div>
 								<div class="footer-about-content">
-									<p> Access your applications, invoices received, download permits and much more.. </p>
+									<p> Access your applications, invoices received, download permits and much more..
+									</p>
 									<div class="social-icon">
 										<ul>
 											<li>
@@ -262,9 +289,13 @@
 							<div class="footer-widget footer-menu">
 								<h2 class="footer-title">County Information</h2>
 								<ul>
-									<li><a href="https://https://uasingishu.go.ke/finance-documents/">Finance Bill</a></li>
-									<li><a href="https://uasingishu.go.ke/index.php/department/housing-and-land">Lands Department</a></li>
-									<li><a href="https://https://uasingishu.go.ke/">County Website</a></li>
+									<li><a
+											href="https://www.kisii.go.ke/plan/files/153/Downloads/107/KISII-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
+											Bill</a></li>
+									<li><a
+											href="https://www.kisii.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
+											Department</a></li>
+									<li><a href="https://kisii.go.ke/">County Website</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -281,22 +312,15 @@
 										<span><i class="fas fa-map-marker-alt"></i></span>
 										<p>
 											Official Contacts
-											(05320160000)
+											+254 58 30005/30081
 									</div>
-									<!-- <p>
-										<i class="fas fa-phone-alt"></i>
-										05320160000
-									</p> -->
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-
-										Email: info@uasingishu.go.ke
-
-
+										Email: lands@kisii.go.ke
 									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-										P.O. Box 40-30100, Eldoret.
+										P.O. Box 4550-40200, Kisii.
 									</p>
 								</div>
 							</div>
@@ -318,7 +342,8 @@
 						<div class="row">
 							<div class="col-12 text-center">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php date('Y') ?> Uasin Gishu County - Physical Planning. All rights reserved.</p>
+									<p class="mb-0">&copy; <?php date('Y') ?> Kisii County - Physical Planning. All
+										rights reserved.</p>
 								</div>
 							</div>
 						</div>
@@ -345,7 +370,9 @@
 
 	<!-- Datatables JS -->
 	<script src="/asset_mentor/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 	<script src="/asset_mentor/admin/assets/plugins/datatables/datatables.min.js"></script>
+	<script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
 	<!-- Custom JS -->
 	<script src="/asset_mentor/assets/js/script.js"></script>
 	<script type="text/javascript" src="/form_builder/js/jquery-ui/ui/jquery.ui.core.js"></script>
@@ -363,9 +390,34 @@
 	<script type="text/javascript" src="/form_builder/js/jquery.jqplugin.min.js"></script>
 	<script type="text/javascript" src="/form_builder/js/theme_editor.js"></script>
 	<script>
-		$('.datatable').DataTable({
-			"bFilter": true,
-		});
+
+		if ($('.datatable').length > 0) {
+			$('.datatable').DataTable({
+				"bFilter": false,
+			});
+		}
+		if ($('.datatable_applications').length > 0) {
+			$.fn.dataTable.moment('DD-MM-YYYY HH:mm:ss');
+
+			$('.datatable_applications').DataTable({
+				"bFilter": true,
+				order: [[2, 'desc']]
+			});
+		}
+		if ($('.datatable_invoices').length > 0) {
+			$.fn.dataTable.moment('DDo MMM YYYY HH:mm:ss');
+			$('.datatable_invoices').DataTable({
+				"bFilter": true,
+				order: [[1, 'desc']]
+			});
+		}
+		if ($('.datatable_permits').length > 0) {
+			$.fn.dataTable.moment('DDo MMM YYYY HH:mm:ss');
+			$('.datatable_permits').DataTable({
+				"bFilter": true,
+				order: [[4, 'desc']]
+			});
+		}
 	</script>
 
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4BM5P1Z0W"></script>

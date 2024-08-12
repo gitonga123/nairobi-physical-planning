@@ -5,10 +5,10 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Uasin Gishu County: E-Services Portal</title>
+	<title>Kisii County: Physical Planning and Urban Development Portal</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/bootstrap.min.css">
@@ -38,7 +38,7 @@
 	<div class="main-wrapper">
 
 		<!-- Header -->
-		<header class="header  header-three">
+		<header class="header header-four">
 			<div class="header-fixed">
 				<nav class="navbar navbar-expand-lg header-nav scroll-sticky-three">
 					<div class="container">
@@ -51,13 +51,17 @@
 								</span>
 							</a>
 							<a href="#" class="navbar-brand logo">
-								<img width="300px" height="200px" src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid" alt="Uasin County Government">
+								<img width="300px" height="200px"
+									src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+									alt="Ki County Government">
 							</a>
 						</div>
 						<div class="main-menu-wrapper">
 							<div class="menu-header">
 								<a href="#" class="menu-logo">
-									<img width="50px" height="50px" src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid" alt="Logo">
+									<img width="50px" height="50px"
+										src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+										alt="Logo">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
 									<i class="fas fa-times"></i>
@@ -65,56 +69,47 @@
 							</div>
 							<ul class="main-nav">
 								<li class="active has-submenu">
-									<a href="/index.php/dashboard">Getting Started</a>
+									<a href="/plan/dashboard">Getting Started</a>
 								</li>
 								<li class="has-submenu">
 									<a href="">Development<i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
 										<li class="has-submenu">
-											<a href="/index.php/dashboard">Construction Permit</a>
+											<a href="/plan/dashboard">Construction Permit</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="add-/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="edit-/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 										<li class="has-submenu">
-											<a href="/index.php/dashboard">Land rates Clearance</a>
+											<a href="/plan/dashboard">Change of User</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="add-/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="edit-/index.php/dashboard">Learn</a></li>
-											</ul>
-										</li>
-										<li class="has-submenu">
-											<a href="/index.php/dashboard">Change of User</a>
-											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="add-/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="edit-/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 
 										<li class="has-submenu">
-											<a href="/index.php/dashboard">Subdivision</a>
+											<a href="/plan/dashboard">Subdivision</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="add-/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="edit-/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 
 										<li class="has-submenu">
-											<a href="/index.php/dashboard">Almagamation</a>
+											<a href="/plan/dashboard">Amalgamation</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="add-/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="edit-/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 									</ul>
@@ -123,24 +118,10 @@
 									<a href="">Business <i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
 										<li class="has-submenu">
-											<a href="#">Business Permit</a>
+											<a href="#">Outdoor Advertising</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
-											</ul>
-										</li>
-										<li class="has-submenu">
-											<a href="#">Adversting</a>
-											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
-											</ul>
-										</li>
-										<li class="has-submenu">
-											<a href="#">Liquor Licensing</a>
-											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 									</ul>
@@ -149,23 +130,25 @@
 								<li class="has-submenu">
 									<a href="">Help<i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
-										<li><a href="/index.php/dashboard">About</a></li>
-										<li><a href="/index.php/help/contact">Contact Support</a></li>
-										<li><a href="/index.php/help/contact">Report an Issue</a></li>
+										<li><a href="/plan/dashboard">About</a></li>
+										<li><a href="/plan/help/contact">Contact Support</a></li>
+										<li><a href="/plan/help/contact">Report an Issue</a></li>
 									</ul>
 								</li>
 
 								<li class="login-link">
-									<a href="<?php echo sfConfig::get('app_sso_authorize_url')?>">Login / Signup</a>
+									<a href="<?php echo sfConfig::get('app_sso_authorize_url') ?>">Login / Signup</a>
 								</li>
 							</ul>
 						</div>
 						<ul class="nav header-navbar-rht">
 							<li class="nav-item">
-								<a class="nav-link header-login-two" href="<?php echo sfConfig::get('app_sso_authorize_url')?>">Login</a>
+								<a class="nav-link header-login-two"
+									href="<?php echo sfConfig::get('app_sso_authorize_url') ?>">Login</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link header-login" href="<?php echo sfConfig::get('app_sso_register_url')?>">Sign up</a>
+								<a class="nav-link header-login"
+									href="<?php echo sfConfig::get('app_sso_register_url') ?>">Sign up</a>
 							</li>
 						</ul>
 					</div>
@@ -175,34 +158,18 @@
 		<!-- /Header -->
 
 		<!-- Home Banner -->
-		<section class=" home-slide home-slide-three d-flex align-items-center">
+		<section class="section section-search home-slider-two index-three">
 			<div class="container">
-				<div class="row ">
-					<div class="col-md-6 d-flex align-items-center">
-						<div class="section-banner-three aos " data-aos="fade-up">
-							<div class="hometwo-slide-text ">
-								<h1>Uasin Gishu County: <br>Development & <br>Licensing Services</h1>
-								<p>Submit for your development approval online, Apply for business registration certificate & pay at comfort of your desk!</p>
-							</div>
-							<!-- Search -->
-							<div class="search-box">
-								<form action="#">
-									<div class="form-group search-info location-search">
-										<input type="text" class="form-control text-truncate" placeholder="Construction permit, Advertising, Land rates etc">
-										<a href="#" class="btn bg-search search-btn align-items-center d-flex justify-content-center">Search</a>
-									</div>
-								</form>
-							</div>
-							<!-- /Search -->
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="object-slide-img aos " data-aos="fade-up">
-							<img src="assets_frontend_amkatek/images/client-logo/floor-plan-1857175_640.jpg" alt="">
+				<div class="container">
+					<div class="banner-wrapper m-auto text-center aos aos-init aos-animate" data-aos="fade-up">
+						<div class="banner-header">
+							<h1 style="margin-bottom: 30px;">KISII COUNTY GOVERNMENT </h1>
+							<p>Physical Planning, Housing and Urban Development</p>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</section>
 		<!-- /Home Banner -->
 
@@ -210,13 +177,14 @@
 		<section class="most-popular course-categories-three">
 			<div class="container">
 				<div class="section-header h-three text-center aos " data-aos="fade-up">
-					<h2>E-Services Available</h2>
-					<p class="sub-title">Submit your proposals/applications to the county for the following services</p>
+					<h2>Physical Planning and Urban Development</h2>
+					<p class="sub-title">Submit your proposals/applications to the county for the following services:
+					</p>
 				</div>
 				<div class="popular-categories aos pt-3" data-aos="fade-up">
 					<div class="row">
-						<div class="col-lg-2 col-md-4">
-							<a href="/index.php/dashboard">
+						<div class="col-lg-3 col-md-4">
+							<a href="/plan/dashboard">
 								<div class="sub-categories bg-design align-items-center">
 									<div class="course-bg">
 										<img src="/asset_mentor/assets/img/course-bg.png" alt="">
@@ -225,24 +193,25 @@
 										<img src="/asset_mentor/assets/img/categories/cate-7.png" alt="">
 									</div>
 									<div class="categories-text text-center">
-										<h4>Construction Permit</h4>
+										<h4>Building Permits</h4>
 									</div>
 								</div>
 							</a>
 						</div>
-						<div class="col-lg-2 col-md-4">
-							<a href="/index.php/dashboard">
-								<div class="sub-categories bg-development align-items-center">
+						<div class="col-lg-3 col-md-4">
+							<a href="/plan/dashboard">
+								<div class="sub-categories bg-design align-items-center">
 									<div class="categories-img d-flex justify-content-center align-items-center">
 										<img src="/asset_mentor/assets/img/categories/cate-8.png" alt="">
 									</div>
 									<div class="categories-text text-center">
-										<h4>Land Rates Clearance</h4>
+										<h4>Perimeter Wall</h4>
 									</div>
 								</div>
 							</a>
 						</div>
-						<div class="col-lg-2 col-md-4">
+
+						<div class="col-lg-3 col-md-4">
 							<a href="#">
 								<div class="sub-categories bg-software align-items-center">
 									<div class="categories-img d-flex justify-content-center align-items-center">
@@ -254,11 +223,23 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-lg-2 col-md-4">
+						<div class="col-lg-3 col-md-4">
+							<a href="#">
+								<div class="sub-categories bg-marketing align-items-center">
+									<div class="categories-img d-flex justify-content-center align-items-center">
+										<img src="/asset_mentor/assets/img/categories/cate-10.png" alt="">
+									</div>
+									<div class="categories-text text-center">
+										<h4>Lease Extension/Renewal</h4>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-3 col-md-4">
 							<a href="#">
 								<div class="sub-categories bg-business align-items-center">
 									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-10.png" alt="">
+										<img src="/asset_mentor/assets/img/categories/cate-11.png" alt="">
 									</div>
 									<div class="categories-text text-center">
 										<h4>Change of User</h4>
@@ -266,42 +247,50 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-lg-2 col-md-4">
+						<div class="col-lg-3 col-md-4">
 							<a href="#">
-								<div class="sub-categories bg-marketing align-items-center">
+								<div class="sub-categories bg-business align-items-center">
 									<div class="categories-img d-flex justify-content-center align-items-center">
 										<img src="/asset_mentor/assets/img/categories/cate-11.png" alt="">
 									</div>
 									<div class="categories-text text-center">
-										<h4>Adversting License</h4>
+										<h4>Extension of User</h4>
 									</div>
 								</div>
 							</a>
 						</div>
-						<div class="col-lg-2 col-md-4">
+						<div class="col-lg-3 col-md-4">
 							<a href="#">
-								<div class="sub-categories bg-photography align-items-center">
-									<div class="course-develop-bg">
-										<img src="/asset_mentor/assets/img/course-develop-bg.png" alt="">
-									</div>
+								<div class="sub-categories bg-marketing align-items-center">
 									<div class="categories-img d-flex justify-content-center align-items-center">
 										<img src="/asset_mentor/assets/img/categories/cate-12.png" alt="">
 									</div>
 									<div class="categories-text text-center">
-										<h4>Liquor Licensing</h4>
-
+										<h4>Outdoor Advertisement</h4>
 									</div>
 								</div>
 							</a>
 						</div>
-						<div class="col-lg-2 col-md-4">
+						<div class="col-lg-3 col-md-4">
 							<a href="#">
 								<div class="sub-categories bg-design align-items-center">
 									<div class="categories-img d-flex justify-content-center align-items-center">
 										<img src="/asset_mentor/assets/img/categories/cate-13.png" alt="">
 									</div>
 									<div class="categories-text text-center">
-										<h4>Almagamation</h4>
+										<h4>Amalgamation</h4>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<a href="#">
+								<div class="sub-categories bg-business align-items-center">
+									<div class="categories-img d-flex justify-content-center align-items-center">
+										<img src="/asset_mentor/assets/img/categories/cate-14.png" alt="">
+									</div>
+									<div class="categories-text text-center">
+										<h4>Renewals/Renovations/Alterations</h4>
 									</div>
 								</div>
 							</a>
@@ -324,15 +313,16 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="Uasin Gishu County">
+									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="Kisii County">
 								</div>
 								<div class="footer-about-content">
-									<p class="footer-sub-text">Uasin Gishu County e-Services portal - Access County services now from the comfort of your desk!</p>
+									<p class="footer-sub-text">Kisii County - Lands, Physical Planning and Urban
+										Development!</p>
 
 								</div>
 								<div class="footer-three-contact">
-									<p><span>info@uasingishu.go.ke</span></p>
-									<p><span>(051) 2214142 / (051) 2216379/80</span></p>
+									<p><span>lands@kisii.go.ke</span></p>
+									<p><span>+254 58 30005/30081</span></p>
 								</div>
 							</div>
 							<!-- /Footer Widget -->
@@ -342,13 +332,21 @@
 
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">For Developers</h2>
 								<ul>
-									<li><a href="#">Construction Permits</a></li>
-									<li><a href="#">Land Rates Clearance</a></li>
-									<li><a href="#">Change of User</a></li>
-									<li><a href="#">Subdivision</a></li>
-									<li><a href="/index.php/login">Login</a></li>
+									<li>
+										<a href="/plan/login">Construction Permits
+
+											<ul>
+												<li>Building Permits</li>
+												<li>Perimeter Wall</li>
+												<li>Renewals</li>
+												<li>Renovations</li>
+												<li>Hoarding</li>
+											</ul>
+										</a>
+									</li>
+
+									<li><a href="/plan/login">Login</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -358,11 +356,11 @@
 
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">For Businesses</h2>
 								<ul>
-									<li><a href="#">Single Business Permit</a></li>
-									<li><a href="#">Liquor Licenses</a></li>
-									<li><a href="#">Adversting</a></li>
+									<li><a href="/plan/login">Change of User</a></li>
+									<li><a href="/plan/login">Subdivision</a></li>
+									<li><a href="/plan/login">Renewal/Extension of Lease</a></li>
+									<li><a href="/plan/login">Outdoor Advertising</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -399,7 +397,9 @@
 							</div>
 							<div class="col-md-6 ">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County E-services. All rights reserved.</p>
+									<p class="mb-0">&copy; <?php echo date("Y") ?> Kisii County Physical Planning and
+										Urban Development. All rights
+										reserved.</p>
 								</div>
 							</div>
 						</div>

@@ -79,8 +79,8 @@ License: You must have a valid license purchased only from themeforest (the abov
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li><a href="/plan/login">Log In</a></li>
-                        <li><a href="/plan/register">Registration</a></li>
+                        <li><a href="/index.php//login">Log In</a></li>
+                        <li><a href="/index.php//register">Registration</a></li>
                     </ul>
                 </div>
                 <!-- END TOP BAR MENU -->

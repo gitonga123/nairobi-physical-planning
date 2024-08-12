@@ -3,7 +3,7 @@ class Braintree_Plan extends Braintree
 {
     public static function all()
     {
-        $response = Braintree_Http::get('/plans');
+        $response = Braintree_Http::get('/index.php/s');
         if (key_exists('plans', $response)){
             $plans = array("plan" => $response['plans']);
         } else {

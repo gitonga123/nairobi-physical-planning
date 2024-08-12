@@ -704,13 +704,13 @@ class ApplicationManager
                 $permit = $q->fetchOne();
 
                 if ($permit) {
-                    echo "<script language='javascript'>window.parent.location.href = '/plan/permits/view/id/" . $permit->getId() . "/done/1';</script>";
+                    echo "<script language='javascript'>window.parent.location.href = '/index.php//permits/view/id/" . $permit->getId() . "/done/1';</script>";
                     exit;
                 }
             }
             //OTB causes infinity loading since on submission doesn't find permit and reloads the same action over and over
             //Redirect to applications page if permit is not available
-            //echo "<script language='javascript'>window.parent.location.href = '/plan/application/view/id/" . $application_id."/done/1';</script>";
+            //echo "<script language='javascript'>window.parent.location.href = '/index.php//application/view/id/" . $application_id."/done/1';</script>";
             //exit;
         }
     }
@@ -869,7 +869,7 @@ class ApplicationManager
                         $_SESSION['review_id'] = (int) $dbh->lastInsertId();
 
                         //Redirect to review page
-                        header("Location: /plan/forms/confirm?id={$form_id}");
+                        header("Location: /index.php//forms/confirm?id={$form_id}");
                         exit;
                     } else {
                         echo "<div class='contentpanel'><div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'>Your application cannot be submitted at this time:</h4></div> <div class='panel-body'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You must enable review page for this form if you want to use automatic submission</div></div></div></div>";
@@ -904,7 +904,7 @@ class ApplicationManager
                         $_SESSION['review_id'] = (int) $dbh->lastInsertId();
 
                         //Redirect to review page
-                        header("Location: /plan/forms/confirm?id={$form_id}");
+                        header("Location: /index.php//forms/confirm?id={$form_id}");
                         exit;
                     } else {
                         echo "<div class='contentpanel'><div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'>Your application cannot be submitted at this time:</h4></div> <div class='panel-body'><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You must enable review page for this form if you want to use automatic submission</div></div></div></div>";

@@ -1726,7 +1726,7 @@ class InvoiceManager
                         $invoiceNumber = $row['billing_zipcode'];
                         $beepTransactionID = $row['billing_state'];
 
-                        $url = "http://197.159.100.249:9000/hub/services/paymentGateway/XML/plan";
+                        $url = "http://197.159.100.249:9000/hub/services/paymentGateway/XML/index.php/";
                         $client = new IXR_Client($url);
                         $client->debug = false;
 

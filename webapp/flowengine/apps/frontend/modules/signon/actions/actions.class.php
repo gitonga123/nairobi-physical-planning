@@ -153,7 +153,7 @@ class signonActions extends sfActions
             if ($this->getUser()->getAttribute('referer')) {
                 $url = sfConfig::get('app_sso_jambo_web_url') . "/home";
             } else {
-                $url = sfConfig::get('app_sso_jambo_web_url') . "/plan" . "/";
+                $url = sfConfig::get('app_sso_jambo_web_url') . "/index.php/" . "/";
             }
 
             if (empty($url)) {
@@ -232,7 +232,7 @@ class signonActions extends sfActions
                 //  until their account is activated in the backend
                 if (sfConfig::get('app_enable_categories') == "yes") {
                     //if(!$this->sfGuardUser->getIsActive()) {
-                    //    return $this->redirect("/plan/index/inactive?reg=1");
+                    //    return $this->redirect("/index.php//index/inactive?reg=1");
                     //}
                 }
             } else {
@@ -240,7 +240,7 @@ class signonActions extends sfActions
                 //  until their account is activated in the backend
                 if (sfConfig::get('app_enable_categories') == "yes") {
                     //if(!$this->sfGuardUser->getIsActive()) {
-                    //    return $this->redirect("/plan/index/inactive?reg=0");
+                    //    return $this->redirect("/index.php//index/inactive?reg=0");
                     //}
                 }
 
@@ -271,7 +271,7 @@ class signonActions extends sfActions
             // //If form_categories have been configured, redirect user to choose user category or enter additional details
             // if(sfConfig::get('app_enable_categories') == "yes" && sizeof($profiles) == 0)
             // {
-            //     return $this->redirect("/plan/frusers/category");
+            //     return $this->redirect("/index.php//frusers/category");
             // }
 
             //Redirect to referer if exists else redirect to homepage

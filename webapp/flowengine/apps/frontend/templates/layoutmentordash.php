@@ -42,14 +42,14 @@
 								<span></span>
 							</span>
 						</a>
-						<a href="/plan/dashboard" class="navbar-brand logo">
+						<a href="/index.php//dashboard" class="navbar-brand logo">
 							<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 								alt="Logo">
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
-							<a href="/plan/dashboard" class="menu-logo">
+							<a href="/index.php//dashboard" class="menu-logo">
 								<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 									alt="Logo">
 							</a>
@@ -60,7 +60,7 @@
 						<ul class="main-nav">
 							<li
 								class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "index" ? 'active' : ''; ?>">
-								<a href="/plan/dashboard">Dashboard</a>
+								<a href="/index.php//dashboard">Dashboard</a>
 
 							</li>
 							<li
@@ -69,41 +69,41 @@
 								<ul class="submenu">
 									<li
 										class="<?php echo ($sf_context->getModuleName() == 'forms' && $sf_context->getActionName() == "groups") ? 'active' : ''; ?>">
-										<a href="/plan/forms/groups/">Submit New</a>
+										<a href="/index.php//forms/groups/">Submit New</a>
 									</li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "correctionsList" ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/correctionsList">Corrections Applications</a>
+										<a href="/index.php//dashboard/correctionsList">Corrections Applications</a>
 									</li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "applicationslist" ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/applicationslist">All Applications</a>
+										<a href="/index.php//dashboard/applicationslist">All Applications</a>
 									</li>
 								</ul>
 							</li>
 
 							<li
 								class="has-submenu <?php echo ($sf_context->getModuleName() == 'dashboard' || $sf_context->getModuleName() == 'invoices') && ($sf_context->getActionName() == "invoiceslist" || $sf_context->getActionName() == "paidinvoices" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
-								<a href="/plan/dashboard/invoiceslist">Invoices <i class="fas fa-chevron-down"></i></a>
+								<a href="/index.php//dashboard/invoiceslist">Invoices <i class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
 									<li
 										class="<?php echo ($sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "invoiceslist") ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/invoiceslist">Pending Invoices</a>
+										<a href="/index.php//dashboard/invoiceslist">Pending Invoices</a>
 									</li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "paidinvoices" ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/paidinvoices">Paid Invoices</a>
+										<a href="/index.php//dashboard/paidinvoices">Paid Invoices</a>
 									</li>
 								</ul>
 							</li>
 							<li
 								class="<?php echo $sf_context->getModuleName() == 'permits' && ($sf_context->getActionName() == "index" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
-								<a href="/plan/permits">Permits & Licenses</a>
+								<a href="/index.php//permits">Permits & Licenses</a>
 
 							</li>
 							<li
 								class="<?php echo $sf_context->getModuleName() == 'support' && ($sf_context->getActionName() == "index" || $sf_context->getActionName() == "view" || $sf_context->getActionName() == "create") ? 'active' : ''; ?>">
-								<a href="/plan/support">Messages</a>
+								<a href="/index.php//support">Messages</a>
 
 							</li>
 						</ul>
@@ -129,8 +129,8 @@
 										<p class="text-muted mb-0"><?php echo $sf_user->getProfile()->getEmail(); ?></p>
 									</div>
 								</div>
-								<a class="dropdown-item" href="/plan/settings">Account Settings</a>
-								<a class="dropdown-item text-primary" href="/plan/signon/logout">Logout</a>
+								<a class="dropdown-item" href="/index.php//settings">Account Settings</a>
+								<a class="dropdown-item text-primary" href="/index.php//signon/logout">Logout</a>
 							</div>
 						</li>
 						<!-- /User Menu -->
@@ -148,7 +148,7 @@
 					<div class="col-md-12 col-12">
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/plan">Home</a></li>
+								<li class="breadcrumb-item"><a href="/index.php/">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 							</ol>
 						</nav>
@@ -205,9 +205,9 @@
 
 							<div class="custom-sidebar-nav mt-5">
 								<ul>
-									<li><a href="/plan/settings"><i class="fas fa-user-cog"></i>Profile <span><i
+									<li><a href="/index.php//settings"><i class="fas fa-user-cog"></i>Profile <span><i
 													class="fas fa-chevron-right"></i></span></a></li>
-									<li><a href="/plan/signon/logout"><i class="fas fa-sign-out-alt"></i>Logout
+									<li><a href="/index.php//signon/logout"><i class="fas fa-sign-out-alt"></i>Logout
 											<span><i class="fas fa-chevron-right"></i></span></a></li>
 								</ul>
 							</div>
@@ -290,10 +290,10 @@
 								<h2 class="footer-title">County Information</h2>
 								<ul>
 									<li><a
-											href="https://www.info@uasingishu.go.ke/plan/files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
+											href="https://www.info@uasingishu.go.ke/index.php//files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
 											Bill</a></li>
 									<li><a
-											href="https://www.info@uasingishu.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
+											href="https://www.info@uasingishu.go.ke/index.php//departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
 											Department</a></li>
 									<li><a href="https://info@uasingishu.go.ke/">County Website</a></li>
 								</ul>

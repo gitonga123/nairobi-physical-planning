@@ -11,7 +11,7 @@
             )
         ) ?>
         <div class="col-md-12 col-lg-4 dash-board-list blue">
-            <a href="/plan/dashboard/applicationslist">
+            <a href="/index.php//dashboard/applicationslist">
                 <div class="dash-widget">
                     <div class="circle-bar">
                         <div class="icon-col">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col-md-12 col-lg-4 dash-board-list yellow">
-            <a href="/plan/dashboard/invoiceslist">
+            <a href="/index.php//dashboard/invoiceslist">
                 <div class="dash-widget">
                     <div class="circle-bar">
                         <div class="icon-col">
@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-md-12 col-lg-4 dash-board-list pink">
-            <a href="/plan/permits">
+            <a href="/index.php//permits">
                 <div class="dash-widget">
                     <div class="circle-bar">
                         <div class="icon-col">
@@ -67,7 +67,7 @@
                     <h4 class="mb-4">Latest Applications</h4>
                 </div>
                 <div class="col-auto">
-                    <a href="/plan/forms/groups" class="btn btn-success btn-sm"><i class="far fa-edit" aria-hidden="true"></i> Submit New Application</a>
+                    <a href="/index.php//forms/groups" class="btn btn-success btn-sm"><i class="far fa-edit" aria-hidden="true"></i> Submit New Application</a>
                 </div>
             </div>
             <div class="card flex-fill">
@@ -92,7 +92,7 @@
                                         ?>
                                         <td class="text-start"> <?php echo $application->getForm()->getFormName() ?> </td>
                                         <td> <a class="link-primary"
-                                                href="/plan/application/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId() ?>
+                                                href="/index.php//application/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId() ?>
                                             </a></td>
                                         <td class="text-start">
                                             <?php echo date('d-m-Y H:i:s', strtotime($application->getDateOfSubmission())) ?>
@@ -112,7 +112,7 @@
                                             </span>
                                         </td>
                                         <td class="text-start"><a
-                                                href="/plan/application/view/id/<?php echo $application->getId() ?>"
+                                                href="/index.php//application/view/id/<?php echo $application->getId() ?>"
                                                 class="btn btn-outline-info btn-sm"> View</a></td>
                                     </tr>
                                 <?php endforeach; ?>

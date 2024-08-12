@@ -31,7 +31,7 @@ $applicationM = new ApplicationManager();
                                 ?>
                                 <td> <?php echo $application->getForm()->getFormName() ?> </td>
                                 <td> <a class="link-primary"
-                                        href="/plan/application/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId() ?>
+                                        href="/index.php//application/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId() ?>
                                     </a></td>
                                 <td><?php echo date('d-m-Y H:i:s', strtotime($application->getDateOfSubmission())) ?></td>
                                 <td class="text-start">
@@ -48,7 +48,7 @@ $applicationM = new ApplicationManager();
                                     </span>
                                 </td>
                                 <td class="text-center"><a
-                                        href="/plan/application/view/id/<?php echo $application->getId() ?>"
+                                        href="/index.php//application/view/id/<?php echo $application->getId() ?>"
                                         class="btn btn-outline-info btn-sm"> View</a></td>
                             </tr>
                         <?php endforeach; ?>

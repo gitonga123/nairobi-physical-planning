@@ -5,7 +5,7 @@
 <div class="container">
 <ul class="breadcrumb">
 <li>
-<a href="/plan"><?php echo __('Home'); ?></a>
+<a href="/index.php/"><?php echo __('Home'); ?></a>
 <span class="divider">/</span>
 </li>
 <li class="active"><?php echo $_GET['reference']; ?></li>

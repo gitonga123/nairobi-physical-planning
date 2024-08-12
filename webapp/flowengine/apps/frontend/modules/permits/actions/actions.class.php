@@ -80,7 +80,7 @@ class permitsActions extends sfActions
       $application_id = $this->permit->getFormEntry()->getId();
 
       $this->permit->delete();
-      $this->redirect("/plan/application/view/id/" . $application_id);
+      $this->redirect("/index.php//application/view/id/" . $application_id);
     }
 
     $this->application = $this->permit->getFormEntry();
@@ -118,7 +118,7 @@ class permitsActions extends sfActions
 
       $this->permit->setDocumentKey("asset_signed/" . $filename . $extension);
       $this->permit->save();
-      $this->redirect("/plan/permits/view/id/" . $this->permit->getId());
+      $this->redirect("/index.php//permits/view/id/" . $this->permit->getId());
     } else {
       $this->forward('permits', 'attach');
     }
@@ -213,6 +213,6 @@ class permitsActions extends sfActions
       readfile($file_name);
       exit();
     } else
-      return $this->redirect('/plan/permits/view/id/' . $permit_id);
+      return $this->redirect('/index.php//permits/view/id/' . $permit_id);
   }
 }

@@ -81,11 +81,11 @@ function GetDaysSince($sStartDate, $sEndDate){
 
                                <?php if ($pager->haveToPaginate()): ?>
                                    <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                       <li><a href="/plan/archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/1">
+                                       <li><a href="/index.php//archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/1">
                                                <i class="fa fa-angle-left"></i>
                                            </a></li>
 
-                                       <li> <a href="/plan/archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $pager->getPreviousPage() ?>">
+                                       <li> <a href="/index.php//archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $pager->getPreviousPage() ?>">
                                                <i class="fa fa-angle-left"></i>
                                            </a></li>
 
@@ -93,15 +93,15 @@ function GetDaysSince($sStartDate, $sEndDate){
                                            <?php if ($page == $pager->getPage()): ?>
                                                <li class="active"><a href=""><?php echo $page ?></a>
                                            <?php else: ?>
-                                               <li><a href="/plan/archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $page ?>"><?php echo $page ?></a></li>
+                                               <li><a href="/index.php//archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $page ?>"><?php echo $page ?></a></li>
                                            <?php endif; ?>
                                        <?php endforeach; ?>
 
-                                       <li> <a href="/plan/archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $pager->getNextPage() ?>">
+                                       <li> <a href="/index.php//archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $pager->getNextPage() ?>">
                                                <i class="fa fa-angle-right"></i>
                                            </a></li>
 
-                                       <li> <a href="/plan/archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $pager->getLastPage() ?>">
+                                       <li> <a href="/index.php//archives/index<?php if($stage): ?>/subgroup/<?php echo $stage; ?><?php endif; ?>/page/<?php echo $pager->getLastPage() ?>">
                                                <i class="fa fa-angle-right"></i>
                                            </a></li>
                                    </ul>

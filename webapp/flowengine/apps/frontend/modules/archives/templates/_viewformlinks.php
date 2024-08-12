@@ -277,7 +277,7 @@ $formtype = $form->getFormDescription();
                     <?php
                     if($application->getDeclined() == "1"){
                         ?>
-                        <a class="btn btn-primary pull-right" href="/plan/application/edit?application_id=<?php echo $application->getId(); ?>&link=<?php echo $link->getId(); ?>"><?php echo __('Edit and Submit'); ?></a>
+                        <a class="btn btn-primary pull-right" href="/index.php//application/edit?application_id=<?php echo $application->getId(); ?>&link=<?php echo $link->getId(); ?>"><?php echo __('Edit and Submit'); ?></a>
                     <?php
                     }
                     ?>

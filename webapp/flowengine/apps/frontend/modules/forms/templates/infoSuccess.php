@@ -34,7 +34,7 @@
 									<p><?php echo $form->getFormDescription() ?></p>
 									<div class="row">
 										<div class="col">
-											<a href="/plan/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-success"><i class="far fa-edit"></i> Submit </a>
+											<a href="/index.php//forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-success"><i class="far fa-edit"></i> Submit </a>
 										</div>
 
 									</div>

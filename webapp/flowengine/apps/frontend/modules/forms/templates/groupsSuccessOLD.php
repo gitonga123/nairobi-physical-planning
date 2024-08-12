@@ -86,7 +86,7 @@ $q = Doctrine_Query::create()
 		}
 		?>
                     <li class="list-group-item">
-                        <a href="/plan/forms/info?id=<?php echo $form->getFormId(); ?>"><?php echo $form->getFormName() ?></a>
+                        <a href="/index.php//forms/info?id=<?php echo $form->getFormId(); ?>"><?php echo $form->getFormName() ?></a>
                     </li>
                     <?php
 }
@@ -114,7 +114,7 @@ else:
 	                    <p><?php echo __('To provide additional details, follow the steps below'); ?>:</p>
 	                    <ol>
 	                        <li><?php echo __('Click on your Name at the top right of the screen.'); ?></li>
-	                        <li><?php echo __('Click on'); ?> <a href="/plan/settings"><?php echo __('Account Settings'); ?></a>.</li>
+	                        <li><?php echo __('Click on'); ?> <a href="/index.php//settings"><?php echo __('Account Settings'); ?></a>.</li>
 	                        <li><?php echo __('Click on the "Edit Additional Details" tab.') ?></li>
 	                        <li><?php echo __('Click the "Add Additional Details" button, give your details and submit.'); ?></li>
 	                    </ol>
@@ -126,7 +126,7 @@ else:
 	                    </div>
 	                    <?php endif;?>
                     <?php $sf_user->getAttributeHolder()->remove('boraqs_reset');?>
-                    <p><a href="<?php echo '/plan/membersdatabase/resendboraq' ?>" class="btn btn-warning"><?php echo __('Resend Verification Email'); ?></a></p>
+                    <p><a href="<?php echo '/index.php//membersdatabase/resendboraq' ?>" class="btn btn-warning"><?php echo __('Resend Verification Email'); ?></a></p>
                     <?php endif;?>
                 </div>
             </div>

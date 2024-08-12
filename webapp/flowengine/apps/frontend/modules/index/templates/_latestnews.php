@@ -27,7 +27,7 @@ $news=$q->execute();
 							<!--span><i class="fal fa-comments"></i><a href="#">43 Comments</a></span-->
 						</div>
 						<h3>
-						<a href="<?php echo url_for('/plan/news/article/id/'.$n->getId()) ?>"><?php echo html_entity_decode($n->getTitle()) ?></a>
+						<a href="<?php echo url_for('/index.php//news/article/id/'.$n->getId()) ?>"><?php echo html_entity_decode($n->getTitle()) ?></a>
 						</h3>
 				</div>
 			</div>

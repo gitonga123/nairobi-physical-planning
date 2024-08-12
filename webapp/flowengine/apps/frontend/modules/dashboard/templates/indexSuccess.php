@@ -67,7 +67,8 @@
                     <h4 class="mb-4">Latest Applications</h4>
                 </div>
                 <div class="col-auto">
-                    <a href="/index.php//forms/groups" class="btn btn-success btn-sm"><i class="far fa-edit" aria-hidden="true"></i> Submit New Application</a>
+                    <a href="/index.php//forms/groups" class="btn btn-success btn-sm"><i class="far fa-edit"
+                            aria-hidden="true"></i> Submit New Application</a>
                 </div>
             </div>
             <div class="card flex-fill">
@@ -111,9 +112,17 @@
                                                 <?php } ?>
                                             </span>
                                         </td>
-                                        <td class="text-start"><a
-                                                href="/index.php//application/view/id/<?php echo $application->getId() ?>"
-                                                class="btn btn-outline-info btn-sm"> View</a></td>
+                                        <td class="text-start">
+                                            <?php if ($application->getDeclined()): ?>
+                                                <a href="/index.php//application/edit/id/<?php echo $application->getId() ?>"
+                                                    class="btn btn-outline-danger btn-sm"> <i class="far fa-edit"></i> Edit &
+                                                    Resubmit</a>
+                                               
+                                            <?php else: ?>
+                                                <a href="/index.php//application/view/id/<?php echo $application->getId() ?>"
+                                                class="btn btn-outline-info btn-sm"> View</a>
+                                            <?php endif ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

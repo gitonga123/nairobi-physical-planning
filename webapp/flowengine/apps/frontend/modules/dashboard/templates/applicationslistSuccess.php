@@ -47,9 +47,15 @@ $applicationM = new ApplicationManager();
                                         <?php } ?>
                                     </span>
                                 </td>
-                                <td class="text-center"><a
-                                        href="/index.php//application/view/id/<?php echo $application->getId() ?>"
-                                        class="btn btn-outline-info btn-sm"> View</a></td>
+                                <td class="text-center">
+                                    <a href="/index.php//application/view/id/<?php echo $application->getId() ?>"
+                                        class="btn btn-outline-info btn-sm"> View</a>
+                                    <?php if ($application->getDeclined()): ?>
+                                       | <a href="/index.php//application/edit/id/<?php echo $application->getId() ?>"
+                                            class="btn btn-outline-danger btn-sm"> <i class="far fa-edit"></i> Edit &
+                                            Resubmit</a>
+                                    <?php endif ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

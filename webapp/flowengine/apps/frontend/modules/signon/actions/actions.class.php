@@ -68,6 +68,9 @@ class signonActions extends sfActions
                 ]
             ]);
 
+            error_log("Token verification from jambo --->{$stream_response->status}");
+            error_log(json_encode($stream_response->content));
+
             if ($stream_response->status !== 200) {
                 throw new sfException($stream_response->content['error'], $stream_response->status);
             }

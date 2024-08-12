@@ -13,9 +13,9 @@
 				<p><?php echo $form->renderGlobalErrors() ?></p>
 				</div>
 				<?php endif; ?>
-                <form method="post" id="registration_form" name="registration_form" action="/index.php//apply" method="post" enctype="multipart/form-data" autocomplete="off" data-ajax="false"  onsubmit="javascript:return validateall();">
+                <form method="post" id="registration_form" name="registration_form" action="/plan//apply" method="post" enctype="multipart/form-data" autocomplete="off" data-ajax="false"  onsubmit="javascript:return validateall();">
                     <h3 class="nomargin"><?php echo __('Please create an account'); ?></h3>
-                    <p class="mt5 mb20"><?php echo __('Already a member?'); ?> <a href="/index.php//login"><strong><?php echo __('Sign In'); ?></strong></a></p>
+                    <p class="mt5 mb20"><?php echo __('Already a member?'); ?> <a href="/plan//login"><strong><?php echo __('Sign In'); ?></strong></a></p>
 
                     <?php
 					?>
@@ -48,7 +48,7 @@
                       $('#sfApplyApply_username').keyup(function(){
                         $.ajax({
                                   type: "POST",
-                                  url: "/index.php//index/checkuser",
+                                  url: "/plan//index/checkuser",
                                   data: {
                                       'name' : $('input:text[id=sfApplyApply_username]').val()
                                   },
@@ -81,7 +81,7 @@
 						$('#sfApplyApply_email').keyup(function(){
 						  $.ajax({
 									type: "POST",
-									url: "/index.php//index/checkemail",
+									url: "/plan//index/checkemail",
 									data: {
 										'email' : $('input:text[id=sfApplyApply_email]').val()
 									},

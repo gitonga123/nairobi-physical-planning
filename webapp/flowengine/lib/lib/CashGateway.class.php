@@ -79,7 +79,7 @@ class CashGateway {
         }
         else
         {
-            $callback_url = '/index.php//forms/confirmpayment?id=' . $application->getFormId() . '&entryid=' . $application->getEntryId() . "&done=1&invoiceid=" . $invoice->getId();
+            $callback_url = '/plan//forms/confirmpayment?id=' . $application->getFormId() . '&entryid=' . $application->getEntryId() . "&done=1&invoiceid=" . $invoice->getId();
         }
 
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";

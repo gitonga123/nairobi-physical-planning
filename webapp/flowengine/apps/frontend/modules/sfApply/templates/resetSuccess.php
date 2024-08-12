@@ -43,6 +43,6 @@
 								
 									<button class="btn btn-primary login-btn" type="submit"><?php echo ('Update My Password'); ?></button>
 									<div class="account-footer text-center mt-3">
-										Back to Login <a class="forgot-link mb-0" href="/index.php//login"><?php echo ('Login'); ?></a>
+										Back to Login <a class="forgot-link mb-0" href="/plan//login"><?php echo ('Login'); ?></a>
 									</div>
 </form>								

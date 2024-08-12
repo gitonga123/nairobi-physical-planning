@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/bootstrap.min.css">
@@ -41,14 +41,14 @@
 								<span></span>
 							</span>
 						</a>
-						<a href="/index.php//dashboard" class="navbar-brand logo">
+						<a href="/plan//dashboard" class="navbar-brand logo">
 							<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 								alt="Logo">
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
-							<a href="/index.php//dashboard" class="menu-logo">
+							<a href="/plan//dashboard" class="menu-logo">
 								<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 									alt="Logo">
 							</a>
@@ -59,7 +59,7 @@
 						<ul class="main-nav">
 							<li
 								class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "index" ? 'active' : ''; ?>">
-								<a href="/index.php//dashboard">Dashboard</a>
+								<a href="/plan//dashboard">Dashboard</a>
 
 							</li>
 							<li
@@ -68,39 +68,39 @@
 								<ul class="submenu">
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' ? 'active' : ''; ?>">
-										<a href="/index.php//forms/groups/">Submit New</a></li>
+										<a href="/plan//forms/groups/">Submit New</a></li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "correctionsList" ? 'active' : ''; ?>">
-										<a href="/index.php//dashboard/correctionsList">Corrections Applications</a></li>
+										<a href="/plan//dashboard/correctionsList">Corrections Applications</a></li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "applicationslist" ? 'active' : ''; ?>">
-										<a href="/index.php//dashboard/applicationslist">All Applications</a></li>
+										<a href="/plan//dashboard/applicationslist">All Applications</a></li>
 								</ul>
 							</li>
 							<li
 								class="has-submenu <?php echo ($sf_context->getModuleName() == 'dashboard' || $sf_context->getModuleName() == 'invoices') && ($sf_context->getActionName() == "invoiceslist" || $sf_context->getActionName() == "paidinvoices" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
-								<a href="/index.php//dashboard/invoiceslist">Invoices <i
+								<a href="/plan//dashboard/invoiceslist">Invoices <i
 										class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
 									<li
 										class="<?php echo ($sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "invoiceslist") ? 'active' : ''; ?>">
-										<a href="/index.php//dashboard/invoiceslist">Pending Invoices</a></li>
+										<a href="/plan//dashboard/invoiceslist">Pending Invoices</a></li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "paidinvoices" ? 'active' : ''; ?>">
-										<a href="/index.php//dashboard/paidinvoices">Paid Invoices</a></li>
+										<a href="/plan//dashboard/paidinvoices">Paid Invoices</a></li>
 								</ul>
 							</li>
 							<li
 								class="<?php echo $sf_context->getModuleName() == 'permits' && ($sf_context->getActionName() == "index" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
-								<a href="/index.php//permits">Permits & Licenses</a>
+								<a href="/plan//permits">Permits & Licenses</a>
 
 							</li>
 							<li>
-								<a href="/index.php//feedback">Suggestions</a>
+								<a href="/plan//feedback">Suggestions</a>
 
 							</li>
 							<li>
-								<a href="/index.php//feedback">Help Center</a>
+								<a href="/plan//feedback">Help Center</a>
 
 							</li>
 						</ul>
@@ -127,7 +127,7 @@
 									</div>
 								</div>
 
-								<a class="dropdown-item" href="/index.php//signon/logout">Logout</a>
+								<a class="dropdown-item" href="/plan//signon/logout">Logout</a>
 							</div>
 						</li>
 						<!-- /User Menu -->
@@ -218,9 +218,9 @@
 							<div class="footer-widget footer-menu">
 								<h2 class="footer-title">County Information</h2>
 								<ul>
-									<li><a href="https://www.info@uasingishu.go.ke/index.php//files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance Bill</a></li>
+									<li><a href="https://www.info@uasingishu.go.ke/plan//files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance Bill</a></li>
 									<li><a
-											href="https://www.info@uasingishu.go.ke/index.php//departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
+											href="https://www.info@uasingishu.go.ke/plan//departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
 											Department</a></li>
 									<li><a href="https://info@uasingishu.go.ke/">County Website</a></li>
 								</ul>

@@ -120,7 +120,7 @@ use_helper('I18N');
 						?>
 							<div class="form-row pull-right">
 								<div class="col-sm-12">
-									<a class="btn btn-outline-primary" href="/index.php/frusers/editadditional/formid/<?php echo $profile->getFormId(); ?>/entryid/<?php echo $profile->getEntryId(); ?>"> <?php echo __('Edit Additional Details'); ?></a>
+									<a class="btn btn-outline-primary" href="/plan/frusers/editadditional/formid/<?php echo $profile->getFormId(); ?>/entryid/<?php echo $profile->getEntryId(); ?>"> <?php echo __('Edit Additional Details'); ?></a>
 								</div>
 							</div>
 							<?php
@@ -141,7 +141,7 @@ use_helper('I18N');
 						?>
 							<div class="form-row pull-right">
 								<div class="col-sm-12">
-									<a class="btn btn-outline-primary" href="/index.php/mfRegister/registerDetails2?id=<?php echo $form_id; ?>"> <?php echo __('Add Additional Details'); ?></a>
+									<a class="btn btn-outline-primary" href="/plan/mfRegister/registerDetails2?id=<?php echo $form_id; ?>"> <?php echo __('Add Additional Details'); ?></a>
 								</div>
 							</div>
 						<?php

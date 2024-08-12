@@ -24,7 +24,7 @@ $site_settings = Functions::site_settings();
   <meta name="author" content="Webmasters Africa">
   <title><?php echo $site_settings->getOrganisationName(); ?></title>
 
-  <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/png">
+  <link rel="shortcut icon" href="/asset_mentor/assets/img/favicon.ico" type="image/png">
   <?php
   //Displays all required stylesheets
   include_component('dashboard', 'stylesheets');

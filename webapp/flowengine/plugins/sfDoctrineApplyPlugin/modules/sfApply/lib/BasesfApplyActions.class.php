@@ -35,7 +35,7 @@ class BasesfApplyActions extends sfActions
           $cat = $q->fetchOne();
 
 
-          $this->redirect('/index.php/mfRegister/registerDetails?formid=' . $cat->getFormid());
+          $this->redirect('/plan/mfRegister/registerDetails?formid=' . $cat->getFormid());
         } catch (Exception $e) {
           //$mailer->disconnect();
           $profile = $this->form->getObject();
@@ -147,7 +147,7 @@ class BasesfApplyActions extends sfActions
 
     $to = $profile->getEmail();
     $subject = "Account Verification";
-    $message = "Please verify your account on " . "{$is_http}://" . $this->getRequest()->getHost() . "/index.php/sfApply/confirm/validate/" . $profile->getValidate();
+    $message = "Please verify your account on " . "{$is_http}://" . $this->getRequest()->getHost() . "/plan/sfApply/confirm/validate/" . $profile->getValidate();
     $headers = "";
     $headers .= "Reply-To: " . sfConfig::get('app_organisation_name') . " <" . sfConfig::get('app_organisation_email') . ">\r\n";
     $headers .= "Return-Path: " . sfConfig::get('app_organisation_name') . " <" . sfConfig::get('app_organisation_email') . ">\r\n";
@@ -249,10 +249,10 @@ class BasesfApplyActions extends sfActions
       }
 
       error_log("Checking if its http or https ---->" . $is_http);
-      error_log("<a href='{$is_http}://" . $this->getRequest()->getHost() . "/index.php/sfApply/confirm?validate=" . $profile->getValidate() . "&username=" . $user->getUsername());
+      error_log("<a href='{$is_http}://" . $this->getRequest()->getHost() . "/plan/sfApply/confirm?validate=" . $profile->getValidate() . "&username=" . $user->getUsername());
       $to = $profile->getEmail();
       $subject = "Password Reset";
-      $message = "Please click the following link to reset your password: <a href='{$is_http}://" . $this->getRequest()->getHost() . "/index.php/sfApply/confirm?validate=" . $profile->getValidate() . "&username=" . $user->getUsername() . "'>Password Reset</a>";
+      $message = "Please click the following link to reset your password: <a href='{$is_http}://" . $this->getRequest()->getHost() . "/plan/sfApply/confirm?validate=" . $profile->getValidate() . "&username=" . $user->getUsername() . "'>Password Reset</a>";
       $headers = "";
       $headers .= "Reply-To: " . sfConfig::get('app_organisation_name') . " <" . sfConfig::get('app_organisation_email') . ">\r\n";
       $headers .= "Return-Path: " . sfConfig::get('app_organisation_name') . " <" . sfConfig::get('app_organisation_email') . ">\r\n";

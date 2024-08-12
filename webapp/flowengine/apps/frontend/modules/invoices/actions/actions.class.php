@@ -150,7 +150,7 @@ class invoicesActions extends sfActions
         $invoice = $q->fetchOne();
 
         if ($invoice->getPaid() == 2) {
-            $this->redirect("/index.php//invoices/view/id/" . $invoice->getId());
+            $this->redirect("/plan//invoices/view/id/" . $invoice->getId());
         } else {
             $application = $invoice->getFormEntry();
 
@@ -158,7 +158,7 @@ class invoicesActions extends sfActions
             $this->getUser()->setAttribute('entry_id', $application->getEntryId());
             $this->getUser()->setAttribute('invoice_id', $invoice->getId());
 
-            $this->redirect("/index.php//forms/payment/invoice/" . $invoice->getId());
+            $this->redirect("/plan//forms/payment/invoice/" . $invoice->getId());
         }
     }
 }

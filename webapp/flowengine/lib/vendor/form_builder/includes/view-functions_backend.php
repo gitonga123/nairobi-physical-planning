@@ -768,7 +768,7 @@ EOT;
 	$(function(){
 		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){
 		 	$('#element_{$element->id}').uploadifive({
-		 		'uploadScript'     : '/index.php//forms/upload',
+		 		'uploadScript'     : '/plan//forms/upload',
 		 		'buttonText'	   : '{$mf_lang['file_select']}',
 		 		'removeCompleted' : false,
 				'dnd' : true,
@@ -843,7 +843,7 @@ EOT;
 		 }else if($.browser.flash == true){
 		      $('#element_{$element->id}').uploadify({
 		        'uploader'   	  : '/form_builder/js/uploadify/uploadify.swf',
-		        'script'     	  : '/index.php//forms/upload',
+		        'script'     	  : '/plan//forms/upload',
 		        'cancelImg'  	  : '/form_builder/images/icons/stop.png',
 		        'removeCompleted' : false,
 		        'displayData' 	  : 'percentage',
@@ -6739,7 +6739,7 @@ EOT;
                 document.getElementById("li_" + link_id + "_filter").innerHTML = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "/index.php//forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
+        xhttp.open("GET", "/plan//forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
         xhttp.send();
     }
 	</script>
@@ -8301,7 +8301,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 	//check permission to access this page
 	if ($_SESSION['mf_form_payment_access'][$form_id] !== true) {
-		return "Your session has been expired. Please <a href='/index.php//forms/view?id={$form_id}'>click here</a> to start again.";
+		return "Your session has been expired. Please <a href='/plan//forms/view?id={$form_id}'>click here</a> to start again.";
 	}
 
 	$mf_settings = mf_get_settings($dbh);
@@ -9265,7 +9265,7 @@ EOT;
 							$form_markup = $pesaflow->checkout_cart($application->getId(), false);
 						}
 					} else {
-						$form_markup = "<h1>Sorry! We experience an error. Please go back to <a href='/index.php/'>dashboard</a> and select your invoice and try again.</h1>";
+						$form_markup = "<h1>Sorry! We experience an error. Please go back to <a href='/plan/'>dashboard</a> and select your invoice and try again.</h1>";
 						error_log("Error-Payment-Fatal: Could not find application for: " . $form_id . "/" . $record_id);
 					}
 				}

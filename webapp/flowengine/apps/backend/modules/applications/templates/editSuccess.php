@@ -187,7 +187,7 @@ if(mf_is_form_submitted()){ //if form submitted
                 document.getElementById("li_" + link_id + "_filter").innerHTML = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "/index.php//forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
+        xhttp.open("GET", "/plan//forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
         xhttp.send();
     }
 </script>

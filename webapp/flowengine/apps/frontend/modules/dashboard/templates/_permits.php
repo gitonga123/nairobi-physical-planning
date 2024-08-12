@@ -24,7 +24,7 @@ $params = substr($uri, strpos($uri, '?'));
 
         <div class="row">
             <div class="col-md-2 pull-right">
-                <a style="color: white" href="<?php echo url_for('/index.php//dashboard/downloadpermits' . $params) ?>"
+                <a style="color: white" href="<?php echo url_for('/plan//dashboard/downloadpermits' . $params) ?>"
                    class="btn btn-primary pull-right">
                     <i class="fa fa-download"></i>
                     Download CSV
@@ -98,7 +98,7 @@ $params = substr($uri, strpos($uri, '?'));
                             <?php endif; ?> </td>
                         <td>
                             <?php if ($permit_manager->is_applications_permit_signed($perm) and $permit['permit_status'] == 1): ?>
-                                <a href="<?php echo url_for('/index.php//permits/downloadsignedpermit/id/' . $permit['permit_id']) ?>"
+                                <a href="<?php echo url_for('/plan//permits/downloadsignedpermit/id/' . $permit['permit_id']) ?>"
                                    class="btn btn-info">
                                     <i class="fa fa-download"></i> Download Permit
                                 </a>

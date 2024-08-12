@@ -3,11 +3,11 @@
 		<?php
 		if ($application->getApproved() == 0 || $application->getDeclined() == 1) {
 		?>
-			<a href="/index.php//application/edit/id/<?php echo $application->getId(); ?>" class="btn btn-primary pull-right text-end"><span class="fa fa-edit"></span> <?php echo __("Edit &amp; Resubmit"); ?></a>
+			<a href="/plan//application/edit/id/<?php echo $application->getId(); ?>" class="btn btn-primary pull-right text-end"><span class="fa fa-edit"></span> <?php echo __("Edit &amp; Resubmit"); ?></a>
 		<?php
 		} else {
 		?>
-			<a href="/index.php//application/viewentrypdf/id/<?php echo $application->getId(); ?>" class="btn btn-dark text-end btn-sm"><span class="fa fa-download"></span> <?php echo __("Download Application Details"); ?></a>
+			<a href="/plan//application/viewentrypdf/id/<?php echo $application->getId(); ?>" class="btn btn-dark text-end btn-sm"><span class="fa fa-download"></span> <?php echo __("Download Application Details"); ?></a>
 		<?php
 		}
 		?>

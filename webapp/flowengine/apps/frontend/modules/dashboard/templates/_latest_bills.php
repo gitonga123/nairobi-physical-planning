@@ -31,10 +31,10 @@
                         <td><?php echo $invoice->getFormEntry()->getForm()->getFormName() ?></td>
                         <td><?php echo $invoice->getStatus() ?></td>
                         <td>
-                            <a class="btn btn-xs btn-default"  title='<?php echo __('View Invoice'); ?>' href='/index.php//invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
+                            <a class="btn btn-xs btn-default"  title='<?php echo __('View Invoice'); ?>' href='/plan//invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
 
                             <?php if($invoice->getPaid() == 1 || $invoice->getPaid() == 15){ ?>
-                            <!--a href="/index.php//forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-primary btn-xs">
+                            <!--a href="/plan//forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-primary btn-xs">
                             <?php echo __("Pay now"); ?>
                             </a-->
                             <?php } ?>

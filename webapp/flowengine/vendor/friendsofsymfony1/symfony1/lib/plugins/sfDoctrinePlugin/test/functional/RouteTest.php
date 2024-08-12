@@ -40,19 +40,19 @@ $article = Doctrine_Core::getTable('Article')->find(1);
 
 $routes = array(
   'doctrine_route_test5' => array(
-    'url' => '/index.php/doctrine/route/test5/1/test-english-title',
+    'url' => '/plan/doctrine/route/test5/1/test-english-title',
     'params' => $article
   ),
   'doctrine_route_test6' => array(
-    'url' => '/index.php/doctrine/route/test6/english-title/test-english-title',
+    'url' => '/plan/doctrine/route/test6/english-title/test-english-title',
     'params' => $article
   ),
   'doctrine_route_test7' => array(
-    'url' => '/index.php/doctrine/route/test7/w00t',
+    'url' => '/plan/doctrine/route/test7/w00t',
     'params' => array('testing_non_column' => 'w00t')
   ),
   'doctrine_route_test8' => array(
-    'url' => '/index.php/doctrine/route/test8/1/english-title/English+Title/test',
+    'url' => '/plan/doctrine/route/test8/1/english-title/English+Title/test',
     'params' => array(
       'id' => $article->id,
       'slug' => $article->slug,

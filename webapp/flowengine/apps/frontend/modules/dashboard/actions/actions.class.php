@@ -23,12 +23,12 @@ class dashboardActions extends sfActions
 	{
 		//If the user is not authenticated then redirect to index page
 		if (!$this->getUser()->isAuthenticated()) {
-			$this->redirect('/index.php/');
+			$this->redirect('/plan/');
 		}
 
 		//If no user is authenticated then signout. Backend session and Frontend session mix ups
 		if ($this->getUser()->getGuardUser() == null) {
-			header("Location: /index.php//signon/logout");
+			header("Location: /plan//signon/logout");
 		}
 		// All permits
 		$q = Doctrine_Query::create()

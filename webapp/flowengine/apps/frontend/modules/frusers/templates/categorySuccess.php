@@ -39,7 +39,7 @@ use_helper('I18N');
                 <h4 class="nomargin"><?php echo __("Please Sign In"); ?></h4>
                 <p class="mt5 mb20"><?php echo __("Login to access your account"); ?>.</p>
 
-                <select class="form-control uname" name="category" id="category" onChange="if(confirm('Are you sure?')){ window.location='/index.php//mfRegister/registerDetails?formid=' + this.value; }"/>
+                <select class="form-control uname" name="category" id="category" onChange="if(confirm('Are you sure?')){ window.location='/plan//mfRegister/registerDetails?formid=' + this.value; }"/>
                 <option>Choose a category...</option>
                 <?php
                 $q = Doctrine_Query::create()

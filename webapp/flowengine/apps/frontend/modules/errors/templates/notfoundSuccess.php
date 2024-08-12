@@ -7,7 +7,7 @@
 	<title>Uasin Gishu County Physical Planning - Error 404</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/admin//asset_mentor/admin/assets/css/bootstrap.min.css">
@@ -31,7 +31,7 @@
 			<h1>404</h1>
 			<h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Page not found!</h3>
 			<p class="h4 font-weight-normal">The page you requested was not found.</p>
-			<a href="/index.php/" class="btn btn-warning">Back to Home</a>
+			<a href="/plan/" class="btn btn-warning">Back to Home</a>
 		</div>
 
 	</div>

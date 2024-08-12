@@ -299,7 +299,7 @@ if(!empty($payment_enable_merchant)){
 			$payment_resume_url = mf_get_merchant_redirect_url($dbh,$form_id,$entry_id);
 		}else if(in_array($payment_merchant_type, array('stripe','paypal_rest','authorizenet','braintree'))){
 			$payment_resume_token = base64_encode($entry_id.'-'.md5($date_created_raw));
-			$payment_resume_url   = "/index.php//forms/payment?id={$form_id}&pay_token={$payment_resume_token}";
+			$payment_resume_url   = "/plan//forms/payment?id={$form_id}&pay_token={$payment_resume_token}";
 		}
 	}
 
@@ -392,7 +392,7 @@ if(!empty($row['total_signature_field'])){
 
 				echo $profile->getTitle().$status;
 			?>
-			<a href="/index.php//profile/view/id/<?php echo $profile->getId(); ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF; margin-left: 5px;  margin-right: 5px;"><?php echo __("Back to Profile"); ?></a>
+			<a href="/plan//profile/view/id/<?php echo $profile->getId(); ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF; margin-left: 5px;  margin-right: 5px;"><?php echo __("Back to Profile"); ?></a>
         </h3>
     </div>
     <div class="panel-body">

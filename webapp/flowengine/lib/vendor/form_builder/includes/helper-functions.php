@@ -1829,7 +1829,7 @@ function mf_get_settings($dbh)
 	try {
 		$sth->execute(array());
 		$settings = $sth->fetch(PDO::FETCH_ASSOC);
-		$settings['base_url'] = "http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . "/index.php/forms/";
+		$settings['base_url'] = "http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . "/plan/forms/";
 		return $settings;
 	} catch (PDOException $e) {
 		error_log("Query Failed: " . $e->getMessage());

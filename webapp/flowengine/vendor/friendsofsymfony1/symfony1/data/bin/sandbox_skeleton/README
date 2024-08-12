@@ -64,7 +64,7 @@ If, at this point, you meet an error, this means that your web server doesn't
 support mod_rewrite. Delete the `.htaccess` file from the `web/` directory and
 call instead: 
 
-    http://localhost/sf_sandbox/web/index.php/mymodule
+    http://localhost/sf_sandbox/web/plan/mymodule
 
 What's in the sandbox?
 ----------------------

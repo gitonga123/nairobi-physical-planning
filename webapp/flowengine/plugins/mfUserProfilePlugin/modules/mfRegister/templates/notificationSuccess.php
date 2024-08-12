@@ -26,7 +26,7 @@
             </div><!-- panel-heading -->
             <div class="panel-body">
                 <div class="alert alert-info">
-                    <strong><?php echo __('Profile Updated'); ?>!</strong> <?php echo __('Thank you for updating your user profile. <a href="/index.php/dashboard">Click here to go to your dashboard.</a>'); ?><br>
+                    <strong><?php echo __('Profile Updated'); ?>!</strong> <?php echo __('Thank you for updating your user profile. <a href="/plan/dashboard">Click here to go to your dashboard.</a>'); ?><br>
                 </div>
             </div>
         </div><!-- panel -->
@@ -42,7 +42,7 @@
             </div><!-- panel-heading -->
             <div class="panel-body">
               <div class="alert alert-info">
-                <strong><?php echo __('Check your Email'); ?>!</strong> <?php echo __('Thank you for Registering. An email has been sent to your account. Go to your email to verify your account. <a href="/index.php/dashboard">Click here to go to your dashboard.</a>'); ?><br>
+                <strong><?php echo __('Check your Email'); ?>!</strong> <?php echo __('Thank you for Registering. An email has been sent to your account. Go to your email to verify your account. <a href="/plan/dashboard">Click here to go to your dashboard.</a>'); ?><br>
               </div>
             </div>
           </div><!-- panel -->

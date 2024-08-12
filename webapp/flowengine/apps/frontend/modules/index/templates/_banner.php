@@ -250,7 +250,7 @@ if(sizeof($banners) > 0)
                     <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="singleService">
                             <div class="serviceThumb">
-                            <img src="/theme/images/construction/index.php/ner.png" alt=""/>
+                            <img src="/theme/images/construction/plan/ner.png" alt=""/>
                             </div>
                             <div class="serviceDetails">
                                 <h2 id="inspec">Construction Enforcement</h2>

@@ -172,8 +172,8 @@ catch (sfParseException $e)
 $t->diag('->redirect()');
 $controller->redirect('module/action?id=1#photos');
 $response = $context->getResponse();
-$t->like($response->getContent(), '~http\://localhost/index.php/\?module=module&amp;action=action&amp;id=1#photos~', '->redirect() adds a refresh meta in the content');
-$t->like($response->getHttpHeader('Location'), '~http\://localhost/index.php/\?module=module&action=action&id=1#photos~', '->redirect() adds a Location HTTP header');
+$t->like($response->getContent(), '~http\://localhost/plan/\?module=module&amp;action=action&amp;id=1#photos~', '->redirect() adds a refresh meta in the content');
+$t->like($response->getHttpHeader('Location'), '~http\://localhost/plan/\?module=module&action=action&id=1#photos~', '->redirect() adds a Location HTTP header');
 
 // Test null url argument for ->redirect()
 try

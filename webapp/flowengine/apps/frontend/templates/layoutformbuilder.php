@@ -16,8 +16,8 @@ $site_settings = Functions::site_settings();
     <meta name="description" content="<?php echo $site_settings->getOrganisationDescription(); ?>">
     <meta name="author" content="<?php echo $site_settings->getOrganisationName(); ?>">
     <title><?php echo $site_settings->getOrganisationName(); ?></title>
-    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/asset_mentor/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/asset_mentor/assets/img/favicon.ico" type="image/x-icon">
     <?php include_component('index', 'stylesheetsdash') ?>
 </head>
 

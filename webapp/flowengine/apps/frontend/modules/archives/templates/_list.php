@@ -35,7 +35,7 @@ $permit = $q->fetchOne();
         ?>
     </td>
     <td>
-        <a href="/index.php//archivesarchives/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId(); ?></a>
+        <a href="/plan//archivesarchives/view/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId(); ?></a>
     </td>
     <td>
         <?php echo date('d F Y', strtotime($application->getDateOfSubmission())); ?>
@@ -46,6 +46,6 @@ $permit = $q->fetchOne();
         ?>
     </td>
     <td>
-        <a  title='<?php echo __('View Application'); ?>' href='/index.php//archives/view/id/<?php echo $application->getId(); ?>'> <span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+        <a  title='<?php echo __('View Application'); ?>' href='/plan//archives/view/id/<?php echo $application->getId(); ?>'> <span class="label label-primary"><i class="fa fa-eye"></i></span></a>
     </td>
 </tr>

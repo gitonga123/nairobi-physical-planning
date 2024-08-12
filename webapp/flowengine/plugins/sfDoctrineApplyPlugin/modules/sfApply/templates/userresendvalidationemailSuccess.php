@@ -35,7 +35,7 @@
 					<?php echo $form['username_or_email']->render(array('class' => 'form-control', 'placeholder' => 'Email or Username')) ?>
 				</div>
 				<button type="submit" name='submit' class="btn btn-primary btn-block"><?php echo __('Resend Email'); ?></button>
-				<div class="text-center dont-have">Email Verified? <a href="/index.php/login">Login</a></div>
+				<div class="text-center dont-have">Email Verified? <a href="/plan/login">Login</a></div>
 			</form>
 		</div>
 	</div>

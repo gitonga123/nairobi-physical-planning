@@ -48,12 +48,12 @@
                                                     $sender = $q->fetchOne();
                                                     if ($sender) {
                                                     ?>
-                                                        <a href="/index.php//support/view/id/<?php echo $message->getId(); ?>/messages/read">
+                                                        <a href="/plan//support/view/id/<?php echo $message->getId(); ?>/messages/read">
                                                             <h4 class="text-primary"><?php echo $sender->getStrfirstname() . " " . $sender->getStrlastname(); ?></h4>
                                                         </a>
                                                         <small class="text-muted"></small>
                                                         <p class="email-summary">
-                                                            <a href="/index.php//support/view/id/<?php echo $message->getId(); ?>/messages/read">
+                                                            <a href="/plan//support/view/id/<?php echo $message->getId(); ?>/messages/read">
                                                                 <?php
                                                                 $words = explode(" ", html_entity_decode($message->getContent()));
                                                                 echo strip_tags(implode(" ", array_splice($words, 0, 10)), '<p><a>') . "....";

@@ -55,7 +55,7 @@ class profileActions extends sfActions
 
     if($this->profile == null)
     {
-      $this->redirect("/index.php//profile/create");
+      $this->redirect("/plan//profile/create");
     }
 
     //Update any pending profile activation payment
@@ -179,12 +179,12 @@ class profileActions extends sfActions
         $profile_share->save();
       }
 
-      $this->redirect("/index.php//profile/view/id/".$profile_id);
+      $this->redirect("/plan//profile/view/id/".$profile_id);
 
     }
     else 
     {
-      $this->redirect("/index.php//profile/adduser/id/".$profile_id);
+      $this->redirect("/plan//profile/adduser/id/".$profile_id);
     }
   }
 
@@ -218,10 +218,10 @@ class profileActions extends sfActions
         $profile_share->save();
       } 
 
-      $this->redirect("/index.php//profile/view/id/".$profile_id);
+      $this->redirect("/plan//profile/view/id/".$profile_id);
     }
 
-    $this->redirect("/index.php//profile/view/id/".$profile_id);
+    $this->redirect("/plan//profile/view/id/".$profile_id);
   }
 
    /**

@@ -102,7 +102,7 @@ class supportActions extends sfActions
         $message->setActionTimestamp(date('Y-m-d'));
         $message->save();
 
-        $this->redirect('/index.php//messages');
+        $this->redirect('/plan//messages');
         $this->setLayout("layoutmentordash");
     }
 

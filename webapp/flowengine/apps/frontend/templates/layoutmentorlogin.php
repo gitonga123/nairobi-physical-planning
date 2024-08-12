@@ -7,7 +7,7 @@
 	<title>Login - Access your account</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/bootstrap.min.css">
 	<!-- Fontawesome CSS -->

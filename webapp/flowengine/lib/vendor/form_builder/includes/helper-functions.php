@@ -1881,6 +1881,12 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 	$block_number_element_id = '';
 	$plot_number_element_id = '';
 
+
+
+	if (count($plot_no_details) == 0) {
+		return '';
+	}
+
 	foreach ($plot_no_details as $detail) {
 		if ($detail['element_name'] == 'element_plot_no') {
 			$plot_number_element_id = "element_{$detail['element_id']}";
@@ -1891,8 +1897,19 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 	}
 
 	$user = sfContext::getInstance()->getUser();
-	$username = $user->isAuthenticated() ? $user->getUsername() : '';
 
+	$username = '';
+
+	if ($user->isAuthenticated()) {
+		try {
+			$username = $user->getUsername();
+		} catch (\Exception $error) {
+			error_log("Error Log getting username ----> {$error->getMessage()}");
+			$user->getAttribute('username');
+		}
+	}
+
+	error_log(("Username found is ---> {$username}"));
 	// Query for element details
 	$query = "
         SELECT element_id, 
@@ -1941,6 +1958,8 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 	error_log("Block number element id ====> {$block_number_element_id}");
 	error_log("Plot number element id ====> {$plot_number_element_id}");
 
+	$base_backend_url = sfConfig::get('app_sso_homepage');
+
 	if (!empty($block_number_element_id) && !empty($plot_number_element_id) && !empty($username)) {
 		$string_value = <<<END
         <script type="text/javascript">
@@ -1949,6 +1968,7 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 			let block_no = $("#{$block_number_element_id}").val();
 			let plot_no = $("#{$plot_number_element_id}").val();
 			const username = "{$username}";
+			const base_url = "{$base_backend_url}";
 
 			// If block_no or plot_no is empty, try to retrieve from local storage
 			if (!block_no || !plot_no) {
@@ -1966,21 +1986,30 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 				return;
 			}
 
+			
+
 			const cache_key = username + '_' + block_no + '_' + plot_no;
 
 			// Store block_no and plot_no in local storage
 			localStorage.setItem('block_plot_data', JSON.stringify({ block_no, plot_no }));
 
 			// Check if plot details exist in local storage
-			let plot_details = JSON.parse(localStorage.getItem(cache_key));
+			const cached_data = localStorage.getItem(cache_key);
+
+			console.log(cached_data);
+			let plot_details = false;
+
+			if (cached_data == 'undefined' || cached_data == undefined) {
+			} else {
+				plot_details = JSON.parse(cached_data);
+			}
 
 			if (plot_details) {
 				autofillFormFields(plot_details);
 			} else {
-
 				$.ajax({
 					type: "GET",
-					url: '/backend.php/api/cachedPlotDetails',
+					url:  base_url+'/backend.php/api/cachedPlotDetails',
 					data: { key: cache_key },
 					success: function(data) {
 						if (data?.success) {
@@ -1989,11 +2018,14 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 							localStorage.setItem(cache_key, JSON.stringify(details));
 							autofillFormFields(details);
 						} else {
-							alert('Something went wrong. Please try again later.');
+						 	console.log("Something Went Wrong");
+							// alert('Something went wrong. Please try again later.');
 						}
 					},
-					error: function() {
-						alert('Something went wrong. Please try again later.');
+					error: function(error) {
+						console.log("Something went wrong. Please try again later.");
+						console.error(error);
+						// alert('Something went wrong. Please try again later.');
 					}
 				});
 			}

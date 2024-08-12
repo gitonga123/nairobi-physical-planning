@@ -3,7 +3,7 @@
 		<?php
 		if ($application->getApproved() == 0 || $application->getDeclined() == 1) {
 		?>
-			<a href="/plan/application/edit/id/<?php echo $application->getId(); ?>" class="btn btn-primary pull-right text-end"><span class="fa fa-edit"></span> <?php echo __("Edit &amp; Resubmit"); ?></a>
+			<a href="/plan/application/edit/id/<?php echo $application->getId(); ?>" class="btn btn-outline-danger btn-sm text-end"><span class="fa fa-edit"></span> <?php echo __("Edit &amp; Resubmit"); ?></a>
 		<?php
 		} else {
 		?>

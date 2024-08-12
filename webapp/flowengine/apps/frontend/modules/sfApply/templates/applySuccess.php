@@ -127,7 +127,7 @@
 									<div class="form-group">
 										<div class="form-check form-check-xs custom-checkbox">
 											<input type="checkbox" class="form-check-input required" name="agreeCheckboxUser" id="agree_checkbox_user">
-											<label class="form-check-label" for="agree_checkbox_user">I agree to Kisii County Revenue Collections System</label> <a tabindex="-1" href="javascript:void(0);">Privacy Policy</a> &amp; <a tabindex="-1" href="javascript:void(0);"> Terms.</a>
+											<label class="form-check-label" for="agree_checkbox_user">I agree to Uasin Gishu County Revenue Collections System</label> <a tabindex="-1" href="javascript:void(0);">Privacy Policy</a> &amp; <a tabindex="-1" href="javascript:void(0);"> Terms.</a>
 										</div>
 									</div>
 									<button class="btn btn-primary login-btn" type="submit">Sign Up</button>

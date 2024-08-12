@@ -7,7 +7,7 @@
   <meta name="description" content="Hi-soft - IT Solutions and Services Company HTML5 Template" />
   <meta name="author" content="potenzaglobalsolutions.com" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Kisii County Government - Physical Planning</title>
+  <title>Uasin Gishu County Government - Physical Planning</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="images/favicon.ico" />
@@ -40,8 +40,8 @@
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"><i
             class="fas fa-align-left"></i></button>
         <a class="navbar-brand" href="index.html">
-          <img class="img-fluid" src="/assets_frontend_amkatek/images/award-logo/logo2.png"
-            alt="Kisii County Government - Logo">
+          <img class="img-fluid" src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
+            alt="Uasin Gishu County Government - Logo">
         </a>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -458,16 +458,29 @@
           <div class="p-6">
             <div class="row">
               <div class="col-lg-6">
-                <a href="index.html"><img class="img-fluid" src="/assets_frontend_amkatek/images/award-logo/logo2.png"
+                <a href="index.html"><img class="img-fluid" src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
                     alt="logo"></a>
                 <p class="mt-3 text-dark">We also know those epic stories</p>
               </div>
               <div class="col-lg-6">
-                <h5 class="text-primary">Kisii County Government Physical Planning</h5>
-                <p class="text-dark"><i class="fab fa-whatsapp me-2 text-primary"></i>+254 58 30005/30081
+                <h5 class="text-primary">Uasin Gishu County Government Physical Planning</h5>
+                <p class="text-dark"><i class="fab fa-whatsapp me-2 text-primary"></i>
+                    <span tel="05320160000">05320160000</span>
+                    <br />
+                    <span tel="05320130148">05320130148</span>
+                    <br />
+                    <span tel="+254710646464">+254710 64 64 64</span>
+                    <br />
                 </p>
-                <p class="text-dark"><i class="far fa-envelope me-2 text-primary"></i>info@kisii.go.ke</p>
-                <h4 class="text-dark mb-0 fw-bold"><a class="text-dark" href="#">+254 58 30005/30081</a></h4>
+                <p class="text-dark"><i class="far fa-envelope me-2 text-primary"></i>info@info@uasingishu.go.ke</p>
+                <h4 class="text-dark mb-0 fw-bold"><a class="text-dark" href="#">
+                  <span tel="05320160000">05320160000</span>
+                  <br />
+                  <span tel="05320130148">05320130148</span>
+                  <br />
+                  <span tel="+254710646464">+254710 64 64 64</span>
+                  <br />
+                </a></h4>
               </div>
             </div>
           </div>
@@ -495,7 +508,7 @@
               </div>
             </div>
             <p class="mb-0 text-white mt-5">©Copyright 2024 <a href="#" class="text-primary">County Government of
-                Kisii</a> All Rights Reserved</p>
+                Uasin Gishu</a> All Rights Reserved</p>
           </div>
         </div>
       </div>

@@ -5,10 +5,10 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Kisii County: Physical Planning and Urban Development Portal</title>
+	<title>Uasin Gishu County: Physical Planning and Urban Development Portal</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/bootstrap.min.css">
@@ -52,7 +52,7 @@
 							</a>
 							<a href="#" class="navbar-brand logo">
 								<img width="300px" height="200px"
-									src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+									src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 									alt="Ki County Government">
 							</a>
 						</div>
@@ -60,7 +60,7 @@
 							<div class="menu-header">
 								<a href="#" class="menu-logo">
 									<img width="50px" height="50px"
-										src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+										src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 										alt="Logo">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -163,7 +163,7 @@
 				<div class="container">
 					<div class="banner-wrapper m-auto text-center aos aos-init aos-animate" data-aos="fade-up">
 						<div class="banner-header">
-							<h1 style="margin-bottom: 30px;">KISII COUNTY GOVERNMENT </h1>
+							<h1 style="margin-bottom: 30px;">Uasin Gishu COUNTY GOVERNMENT </h1>
 							<p>Physical Planning, Housing and Urban Development</p>
 						</div>
 					</div>
@@ -313,16 +313,23 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="Kisii County">
+									<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="Uasin Gishu County">
 								</div>
 								<div class="footer-about-content">
-									<p class="footer-sub-text">Kisii County - Lands, Physical Planning and Urban
+									<p class="footer-sub-text">Uasin Gishu County - Lands, Physical Planning and Urban
 										Development!</p>
 
 								</div>
 								<div class="footer-three-contact">
-									<p><span>lands@kisii.go.ke</span></p>
-									<p><span>+254 58 30005/30081</span></p>
+									<p><span>lands@info@uasingishu.go.ke</span></p>
+									<p>
+										<span tel="05320160000">05320160000</span>
+										<br />
+										<span tel="05320130148">05320130148</span>
+										<br />
+										<span tel="+254710646464">+254710 64 64 64</span>
+										<br />
+									</p>
 								</div>
 							</div>
 							<!-- /Footer Widget -->
@@ -397,7 +404,7 @@
 							</div>
 							<div class="col-md-6 ">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php echo date("Y") ?> Kisii County Physical Planning and
+									<p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County Physical Planning and
 										Urban Development. All rights
 										reserved.</p>
 								</div>

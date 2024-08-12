@@ -6178,7 +6178,7 @@ EOT;
 		$signature_pad_init = '';
 	}
 
-	// Kisii logic, it might be hard coded a bit
+	// Uasin Gishu logic, it might be hard coded a bit
 
 	$logic_js = mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_number);
 

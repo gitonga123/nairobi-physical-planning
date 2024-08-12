@@ -4,11 +4,11 @@
 <head>
 
 	<meta charset="utf-8">
-	<title>Kisii County - Physical Planning Portal</title>
+	<title>Uasin Gishu County - Physical Planning Portal</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/bootstrap.min.css">
@@ -42,14 +42,14 @@
 							</span>
 						</a>
 						<a href="/plan/dashboard" class="navbar-brand logo">
-							<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+							<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 								alt="Logo">
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
 							<a href="/plan/dashboard" class="menu-logo">
-								<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" class="img-fluid"
+								<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
 									alt="Logo">
 							</a>
 							<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -166,7 +166,7 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="logo">
+									<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="logo">
 								</div>
 								<div class="footer-about-content">
 									<p> Access your applications, invoices received, download permits and much more..
@@ -218,11 +218,11 @@
 							<div class="footer-widget footer-menu">
 								<h2 class="footer-title">County Information</h2>
 								<ul>
-									<li><a href="https://www.kisii.go.ke/plan/files/153/Downloads/107/KISII-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance Bill</a></li>
+									<li><a href="https://www.info@uasingishu.go.ke/plan/files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance Bill</a></li>
 									<li><a
-											href="https://www.kisii.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
+											href="https://www.info@uasingishu.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
 											Department</a></li>
-									<li><a href="https://kisii.go.ke/">County Website</a></li>
+									<li><a href="https://info@uasingishu.go.ke/">County Website</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -239,16 +239,23 @@
 										<span><i class="fas fa-map-marker-alt"></i></span>
 										<p>
 											Official Contacts
-											+254 58 30005/30081
+											<p>
+												<span tel="05320160000">05320160000</span>
+												<br />
+												<span tel="05320130148">05320130148</span>
+												<br />
+												<span tel="+254710646464">+254710 64 64 64</span>
+												<br />
+											</p>
 									</div>
 
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-										Email: lands@kisii.go.ke
+										Email: lands@info@uasingishu.go.ke
 									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-										P.O. Box 4550-40200, Kisii.
+										P.O. Box 40-30100, Eldoret.
 
 									</p>
 								</div>
@@ -271,7 +278,7 @@
 						<div class="row">
 							<div class="col-12 text-center">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php date('Y') ?> Kisii County eServices. All rights
+									<p class="mb-0">&copy; <?php date('Y') ?> Uasin Gishu County eServices. All rights
 										reserved.</p>
 								</div>
 							</div>

@@ -17,7 +17,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 						$count = 0;
 						foreach ($groups as $group) { ?>
 							<li>
-								<a class="nav-link active" href="# <?php echo $group->getGroupName(); ?>" data-bs-toggle="tab"> Kisii -> <?php echo $group->getGroupName(); ?></a>
+								<a class="nav-link active" href="# <?php echo $group->getGroupName(); ?>" data-bs-toggle="tab"> Uasin Gishu -> <?php echo $group->getGroupName(); ?></a>
 							</li>
 						<?php } ?>
 					</ul>
@@ -40,7 +40,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 									->orderBy('a.form_name ASC');
 							} else {
 
-								// Kisii ISSUE ONLY
+								// Uasin Gishu ISSUE ONLY
 								// Original
 								// $q = Doctrine_Query::create()
 								// 	->from('ApForms a')

@@ -357,7 +357,7 @@ if (!empty($row)) {
         var value = document.getElementById("element_20").value;
         $.ajax({
             type: "GET",
-            url: 'https://kisiirevenue.amkatek.com/plan/dashboard/plotinformation?q=' + value,
+            url: 'https://Uasin Gishurevenue.amkatek.com/plan/dashboard/plotinformation?q=' + value,
             success: function(data) {
 
 

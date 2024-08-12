@@ -24,16 +24,16 @@ License: You must have a valid license purchased only from themeforest (the abov
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <meta content="KISII CG Portal description" name="description">
-  <meta content="KISII CG Portal keywords" name="keywords">
+  <meta content="Uasin Gishu CG Portal description" name="description">
+  <meta content="Uasin Gishu CG Portal keywords" name="keywords">
   <meta content="keenthemes" name="author">
 
-  <meta property="og:site_name" content="KISII COUNTY Physical Planning and Urban Development">
-  <meta property="og:title" content="KISII COUNTY Physical Planning and Urban Development">
-  <meta property="og:description" content="KISII COUNTY Physical Planning and Urban Development">
+  <meta property="og:site_name" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
+  <meta property="og:title" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
+  <meta property="og:description" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="KISII COUNTY Physical Planning and Urban Development"><!-- link to image for socio -->
-  <meta property="og:url" content="KISII COUNTY Physical Planning and Urban Development">
+  <meta property="og:image" content="Uasin Gishu COUNTY Physical Planning and Urban Development"><!-- link to image for socio -->
+  <meta property="og:url" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
 
   <link rel="shortcut icon" href="favicon.ico">
 
@@ -194,7 +194,7 @@ License: You must have a valid license purchased only from themeforest (the abov
         <div class="row">
           <!-- BEGIN COPYRIGHT -->
           <div class="col-md-6 col-sm-6 padding-top-10">
-            2023 © Kisii Country Government. ALL Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            2023 © Uasin Gishu Country Government. ALL Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
           </div>
           <!-- END COPYRIGHT -->
          

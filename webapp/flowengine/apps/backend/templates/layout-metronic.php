@@ -14,18 +14,18 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../../../"/>
-		<title>Kisii County - Administration Portal</title>
+		<title>Uasin Gishu County - Administration Portal</title>
 		<meta charset="utf-8" />
-		<meta name="description" content="Kisii County Physical Planning and Urban Development portal" />
-		<meta name="keywords" content="Kisii County Physical Planning and Urban Development portal" />
+		<meta name="description" content="Uasin Gishu County Physical Planning and Urban Development portal" />
+		<meta name="keywords" content="Uasin Gishu County Physical Planning and Urban Development portal" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Kisii County Physical Planning and Urban Development portal" />
-		<meta property="og:url" content="https://kisii.go.ke" />
-		<meta property="og:site_name" content="Kisii County | Portal" />
-		<link rel="canonical" href="https://kisii.go.ke" />
-		<link rel="shortcut icon" href="/asset_theme_metronic/theme/assets/demo2/src/media/logos/favicon.ico" />
+		<meta property="og:title" content="Uasin Gishu County Physical Planning and Urban Development portal" />
+		<meta property="og:url" content="https://info@uasingishu.go.ke" />
+		<meta property="og:site_name" content="Uasin Gishu County | Portal" />
+		<link rel="canonical" href="https://info@uasingishu.go.ke" />
+		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->
@@ -58,7 +58,7 @@ License: For each use you must have a valid license purchased only from above li
 						</a>
 						<!--end::Logo-->
 						<!--begin::Title-->
-						<h2 class="text-white fw-normal m-0">Welcome to Kisii County, The County of Unlimited Opportunities</h2>
+						<h2 class="text-white fw-normal m-0">Welcome to Uasin Gishu County, The County of Unlimited Opportunities</h2>
 						<!--end::Title-->
 					</div>
 					<!--begin::Aside-->
@@ -80,7 +80,7 @@ License: For each use you must have a valid license purchased only from above li
 									<h1 class="text-dark fw-bolder mb-3">Admin Portal Sign In</h1>
 									<!--end::Title-->
 									<!--begin::Subtitle-->
-									<div class="text-gray-500 fw-semibold fs-6">Kisii County Administrative portal</div>
+									<div class="text-gray-500 fw-semibold fs-6">Uasin Gishu County Administrative portal</div>
 									<!--end::Subtitle=-->
 								</div>
 								<!--begin::Heading-->

@@ -31,7 +31,7 @@ $site_settings = Functions::site_settings();
                             <img src="<?php echo '/' . $site_settings->getUploadDir() . '/' . $site_settings->getAdminImageUrl() ?>"
                                 alt="">
                         <?php else: ?>
-                            <img src="/assets_frontend_amkatek/images/award-logo/logo2.png" alt="Logo">
+                            <img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="Logo">
                         <?php endif; ?>
                     </a>
                 </div>
@@ -58,7 +58,14 @@ $site_settings = Functions::site_settings();
                     <div class="topbar_element info_element">
                         <i class="fa fa-phone"></i>
                         <h5>Phone Number</h5>
-                        <p>+254 58 30005/30081</p>
+                        <p>
+                            <span tel="05320160000">05320160000</span>
+                            <br />
+                            <span tel="05320130148">05320130148</span>
+                            <br />
+                            <span tel="+254710646464">+254710 64 64 64</span>
+                            <br />
+                        </p>
                     </div>
                 </div>
             </div>

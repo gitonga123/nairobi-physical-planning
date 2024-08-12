@@ -2033,7 +2033,7 @@ button.close {
     transition-duration: 0.4s;
 }
 .header-four .header-navbar-rht li a.header-login {
-	background: #FF875A;
+	background: #006838;
 	color: #fff;
 	text-transform: capitalize;
 	padding: 9px 32px!important;
@@ -2046,15 +2046,15 @@ button.close {
 	font-size: 16px;
 }
 .header-four .main-nav > li.active > a {
-    color: #444DAA;
+    color: #EBB422;
 	font-weight: 700;
 }
 .header-four .header-login-two {
-	color: #444DAA;
+	color: #EBB422;
 	font-weight:700;
 }
 .header-four .main-nav li .submenu a:hover {
-    color: #444DAA;
+    color: #EBB422;
 }
 .header-five {
 	height: 91px;
@@ -2940,7 +2940,7 @@ html.menu-opened body {
 .section-search { 
 	background: #f8f8f8;
     min-height: 450px;
-    background-image: url(../img/banner.jpg);
+    background-image: url(../img/bg_portal_image.png);
     background-size: cover !important;
     background-repeat: no-repeat;
     background-position: center;
@@ -5257,7 +5257,7 @@ html.menu-opened body {
 -----------------------*/
 
 .home-slide-four {
-    background-color: #444DAA0D;
+    background-color: #EBB422;
 	background-image: none;
 	min-height: 700px;
 }
@@ -5266,7 +5266,7 @@ html.menu-opened body {
 	margin-bottom: 16px;
 }
 .home-slide-four .hometwo-slide-text span {
-	color: #444DAA;
+	color: #EBB422;
 }
 .home-slide-four .hometwo-slide-text p {
 	color: #4B5F77;
@@ -5374,7 +5374,7 @@ html.menu-opened body {
 	position: relative;
 }
 .featured-course-design {
-	background: #444DAA;
+	background: #EBB422;
 	border-radius: 10px;
 	padding: 20px;
 	position: relative;
@@ -5499,7 +5499,7 @@ html.menu-opened body {
 }
 .rating-instructor-four .large-team:hover .team-name h4, 
 .rating-instructor-four .large-team h4 {
-    color: #444DAA;
+    color: #EBB422;
 	margin-top: 0;
 }
 .rating-instructor-four .large-team:hover .team-name span {
@@ -5537,7 +5537,7 @@ html.menu-opened body {
 	position: relative;
 }
 .expert-student .student-view-four {
-	background: #444DAA;
+	background: #EBB422;
 	border-radius: 5px;
 	padding: 6px 8px;
 	display: flex;
@@ -5586,7 +5586,7 @@ html.menu-opened body {
 	box-shadow: none;
 }
 .share-knowledge-four .join-two-face .best-course-three h4 {
-	color: #444DAA;
+	color: #EBB422;
 }
 .share-knowledge-four .join-two-face .bg-explore {
     background-color: #1F1F1F;
@@ -5769,7 +5769,7 @@ html.menu-opened body {
    color: #000;
 }
 .new-course-four .course-mail .bg-course-subscribe {
-	background: #444DAA;
+	background: #EBB422;
 	color: #fff;
 	line-height: 2.9;
 	padding: 6px 17px;

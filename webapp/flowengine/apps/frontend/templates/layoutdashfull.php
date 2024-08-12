@@ -22,7 +22,7 @@
   <meta name="description" content="<?php echo $site_settings->getOrganisationDescription(); ?>">
   <meta name="author" content="<?php echo $site_settings->getOrganisationName(); ?>">
   <title><?php echo $site_settings->getOrganisationName(); ?></title>
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
   <!-- Keeping all css in one file. Keeping the layout tidy. -->
 	<?php include_component('index', 'stylesheetsdash') ?>

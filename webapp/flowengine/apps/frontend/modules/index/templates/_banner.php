@@ -144,7 +144,7 @@ if(sizeof($banners) > 0)
                         <h3>FlowEngine</h3>
                     </div>
                     <div class="col-xl-9 col-lg-9 col-md-9">
-                        <h3>Kisii County</h3>
+                        <h3>Uasin Gishu County</h3>
                         <h4>Online County Service Portal<h4>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
 
 <?php echo include_title() ?>
 
-<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="shortcut icon" href="/assets/img/favicon.ico" />
 
 
     <?php include_stylesheets() ?>

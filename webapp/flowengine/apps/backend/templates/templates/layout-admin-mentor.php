@@ -4,10 +4,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Kisii County - Admin Portal</title>
+	<title>Uasin Gishu County - Admin Portal</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/admin/assets/img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/admin/assets/css/bootstrap.min.css">
@@ -27,7 +27,7 @@
 			<div class="container">
 				<div class="loginbox">
 					<div class="login-left">
-						<img class="img-fluid" src="/asset_mentor/admin/assets/img/logo2.png" alt="Logo - Kisii County">
+						<img class="img-fluid" src="/asset_mentor/admin/assets/img/logo2.png" alt="Logo - Uasin Gishu County">
 					</div>
 					<div class="login-right">
 						<div class="login-right-wrap">
@@ -42,10 +42,10 @@
 
 
 
-							<div class="text-center dont-have">Don’t have an account? <a href="mailto:lands@kisii.go.ke">Contact System Admin - lands@kisii.go.ke</a></div>
+							<div class="text-center dont-have">Don’t have an account? <a href="mailto:lands@info@uasingishu.go.ke">Contact System Admin - lands@info@uasingishu.go.ke</a></div>
 							<div class="col-md-12 ">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php echo date("Y") ?> Kisii County Physical Planning. All rights reserved.</p>
+									<p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County Physical Planning. All rights reserved.</p>
 								</div>
 							</div>
 						</div>

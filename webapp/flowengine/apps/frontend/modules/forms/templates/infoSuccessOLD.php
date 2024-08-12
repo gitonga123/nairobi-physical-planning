@@ -22,7 +22,7 @@
 
     </div><!-- panel-body -->
     <div class="panel-footer">
-    <a class="btn btn-primary waves-effect w-md waves-light" href="/plan//forms/view?id=<?php echo $form->getFormId(); ?>"><?php echo __("Apply Now"); ?></a>
+    <a class="btn btn-primary waves-effect w-md waves-light" href="plan/forms/view?id=<?php echo $form->getFormId(); ?>"><?php echo __("Apply Now"); ?></a>
     </div>
 
 </div><!-- panel -->

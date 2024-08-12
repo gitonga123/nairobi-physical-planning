@@ -1494,7 +1494,7 @@ class tasksActions extends sfActions
             <br>
             Click here to view the application: <br>
             ------- <br>
-            <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan//application/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
+            <a href='http://" . $_SERVER['HTTP_HOST'] . "plan/application/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
             ------- <br>
 
             <br>

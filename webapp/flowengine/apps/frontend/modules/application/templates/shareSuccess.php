@@ -121,7 +121,7 @@ $entry_id = $application->getEntryId();
 				<div class="alert alert-warning">
 					<?php $shared_user=$sf_user->getFlash('shared_error'); ?>
 					<p><?php echo $application->getApplicationId() ?> has already been shared with <?php echo $shared_user[0]['fullname'] ?>!</p>
-					<p>If this is the user you wanted to share with, you can proceed to move the application for the user to access their required form(s). <a href="<?php echo url_for('/plan//application/sharemove?architect='.$shared_user[0]['user_id'].'&id='.$application->getId()) ?>" class="btn btn-primary">Move Application</a></p>
+					<p>If this is the user you wanted to share with, you can proceed to move the application for the user to access their required form(s). <a href="<?php echo url_for('plan/application/sharemove?architect='.$shared_user[0]['user_id'].'&id='.$application->getId()) ?>" class="btn btn-primary">Move Application</a></p>
 				</div>
 				<?php endif; ?>
          <form class="form-horizontal form-bordered" action="<?php echo public_path('index.php/application/share/id/'.$application->getId()); ?>" method="post">

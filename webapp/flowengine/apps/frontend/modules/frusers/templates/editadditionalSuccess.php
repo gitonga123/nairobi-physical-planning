@@ -142,7 +142,7 @@
       <div class="breadcrumb-wrapper">
         
        <ol class="breadcrumb">
-          <li><a href="/plan//messages/index">Edit Account details</a></li>
+          <li><a href="plan/messages/index">Edit Account details</a></li>
           <li class="active"><?php echo $form_name; ?></li>
         </ol>
       </div>

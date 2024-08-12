@@ -33,10 +33,10 @@ use_helper("I18N");
                                 <td><?php echo $invoice->getFormEntry()->getApplicationId() ?></td>
                                 <td><?php echo $invoice->getStatus() ?></td>
                                 <td>
-                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>' href='/plan//invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
+                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>' href='plan/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
 
                                     <?php if ($invoice->getPaid() == 1 || $invoice->getPaid() == 15) { ?>
-                                        <a href="/plan//forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-success btn-sm"><i class="fas fa-money-bill"></i>
+                                        <a href="plan/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-success btn-sm"><i class="fas fa-money-bill"></i>
                                             <?php echo __(" Pay now");
                                             ?>
                                         </a>

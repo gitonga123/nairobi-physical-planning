@@ -69,47 +69,47 @@
 							</div>
 							<ul class="main-nav">
 								<li class="active has-submenu">
-									<a href="/plan//dashboard">Getting Started</a>
+									<a href="plan/dashboard">Getting Started</a>
 								</li>
 								<li class="has-submenu">
 									<a href="">Development<i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
 										<li class="has-submenu">
-											<a href="/plan//dashboard">Construction Permit</a>
+											<a href="plan/dashboard">Construction Permit</a>
 											<ul class="submenu">
-												<li><a href="/plan//dashboard">Requirements</a></li>
-												<li><a href="/plan//dashboard">Apply</a></li>
-												<li><a href="add-/plan//dashboard">Report an Issue</a></li>
-												<li><a href="edit-/plan//dashboard">Learn</a></li>
+												<li><a href="plan/dashboard">Requirements</a></li>
+												<li><a href="plan/dashboard">Apply</a></li>
+												<li><a href="add-plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 										<li class="has-submenu">
-											<a href="/plan//dashboard">Change of User</a>
+											<a href="plan/dashboard">Change of User</a>
 											<ul class="submenu">
-												<li><a href="/plan//dashboard">Requirements</a></li>
-												<li><a href="/plan//dashboard">Apply</a></li>
-												<li><a href="add-/plan//dashboard">Report an Issue</a></li>
-												<li><a href="edit-/plan//dashboard">Learn</a></li>
-											</ul>
-										</li>
-
-										<li class="has-submenu">
-											<a href="/plan//dashboard">Subdivision</a>
-											<ul class="submenu">
-												<li><a href="/plan//dashboard">Requirements</a></li>
-												<li><a href="/plan//dashboard">Apply</a></li>
-												<li><a href="add-/plan//dashboard">Report an Issue</a></li>
-												<li><a href="edit-/plan//dashboard">Learn</a></li>
+												<li><a href="plan/dashboard">Requirements</a></li>
+												<li><a href="plan/dashboard">Apply</a></li>
+												<li><a href="add-plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 
 										<li class="has-submenu">
-											<a href="/plan//dashboard">Amalgamation</a>
+											<a href="plan/dashboard">Subdivision</a>
 											<ul class="submenu">
-												<li><a href="/plan//dashboard">Requirements</a></li>
-												<li><a href="/plan//dashboard">Apply</a></li>
-												<li><a href="add-/plan//dashboard">Report an Issue</a></li>
-												<li><a href="edit-/plan//dashboard">Learn</a></li>
+												<li><a href="plan/dashboard">Requirements</a></li>
+												<li><a href="plan/dashboard">Apply</a></li>
+												<li><a href="add-plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-plan/dashboard">Learn</a></li>
+											</ul>
+										</li>
+
+										<li class="has-submenu">
+											<a href="plan/dashboard">Amalgamation</a>
+											<ul class="submenu">
+												<li><a href="plan/dashboard">Requirements</a></li>
+												<li><a href="plan/dashboard">Apply</a></li>
+												<li><a href="add-plan/dashboard">Report an Issue</a></li>
+												<li><a href="edit-plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 									</ul>
@@ -120,8 +120,8 @@
 										<li class="has-submenu">
 											<a href="#">Outdoor Advertising</a>
 											<ul class="submenu">
-												<li><a href="/plan//dashboard">Apply</a></li>
-												<li><a href="/plan//dashboard">Learn</a></li>
+												<li><a href="plan/dashboard">Apply</a></li>
+												<li><a href="plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 									</ul>
@@ -130,9 +130,9 @@
 								<li class="has-submenu">
 									<a href="">Help<i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
-										<li><a href="/plan//dashboard">About</a></li>
-										<li><a href="/plan//help/contact">Contact Support</a></li>
-										<li><a href="/plan//help/contact">Report an Issue</a></li>
+										<li><a href="plan/dashboard">About</a></li>
+										<li><a href="plan/help/contact">Contact Support</a></li>
+										<li><a href="plan/help/contact">Report an Issue</a></li>
 									</ul>
 								</li>
 
@@ -184,7 +184,7 @@
 				<div class="popular-categories aos pt-3" data-aos="fade-up">
 					<div class="row">
 						<div class="col-lg-3 col-md-4">
-							<a href="/plan//dashboard">
+							<a href="plan/dashboard">
 								<div class="sub-categories bg-design align-items-center">
 									<div class="course-bg">
 										<img src="/asset_mentor/assets/img/course-bg.png" alt="">
@@ -199,7 +199,7 @@
 							</a>
 						</div>
 						<div class="col-lg-3 col-md-4">
-							<a href="/plan//dashboard">
+							<a href="plan/dashboard">
 								<div class="sub-categories bg-design align-items-center">
 									<div class="categories-img d-flex justify-content-center align-items-center">
 										<img src="/asset_mentor/assets/img/categories/cate-8.png" alt="">
@@ -341,7 +341,7 @@
 							<div class="footer-widget footer-menu">
 								<ul>
 									<li>
-										<a href="/plan//login">Construction Permits
+										<a href="plan/login">Construction Permits
 
 											<ul>
 												<li>Building Permits</li>
@@ -353,7 +353,7 @@
 										</a>
 									</li>
 
-									<li><a href="/plan//login">Login</a></li>
+									<li><a href="plan/login">Login</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -364,10 +364,10 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
 								<ul>
-									<li><a href="/plan//login">Change of User</a></li>
-									<li><a href="/plan//login">Subdivision</a></li>
-									<li><a href="/plan//login">Renewal/Extension of Lease</a></li>
-									<li><a href="/plan//login">Outdoor Advertising</a></li>
+									<li><a href="plan/login">Change of User</a></li>
+									<li><a href="plan/login">Subdivision</a></li>
+									<li><a href="plan/login">Renewal/Extension of Lease</a></li>
+									<li><a href="plan/login">Outdoor Advertising</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->

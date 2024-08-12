@@ -128,12 +128,12 @@ if (mf_is_form_submitted()) { //if form submitted
             if ($invoice_manager->has_unpaid_invoice($application->getId())) {
                 $invoice = $invoice_manager->get_unpaid_invoice($application->getId());
 
-                header("Location: /plan//invoices/pay/id/" . $invoice->getId());
+                header("Location: plan/invoices/pay/id/" . $invoice->getId());
                 exit;
             }
         }
 
-        header("Location: /plan//application/view/id/" . $application->getId());
+        header("Location: plan/application/view/id/" . $application->getId());
         exit;
     } else if ($submit_result['status'] === false) { //there are errors, display the form again with the errors
         $old_values     = $submit_result['old_values'];

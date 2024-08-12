@@ -65,7 +65,7 @@ if(mf_is_form_submitted()){ //if form submitted
                         $_SESSION['mf_form_payment_access'][$input_array['form_id']] = true;
                         $_SESSION['mf_payment_record_id'][$input_array['form_id']] = $submit_result['entry_id'];
 
-                        header("Location: /plan//profile/payment?id={$input_array['form_id']}");
+                        header("Location: plan/profile/payment?id={$input_array['form_id']}");
                         exit;
                     }else if($form_properties['payment_merchant_type'] == 'paypal_standard'){
                         echo "<script type=\"text/javascript\">top.location.replace('{$submit_result['form_redirect']}')</script>";
@@ -77,7 +77,7 @@ if(mf_is_form_submitted()){ //if form submitted
                     }
 
                     $_SESSION['review_id'] = $submit_result['review_id'];
-                    header("Location: /plan//profile/confirm?id={$input_array['form_id']}{$page_num_params}");
+                    header("Location: plan/profile/confirm?id={$input_array['form_id']}{$page_num_params}");
                     exit;
                 }else if($target_page_id == 'success'){
                     //redirect to success page
@@ -100,7 +100,7 @@ if(mf_is_form_submitted()){ //if form submitted
                 }
                 
                 $_SESSION['review_id'] = $submit_result['review_id'];
-                header("Location: /plan//profile/confirm?id={$input_array['form_id']}{$page_num_params}");
+                header("Location: plan/profile/confirm?id={$input_array['form_id']}{$page_num_params}");
                 exit;
             }else{
                 if(!empty($submit_result['next_page_number'])){ //redirect to the next page number
@@ -199,7 +199,7 @@ if(mf_is_form_submitted()){ //if form submitted
             $userprofile->save();
         }
             
-         header("Location: /plan//dashboard");
+         header("Location: plan/dashboard");
          exit;
     }else{
         $form_params = array();
@@ -241,7 +241,7 @@ if(!empty($row)){
     <div class="panel-heading">
         <h3 class="panel-title" style="text-align: left;">
             Add a business
-            <a href="/plan//dashboard" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;">Back to Dashboard</a>
+            <a href="plan/dashboard" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;">Back to Dashboard</a>
         </h3>
     </div>
     <div class="panel-body">

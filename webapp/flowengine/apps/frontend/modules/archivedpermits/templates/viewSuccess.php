@@ -25,7 +25,7 @@ if($permit->getPdfPath() == "")
     <span class="label">You are here:</span>
     <ol class="breadcrumb">
       <li><a href="/plan/">Home</a></li>
-      <li><a href="/plan//permits/index">Permits</a></li>
+      <li><a href="plan/permits/index">Permits</a></li>
       <li class="active"><?php echo $application->getApplicationId(); ?></li>
     </ol>
   </div>
@@ -225,14 +225,14 @@ if($permit->getPdfPath() == "")
                         if (empty($document_key) && $permit_template->getPartType() == 2) {
                             ?>
                             <button class="btn btn-white" id="printinvoice" type="button"
-                                    onClick="window.location='/plan//permits/attach/id/<?php echo $permit->getId(); ?>';">
+                                    onClick="window.location='plan/permits/attach/id/<?php echo $permit->getId(); ?>';">
                                 <i class="fa fa-print mr5"></i> Attach Signed Copy
                             </button>
                         <?php
                         } elseif (!empty($document_key) && $permit_template->getPartType() == 2) {
                             ?>
                             <button class="btn btn-white" id="printinvoice" type="button"
-                                    onClick="window.location='/plan//permits/attach/id/<?php echo $permit->getId(); ?>';">
+                                    onClick="window.location='plan/permits/attach/id/<?php echo $permit->getId(); ?>';">
                                 <i class="fa fa-print mr5"></i> Re-attach Signed Copy
                             </button>
 

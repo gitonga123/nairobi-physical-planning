@@ -28,7 +28,7 @@ class dashboardActions extends sfActions
 
 		//If no user is authenticated then signout. Backend session and Frontend session mix ups
 		if ($this->getUser()->getGuardUser() == null) {
-			header("Location: /plan//signon/logout");
+			header("Location: plan/signon/logout");
 		}
 		// All permits
 		$q = Doctrine_Query::create()

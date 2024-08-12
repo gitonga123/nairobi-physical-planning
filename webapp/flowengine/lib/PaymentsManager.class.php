@@ -680,6 +680,6 @@ class PaymentsManager {
 
 		public function process_payment_url()
 		{
-			return "/plan//forms/payment/checkout/now";
+			return "plan/forms/payment/checkout/now";
 		}
 }

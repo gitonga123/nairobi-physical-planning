@@ -33,7 +33,7 @@
                         <tr>
                             <td style="padding: 15px;" class="text-primary pe-auto">
 
-                                <a class="text-primary link_primary pe-auto" target="_blank" onClick="window.location = '/plan//permits/view/id/<?php echo $download->getId(); ?>';"><i class="fas fa-download"></i> <?php echo $permittype->getTitle() . " (" . $download->getDateOfIssue() . ") " . $permit_status; ?></a>
+                                <a class="text-primary link_primary pe-auto" target="_blank" onClick="window.location = 'plan/permits/view/id/<?php echo $download->getId(); ?>';"><i class="fas fa-download"></i> <?php echo $permittype->getTitle() . " (" . $download->getDateOfIssue() . ") " . $permit_status; ?></a>
                             </td>
                         </tr>
                     <?php

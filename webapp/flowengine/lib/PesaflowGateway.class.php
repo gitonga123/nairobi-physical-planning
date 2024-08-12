@@ -54,7 +54,7 @@ class PesaflowGateway {
             {
                 if($backend == false)
                 {
-                    header("Location: /plan//application/view/id/".$application_id);
+                    header("Location: plan/application/view/id/".$application_id);
                     exit;
                 }
             }
@@ -72,7 +72,7 @@ class PesaflowGateway {
 
           if($backend == false)
           {
-            header("Location: /plan//application/view/id/".$application->getId());
+            header("Location: plan/application/view/id/".$application->getId());
           }
 
           exit;
@@ -162,13 +162,13 @@ class PesaflowGateway {
         }
         else
         {
-            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//forms/view?id='.$application->getFormId().'&entryid='.$application->getEntryId().'&done=1&invoiceid='.$invoice->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
-            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//forms/invalidpayment';
+            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/forms/view?id='.$application->getFormId().'&entryid='.$application->getEntryId().'&done=1&invoiceid='.$invoice->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
+            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/forms/invalidpayment';
         }
 
         $iframe_url = "https://pesaflow.ecitizen.go.ke/PaymentAPI/iframev2.1.php?";
 
-  	    $updateURL = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//payment/updateinvoice';
+  	    $updateURL = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/payment/updateinvoice';
 
         $account_type = "";
 
@@ -238,7 +238,7 @@ EOT;
             {
                 if($backend == false)
                 {
-                    header("Location: /plan//application/view/id/".$application_id);
+                    header("Location: plan/application/view/id/".$application_id);
                     exit;
                 }
             }
@@ -256,7 +256,7 @@ EOT;
 
           if($backend == false)
           {
-            header("Location: /plan//application/view/id/".$application->getId());
+            header("Location: plan/application/view/id/".$application->getId());
           }
 
           exit;
@@ -333,13 +333,13 @@ EOT;
         }
         else
         {
-            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//forms/view?id='.$application->getFormId().'&entryid='.$application->getEntryId().'&done=1&invoiceid='.$invoice->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
-            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//forms/invalidpayment';
+            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/forms/view?id='.$application->getFormId().'&entryid='.$application->getEntryId().'&done=1&invoiceid='.$invoice->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
+            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/forms/invalidpayment';
         }
 
         $iframe_url = "https://pesaflow.ecitizen.go.ke/PaymentAPI/iframev2.1.php?";
 
-  	    $updateURL = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//payment/updateinvoice';
+  	    $updateURL = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/payment/updateinvoice';
 
         $account_type = "";
 
@@ -470,13 +470,13 @@ EOT;
         }
         else
         {
-            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//profile/create?id='.$user_profile->getFormId().'&entryid='.$user_profile->getEntryId().'&done=1&profile='.$user_profile->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
-            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//forms/invalidpayment';
+            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/profile/create?id='.$user_profile->getFormId().'&entryid='.$user_profile->getEntryId().'&done=1&profile='.$user_profile->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
+            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/forms/invalidpayment';
         }
 
         $iframe_url = "https://pesaflow.ecitizen.go.ke/PaymentAPI/iframev2.1.php?";
 
-  	    $updateURL = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan//payment/updateprofile';
+  	    $updateURL = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'plan/payment/updateprofile';
 
         $account_type = "";
 

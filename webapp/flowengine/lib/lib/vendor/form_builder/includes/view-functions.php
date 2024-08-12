@@ -772,7 +772,7 @@ EOT;
 	    console.log("Am ready");
 		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){
 		 	$('#element_{$element->id}').uploadifive({
-		 		'uploadScript'     : '/plan//forms/upload',
+		 		'uploadScript'     : 'plan/forms/upload',
 		 		'buttonText'	   : '{$mf_lang['file_select']}',
 		 		'removeCompleted' : false,
 				'dnd' : true,
@@ -847,7 +847,7 @@ EOT;
 		 }else if($.browser.flash == true){
 		      $('#element_{$element->id}').uploadify({
 		        'uploader'   	  : '/form_builder/js/uploadify/uploadify.swf',
-		        'script'     	  : '/plan//forms/upload',
+		        'script'     	  : 'plan/forms/upload',
 		        'cancelImg'  	  : '/form_builder/images/icons/stop.png',
 		        'removeCompleted' : false,
 		        'displayData' 	  : 'percentage',
@@ -6763,7 +6763,7 @@ EOT;
                 document.getElementById("li_" + link_id + "_filter").innerHTML = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "/plan//forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
+        xhttp.open("GET", "plan/forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
         xhttp.send();
     }
 	</script>

@@ -33,6 +33,6 @@
 								
 									<button class="btn btn-primary login-btn" type="submit"><?php echo ('Reset My Password'); ?></button>
 									<div class="account-footer text-center mt-3">
-										Already have an account? <a class="forgot-link mb-0" href="/plan//login"><?php echo ('Login'); ?></a>
+										Already have an account? <a class="forgot-link mb-0" href="plan/login"><?php echo ('Login'); ?></a>
 									</div>
 </form>								

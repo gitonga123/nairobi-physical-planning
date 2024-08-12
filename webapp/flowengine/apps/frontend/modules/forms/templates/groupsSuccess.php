@@ -70,7 +70,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 											<p><?php echo $form->getFormDescription() ?></p>
 											<div class="row">
 												<div class="col">
-													<a href="/plan//forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-success"><i class="far fa-edit"></i> Apply </a>
+													<a href="plan/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-success"><i class="far fa-edit"></i> Apply </a>
 												</div>
 											</div>
 										</div>
@@ -114,7 +114,7 @@ else :
 							?>
 								<div class="form-row pull-right">
 									<div class="col-sm-12">
-										<a class="btn btn-outline-primary" href="/plan//frusers/editadditional/formid/<?php echo $profile->getFormId(); ?>/entryid/<?php echo $profile->getEntryId(); ?>"> <?php echo __('Edit Additional Details'); ?></a>
+										<a class="btn btn-outline-primary" href="plan/frusers/editadditional/formid/<?php echo $profile->getFormId(); ?>/entryid/<?php echo $profile->getEntryId(); ?>"> <?php echo __('Edit Additional Details'); ?></a>
 									</div>
 								</div>
 								<?php
@@ -135,7 +135,7 @@ else :
 							?>
 								<div class="form-row pull-right">
 									<div class="col-sm-12">
-										<a class="btn btn-outline-primary" href="/plan//mfRegister/registerDetails2?id=<?php echo $form_id; ?>"> <?php echo __('Add Additional Details'); ?></a>
+										<a class="btn btn-outline-primary" href="plan/mfRegister/registerDetails2?id=<?php echo $form_id; ?>"> <?php echo __('Add Additional Details'); ?></a>
 									</div>
 								</div>
 							<?php
@@ -149,7 +149,7 @@ else :
 									</div>
 								<?php endif; ?>
 								<?php $sf_user->getAttributeHolder()->remove('boraqs_reset'); ?>
-								<p><a href="<?php echo '/plan//membersdatabase/resendboraq' ?>" class="btn btn-warning"><?php echo __('Resend Verification Email'); ?></a></p>
+								<p><a href="<?php echo 'plan/membersdatabase/resendboraq' ?>" class="btn btn-warning"><?php echo __('Resend Verification Email'); ?></a></p>
 							<?php endif; ?>
 						</div>
 					</div>

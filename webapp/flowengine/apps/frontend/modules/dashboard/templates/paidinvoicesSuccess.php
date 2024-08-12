@@ -15,7 +15,7 @@ use_helper("I18N");
                         <tr>
 
                             <th><?php echo __("Invoice no"); ?></th>
-                            <th><?php echo __("Payment Date"); ?></th>
+                            <th><?php echo __("Payment date"); ?></th>
                             <th><?php echo __("Amount"); ?></th>
                             <th><?php echo __("Application id"); ?></th>
                             <th><?php echo __("Status"); ?></th>

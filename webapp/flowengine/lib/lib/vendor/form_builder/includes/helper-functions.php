@@ -1947,6 +1947,36 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 		$string_value = <<<END
         <script type="text/javascript">
         $(document).ready(function() {
+
+			$("#{$block_number_element_id}").keyup(function() {
+				let block_no_1 = $("#{$block_number_element_id}").val();
+				let plot_no_1 = $("#{$plot_number_element_id}").val();
+
+				if (!block_no_1 || !plot_no_1) {
+					const storedData = JSON.parse(localStorage.getItem('block_plot_data'));
+					if (storedData) {
+						let save_block_no_1 = storedData.block_no;
+						let save_plot_no_1 = storedData.plot_no;
+
+						localStorage.setItem('block_plot_data', JSON.stringify({ save_block_no_1, save_plot_no_1 }));
+					}
+				}
+			});
+
+			$("#{$plot_number_element_id}").keyup(function() {
+				let block_no_2 = $("#{$block_number_element_id}").val();
+				let plot_no_2 = $("#{$plot_number_element_id}").val();
+
+				if (!block_no_2 || !plot_no_2) {
+					const storedData = JSON.parse(localStorage.getItem('block_plot_data'));
+					if (storedData) {
+						let save_block_no_2 = storedData.block_no;
+						let save_plot_no_2 = storedData.plot_no;
+
+						localStorage.setItem('block_plot_data', JSON.stringify({ save_block_no_2, save_plot_no_2 }));
+					}
+				}
+			});
 			
 			let block_no = $("#{$block_number_element_id}").val();
 			let plot_no = $("#{$plot_number_element_id}").val();

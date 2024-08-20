@@ -491,6 +491,9 @@ class formsActions extends sfActions
                         $invoice = $q->fetchOne();
 
                         $invoice->setPaid(2);
+                        if (array_key_exists('receipt_number', $response)) {
+                              $invoice->setReceiptNumber($response['receipt_number']);
+                        }
 
                         $invoice->save();
 

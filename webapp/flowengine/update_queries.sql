@@ -12,3 +12,4 @@ ALTER TABLE `invoicetemplates` ADD COLUMN `qr_content` TEXT NULL;
 
 ALTER TABLE sub_menus ADD COLUMN distribute_equally boolean DEFAULT FALSE;
 ALTER TABLE `ap_form_elements` ADD COLUMN  `element_subcounty` int(11) default 0;
+ALTER TABLE `mf_invoice` ADD COLUMN `receipt_number` VARCHAR(255) NULL;

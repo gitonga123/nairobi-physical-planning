@@ -17,7 +17,7 @@
 	// $logo = $agency_manager->getLogo($sf_user->getAttribute('userid'));
 	?>
       <!-- <h1> <img src="<?php echo strlen($logo)? $logo:'/assets_backend/images/logo.png' ?>" alt="" /></h1> -->
-      <h1> <img src="/asset_mentor/admin/assets/img/logo2.png" alt="" /></h1>
+      <img src="/asset_mentor/admin/assets/img/logo2.png" alt="UASIN GISHU COUNTY" />
   </div><!-- logopanel -->
   <?php
   //Displays the sidemenu

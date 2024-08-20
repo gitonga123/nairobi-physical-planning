@@ -44,24 +44,37 @@ use_helper("I18N");
                     $invcount++;
 
                     $inv_currency = $invoice->getCurrency();
-                ?>
+                    ?>
                     <tr>
                         <td><?php echo $invoice->getId(); ?></td>
                         <td><?php echo $invoice->getCreatedAt(); ?></td>
                         <td><?php echo $invoice->getCurrency(); ?>. <?php echo $invoice->getTotalAmount(); ?></td>
                         <td><?php echo $invoice->getStatus(); ?></td>
                         <td>
-                            <a class="btn btn-outline-info btn-sm" id="printinvoice" href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-eye mr5"></i> <?php echo __("View Invoice"); ?></a> |
-                            <a class="btn btn-dark btn-sm" id="printinvoice" href="/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-print mr5"></i> <?php echo __("Print Invoice"); ?></a>
+                            <a class="btn btn-outline-info btn-sm" id="printinvoice"
+                                href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-eye mr5"></i>
+                                <?php echo __("View Invoice"); ?></a> |
+                            <a class="btn btn-dark btn-sm" id="printinvoice"
+                                href="/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>"><i
+                                    class="fa fa-print mr5"></i> <?php echo __("Print Invoice"); ?></a>
 
                             <?php if ($invoice->getPaid() == 1 || $invoice->getPaid() == 15) { ?>
-                                | <a class="btn btn-primary btn-sm" id="makeinvoice" href="/plan/forms/payment?id=<?php echo $application->getFormId(); ?>&app_id=<?php echo $application->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>">
+                                | <a class="btn btn-primary btn-sm" id="makeinvoice"
+                                    href="/plan/forms/payment?id=<?php echo $application->getFormId(); ?>&app_id=<?php echo $application->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>">
                                     <i class="fa fa-credit-card mr5"></i> <?php echo __("Pay now"); ?>
+                                </a>
+                            <?php } ?>
+
+                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { ?>
+                                <a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $invoice->getReceiptNumber(); ?>/Physical_Planning/"
+                                    class="btn btn-outline-dark btn-sm"><i class="fas fa-file-download"></i>
+                                    <?php echo __(" Receipt");
+                                    ?>
                                 </a>
                             <?php } ?>
                         </td>
                     </tr>
-                <?php
+                    <?php
                     if ($invoice->getPaid() == 2) {
                         $invtotal = $invtotal + $invoice->getTotalAmount();
                     }

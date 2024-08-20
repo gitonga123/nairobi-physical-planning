@@ -28,7 +28,8 @@ $invoice_manager->update_invoices($application->getId());
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <h3 class="card-title mb-0"><?php echo __("Invoice Details"); ?></h3>
-                <a class="card-title btn btn-dark btn-sm text-end" target="_blank" href="/plan/application/view/id/<?php echo $invoice->getAppId(); ?>"><?php echo __("View Application"); ?></a>
+                <a class="card-title btn btn-dark btn-sm text-end" target="_blank"
+                    href="/plan/application/view/id/<?php echo $invoice->getAppId(); ?>"><?php echo __("View Application"); ?></a>
             </div>
         </div>
         <div class="card-body">
@@ -58,15 +59,23 @@ $invoice_manager->update_invoices($application->getId());
 
                         <div class="text-end btn-invoice mt-3" style="padding-right: 10px;">
                             <?php if ($invoice->getDocumentKey()) { ?>
-                                <button class="btn btn-primary btn-sm" id="printinvoice" type="button" onClick="window.location='<?php echo $invoice->getDocumentKey(); ?>';">
+                                <button class="btn btn-primary btn-sm" id="printinvoice" type="button"
+                                    onClick="window.location='<?php echo $invoice->getDocumentKey(); ?>';">
                                     <i class="fa fa-print me-2"></i> <?php echo __('Download Invoice'); ?>
                                 </button>
                             <?php } else { ?>
-                                <button class="btn btn-outline-dark" id="printinvoice" type="button" onClick="window.location='/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>';">
+                                <button class="btn btn-outline-dark" id="printinvoice" type="button"
+                                    onClick="window.location='/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>';">
                                     <i class="fa fa-print me-2"></i> <?php echo __('Print Invoice'); ?>
                                 </button>
                             <?php } ?>
-
+                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { ?>
+                                <a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $invoice->getReceiptNumber(); ?>/Physical_Planning/"
+                                    class="btn btn-primary"><i class="fas fa-file-download"></i>
+                                    <?php echo __(" Receipt");
+                                    ?>
+                                </a>
+                            <?php } ?>
                             <?php
                             $expired = false;
                             $db_date_event = str_replace('/', '-', $invoice->getExpiresAt());
@@ -80,14 +89,16 @@ $invoice_manager->update_invoices($application->getId());
                                 echo "Expired. No Payments Possible";
                             } else {
                                 if ($invoice->getPaid() == 1) { ?>
-                                    <button class="btn btn-primary" id="makepayment" type="button" onClick="window.location='/plan/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>';">
+                                    <button class="btn btn-primary" id="makepayment" type="button"
+                                        onClick="window.location='/plan/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>';">
                                         <i class="fas fa-money-bill"></i> <?php echo __('Make Payment'); ?>
                                     </button>
                                 <?php }
                             }
 
                             if ($invoice->getPaid() != 1 && $invoice->getPaid() != 2) { ?>
-                                <button class="btn btn-primary" id="makepayment" type="button" onClick="window.location='/plan/invoices/pay/id/<?php echo $invoice->getId(); ?>';">
+                                <button class="btn btn-primary" id="makepayment" type="button"
+                                    onClick="window.location='/plan/invoices/pay/id/<?php echo $invoice->getId(); ?>';">
                                     <i class="fa fa-plus me-2"></i> <?php echo __('Add Payment'); ?>
                                 </button>
                             <?php } ?>
@@ -116,14 +127,14 @@ $invoice_manager->update_invoices($application->getId());
                             $count = 0;
                             foreach ($receipts as $receipt) {
                                 $count++;
-                        ?>
-                                <h4><a href="#"><?php echo __('Receipt'); ?> <?php echo $count; ?></a></h4>
+                                ?>
+                                <h4><a href="#"><?php echo __('Receipt'); ?>             <?php echo $count; ?></a></h4>
                                 <div>
                                     <p style="font-size: 12px; font-family:Times New Roman,'Georgia',Serif;">
                                         <?php echo "<a target='_blank' href='/plan/invoices/viewreceipt?form_id=" . $receipt->getFormId() . "&id=" . $receipt->getEntryId() . "'>(" . __("View Receipt") . ")</a>"; ?>
                                     </p>
                                 </div>
-                            <?php
+                                <?php
 
                             }
                         }
@@ -149,7 +160,7 @@ $invoice_manager->update_invoices($application->getId());
                                 <!--Responsive-table-->
                                 </p>
                             </div>
-                        <?php
+                            <?php
                         }
                         ?>
                     </div>

@@ -2011,7 +2011,6 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 						if (field == 'ownertype') {
 							let value = details?.related_customer?.name;
 							$("#" + element_to_autofill[field]).val(value);
-							
 						}
 
 						if (field == 'owner_address') {

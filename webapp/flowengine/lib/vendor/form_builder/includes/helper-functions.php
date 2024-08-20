@@ -1996,7 +1996,6 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 			// Check if plot details exist in local storage
 			const cached_data = localStorage.getItem(cache_key);
 
-			console.log(cached_data);
 			let plot_details = false;
 
 			if (cached_data == 'undefined' || cached_data == undefined) {
@@ -2032,7 +2031,10 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 
 			function autofillFormFields(details) {
 				const element_to_autofill = {$element_plot_details};
+				console.log(JSON.stringify(element_to_autofill, 0, 5));
 			  	for (let field in element_to_autofill) {
+					console.log("Field type is --->", field);
+					console.log(details?.area);
 					if (element_to_autofill.hasOwnProperty(field)) {
 						if (field == 'ownertype') {
 							let value = details?.related_customer?.name;
@@ -2084,6 +2086,8 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 
 			function fillSelectElement(valueName, selectElementId) {
 				
+				console.log(valueName);
+				console.log(selectElementId);
 				valueName = valueName.toLowerCase();
 				$('#' + selectElementId + ' option').prop('selected', false);
 				$('#'+selectElementId + ' option').each(function() {

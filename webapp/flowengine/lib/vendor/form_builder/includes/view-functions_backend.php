@@ -6329,9 +6329,9 @@ EOT;
 			if (empty($page_breaks_data[$page_number]['use_image'])) { //if using text buttons as submit
 
 				if ($page_number > 1) {
-					$button_secondary_markup = '<input class="btn btn-primary" type="submit" id="submit_secondary" name="submit_secondary" value="' . $page_breaks_data[$page_number]['secondary_text'] . '" />';
+					$button_secondary_markup = '<input class="btn btn-warning" type="submit" id="submit_secondary" name="submit_secondary" value="' . $page_breaks_data[$page_number]['secondary_text'] . '" />';
 					if (!empty($form->resume_enable)) {
-						$button_secondary_markup .= ' <input class="btn btn-primary" type="submit" onClick="document.getElementById(\'save_as_draft\').value = 1;" value="' . $mf_lang['resume_checkbox_title'] . '" /> <input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
+						$button_secondary_markup .= ' <input class="btn btn-success" type="submit" onClick="document.getElementById(\'save_as_draft\').value = 1;" value="' . $mf_lang['resume_checkbox_title'] . '" /> <input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
 					}
 				}
 
@@ -6348,9 +6348,9 @@ EOT;
 			} else { //if using images as submit
 
 				if ($page_number > 1) {
-					$button_secondary_markup = '<input class="submit_img_secondary" type="image" alt="Previous" id="submit_secondary" name="submit_secondary" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" />';
+					$button_secondary_markup = '<input class="btn btn-success submit_img_secondary" type="image" alt="Previous" id="submit_secondary" name="submit_secondary" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" />';
 					if (!empty($form->resume_enable)) {
-						$button_secondary_markup .= ' <input class="submit_img_secondary" type="image" alt="Draft" onClick="document.getElementById(\'save_as_draft\').value = 1;" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" /><input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
+						$button_secondary_markup .= ' <input class="btn btn-success submit_img_secondary" type="image" alt="Draft" onClick="document.getElementById(\'save_as_draft\').value = 1;" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" /><input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
 					}
 				}
 
@@ -6589,15 +6589,19 @@ EOT;
 EOT;
 		}
 
-		$payment_total_markup = <<<EOT
-			<li class="total_payment" {$other_page_total_data_tag}>
-				<span class="total_main">
-					<h3>{$currency_symbol}<var>0</var></h3>
-					<h5>{$mf_lang['payment_total']}</h5>
-				</span>
-				{$payment_extra_markup}
-			</li>
-EOT;
+		if ($mf_lang['payment_total'] > 0) {
+			$payment_total_markup = <<<EOT
+				<li class="total_payment" {$other_page_total_data_tag}>
+					<span class="total_main">
+						<h3>{$currency_symbol}<var>0</var></h3>
+						<h5>{$mf_lang['payment_total']}</h5>
+					</span>
+					{$payment_extra_markup}
+				</li>
+	EOT;
+	} else {
+		$payment_total_markup = '';
+	}
 
 		if (empty($form->active) || $form_has_maximum_entries || $is_edit_entry) {
 			//if form is not active or this is edit_entry page, don't show the total payment
@@ -7876,12 +7880,12 @@ EOT;
 	//build the button markup (image or text)
 	if (!empty($form_review_use_image)) {
 		$button_markup = <<<EOT
-<input id="review_back" class="submit_img_secondary" type="image" name="review_back" alt="{$form_review_secondary_text}" src="{$form_review_secondary_img}" />
+<input id="review_back" class="btn btn-warning submit_img_secondary" type="image" name="review_back" alt="{$form_review_secondary_text}" src="{$form_review_secondary_img}" />
 <input id="review_submit" class="submit_img_primary" type="image" name="review_submit" alt="{$form_review_primary_text}" src="{$form_review_primary_img}" />
 EOT;
 	} else {
 		$button_markup = <<<EOT
-<input id="review_back" class="btn btn-primary" type="submit" name="review_back" value="{$form_review_secondary_text}" />
+<input id="review_back" class="btn btn-warning" type="submit" name="review_back" value="{$form_review_secondary_text}" />
 <input id="review_submit" class="btn btn-success" type="submit" name="review_submit" value="{$form_review_primary_text}" />
 EOT;
 	}
@@ -8093,15 +8097,19 @@ EOT;
 EOT;
 		}
 
-		$payment_total_markup = <<<EOT
-				<ul><li class="total_payment mf_review">
-					<span>
-						<h3>{$currency_symbol}<var>{$total_payment}</var></h3>
-						<h5>{$mf_lang['payment_total']}</h5>
-					</span>
-					{$payment_extra_markup}
-				</li></ul>
-EOT;
+		if ($total_payment > 0) {
+			$payment_total_markup = <<<EOT
+					<ul><li class="total_payment mf_review">
+						<span>
+							<h3>{$currency_symbol}<var>{$total_payment}</var></h3>
+							<h5>{$mf_lang['payment_total']}</h5>
+						</span>
+						{$payment_extra_markup}
+					</li></ul>
+	EOT;
+			} else {
+				$payment_total_markup = '';
+			}
 	}
 
 	//load custom javascript if enabled

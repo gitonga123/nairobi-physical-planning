@@ -711,4 +711,17 @@ class formsActions extends sfActions
             }
             return $results;
       }
+
+      public function executeCachedPlotDetails(sfWebRequest $request)
+      {
+            $cache = new sfFileCache([
+                  'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+            ]);
+
+            $cached_key = trim($request->getParameter('key'));
+
+            $cached_plot_details = $cache->get($cached_key);
+
+            return $this->json(['success' => true, 'plot_details' => $cached_plot_details]);
+      }
 }

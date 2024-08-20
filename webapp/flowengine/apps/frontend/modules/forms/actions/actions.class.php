@@ -724,4 +724,12 @@ class formsActions extends sfActions
 
             return $this->json(['success' => true, 'plot_details' => $cached_plot_details]);
       }
+
+      private function json($content, $status = 200)
+      {
+            $this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+            $this->getResponse()->setContent(json_encode($content));
+            $this->getResponse()->setStatusCode($status);
+            return sfView::NONE;
+      }
 }

@@ -2008,7 +2008,7 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 			} else {
 				$.ajax({
 					type: "GET",
-					url:  base_url+'/backend.php/api/cachedPlotDetails',
+					url:  '/plan/forms/cachedPlotDetails',
 					data: { key: cache_key },
 					success: function(data) {
 						if (data?.success) {

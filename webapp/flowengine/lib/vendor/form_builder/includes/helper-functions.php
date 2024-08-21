@@ -1964,13 +1964,20 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 		$string_value = <<<END
         <script type="text/javascript">
         $(document).ready(function() {
-			
 			$("#{$block_number_element_id}").keyup(function() {
 				let block_no_1 = $("#{$block_number_element_id}").val();
 				let plot_no_1 = $("#{$plot_number_element_id}").val();
 
 				if (block_no_1 && plot_no_1) {
 					localStorage.setItem('block_plot_data', JSON.stringify({ block_no_1, plot_no_1 }));
+					const block_id_1 = {$block_number_element_id};
+					const plot_id_1 = {$plot_number_element_id};
+					if (block_id_1 && block_id_1.id) {
+						localStorage.setItem(block_id_1.id, block_no_1);
+					}
+					if (plot_id_1 && plot_id_1.id) {
+						localStorage.setItem(plot_id_1.id, plot_no_1);
+					}
 				}
 			});
 
@@ -1981,49 +1988,51 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 				
 				if (block_no_2 && plot_no_2) {
 					localStorage.setItem('block_plot_data', JSON.stringify({ block_no_2, plot_no_2 }));
+
+					const block_id_2 = {$block_number_element_id};
+					const plot_id_2 = {$plot_number_element_id};
+
+					if (block_id_2 && block_id_2.id) {
+						localStorage.setItem(block_id_2.id, block_no_2);
+					}
+					if (plot_id_2 && plot_id_2.id) {
+						localStorage.setItem(plot_id_2.id, plot_no_2);
+					}
 				}
 			});
 			
-			let block_no = $("#{$block_number_element_id}").val();
-			let plot_no = $("#{$plot_number_element_id}").val();
+			let block_no = localStorage.getItem('{$block_number_element_id}');
+			let plot_no = localStorage.getItem('{$plot_number_element_id}');
+
 			const username = "{$username}";
 			const base_url = "{$base_backend_url}";
 
-			// If block_no or plot_no is empty, try to retrieve from local storage
-			if (!block_no || !plot_no) {
-				const storedData = JSON.parse(localStorage.getItem('block_plot_data'));
-				if (storedData) {
-					block_no = storedData.block_no;
-					plot_no = storedData.plot_no;
-				}
-			}
-
-			// If still empty, return early
-			if (!block_no || !plot_no) {
-				return;
-			}
-
-			const cache_key = username + '_' + block_no + '_' + plot_no;
-
-			// Store block_no and plot_no in local storage
-			localStorage.setItem('block_plot_data', JSON.stringify({ block_no, plot_no }));
-
-			// Check if plot details exist in local storage
-			const cached_data = localStorage.getItem(cache_key);
-
 			let plot_details = false;
 
-			if (cached_data == 'undefined' || cached_data == undefined) {
-			} else {
-				plot_details = JSON.parse(cached_data);
-			}
+			let cache_key = '';
 
+			// If still empty, return early
+			if (block_no && plot_no) {
+				// Store block_no and plot_no in local storage
+				localStorage.setItem('block_plot_data', JSON.stringify({ block_no, plot_no }));
+
+				cache_key = username + '_' + block_no + '_' + plot_no;
+
+				// Check if plot details exist in local storage
+				const cached_data = localStorage.getItem(cache_key);
+
+				if (cached_data == 'undefined' || cached_data == undefined) {	
+				} else {
+				 	plot_details = JSON.parse(cached_data);
+				}
+			}
+			
 			if (plot_details) {
 				autofillFormFields(plot_details);
 			} else {
 				$.ajax({
 					type: "GET",
-					url:  '/plan/forms/cachedPlotDetails',
+					url:  '/index.php/forms/cachedPlotDetails',
 					data: { key: cache_key },
 					success: function(data) {
 						if (data?.success) {
@@ -2097,6 +2106,8 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 			}
 
 			function fillSelectElement(valueName, selectElementId) {
+				if (!valueName || valueName.length == 0 || valueName == null) return;
+
 				valueName = valueName.toLowerCase();
 				$('#' + selectElementId + ' option').prop('selected', false);
 				$('#'+selectElementId + ' option').each(function() {

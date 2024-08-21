@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="/asset_mentor/admin//asset_mentor/admin/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/asset_mentor/admin/assets/css/bootstrap.min.css">
 
 	<!-- Fontawesome CSS -->
 	<link rel="stylesheet" href="/asset_mentor/admin/assets/css/font-awesome.min.css">

@@ -290,9 +290,13 @@ class apiActions extends sfActions
             error_log($content);
 
             if (isset($content['upto_date']) && $content['upto_date']) {
-                $cache->set("{$username}_{$block_number}_{$plot_number}", json_encode($content), 3600);
+                if (isset($content['clearance']) && $content['clearance']['status']) {
+                    $cache->set("{$username}_{$block_number}_{$plot_number}", json_encode($content), 3600);
 
-                return $this->json(['success' => true, 'value' => true, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
+                    return $this->json(['success' => true, 'value' => true, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
+                } else {
+                    return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;"> Please visit the Uasin County Government offices to get a valid Clearance Certificate</p>']);
+                }
             } else {
                 return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
             }

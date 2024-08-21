@@ -2032,7 +2032,7 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 			} else {
 				$.ajax({
 					type: "GET",
-					url:  '/index.php/forms/cachedPlotDetails',
+					url:  '/plan/forms/cachedPlotDetails',
 					data: { key: cache_key },
 					success: function(data) {
 						if (data?.success) {

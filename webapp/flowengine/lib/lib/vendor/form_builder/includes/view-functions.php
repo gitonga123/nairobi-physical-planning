@@ -769,7 +769,6 @@ EOT;
 		$uploader_script = <<<EOT
 <script type="text/javascript">
 	$(function(){
-	    console.log("Am ready");
 		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){
 		 	$('#element_{$element->id}').uploadifive({
 		 		'uploadScript'     : '/plan/forms/upload',

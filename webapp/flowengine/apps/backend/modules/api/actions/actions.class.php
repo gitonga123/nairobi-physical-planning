@@ -291,8 +291,8 @@ class apiActions extends sfActions
 
             if (isset($content['upto_date']) && $content['upto_date']) {
                 error_log("JSON Encode --->");
-                error_log(json_encode($content['clearance']));
-                if (isset($content['clearance']) && ($content['clearance']['status'] == 'Active')) {
+                error_log(json_encode($content['details']['clearance']));
+                if (isset($content['details']['clearance']) && ($content['details']['clearance']['status'] == 'Active')) {
                     $cache->set("{$username}_{$block_number}_{$plot_number}", json_encode($content), 3600);
 
                     return $this->json(['success' => true, 'value' => true, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);

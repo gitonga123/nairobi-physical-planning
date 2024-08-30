@@ -321,7 +321,7 @@
 
 								</div>
 								<div class="footer-three-contact">
-									<p><span>lands@info@uasingishu.go.ke</span></p>
+									<p><span>lands@uasingishu.go.ke</span></p>
 									<p>
 										<span tel="05320160000">05320160000</span>
 										<br />

@@ -32,6 +32,68 @@ class loginActions extends sfActions
       $this->redirect("/backend.php/dashboard");
     }
 
+    $code = $request->getParameter('code');
+
+    if (empty($code) || is_null($code)) {
+      throw new sfException('Something Went Wrong. Please try again later.', 403);
+    }
+
+    $stream = new Stream();
+    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/login/token/';
+
+    error_log("Verification url is ---->{$url}");
+
+    $stream_response = $stream->sendRequest([
+      'url' => $url,
+      'method' => 'POST', // GET, POST, PUT, DELETE,
+      'ssl' => 'none',
+      'contentType' => 'json',
+      'data' => [
+        'code' => $code
+      ]
+    ]);
+
+    error_log("Token verification from jambo --->{$stream_response->status}");
+    error_log(json_encode($stream_response->content));
+
+    if ($stream_response->status !== 200) {
+      throw new sfException($stream_response->content['error'], $stream_response->status);
+    }
+
+    $this->token = $stream_response->content['token'];
+
+    if (empty($this->token) || is_null($this->token)) {
+      throw new sfException('Something Went Wrong. Please try again later.', 500);
+    }
+
+    $this->cache = new sfFileCache([
+      'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+    ]);
+
+    $_SESSION['jambo_token_backend'] = $this->token;
+
+    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/user_info/';
+    // fetch user information
+    $stream_response = $stream->sendRequest([
+      'url' => $url,
+      'method' => 'GET', // GET, POST, PUT, DELETE,
+      'ssl' => 'none',
+      'contentType' => 'json',
+      'data' => [],
+      'headers' => array(
+        "Authorization" => "JWT " . $this->token,
+      ),
+    ]);
+    $user_api_data = $stream_response->content;
+
+    $username = $user_api_data['username'];
+    $first_name = $user_api_data['first_name'];
+    $last_name = $user_api_data['last_name'];
+    $email = $user_api_data['email'];
+    
+
+    var_dump(json_encode($user_api_data));
+    die;
     $this->form = new BackendSigninForm();
     if ($request->isMethod(sfRequest::POST)) {
       $this->form->bind($request->getParameter($this->form->getName()));
@@ -59,6 +121,9 @@ class loginActions extends sfActions
     } else {
       $referer = $this->getContext()->getActionStack()->getSize() > 1 ? $request->getUri() : $request->getReferer();
       $_SESSION['referer'] = $referer;
+
+      // $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') . "dashboard/dashboard" : "/backend.php";
+      // return $this->redirect($url);
     }
 
     $q = Doctrine_Query::create()

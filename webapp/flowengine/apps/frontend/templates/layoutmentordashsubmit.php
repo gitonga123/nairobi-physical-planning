@@ -251,7 +251,7 @@
 
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-										Email: lands@info@uasingishu.go.ke
+										Email: lands@uasingishu.go.ke
 									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>

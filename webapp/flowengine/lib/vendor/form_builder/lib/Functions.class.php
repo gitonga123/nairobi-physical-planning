@@ -277,7 +277,7 @@ class Functions {
     }
 
     //Find a substring in a string
-    public static function find($needle, $haystack)
+    public function find($needle, $haystack)
     {
         $pos = strpos($haystack, $needle);
         if($pos === false)

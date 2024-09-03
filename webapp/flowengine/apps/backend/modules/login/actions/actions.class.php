@@ -86,44 +86,54 @@ class loginActions extends sfActions
     ]);
     $user_api_data = $stream_response->content;
 
-    $username = $user_api_data['username'];
-    $first_name = $user_api_data['first_name'];
-    $last_name = $user_api_data['last_name'];
-    $email = $user_api_data['email'];
+    $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
+    $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
+
+    $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$user_api_data['username']}{$last_name}@uasin.go.ke";
     
 
-    var_dump(json_encode($user_api_data));
-    die;
-    $this->form = new BackendSigninForm();
-    if ($request->isMethod(sfRequest::POST)) {
-      $this->form->bind($request->getParameter($this->form->getName()));
-      if ($this->form->isValid()) {
-        $logins = $request->getPostParameter("login");
-        $username = $logins['username'];
-        $password = $logins['password'];
+    $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";
 
-        if ($login_manager->create_session($username, $password)) {
-          $this->loginError = false;
-          if ($login_manager->two_factor_pass()) {
-            $referer = $this->getUser()->getAttribute("referer");
-            if ($referer && Functions::find("backend.php", $referer)) {
-              $this->redirect($referer);
-            } else {
-              $this->redirect("/backend.php/dashboard");
-            }
-          } else {
-            $this->redirect("/backend.php/login/twofactor");
-          }
-        } else {
-          $this->loginError = true;
-        }
+    $user_account_details = [
+      'username' => $user_api_data['username'],
+      'first_name' => $first_name,
+      'email' => $email,
+      'password' => $password
+    ];
+
+
+    $otb_helper = new OTBHelper();
+
+
+    $department = $otb_helper->findDepartmentByName('physical planning');
+
+    $user_account_details['department'] = $department;
+
+
+    $group = $otb_helper->findGroupByName('basic_reviewer');
+
+    $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
+
+    if (!$has_account) {
+      $has_account = $otb_helper->createCfUser($user_account_details);
+    }
+
+    $otb_helper->assignCfUserToGroup($has_account->getNid(), [$group]);
+
+    $login_action = $login_manager->create_session($has_account->getStruserid(), $password);
+
+    if ($login_action) {
+      $referer = $this->getUser()->getAttribute("referer");
+      if ($referer && Functions::find("backend.php", $referer)) {
+        $this->redirect($referer);
+      } else {
+        $this->redirect("/backend.php/dashboard");
       }
     } else {
-      $referer = $this->getContext()->getActionStack()->getSize() > 1 ? $request->getUri() : $request->getReferer();
-      $_SESSION['referer'] = $referer;
-
-      // $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') . "dashboard/dashboard" : "/backend.php";
-      // return $this->redirect($url);
+      $this->loginError = true;
+      $this->form = new BackendSigninForm();
+      $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') . "dashboard/dashboard" : "/backend.php";
+      return $this->redirect($url);
     }
 
     $q = Doctrine_Query::create()
@@ -148,7 +158,8 @@ class loginActions extends sfActions
 
     //End the current reviewer's session and redirect to the login page
     if ($login_manager->destroy_session()) {
-      $this->redirect("/backend.php");
+      $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') . "dashboard/dashboard" : "/backend.php";
+      return $this->redirect($url);
     } else {
       echo "Failed to end your session. Please try again";
       exit;

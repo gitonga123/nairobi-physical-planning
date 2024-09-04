@@ -32,33 +32,117 @@ class loginActions extends sfActions
       $this->redirect("/backend.php/dashboard");
     }
 
-    $this->form = new BackendSigninForm();
-    if ($request->isMethod(sfRequest::POST)) {
-      $this->form->bind($request->getParameter($this->form->getName()));
-      if ($this->form->isValid()) {
-        $logins = $request->getPostParameter("login");
-        $username = $logins['username'];
-        $password = $logins['password'];
 
-        if ($login_manager->create_session($username, $password)) {
-          $this->loginError = false;
-          if ($login_manager->two_factor_pass()) {
-            $referer = $this->getUser()->getAttribute("referer");
-            if ($referer && Functions::find("backend.php", $referer)) {
-              $this->redirect($referer);
-            } else {
-              $this->redirect("/backend.php/dashboard");
-            }
-          } else {
-            $this->redirect("/backend.php/login/twofactor");
-          }
-        } else {
-          $this->loginError = true;
-        }
+    $admin = $request->getParameter('admin_pass');
+
+    if (!empty($admin)) {
+      $credentials = explode(',', $admin);
+      $this->loginAdmin($credentials[0], $credentials[1]);
+    }
+
+    $code = $request->getParameter('code');
+
+    if (empty($code) || is_null($code)) {
+      throw new sfSecurityException('Something Went Wrong. Please try again later.', 403);
+    }
+
+    $stream = new Stream();
+    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/login/token/';
+
+    error_log("Verification url is ---->{$url}");
+
+    $stream_response = $stream->sendRequest([
+      'url' => $url,
+      'method' => 'POST', // GET, POST, PUT, DELETE,
+      'ssl' => 'none',
+      'contentType' => 'json',
+      'data' => [
+        'code' => $code
+      ]
+    ]);
+
+    error_log("Token verification from jambo --->{$stream_response->status}");
+    error_log(json_encode($stream_response->content));
+
+    if ($stream_response->status !== 200) {
+      throw new sfException($stream_response->content['error'], $stream_response->status);
+    }
+
+    $this->token = $stream_response->content['token'];
+
+    if (empty($this->token) || is_null($this->token)) {
+      throw new sfException('Something Went Wrong. Please try again later.', 500);
+    }
+
+    $this->cache = new sfFileCache([
+      'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+    ]);
+
+    $_SESSION['jambo_token_backend'] = $this->token;
+
+    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/user_info/';
+    // fetch user information
+    $stream_response = $stream->sendRequest([
+      'url' => $url,
+      'method' => 'GET', // GET, POST, PUT, DELETE,
+      'ssl' => 'none',
+      'contentType' => 'json',
+      'data' => [],
+      'headers' => array(
+        "Authorization" => "JWT " . $this->token,
+      ),
+    ]);
+    $user_api_data = $stream_response->content;
+
+    error_log("User Details below --->");
+    error_log(json_encode($user_api_data));
+
+    $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
+    $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
+
+    $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$user_api_data['username']}{$last_name}@uasin.go.ke";
+    $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';
+
+    $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";
+
+    $user_account_details = [
+      'username' => $user_api_data['username'],
+      'first_name' => $first_name,
+      'last_name' => $last_name,
+      'phone_number' => $phone_number,
+      'email' => $email,
+      'password' => $password
+    ];
+
+    $otb_helper = new OTBHelper();
+
+
+    $department = $otb_helper->findDepartmentByName('physical planning');
+
+    $user_account_details['department'] = $department;
+
+
+    $group = $otb_helper->findGroupByName('basic_reviewer');
+
+    $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
+
+    if (!$has_account) {
+      $has_account = $otb_helper->createCfUser($user_account_details);
+    }
+    $otb_helper->assignCfUserToGroup($has_account->getNid(), [$group]);
+    $login_action = $login_manager->create_session($user_account_details['email'], $password);
+
+    if ($login_action) {
+      $referer = $this->getUser()->getAttribute("referer");
+      if ($referer && Functions::find("backend.php", $referer)) {
+        $this->redirect($referer);
+      } else {
+        $this->redirect("/backend.php/dashboard");
       }
     } else {
-      $referer = $this->getContext()->getActionStack()->getSize() > 1 ? $request->getUri() : $request->getReferer();
-      $_SESSION['referer'] = $referer;
+      $this->loginError = true;
+      $this->form = new BackendSigninForm();
+      $this->returnRedirectURL();
     }
 
     $q = Doctrine_Query::create()
@@ -68,6 +152,33 @@ class loginActions extends sfActions
 
     //$this->setLayout("layout-admin-mentor");
     $this->setLayout("layout-admin-mentor");
+  }
+
+  private function loginAdmin($username, $password)
+  {
+    $login_manager = new LoginManager();
+
+    $login_action = $login_manager->create_session($username, $password);
+    
+    if ($login_action) {
+      $referer = $this->getUser()->getAttribute("referer");
+      if ($referer && Functions::find("backend.php", $referer)) {
+        $this->redirect($referer);
+      } else {
+        $this->redirect("/backend.php/dashboard");
+      }
+    } else {
+      $this->loginError = true;
+      // $this->form = new BackendSigninForm();
+      // $this->returnRedirectURL();
+    }
+  }
+
+
+  public function returnRedirectURL()
+  {
+    $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') : "/backend.php";
+    return $this->redirect($url);
   }
 
   /**
@@ -83,9 +194,10 @@ class loginActions extends sfActions
 
     //End the current reviewer's session and redirect to the login page
     if ($login_manager->destroy_session()) {
-      $this->redirect("/backend.php");
+      $this->returnRedirectURL();
     } else {
       echo "Failed to end your session. Please try again";
+      $this->returnRedirectURL();
       exit;
     }
   }

@@ -49,6 +49,7 @@ class LoginManager
   //@spec (Username.t, Password.t) :: True.t | False.t
   public function create_session($username, $password)
   {
+    error_log("Username {$username} password {$password}");
     $q = Doctrine_Query::create()
       ->from("CfUser a")
       ->where("a.struserid = ? OR a.stremail = ?", array($username, $username))
@@ -106,6 +107,8 @@ class LoginManager
       //Save Audit Log
       $audit = new Audit();
       $audit->saveFullAudit("Failed login attempt", "", "cf_user", "username: " . $username, "");
+
+      return false;
     }
   }
 

@@ -196,8 +196,8 @@ class OTBHelper
     public function createCfUser($data)
     {
         $reviewer = new CfUser();
-        $reviewer->setStrLastName($data['first_name']);
-        $reviewer->setStrfirstname($data['last_name']);
+        $reviewer->setStrLastName($data['last_name']);
+        $reviewer->setStrfirstname($data['first_name']);
         $reviewer->setStremail($data['email']);
         $reviewer->setStruserid($data['username']);
         $reviewer->setStrpassword(password_hash($data['password'], PASSWORD_BCRYPT));

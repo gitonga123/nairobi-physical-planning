@@ -141,16 +141,17 @@ class OTBHelper
     {
         $q = Doctrine_Query::create()
             ->from('CfUser u')
-            ->where('u.stremail = ? and u.struserid =?', [$email, $username]);
+            ->where('u.stremail =? or u.struserid =?', [$email, $username]);
 
         return $q->fetchOne();
     }
 
     public function findDepartmentByName($department)
     {
+
         $q = Doctrine_Query::create()
             ->from("Department d")
-            ->where("d.department_name LIKE %{$department}% OR d.department_name LIKE %{$department}%")
+            ->where("d.department_name LIKE '%{$department}%'")
             ->orderBy('d.id desc');
 
         $department_found = $q->fetchOne();
@@ -168,10 +169,12 @@ class OTBHelper
 
     public function findGroupByName($group)
     {
+
         $q = Doctrine_Query::create()
-            ->from('mfGuardUserGroup g')
-            ->where("g.name LIKE %{$group}% OR g.name LIKE %{$group}%")
-            ->orderBy('g.id desc');
+            ->from('mfGuardUserGroup a')
+            ->leftJoin('a.MfGuardGroup m2')
+            ->where("m2.name LIKE' %{$group}%'")
+            ->orderBy('m2.id desc');
 
         $group_found = $q->fetchOne();
 
@@ -179,14 +182,13 @@ class OTBHelper
             $group = 'reviewer';
 
             $q = Doctrine_Query::create()
-                ->from('mfGuardUserGroup g')
-                ->where("g.name LIKE %{$group}%")
-                ->orderBy('g.id desc');
+                ->from('mfGuardUserGroup a')
+                ->leftJoin('a.MfGuardGroup m2')
+                ->where("m2.name LIKE '%{$group}%'")
+                ->orderBy('m2.id desc');
 
             $group_found = $q->fetchOne();
         }
-        var_dump('Heere we die');
-        var_dump($group_found);die;
 
         return $group_found;
     }
@@ -194,11 +196,11 @@ class OTBHelper
     public function createCfUser($data)
     {
         $reviewer = new CfUser();
-        $reviewer->setStrLastName($data['first_name']);
-        $reviewer->setStrfirstname($data['last_name']);
+        $reviewer->setStrLastName($data['last_name']);
+        $reviewer->setStrfirstname($data['first_name']);
         $reviewer->setStremail($data['email']);
         $reviewer->setStruserid($data['username']);
-        $reviewer->setStrpassword(password_hash("uasin_gishu_{$data['username']}_{$data['last_name']}", PASSWORD_BCRYPT));
+        $reviewer->setStrpassword(password_hash($data['password'], PASSWORD_BCRYPT));
 
         $reviewer->setStrphoneMain1($data['phone_number']);
         $reviewer->setStrdepartment($data['department']);
@@ -214,10 +216,17 @@ class OTBHelper
     {
         try {
             foreach ($groups as $group) {
-                $usergroup = new MfGuardUserGroup();
-                $usergroup->setUserId($reviewer_id);
-                $usergroup->setGroupId($group);
-                $usergroup->save();
+                error_log("Error groups ----> {$group->getGroupId()}");
+                $q = Doctrine_Query::Create()
+                    ->from('mfGuardUserGroup a')
+                    ->where('a.user_id = ? and a.group_id = ?', [$reviewer_id, $group->getGroupId()]);
+                $user_group_exists = $q->count();
+                if ($user_group_exists == 0) {
+                    $usergroup = new MfGuardUserGroup();
+                    $usergroup->setUserId($reviewer_id);
+                    $usergroup->setGroupId($group->getGroupId());
+                    $usergroup->save();
+                }
             }
 
             return true;

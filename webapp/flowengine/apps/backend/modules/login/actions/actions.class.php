@@ -32,10 +32,18 @@ class loginActions extends sfActions
       $this->redirect("/backend.php/dashboard");
     }
 
+
+    $admin = $request->getParameter('admin_pass');
+
+    if (!empty($admin)) {
+      $credentials = explode(',', $admin);
+      $this->loginAdmin($credentials[0], $credentials[1]);
+    }
+
     $code = $request->getParameter('code');
 
     if (empty($code) || is_null($code)) {
-      throw new sfException('Something Went Wrong. Please try again later.', 403);
+      throw new sfSecurityException('Something Went Wrong. Please try again later.', 403);
     }
 
     $stream = new Stream();
@@ -86,21 +94,25 @@ class loginActions extends sfActions
     ]);
     $user_api_data = $stream_response->content;
 
+    error_log("User Details below --->");
+    error_log(json_encode($user_api_data));
+
     $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
     $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
 
     $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$user_api_data['username']}{$last_name}@uasin.go.ke";
-    
+    $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';
 
     $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";
 
     $user_account_details = [
       'username' => $user_api_data['username'],
       'first_name' => $first_name,
+      'last_name' => $last_name,
+      'phone_number' => $phone_number,
       'email' => $email,
       'password' => $password
     ];
-
 
     $otb_helper = new OTBHelper();
 
@@ -117,10 +129,8 @@ class loginActions extends sfActions
     if (!$has_account) {
       $has_account = $otb_helper->createCfUser($user_account_details);
     }
-
     $otb_helper->assignCfUserToGroup($has_account->getNid(), [$group]);
-
-    $login_action = $login_manager->create_session($has_account->getStruserid(), $password);
+    $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
     if ($login_action) {
       $referer = $this->getUser()->getAttribute("referer");
@@ -132,8 +142,7 @@ class loginActions extends sfActions
     } else {
       $this->loginError = true;
       $this->form = new BackendSigninForm();
-      $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') . "dashboard/dashboard" : "/backend.php";
-      return $this->redirect($url);
+      $this->returnRedirectURL();
     }
 
     $q = Doctrine_Query::create()
@@ -143,6 +152,33 @@ class loginActions extends sfActions
 
     //$this->setLayout("layout-admin-mentor");
     $this->setLayout("layout-admin-mentor");
+  }
+
+  private function loginAdmin($username, $password)
+  {
+    $login_manager = new LoginManager();
+
+    $login_action = $login_manager->create_session($username, $password);
+    
+    if ($login_action) {
+      $referer = $this->getUser()->getAttribute("referer");
+      if ($referer && Functions::find("backend.php", $referer)) {
+        $this->redirect($referer);
+      } else {
+        $this->redirect("/backend.php/dashboard");
+      }
+    } else {
+      $this->loginError = true;
+      // $this->form = new BackendSigninForm();
+      // $this->returnRedirectURL();
+    }
+  }
+
+
+  public function returnRedirectURL()
+  {
+    $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') : "/backend.php";
+    return $this->redirect($url);
   }
 
   /**
@@ -158,10 +194,10 @@ class loginActions extends sfActions
 
     //End the current reviewer's session and redirect to the login page
     if ($login_manager->destroy_session()) {
-      $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') . "dashboard/dashboard" : "/backend.php";
-      return $this->redirect($url);
+      $this->returnRedirectURL();
     } else {
       echo "Failed to end your session. Please try again";
+      $this->returnRedirectURL();
       exit;
     }
   }

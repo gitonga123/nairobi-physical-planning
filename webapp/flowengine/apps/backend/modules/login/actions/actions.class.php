@@ -29,6 +29,7 @@ class loginActions extends sfActions
 
     //Check if current reviewer is already logged in and redirect
     if ($login_manager->validate_session()) {
+      error_log("This user has a session already?");
       $this->redirect("/plan/dashboard");
     }
 

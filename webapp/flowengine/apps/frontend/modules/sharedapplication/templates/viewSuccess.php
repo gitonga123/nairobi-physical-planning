@@ -24,7 +24,7 @@ require($prefix_folder . 'includes/users-functions.php');
 
 function GetDays($sStartDate, $sEndDate)
 {
-	$aDays[] = $start_date;
+	$aDays[] = $sStartDate;
 	$start_date = $sStartDate;
 	$end_date = $sEndDate;
 	$current_date = $start_date;
@@ -555,19 +555,19 @@ EOT;
 		<div class="panel panel-dark widget-btns">
 			<div class="panel-heading">
 				<h3 class="panel-title"> <?php echo $application->getApplicationId(); ?> <span><?php
-					 if ($application->getApproved() == "0") {
-						 //Draft
-					 } else {
-						 $q = Doctrine_Query::create()
-						 	->from('SubMenus a')
-						 	->where('a.id = ?', $application->getApproved());
-						 $submenu = $q->fetchOne();
-						 if ($submenu) {
-							 echo "</h3>";
-							 echo "<p class=\"text-muted\">" . $submenu->getTitle() . "</p>";
-						 }
-					 }
-					 ?>
+					if ($application->getApproved() == "0") {
+						//Draft
+					} else {
+						$q = Doctrine_Query::create()
+							->from('SubMenus a')
+							->where('a.id = ?', $application->getApproved());
+						$submenu = $q->fetchOne();
+						if ($submenu) {
+							echo "</h3>";
+							echo "<p class=\"text-muted\">" . $submenu->getTitle() . "</p>";
+						}
+					}
+					?>
 
 						<div class="panel-btns">
 							<div class="pull-right">
@@ -920,314 +920,314 @@ EOT;
 						<?php include_partial('application/application_comments', array('application' => $application, 'form_id' => $form_id, 'entry_id' => $entry_id)); ?>
 						<?php
 						/*$comment_count = 0;
-											 $q = Doctrine_Query::create()
-												->from('CfFormslot a');
-											 $slots = $q->execute();
-											 foreach($slots as $slot)
-											 {
-															 $q = Doctrine_Query::create()
-																->from('Comments a')
-																->where('a.circulation_id = ?', $application->getCirculationId())
-																->andWhere('a.slot_id = ?', $slot->getNid());
-															 $comments = $q->execute();
-															 if(sizeof($comments) > 0)
-															 {
-																 $comment_count++;
-																 $COM_COUNT++;
-															 }
-											 }
-
-											 $q = Doctrine_Query::create()
-												->from('ApprovalCondition a')
-												->where('a.entry_id = ?', $application->getId());
-											 $conditions = $q->execute();
-											 if(sizeof($conditions) > 0)
-											 {
-												 $conditions_count++;
-																 $COM_COUNT++;
-											 }
-
-											 $comment_count = 0;
-											 $q = Doctrine_Query::create()
-												->from('CfFormslot a');
-											 $slots = $q->execute();
-											 foreach($slots as $slot)
-											 {
-															 $q = Doctrine_Query::create()
-																->from('Conditions a')
-																->where('a.circulation_id = ?', $application->getCirculationId())
-																->andWhere('a.slot_id = ?', $slot->getNid());
-															 $conditions = $q->execute();
-															 if(sizeof($conditions) > 0)
-															 {
-																 $conditions_count++;
-																 $COM_COUNT++;
-															 }
-											 }
-
-											 if($application->getCirculationId())
-											 {
-												 $COM_COUNT++;
-											 }
-
-											 if($COM_COUNT > 0)
-											 {
-									 ?>
-									 <?php
-											 }
-										 ?>
-
-						 <?php
-						 {
-							 $q = Doctrine_Query::create()
-								  ->from('EntryDecline a')
-								  ->where('a.entry_id = ?', $application->getId())
-								  ->andWhere('a.resolved = ?', '0');
-							 $declines = $q->execute();
-							 if(sizeof($declines) > 0)
-							 {
-								 ?>
-								 <table class="table">
-								  <thead>
-									 <th colspan="6" style="background:#d8dbde;">
-									 Previous Reasons for Decline
-									 </th>
-								  </thead>
-								 <tbody>
-								 <?php
-										 foreach($declines as $decline)
-										 {
-											 ?>
-											 <tr>
-												 <td colspan="2"><?php echo "<li> ".$decline->getDescription()."</li>"; ?></td>
-											   </tr>
-											 <?php
-										 }
-								 ?>
-										 </tbody>
-									 </table>
-								 <?php
-							 }
-						 }
-						 ?>
-											 <?php
-										 if($COM_COUNT > 0)
-										 {
-										 ?>
-										 <table class="table">
-										  <thead>
-									 <th colspan="6" style="background:#d8dbde;">
-									 Comments Summary
-									 </th>
-										  </thead>
-										 <tbody>
-										 <?php
-											 $comment_count = 0;
-											 $q = Doctrine_Query::create()
-												->from('CfFormslot a');
-											 $slots = $q->execute();
-											 foreach($slots as $slot)
-											 {
-
-												 //Check if comments are hidden for this stage of approval/submenu
-												 if($submenu && $submenu->getHideComments() == "1")
-												 {
-													 break;
-												 }
-															 $q = Doctrine_Query::create()
-																->from('Comments a')
-																->where('a.circulation_id = ?', $application->getCirculationId())
-																->andWhere('a.slot_id = ?', $slot->getNid());
-															 $comments = $q->execute();
-															 if(sizeof($comments) > 0)
-															 {
-																 $comment_count++;
-															 ?>
-																  <tr>
-																	 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h5><?php echo $slot->getStrname(); ?></h5></td>
-																   </tr>
-																		 <?php
-																		 foreach($comments as $comment)
-																		 {
 																				 $q = Doctrine_Query::create()
-																					->from('CfInputfield a')
-																					->where('a.nid = ?', $comment->getFieldId());
-																				 $field = $q->fetchOne();
+																					->from('CfFormslot a');
+																				 $slots = $q->execute();
+																				 foreach($slots as $slot)
+																				 {
+																								 $q = Doctrine_Query::create()
+																									->from('Comments a')
+																									->where('a.circulation_id = ?', $application->getCirculationId())
+																									->andWhere('a.slot_id = ?', $slot->getNid());
+																								 $comments = $q->execute();
+																								 if(sizeof($comments) > 0)
+																								 {
+																									 $comment_count++;
+																									 $COM_COUNT++;
+																								 }
+																				 }
+
+																				 $q = Doctrine_Query::create()
+																					->from('ApprovalCondition a')
+																					->where('a.entry_id = ?', $application->getId());
+																				 $conditions = $q->execute();
+																				 if(sizeof($conditions) > 0)
+																				 {
+																					 $conditions_count++;
+																									 $COM_COUNT++;
+																				 }
+
+																				 $comment_count = 0;
+																				 $q = Doctrine_Query::create()
+																					->from('CfFormslot a');
+																				 $slots = $q->execute();
+																				 foreach($slots as $slot)
+																				 {
+																								 $q = Doctrine_Query::create()
+																									->from('Conditions a')
+																									->where('a.circulation_id = ?', $application->getCirculationId())
+																									->andWhere('a.slot_id = ?', $slot->getNid());
+																								 $conditions = $q->execute();
+																								 if(sizeof($conditions) > 0)
+																								 {
+																									 $conditions_count++;
+																									 $COM_COUNT++;
+																								 }
+																				 }
+
+																				 if($application->getCirculationId())
+																				 {
+																					 $COM_COUNT++;
+																				 }
+
+																				 if($COM_COUNT > 0)
+																				 {
+																		 ?>
+																		 <?php
+																				 }
+																			 ?>
+
+															 <?php
+															 {
+																 $q = Doctrine_Query::create()
+																	  ->from('EntryDecline a')
+																	  ->where('a.entry_id = ?', $application->getId())
+																	  ->andWhere('a.resolved = ?', '0');
+																 $declines = $q->execute();
+																 if(sizeof($declines) > 0)
+																 {
+																	 ?>
+																	 <table class="table">
+																	  <thead>
+																		 <th colspan="6" style="background:#d8dbde;">
+																		 Previous Reasons for Decline
+																		 </th>
+																	  </thead>
+																	 <tbody>
+																	 <?php
+																			 foreach($declines as $decline)
+																			 {
 																				 ?>
-																				   <tr>
-																					 <td><strong><?php echo $field->getStrname(); ?>:</strong></td>
-																					 <td><?php echo $comment->getComment(); ?></td>
+																				 <tr>
+																					 <td colspan="2"><?php echo "<li> ".$decline->getDescription()."</li>"; ?></td>
 																				   </tr>
 																				 <?php
+																			 }
+																	 ?>
+																			 </tbody>
+																		 </table>
+																	 <?php
+																 }
+															 }
+															 ?>
+																				 <?php
+																			 if($COM_COUNT > 0)
+																			 {
+																			 ?>
+																			 <table class="table">
+																			  <thead>
+																		 <th colspan="6" style="background:#d8dbde;">
+																		 Comments Summary
+																		 </th>
+																			  </thead>
+																			 <tbody>
+																			 <?php
+																				 $comment_count = 0;
+																				 $q = Doctrine_Query::create()
+																					->from('CfFormslot a');
+																				 $slots = $q->execute();
+																				 foreach($slots as $slot)
+																				 {
+
+																					 //Check if comments are hidden for this stage of approval/submenu
+																					 if($submenu && $submenu->getHideComments() == "1")
+																					 {
+																						 break;
+																					 }
+																								 $q = Doctrine_Query::create()
+																									->from('Comments a')
+																									->where('a.circulation_id = ?', $application->getCirculationId())
+																									->andWhere('a.slot_id = ?', $slot->getNid());
+																								 $comments = $q->execute();
+																								 if(sizeof($comments) > 0)
+																								 {
+																									 $comment_count++;
+																								 ?>
+																									  <tr>
+																										 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h5><?php echo $slot->getStrname(); ?></h5></td>
+																									   </tr>
+																											 <?php
+																											 foreach($comments as $comment)
+																											 {
+																													 $q = Doctrine_Query::create()
+																														->from('CfInputfield a')
+																														->where('a.nid = ?', $comment->getFieldId());
+																													 $field = $q->fetchOne();
+																													 ?>
+																													   <tr>
+																														 <td><strong><?php echo $field->getStrname(); ?>:</strong></td>
+																														 <td><?php echo $comment->getComment(); ?></td>
+																													   </tr>
+																													 <?php
+																											 }
+																											 ?>
+																								 <?php
+																								 }
+																				 }
+																			 ?>
+
+																			 <?php
+																				 if($comment_count <= 0)
+																				 {
+																					 ?>
+																					   <tr>
+																						 <td colspan="2">No Comments</td>
+																					   </tr>
+																					 <?php
+																				 }
+																			 ?>
+																		 <?php
+																			 $COM_COUNT++;
 																		 }
 																		 ?>
-															 <?php
-															 }
-											 }
-										 ?>
 
-										 <?php
-											 if($comment_count <= 0)
-											 {
-												 ?>
-												   <tr>
-													 <td colspan="2">No Comments</td>
-												   </tr>
-												 <?php
-											 }
-										 ?>
-									 <?php
-										 $COM_COUNT++;
-									 }
-									 ?>
+																		 <?php
+																			 $q = Doctrine_Query::create()
+																				->from('ApprovalCondition a')
+																				->where('a.entry_id = ?', $application->getId());
+																			 $conditions = $q->execute();
+																			 if(sizeof($conditions) > 0)
+																			 {
+																				 $conditions_count++;
+																			 }
 
-									 <?php
-										 $q = Doctrine_Query::create()
-											->from('ApprovalCondition a')
-											->where('a.entry_id = ?', $application->getId());
-										 $conditions = $q->execute();
-										 if(sizeof($conditions) > 0)
-										 {
-											 $conditions_count++;
-										 }
+																			 if($conditions_count > 0)
+																			 {
+																			 ?>
 
-										 if($conditions_count > 0)
-										 {
-										 ?>
-
-									  <tr>
-										 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h3>Conditions Of Approval Summary</h3></td>
-									   </tr>
-										 <?php
-										 $q = Doctrine_Query::create()
-											->from('ApprovalCondition a')
-											->where('a.entry_id = ?', $application->getId());
-										 $conditions = $q->execute();
-										 if(sizeof($conditions) > 0)
-										 {
-											 $conditions_count++;
-										 ?>
-													 <?php
-													 foreach($conditions as $condition)
-													 {
-															 $q = Doctrine_Query::create()
-																->from('ConditionsOfApproval a')
-																->where('a.id = ?', $condition->getConditionId());
-															 $condition = $q->fetchOne();
-															 if($condition){
-																		 ?>
-																		   <tr>
-																			 <td><strong><?php echo $condition->getShortName(); ?>:</strong></td>
-																			 <td><?php echo $condition->getDescription(); ?></td>
+																		  <tr>
+																			 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h3>Conditions Of Approval Summary</h3></td>
 																		   </tr>
+																			 <?php
+																			 $q = Doctrine_Query::create()
+																				->from('ApprovalCondition a')
+																				->where('a.entry_id = ?', $application->getId());
+																			 $conditions = $q->execute();
+																			 if(sizeof($conditions) > 0)
+																			 {
+																				 $conditions_count++;
+																			 ?>
+																						 <?php
+																						 foreach($conditions as $condition)
+																						 {
+																								 $q = Doctrine_Query::create()
+																									->from('ConditionsOfApproval a')
+																									->where('a.id = ?', $condition->getConditionId());
+																								 $condition = $q->fetchOne();
+																								 if($condition){
+																											 ?>
+																											   <tr>
+																												 <td><strong><?php echo $condition->getShortName(); ?>:</strong></td>
+																												 <td><?php echo $condition->getDescription(); ?></td>
+																											   </tr>
+																											 <?php
+																								 }
+																						 }
+																						 ?>
+																			 <?php
+																			 }
+																			 ?>
+
+																			 <?php
+																				 if($conditions_count <= 0)
+																				 {
+																					 ?>
+																					 <tr>
+																						 <td colspan="2">No Conditions</td>
+																					 </tr>
+																					 <?php
+																				 }
+																			 ?>
 																		 <?php
-															 }
-													 }
-													 ?>
-										 <?php
-										 }
-										 ?>
-
-										 <?php
-											 if($conditions_count <= 0)
-											 {
-												 ?>
-												 <tr>
-													 <td colspan="2">No Conditions</td>
-												 </tr>
-												 <?php
-											 }
-										 ?>
-									 <?php
-										 $COM_COUNT++;
-									 }
-									 ?>
-
-
-									 <?php
-											 $comment_count = 0;
-											 $q = Doctrine_Query::create()
-												->from('CfFormslot a');
-											 $slots = $q->execute();
-											 foreach($slots as $slot)
-											 {
-															 $q = Doctrine_Query::create()
-																->from('Conditions a')
-																->where('a.circulation_id = ?', $application->getCirculationId())
-																->andWhere('a.slot_id = ?', $slot->getNid());
-															 $conditions = $q->execute();
-															 if(sizeof($conditions) > 0)
-															 {
-																 $conditions_count++;
-															 }
-											 }
-
-											 if($conditions_count > 0)
-											 {
-										 ?>
-
-
-
-									 <tr>
-										 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h3>Subject To Summary</h3></td>
-									   </tr>
-										 <?php
-											 $comment_count = 0;
-											 $q = Doctrine_Query::create()
-												->from('CfFormslot a');
-											 $slots = $q->execute();
-											 foreach($slots as $slot)
-											 {
-															 $q = Doctrine_Query::create()
-																->from('Conditions a')
-																->where('a.circulation_id = ?', $application->getCirculationId())
-																->andWhere('a.slot_id = ?', $slot->getNid());
-															 $conditions = $q->execute();
-															 if(sizeof($conditions) > 0)
-															 {
-																 $conditions_count++;
-															 ?>
-																	 <tr>
-																		 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h5><?php echo $slot->getStrname(); ?></h5></td>
-																	   </tr>
-																		 <?php
-																		 foreach($conditions as $condition)
-																		 {
-																				 $q = Doctrine_Query::create()
-																					->from('CfInputfield a')
-																					->where('a.nid = ?', $condition->getFieldId());
-																				 $field = $q->fetchOne();
-																				 ?>
-																				   <tr>
-																					 <td><strong><?php echo $field->getStrname(); ?>:</strong></td>
-																					 <td><?php echo $condition->getConditionText(); ?></td>
-																				   </tr>
-																				 <?php
+																			 $COM_COUNT++;
 																		 }
 																		 ?>
-															 <?php
-															 }
-											 }
-										 ?>
 
-										 <?php
-											 if($conditions_count <= 0)
-											 {
-												 ?>
-												 <tr>
-													 <td colspan="2">No Additional Conditions</td>
-												 </tr>
-												 <?php
-											 }
-										 ?>
 
-									 <?php
-										 $COM_COUNT++;
-									 }
-									 ?>
-										 </tbody>
-									 </table>
-									 */ ?>
+																		 <?php
+																				 $comment_count = 0;
+																				 $q = Doctrine_Query::create()
+																					->from('CfFormslot a');
+																				 $slots = $q->execute();
+																				 foreach($slots as $slot)
+																				 {
+																								 $q = Doctrine_Query::create()
+																									->from('Conditions a')
+																									->where('a.circulation_id = ?', $application->getCirculationId())
+																									->andWhere('a.slot_id = ?', $slot->getNid());
+																								 $conditions = $q->execute();
+																								 if(sizeof($conditions) > 0)
+																								 {
+																									 $conditions_count++;
+																								 }
+																				 }
+
+																				 if($conditions_count > 0)
+																				 {
+																			 ?>
+
+
+
+																		 <tr>
+																			 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h3>Subject To Summary</h3></td>
+																		   </tr>
+																			 <?php
+																				 $comment_count = 0;
+																				 $q = Doctrine_Query::create()
+																					->from('CfFormslot a');
+																				 $slots = $q->execute();
+																				 foreach($slots as $slot)
+																				 {
+																								 $q = Doctrine_Query::create()
+																									->from('Conditions a')
+																									->where('a.circulation_id = ?', $application->getCirculationId())
+																									->andWhere('a.slot_id = ?', $slot->getNid());
+																								 $conditions = $q->execute();
+																								 if(sizeof($conditions) > 0)
+																								 {
+																									 $conditions_count++;
+																								 ?>
+																										 <tr>
+																											 <td style="background:#eeeeee; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;"  colspan="2"><h5><?php echo $slot->getStrname(); ?></h5></td>
+																										   </tr>
+																											 <?php
+																											 foreach($conditions as $condition)
+																											 {
+																													 $q = Doctrine_Query::create()
+																														->from('CfInputfield a')
+																														->where('a.nid = ?', $condition->getFieldId());
+																													 $field = $q->fetchOne();
+																													 ?>
+																													   <tr>
+																														 <td><strong><?php echo $field->getStrname(); ?>:</strong></td>
+																														 <td><?php echo $condition->getConditionText(); ?></td>
+																													   </tr>
+																													 <?php
+																											 }
+																											 ?>
+																								 <?php
+																								 }
+																				 }
+																			 ?>
+
+																			 <?php
+																				 if($conditions_count <= 0)
+																				 {
+																					 ?>
+																					 <tr>
+																						 <td colspan="2">No Additional Conditions</td>
+																					 </tr>
+																					 <?php
+																				 }
+																			 ?>
+
+																		 <?php
+																			 $COM_COUNT++;
+																		 }
+																		 ?>
+																			 </tbody>
+																		 </table>
+																		 */ ?>
 					</div>
 					<?php
 					if (sizeof($application->getMfInvoice()) > 0) {
@@ -1372,8 +1372,12 @@ EOT;
 													?>
 
 													<div class="text-right btn-invoice" style="padding-right: 10px;">
-														<?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { ?>
-															<a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $invoice->getReceiptNumber(); ?>/Physical_Planning/"
+														<?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
+															$receipt_id = json_decode($invoice->getReceiptNumber(), true);
+															$receipt_number = $receipt_id[0];
+															?>
+															<a title="Download Receipt"
+																href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $receipt_number; ?>/Physical_Planning/"
 																class="btn btn-primary"><i class="fas fa-file-download"></i>
 																<?php echo __(" Receipt");
 																?>

@@ -167,7 +167,7 @@ class OTBHelper
         return $department_found;
     }
 
-    public function findGroupByName($group)
+    public function findGroupByName($group, $force_check = false)
     {
 
         $q = Doctrine_Query::create()
@@ -178,7 +178,7 @@ class OTBHelper
 
         $group_found = $q->fetchOne();
 
-        if (!$group_found) {
+        if (!$group_found && $force_check) {
             $group = 'reviewer';
 
             $q = Doctrine_Query::create()

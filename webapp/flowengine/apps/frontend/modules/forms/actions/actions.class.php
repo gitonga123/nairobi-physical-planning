@@ -35,6 +35,8 @@ class formsActions extends sfActions
 
             if (empty($this->cache->get($this->key))) {
                   $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2ODgzLCJpc19hY3RpdmUiOnRydWUsInVzZXJuYW1lIjoiMjU0NzEwNTk0Mjk4IiwiZmlyc3RfbmFtZSI6IkRhbmllbCIsImxhc3RfbmFtZSI6Ik1VVFdJUkkiLCJleHAiOjE3MjE3NDIwNDMsInBlcm1pc3Npb25zIjp7ImFjY2Vzc19zZWxmX3NlcnZpY2VfcG9ydGFsIjp0cnVlLCJjcmVhdGVfYmlsbCI6dHJ1ZSwicmVnaXN0ZXJfYnVzaW5lc3MiOnRydWUsInJlcXVlc3RfaW5zcGVjdGlvbiI6dHJ1ZSwicmVxdWVzdF9saWNlbnNlIjp0cnVlLCJsb2dfcGF5bWVudCI6dHJ1ZSwiYWNjZXNzX2FkbWluIjpmYWxzZSwidmlld19kYXNoYm9hcmQiOmZhbHNlfSwicm9sZXMiOlsiY2l0aXplbiJdLCJyZXZlbnVlX3N0cmVhbV9yb2xlcyI6e30sImN1c3RvbWVyIjoiNjUzNGFjN2MtNDViZC00MmU5LTlmOWQtN2RjMTA0MzVhMWQ1IiwiaWRfbm8iOiIzMDExNTgzNSIsInN1Yl9jb3VudGllcyI6W10sImVtYWlsIjoibXV0d2lyaWRhbmllbHNjaUBnbWFpbC5jb20iLCJwaG9uZSI6IjI1NDcxMDU5NDI5OCJ9.DBZ3IgiuUwZRhesRIRfkIojZu6bnnNBCfZTzBEdRa7k";
+
+                  $_SESSION['jambo_backup_token'] = $token;
                   $this->cache->set($this->key, $token, 3600);
             }
 
@@ -492,7 +494,7 @@ class formsActions extends sfActions
 
                         $invoice->setPaid(2);
                         if (array_key_exists('receipt_number', $response)) {
-                              $invoice->setReceiptNumber($response['receipt_number']);
+                              $invoice->setReceiptNumber(json_encode($response['receipt_number']));
                         }
 
                         $invoice->save();

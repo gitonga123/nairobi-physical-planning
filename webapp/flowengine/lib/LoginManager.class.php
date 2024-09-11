@@ -52,7 +52,7 @@ class LoginManager
     error_log("Username {$username} password {$password}");
     $q = Doctrine_Query::create()
       ->from("CfUser a")
-      ->where("a.struserid = ? OR a.stremail = ?", array($username, $username))
+      ->where("a.struserid = ? OR a.stremail = ?", [$username, $username])
       ->andWhere('a.bdeleted = ?', 0);
     $available_user = $q->fetchOne();
     
@@ -61,9 +61,6 @@ class LoginManager
       if (password_verify($password, $hash)) {
         if (password_needs_rehash($hash, PASSWORD_BCRYPT, $options = array())) {
           $hash = password_hash($password, PASSWORD_BCRYPT, $options = array());
-          /* Store new hash in db */
-          //$available_user->setStrpassword($hash);
-          //$available_user->save();
         }
 
         sfContext::getInstance()->getUser()->setAttribute('backend', true);

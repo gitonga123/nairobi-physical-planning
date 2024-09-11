@@ -122,14 +122,29 @@ class loginActions extends sfActions
     $user_account_details['department'] = $department;
 
 
-    $group = $otb_helper->findGroupByName('basic_reviewer');
+
 
     $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
 
     if (!$has_account) {
       $has_account = $otb_helper->createCfUser($user_account_details);
     }
-    $otb_helper->assignCfUserToGroup($has_account->getNid(), [$group]);
+
+    $groups_as_received = !empty($user_api_data['groups']) ? $user_api_data['groups'] : [];
+
+    $group = $otb_helper->findGroupByName('reviewer', true);
+
+    $group_list = [$group];
+
+    foreach ($groups_as_received as $key) {
+      $found_group = $otb_helper->findGroupByName($keyu);
+
+      if ($found_group) {
+        array_push($group_list, $group);
+      }
+    }
+
+    $otb_helper->assignCfUserToGroup($has_account->getNid(), $group_list);
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
     if ($login_action) {
@@ -159,7 +174,7 @@ class loginActions extends sfActions
     $login_manager = new LoginManager();
 
     $login_action = $login_manager->create_session($username, $password);
-    
+
     if ($login_action) {
       $referer = $this->getUser()->getAttribute("referer");
       if ($referer && Functions::find("backend.php", $referer)) {

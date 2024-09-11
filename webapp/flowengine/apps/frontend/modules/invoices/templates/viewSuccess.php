@@ -69,8 +69,12 @@ $invoice_manager->update_invoices($application->getId());
                                     <i class="fa fa-print me-2"></i> <?php echo __('Print Invoice'); ?>
                                 </button>
                             <?php } ?>
-                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { ?>
-                                <a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $invoice->getReceiptNumber(); ?>/Physical_Planning/"
+                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
+                                $receipt_id = json_decode($invoice->getReceiptNumber(), true);
+                                $receipt_number = $receipt_id[0];
+                                ?>
+                                <a title="Download Receipt"
+                                    href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $receipt_number; ?>/Physical_Planning/"
                                     class="btn btn-primary"><i class="fas fa-file-download"></i>
                                     <?php echo __(" Receipt");
                                     ?>

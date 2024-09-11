@@ -33,7 +33,7 @@ class applicationsActions extends sfActions
 			$this->forward404Unless($application, sprintf('Application id %s does not exist!', $application));
 			if ($sub_menu) {
 				switch ($sub_menu->getStageType()) {
-						//correction
+					//correction
 					case 5:
 						$this->redirect('/backend.php/forms/decline?moveto=' . $stage . '&form_entry_id=' . $application->getId());
 						break;
@@ -79,11 +79,11 @@ class applicationsActions extends sfActions
 			}
 
 			/*if($task_id){// Patch - Null ref check
-			$task_manager = new TasksManager();
-			$task_manager->cancelTask($task_id) ;
-			//Need to execute cancel tasks if an application moves
-			Audit::audit("", "Moved application #".$request->getParameter('id')." To stage ".$request->getParameter("stage"));
-			}*/
+									   $task_manager = new TasksManager();
+									   $task_manager->cancelTask($task_id) ;
+									   //Need to execute cancel tasks if an application moves
+									   Audit::audit("", "Moved application #".$request->getParameter('id')." To stage ".$request->getParameter("stage"));
+									   }*/
 		}
 
 		$this->redirect("/backend.php/applications/view/id/" . $application->getId());
@@ -104,11 +104,11 @@ class applicationsActions extends sfActions
 		if ($this->application->getApproved() != 0) {
 			$this->forward404Unless($agency_manager->checkAgencyApplicationAccess($this->getUser()->getAttribute('userid'), $request->getParameter('id')), 'No agency access for user ' . $this->getUser()->getAttribute('userid'));
 		}
-		
+
 		if ($this->application->getDeletedStatus() == 1) {
 			$this->forward404Unless($this->application->getDeletedStatus() != 1, 'Application is Archived/Deleted' . $this->getUser()->getAttribute('userid'));
 		}
-		
+
 		$q = Doctrine_Query::create()
 			->from("EntryDecline a")
 			->where("a.entry_id = ?", $this->application->getId());
@@ -784,6 +784,13 @@ class applicationsActions extends sfActions
 	{
 		$notification = new mailnotifications();
 		$notification->sendemail('', 'george@africa.com', 'Test', 'Test of mail sending');
+		exit();
+	}
+
+	public function executeSMStest(sfWebRequest $request)
+	{
+		$notification = new mailnotifications();
+		$notification->sendsms('254710594298', 'Hi Daniel, Testing 1,2,3');
 		exit();
 	}
 	########### Sasalog :: end addition by James

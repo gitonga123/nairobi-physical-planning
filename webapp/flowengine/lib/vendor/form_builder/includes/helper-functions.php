@@ -2092,7 +2092,7 @@ function mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_n
 							
 						}
 						if (field == 'plot_width') {
-							let value = details?.width;
+							let value = details?.lr_number;
 							$("#" + element_to_autofill[field]).val(value);
 							
 						}

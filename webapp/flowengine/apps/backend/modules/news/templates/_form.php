@@ -1,7 +1,7 @@
 <?php
 	use_helper("I18N");
 ?>
-<form  action="/backend.php/news/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
+<form  action="/plan/news/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
 
   <?php if (!$form->getObject()->isNew()): ?>
   <input type="hidden" name="sf_method" value="put" />
@@ -18,7 +18,7 @@
     </div>
 
 		<div class="panel-heading text-right">
-					<a class="btn btn-primary" id="newpage" href="/backend.php/news/index" ><?php echo __('Back to List'); ?></a>
+					<a class="btn btn-primary" id="newpage" href="/plan/news/index" ><?php echo __('Back to List'); ?></a>
 		</div>
 
 

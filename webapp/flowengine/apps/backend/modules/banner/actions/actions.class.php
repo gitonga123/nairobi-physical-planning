@@ -109,7 +109,7 @@ class bannerActions extends sfActions
     {
       $banner = $form->save();
 
-      $this->redirect('/backend.php/banner/index');
+      $this->redirect('/plan/banner/index');
     }
   }
 
@@ -126,7 +126,7 @@ class bannerActions extends sfActions
 
     $banner->delete();
 
-    $this->redirect('/backend.php/banner/index');
+    $this->redirect('/plan/banner/index');
   }
 
 }

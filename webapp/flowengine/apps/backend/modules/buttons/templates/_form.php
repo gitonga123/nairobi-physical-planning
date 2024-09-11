@@ -5,7 +5,7 @@ use_helper("I18N");
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-<form id="actionform"  class="form-bordered" action="<?php echo url_for('/backend.php/buttons/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form id="actionform"  class="form-bordered" action="<?php echo url_for('/plan/buttons/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -52,10 +52,10 @@ use_helper("I18N");
 		  //View Permit
 		  ?>
           <option value="0"><?php echo __('None'); ?></option>
-          <option value="/backend.php/forms/move?"><?php echo __('Move to another stage'); ?></option>
-          <option value="/backend.php/forms/decline?"><?php echo __('Back to Client'); ?></option>
-          <option value="/backend.php/forms/reject?"><?php echo __('Reject'); ?></option>
-          <option value="/backend.php/forms/approve?"><?php echo __('Approve'); ?></option>
+          <option value="/plan/forms/move?"><?php echo __('Move to another stage'); ?></option>
+          <option value="/plan/forms/decline?"><?php echo __('Back to Client'); ?></option>
+          <option value="/plan/forms/reject?"><?php echo __('Reject'); ?></option>
+          <option value="/plan/forms/approve?"><?php echo __('Approve'); ?></option>
           </select> 
 
 
@@ -160,14 +160,14 @@ use_helper("I18N");
 
 	$("#submitbuttonname").click(function() {
 		 $.ajax({
-			url: '<?php echo url_for('/backend.php/buttons/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
+			url: '<?php echo url_for('/plan/buttons/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
 			cache: false,
 			type: 'POST',
 			data : $('#actionform').serialize(),
 			success: function(json) {
 				$('#alertdiv').attr("style", "display: block;");
 				$("html, body").animate({ scrollTop: 0 }, "slow");
-				$("#loadinner").load("/backend.php/buttons/index/filter/<?php echo $filter; ?>");
+				$("#loadinner").load("/plan/buttons/index/filter/<?php echo $filter; ?>");
 			}
 		});
 		return false;

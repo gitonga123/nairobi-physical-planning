@@ -52,7 +52,7 @@ class dashboardActions extends sfActions
             $current_reviewer = Functions::current_user();
 
             if ($current_reviewer == null) {
-                $this->redirect("/backend.php/login/logout");
+                $this->redirect("/plan/login/logout");
             }
 
             $this->logged_user = $current_reviewer;
@@ -432,7 +432,7 @@ class dashboardActions extends sfActions
             $user->setUserdefined2Value($params['struserdefined2_value']);
             $user->save();
 
-            $this->redirect('/backend.php/dashboard');
+            $this->redirect('/plan/dashboard');
         }
     }
     private function _entiresQuery($cols = null, $request = null, $app_list = [])

@@ -62,7 +62,7 @@ $memos = $q->execute();
 $(function(){
 	$('#memo_form').submit(function(e){
 		$.ajax({
-			url: "<?php echo url_for('/backend.php/tasks/messaging') ?>",
+			url: "<?php echo url_for('/plan/tasks/messaging') ?>",
 			data: $(this).serialize(),
 			type: "POST",
 			dataType: "json",

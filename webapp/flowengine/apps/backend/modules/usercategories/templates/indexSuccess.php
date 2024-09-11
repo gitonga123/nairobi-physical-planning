@@ -13,7 +13,7 @@ if($sf_user->mfHasCredential("managecategories"))
 
 
         <div class="panel-heading">
-                <a class="btn btn-primary" id="newpage" href="/backend.php/usercategories/new" ><?php echo __('New Category'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/plan/usercategories/new" ><?php echo __('New Category'); ?></a>
         </div>
 
         <div class="panel-body">
@@ -34,8 +34,8 @@ if($sf_user->mfHasCredential("managecategories"))
                         <td><?php echo $category->getName();  ?></td>
                         <td><?php echo $category->getDescription();  ?></td>
                         <td align="center">
-                            <a id="editpage<?php echo $category->getId(); ?>" href="/backend.php/usercategories/edit/id/<?php echo $category->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $category->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/usercategories/delete/id/<?php echo $category->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $category->getId(); ?>" href="/plan/usercategories/edit/id/<?php echo $category->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $category->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/usercategories/delete/id/<?php echo $category->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

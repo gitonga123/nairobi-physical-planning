@@ -69,7 +69,7 @@ class membersdatabaseActions extends sfActions
 
     $record->delete();
 
-    $this->redirect('/backend.php/membersdatabase');
+    $this->redirect('/plan/membersdatabase');
   }
 
   public function executeValidate(sfWebRequest $request)
@@ -82,7 +82,7 @@ class membersdatabaseActions extends sfActions
 
     $record->setValidate(null)->save();
 
-    $this->redirect('/backend.php/membersdatabase');
+    $this->redirect('/plan/membersdatabase');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -93,9 +93,9 @@ class membersdatabaseActions extends sfActions
       $record = $form->save();
 
       $audit = new Audit();
-      $audit->saveAudit("", "<a href=\"/backend.php/membersdatabase/edit?id=".$record->getId()."&language=en\">updated a user association validation record (MembersDatabase)</a>");
+      $audit->saveAudit("", "<a href=\"/plan/membersdatabase/edit?id=".$record->getId()."&language=en\">updated a user association validation record (MembersDatabase)</a>");
 
-      $this->redirect('/backend.php/membersdatabase');
+      $this->redirect('/plan/membersdatabase');
     }
   }
 }

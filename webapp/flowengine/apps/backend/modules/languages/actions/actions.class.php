@@ -110,7 +110,7 @@ class languagesActions extends sfActions
             {
                   $language = $form->save();
 
-                  $this->redirect('/backend.php/languages/index');
+                  $this->redirect('/plan/languages/index');
             }
       }
 
@@ -127,7 +127,7 @@ class languagesActions extends sfActions
 
             $language->delete();
 
-            $this->redirect('/backend.php/languages/index');
+            $this->redirect('/plan/languages/index');
       }
   
       /**
@@ -197,7 +197,7 @@ $translation .= '
         fclose($translation_file);
       }
 
-      $this->redirect("/backend.php/languages/index");
+      $this->redirect("/plan/languages/index");
     }
 
     /**
@@ -216,7 +216,7 @@ $translation .= '
       }
       else 
       {
-            $this->redirect("/backend.php");
+            $this->redirect("/plan");
       }
     }
 

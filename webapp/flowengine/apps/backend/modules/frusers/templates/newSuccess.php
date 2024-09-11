@@ -16,10 +16,10 @@ use_helper("I18N");
 <span class="label"><?php echo __('You are here'); ?>:</span>
 <ol class="breadcrumb">
 <li>
-<a href="/backend.php"><?php echo __('Home'); ?></a>
+<a href="/plan"><?php echo __('Home'); ?></a>
 </li>
 <li>
-<a href="/backend.php/applications/list/get/your"><?php echo __('Users'); ?></a>
+<a href="/plan/applications/list/get/your"><?php echo __('Users'); ?></a>
 </li>
 <li class="active"><?php echo __('New User'); ?></li>
 </ol>

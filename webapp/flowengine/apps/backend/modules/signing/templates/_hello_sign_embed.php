@@ -21,7 +21,7 @@
         });
 
         client.on('cancel', (data) => {
-            window.location.href = "/backend.php/dashboard"
+            window.location.href = "/plan/dashboard"
             console.log(data);
         });
 
@@ -30,10 +30,10 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/backend.php/signing/marksessionascomplete',
+                url: '/plan/signing/marksessionascomplete',
                 data: {'session_id': '<?php echo $_GET['SESS']?>'},
                 success: function (response) {
-                    window.location.href = "/backend.php/dashboard"
+                    window.location.href = "/plan/dashboard"
                 }
             });
         });

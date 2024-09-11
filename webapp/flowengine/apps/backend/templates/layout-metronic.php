@@ -71,7 +71,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Wrapper-->
 						<div class="d-flex flex-center flex-column flex-column-fluid px-lg-10 pb-15 pb-lg-20">
                         <!--begin::Form-->
-							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post" data-kt-redirect-url="../../demo2/dist/index.html" action="<?php echo url_for('/backend.php/login/index') ?>">
+							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post" data-kt-redirect-url="../../demo2/dist/index.html" action="<?php echo url_for('/plan/login/index') ?>">
 								<!--begin::Heading-->
 								<div class="text-center mb-11">
                                 <?php //echo $form->renderHiddenFields() ?>

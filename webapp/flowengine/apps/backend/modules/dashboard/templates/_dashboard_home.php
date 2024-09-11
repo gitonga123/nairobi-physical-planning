@@ -27,7 +27,7 @@ use_helper('I18N');
   <div class="row">
 
     <!-- Statistics on number of applications that have submitted today -->
-    <a href="/backend.php/dashboard/index/current/queued">
+    <a href="/plan/dashboard/index/current/queued">
       <div class="col-sm-6 col-md-3">
         <div class="panel panel-primary panel-stat panel-mytasks">
           <div class="panel-heading">
@@ -46,7 +46,7 @@ use_helper('I18N');
         </div><!-- panel -->
       </div><!-- col-sm-6 -->
     </a>
-    <a href="/backend.php/dashboard/index/current/completed">
+    <a href="/plan/dashboard/index/current/completed">
       <!-- Statistics on number of tasks that have issued today -->
       <div class="col-sm-6 col-md-3">
         <div class="panel panel-primary panel-stat panel-completed">
@@ -67,7 +67,7 @@ use_helper('I18N');
         </div><!-- panel -->
       </div><!-- col-sm-6 -->
     </a>
-    <a href="/backend.php/dashboard/index/current/messages">
+    <a href="/plan/dashboard/index/current/messages">
       <!-- Statistics on number of invoices that have issued today -->
       <div class="col-sm-6 col-md-3">
         <div class="panel panel-primary panel-stat panel-messages">
@@ -121,20 +121,20 @@ use_helper('I18N');
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
           <ul class="nav nav-tabs">
-            <li <?php if ($current_tab == "available") { ?>class="active" <?php } ?>><a href="/backend.php/dashboard"><span class="fa fa-bars"></span> <?php echo __("Applications"); ?></a></li>
+            <li <?php if ($current_tab == "available") { ?>class="active" <?php } ?>><a href="/plan/dashboard"><span class="fa fa-bars"></span> <?php echo __("Applications"); ?></a></li>
 
             <?php
             //OTB HIDE SBP FUNCTIONALITY
             if ($sf_user->mfHasCredential("can_inspect") && Functions::client_can_add_businesses()) {
             ?>
-              <li <?php if ($current_tab == "inspections") { ?>class="active" <?php } ?>><a href="/backend.php/dashboard/index/current/inspections"><span class="fa fa-bars"></span> <?php echo __("Available Inspections"); ?></a></li>
+              <li <?php if ($current_tab == "inspections") { ?>class="active" <?php } ?>><a href="/plan/dashboard/index/current/inspections"><span class="fa fa-bars"></span> <?php echo __("Available Inspections"); ?></a></li>
             <?php
             }
             ?>
 
-            <li <?php if ($current_tab == "queued") { ?>class="active" <?php } ?>><a href="/backend.php/dashboard/index/current/queued"><span class="fa  fa-inbox"></span> <?php echo __("My Tasks"); ?></a></li>
-            <li <?php if ($current_tab == "completed") { ?>class="active" <?php } ?>><a href="/backend.php/dashboard/index/current/completed"><span class="fa fa-clock-o"></span> <?php echo __("Completed Tasks"); ?></a></li>
-            <li <?php if ($current_tab == "messages") { ?>class="active" <?php } ?>><a href="/backend.php/dashboard/index/current/messages"><span class="fa fa-comments"></span> <?php echo __("New Messages"); ?></a></li>
+            <li <?php if ($current_tab == "queued") { ?>class="active" <?php } ?>><a href="/plan/dashboard/index/current/queued"><span class="fa  fa-inbox"></span> <?php echo __("My Tasks"); ?></a></li>
+            <li <?php if ($current_tab == "completed") { ?>class="active" <?php } ?>><a href="/plan/dashboard/index/current/completed"><span class="fa fa-clock-o"></span> <?php echo __("Completed Tasks"); ?></a></li>
+            <li <?php if ($current_tab == "messages") { ?>class="active" <?php } ?>><a href="/plan/dashboard/index/current/messages"><span class="fa fa-comments"></span> <?php echo __("New Messages"); ?></a></li>
           </ul>
         </div>
         <div class="panel-body">
@@ -145,7 +145,7 @@ use_helper('I18N');
                   <div class="panel-heading">
                     <h3 class="panel-title"><?php echo __("List of Applications"); ?></h3>
                     <div class="pull-right" style="margin-top: -30px;">
-                      <select onChange="window.location='/backend.php/dashboard/index/current/available/filter/' + this.value;" class="form-control">
+                      <select onChange="window.location='/plan/dashboard/index/current/available/filter/' + this.value;" class="form-control">
                         <option><?php echo __('Filter'); ?>...</option>
                         <?php
                         $categories = Functions::get_allowed_category_services();
@@ -180,7 +180,7 @@ use_helper('I18N');
                   <div class="panel-body p-0">
                     <?php if ($stage_id && $stage_type && $stage_type == 11) : ?>
                       <div>
-                        <p class="text-muted"><a href="<?php echo url_for('/backend.php/agenda/showbystage?stage=' . $stage_id) ?>" class="btn btn-primary">View agenda</a></p>
+                        <p class="text-muted"><a href="<?php echo url_for('/plan/agenda/showbystage?stage=' . $stage_id) ?>" class="btn btn-primary">View agenda</a></p>
                       </div>
                     <?php endif; ?>
                     <?php include_partial('list_available_tasks', array('current_paginator' => $current_paginator, 'page' => $page, 'filter' => $filter)) ?>

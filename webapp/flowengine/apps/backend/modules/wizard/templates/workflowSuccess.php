@@ -65,7 +65,7 @@ $wizard_manager = new WizardManager();
                                                     </div>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <a class="btn btn-primary pull-right" style="margin-left: 10px;" href="/backend.php/wizard/workflow/skip/1" id="submitgroups"><?php echo __("Skip"); ?></a>
+                                                    <a class="btn btn-primary pull-right" style="margin-left: 10px;" href="/plan/wizard/workflow/skip/1" id="submitgroups"><?php echo __("Skip"); ?></a>
                                                     <button type="submit" class="btn btn-success pull-right" id="submitgroups"><?php echo __("Next"); ?></button>
                                                     <script language="javascript">
                                                         jQuery(document).ready(function(){
@@ -125,9 +125,9 @@ $wizard_manager = new WizardManager();
                                                     ?>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <a class="btn btn-primary pull-right" style="margin-left: 10px;" href="/backend.php/wizard/workflow/skip/2" id="submitgroups"><?php echo __("Skip"); ?></a>
+                                                    <a class="btn btn-primary pull-right" style="margin-left: 10px;" href="/plan/wizard/workflow/skip/2" id="submitgroups"><?php echo __("Skip"); ?></a>
                                                     <button type="submit" class="btn btn-success pull-right" id="submitusers"><?php echo __("Next"); ?></button>
-                                                    <a class="btn btn-primary pull-right" style="margin-right: 10px;" href="/backend.php/wizard/workflow/skip/0" id="submitgroups"><?php echo __("Previous"); ?></a>
+                                                    <a class="btn btn-primary pull-right" style="margin-right: 10px;" href="/plan/wizard/workflow/skip/0" id="submitgroups"><?php echo __("Previous"); ?></a>
                                                 </div>
                                             </form>
                                         </div>
@@ -163,7 +163,7 @@ $wizard_manager = new WizardManager();
                                                 </div>
 
                                                 <div class="panel-footer">
-                                                    <a class="btn btn-primary pull-right" style="margin-left: 10px;" href="/backend.php/wizard/workflow/skip/3" id="submitgroups"><?php echo __("Skip"); ?></a>
+                                                    <a class="btn btn-primary pull-right" style="margin-left: 10px;" href="/plan/wizard/workflow/skip/3" id="submitgroups"><?php echo __("Skip"); ?></a>
                                                     <button type="submit" class="btn btn-success pull-right" id="submitusers"><?php echo __("Next"); ?></button>
                                                 </div>
                                             </form>
@@ -201,7 +201,7 @@ $wizard_manager = new WizardManager();
                                             </div>
 
                                             <div class="panel-footer">
-                                                <a href="/backend.php/wizard/workflow/skip/4" class="btn btn-success pull-right" style="color: #FFF;" id="submitusers"><?php echo __("Next"); ?></a>
+                                                <a href="/plan/wizard/workflow/skip/4" class="btn btn-success pull-right" style="color: #FFF;" id="submitusers"><?php echo __("Next"); ?></a>
                                             </div>
                                         </div>
                                     </div>

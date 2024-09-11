@@ -13,7 +13,7 @@ use_helper("I18N");
 <?php if($sf_user->hasFlash('save_notice')): ?>
 	<div><?php echo $sf_user->getFlash('save_notice') ?></div>
 <?php endif; ?>
-<form id="bform" class="form-bordered form-horizontal" action="<?php echo url_for('/backend.php/fees/'.($form->getObject()->isNew() ? 'newfeerange' : 'updatefeerange').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false">
+<form id="bform" class="form-bordered form-horizontal" action="<?php echo url_for('/plan/fees/'.($form->getObject()->isNew() ? 'newfeerange' : 'updatefeerange').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false">
     <div class="panel-body panel-body-nopadding">
 
           <?php echo $form->renderGlobalErrors() ?>
@@ -85,11 +85,11 @@ use_helper("I18N");
 	        ?>
 			<script language="javascript">
 			 jQuery(document).ready(function(){
-		        $("#loadrangeconditions").load("<?php echo url_for('/backend.php/fees/rangeconditions/filter/'.$feerangeid) ?>");
+		        $("#loadrangeconditions").load("<?php echo url_for('/plan/fees/rangeconditions/filter/'.$feerangeid) ?>");
 				 /*$('#fee_invoiceid').change(function(){
 					var value = this.value ;
 					 $.ajax({
-						url: '<?php echo url_for('/backend.php/fees/changebasefield/invoicetemplate_id/'); ?>'+value,
+						url: '<?php echo url_for('/plan/fees/changebasefield/invoicetemplate_id/'); ?>'+value,
 						cache: false,
 						type: 'POST',
 						data : $('#bform').serialize(),
@@ -111,20 +111,20 @@ use_helper("I18N");
  jQuery(document).ready(function(){
 	$("#submitbuttonname").click(function() {
 		 $.ajax({
-			url: '<?php echo url_for('/backend.php/fees/'.($form->getObject()->isNew() ? 'newfeerange' : 'updatefeerange').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
+			url: '<?php echo url_for('/plan/fees/'.($form->getObject()->isNew() ? 'newfeerange' : 'updatefeerange').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
 			cache: false,
 			type: 'POST',
 			data : $('#bform').serialize(),
 			success: function(json) {
 				$('#alertdiv').attr("style", "display: block;");
-		        $("#loadranges").load("<?php echo url_for('/backend.php/fees/feerangeindex/filter/'.$filter) ?>");
+		        $("#loadranges").load("<?php echo url_for('/plan/fees/feerangeindex/filter/'.$filter) ?>");
 			}
 		});
 		return false;
 	 });
 
 	  $( "#backbuttonname" ).click(function() {
-		        $("#loadranges").load("<?php echo url_for('/backend.php/fees/feerangeindex/filter/'.$filter) ?>");
+		        $("#loadranges").load("<?php echo url_for('/plan/fees/feerangeindex/filter/'.$filter) ?>");
 	  });
 
 	});

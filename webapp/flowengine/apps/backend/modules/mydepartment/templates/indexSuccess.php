@@ -21,7 +21,7 @@ if($sf_user->mfHasCredential("managereviewers"))
   <div class="breadcrumb-wrapper" style="margin-top: 10px;">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
+      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo __('My Department'); ?></li>
     </ol>
   </div>
@@ -59,7 +59,7 @@ if($sf_user->mfHasCredential("managereviewers"))
           <table class="table b-b-0">
               <thead class="form-horizontal">
               <tr>
-                  <form method="post" action="/backend.php/mydepartment/index/filter/<?php echo $filter; ?><?php if($filterstatus != ""){ echo "/filterstatus/".$filterstatus; } ?>">
+                  <form method="post" action="/plan/mydepartment/index/filter/<?php echo $filter; ?><?php if($filterstatus != ""){ echo "/filterstatus/".$filterstatus; } ?>">
 
                     <th class=" b-b-0" style="width:60%;">
                             <input name="search" value="<?php echo $filter; ?>" type="text" class="form-control p10">
@@ -114,8 +114,8 @@ if($sf_user->mfHasCredential("managereviewers"))
                     <span class="label label-success"><?php echo $tasks; ?></span>
                     </td>
                     <td class="aligncenter">
-                        <a title="View Reviewer" href="/backend.php/mydepartment/viewuser/userid/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
-                        <a title="View Reviewer" href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                        <a title="View Reviewer" href="/plan/mydepartment/viewuser/userid/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+                        <a title="View Reviewer" href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
                     </td>
                 </tr>
                 <?php
@@ -134,11 +134,11 @@ if($sf_user->mfHasCredential("managereviewers"))
 
                       <?php if ($pager->haveToPaginate()): ?>
                           <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                              <li><a href="/backend.php/mydepartment/index/page/1<?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+                              <li><a href="/plan/mydepartment/index/page/1<?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
                                       <i class="fa fa-angle-left"></i>
                                   </a></li>
 
-                              <li><a href="/backend.php/mydepartment/index/page/<?php echo $pager->getPreviousPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+                              <li><a href="/plan/mydepartment/index/page/<?php echo $pager->getPreviousPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
                                       <i class="fa fa-angle-left"></i>
                                   </a></li>
 
@@ -146,15 +146,15 @@ if($sf_user->mfHasCredential("managereviewers"))
                                   <?php if ($page == $pager->getPage()): ?>
                                       <li class="active"><a href=""><?php echo $page ?></li></a>
                                   <?php else: ?>
-                                      <li><a href="/backend.php/mydepartment/index/page/<?php echo $page ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>"><?php echo $page ?></a></li>
+                                      <li><a href="/plan/mydepartment/index/page/<?php echo $page ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>"><?php echo $page ?></a></li>
                                   <?php endif; ?>
                               <?php endforeach; ?>
 
-                              <li><a href="/backend.php/mydepartment/index/page/<?php echo $pager->getNextPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+                              <li><a href="/plan/mydepartment/index/page/<?php echo $pager->getNextPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
                                       <i class="fa fa-angle-right"></i>
                                   </a></li>
 
-                              <li><a href="/backend.php/mydepartment/index/page/<?php echo $pager->getLastPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+                              <li><a href="/plan/mydepartment/index/page/<?php echo $pager->getLastPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
                                       <i class="fa fa-angle-right"></i>
                                   </a>
                               </li>

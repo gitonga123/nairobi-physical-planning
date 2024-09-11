@@ -16,7 +16,7 @@ use_helper("I18N");
 	<div class="breadcrumb-wrapper">
 		<span class="label"><?php echo __("You are here"); ?>:</span>
 		<ol class="breadcrumb">
-			<li><a href="/backend.php/tasks/list"><?php echo __("Applications"); ?></a></li>
+			<li><a href="/plan/tasks/list"><?php echo __("Applications"); ?></a></li>
 			<li class="active"><?php echo __("View Details"); ?></li>
 		</ol>
 	</div>
@@ -148,7 +148,7 @@ use_helper("I18N");
 												$selected = "selected";
 											}
 							?>
-											<li><a onClick="if(confirm('Are you sure you want to move it?')){ window.location = '/backend.php/applications/moveapp/id/<?php echo $application->getId(); ?>/stage/<?php echo $stage->getId(); ?>'; }"><?php echo $stage->getTitle(); ?></a></li>
+											<li><a onClick="if(confirm('Are you sure you want to move it?')){ window.location = '/plan/applications/moveapp/id/<?php echo $application->getId(); ?>/stage/<?php echo $stage->getId(); ?>'; }"><?php echo $stage->getTitle(); ?></a></li>
 							<?php
 										}
 									}
@@ -168,9 +168,9 @@ use_helper("I18N");
 						</ul>
 					<?php endif; ?>
 					<?php if ($sf_user->mfHasCredential('can_run_cyclic') && Functions::client_can_add_businesses()) : ?>
-						<a href="<?php echo url_for('/backend.php/applications/cyclicondemand/id/' . $application->getId()) ?>" class="btn btn-info">Cyclic Billing</a>
-						<a href="<?php echo url_for('/backend.php/applications/cyclicondemandfuture/id/' . $application->getId()) ?>" class="btn btn-info">Cyclic Billing (+1 Year)</a>
-						<a href="<?php echo url_for('/backend.php/applications/movetoworkflow/id/' . $application->getId()) ?>" class="btn btn-warning" onClick="confirm('Are you sure?')">Move Workflows</a>
+						<a href="<?php echo url_for('/plan/applications/cyclicondemand/id/' . $application->getId()) ?>" class="btn btn-info">Cyclic Billing</a>
+						<a href="<?php echo url_for('/plan/applications/cyclicondemandfuture/id/' . $application->getId()) ?>" class="btn btn-info">Cyclic Billing (+1 Year)</a>
+						<a href="<?php echo url_for('/plan/applications/movetoworkflow/id/' . $application->getId()) ?>" class="btn btn-warning" onClick="confirm('Are you sure?')">Move Workflows</a>
 					<?php endif; ?>
 				</div>
 			<?php } ?>
@@ -191,7 +191,7 @@ use_helper("I18N");
 				if ($application->getAssessmentInprogress() == 0 && $q->count() == 0) {
 			?>
 					<div class="panel-heading text-right">
-						<a class="btn btn-primary" href="/backend.php/tasks/pick/id/<?php echo $application->getId(); ?>"><?php echo __('Start Task') ?></a>
+						<a class="btn btn-primary" href="/plan/tasks/pick/id/<?php echo $application->getId(); ?>"><?php echo __('Start Task') ?></a>
 					</div>
 					<?php
 				} else {
@@ -200,7 +200,7 @@ use_helper("I18N");
 					if ($task) {
 					?>
 						<div class="panel-heading text-right">
-							<a class="btn btn-primary" href="/backend.php/tasks/view/id/<?php echo $task->getId(); ?>"><?php echo __('View Task') ?></a>
+							<a class="btn btn-primary" href="/plan/tasks/view/id/<?php echo $task->getId(); ?>"><?php echo __('View Task') ?></a>
 						</div>
 			<?php
 					}
@@ -214,7 +214,7 @@ use_helper("I18N");
 			if ($sf_user->mfHasCredential("backend_share_application") && $otbhelper->isSharedStage($application->getApproved())) :
 			?>
 				<div class="panel-heading text-right">
-					<a title="<?php echo __('Share Application'); ?>" class="btn btn-warning" onClick="window.location='/backend.php/share/share/id/<?php echo $application->getId(); ?>';"><span class="glyphicon glyphicon-share"></span><?php echo __('Share Application') ?></a>
+					<a title="<?php echo __('Share Application'); ?>" class="btn btn-warning" onClick="window.location='/plan/share/share/id/<?php echo $application->getId(); ?>';"><span class="glyphicon glyphicon-share"></span><?php echo __('Share Application') ?></a>
 				</div>
 
 			<?php endif; ?>
@@ -274,7 +274,7 @@ use_helper("I18N");
 
 						<div class="btn-group pull-right" style="margin-top: -38px;">
 							<?php if ($application->getStage()->getAllowEdit() && $sf_user->mfHasCredential("accesssubmenu" . $application->getApproved())) { ?>
-								<a href="/backend.php/applications/edit/id/<?php echo $application->getId(); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> <?php echo __("Edit Application");  ?></a>
+								<a href="/plan/applications/edit/id/<?php echo $application->getId(); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> <?php echo __("Edit Application");  ?></a>
 								<?php
 								$q = Doctrine_Query::create()
 									->from("FormEntryLinks a")
@@ -294,7 +294,7 @@ use_helper("I18N");
 											->where('f.form_id = ?', $link->getFormId());
 										$shared_form = $q->fetchOne();
 								?>
-										<a title="<?php echo __('Edit'); ?> <?php echo $shared_form->getFormName(); ?>" class="btn btn-primary" onClick="window.location='/backend.php/applications/editentries?form_id=<?php echo $link->getFormId() ?>&id=<?php echo $link->getEntryId(); ?>&form_entry_id=<?php echo $application->getId() ?>';"><span class="glyphicon glyphicon-edit"></span> <?php echo __('Edit Application'); ?></a>
+										<a title="<?php echo __('Edit'); ?> <?php echo $shared_form->getFormName(); ?>" class="btn btn-primary" onClick="window.location='/plan/applications/editentries?form_id=<?php echo $link->getFormId() ?>&id=<?php echo $link->getEntryId(); ?>&form_entry_id=<?php echo $application->getId() ?>';"><span class="glyphicon glyphicon-edit"></span> <?php echo __('Edit Application'); ?></a>
 							<?php
 
 									}
@@ -309,25 +309,25 @@ use_helper("I18N");
 								<ul class="nav nav-tabs">
 									<li <?php if ($current_tab == "application") {
 											echo "class='active'";
-										} ?>><a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>&current_tab=application"><span class="fa fa-bars"></span> <?php echo __('Application Details'); ?></a></li>
+										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=application"><span class="fa fa-bars"></span> <?php echo __('Application Details'); ?></a></li>
 									<li <?php if ($current_tab == "application_link") {
 											echo "class='active'";
-										} ?>><a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>&current_tab=application_link"><span class="fa fa-bars"></span> <?php echo __('Application Additional Details'); ?></a></li>
+										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=application_link"><span class="fa fa-bars"></span> <?php echo __('Application Additional Details'); ?></a></li>
 									<li <?php if ($current_tab == "revisions") {
 											echo "class='active'";
-										} ?>><a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>&current_tab=revisions"><span class="fa fa-bars"></span> <?php echo __('Previous Revisions'); ?></a></li>
+										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=revisions"><span class="fa fa-bars"></span> <?php echo __('Previous Revisions'); ?></a></li>
 									<li <?php if ($current_tab == "reviews") {
 											echo "class='active'";
-										} ?>><a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>&current_tab=reviews"><span class="fa fa-eye"></span> <?php echo __('Review History'); ?></a></li>
+										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=reviews"><span class="fa fa-eye"></span> <?php echo __('Review History'); ?></a></li>
 									<li <?php if ($current_tab == "messages") {
 											echo "class='active'";
-										} ?>><a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>&current_tab=messages"><span class="fa fa-comments"></span> <?php echo __('Messages'); ?></a></li>
+										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=messages"><span class="fa fa-comments"></span> <?php echo __('Messages'); ?></a></li>
 									<li <?php if ($current_tab == "memo") {
 											echo "class='active'";
-										} ?>><a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>&current_tab=memo"><span class="fa fa-comments-o"></span> <?php echo __('Memo  '); ?><span class="badge"><?php echo $internal_memo; ?></span></a></li>
+										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=memo"><span class="fa fa-comments-o"></span> <?php echo __('Memo  '); ?><span class="badge"><?php echo $internal_memo; ?></span></a></li>
 									<li <?php if ($current_tab == "history") {
 											echo "class='active'";
-										} ?>><a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>&current_tab=history"><span class="fa fa-bars"></span> <?php echo __('Application History'); ?></a></li>
+										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=history"><span class="fa fa-bars"></span> <?php echo __('Application History'); ?></a></li>
 								</ul>
 							</div>
 							<div class="panel-body">

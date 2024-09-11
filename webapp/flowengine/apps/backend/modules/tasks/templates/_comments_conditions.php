@@ -22,7 +22,7 @@ if($permit)
 {
 ?>
 <div class="table-responsive">
-<a href="<?php echo url_for('/backend.php/applications/conditionlinkapp?id='.$application->getId()) ?>" class="btn btn-warning" >Add Condition</a>
+<a href="<?php echo url_for('/plan/applications/conditionlinkapp?id='.$application->getId()) ?>" class="btn btn-warning" >Add Condition</a>
 
   <table class="table dt-on-steroids mb0" id="table3">
     <thead>
@@ -54,7 +54,7 @@ if($permit)
         $resolved = "";
         if(empty($cnd)) {
             if($sf_user->mfHasCredential("resolvecomment")) {
-                $resolved =  "<a title='Click to Mark as Selected' href='javascript:;' onClick=\"ajaxselect('/backend.php/applications/togglecondition/id/".$condition->getId()."/appid/".$application->getId()."','cn_".$condition->getId()."'); return false;\">";
+                $resolved =  "<a title='Click to Mark as Selected' href='javascript:;' onClick=\"ajaxselect('/plan/applications/togglecondition/id/".$condition->getId()."/appid/".$application->getId()."','cn_".$condition->getId()."'); return false;\">";
             }
 
             $resolved = $resolved."<span class='glyphicon glyphicon-remove'></span>";
@@ -65,7 +65,7 @@ if($permit)
         else
         {
             if($sf_user->mfHasCredential("resolvecomment")) {
-                $resolved =  "<a title='Click to Mark as Not Selected.' href='javascript:;' onClick=\"ajaxunselect('/backend.php/applications/togglecondition/id/".$condition->getId()."/appid/".$application->getId()."','cn_".$condition->getId()."');\">";
+                $resolved =  "<a title='Click to Mark as Not Selected.' href='javascript:;' onClick=\"ajaxunselect('/plan/applications/togglecondition/id/".$condition->getId()."/appid/".$application->getId()."','cn_".$condition->getId()."');\">";
             }
             
             $resolved = $resolved."<span class='glyphicon glyphicon-ok'></span>";

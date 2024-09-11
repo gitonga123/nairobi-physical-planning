@@ -72,7 +72,7 @@ class apicontentActions extends sfActions
     $apiContent->delete();
 
     $this->getUser()->setFlash("Success", "Record Deleted Successfuly");
-    $this->redirect('/backend.php/apicontent/index/');
+    $this->redirect('/plan/apicontent/index/');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -83,7 +83,7 @@ class apicontentActions extends sfActions
 
       $this->getUser()->setFlash("Success", "Record saved Successfuly");
       //
-      $this->redirect('/backend.php/apicontent/index/');
+      $this->redirect('/plan/apicontent/index/');
     }
   }
 

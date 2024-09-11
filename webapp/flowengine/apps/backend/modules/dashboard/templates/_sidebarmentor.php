@@ -6,11 +6,11 @@
 								<span><i class="fe fe-home"></i>Get Started</span>
 							</li>
 							<li class="active"> 
-								<a href="/backend.php/dashboard"><span>Your Dashboard</span></a>
+								<a href="/plan/dashboard"><span>Your Dashboard</span></a>
 							</li>
 							<?php if($sf_user->mfHasCredential("access_applications")): ?>
 							<li> 
-								<a href="/backend.php/dashboard/applications"><span>Submissions</span></a>
+								<a href="/plan/dashboard/applications"><span>Submissions</span></a>
 							</li>
 							<?php endif; ?>
 							<li> 

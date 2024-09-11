@@ -80,7 +80,7 @@ use_helper("I18N");
                         <td><?php echo $invoice->getStatus(); ?></td>
                         <td>
                             <a class="btn btn-success btn-xs" id="printinvoice"
-                                href="/backend.php/invoices/view/id/<?php echo $invoice->getId(); ?>"><i
+                                href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>"><i
                                     class="fa fa-print"></i></a>
 
                             <?php
@@ -89,7 +89,7 @@ use_helper("I18N");
 
                             if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('code_access_rights')) {
                                 ?>
-                                <a class="btn btn-success btn-xs" href="/backend.php/applications/paynow/id/<?php echo $invoice->getId();
+                                <a class="btn btn-success btn-xs" href="/plan/applications/paynow/id/<?php echo $invoice->getId();
                                 ?>" id="printinvoice" type="button"><i class="fa fa-check mr5"></i>
                                     <?php echo __("Pay Now");
                                     ?></a>
@@ -100,7 +100,7 @@ use_helper("I18N");
                                 ?>
                                 <a title="Cancel Invoice" class="btn btn-danger btn-xs" id="makepayment"
                                     onClick="if(confirm('Are you sure you want to cancel this invoice?')){ return true; }else{ return false; }"
-                                    href="/backend.php/applications/cancelpayment/id/<?php echo $invoice->getId(); ?>"><i
+                                    href="/plan/applications/cancelpayment/id/<?php echo $invoice->getId(); ?>"><i
                                         class="fa fa-times mr5"></i> <?php echo __('Cancel Invoice'); ?></a>
                                 <?php
                             }
@@ -161,7 +161,7 @@ use_helper("I18N");
                         </div>
                         <div class="modal-body">
                             <form class="form-bordered" id="topupform" method="post"
-                                action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" autocomplete="off"
+                                action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" autocomplete="off"
                                 data-ajax="false">
                                 <?php
                                 $grandtotal = 0;
@@ -239,7 +239,7 @@ use_helper("I18N");
                                         else if (window.ActiveXObject) {
                                             self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
                                         }
-                                        self.xmlHttpReq1.open('POST', '/backend.php/fees/getfee', true);
+                                        self.xmlHttpReq1.open('POST', '/plan/fees/getfee', true);
                                         self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                                         self.xmlHttpReq1.onreadystatechange = function () {
                                             if (self.xmlHttpReq1.readyState == 4) {

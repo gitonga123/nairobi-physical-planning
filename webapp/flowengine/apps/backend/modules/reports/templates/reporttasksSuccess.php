@@ -19,7 +19,7 @@ function GetDays($sStartDate, $sEndDate){
      <form>
          <label>Reviewers Report 
              <div style="float: right;">
-                <a href="/backend.php/reports/printreporttasks/reviewer/<?php echo $_POST['task_reviewer']; ?>/status/<?php echo $_POST['task_status']; ?>/startdate/<?php echo $fromdate; ?>/enddate/<?php echo $todate; ?>"><u>Export to Excel</u></a>
+                <a href="/plan/reports/printreporttasks/reviewer/<?php echo $_POST['task_reviewer']; ?>/status/<?php echo $_POST['task_status']; ?>/startdate/<?php echo $fromdate; ?>/enddate/<?php echo $todate; ?>"><u>Export to Excel</u></a>
              </div>
          </label>
      </form>
@@ -233,7 +233,7 @@ echo "&nbsp; &nbsp;".sizeof($tasks)." entries found. <br>";
                                         ?>
                                         </td>
                                         <td class="c">
-                                        <a title='View Task' href='/backend.php/tasks/view/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
+                                        <a title='View Task' href='/plan/tasks/view/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
                                         </td>
                                 </tr>
 				<?php

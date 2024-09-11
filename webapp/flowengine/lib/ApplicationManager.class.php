@@ -606,7 +606,7 @@ class ApplicationManager
                             <br>
                             Click here to view the application: <br>
                             ------- <br>
-                            <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/applications/view/id/" . $submission->getId() . "'>Link to " . $submission->getApplicationId() . "</a><br>
+                            <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/applications/view/id/" . $submission->getId() . "'>Link to " . $submission->getApplicationId() . "</a><br>
                             ------- <br>
 
                             <br>
@@ -2006,7 +2006,7 @@ class ApplicationManager
                             $filesend = $fm->sendFile(
                                 $ifc_file,
                                 $_SERVER['DOCUMENT_ROOT'] . '/' . $mf_settings['upload_dir'] . $ifc_file,
-                                $abs_url . '/backend.php/applications/ifccallback'
+                                $abs_url . '/plan/applications/ifccallback'
                             );
                             error_log('--------FILE SEND-----');
                             error_log(print_r($filesend, true));

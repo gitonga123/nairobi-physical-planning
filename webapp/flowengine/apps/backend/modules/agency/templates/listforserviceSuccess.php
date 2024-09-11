@@ -90,7 +90,7 @@
 	            <br>
 	             <div class="form-group">
 	              <div class="col-sm-6">
-				  <a href="/backend.php/services/index" class="btn btn-success"><?php echo __('Back'); ?></a>
+				  <a href="/plan/services/index" class="btn btn-success"><?php echo __('Back'); ?></a>
 				  <button class="btn btn-primary" id="agency_submitbutton" name="agency_submitbutton" type="submit">Save</button></div>
 	            </div>
 	            <br>

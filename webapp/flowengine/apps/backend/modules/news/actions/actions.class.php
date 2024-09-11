@@ -109,7 +109,7 @@ class newsActions extends sfActions
     {
       $news = $form->save();
 
-      $this->redirect('/backend.php/news/index');
+      $this->redirect('/plan/news/index');
     }
   }
 
@@ -126,7 +126,7 @@ class newsActions extends sfActions
 
     $news->delete();
 
-    $this->redirect('/backend.php/news/index');
+    $this->redirect('/plan/news/index');
   }
 
 }

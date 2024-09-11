@@ -85,12 +85,12 @@ if(mf_is_form_submitted()){ //if form submitted
         //OTB conflict can occur if task id is saved for a different application - safer to return user to application view
         /*if($sf_user->getAttribute("task_id"))
         {
-            header("Location: /backend.php/tasks/view/id/".$sf_user->getAttribute("task_id"));
+            header("Location: /plan/tasks/view/id/".$sf_user->getAttribute("task_id"));
             exit;
         }
         else 
         {*/
-            header("Location: /backend.php/applications/view/id/".$application->getId());
+            header("Location: /plan/applications/view/id/".$application->getId());
             exit;
         //}
 

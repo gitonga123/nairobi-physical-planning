@@ -8,7 +8,7 @@ use_helper("I18N");
       </div>
 
 
-    <form action="/backend.php/services/saveeditmorefees/serviceid/<?php echo $service->getId(); ?>/id/<?php echo $fee->getId(); ?>" method="post">
+    <form action="/plan/services/saveeditmorefees/serviceid/<?php echo $service->getId(); ?>/id/<?php echo $fee->getId(); ?>" method="post">
 
       <div class="panel-heading text-right" style="border-bottom:1px solid #d2d2d2;">
           <button type="submit" class="btn btn-primary">Save Details</button>
@@ -25,7 +25,7 @@ use_helper("I18N");
         <?php } ?>
 
         <label>Select a fee field</label>
-            <select id="dropdown_field" name="dropdown_field" onChange="window.location='/backend.php/services/newmorefees/serviceid/<?php echo $service->getId(); ?>/element_id/' + this.value;" class="form-control">
+            <select id="dropdown_field" name="dropdown_field" onChange="window.location='/plan/services/newmorefees/serviceid/<?php echo $service->getId(); ?>/element_id/' + this.value;" class="form-control">
                 <option>Choose A Field...</option>
                 <?php
                 $q = Doctrine_Query::create()

@@ -16,7 +16,7 @@
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
+      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo __('My Account'); ?></li>
     </ol>
   </div>
@@ -81,8 +81,8 @@
 						<?php foreach ($tasks as $task): ?>
 						<tr>
 								<td><i class="fa fa-tasks tooltips" data-toggle="tooltip" title="Bug"></i></td>
-                <td><a href="/backend.php/tasks/view/id/<?php echo $task->getId(); ?>"><?php echo $task->getApplication()->getForm()->getFormName(); ?></a></td>
-                <td><a href="/backend.php/tasks/view/id/<?php echo $task->getId(); ?>"><?php echo $task->getApplication()->getApplicationId(); ?></a></td>
+                <td><a href="/plan/tasks/view/id/<?php echo $task->getId(); ?>"><?php echo $task->getApplication()->getForm()->getFormName(); ?></a></td>
+                <td><a href="/plan/tasks/view/id/<?php echo $task->getId(); ?>"><?php echo $task->getApplication()->getApplicationId(); ?></a></td>
                 <td><?php echo $task->getEndDate(); ?></td>
 				        <td><?php echo $task->getStatusName(); ?></td>
                 <td>

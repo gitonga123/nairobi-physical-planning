@@ -58,7 +58,7 @@ if($sf_user->mfHasCredential("manageforms"))
 
             <div class="panel panel-body padding-0 ">
 
-                <select id="dropdown_field" name="dropdown_field" onChange="window.location='/backend.php/forms/bulkfilters?id=<?php echo $form->getFormId(); ?>&element_id=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
+                <select id="dropdown_field" name="dropdown_field" onChange="window.location='/plan/forms/bulkfilters?id=<?php echo $form->getFormId(); ?>&element_id=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
                     <option>Choose A Field...</option>
                     <?php
                     $q = Doctrine_Query::create()
@@ -90,7 +90,7 @@ if($sf_user->mfHasCredential("manageforms"))
                 {
                     ?>
 
-                    <select id="link_dropdown_field" name="link_dropdown_field" onChange="window.location='/backend.php/forms/bulkfilters?id=<?php echo $form->getFormId(); ?>&element_id=<?php echo $_GET['element_id']; ?>&link_id=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
+                    <select id="link_dropdown_field" name="link_dropdown_field" onChange="window.location='/plan/forms/bulkfilters?id=<?php echo $form->getFormId(); ?>&element_id=<?php echo $_GET['element_id']; ?>&link_id=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
                         <option>Choose A Field...</option>
                         <?php
                         $q = Doctrine_Query::create()
@@ -118,7 +118,7 @@ if($sf_user->mfHasCredential("manageforms"))
 
                     <hr>
 
-                    <select id="option_field" name="option_field" onChange="window.location='/backend.php/forms/bulkfilters?id=<?php echo $form->getFormId(); ?>&element_id=<?php echo $_GET['element_id']; ?>&link_id=<?php echo $_GET['link_id']; ?>&filter_option=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
+                    <select id="option_field" name="option_field" onChange="window.location='/plan/forms/bulkfilters?id=<?php echo $form->getFormId(); ?>&element_id=<?php echo $_GET['element_id']; ?>&link_id=<?php echo $_GET['link_id']; ?>&filter_option=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
                         <option>Choose An Option...</option>
                         <?php
                         $q = Doctrine_Query::create()
@@ -240,7 +240,7 @@ if($sf_user->mfHasCredential("manageforms"))
             else if (window.ActiveXObject) {
                 self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            self.xmlHttpReq1.open('POST', '/backend.php/forms/bulkfilterupdate', true);
+            self.xmlHttpReq1.open('POST', '/plan/forms/bulkfilterupdate', true);
             self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             self.xmlHttpReq1.onreadystatechange = function() {
                 if (self.xmlHttpReq1.readyState == 4) {

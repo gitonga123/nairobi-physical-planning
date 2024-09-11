@@ -20,7 +20,7 @@ class feesActions extends sfActions {
 		$wizard_manager = new WizardManager();
 
 		if ($wizard_manager->is_first_run()) {
-			$this->redirect("/backend.php/dashboard");
+			$this->redirect("/plan/dashboard");
 		}
 		//Audit
 		Audit::audit("", "Accessed fee settings");
@@ -116,7 +116,7 @@ class feesActions extends sfActions {
 		if ($form->isValid()) {
 			$fee = $form->save();
 
-			$this->redirect('/backend.php/fees/index');
+			$this->redirect('/plan/fees/index');
 		}
 	}
 
@@ -135,7 +135,7 @@ class feesActions extends sfActions {
 
 		$fee->delete();
 
-		$this->redirect('/backend.php/fees/index');
+		$this->redirect('/plan/fees/index');
 	}
 
 	public function executeGetfee(sfWebRequest $request) {
@@ -187,7 +187,7 @@ class feesActions extends sfActions {
 			$this->form->save();
 		}
 		$this->getUser()->setFlash('save_notice', sprintf('Fee range has been saved'));
-		$this->redirect('/backend.php/fees/feerangeindex');
+		$this->redirect('/plan/fees/feerangeindex');
 		$this->setTemplate('feerange');
 	}
 	public function executeUpdatefeerange(sfWebRequest $request) {
@@ -199,7 +199,7 @@ class feesActions extends sfActions {
 			$form->save();
 		}
 		$this->getUser()->setFlash('save_notice', sprintf('Fee range has been updated'));
-		$this->redirect('/backend.php/fees/feerangeindex');
+		$this->redirect('/plan/fees/feerangeindex');
 		$this->setTemplate('feerange');
 	}
 	public function executeDeleterange(sfWebRequest $request) {
@@ -212,7 +212,7 @@ class feesActions extends sfActions {
 
 		$fee_range->delete();
 
-		$this->redirect('/backend.php/fees/feerangeindex/filter/' . $fee_id);
+		$this->redirect('/plan/fees/feerangeindex/filter/' . $fee_id);
 	}
 
 	public function executeChangebasefield(sfWebRequest $request) {
@@ -264,7 +264,7 @@ class feesActions extends sfActions {
 			$this->form->save();
 		}
 		$this->getUser()->setFlash('save_notice', sprintf('Fee range has been saved'));
-		$this->redirect('/backend.php/fees/rangeconditions');
+		$this->redirect('/plan/fees/rangeconditions');
 		$this->setTemplate('feerangecondition');
 	}
 	public function executeUpdatefeerangecondition(sfWebRequest $request) {
@@ -277,7 +277,7 @@ class feesActions extends sfActions {
 			$form->save();
 		}
 		$this->getUser()->setFlash('save_notice', sprintf('Fee range condition has been updated'));
-		$this->redirect('/backend.php/fees/rangeconditions');
+		$this->redirect('/plan/fees/rangeconditions');
 		$this->setTemplate('rangeconditions');
 	}
 	public function executeDeleterangecondition(sfWebRequest $request) {
@@ -290,7 +290,7 @@ class feesActions extends sfActions {
 
 		$fee_range_condition->delete();
 
-		$this->redirect('/backend.php/fees/rangeconditions/filter/' . $fee_range_id);
+		$this->redirect('/plan/fees/rangeconditions/filter/' . $fee_range_id);
 	}
 	//OTB End Patch - For Implementing Finance Bills
 	public function executeGetfeecode(sfWebRequest $request) {
@@ -363,6 +363,6 @@ class feesActions extends sfActions {
 			}
 		}
 		$this->getUser()->setFlash('notice', sprintf('Fee: %s has been successfully dublicated!', $fee->getDescription()));
-		$this->redirect('/backend.php/fees/index');
+		$this->redirect('/plan/fees/index');
 	}
 }

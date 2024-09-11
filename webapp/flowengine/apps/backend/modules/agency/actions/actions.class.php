@@ -7,7 +7,7 @@ class agencyActions extends sfActions
     $wizard_manager = new WizardManager();
 
     if ($wizard_manager->is_first_run()) {
-      $this->redirect("/backend.php/dashboard");
+      $this->redirect("/plan/dashboard");
     }
     $q = Doctrine_Core::getTable('agency')
       ->createQuery('a');
@@ -115,7 +115,7 @@ class agencyActions extends sfActions
 
     $this->processForm($request, $this->form);
 
-    $this->redirect('/backend.php/agency/index');
+    $this->redirect('/plan/agency/index');
   }
 
   public function executeDelete(sfWebRequest $request)
@@ -124,7 +124,7 @@ class agencyActions extends sfActions
     $this->forward404Unless($agency = Doctrine_Core::getTable('agency')->find(array($request->getParameter('id'))), sprintf('Object agency does not exist (%s).', $request->getParameter('id')));
     $agency->delete();
 
-    $this->redirect('/backend.php/agency/index');
+    $this->redirect('/plan/agency/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -140,10 +140,10 @@ class agencyActions extends sfActions
         $site_settings->setFirstRun(0);
         $site_settings->save();
 
-        $this->redirect('/backend.php/logout');
+        $this->redirect('/plan/logout');
       }
 
-      $this->redirect('/backend.php/agency/index');
+      $this->redirect('/plan/agency/index');
     }
   }
 }

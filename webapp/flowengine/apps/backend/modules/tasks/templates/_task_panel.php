@@ -18,7 +18,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
         <strong>Please!</strong> Select a fee(s) from the list to create an invoice.
     </div>
     <form class="form-bordered" id="feeform" method="post"
-        action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" id="MailContentForm" name="MailContentForm"
+        action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" id="MailContentForm" name="MailContentForm"
         onSubmit="return validate_editfield();" autocomplete="off" data-ajax="false">
         <?php
         $grandtotal = 0;
@@ -69,7 +69,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                 else if (window.ActiveXObject) {
                     self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
                 }
-                self.xmlHttpReq1.open('POST', '/backend.php/fees/getfee', true);
+                self.xmlHttpReq1.open('POST', '/plan/fees/getfee', true);
                 self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 self.xmlHttpReq1.onreadystatechange = function () {
                     if (self.xmlHttpReq1.readyState == 4) {

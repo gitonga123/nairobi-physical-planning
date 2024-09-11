@@ -210,7 +210,7 @@ if(mf_is_form_submitted()){ //if form submitted
             $application->save();
         }
 
-        header("Location: /backend.php/tasks/view/id/".$task->getId());
+        header("Location: /plan/tasks/view/id/".$task->getId());
         exit;
     }else{
         $form_params = array();

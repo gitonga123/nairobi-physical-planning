@@ -11,7 +11,7 @@
  */
 use_helper("I18N");
 ?>
-<a href="/backend.php/applications/view/id/<?php echo $application->getId() ?>" class="btn btn-warning">Back to application</a>
+<a href="/plan/applications/view/id/<?php echo $application->getId() ?>" class="btn btn-warning">Back to application</a>
 <div class="panel-heading text-right">
 
     <!-- Buttons to view comment sheets and invoice forms -->
@@ -60,7 +60,7 @@ use_helper("I18N");
 
     if (($task->getOwnerUserId() == $task->getCreatorUserId() && $task->getStatus() == 1) || ($sf_user->mfHasCredential("has_hod_access") && $task->getStatus() == 1)) {
     ?>
-        <a class="btn btn-danger" href="/backend.php/tasks/cancel/id/<?php echo $task->getId(); ?>/redirect/dashboard"><?php echo __('Cancel Task'); ?></a>
+        <a class="btn btn-danger" href="/plan/tasks/cancel/id/<?php echo $task->getId(); ?>/redirect/dashboard"><?php echo __('Cancel Task'); ?></a>
     <?php
     }
     ?>

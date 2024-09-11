@@ -24,7 +24,7 @@ use_helper("I18N");
     <div class="panel-body padding-0">
         <div class="col-md-12">
 
-        <form action="/backend.php/forms/confirmdecline" method="POST"  autocomplete="off" data-ajax="false">
+        <form action="/plan/forms/confirmdecline" method="POST"  autocomplete="off" data-ajax="false">
             <fieldset>
             <input type="hidden" name="id" value="<?php echo $application->getId(); ?>">
             <?php if($moveto){ ?>

@@ -759,7 +759,7 @@ EOL;
             $task->setStatus("1");
             $task->setLastUpdate(date('Y-m-d'));
             $task->setDateCreated(date('Y-m-d'));
-            $task->setRemarks("Task assigned to you relative to previous assignment on task <a href=\"/backend.php/tasks/view/id/".$last_task_for_this_application['id']."\">here</a>");
+            $task->setRemarks("Task assigned to you relative to previous assignment on task <a href=\"/plan/tasks/view/id/".$last_task_for_this_application['id']."\">here</a>");
             $task->setApplicationId($application);
             $task->setTaskApplicationSlug($task_slug);
             $task->save();
@@ -774,7 +774,7 @@ EOL;
             $app_id = $application->getApplicationId();
 
             $audit = new Audit();
-            $audit->saveFullAudit("<a href=\"/backend.php/tasks/view/id/" . $task->getId() . "\">Assigned " . $task->getTypeName() . " task on " . $app_id . " to " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+            $audit->saveFullAudit("<a href=\"/plan/tasks/view/id/" . $task->getId() . "\">Assigned " . $task->getTypeName() . " task on " . $app_id . " to " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
 
             $review_name = $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname();
             $host = $_SERVER['HTTP_HOST'];
@@ -789,7 +789,7 @@ EOL;
                     <br>
                     Click here to view the task: <br>
                     ------- <br>
-                    <a href="http://$host/backend.php/tasks/view/id/$task_id">Link to $app_id task</a><br>
+                    <a href="http://$host/plan/tasks/view/id/$task_id">Link to $app_id task</a><br>
                     ------- <br>
                     <br>
 EOL;

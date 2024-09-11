@@ -30,7 +30,7 @@
         </div>
 
          <div class="panel-body padding-0">
-         <form id="registration_form" action="<?php if($form->getObject()->isNew()){ ?>/backend.php/apply2 <?php }else{ ?>/backend.php/frusers/update/id/<?php echo $form->getObject()->getId(); } ?>" method="post" enctype="multipart/form-data" autocomplete="off" data-ajax="false">
+         <form id="registration_form" action="<?php if($form->getObject()->isNew()){ ?>/plan/apply2 <?php }else{ ?>/plan/frusers/update/id/<?php echo $form->getObject()->getId(); } ?>" method="post" enctype="multipart/form-data" autocomplete="off" data-ajax="false">
 				 <?php echo $form->renderGlobalErrors(); ?>
             <?php
             if($sf_user->hasFlash("notice"))
@@ -71,7 +71,7 @@
                       $('#sfApplyApply2_username').keyup(function(){
                         $.ajax({
                                   type: "POST",
-                                  url: "/backend.php/frusers/checkuser",
+                                  url: "/plan/frusers/checkuser",
                                   data: {
                                       'name' : $('input:text[id=sfApplyApply2_username]').val()
                                   },
@@ -101,7 +101,7 @@
                     $('#sfApplyApply2_email').keyup(function(){
                       $.ajax({
                                 type: "POST",
-                                url: "/backend.php/frusers/checkemail",
+                                url: "/plan/frusers/checkemail",
                                 data: {
                                     'email' : $('input:text[id=sfApplyApply2_email]').val()
                                 },

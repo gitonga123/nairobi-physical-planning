@@ -120,7 +120,7 @@ use_helper("I18N");
 										?>
 										</td>
 										<td class="c" width="38px">
-										<a title='<?php echo __('View Application'); ?>' href='/backend.php/applications/view/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+										<a title='<?php echo __('View Application'); ?>' href='/plan/applications/view/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
 										</td>
 									</tr>
 								<?php
@@ -284,7 +284,7 @@ use_helper("I18N");
 										?>
 										</td>
 										<td class="c" width="38px">
-										<a title='<?php echo __('View Application'); ?>' href='/backend.php/applications/view/id/<?php echo $application['id']; ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+										<a title='<?php echo __('View Application'); ?>' href='/plan/applications/view/id/<?php echo $application['id']; ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
 										</td>
 										</tr>
 									<?php
@@ -317,7 +317,7 @@ function ajaxSearchform1(formid) {
     else if (window.ActiveXObject) {
         self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    self.xmlHttpReq1.open('POST', '/backend.php/applications/formsearch/formid/' + formid, true);
+    self.xmlHttpReq1.open('POST', '/plan/applications/formsearch/formid/' + formid, true);
     self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     self.xmlHttpReq1.onreadystatechange = function() {
         if (self.xmlHttpReq1.readyState == 4) {

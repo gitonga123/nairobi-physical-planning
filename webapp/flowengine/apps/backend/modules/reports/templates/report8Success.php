@@ -40,7 +40,7 @@ function GetDays($sStartDate, $sEndDate){
 			<label style='height: 30px; margin-top: 0px;'>
 			<div style='float: left; font-size: 20px; font-weight: 700;'>Inspections Reports</div>
              <div style="float: right;">
-                <a href="/backend.php/reports/printreport8/form/<?php echo $_POST['reviewer']; ?>/startdate/<?php echo $fromdate; ?>/enddate/<?php echo $todate; ?>"><u>Export to Excel</u></a>
+                <a href="/plan/reports/printreport8/form/<?php echo $_POST['reviewer']; ?>/startdate/<?php echo $fromdate; ?>/enddate/<?php echo $todate; ?>"><u>Export to Excel</u></a>
              </div>
             </label>
 			<fieldset style="margin: 0px;">
@@ -337,7 +337,7 @@ function GetDays($sStartDate, $sEndDate){
 							{
 								echo "Transferred";
 							}
-						?></td><td style="background:none;"><a title='View Task' href='/backend.php/tasks/view/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a></td>
+						?></td><td style="background:none;"><a title='View Task' href='/plan/tasks/view/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a></td>
 						</tr>
 					<?php
 				}

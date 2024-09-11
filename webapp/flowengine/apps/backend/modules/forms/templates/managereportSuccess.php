@@ -132,7 +132,7 @@ EOT;
 				<div class="content_header">
 					<div class="content_header_title">
 						<div style="float: left">
-							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Report</h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Report</h2>
 							<br>
 							<p>Edit, share and publish your form report</p>
 						</div>
@@ -156,7 +156,7 @@ EOT;
 						<?php } ?>
 
 						<div style="float: right;margin-right: 5px">
-								<a href="/backend.php/forms/addwidget?id=<?php echo $form_id; ?>" class="bb_button bb_small bb_green">
+								<a href="/plan/forms/addwidget?id=<?php echo $form_id; ?>" class="bb_button bb_small bb_green">
 									<span class="icon-chart" style="margin-right: 5px"></span>Add New Widget
 								</a>
 						</div>
@@ -191,7 +191,7 @@ EOT;
 							//display the widgets
 							echo "<ul id=\"mr_report_list\">\n";
 							foreach ($report_widgets_array as $value) {
-								$widget_url = '/backend.php/forms/widget?key='.$value['access_key'];
+								$widget_url = '/plan/forms/widget?key='.$value['access_key'];
 					?>
 
 								<li id="li_<?php echo $value['chart_id']; ?>">
@@ -216,12 +216,12 @@ EOT;
 									<div class="report_toolbar">
 										<div>
 											<span class="chart_idnum">#<?php echo $value['chart_id']; ?></span>
-											<a id="widgetedit_<?php echo $value['chart_id']; ?>" href="<?php echo "/backend.php/forms/editwidget?key={$value['access_key']}"; ?>"><span class="icon-pencil" style="margin-right: 5px;font-size: 120%"></span>Edit</a>
-											<a id="widgetcode_<?php echo $value['chart_id']; ?>" href="<?php echo "/backend.php/forms/widgetcode?key={$value['access_key']}"; ?>" style="margin-left: 10px"><span class="icon-paste" style="margin-right: 5px;font-size: 120%"></span>Widget Code</a>
+											<a id="widgetedit_<?php echo $value['chart_id']; ?>" href="<?php echo "/plan/forms/editwidget?key={$value['access_key']}"; ?>"><span class="icon-pencil" style="margin-right: 5px;font-size: 120%"></span>Edit</a>
+											<a id="widgetcode_<?php echo $value['chart_id']; ?>" href="<?php echo "/plan/forms/widgetcode?key={$value['access_key']}"; ?>" style="margin-left: 10px"><span class="icon-paste" style="margin-right: 5px;font-size: 120%"></span>Widget Code</a>
 											
 											<a id="widgetdelete_<?php echo $value['chart_id']; ?>" href="#" class="delete_icon"><span class="icon-remove" style="margin-right: 5px;font-size: 120%"></span>Delete</a>
 											<a id="widgetduplicate_<?php echo $value['chart_id']; ?>" href="#" class="duplicate_icon"><span class="icon-files" style="margin-right: 5px;font-size: 120%"></span>Duplicate</a>
-											<a href="<?php echo "/backend.php/forms/widget?key={$value['access_key']}"; ?>" target="_blank" class="open_icon"><span class="icon-popout" style="margin-right: 5px;font-size: 120%"></span>Open</a>
+											<a href="<?php echo "/plan/forms/widget?key={$value['access_key']}"; ?>" target="_blank" class="open_icon"><span class="icon-popout" style="margin-right: 5px;font-size: 120%"></span>Open</a>
 										</div>
 									</div>
 								</li>

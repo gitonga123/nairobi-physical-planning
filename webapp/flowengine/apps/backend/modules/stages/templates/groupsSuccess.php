@@ -3,7 +3,7 @@
 ?>
 <div class="contentpanel">
 
-    <form id="stageform" class="form-bordered" action="/backend.php/stages/groups/id/<?php echo $stage->getId(); ?>" method="post" autocomplete="off" data-ajax="false">
+    <form id="stageform" class="form-bordered" action="/plan/stages/groups/id/<?php echo $stage->getId(); ?>" method="post" autocomplete="off" data-ajax="false">
       <div class="panel panel-default">
 
       <div class="panel-heading">
@@ -69,7 +69,7 @@
         </div>
       </div>
       <div class="panel-footer">
-           <a class="btn btn-danger mr10" href="/backend.php/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a><button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
+           <a class="btn btn-danger mr10" href="/plan/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a><button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
      </div>
    </div>
 

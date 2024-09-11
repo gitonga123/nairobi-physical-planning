@@ -16,7 +16,7 @@
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
+      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo __('My Account'); ?></li>
     </ol>
   </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="panel-heading text-right">
-        <a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>" class="btn btn-default"><span class="fa fa-history"></span>  <?php echo __("Audit Log"); ?></a>
+        <a href="/plan/users/audit/id/<?php echo $reviewer->getNid(); ?>" class="btn btn-default"><span class="fa fa-history"></span>  <?php echo __("Audit Log"); ?></a>
     </div>
 
     <div class="panel-body">
@@ -286,11 +286,11 @@
 
                                         <?php if ($current_paginator->haveToPaginate()): ?>
                                             <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/1#end">
+                                                <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/1#end">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
-                                                <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getPreviousPage() ?>#end">
+                                                <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getPreviousPage() ?>#end">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
@@ -298,15 +298,15 @@
                                                     <?php if ($page == $current_paginator->getPage()): ?>
                                                         <li class="active"><a href=""><?php echo $page ?></a>
                                                     <?php else: ?>
-                                                        <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                        <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
 
-                                                <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getNextPage() ?>#end">
+                                                <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getNextPage() ?>#end">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
 
-                                                <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getLastPage() ?>#end">
+                                                <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getLastPage() ?>#end">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
                                             </ul>
@@ -377,11 +377,11 @@
 
                                             <?php if ($completed_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/1#end">
+                                                    <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
@@ -389,15 +389,15 @@
                                                         <?php if ($page == $completed_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
                                                         <?php else: ?>
-                                                            <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getNextPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getLastPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>
@@ -467,11 +467,11 @@
 
                                             <?php if ($cancel_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/1#end">
+                                                    <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
@@ -479,15 +479,15 @@
                                                         <?php if ($page == $cancel_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
                                                         <?php else: ?>
-                                                            <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getNextPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getLastPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>
@@ -527,11 +527,11 @@
 
                                             <?php if ($audit_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/1#end">
+                                                    <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
@@ -539,15 +539,15 @@
                                                         <?php if ($page == $audit_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
                                                         <?php else: ?>
-                                                            <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <li><a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getNextPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getLastPage() ?>#end">
+                                                    <li> <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>

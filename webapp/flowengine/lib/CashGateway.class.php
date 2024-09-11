@@ -75,7 +75,7 @@ class CashGateway {
 
         if($backend)
         {
-            $callback_url = '/backend.php/applications/confirmpayment?id=' . $application->getFormId() . '&entryid=' . $application->getEntryId() . "&done=1&invoiceid=" . $invoice->getId();
+            $callback_url = '/plan/applications/confirmpayment?id=' . $application->getFormId() . '&entryid=' . $application->getEntryId() . "&done=1&invoiceid=" . $invoice->getId();
         }
         else
         {

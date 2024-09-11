@@ -7,8 +7,8 @@
 	   <div class="panel-heading">
             <h3 class="panel-title"><?php echo __("Agenda").' '.$agenda_columns->getFormname() ?></h3>
 			<div class="pull-right">
-			   <a href="<?php echo url_for('/backend.php/dashboard/index') ?>" class="btn btn-info-alt settings-margin42"><?php echo __('Back to Dashboard') ?></a>
-			   <a href="<?php echo url_for('/backend.php/agenda/agendaexcel?id='.$agenda_columns->getId().'&form='.urlencode($agenda_columns->getFormname())) ?>" class="btn btn-primary-alt settings-margin42"><?php echo __('Excel') ?></a>
+			   <a href="<?php echo url_for('/plan/dashboard/index') ?>" class="btn btn-info-alt settings-margin42"><?php echo __('Back to Dashboard') ?></a>
+			   <a href="<?php echo url_for('/plan/agenda/agendaexcel?id='.$agenda_columns->getId().'&form='.urlencode($agenda_columns->getFormname())) ?>" class="btn btn-primary-alt settings-margin42"><?php echo __('Excel') ?></a>
 			</div>
 		</div>
        <div class="panel-body panel-body-nopadding">
@@ -271,7 +271,7 @@
 						<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">Action<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<?php if($sf_user->mfHasCredential('editapplication')): ?>
-							<li><a href="<?php echo url_for('/backend.php/applications/edit?form_id='.$agenda_columns->getFormId().'&id='.$app['id']) ?>" target="_blank">Edit</a></li>
+							<li><a href="<?php echo url_for('/plan/applications/edit?form_id='.$agenda_columns->getFormId().'&id='.$app['id']) ?>" target="_blank">Edit</a></li>
 							<?php endif; ?>
 							<li>
 								<a target="_blank"  href="<?php echo public_path('backend.php/applications/view/id/'.$app['form_entry_id']) ?>"> <?php echo __('View Details') ?> </a>
@@ -325,8 +325,8 @@
 	   <div class="panel-heading">
             <h3 class="panel-title"><?php echo __("Summary of").' '.$agenda_columns->getFormname() ?></h3>
 			<div class="pull-right">
-			   <a href="<?php echo url_for('/backend.php/dashboard/index') ?>" class="btn btn-info-alt settings-margin42"><?php echo __('Back to Dashboard') ?></a>
-			   <a href="<?php echo url_for('/backend.php/agenda/excelsummary?id='.$agenda_columns->getId().'&form='.urlencode($agenda_columns->getFormname())) ?>" class="btn btn-primary-alt settings-margin42"><?php echo __('Excel') ?></a>
+			   <a href="<?php echo url_for('/plan/dashboard/index') ?>" class="btn btn-info-alt settings-margin42"><?php echo __('Back to Dashboard') ?></a>
+			   <a href="<?php echo url_for('/plan/agenda/excelsummary?id='.$agenda_columns->getId().'&form='.urlencode($agenda_columns->getFormname())) ?>" class="btn btn-primary-alt settings-margin42"><?php echo __('Excel') ?></a>
 			</div>
 		</div>
        <div class="panel-body panel-body-nopadding">

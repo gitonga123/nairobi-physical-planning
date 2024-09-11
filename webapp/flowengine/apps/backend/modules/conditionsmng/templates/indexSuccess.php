@@ -13,7 +13,7 @@ if($sf_user->mfHasCredential("manageconditions"))
 	<h3 class="panel-title"><?php echo __('Conditions'); ?></h3>
 </div>
 <div class="panel-heading">
-	<a class="btn btn-primary settings-margin42" id="newcondition" href="<?php echo url_for('/backend.php/conditionsmng/new/filter/'.$filter) ?>"><?php echo __('New Condition'); ?></a>
+	<a class="btn btn-primary settings-margin42" id="newcondition" href="<?php echo url_for('/plan/conditionsmng/new/filter/'.$filter) ?>"><?php echo __('New Condition'); ?></a>
 </div>
 
 
@@ -38,18 +38,18 @@ if($sf_user->mfHasCredential("manageconditions"))
       <td><?php echo $conditions_of_approval->getShortName() ?></td>
       <td><?php echo $conditions_of_approval->getDescription() ?></td>
       <td>
-     	  <a id="editcondition<?php echo $conditions_of_approval->getId() ?>" href="<?php echo url_for('/backend.php/conditionsmng/edit/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
-      	<a id="deletecondition<?php echo $conditions_of_approval->getId() ?>" href="<?php echo url_for('/backend.php/conditionsmng/delete/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>
+     	  <a id="editcondition<?php echo $conditions_of_approval->getId() ?>" href="<?php echo url_for('/plan/conditionsmng/edit/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+      	<a id="deletecondition<?php echo $conditions_of_approval->getId() ?>" href="<?php echo url_for('/plan/conditionsmng/delete/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>
 
 
         <script language="javascript">
         /*$(document).ready(function(){
           $( "#editcondition<?php echo $conditions_of_approval->getId() ?>" ).click(function() {
-              $("#loadinner").load("<?php echo url_for('/backend.php/conditionsmng/edit/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>");
+              $("#loadinner").load("<?php echo url_for('/plan/conditionsmng/edit/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>");
           });
           $( "#deletecondition<?php echo $conditions_of_approval->getId() ?>" ).click(function() {
               if(confirm('Are you sure you want to delete this group?')){
-                $("#loadinner").load("<?php echo url_for('/backend.php/conditionsmng/delete/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>");
+                $("#loadinner").load("<?php echo url_for('/plan/conditionsmng/delete/id/'.$conditions_of_approval->getId().'/filter/'.$filter); ?>");
               }
               else
               {
@@ -74,7 +74,7 @@ if($sf_user->mfHasCredential("manageconditions"))
    </tfoot>
 </table>
 <div class="panel-footer">
-	<a class="btn btn-primary settings-margin42" href="<?php echo url_for('/backend.php/permittemplates/index/filter/'.$filter) ?>"><?php echo __('Back to Permits'); ?></a>
+	<a class="btn btn-primary settings-margin42" href="<?php echo url_for('/plan/permittemplates/index/filter/'.$filter) ?>"><?php echo __('Back to Permits'); ?></a>
 </div>
 <script>
   $('#table3').dataTable({

@@ -11,8 +11,8 @@ if($sf_user->mfHasCredential("managepermits"))
     </div>
 
     <div class="panel-heading text-right">
-            <a class="btn btn-primary" id="newtemplate" href="/backend.php/permittemplates/new"><?php echo __('+ Add Permit'); ?></a>
-            <a class="btn btn-primary m-l-10" id="back" href="/backend.php/services/index"><?php echo __('Back to Services'); ?></a>
+            <a class="btn btn-primary" id="newtemplate" href="/plan/permittemplates/new"><?php echo __('+ Add Permit'); ?></a>
+            <a class="btn btn-primary m-l-10" id="back" href="/plan/services/index"><?php echo __('Back to Services'); ?></a>
     </div>
 
 
@@ -60,14 +60,14 @@ if($sf_user->mfHasCredential("managepermits"))
               ?>
              </td>
              <td>
-                <a class="btn btn-primary" href="/backend.php/permittemplates/signinggroups/id/<?php echo $template->getId(); ?>">
+                <a class="btn btn-primary" href="/plan/permittemplates/signinggroups/id/<?php echo $template->getId(); ?>">
                   <i class="fa fa-pencil"></i> Signing
                 </a>
               </td>
              <td>
-                <a href="<?php echo url_for('/backend.php/conditionsmng/index/filter/'.$template->getId()); ?>" title="<?php echo __('Conditions of Approval'); ?>"><span class="label label-primary"><i class="fa fa-check"></i></span></a>
-                <a id="edittemplate<?php echo $template->getId(); ?>" href="/backend.php/permittemplates/edit/id/<?php echo $template->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                <a id="deletetemplate<?php echo $template->getId(); ?>" onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/permittemplates/delete/id/<?php echo $template->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                <a href="<?php echo url_for('/plan/conditionsmng/index/filter/'.$template->getId()); ?>" title="<?php echo __('Conditions of Approval'); ?>"><span class="label label-primary"><i class="fa fa-check"></i></span></a>
+                <a id="edittemplate<?php echo $template->getId(); ?>" href="/plan/permittemplates/edit/id/<?php echo $template->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                <a id="deletetemplate<?php echo $template->getId(); ?>" onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/permittemplates/delete/id/<?php echo $template->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
               </td>
           </tr>
           <?php endforeach; ?>

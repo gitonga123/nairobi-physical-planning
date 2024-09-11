@@ -24,12 +24,12 @@ class loginActions extends sfActions
     $q = Doctrine_Query::create()
       ->from("ApSettings a");
     if ($q->count() == 0) {
-      $this->redirect("/backend.php/install");
+      $this->redirect("/plan/install");
     }
 
     //Check if current reviewer is already logged in and redirect
     if ($login_manager->validate_session()) {
-      $this->redirect("/backend.php/dashboard");
+      $this->redirect("/plan/dashboard");
     }
 
 
@@ -182,7 +182,7 @@ class loginActions extends sfActions
       if ($referer && Functions::find("backend.php", $referer)) {
         $this->redirect($referer);
       } else {
-        $this->redirect("/backend.php/dashboard");
+        $this->redirect("/plan/dashboard");
       }
     } else {
       $this->loginError = true;
@@ -194,7 +194,7 @@ class loginActions extends sfActions
 
   public function returnRedirectURL()
   {
-    $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') : "/backend.php";
+    $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') : "/plan";
     return $this->redirect($url);
   }
 
@@ -265,7 +265,7 @@ class loginActions extends sfActions
                     Temporary Password: {$random_pass}
                     <br>
                     ---- <br>
-                    http://" . $_SERVER['HTTP_HOST'] . "/backend.php/login/recover/code/{$temp_code} <br>
+                    http://" . $_SERVER['HTTP_HOST'] . "/plan/login/recover/code/{$temp_code} <br>
                     ---- <br>
                     <br>
                     Thanks,<br>
@@ -279,7 +279,7 @@ class loginActions extends sfActions
           $audit = new Audit();
           $audit->saveFullAudit("Submitted request to reset password", $available_user->getNid(), "cf_user", "", "");
 
-          return $this->redirect("/backend.php/login/notification");
+          return $this->redirect("/plan/login/notification");
         } else {
           //Save Audit Log
           $audit = new Audit();
@@ -336,7 +336,7 @@ class loginActions extends sfActions
             $audit = new Audit();
             $audit->saveFullAudit("Reset Password", $available_user->getNid(), "cf_user", "", "");
 
-            return $this->redirect("/backend.php/login/reset/code/" . $temp_code);
+            return $this->redirect("/plan/login/reset/code/" . $temp_code);
           } else {
             $this->recoveryerror = "Invalid password. Check your email and confirm your using the same password.";
 
@@ -418,7 +418,7 @@ class loginActions extends sfActions
           $mailnotifications = new mailnotifications();
           $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $available_user->getStremail(), "Password Reset", $body);
 
-          return $this->redirect("/backend.php/login/resetdone");
+          return $this->redirect("/plan/login/resetdone");
         } else {
           $this->recoveryerror = "Invalid token. Check your email and confirm you using the same link.";
 
@@ -489,7 +489,7 @@ class loginActions extends sfActions
     $reviewer = Functions::current_user();
 
     if ($reviewer->getStrphoneMain1() == "") {
-      $this->redirect("/backend.php/login/updatephone");
+      $this->redirect("/plan/login/updatephone");
     }
 
     //2. Send verification code 
@@ -500,7 +500,7 @@ class loginActions extends sfActions
     if ($request->isMethod(sfRequest::POST)) {
       if ($this->getUser()->getAttribute('two_factor_code', false) == $request->getPostParameter("code")) {
         $this->getUser()->setAttribute('two_factor_pass', true);
-        $this->redirect("/backend.php/dashboard");
+        $this->redirect("/plan/dashboard");
       }
     }
 
@@ -522,7 +522,7 @@ class loginActions extends sfActions
         $reviewer->setStrphoneMain1($request->getPostParameter("phone"));
         $reviewer->save();
 
-        $this->redirect("/backend.php/login/twofactor");
+        $this->redirect("/plan/login/twofactor");
       }
     }
 

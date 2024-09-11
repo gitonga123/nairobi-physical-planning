@@ -16,7 +16,7 @@
 				</a>
 				
 				<div class="top-nav-search">
-					<form action="/backend.php/applications/search" method="post">
+					<form action="/plan/applications/search" method="post">
 						<input type="text" class="form-control" placeholder="Search here">
 						<button class="btn" type="submit"><i class="fa fa-search"></i></button>
 					</form>
@@ -108,8 +108,8 @@
 									<p class="text-muted mb-0"><?php echo $logged_reviewer->getStrfirstname()." ".$logged_reviewer->getStrlastname(); ?></p>
 								</div>
 							</div>
-							<a class="dropdown-item" href="/backend.php/dashboard/profile">My Profile</a>
-							<a class="dropdown-item" href="/backend.php/login/logout">Logout</a>
+							<a class="dropdown-item" href="/plan/dashboard/profile">My Profile</a>
+							<a class="dropdown-item" href="/plan/login/logout">Logout</a>
 						</div>
 					</li>
 					<!-- /User Menu -->

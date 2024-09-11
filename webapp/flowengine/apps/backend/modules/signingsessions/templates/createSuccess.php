@@ -4,7 +4,7 @@ use_helper("I18N");
 if ($sf_user->mfHasCredential("signingsessions")): ?>
     <div class="contentpanel">
         <form id="stageform" class="form-bordered"
-              action="/backend.php/signingsessions/create" method="post"
+              action="/plan/signingsessions/create" method="post"
               autocomplete="off" data-ajax="false">
             <div class="panel panel-default">
 
@@ -43,7 +43,7 @@ if ($sf_user->mfHasCredential("signingsessions")): ?>
                 </div>
                 <div class="panel-footer">
                     <a class="btn btn-danger mr10"
-                       href="/backend.php/permittemplates/index"><?php echo __('Back'); ?></a>
+                       href="/plan/permittemplates/index"><?php echo __('Back'); ?></a>
                     <button type="submit" class="btn btn-primary">
                         <?php echo __('Add Config'); ?>
                     </button>
@@ -64,7 +64,7 @@ if ($sf_user->mfHasCredential("signingsessions")): ?>
             $('#options_select').select2({
                 ajax: {
                     url: function (params) {
-                        return '/backend.php/siningsessions/filterfieldvalue?search=' + params;
+                        return '/plan/siningsessions/filterfieldvalue?search=' + params;
                     },
                     delay: 250,
                     minimumInputLength: 2,

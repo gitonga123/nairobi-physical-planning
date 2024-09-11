@@ -1,7 +1,7 @@
 <!-- Form -->
 
 <?php if (false) { ?>
-    <form method="post" action="<?php echo url_for('/backend.php/login') ?>">
+    <form method="post" action="<?php echo url_for('/plan/login') ?>">
         <?php if ($form->isCSRFProtected()): ?>
             <?php echo $form['_csrf_token']->render(); ?>
         <?php endif; ?>
@@ -27,7 +27,7 @@
             <button class="btn btn-primary btn-block w-100" type="submit">Login</button>
         </div>
 
-        <div class="text-center forgotpass m-1"><a class="text-primary" href="/backend.php/login/forgot">Forgot
+        <div class="text-center forgotpass m-1"><a class="text-primary" href="/plan/login/forgot">Forgot
                 Password?</a></div>
     </form>
 <?php } ?>

@@ -207,7 +207,7 @@ class OTBHelper
         $reviewer->save();
 
         $audit = new Audit();
-        $audit->saveAudit("", "<a href=\"/backend.php/users/edituser?userid=" . $reviewer->getNid() . "&language=en\">added a new user</a>");
+        $audit->saveAudit("", "<a href=\"/plan/users/edituser?userid=" . $reviewer->getNid() . "&language=en\">added a new user</a>");
 
         return $reviewer;
     }

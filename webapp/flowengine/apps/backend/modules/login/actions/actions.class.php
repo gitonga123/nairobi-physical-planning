@@ -150,6 +150,8 @@ class loginActions extends sfActions
 
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
+    error_log("Login action execute above, let see what is next ---->");
+
     if ($login_action) {
       $referer = $this->getUser()->getAttribute("referer");
       error_log("Login Successful ---->");
@@ -159,6 +161,8 @@ class loginActions extends sfActions
     } else {
       $this->loginError = true;
       $this->form = new BackendSigninForm();
+
+      error_log("Login Couldn't be completed ...");
       $this->returnRedirectURL();
     }
 

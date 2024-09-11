@@ -27,11 +27,11 @@ class ApplicationManager
     public function get_field_data($form_id, $entry_id, $element_id)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once ($prefix_folder . 'includes/init.php');
+        require_once($prefix_folder . 'includes/init.php');
 
-        require_once ($prefix_folder . '../../../config/form_builder_config.php');
-        require_once ($prefix_folder . 'includes/db-core.php');
-        require_once ($prefix_folder . 'includes/helper-functions.php');
+        require_once($prefix_folder . '../../../config/form_builder_config.php');
+        require_once($prefix_folder . 'includes/db-core.php');
+        require_once($prefix_folder . 'includes/helper-functions.php');
 
         $dbh = mf_connect_db();
         $mf_settings = mf_get_settings($dbh);
@@ -195,11 +195,11 @@ class ApplicationManager
 
         error_log("Details is here -----> 1" . $details[0]);
 
-        error_log("Time for testing");
+        error_log("Time for testing ---< 2");
 
         $sql_plot = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_plot_no = 1";
         $sql_plot_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot);
-        
+
         if (!empty($sql_plot_element)) {
             $sql_plot_details = "SELECT element_{$sql_plot_element} from ap_form_{$form_id} WHERE id = {$entry_id}";
             $plot_no = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot_details);
@@ -483,11 +483,11 @@ class ApplicationManager
         if ($form->getLogicWorkflowEnable()) {
             //error_log("Logic-Workflow #1: Enabled");
             $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-            require_once ($prefix_folder . 'includes/init.php');
+            require_once($prefix_folder . 'includes/init.php');
 
-            require_once ($prefix_folder . '../../../config/form_builder_config.php');
-            require_once ($prefix_folder . 'includes/db-core.php');
-            require_once ($prefix_folder . 'includes/helper-functions.php');
+            require_once($prefix_folder . '../../../config/form_builder_config.php');
+            require_once($prefix_folder . 'includes/db-core.php');
+            require_once($prefix_folder . 'includes/helper-functions.php');
 
             $dbh = mf_connect_db();
             $mf_settings = mf_get_settings($dbh);
@@ -631,11 +631,11 @@ class ApplicationManager
             //Check workflow override logic
             if ($form->getLogicWorkflowEnable()) {
                 $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-                require_once ($prefix_folder . 'includes/init.php');
+                require_once($prefix_folder . 'includes/init.php');
 
-                require_once ($prefix_folder . '../../../config/form_builder_config.php');
-                require_once ($prefix_folder . 'includes/db-core.php');
-                require_once ($prefix_folder . 'includes/helper-functions.php');
+                require_once($prefix_folder . '../../../config/form_builder_config.php');
+                require_once($prefix_folder . 'includes/db-core.php');
+                require_once($prefix_folder . 'includes/helper-functions.php');
 
                 $dbh = mf_connect_db();
                 $mf_settings = mf_get_settings($dbh);
@@ -789,11 +789,11 @@ class ApplicationManager
     public function autosubmit_form($form_id, $user_id)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once ($prefix_folder . 'includes/init.php');
+        require_once($prefix_folder . 'includes/init.php');
 
-        require_once ($prefix_folder . '../../../config/form_builder_config.php');
-        require_once ($prefix_folder . 'includes/db-core.php');
-        require_once ($prefix_folder . 'includes/helper-functions.php');
+        require_once($prefix_folder . '../../../config/form_builder_config.php');
+        require_once($prefix_folder . 'includes/db-core.php');
+        require_once($prefix_folder . 'includes/helper-functions.php');
 
         $dbh = mf_connect_db();
         $mf_settings = mf_get_settings($dbh);
@@ -1564,17 +1564,17 @@ class ApplicationManager
     public function get_entry_details($form_id, $entry_id)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once ($prefix_folder . 'includes/init.php');
+        require_once($prefix_folder . 'includes/init.php');
 
-        require_once ($prefix_folder . '../../../config/form_builder_config.php');
-        require_once ($prefix_folder . 'includes/db-core.php');
-        require_once ($prefix_folder . 'includes/helper-functions.php');
-        require_once ($prefix_folder . 'includes/check-session.php');
+        require_once($prefix_folder . '../../../config/form_builder_config.php');
+        require_once($prefix_folder . 'includes/db-core.php');
+        require_once($prefix_folder . 'includes/helper-functions.php');
+        require_once($prefix_folder . 'includes/check-session.php');
 
-        require_once ($prefix_folder . 'includes/language.php');
-        require_once ($prefix_folder . 'includes/entry-functions.php');
-        require_once ($prefix_folder . 'includes/post-functions.php');
-        require_once ($prefix_folder . 'includes/users-functions.php');
+        require_once($prefix_folder . 'includes/language.php');
+        require_once($prefix_folder . 'includes/entry-functions.php');
+        require_once($prefix_folder . 'includes/post-functions.php');
+        require_once($prefix_folder . 'includes/users-functions.php');
 
         $nav = trim($_GET['nav']);
 
@@ -1599,17 +1599,17 @@ class ApplicationManager
         $application_data_json = $this->get_json($application_id);
 
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once ($prefix_folder . 'includes/init.php');
+        require_once($prefix_folder . 'includes/init.php');
 
-        require_once ($prefix_folder . '../../../config/form_builder_config.php');
-        require_once ($prefix_folder . 'includes/db-core.php');
-        require_once ($prefix_folder . 'includes/helper-functions.php');
-        require_once ($prefix_folder . 'includes/check-session.php');
+        require_once($prefix_folder . '../../../config/form_builder_config.php');
+        require_once($prefix_folder . 'includes/db-core.php');
+        require_once($prefix_folder . 'includes/helper-functions.php');
+        require_once($prefix_folder . 'includes/check-session.php');
 
-        require_once ($prefix_folder . 'includes/language.php');
-        require_once ($prefix_folder . 'includes/entry-functions.php');
-        require_once ($prefix_folder . 'includes/post-functions.php');
-        require_once ($prefix_folder . 'includes/users-functions.php');
+        require_once($prefix_folder . 'includes/language.php');
+        require_once($prefix_folder . 'includes/entry-functions.php');
+        require_once($prefix_folder . 'includes/post-functions.php');
+        require_once($prefix_folder . 'includes/users-functions.php');
 
         $nav = trim($_GET['nav']);
 
@@ -1633,17 +1633,17 @@ class ApplicationManager
         $application_data_json = $this->get_json($application_id);
         if ($application->getFormData() == null || strcmp($application->getFormData(), $application_data_json) !== 0) {
             $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-            require_once ($prefix_folder . 'includes/init.php');
+            require_once($prefix_folder . 'includes/init.php');
 
-            require_once ($prefix_folder . '../../../config/form_builder_config.php');
-            require_once ($prefix_folder . 'includes/db-core.php');
-            require_once ($prefix_folder . 'includes/helper-functions.php');
-            require_once ($prefix_folder . 'includes/check-session.php');
+            require_once($prefix_folder . '../../../config/form_builder_config.php');
+            require_once($prefix_folder . 'includes/db-core.php');
+            require_once($prefix_folder . 'includes/helper-functions.php');
+            require_once($prefix_folder . 'includes/check-session.php');
 
-            require_once ($prefix_folder . 'includes/language.php');
-            require_once ($prefix_folder . 'includes/entry-functions.php');
-            require_once ($prefix_folder . 'includes/post-functions.php');
-            require_once ($prefix_folder . 'includes/users-functions.php');
+            require_once($prefix_folder . 'includes/language.php');
+            require_once($prefix_folder . 'includes/entry-functions.php');
+            require_once($prefix_folder . 'includes/post-functions.php');
+            require_once($prefix_folder . 'includes/users-functions.php');
 
             $nav = trim($_GET['nav']);
 
@@ -1955,11 +1955,11 @@ class ApplicationManager
     public function sendIfc($submission)
     {
         $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
-        require_once ($prefix_folder . 'includes/init.php');
+        require_once($prefix_folder . 'includes/init.php');
 
-        require_once ($prefix_folder . '../../../config/form_builder_config.php');
-        require_once ($prefix_folder . 'includes/db-core.php');
-        require_once ($prefix_folder . 'includes/helper-functions.php');
+        require_once($prefix_folder . '../../../config/form_builder_config.php');
+        require_once($prefix_folder . 'includes/db-core.php');
+        require_once($prefix_folder . 'includes/helper-functions.php');
 
         if ($submission) {
             //get if form has ifc file

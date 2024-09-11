@@ -193,7 +193,7 @@ class ApplicationManager
         }
 
 
-        error_log("Details is here ----->" . $details[0]);
+        error_log("Details is here -----> 1" . $details[0]);
 
         error_log("Time for testing");
 

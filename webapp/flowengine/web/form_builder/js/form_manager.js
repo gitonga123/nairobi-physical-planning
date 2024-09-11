@@ -86,7 +86,7 @@ $(function(){
 			$.ajax({
 				   type: "POST",
 				   async: true,
-				   url: "/backend.php/forms/toggleform",
+				   url: "/plan/forms/toggleform",
 				   data: {
 						  form_id: current_form_id,
 						  action: current_action
@@ -175,7 +175,7 @@ $(function(){
 						$.ajax({
 							   type: "POST",
 							   async: true,
-							   url: "/backend.php/forms/toggleform",
+							   url: "/plan/forms/toggleform",
 							   data: {
 									  form_id: selected_form_id,
 									  action: 'disable',
@@ -441,7 +441,7 @@ $(function(){
 						$.ajax({
 							   type: "POST",
 							   async: true,
-							   url: "/backend.php/forms/savetags",
+							   url: "/plan/forms/savetags",
 							   data: {
 										action: 'add',
 										form_id: form_id,
@@ -517,7 +517,7 @@ $(function(){
 			$.ajax({
 				   type: "POST",
 				   async: true,
-				   url: "/backend.php/forms/savetags",
+				   url: "/plan/forms/savetags",
 				   data: {
 							action: 'delete',
 							form_id: form_id,
@@ -577,7 +577,7 @@ $(function(){
 		$.ajax({
 			   type: "POST",
 			   async: true,
-			   url: "/backend.php/forms/duplicateform",
+			   url: "/plan/forms/duplicateform",
 			   data: {
 					  form_id: current_form_id
 					 },
@@ -594,7 +594,7 @@ $(function(){
 			   success: function(response_data){
 
 				   if(response_data.status == 'ok'){
-					   window.location.replace('/backend.php/forms/index?id=' + response_data.form_id + '&hl=true');
+					   window.location.replace('/plan/forms/index?id=' + response_data.form_id + '&hl=true');
 				   }else{
 					   //unknown error, response json improperly formatted
 					   //restore the links upon error
@@ -657,7 +657,7 @@ $(function(){
 					$.ajax({
 						   type: "POST",
 						   async: true,
-						   url: "/backend.php/forms/deleteform",
+						   url: "/plan/forms/deleteform",
 						   data: {
 								  	form_id: form_id
 								  },
@@ -671,7 +671,7 @@ $(function(){
 
 							   if(response_data.status == 'ok'){
 								   //redirect to form manager
-								   window.location.replace('/backend.php/forms/index');
+								   window.location.replace('/plan/forms/index');
 							   }
 
 						   }
@@ -739,7 +739,7 @@ $(function(){
 					$.ajax({
 						   type: "POST",
 						   async: true,
-						   url: "/backend.php/forms/changetheme",
+						   url: "/plan/forms/changetheme",
 						   data: {
 								  	form_id: form_id,
 								  	theme_id: $("#dialog-change-theme-input").val()
@@ -806,7 +806,7 @@ $(function(){
 	$('#dialog-change-theme-input').bind('change', function() {
 		if($(this).val() == "new"){
 			//redirect to theme editor
-			window.location.replace('/backend.php/forms/edittheme');
+			window.location.replace('/plan/forms/edittheme');
 		}
 	});
 

@@ -900,7 +900,7 @@ $(function(){
 				$.ajax({
 					   type: "POST",
 					   async: true,
-					   url: "/backend.php/forms/savelogicsettings",
+					   url: "/plan/forms/savelogicsettings",
 					   data: {
 							  	form_id: $("#form_id").val(),
 							  	logic_status: $(".logic_settings").data('logic_status'),
@@ -929,7 +929,7 @@ $(function(){
 					   success: function(response_data){
 							   
 						   if(response_data.status == 'ok'){
-							   window.location.replace('/backend.php/forms/logicsettings?id=' + response_data.form_id);
+							   window.location.replace('/plan/forms/logicsettings?id=' + response_data.form_id);
 						   }else{
 							   alert('Error! Unable to save logic settings. Please try again.');
 						   }

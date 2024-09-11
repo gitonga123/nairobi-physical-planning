@@ -46,7 +46,7 @@ $(function(){
 		$.ajax({
 			   type: "POST",
 			   async: true,
-			   url: "/backend.php/forms/savewidgetsposition",
+			   url: "/plan/forms/savewidgetsposition",
 			   data: {form_id: form_id,
 					  widget_pos: widget_positions
 					  },
@@ -59,7 +59,7 @@ $(function(){
 			   success: function(response_data){
 					   
 				   if(response_data.status == 'ok'){
-					   window.location.replace('/backend.php/forms/managereport?id=' + response_data.form_id);
+					   window.location.replace('/plan/forms/managereport?id=' + response_data.form_id);
 				   }	  
 					   
 			   }
@@ -95,7 +95,7 @@ $(function(){
 		$.ajax({
 			   type: "POST",
 			   async: true,
-			   url: "/backend.php/forms/duplicatewidget",
+			   url: "/plan/forms/duplicatewidget",
 			   data: {
 					  form_id: current_form_id,
 					  chart_id: current_chart_id
@@ -109,7 +109,7 @@ $(function(){
 			   success: function(response_data){
 					   
 				   if(response_data.status == 'ok'){
-					   window.location.replace('/backend.php/forms/managereport?id=' + response_data.form_id);
+					   window.location.replace('/plan/forms/managereport?id=' + response_data.form_id);
 				   }else{
 					   //unknown error, response json improperly formatted
 					   alert('Error! Unable to duplicate.');
@@ -167,7 +167,7 @@ $(function(){
 						$.ajax({
 							   type: "POST",
 							   async: true,
-							   url: "/backend.php/forms/deletewidget",
+							   url: "/plan/forms/deletewidget",
 							   data: {
 									  	form_id: form_id,
 									  	chart_id: chart_id
@@ -245,7 +245,7 @@ $(function(){
 						$.ajax({
 							   type: "POST",
 							   async: true,
-							   url: "/backend.php/forms/sharereport",
+							   url: "/plan/forms/sharereport",
 							   data: {
 									  	form_id: form_id
 									  },
@@ -320,7 +320,7 @@ $(function(){
 						$.ajax({
 							   type: "POST",
 							   async: true,
-							   url: "/backend.php/forms/unsharereport",
+							   url: "/plan/forms/unsharereport",
 							   data: {
 									  	form_id: form_id
 									  },

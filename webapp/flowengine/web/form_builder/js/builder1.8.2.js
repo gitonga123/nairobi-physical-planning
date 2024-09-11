@@ -28,7 +28,7 @@ function save_form() {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/saveform",
+        url: "/plan/forms/saveform",
         data: {
             form_id: b,
             fp: f,
@@ -327,7 +327,7 @@ function check_synch_fields() {
         $.ajax({
             type: "POST",
             async: true,
-            url: ";/backend.php/forms/synchfields",
+            url: ";/plan/forms/synchfields",
             data: {
                 form_id: a,
                 fp: b
@@ -2406,7 +2406,7 @@ function set_properties(D, x) {
                                                                                                                                                                         $.ajax({
                                                                                                                                                                             type: "POST",
                                                                                                                                                                             async: true,
-                                                                                                                                                                            url: "/backend.php/forms/deletedraftfield",
+                                                                                                                                                                            url: "/plan/forms/deletedraftfield",
                                                                                                                                                                             data: {
                                                                                                                                                                                 form_id: I,
                                                                                                                                                                                 element_id: h.data("field_properties").id,
@@ -2424,7 +2424,7 @@ function set_properties(D, x) {
                                                                                                                                                                                     $.ajax({
                                                                                                                                                                                         type: "POST",
                                                                                                                                                                                         async: true,
-                                                                                                                                                                                        url: "/backend.php/forms/add_field.php",
+                                                                                                                                                                                        url: "/plan/forms/add_field.php",
                                                                                                                                                                                         data: {
                                                                                                                                                                                             element_type: x,
                                                                                                                                                                                             form_id: I,
@@ -2972,7 +2972,7 @@ function add_element(a) {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/addfield",
+        url: "/plan/forms/addfield",
         data: {
             element_type: a,
             form_id: c,
@@ -3018,7 +3018,7 @@ function add_matrix_row(d) {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/addmatrixrow",
+        url: "/plan/forms/addmatrixrow",
         data: {
             form_id: h,
             row_holder_id: "mr_temp_" + a,
@@ -3080,7 +3080,7 @@ function delete_matrix_row(g) {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/deletematrixrow",
+        url: "/plan/forms/deletematrixrow",
         data: {
             form_id: c,
             element_id: a
@@ -3919,7 +3919,7 @@ $(function () {
             $.ajax({
                 type: "POST",
                 async: true,
-                url: "/backend.php/forms/addfield",
+                url: "/plan/forms/addfield",
                 data: {
                     element_type: c,
                     form_id: e,
@@ -4051,7 +4051,7 @@ $(function () {
             $.ajax({
                 type: "POST",
                 async: true,
-                url: "/backend.php/forms/synchfields",
+                url: "/plan/forms/synchfields",
                 data: {
                     form_id: c,
                     fp: d
@@ -4721,7 +4721,7 @@ $(function () {
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/stringtotime",
+            url: "/plan/forms/stringtotime",
             data: {
                 default_date: $(this).val(),
                 date_format: c.type
@@ -4755,7 +4755,7 @@ $(function () {
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/stringtotime",
+            url: "/plan/forms/stringtotime",
             data: {
                 default_time: $(this).val(),
                 time_24hour: c.time_24hour
@@ -5733,7 +5733,7 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     async: true,
-                    url: "/backend.php/forms/deletelivefield",
+                    url: "/plan/forms/deletelivefield",
                     data: {
                         form_id: e,
                         element_id: d.data("field_properties").id
@@ -5824,7 +5824,7 @@ $(function () {
             click: function () {
                 var c = $("#form_header").data("form_properties").id;
                 var d = new Date().getTime();
-                window.location.replace("/backend.php/forms/form?id=" + c + "&t=" + d)
+                window.location.replace("/plan/forms/form?id=" + c + "&t=" + d)
             }
         }, {
             text: "I'm finished",
@@ -5832,7 +5832,7 @@ $(function () {
             "class": "btn_secondary_action",
             click: function () {
                 var c = $("#form_header").data("form_properties").id;
-                window.location.replace("/backend.php/forms/index?id=" + c + "&hl=1")
+                window.location.replace("/plan/forms/index?id=" + c + "&hl=1")
             }
         }]
     });
@@ -5946,7 +5946,7 @@ $(function () {
                     $.ajax({
                         type: "POST",
                         async: true,
-                        url: "/backend.php/forms/addmatrixrow",
+                        url: "/plan/forms/addmatrixrow",
                         data: {
                             form_id: e,
                             row_holder_id: "mr_temp_" + h,
@@ -6095,7 +6095,7 @@ $(function () {
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/addfield",
+            url: "/plan/forms/addfield",
             data: {
                 element_type: f.type,
                 form_id: d,
@@ -6158,7 +6158,7 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     async: true,
-                    url: "/backend.php/forms/deletedraftfield",
+                    url: "/plan/forms/deletedraftfield",
                     data: {
                         form_id: e,
                         element_id: d.data("field_properties").id,
@@ -6220,7 +6220,7 @@ $(function () {
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/ping",
+            url: "/plan/forms/ping",
             data: {
                 form_id: c
             },

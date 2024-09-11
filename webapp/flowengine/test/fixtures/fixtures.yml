@@ -946,32 +946,32 @@ Buttons:
     img: ''
     title: 'Send to Submissions'
     tooltip: ''
-    link: '/backend.php/forms/move?moveto=2'
+    link: '/plan/forms/move?moveto=2'
   Buttons_2:
     img: ''
     title: 'Send to Review'
     tooltip: ''
-    link: '/backend.php/forms/move?moveto=3'
+    link: '/plan/forms/move?moveto=3'
   Buttons_3:
     img: ''
     title: 'Send to Corrections'
     tooltip: ''
-    link: '/backend.php/forms/move?moveto=6'
+    link: '/plan/forms/move?moveto=6'
   Buttons_4:
     img: ''
     title: 'Send to Submissions'
     tooltip: ''
-    link: '/backend.php/forms/move?moveto=2'
+    link: '/plan/forms/move?moveto=2'
   Buttons_5:
     img: ''
     title: 'Send to Approved'
     tooltip: ''
-    link: '/backend.php/forms/move?moveto=4'
+    link: '/plan/forms/move?moveto=4'
   Buttons_6:
     img: ''
     title: 'Send to Rejected'
     tooltip: ''
-    link: '/backend.php/forms/move?moveto=5'
+    link: '/plan/forms/move?moveto=5'
 SubMenuButtons:
   SubMenuButtons_1:
     Submenu: SubMenus_1

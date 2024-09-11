@@ -235,7 +235,30 @@ class OTBHelper
 
             return false;
         }
+    }
 
+    public function assignUserToAgency($reviewer_id)
+    {
+        $q = Doctrine_Query::create()
+            ->from('Agency a')
+            ->orderBy('a.name ASC');
+        $agencies = $q->execute();
+
+        foreach ($agencies as $agency) {
+
+            $q = Doctrine_Query::create()
+                ->from('AgencyUser a')
+                ->where('a.user_id = ? and a.agency_id = ?', [$reviewer_id, $agency->getId()]);
+
+            $agency_user = $q->fetchOne();
+            if (!$agency_user) {
+                $agency_new = new AgencyUser();
+                $agency_new->setUserId($reviewer_id);
+                $agency_new->setAgencyId($agency->getId());
+
+                $agency_new->save();
+            }
+        }
     }
 
     /**

@@ -50,12 +50,12 @@ class LoginManager
   public function create_session($username, $password)
   {
     error_log("Username {$username} password {$password}");
+
     $q = Doctrine_Query::create()
       ->from("CfUser a")
-      ->where("a.struserid = ? OR a.stremail = ?", [$username, $username])
-      ->andWhere('a.bdeleted = ?', 0);
+      ->where("a.struserid = ? OR a.stremail = ? and a.bdeleted = ?", [$username, $username, 0]);
     $available_user = $q->fetchOne();
-    
+
     if ($available_user) {
       $hash = $available_user->getStrpassword();
       if (password_verify($password, $hash)) {

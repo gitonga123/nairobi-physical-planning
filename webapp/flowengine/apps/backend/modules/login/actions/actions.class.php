@@ -145,15 +145,17 @@ class loginActions extends sfActions
     }
 
     $otb_helper->assignCfUserToGroup($has_account->getNid(), $group_list);
+
+    $otb_helper->assignUserToAgency($has_account->getNid());
+
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
     if ($login_action) {
       $referer = $this->getUser()->getAttribute("referer");
-      if ($referer && Functions::find("backend.php", $referer)) {
-        $this->redirect($referer);
-      } else {
-        $this->redirect("/backend.php/dashboard");
-      }
+      error_log("Login Successful ---->");
+      error_log($referer);
+      error_log("We are about to redirect to the above");
+      $this->redirect("/plan/dashboard");
     } else {
       $this->loginError = true;
       $this->form = new BackendSigninForm();

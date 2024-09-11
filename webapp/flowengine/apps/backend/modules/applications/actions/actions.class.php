@@ -790,7 +790,7 @@ class applicationsActions extends sfActions
 	public function executeSMStest(sfWebRequest $request)
 	{
 		$notification = new mailnotifications();
-		$notification->sendsms('0795282610', 'Hi 0795282610, Testing 1,2,3');
+		$notification->sendsms('0710594298', 'Hi 0710594298, Testing 1,2,3');
 		exit();
 	}
 	########### Sasalog :: end addition by James

@@ -10,8 +10,12 @@ class mailnotifications
 
 	}
 
-	public function sendemail($from, $to, $subject, $body)
+	public function sendemail($from, $to, $subject, $body, $send_emails = false)
 	{
+
+		if (!$send_emails) {
+			return;
+		}
 		$q = Doctrine_Query::create()
 			->from("SfGuardUserProfile a")
 			->where("a.email = ?", $to);

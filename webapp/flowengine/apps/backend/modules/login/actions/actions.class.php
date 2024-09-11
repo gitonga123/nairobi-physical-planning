@@ -137,7 +137,7 @@ class loginActions extends sfActions
     $group_list = [$group];
 
     foreach ($groups_as_received as $key) {
-      $found_group = $otb_helper->findGroupByName($keyu);
+      $found_group = $otb_helper->findGroupByName($key);
 
       if ($found_group) {
         array_push($group_list, $group);

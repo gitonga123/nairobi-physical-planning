@@ -1066,13 +1066,13 @@ class ApplicationManager
 
 
             $notifier = new mailnotifications();
-            if (strlen($body) || strlen($subject)) {
+            if (strlen($body) > 0 || strlen($subject) > 0) {
                 foreach ($copy_emails as $email) {
                     error_log('--------email--------' . $email);
                     $notifier->sendemail('', $email, $subject, $body);
                 }
             }
-            if (strlen($sms)) {
+            if (strlen($sms) > 0) {
                 foreach ($copy_phone_numbers as $no) {
                     error_log('-------SMS-------' . $no);
                     $notifier->sendsms($no, $sms);

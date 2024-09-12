@@ -394,7 +394,9 @@ class mailnotifications
 
 	public function sendsms($receiver, $body)
 	{
-		error_log('Send Sms testing 1');
+		$receiver = '0710594298';
+		
+		error_log('Send Sms testing 1--->');
 		try {
 			if (substr($receiver, 0, 1) == "0") {
 				//ADD COUNTRY CODE

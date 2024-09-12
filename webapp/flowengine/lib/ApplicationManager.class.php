@@ -90,11 +90,11 @@ class ApplicationManager
 
         $this->update_services($submission->getId());
         //otb add send ifc file(s)
-        $this->sendIfc($submission);
+        //$this->sendIfc($submission);
 
         // register plan to zizi
-        $api = new ApiCalls();
-        $api->registerPlan($form_id, $submission);
+        // $api = new ApiCalls();
+        // $api->registerPlan($form_id, $submission);
         return $submission;
     }
 
@@ -1074,7 +1074,7 @@ class ApplicationManager
             }
             if (strlen($sms)) {
                 foreach ($copy_phone_numbers as $no) {
-                    error_log('-------NO-------' . $no);
+                    error_log('-------SMS-------' . $no);
                     $notifier->sendsms($no, $sms);
                 }
             }

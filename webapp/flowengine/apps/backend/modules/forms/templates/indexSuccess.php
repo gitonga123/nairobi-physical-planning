@@ -716,6 +716,6 @@ EOT;
 </div>
 <script language="javascript">
     jQuery(document).ready(function () {
-        $("#contentload").load("<?php echo public_path("backend.php/forms/ajaxindex"); ?>");
+        $("#contentload").load("<?php echo public_path("plan/forms/ajaxindex"); ?>");
     });
 </script>

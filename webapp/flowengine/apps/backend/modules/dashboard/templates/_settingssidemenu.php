@@ -231,7 +231,7 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                                 <li <?php if ($sf_context->getModuleName() == "plot") {
                                     echo "class='active'";
                                 } ?>>
-                                    <a href="<?php echo public_path('backend.php/plot/index'); ?>"><i
+                                    <a href="<?php echo public_path('plan/plot/index'); ?>"><i
                                             class="fa fa-caret-right"></i><?php echo __('Plot Details'); ?></a>
                                 </li>
                                 <?php

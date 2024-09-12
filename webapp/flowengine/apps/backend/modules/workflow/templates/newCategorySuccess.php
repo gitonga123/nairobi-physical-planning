@@ -22,7 +22,7 @@ $audit->saveAudit("", "Accessed Workflow Category");
 						<h4 class="panel-title"><?php echo __("Service Category Creation"); ?></h4>
 					</div>
 					<div class="panel-body panel-body-nopadding">
-						<form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/workflow/postCategory/id/".$form->getObject()->getId()); ?>">
+						<form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/workflow/postCategory/id/".$form->getObject()->getId()); ?>">
 							<div>
 							<?php echo $form->renderGlobalErrors() ?>
 							</div>

@@ -125,7 +125,7 @@ $entry_id = $application->getEntryId();
 				</div>
 				<?php endif; ?>
        
-         <form class="form-horizontal form-bordered" action="<?php echo public_path('backend.php/share/share/id/'.$application->getId()); ?>" method="post">
+         <form class="form-horizontal form-bordered" action="<?php echo public_path('plan/share/share/id/'.$application->getId()); ?>" method="post">
             
             <div class="form-group">
               <label class="col-sm-3 control-label"><?php echo __('Enter the email of a registered user and click find') ?></label>
@@ -198,7 +198,7 @@ foreach($pager->getResults() as $architect)
   		echo "<tr><td>".$counter."</td><td>".$architect->getFullname()."</td>";
 		?>
 		<td align="center">
-           <a title='Share Application' href="<?php echo public_path('backend.php/share/share/id/'.$application->getId().'/architect/'.$architect->getUserId()); ?>">
+           <a title='Share Application' href="<?php echo public_path('plan/share/share/id/'.$application->getId().'/architect/'.$architect->getUserId()); ?>">
            <span class="badge badge-primary"><i class="fa fa-share"></i></span>
            </a>
 		</td>

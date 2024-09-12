@@ -102,7 +102,7 @@
  				   $("#agency_submitbutton").click(function(e) {
  				   	 e.preventDefault()
 					 $.ajax({
-						url: '<?php echo public_path(); ?>backend.php/agency/updateagency',
+						url: '<?php echo public_path(); ?>plan/agency/updateagency',
 						cache: false,
 						type: 'POST',
 						data : $('#agencyform').serialize(),

@@ -132,7 +132,7 @@
                         <td><a href="/plan/tasks/pick/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId(); ?></a></td>
                         <td><?php echo $application->getDateOfSubmission(); ?></td>
                         <td>
-                                <a  title='<?php echo __('Pick Task'); ?>' href='<?php echo public_path("backend.php/tasks/pick/id/".$application->getId()); ?>'> <span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+                                <a  title='<?php echo __('Pick Task'); ?>' href='<?php echo public_path("plan/tasks/pick/id/".$application->getId()); ?>'> <span class="label label-primary"><i class="fa fa-eye"></i></span></a>
                         </td>
                     </tr>
                 <?php } ?>

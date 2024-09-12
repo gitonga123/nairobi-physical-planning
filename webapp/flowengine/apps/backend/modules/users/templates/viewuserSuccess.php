@@ -273,13 +273,13 @@ use_helper("I18N");
                                             </td>
                                             <td>
                                                 <a class='btn btn-default btn-xs' title='<?php echo __('View Task'); ?>'
-                                                    href='<?php echo public_path("backend.php/tasks/view/id/" . $task->getId()); ?>'><span
+                                                    href='<?php echo public_path("plan/tasks/view/id/" . $task->getId()); ?>'><span
                                                         class="fa fa-eye"></span></a>
                                                 <?php
                                                 if ($sf_user->mfHasCredential("has_hod_access")) {
                                                     ?>
                                                     <a title="Cancel Task" class="btn btn-danger btn-xs"
-                                                        href="<?php echo public_path("backend.php/tasks/cancel/id/" . $task->getId()); ?>"><span
+                                                        href="<?php echo public_path("plan/tasks/cancel/id/" . $task->getId()); ?>"><span
                                                             class="fa fa-times"></span></a>
                                                     <?php
                                                 }
@@ -379,13 +379,13 @@ use_helper("I18N");
                                             </td>
                                             <td>
                                                 <a class='btn btn-default btn-xs' title='<?php echo __('View Task'); ?>'
-                                                    href='<?php echo public_path("backend.php/tasks/view/id/" . $task->getId()); ?>'><span
+                                                    href='<?php echo public_path("plan/tasks/view/id/" . $task->getId()); ?>'><span
                                                         class="fa fa-eye"></span></a>
                                                 <?php
                                                 if ($sf_user->mfHasCredential("has_hod_access")) {
                                                     ?>
                                                     <a title="Cancel Task" class="btn btn-danger btn-xs"
-                                                        href="<?php echo public_path("backend.php/tasks/cancel/id/" . $task->getId()); ?>"><span
+                                                        href="<?php echo public_path("plan/tasks/cancel/id/" . $task->getId()); ?>"><span
                                                             class="fa fa-times"></span></a>
                                                     <?php
                                                 }
@@ -484,13 +484,13 @@ use_helper("I18N");
                                             </td>
                                             <td>
                                                 <a class='btn btn-default btn-xs' title='<?php echo __('View Task'); ?>'
-                                                    href='<?php echo public_path("backend.php/tasks/view/id/" . $task->getId()); ?>'><span
+                                                    href='<?php echo public_path("plan/tasks/view/id/" . $task->getId()); ?>'><span
                                                         class="fa fa-eye"></span></a>
                                                 <?php
                                                 if ($sf_user->mfHasCredential("has_hod_access")) {
                                                     ?>
                                                     <a title="Cancel Task" class="btn btn-danger btn-xs"
-                                                        href="<?php echo public_path("backend.php/tasks/cancel/id/" . $task->getId()); ?>"><span
+                                                        href="<?php echo public_path("plan/tasks/cancel/id/" . $task->getId()); ?>"><span
                                                             class="fa fa-times"></span></a>
                                                     <?php
                                                 }

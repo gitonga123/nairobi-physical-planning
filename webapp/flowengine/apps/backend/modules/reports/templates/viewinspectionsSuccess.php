@@ -14,7 +14,7 @@ if($sf_user->isAuthenticated()){
     if($sf_user->getGuardUser()->getId() != '1')
     {
         $sf_user->signout();
-		header('Location: '.public_path('backend.php/login/index'));
+		header('Location: '.public_path('plan/login/index'));
 		exit;
     }
 }

@@ -859,7 +859,7 @@ class permitsActions extends sfActions
 
         require_once($prefix_folder . 'includes/entry-functions.php');
         $dbh = mf_connect_db();
-        $entry_details = mf_get_entry_details($dbh, $form_id, $entry_id, [], $this->getUser()->getCulture(), $path = 'backend.php');
+        $entry_details = mf_get_entry_details($dbh, $form_id, $entry_id, [], $this->getUser()->getCulture(), $path = 'plan');
         $row_style = $row_markup = "";
         foreach ($entry_details as $row) {
             if ($row['element_type'] == "page_break") {

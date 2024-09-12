@@ -238,7 +238,7 @@ use_helper("I18N");
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 800px;">
       <div class="modal-content">
-        <form class="form" action="<?php echo public_path('backend.php/tasks/save/redirect/' . $task->getId()) ?>" method="post" autocomplete="off">
+        <form class="form" action="<?php echo public_path('plan/tasks/save/redirect/' . $task->getId()) ?>" method="post" autocomplete="off">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel"><?php echo __('New Task'); ?></h4>
@@ -258,7 +258,7 @@ use_helper("I18N");
   <input type="hidden" name="warning" id="warning" value="1">
 
   <script language="javascript">
-    $("#newtask").load("<?php echo public_path('backend.php/tasks/new/application/' . $application->getId()) ?>");
+    $("#newtask").load("<?php echo public_path('plan/tasks/new/application/' . $application->getId()) ?>");
 
     <?php
     //Display modal if comment sheet is posted and has errors or if task is completed and actions are needed

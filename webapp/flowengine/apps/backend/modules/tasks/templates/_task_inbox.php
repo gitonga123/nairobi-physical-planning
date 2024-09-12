@@ -15,7 +15,7 @@
         <td><a href="/plan/tasks/view?id=<?php echo $task->getId(); ?>"><?php echo $task->getApplication()->getApplicationId(); ?></a></td>
         <td><?php echo $task->getStatusName(); ?></td>
         <td>
-            <a  title='<?php echo __('View Task'); ?>' href='<?php echo public_path("backend.php/tasks/view?id=".$task->getId()); ?>'> <span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+            <a  title='<?php echo __('View Task'); ?>' href='<?php echo public_path("plan/tasks/view?id=".$task->getId()); ?>'> <span class="label label-primary"><i class="fa fa-eye"></i></span></a>
         </td>
     </tr>
     <?php endforeach; ?>

@@ -33,7 +33,7 @@ if($sf_user->mfHasCredential("managelanguages"))
 
                     <div class="pull-right">
                         <button type="submit" class="btn btn-primary-alt settings-margin42"><?php echo __('Save Translations'); ?></button>
-                        <a class="btn btn-primary-alt settings-margin42" href="<?php echo public_path('backend.php/forms/index/filter/'.$_GET['filter'])?>"><?php echo __('Back to Forms'); ?></a>
+                        <a class="btn btn-primary-alt settings-margin42" href="<?php echo public_path('plan/forms/index/filter/'.$_GET['filter'])?>"><?php echo __('Back to Forms'); ?></a>
                     </div>
                 </div>
 

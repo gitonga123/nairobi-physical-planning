@@ -43,7 +43,7 @@
                     ?>
                 </td>
                 <td style="vertical-align:middle">
-                    <a class='btn btn-default btn-xs' title='<?php echo __('View Task'); ?>' href='<?php echo public_path("backend.php/tasks/view/id/".$task->getId()); ?>'> <?php echo __('View Task'); ?></a>
+                    <a class='btn btn-default btn-xs' title='<?php echo __('View Task'); ?>' href='<?php echo public_path("plan/tasks/view/id/".$task->getId()); ?>'> <?php echo __('View Task'); ?></a>
                 </td>
             </tr>
         <?php } ?>

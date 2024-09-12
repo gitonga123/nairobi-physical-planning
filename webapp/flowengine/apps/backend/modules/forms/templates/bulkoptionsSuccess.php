@@ -164,7 +164,7 @@ if($sf_user->mfHasCredential("manageforms"))
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form class="form" action="<?php echo public_path('backend.php/forms/bulkoptions?id='.$_GET['id']) ?>&element_id=<?php echo $_GET['element_id']; ?>" method="post" autocomplete="off">
+    <form class="form" action="<?php echo public_path('plan/forms/bulkoptions?id='.$_GET['id']) ?>&element_id=<?php echo $_GET['element_id']; ?>" method="post" autocomplete="off">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel"><?php echo __('Add Options'); ?></h4>

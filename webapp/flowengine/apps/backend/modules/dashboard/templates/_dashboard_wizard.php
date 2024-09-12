@@ -64,7 +64,7 @@
                                     <div class="tab-content">
 
                                         <div id="tabgroups" class="tab-pane <?php if($wizard_manager->resume_step() == 0){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/security"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/security"); ?>">
                                                 <input type="hidden" name="step" value="1" />
                                                 <div id="groups">
                                                     <?php
@@ -106,7 +106,7 @@
                                         </div><!-- tab-pane -->
 
                                         <div id="tabcredentials" class="tab-pane <?php if($wizard_manager->resume_step() == 1){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/security"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/security"); ?>">
                                                 <input type="hidden" name="step" value="2" />
                                                 <?php
                                                 $count = 0;
@@ -160,7 +160,7 @@
                                         </div><!-- tab-pane -->
 
                                         <div id="tabreviewers" class="tab-pane <?php if($wizard_manager->resume_step() == 2){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/security"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/security"); ?>">
                                                 <input type="hidden" name="step" value="3" />
                                                 <div id="users">
                                                 </div>
@@ -204,7 +204,7 @@
                                     <div class="tab-content">
 
                                         <div id="tabdepartments" class="tab-pane <?php if($wizard_manager->resume_step() == 3){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="1" />
                                                 <div id="departments">
                                                     <div class="form-group">
@@ -234,7 +234,7 @@
                                         </div>
 
                                         <div id="tabassignreviewers" class="tab-pane <?php if($wizard_manager->resume_step() == 4){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="2" />
                                                 <div id="users">
                                                     <?php
@@ -281,7 +281,7 @@
                                         </div>
 
                                         <div id="tabworkflows" class="tab-pane <?php if($wizard_manager->resume_step() == 5){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="3" />
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label"><h5>Workflow Category</h5></label>

@@ -53,7 +53,7 @@ use_helper("I18N");
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"><?php echo __('Plot Detail') ?></h4>
           </div>
-          <form method="POST" action="<?php echo public_path('backend.php/plot/save'); ?>" trash="<?php echo public_path('backend.php/plot/delete'); ?>">
+          <form method="POST" action="<?php echo public_path('plan/plot/save'); ?>" trash="<?php echo public_path('plan/plot/delete'); ?>">
             <div class="modal-body">
               <div class="modal-message"></div>
               <div class="alert hide"><p></p></div>

@@ -48,7 +48,7 @@
 										?>
 										</td>
 										<td>
-										<a title='View Application' href='<?php echo public_path('backend.php/invoices/view/id/'.$invoice->getId()); ?>'><img src='<?php echo public_path('assets_backend/images/icons/dark/create_write.png') ?>'></a>
+										<a title='View Application' href='<?php echo public_path('plan/invoices/view/id/'.$invoice->getId()); ?>'><img src='<?php echo public_path('assets_backend/images/icons/dark/create_write.png') ?>'></a>
 										</td>
 									</tr>
 				<?php

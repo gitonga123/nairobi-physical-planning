@@ -85,7 +85,7 @@ $site_settings = Functions::site_settings();
         <li <?php if ($sf_context->getModuleName() == "plot") {
               echo "class='active'";
             } ?>>
-          <a href="<?php echo public_path('backend.php/plot/index'); ?>"><i class="fa fa-caret-right"></i><?php echo __('Plot Information'); ?></a>
+          <a href="<?php echo public_path('plan/plot/index'); ?>"><i class="fa fa-caret-right"></i><?php echo __('Plot Information'); ?></a>
         </li>
       <?php
       } ?>

@@ -30,7 +30,7 @@
 			<label style='height: 30px; margin-top: 0px;'>
 			<div style='float: left; font-size: 20px; font-weight: 700;'>Plot on Map</div>
 <div style="float: right; margin-top: -12px;">
-							<button style="height: 34px; font-size: 12px;" onClick="window.location='<?php echo public_path(); ?>backend.php/plot/index';">Back to Plots</button>
+							<button style="height: 34px; font-size: 12px;" onClick="window.location='<?php echo public_path(); ?>plan/plot/index';">Back to Plots</button>
 </div>
 </label>
 			</form>

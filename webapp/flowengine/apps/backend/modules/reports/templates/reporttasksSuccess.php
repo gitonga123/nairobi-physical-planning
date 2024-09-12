@@ -155,7 +155,7 @@ echo "&nbsp; &nbsp;".sizeof($tasks)." entries found. <br>";
                                                ->from("FormEntry a")
                                                ->where("a.id = ?", $task->getApplicationId());
                                             $application = $q->fetchOne();
-                                            echo "<a href='".public_path("backend.php/applications/view/id/".$application->getId())."'>".$application->getApplicationId()."</a>";
+                                            echo "<a href='".public_path("plan/applications/view/id/".$application->getId())."'>".$application->getApplicationId()."</a>";
                                             ?>
                                         </td>
                                         <td>

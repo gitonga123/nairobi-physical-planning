@@ -16,7 +16,7 @@ $wizard_manager = new WizardManager();
     <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __("You are here"); ?>:</span>
         <ol class="breadcrumb">
-            <li><a href="<?php echo public_path("backend.php"); ?>"><?php echo __("Home"); ?></a></li>
+            <li><a href="<?php echo public_path("plan"); ?>"><?php echo __("Home"); ?></a></li>
             <li class="active"><?php echo __("Workflow"); ?></li>
         </ol>
     </div>
@@ -49,7 +49,7 @@ $wizard_manager = new WizardManager();
                                     <div class="tab-content">
 
                                         <div id="tabdepartments" class="tab-pane <?php if($wizard_manager->postsetup_resume_step() == 1){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="1" />
                                                 <div id="departments">
                                                     <div class="form-group">
@@ -79,7 +79,7 @@ $wizard_manager = new WizardManager();
                                         </div>
 
                                         <div id="tabassignreviewers" class="tab-pane <?php if($wizard_manager->postsetup_resume_step() == 2){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="2" />
                                                 <div id="users">
                                                     <?php
@@ -133,7 +133,7 @@ $wizard_manager = new WizardManager();
                                         </div>
 
                                         <div id="tabworkflows" class="tab-pane <?php if($wizard_manager->postsetup_resume_step() == 3){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="3" />
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label"><h5>Service Title</h5></label>

@@ -274,7 +274,7 @@
 							<li><a href="<?php echo url_for('/plan/applications/edit?form_id='.$agenda_columns->getFormId().'&id='.$app['id']) ?>" target="_blank">Edit</a></li>
 							<?php endif; ?>
 							<li>
-								<a target="_blank"  href="<?php echo public_path('backend.php/applications/view/id/'.$app['form_entry_id']) ?>"> <?php echo __('View Details') ?> </a>
+								<a target="_blank"  href="<?php echo public_path('plan/applications/view/id/'.$app['form_entry_id']) ?>"> <?php echo __('View Details') ?> </a>
 							</li>  
 							<?php if ($sf_user->mfHasCredential("approve_applications")): ?>
 								<?php

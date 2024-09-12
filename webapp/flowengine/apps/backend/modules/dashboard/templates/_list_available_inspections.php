@@ -62,9 +62,9 @@
 		   ?>
                 </td>
                 <td style="vertical-align:middle">
-                    <a class='btn btn-default btn-xs' title='<?php echo __('Pick Task'); ?>' href='<?php echo public_path("backend.php/tasks/pickinspection/id/".$application->getId()); ?>'><?php echo __('Pick Task'); ?> <span class="fa fa-arrow-right"></span></a>
+                    <a class='btn btn-default btn-xs' title='<?php echo __('Pick Task'); ?>' href='<?php echo public_path("plan/tasks/pickinspection/id/".$application->getId()); ?>'><?php echo __('Pick Task'); ?> <span class="fa fa-arrow-right"></span></a>
 					<br/>
-                    <a class='btn btn-default btn-xs' title='<?php echo __('View'); ?>' href='<?php echo public_path("backend.php/applications/view/id/".$application->getId()); ?>'><?php echo __('View'); ?> <span class="fa fa-eye"></span></a>
+                    <a class='btn btn-default btn-xs' title='<?php echo __('View'); ?>' href='<?php echo public_path("plan/applications/view/id/".$application->getId()); ?>'><?php echo __('View'); ?> <span class="fa fa-eye"></span></a>
                 </td>
             </tr>
         <?php } ?>

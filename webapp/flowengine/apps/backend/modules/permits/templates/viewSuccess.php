@@ -25,8 +25,8 @@ if ($permit || $application) {
         <div class="breadcrumb-wrapper">
             <span class="label">You are here:</span>
             <ol class="breadcrumb">
-                <li><a href="<?php echo public_path('backend.php') ?>">Home</a></li>
-                <li><a href="<?php echo public_path('backend.php/permits/index') ?>">Permits</a></li>
+                <li><a href="<?php echo public_path('plan') ?>">Home</a></li>
+                <li><a href="<?php echo public_path('plan/permits/index') ?>">Permits</a></li>
                 <li class="active"><?php echo $application->getApplicationId(); ?></li>
             </ol>
         </div>

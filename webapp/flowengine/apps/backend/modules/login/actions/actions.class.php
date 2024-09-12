@@ -44,6 +44,8 @@ class loginActions extends sfActions
     $code = $request->getParameter('code');
 
     if (empty($code) || is_null($code)) {
+      $this->returnRedirectURL();
+
       throw new sfSecurityException('Something Went Wrong. Please try again later.', 403);
     }
 

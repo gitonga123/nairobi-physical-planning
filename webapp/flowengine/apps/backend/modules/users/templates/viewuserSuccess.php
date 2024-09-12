@@ -174,7 +174,7 @@ use_helper("I18N");
                                 <th><?php echo __("Department"); ?></th>
                                 <th><?php echo __("User group (s)"); ?></th>
                                 <?php
-                                if ($sf_user->mfHasCredential("access_reviewers") && $sf_user->mfHasCredential("code_access")) {
+                                if ($sf_user->mfHasCredential("access_reviewers") && $sf_user->mfHasCredential("code_access_rights")) {
                                     ?>
                                     <th><?php echo __("Actions"); ?></th>
                                     <?php
@@ -200,7 +200,7 @@ use_helper("I18N");
                                 </td>
                                 <td>
                                     <?php
-                                    if ($sf_user->mfHasCredential("access_reviewers") && $sf_user->mfHasCredential("code_access")) {
+                                    if ($sf_user->mfHasCredential("access_reviewers") && $sf_user->mfHasCredential("code_access_rights")) {
                                         ?>
                                         <a href="" class="btn btn-xs btn-primary" data-toggle="modal"
                                             data-target="#accessModal"><span class="fa fa-edit"></span> </a>

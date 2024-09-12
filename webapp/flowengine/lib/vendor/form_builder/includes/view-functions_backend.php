@@ -6685,6 +6685,7 @@ html{
 EOT;
 	} else {
 		$self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
+		
 		$form_markup = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xml:lang="en" {$html_class_tag} xmlns="http://www.w3.org/1999/xhtml">

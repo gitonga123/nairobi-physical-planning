@@ -188,8 +188,10 @@ class loginActions extends sfActions
       $referer = $this->getUser()->getAttribute("referer");
       error_log($referer);
       error_log("Super Admin login above --->");
+
+      $url = sfConfig::get('app_sso_backend_jambo_url') . "/plan/dashboard";
       // redirect to plan instance of backend.php
-      $this->redirect(sfConfig::get('app_sso_backend_jambo_url') . "/plan");
+      $this->redirect($url);
     } else {
       $this->loginError = true;
       // $this->form = new BackendSigninForm();

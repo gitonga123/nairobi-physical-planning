@@ -73,7 +73,13 @@ class invoicesActions extends sfActions
             $token = $_SESSION['jambo_backup_token'];
             // check if invoice is paid;
             $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
+
+            error_log("Invoice bill reference number --->" . $billing_reference_number);
             $result = $otb_helper->check_payment_jambo_pay($token, $billing_reference_number);
+
+            error_log('Resulting response from otb check');
+
+            error_log(json_encode($result));
             if ($result['success']) {
                 $otb_helper->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
             }

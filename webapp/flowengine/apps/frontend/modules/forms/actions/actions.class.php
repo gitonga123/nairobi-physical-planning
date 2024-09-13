@@ -162,8 +162,8 @@ class formsActions extends sfActions
                   // check if invoice is paid;
                   $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
                   $result = $this->check_payment_jambo_pay($billing_reference_number);
-                  if ($result) {
-                        $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id);
+                  if ($result['success']) {
+                        $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
                         $this->redirect('/plan/invoices/view/id/' . $this->invoice->getId());
                   }
             }
@@ -524,7 +524,7 @@ class formsActions extends sfActions
             }
       }
 
-      public function updateInvoiceToPaid($billing_reference_number, $invoice_id)
+      public function updateInvoiceToPaid($billing_reference_number, $invoice_id, $receipt)
       {
             $q = Doctrine_Query::create()
                   ->from("ApFormPayments a")
@@ -546,6 +546,7 @@ class formsActions extends sfActions
             $invoice = $q->fetchOne();
 
             $invoice->setPaid(2);
+            $invoice->setReceiptNumber(json_encode($receipt));
 
             $invoice->save();
 
@@ -579,11 +580,11 @@ class formsActions extends sfActions
 
             $result = $this->check_payment_jambo_pay($billing_reference_number);
 
-            if (!$result) {
+            if (!$result['success']) {
                   return $this->renderText(json_encode(['success' => false, 'status' => 404, 'data' => ['msg' => 'Payment Not Found.']]));
             } else {
 
-                  $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id);
+                  $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
                   return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
             }
       }
@@ -612,11 +613,11 @@ class formsActions extends sfActions
                   error_log("Payment confirmation is ---->");
                   error_log(print_r($content, true));
                   if (strtolower($content['status']) == 'paid') {
-                        return true;
+                        return ['success' => true, 'receipt' => $content['receipt_numbers']];
                   }
-                  return false;
+                  return ['success' => false];
             } else {
-                  return false;
+                  return ['success' => false];
             }
       }
 

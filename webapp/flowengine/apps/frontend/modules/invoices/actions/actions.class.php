@@ -68,6 +68,7 @@ class invoicesActions extends sfActions
             $this->invoice->save();
         }
 
+        error_log("Invoice status is " . $this->invoice->getPaid());
         if ($this->invoice->getPaid() == 1) {
             $token = $_SESSION['jambo_backup_token'];
             // check if invoice is paid;

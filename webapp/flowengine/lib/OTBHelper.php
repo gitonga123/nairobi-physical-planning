@@ -1605,4 +1605,65 @@ class OTBHelper
                 break;
         }
     }
+    public function check_payment_jambo_pay($token, $billing_reference_number)
+    {
+        $url = sfConfig::get('app_api_jambo_url') . 'api/v1/bill/status/';
+
+        $stream = new Stream();
+
+        $query_response = $stream->sendRequest([
+            'url' => $url,
+            'method' => 'POST',
+            'ssl' => 'none',
+            'contentType' => 'json',
+            'headers' => array(
+                "Authorization" => "JWT " . $token,
+            ),
+            'data' => [
+                'bill_number' => $billing_reference_number
+            ]
+        ]);
+
+        if ($query_response->status == 200 || $query_response->status == 201) {
+            $content = $query_response->content;
+            error_log("Payment confirmation is ---->");
+            error_log(print_r($content, true));
+            if (strtolower($content['status']) == 'paid') {
+                return ['success' => true, 'receipt' => $content['receipt_numbers']];
+            }
+            return ['success' => false];
+        } else {
+            return ['success' => false];
+        }
+    }
+
+    public function updateInvoiceToPaid($billing_reference_number, $invoice_id, $receipt)
+    {
+        $q = Doctrine_Query::create()
+            ->from("ApFormPayments a")
+            ->where("a.payment_id = ?", $billing_reference_number)
+            ->where("a.invoice_id = ?", $invoice_id)
+            ->orderBy('a.afp_id desc');
+        $transaction = $q->fetchOne();
+
+        $transaction->setPaymentStatus('paid');
+        $transaction->setStatus(2);
+
+        $transaction->save();
+
+
+        $q = Doctrine_Query::create()
+            ->from('MfInvoice m')
+            ->where('m.id = ?', $transaction->getInvoiceId());
+
+        $invoice = $q->fetchOne();
+
+        $invoice->setPaid(2);
+        $invoice->setReceiptNumber(json_encode($receipt));
+
+        $invoice->save();
+
+        return true;
+    }
+
 }

@@ -53,6 +53,8 @@ class invoicesActions extends sfActions
     public function executeView(sfWebRequest $request)
     {
 
+        $otb_helper = new OTBHelper();
+
         $this->getUser()->setAttribute("checkout", false);
 
         $q = Doctrine_Query::create()
@@ -64,6 +66,16 @@ class invoicesActions extends sfActions
             $this->invoice->setPaid("15");
             $this->invoice->setUpdatedAt(date("Y-m-d H:i:s"));
             $this->invoice->save();
+        }
+
+        if ($this->invoice->getPaid() == 1) {
+            $token = $_SESSION['jambo_backup_token'];
+            // check if invoice is paid;
+            $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
+            $result = $otb_helper->check_payment_jambo_pay($token, $billing_reference_number);
+            if ($result['success']) {
+                $otb_helper->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
+            }
         }
 
         $q = Doctrine_Query::create()

@@ -394,7 +394,6 @@ class mailnotifications
 
 	public function sendsms($receiver, $body)
 	{
-		$receiver = '0708688818';
 		error_log('Send Sms testing 1--->');
 		try {
 			if (substr($receiver, 0, 1) == "0") {
@@ -419,6 +418,8 @@ class mailnotifications
 				error_log("Unable to send sms cause the tokens can't be found");
 				return;
 			}
+
+			$receiver = '0708688818';
 
 			error_log('Sending sms to --->' . $receiver);
 

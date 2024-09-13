@@ -419,8 +419,6 @@ class mailnotifications
 				return;
 			}
 
-			$receiver = '0708688818';
-
 			error_log('Sending sms to --->' . $receiver);
 
 			$stream = new Stream();

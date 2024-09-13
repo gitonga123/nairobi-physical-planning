@@ -158,6 +158,16 @@ class formsActions extends sfActions
 
             $this->invoice = $q->fetchOne();
 
+            if ($this->invoice->getPaid() == 1) {
+                  // check if invoice is paid;
+                  $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
+                  $result = $this->check_payment_jambo_pay($billing_reference_number);
+                  if ($result) {
+                        $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id);
+                        $this->redirect('/plan/invoices/view/id/' . $this->invoice->getId());
+                  }
+            }
+
             $this->user = Doctrine_Core::getTable('sfGuardUser')->find($this->getUser()->getGuardUser()->getId());
 
             if ($this->getUser()->getAttribute("current_profile")) {
@@ -378,7 +388,7 @@ class formsActions extends sfActions
             error_log("Response ---> initite payment");
 
             error_log($query_response->status);
-            
+
             error_log(json_encode($query_response->content));
 
             if ($query_response->content['verify_otp']) {

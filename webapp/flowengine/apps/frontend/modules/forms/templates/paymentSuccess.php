@@ -241,7 +241,6 @@
 				url: confirm_payment_url,
 				type: 'GET',
 				success: function (response) {
-					console.log(response);
 					const data = JSON.parse(response);
 					if (data?.success) {
 						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');
@@ -272,7 +271,6 @@
 				url: confirm_payment_url,
 				type: 'GET',
 				success: function (response) {
-					console.log(response);
 					const data = JSON.parse(response);
 					if (data?.success) {
 						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');
@@ -414,8 +412,6 @@
 							confirmPayment();
 						});
 						handleOTPVerification();
-
-						console.log("After one minute check if payment has gone through");
 
 						setTimeout(() => initialCheckingPayment(), 60 * 1000);
 					} else {

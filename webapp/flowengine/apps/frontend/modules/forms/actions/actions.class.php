@@ -375,6 +375,12 @@ class formsActions extends sfActions
                   ]
             ]);
 
+            error_log("Response ---> initite payment");
+
+            error_log($query_response->status);
+            
+            error_log(json_encode($query_response->content));
+
             if ($query_response->content['verify_otp']) {
                   $this->cache->set("{$this->key}_jambo_wallet_otp", $query_response->content['otp'], 3600);
             }

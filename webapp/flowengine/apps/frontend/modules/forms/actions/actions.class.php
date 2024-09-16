@@ -315,6 +315,7 @@ class formsActions extends sfActions
 
             $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
 
+            error_log("Billing reference number ---->{$billing_reference_number}");
 
             if ($transaction) {
                   //Update transaction details

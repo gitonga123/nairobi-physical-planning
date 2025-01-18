@@ -312,8 +312,8 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                     $action_count++;
 
                     if ($pending_assessment == false) {
-                        $action_string .= "<div class='col-md-4 mb-3'>
-                    <a class='{$button_class}' 
+                        $action_string .= "<div class='col-md-4 col-sm-6 col-xs-12'>
+                    <a class='{$button_class} btn-block' 
                        onClick=\"if(confirm('Are you sure?')) { 
                             document.getElementById('warning').value = 0; 
                             window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; 
@@ -324,8 +324,8 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                     </a>
                 </div>";
                     } else {
-                        $action_string .= "<div class='col-md-4 mb-3'>
-                    <a class='{$button_class}' 
+                        $action_string .= "<div class='col-md-4 col-sm-6 col-xs-12'>
+                    <a class='{$button_class} btn-block' 
                        onClick=\"alert('Please complete your task first'); return false;\">
                         " . $button->getTitle() . "
                     </a>

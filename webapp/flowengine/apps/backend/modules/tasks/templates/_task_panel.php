@@ -17,9 +17,9 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
     <div class="alert alert-success">
         <strong>Please!</strong> Select a fee(s) from the list to create an invoice.
     </div>
-    <form class="form-bordered" id="feeform" method="post"
-        action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" id="MailContentForm" name="MailContentForm"
-        onSubmit="return validate_editfield();" autocomplete="off" data-ajax="false">
+    <form class="form-bordered" id="feeform" method="post" action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>"
+        id="MailContentForm" name="MailContentForm" onSubmit="return validate_editfield();" autocomplete="off"
+        data-ajax="false">
         <?php
         $grandtotal = 0;
         $q = Doctrine_Query::create()
@@ -294,6 +294,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             ->from('SubMenuButtons a')
             ->where('a.sub_menu_id = ?', $application->getApproved());
         $submenubuttons = $q->execute();
+
         foreach ($submenubuttons as $submenubutton) {
             $q = Doctrine_Query::create()
                 ->from('Buttons a')
@@ -304,42 +305,38 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 
             foreach ($buttons as $button) {
                 if ($sf_user->mfHasCredential("accessbutton" . $button->getId())) {
-                    $pos = strpos($button->getLink(), "decline");
-                    if ($pos === false) {
-                        $pos = strpos($button->getTitle(), "delete");
-                        if ($pos === false) {
-                            $action_count++;
+                    $button_class = strpos($button->getTitle(), "delete") !== false || strpos($button->getLink(), "decline") !== false
+                        ? "btn btn-danger"
+                        : "btn btn-primary";
 
-                            if ($pending_assessment == false) {
-                                $action_string .= "<li><a class='btn btn-primary' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                            } else {
-                                $action_string .= "<li><a class='btn btn-primary' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
-                            }
-                        } else {
-                            $action_count++;
+                    $action_count++;
 
-                            if ($pending_assessment == false) {
-                                $action_string .= "<li><a  class='btn btn-danger'onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                            } else {
-                                $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
-                            }
-                        }
+                    if ($pending_assessment == false) {
+                        $action_string .= "<div class='col-md-4 mb-3'>
+                    <a class='{$button_class}' 
+                       onClick=\"if(confirm('Are you sure?')) { 
+                            document.getElementById('warning').value = 0; 
+                            window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; 
+                        } else { 
+                            return false; 
+                        }\">
+                        " . $button->getTitle() . "
+                    </a>
+                </div>";
                     } else {
-                        $action_count++;
-
-                        if ($pending_assessment == false) {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                        } else {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
-                        }
+                        $action_string .= "<div class='col-md-4 mb-3'>
+                    <a class='{$button_class}' 
+                       onClick=\"alert('Please complete your task first'); return false;\">
+                        " . $button->getTitle() . "
+                    </a>
+                </div>";
                     }
                 }
             }
-
             ?>
-            <ul>
+            <div class="row">
                 <?php echo $action_string; ?>
-            </ul>
+            </div>
             <?php
         }
     } else {

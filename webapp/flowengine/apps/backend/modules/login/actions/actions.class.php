@@ -28,7 +28,8 @@ class loginActions extends sfActions
       $this->redirect("/plan/install");
     }
 
-    var_dump("Am here --->");die;
+    var_dump("Am here --->");
+    die;
 
     //Check if current reviewer is already logged in and redirect
     // if ($login_manager->validate_session()) {
@@ -133,6 +134,8 @@ class loginActions extends sfActions
     error_log("Jombo_pay_groups ---->");
     error_log(json_encode($jambo_pay_groups));
 
+    var_dump($jambo_pay_groups);
+
 
     $found_group = [];
     for ($i = 0; $i < count($jambo_pay_groups); $i++) {
@@ -146,6 +149,10 @@ class loginActions extends sfActions
         $found_group[] = $group;
       }
     }
+
+    var_dump($found_group);
+
+    die('die here');
 
     $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
 

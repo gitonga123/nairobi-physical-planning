@@ -81,6 +81,14 @@ class dashboardActions extends sfActions
             array_unshift($account_params, $current_reviewer->getNid());
 
 
+
+            var_dump(
+                $k,
+                $account_params,
+                $current_reviewer->getNid()
+            );
+
+            die;
             $q = Doctrine_Query::create()
                 ->from("Task a")
                 ->leftJoin('a.Application b')

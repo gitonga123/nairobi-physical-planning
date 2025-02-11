@@ -172,7 +172,7 @@ class OTBHelper
         $q = Doctrine_Query::create()
             ->from('mfGuardUserGroup a')
             ->leftJoin('a.MfGuardGroup m2')
-            ->where("m2.name LIKE' %{$group}%'")
+            ->where("m2.name LIKE '%{$group}%'")
             ->orderBy('m2.id desc');
 
         $group_found = $q->fetchOne();

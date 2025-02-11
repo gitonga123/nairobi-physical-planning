@@ -51,7 +51,7 @@ class dashboardActions extends sfActions
             $this->first_run = false;
             $current_reviewer = Functions::current_user();
 
-            die($current_reviewer);
+           
 
             if ($current_reviewer == null) {
                 $this->redirect("/plan/login/logout");
@@ -126,6 +126,8 @@ class dashboardActions extends sfActions
                 $this->filter = "/filter/" . $allowed_stages[0];
             }
 
+            die($current_reviewer);
+            
             if ($request->getParameter("current") == "available" || empty($request->getParameter("current"))) {
 
                 $this->current_tab = "available";

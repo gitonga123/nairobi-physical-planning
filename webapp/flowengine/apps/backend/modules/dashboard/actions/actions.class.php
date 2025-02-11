@@ -80,7 +80,6 @@ class dashboardActions extends sfActions
             }, $account_params)) . $glue;
             array_unshift($account_params, $current_reviewer->getNid());
 
-            die($current_reviewer);
 
             $q = Doctrine_Query::create()
                 ->from("Task a")
@@ -102,6 +101,7 @@ class dashboardActions extends sfActions
             }
             $app_list = [];
 
+            die($current_reviewer);
             
 
             //Completed Tasks (Today)

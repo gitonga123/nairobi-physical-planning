@@ -96,6 +96,7 @@ class loginActions extends sfActions
 
     error_log("User Details below --->");
     error_log(json_encode($user_api_data));
+    error_log("Use details above --->");
 
     $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
     $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
@@ -121,15 +122,26 @@ class loginActions extends sfActions
 
     $user_account_details['department'] = $department;
 
+    $jambo_pay_groups = $user_api_data['groups'];
 
-    $group = $otb_helper->findGroupByName('basic_reviewer');
+
+    $found_group = [];
+    for ($i = 0; $i < count($jambo_pay_groups); $i++) {
+
+      $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
+      $group = $otb_helper->findGroupByName($group_to_lower);
+
+      if ($group) {
+        $found_group[] = $group;
+      }
+    }
 
     $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
 
     if (!$has_account) {
       $has_account = $otb_helper->createCfUser($user_account_details);
     }
-    $otb_helper->assignCfUserToGroup($has_account->getNid(), [$group]);
+    $otb_helper->assignCfUserToGroup($has_account->getNid(), [$found_group]);
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
     if ($login_action) {
@@ -159,7 +171,7 @@ class loginActions extends sfActions
     $login_manager = new LoginManager();
 
     $login_action = $login_manager->create_session($username, $password);
-    
+
     if ($login_action) {
       $referer = $this->getUser()->getAttribute("referer");
       if ($referer && Functions::find("backend.php", $referer)) {

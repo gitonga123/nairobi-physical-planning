@@ -169,6 +169,17 @@ class OTBHelper
 
     public function findGroupByName($group)
     {
+        $cache = new sfFileCache([
+            'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+        ]);
+
+        $found_cache_group = $cache->get("found_group_{$group}");
+
+        if ($found_cache_group) {
+            $group_found = json_decode($found_cache_group);
+
+            return $group_found;
+        }
 
         $q = Doctrine_Query::create()
             ->from('mfGuardUserGroup a')
@@ -188,6 +199,10 @@ class OTBHelper
                 ->orderBy('m2.id desc');
 
             $group_found = $q->fetchOne();
+        }
+
+        if ($group_found) {
+            $cache->set("found_group_{$group}", json_encode($group_found), 3600);
         }
 
         return $group_found;
@@ -464,7 +479,7 @@ class OTBHelper
             //
             //$invoice_id = $invoice_details->getId() ;
             //pass the invoice details to function resposible for sending information to county pro system
-            $this->sendInvoiceToCountyPro($invoice_details, $application_id);
+            // $this->sendInvoiceToCountyPro($invoice_details, $application_id);
         } catch (Exception $ex) {
             error_log("getInvoiceFromApplication() Error " . $ex->getMessage());
         }
@@ -484,7 +499,7 @@ class OTBHelper
             $invoice_details = $q->fetchOne();
             //
             //just save the invoice 
-            $this->saveInfoToSendToCountyPro($invoice_details, $application_id); //we create a table that we will do an 
+            // $this->saveInfoToSendToCountyPro($invoice_details, $application_id); //we create a table that we will do an 
             //insert and save data that we can retrieve and send later. This is to avoid delays with countypro processing. We want to allow 
             //reviewers continue with processing other applications without having to wait untill the system sends the invoice.
         } catch (Exception $ex) {
@@ -566,7 +581,7 @@ class OTBHelper
      */
     public function GetDays($sStartDate, $sEndDate)
     {
-        $aDays[] = $start_date;
+        $aDays[] = $sStartDate;
         $start_date = $sStartDate;
         $end_date = $sEndDate;
         $current_date = $start_date;

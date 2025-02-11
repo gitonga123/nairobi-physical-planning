@@ -215,17 +215,27 @@ class OTBHelper
     public function assignCfUserToGroup($reviewer_id, $groups)
     {
         try {
+            $cache = new sfFileCache([
+                'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+            ]);
+
             foreach ($groups as $group) {
-                error_log("Error groups ----> {$group->getGroupId()}");
-                $q = Doctrine_Query::Create()
-                    ->from('mfGuardUserGroup a')
-                    ->where('a.user_id = ? and a.group_id = ?', [$reviewer_id, $group->getGroupId()]);
-                $user_group_exists = $q->count();
-                if ($user_group_exists == 0) {
-                    $usergroup = new MfGuardUserGroup();
-                    $usergroup->setUserId($reviewer_id);
-                    $usergroup->setGroupId($group->getGroupId());
-                    $usergroup->save();
+                $review_group_found = $cache->get("found_group_review_{$reviewer_id}_{$group->getGroupId}");
+                if ($review_group_found) {
+                    return true;
+                } else {
+                    $q = Doctrine_Query::Create()
+                        ->from('mfGuardUserGroup a')
+                        ->where('a.user_id = ? and a.group_id = ?', [$reviewer_id, $group->getGroupId()]);
+                    $user_group_exists = $q->count();
+                    if ($user_group_exists == 0) {
+                        $usergroup = new MfGuardUserGroup();
+                        $usergroup->setUserId($reviewer_id);
+                        $usergroup->setGroupId($group->getGroupId());
+                        $usergroup->save();
+
+                        $cache->set("found_group_review_{$reviewer_id}_{$group->getGroupId}", 1, 3600);
+                    }
                 }
             }
 

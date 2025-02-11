@@ -51,7 +51,7 @@ class dashboardActions extends sfActions
             $this->first_run = false;
             $current_reviewer = Functions::current_user();
 
-           
+
 
             if ($current_reviewer == null) {
                 $this->redirect("/plan/login/logout");
@@ -100,6 +100,8 @@ class dashboardActions extends sfActions
             }
             $app_list = [];
 
+            die($current_reviewer);
+
             //Completed Tasks (Today)
             $q = Doctrine_Query::create()
                 ->from("Task a")
@@ -126,8 +128,8 @@ class dashboardActions extends sfActions
                 $this->filter = "/filter/" . $allowed_stages[0];
             }
 
-            die($current_reviewer);
-            
+
+
             if ($request->getParameter("current") == "available" || empty($request->getParameter("current"))) {
 
                 $this->current_tab = "available";
@@ -461,11 +463,13 @@ class dashboardActions extends sfActions
                 $q->andWhereIn('s.id', $allowed_stages[0]);
             }
         }
-        if (null === $cols || empty($cols)) return $q;
+        if (null === $cols || empty($cols))
+            return $q;
 
         $search = $request->getParameter('search')['value'];
 
-        if ("" === $search || empty($search)) return $q;
+        if ("" === $search || empty($search))
+            return $q;
         $sql = [];
         $params = [];
 

@@ -99,6 +99,7 @@ class loginActions extends sfActions
 
     error_log("User Details below --->");
     error_log(json_encode($user_api_data));
+    error_log("Use details above --->");
 
     $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
     $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
@@ -124,33 +125,26 @@ class loginActions extends sfActions
 
     $user_account_details['department'] = $department;
 
+    $jambo_pay_groups = $user_api_data['groups'];
 
 
+    $found_group = [];
+    for ($i = 0; $i < count($jambo_pay_groups); $i++) {
+
+      $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
+      $group = $otb_helper->findGroupByName($group_to_lower);
+
+      if ($group) {
+        $found_group[] = $group;
+      }
+    }
 
     $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
 
     if (!$has_account) {
       $has_account = $otb_helper->createCfUser($user_account_details);
     }
-
-    $groups_as_received = !empty($user_api_data['groups']) ? $user_api_data['groups'] : [];
-
-    $group = $otb_helper->findGroupByName('reviewer', true);
-
-    $group_list = [$group];
-
-    foreach ($groups_as_received as $key) {
-      $found_group = $otb_helper->findGroupByName($key);
-
-      if ($found_group) {
-        array_push($group_list, $group);
-      }
-    }
-
-    $otb_helper->assignCfUserToGroup($has_account->getNid(), $group_list);
-
-    $otb_helper->assignUserToAgency($has_account->getNid());
-
+    $otb_helper->assignCfUserToGroup($has_account->getNid(), [$found_group]);
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
     error_log("Login action execute above, let see what is next ---->");

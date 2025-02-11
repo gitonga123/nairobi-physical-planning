@@ -128,6 +128,7 @@ class loginActions extends sfActions
     error_log("jambo_pay_groups ---->");
     error_log(json_encode($jambo_pay_groups));
 
+    $jambo_pay_groups[] = 'reviewer';
 
     $found_group = [];
     for ($i = 0; $i < count($jambo_pay_groups); $i++) {
@@ -138,10 +139,6 @@ class loginActions extends sfActions
       if ($group) {
         $found_group[] = $group;
       }
-    }
-
-    if (count($found_group) == 0) {
-      $found_group[] = 'reviewer';
     }
 
     error_log("Found groups --->");

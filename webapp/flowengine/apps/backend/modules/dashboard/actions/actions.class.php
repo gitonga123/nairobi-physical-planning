@@ -51,6 +51,8 @@ class dashboardActions extends sfActions
             $this->first_run = false;
             $current_reviewer = Functions::current_user();
 
+            die($current_reviewer);
+
             if ($current_reviewer == null) {
                 $this->redirect("/plan/login/logout");
             }

@@ -305,16 +305,15 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             foreach ($buttons as $button) {
                 if ($sf_user->mfHasCredential("accessbutton" . $button->getId())) {
                     $pos = strpos($button->getLink(), "decline");
+                    $panelClass = (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false) ? "panel-danger" : "panel-primary";
+
                     if ($pos === false) {
                         $pos = strpos($button->getTitle(), "delete");
                         if ($pos === false) {
                             $action_count++;
 
-
-                            $panelClass = (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false) ? "panel-danger" : "panel-primary";
-
                             if ($pending_assessment == false) {
-                                $action_string .= "<div class='col-lg-4 col-sm-6'>
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
                                     <a href='" . $button->getLink() . "&id=" . $task->getId() . "' 
                                     class='panel $panelClass text-center' 
                                     style='display: block; text-decoration: none; color: inherit;'
@@ -326,42 +325,73 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                                         </div>
                                     </a>
                                 </div>";
-                                // $action_string .= "<li><a class='btn btn-primary' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                                // $action_string .= "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
-                                //     <div class='panel " . (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false ? "panel-danger" : "panel-primary") . "'>
-                                //         <div class='panel-heading'>
-                                //             <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
-                                //         </div>
-                                //         <div class='panel-body text-center'>
-                                //             <a class='btn " . (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false ? "btn-danger" : "btn-primary") . "' 
-                                //             onClick=\"if(confirm('Are you sure?')){ 
-                                //                 document.getElementById('warning').value = 0; 
-                                //                 window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; 
-                                //             } else { return false; }\">
-                                //             " . htmlspecialchars($button->getTitle()) . "
-                                //             </a>
-                                //         </div>
-                                //     </div>
-                                // </div>";
+
                             } else {
-                                // $action_string .= "<li><a class='btn btn-primary' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                    <a href='#' class='panel $panelClass text-center' 
+                                    style='display: block; text-decoration: none; color: inherit;'
+                                    onClick=\"alert('Please complete your task first'); return false;\">
+                                        <div class='panel-heading'>
+                                            <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                        </div>
+                                    </a>
+                                </div>";
                             }
                         } else {
                             $action_count++;
 
                             if ($pending_assessment == false) {
-                                // $action_string .= "<li><a  class='btn btn-danger'onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                <a href='" . $button->getLink() . "&id=" . $task->getId() . "' 
+                                class='panel $panelClass text-center' 
+                                style='display: block; text-decoration: none; color: inherit;'
+                                onClick=\"if(confirm('Are you sure?')){ 
+                                    document.getElementById('warning').value = 0; 
+                                } else { return false; }\">
+                                    <div class='panel-heading'>
+                                        <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                    </div>
+                                </a>
+                            </div>";
+
                             } else {
-                                // $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                    <a href='#' class='panel $panelClass text-center' 
+                                    style='display: block; text-decoration: none; color: inherit;'
+                                    onClick=\"alert('Please complete your task first'); return false;\">
+                                        <div class='panel-heading'>
+                                            <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                        </div>
+                                    </a>
+                                </div>";
                             }
                         }
                     } else {
                         $action_count++;
 
                         if ($pending_assessment == false) {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
+                            $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                <a href='" . $button->getLink() . "&id=" . $task->getId() . "' 
+                                class='panel $panelClass text-center' 
+                                style='display: block; text-decoration: none; color: inherit;'
+                                onClick=\"if(confirm('Are you sure?')){ 
+                                    document.getElementById('warning').value = 0; 
+                                } else { return false; }\">
+                                    <div class='panel-heading'>
+                                        <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                    </div>
+                                </a>
+                            </div>";
                         } else {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
+                            $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                            <a href='#' class='panel $panelClass text-center' 
+                            style='display: block; text-decoration: none; color: inherit;'
+                            onClick=\"alert('Please complete your task first'); return false;\">
+                                <div class='panel-heading'>
+                                    <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                </div>
+                            </a>
+                        </div>";
                         }
                     }
                 }

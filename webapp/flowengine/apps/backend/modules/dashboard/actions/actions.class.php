@@ -20,6 +20,16 @@ class dashboardActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
+        $login_manager = new LoginManager();
+
+        //End the current reviewer's session and redirect to the login page
+        if ($login_manager->destroy_session()) {
+            $this->redirect("/plan/dashboard");
+        } else {
+            echo "Failed to end your session. Please try again";
+            $this->redirect("/plan/dashboard");
+            exit;
+        }
 
         //If this is the first run after installation then display the wizard, else display the dashboard
         $wizard_manager = new WizardManager();

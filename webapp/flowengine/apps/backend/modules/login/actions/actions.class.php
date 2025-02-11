@@ -126,10 +126,12 @@ class loginActions extends sfActions
     $jambo_pay_groups = $user_api_data['groups'];
 
     error_log("jambo_pay_groups ---->");
-    error_log(json_encode($jambo_pay_groups));
+    
 
     $jambo_pay_groups[] = 'reviewer';
 
+    error_log(json_encode($jambo_pay_groups));
+    
     $found_group = [];
     for ($i = 0; $i < count($jambo_pay_groups); $i++) {
 

@@ -189,7 +189,13 @@ class OTBHelper
             $group_found = $q->fetchOne();
         }
 
-        return $group_found;
+        if ($group_found) {
+            error_log("Group {$group} is found ---> with id {$group_found->getGroupId()}");
+
+            return $group_found->getGroupId();
+        }
+
+        return false;
     }
 
     public function createCfUser($data)
@@ -215,15 +221,15 @@ class OTBHelper
     {
         try {
             foreach ($groups as $group) {
-                error_log("Error groups ----> {$group->getGroupId()}");
+                error_log("checking to assign to group ----> {$group}");
                 $q = Doctrine_Query::Create()
                     ->from('mfGuardUserGroup a')
-                    ->where('a.user_id = ? and a.group_id = ?', [$reviewer_id, $group->getGroupId()]);
+                    ->where('a.user_id = ? and a.group_id = ?', [$reviewer_id, $group]);
                 $user_group_exists = $q->count();
                 if ($user_group_exists == 0) {
                     $usergroup = new MfGuardUserGroup();
                     $usergroup->setUserId($reviewer_id);
-                    $usergroup->setGroupId($group->getGroupId());
+                    $usergroup->setGroupId($group);
                     $usergroup->save();
                 }
             }

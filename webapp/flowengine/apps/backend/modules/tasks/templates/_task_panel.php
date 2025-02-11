@@ -294,13 +294,12 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             ->from('SubMenuButtons a')
             ->where('a.sub_menu_id = ?', $application->getApproved());
         $submenubuttons = $q->execute();
+        $action_string = "";
         foreach ($submenubuttons as $submenubutton) {
             $q = Doctrine_Query::create()
                 ->from('Buttons a')
                 ->where('a.id = ?', $submenubutton->getButtonId());
             $buttons = $q->execute();
-
-            $action_string = "";
 
             foreach ($buttons as $button) {
                 if ($sf_user->mfHasCredential("accessbutton" . $button->getId())) {

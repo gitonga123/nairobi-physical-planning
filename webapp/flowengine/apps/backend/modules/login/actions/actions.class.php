@@ -126,16 +126,17 @@ class loginActions extends sfActions
     $jambo_pay_groups = $user_api_data['groups'];
 
     error_log("jambo_pay_groups ---->");
-    
+
 
     $jambo_pay_groups[] = 'reviewer';
 
     error_log(json_encode($jambo_pay_groups));
-    
+
     $found_group = [];
     for ($i = 0; $i < count($jambo_pay_groups); $i++) {
 
       $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
+      error_log("Group we are loooking for is ---> {$group_to_lower}");
       $group = $otb_helper->findGroupByName($group_to_lower);
 
       if ($group) {

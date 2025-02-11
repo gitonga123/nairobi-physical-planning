@@ -29,10 +29,10 @@ class loginActions extends sfActions
     }
 
     //Check if current reviewer is already logged in and redirect
-    if ($login_manager->validate_session()) {
-      error_log("This user has a session already?");
-      $this->redirect("/plan/dashboard");
-    }
+    // if ($login_manager->validate_session()) {
+    //   error_log("This user has a session already?");
+    //   $this->redirect("/plan/dashboard");
+    // }
 
 
     $admin = $request->getParameter('admin_pass');
@@ -128,6 +128,9 @@ class loginActions extends sfActions
 
     $jambo_pay_groups = $user_api_data['groups'];
 
+    error_log("Jombo_pay_groups ---->");
+    error_log(json_encode($jambo_pay_groups));
+
 
     $found_group = [];
     for ($i = 0; $i < count($jambo_pay_groups); $i++) {
@@ -135,10 +138,15 @@ class loginActions extends sfActions
       $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
       $group = $otb_helper->findGroupByName($group_to_lower);
 
+      error_log($group);
+
       if ($group) {
         $found_group[] = $group;
       }
     }
+
+    var_dump($found_group);
+    die;
 
     $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
 

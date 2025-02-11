@@ -80,15 +80,6 @@ class dashboardActions extends sfActions
             }, $account_params)) . $glue;
             array_unshift($account_params, $current_reviewer->getNid());
 
-
-
-            var_dump(
-                $k,
-                $account_params,
-                $current_reviewer->getNid()
-            );
-
-            die;
             $q = Doctrine_Query::create()
                 ->from("Task a")
                 ->leftJoin('a.Application b')
@@ -108,8 +99,6 @@ class dashboardActions extends sfActions
                 $this->my_tasks_stats = $q->count();
             }
             $app_list = [];
-
-            die($current_reviewer);
             
 
             //Completed Tasks (Today)

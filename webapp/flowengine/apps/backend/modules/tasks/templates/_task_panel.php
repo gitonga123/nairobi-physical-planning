@@ -396,13 +396,12 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                     }
                 }
             }
-
-            ?>
-            <div class="row">
-                <?php echo $action_string; ?>
-            </div>
-            <?php
         }
+        ?>
+        <div class="row">
+            <?php echo $action_string; ?>
+        </div>
+        <?php
     } else {
         //If task is marked as pending, display form for entering comments
         $q = Doctrine_Query::create()

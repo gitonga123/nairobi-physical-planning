@@ -119,9 +119,7 @@ class loginActions extends sfActions
     $otb_helper = new OTBHelper();
 
 
-    $department = $otb_helper->findDepartmentByName('physical planning');
 
-    $user_account_details['department'] = $department;
 
     $jambo_pay_groups = $user_api_data['groups'];
 
@@ -139,10 +137,38 @@ class loginActions extends sfActions
       error_log("Group we are looking for is ---> {$group_to_lower}");
       $group = $otb_helper->findGroupByName($group_to_lower);
 
+
       if ($group) {
         $found_group[] = $group;
+
+        switch ($group) {
+          case 61:
+            $department = $otb_helper->findDepartmentByName('Revenue Department');
+            break;
+          case 75:
+            $department = $otb_helper->findDepartmentByName('Infrastructure & Engineering');
+            break;
+          case 60:
+            $department = $otb_helper->findDepartmentByName('IT Department');
+            break;
+          case 78:
+            $department = $otb_helper->findDepartmentByName('Public Health Department');
+            break;
+
+          default:
+            $department = $otb_helper->findDepartmentByName('physical planning');
+            break;
+        }
+        $user_account_details['department'] = $department;
+      } else {
+        $department = $otb_helper->findDepartmentByName('physical planning');
+
+        $user_account_details['department'] = $department;
+
       }
     }
+
+
 
     error_log("Found groups --->");
     error_log(json_encode($found_group));
@@ -157,7 +183,7 @@ class loginActions extends sfActions
     if ($has_account) {
       $otb_helper->assignUserToAgency($has_account->getNid());
     }
-    
+
     $otb_helper->assignCfUserToGroup($has_account->getNid(), $found_group);
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 

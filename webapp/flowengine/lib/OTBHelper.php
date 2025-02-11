@@ -181,11 +181,11 @@ class OTBHelper
 
         error_log("Found group is --->", json_decode($found_cache_group));
 
-        if ($found_cache_group) {
-            $group_found = json_decode($found_cache_group);
+        // if ($found_cache_group) {
+        //     $group_found = json_decode($found_cache_group);
 
-            return $group_found;
-        }
+        //     return $group_found;
+        // }
 
         $q = Doctrine_Query::create()
             ->from('mfGuardUserGroup a')

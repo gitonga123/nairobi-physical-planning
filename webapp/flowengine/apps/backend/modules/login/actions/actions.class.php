@@ -136,7 +136,7 @@ class loginActions extends sfActions
     for ($i = 0; $i < count($jambo_pay_groups); $i++) {
 
       $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
-      error_log("Group we are loooking for is ---> {$group_to_lower}");
+      error_log("Group we are looking for is ---> {$group_to_lower}");
       $group = $otb_helper->findGroupByName($group_to_lower);
 
       if ($group) {

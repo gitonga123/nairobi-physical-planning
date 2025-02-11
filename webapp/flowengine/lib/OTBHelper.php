@@ -169,24 +169,6 @@ class OTBHelper
 
     public function findGroupByName($group, $force_check = false)
     {
-        error_log("Group we are ---> {$group}");
-
-        $cache = new sfFileCache([
-            'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
-        ]);
-
-        $found_cache_group = $cache->get("found_group_{$group}");
-
-
-
-        error_log("Found group is --->", json_decode($found_cache_group));
-
-        // if ($found_cache_group) {
-        //     $group_found = json_decode($found_cache_group);
-
-        //     return $group_found;
-        // }
-
         $q = Doctrine_Query::create()
             ->from('mfGuardUserGroup a')
             ->leftJoin('a.MfGuardGroup m2')
@@ -205,14 +187,6 @@ class OTBHelper
                 ->orderBy('m2.id desc');
 
             $group_found = $q->fetchOne();
-        }
-
-        error_log("Group found or not --->");
-
-        if ($group_found) {
-            error_log("Group found ---->");
-            error_log(print_r($group_found));
-            $cache->set("found_group_{$group}", $group_found, 3600);
         }
 
         return $group_found;

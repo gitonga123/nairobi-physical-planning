@@ -28,6 +28,8 @@ class loginActions extends sfActions
       $this->redirect("/plan/install");
     }
 
+    var_dump("Am here --->");die;
+
     //Check if current reviewer is already logged in and redirect
     // if ($login_manager->validate_session()) {
     //   error_log("This user has a session already?");

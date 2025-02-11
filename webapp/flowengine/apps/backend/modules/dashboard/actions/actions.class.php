@@ -20,6 +20,17 @@ class dashboardActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
+        $login_manager = new LoginManager();
+
+        //End the current reviewer's session and redirect to the login page
+        if ($login_manager->destroy_session()) {
+            $this->returnRedirectURL();
+        } else {
+            echo "Failed to end your session. Please try again";
+            $this->returnRedirectURL();
+            exit;
+        }
+
         //If this is the first run after installation then display the wizard, else display the dashboard
         $wizard_manager = new WizardManager();
 
@@ -99,7 +110,7 @@ class dashboardActions extends sfActions
                 $this->my_tasks_stats = $q->count();
             }
             $app_list = [];
-            
+
 
             //Completed Tasks (Today)
             $q = Doctrine_Query::create()

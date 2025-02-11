@@ -24,10 +24,10 @@ class dashboardActions extends sfActions
 
         //End the current reviewer's session and redirect to the login page
         if ($login_manager->destroy_session()) {
-            $this->returnRedirectURL();
+            $this->redirect("/plan/dashboard");
         } else {
             echo "Failed to end your session. Please try again";
-            $this->returnRedirectURL();
+            $this->redirect("/plan/dashboard");
             exit;
         }
 

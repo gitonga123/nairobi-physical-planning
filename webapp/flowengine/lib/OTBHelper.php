@@ -169,11 +169,17 @@ class OTBHelper
 
     public function findGroupByName($group, $force_check = false)
     {
+        error_log("Group we are ---> {$group}");
+
         $cache = new sfFileCache([
             'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
         ]);
 
         $found_cache_group = $cache->get("found_group_{$group}");
+
+
+
+        error_log("Found group is --->", json_decode($found_cache_group));
 
         if ($found_cache_group) {
             $group_found = json_decode($found_cache_group);
@@ -189,7 +195,7 @@ class OTBHelper
 
         $group_found = $q->fetchOne();
 
-        if (!$group_found && $force_check) {
+        if (!$group_found) {
             $group = 'reviewer';
 
             $q = Doctrine_Query::create()
@@ -201,7 +207,10 @@ class OTBHelper
             $group_found = $q->fetchOne();
         }
 
+        error_log("Group found or now --->");
+
         if ($group_found) {
+            error_log("Group found ---->");
             $cache->set("found_group_{$group}", json_encode($group_found), 3600);
         }
 

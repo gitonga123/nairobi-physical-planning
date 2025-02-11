@@ -16,7 +16,7 @@ $wizard_manager = new WizardManager();
     <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __("You are here"); ?>:</span>
         <ol class="breadcrumb">
-            <li><a href="<?php echo public_path("plan"); ?>"><?php echo __("Home"); ?></a></li>
+            <li><a href="<?php echo public_path("plan/dashboard"); ?>"><?php echo __("Home"); ?></a></li>
             <li class="active"><?php echo __("Workflow"); ?></li>
         </ol>
     </div>

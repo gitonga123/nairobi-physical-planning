@@ -144,7 +144,7 @@ class loginActions extends sfActions
     if (!$has_account) {
       $has_account = $otb_helper->createCfUser($user_account_details);
     }
-    $otb_helper->assignCfUserToGroup($has_account->getNid(), [$found_group]);
+    $otb_helper->assignCfUserToGroup($has_account->getNid(), $found_group);
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
     error_log("Login action execute above, let see what is next ---->");

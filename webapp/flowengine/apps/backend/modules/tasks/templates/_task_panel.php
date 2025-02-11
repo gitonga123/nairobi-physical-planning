@@ -17,9 +17,9 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
     <div class="alert alert-success">
         <strong>Please!</strong> Select a fee(s) from the list to create an invoice.
     </div>
-    <form class="form-bordered" id="feeform" method="post"
-        action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" id="MailContentForm" name="MailContentForm"
-        onSubmit="return validate_editfield();" autocomplete="off" data-ajax="false">
+    <form class="form-bordered" id="feeform" method="post" action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>"
+        id="MailContentForm" name="MailContentForm" onSubmit="return validate_editfield();" autocomplete="off"
+        data-ajax="false">
         <?php
         $grandtotal = 0;
         $q = Doctrine_Query::create()
@@ -290,58 +290,57 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 {
     //If task is marked as completed, display read only comments
     if ($task->getStatus() == "25") {
+
+        // Get all submenu buttons with their associated buttons in one query
         $q = Doctrine_Query::create()
+            ->select('a.*, b.*') // Select all fields from both tables
             ->from('SubMenuButtons a')
+            ->leftJoin('a.Buttons b') // Assuming there's a relation defined in Doctrine
             ->where('a.sub_menu_id = ?', $application->getApproved());
+
         $submenubuttons = $q->execute();
-        foreach ($submenubuttons as $submenubutton) {
-            $q = Doctrine_Query::create()
-                ->from('Buttons a')
-                ->where('a.id = ?', $submenubutton->getButtonId());
-            $buttons = $q->execute();
 
-            $action_string = "";
+        ?>
 
-            foreach ($buttons as $button) {
-                if ($sf_user->mfHasCredential("accessbutton" . $button->getId())) {
-                    $pos = strpos($button->getLink(), "decline");
-                    if ($pos === false) {
-                        $pos = strpos($button->getTitle(), "delete");
-                        if ($pos === false) {
-                            $action_count++;
+        <div class="row">
+            <?php foreach ($submenubuttons as $submenubutton): ?>
+                <?php foreach ($submenubutton->Buttons as $button): ?>
+                    <?php if ($sf_user->mfHasCredential("accessbutton" . $button->getId())): ?>
+                        <?php
+                        $isDanger = (strpos($button->getLink(), "decline") !== false || strpos($button->getTitle(), "delete") !== false);
+                        $btnClass = $isDanger ? "btn-danger" : "btn-primary";
+                        $panelClass = $isDanger ? "panel-danger" : "panel-primary";
+                        ?>
 
-                            if ($pending_assessment == false) {
-                                $action_string .= "<li><a class='btn btn-primary' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                            } else {
-                                $action_string .= "<li><a class='btn btn-primary' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
-                            }
-                        } else {
-                            $action_count++;
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                            <div class="panel <?php echo $panelClass; ?>">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><?php echo htmlspecialchars($button->getTitle()); ?></h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    <?php if (!$pending_assessment): ?>
+                                        <a class="btn <?php echo $btnClass; ?>" onClick="if(confirm('Are you sure?')){ 
+                                       document.getElementById('warning').value = 0; 
+                                       window.location='<?php echo $button->getLink(); ?>&id=<?php echo $task->getId(); ?>'; 
+                                   } else { return false; }">
+                                            <?php echo htmlspecialchars($button->getTitle()); ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <a class="btn <?php echo $btnClass; ?>"
+                                            onClick="alert('Please complete your task first'); return false;">
+                                            <?php echo htmlspecialchars($button->getTitle()); ?>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
 
-                            if ($pending_assessment == false) {
-                                $action_string .= "<li><a  class='btn btn-danger'onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                            } else {
-                                $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
-                            }
-                        }
-                    } else {
-                        $action_count++;
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
 
-                        if ($pending_assessment == false) {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                        } else {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
-                        }
-                    }
-                }
-            }
-
-            ?>
-            <ul>
-                <?php echo $action_string; ?>
-            </ul>
-            <?php
-        }
+        <?php
     } else {
         //If task is marked as pending, display form for entering comments
         $q = Doctrine_Query::create()

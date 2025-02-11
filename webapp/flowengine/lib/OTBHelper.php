@@ -207,11 +207,12 @@ class OTBHelper
             $group_found = $q->fetchOne();
         }
 
-        error_log("Group found or now --->");
+        error_log("Group found or not --->");
 
         if ($group_found) {
             error_log("Group found ---->");
-            $cache->set("found_group_{$group}", json_encode($group_found), 3600);
+            error_log(print_r($group_found));
+            $cache->set("found_group_{$group}", $group_found, 3600);
         }
 
         return $group_found;

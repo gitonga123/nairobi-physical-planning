@@ -311,25 +311,38 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                             $action_count++;
 
 
+                            $panelClass = (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false) ? "panel-danger" : "panel-primary";
 
                             if ($pending_assessment == false) {
-                                // $action_string .= "<li><a class='btn btn-primary' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
-                                $action_string .= "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
-                                    <div class='panel " . (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false ? "panel-danger" : "panel-primary") . "'>
+                                $action_string .= "<div class='col-lg-4 col-sm-6'>
+                                    <a href='" . $button->getLink() . "&id=" . $task->getId() . "' 
+                                    class='panel $panelClass text-center' 
+                                    style='display: block; text-decoration: none; color: inherit;'
+                                    onClick=\"if(confirm('Are you sure?')){ 
+                                        document.getElementById('warning').value = 0; 
+                                    } else { return false; }\">
                                         <div class='panel-heading'>
                                             <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
                                         </div>
-                                        <div class='panel-body text-center'>
-                                            <a class='btn " . (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false ? "btn-danger" : "btn-primary") . "' 
-                                            onClick=\"if(confirm('Are you sure?')){ 
-                                                document.getElementById('warning').value = 0; 
-                                                window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; 
-                                            } else { return false; }\">
-                                            " . htmlspecialchars($button->getTitle()) . "
-                                            </a>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>";
+                                // $action_string .= "<li><a class='btn btn-primary' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
+                                // $action_string .= "<div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                                //     <div class='panel " . (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false ? "panel-danger" : "panel-primary") . "'>
+                                //         <div class='panel-heading'>
+                                //             <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                //         </div>
+                                //         <div class='panel-body text-center'>
+                                //             <a class='btn " . (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false ? "btn-danger" : "btn-primary") . "' 
+                                //             onClick=\"if(confirm('Are you sure?')){ 
+                                //                 document.getElementById('warning').value = 0; 
+                                //                 window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; 
+                                //             } else { return false; }\">
+                                //             " . htmlspecialchars($button->getTitle()) . "
+                                //             </a>
+                                //         </div>
+                                //     </div>
+                                // </div>";
                             } else {
                                 // $action_string .= "<li><a class='btn btn-primary' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
                             }

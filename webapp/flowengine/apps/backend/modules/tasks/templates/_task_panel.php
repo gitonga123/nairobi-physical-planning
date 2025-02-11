@@ -310,7 +310,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                     if (
                         strpos($button->getLink(), 'decline') !== false ||
                         strpos($button->getTitle(), 'delete') !== false ||
-                        strpos($button->getTitle(), 'reject') !== false
+                        strpos($button->getLink(), 'reject') !== false
                     ) {
 
                         $panelClass = "panel-danger";

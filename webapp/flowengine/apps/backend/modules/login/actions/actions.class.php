@@ -147,9 +147,6 @@ class loginActions extends sfActions
       }
     }
 
-    var_dump($found_group);
-    die;
-
     $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
 
     if (!$has_account) {

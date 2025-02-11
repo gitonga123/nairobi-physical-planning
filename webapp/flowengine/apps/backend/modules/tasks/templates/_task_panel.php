@@ -304,7 +304,20 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             foreach ($buttons as $button) {
                 if ($sf_user->mfHasCredential("accessbutton" . $button->getId())) {
                     $pos = strpos($button->getLink(), "decline");
-                    $panelClass = (strpos($button->getLink(), 'decline') !== false || strpos($button->getTitle(), 'delete') !== false) ? "panel-danger" : "panel-primary";
+
+                    static $colorToggle = 0; // Static variable to track alternating colors
+
+                    if (
+                        strpos($button->getLink(), 'decline') !== false ||
+                        strpos($button->getTitle(), 'delete') !== false ||
+                        strpos($button->getTitle(), 'reject') !== false
+                    ) {
+
+                        $panelClass = "panel-danger";
+                    } else {
+                        $panelClass = ($colorToggle % 2 == 0) ? "panel-primary" : "panel-success";
+                        $colorToggle++; 
+                    }
 
                     if ($pos === false) {
                         $pos = strpos($button->getTitle(), "delete");

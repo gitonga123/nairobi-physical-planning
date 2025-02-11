@@ -17,159 +17,168 @@ class loginActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $login_manager = new LoginManager();
-    $this->loginError = "";
+    try {
 
-    //If there are no site settings then run installation wizard
-    $q = Doctrine_Query::create()
-      ->from("ApSettings a");
-    if ($q->count() == 0) {
-      $this->redirect("/plan/install");
-    }
+      $login_manager = new LoginManager();
+      $this->loginError = "";
 
-    //Check if current reviewer is already logged in and redirect
-    if ($login_manager->validate_session()) {
-      error_log("This user has a session already?");
-      $this->redirect("/plan/dashboard");
-    }
-
-
-    $admin = $request->getParameter('admin_pass');
-
-    if (!empty($admin)) {
-      $credentials = explode(',', $admin);
-      $this->loginAdmin($credentials[0], $credentials[1]);
-    }
-
-    $code = $request->getParameter('code');
-
-    if (empty($code) || is_null($code)) {
-      $this->returnRedirectURL();
-
-      throw new sfSecurityException('Something Went Wrong. Please try again later.', 403);
-    }
-
-    $stream = new Stream();
-    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/login/token/';
-
-    error_log("Verification url is ---->{$url}");
-
-    $stream_response = $stream->sendRequest([
-      'url' => $url,
-      'method' => 'POST', // GET, POST, PUT, DELETE,
-      'ssl' => 'none',
-      'contentType' => 'json',
-      'data' => [
-        'code' => $code
-      ]
-    ]);
-
-    error_log("Token verification from jambo --->{$stream_response->status}");
-    error_log(json_encode($stream_response->content));
-
-    if ($stream_response->status !== 200) {
-      throw new sfException($stream_response->content['error'], $stream_response->status);
-    }
-
-    $this->token = $stream_response->content['token'];
-
-    if (empty($this->token) || is_null($this->token)) {
-      throw new sfException('Something Went Wrong. Please try again later.', 500);
-    }
-
-    $this->cache = new sfFileCache([
-      'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
-    ]);
-
-    $_SESSION['jambo_token_backend'] = $this->token;
-
-    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/user_info/';
-    // fetch user information
-    $stream_response = $stream->sendRequest([
-      'url' => $url,
-      'method' => 'GET', // GET, POST, PUT, DELETE,
-      'ssl' => 'none',
-      'contentType' => 'json',
-      'data' => [],
-      'headers' => array(
-        "Authorization" => "JWT " . $this->token,
-      ),
-    ]);
-    $user_api_data = $stream_response->content;
-
-    error_log("User Details below --->");
-    error_log(json_encode($user_api_data));
-    error_log("Use details above --->");
-
-    $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
-    $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
-
-    $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$user_api_data['username']}{$last_name}@uasin.go.ke";
-    $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';
-
-    $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";
-
-    $user_account_details = [
-      'username' => $user_api_data['username'],
-      'first_name' => $first_name,
-      'last_name' => $last_name,
-      'phone_number' => $phone_number,
-      'email' => $email,
-      'password' => $password
-    ];
-
-    $otb_helper = new OTBHelper();
-
-
-    $department = $otb_helper->findDepartmentByName('physical planning');
-
-    $user_account_details['department'] = $department;
-
-    $jambo_pay_groups = $user_api_data['groups'];
-
-
-    $found_group = [];
-    for ($i = 0; $i < count($jambo_pay_groups); $i++) {
-
-      $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
-      $group = $otb_helper->findGroupByName($group_to_lower);
-
-      if ($group) {
-        $found_group[] = $group;
+      //If there are no site settings then run installation wizard
+      $q = Doctrine_Query::create()
+        ->from("ApSettings a");
+      if ($q->count() == 0) {
+        $this->redirect("/plan/install");
       }
+
+      //Check if current reviewer is already logged in and redirect
+      if ($login_manager->validate_session()) {
+        error_log("This user has a session already?");
+        $this->redirect("/plan/dashboard");
+      }
+
+
+      $admin = $request->getParameter('admin_pass');
+
+      if (!empty($admin)) {
+        $credentials = explode(',', $admin);
+        $this->loginAdmin($credentials[0], $credentials[1]);
+      }
+
+      $code = $request->getParameter('code');
+
+      if (empty($code) || is_null($code)) {
+        $this->returnRedirectURL();
+
+        throw new sfSecurityException('Something Went Wrong. Please try again later.', 403);
+      }
+
+      $stream = new Stream();
+      $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/login/token/';
+
+      error_log("Verification url is ---->{$url}");
+
+      $stream_response = $stream->sendRequest([
+        'url' => $url,
+        'method' => 'POST', // GET, POST, PUT, DELETE,
+        'ssl' => 'none',
+        'contentType' => 'json',
+        'data' => [
+          'code' => $code
+        ]
+      ]);
+
+      error_log("Token verification from jambo --->{$stream_response->status}");
+      error_log(json_encode($stream_response->content));
+
+      if ($stream_response->status !== 200) {
+        throw new sfException($stream_response->content['error'], $stream_response->status);
+      }
+
+      $this->token = $stream_response->content['token'];
+
+      if (empty($this->token) || is_null($this->token)) {
+        throw new sfException('Something Went Wrong. Please try again later.', 500);
+      }
+
+      $this->cache = new sfFileCache([
+        'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+      ]);
+
+      $_SESSION['jambo_token_backend'] = $this->token;
+
+      $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/user_info/';
+      // fetch user information
+      $stream_response = $stream->sendRequest([
+        'url' => $url,
+        'method' => 'GET', // GET, POST, PUT, DELETE,
+        'ssl' => 'none',
+        'contentType' => 'json',
+        'data' => [],
+        'headers' => array(
+          "Authorization" => "JWT " . $this->token,
+        ),
+      ]);
+      $user_api_data = $stream_response->content;
+
+      error_log("User Details below --->");
+      error_log(json_encode($user_api_data));
+      error_log("Use details above --->");
+
+      $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
+      $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
+
+      $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$user_api_data['username']}{$last_name}@uasin.go.ke";
+      $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';
+
+      $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";
+
+      $user_account_details = [
+        'username' => $user_api_data['username'],
+        'first_name' => $first_name,
+        'last_name' => $last_name,
+        'phone_number' => $phone_number,
+        'email' => $email,
+        'password' => $password
+      ];
+
+      $otb_helper = new OTBHelper();
+
+
+      $department = $otb_helper->findDepartmentByName('physical planning');
+
+      $user_account_details['department'] = $department;
+
+      $jambo_pay_groups = $user_api_data['groups'];
+
+
+      $found_group = [];
+      for ($i = 0; $i < count($jambo_pay_groups); $i++) {
+
+        $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
+        $group = $otb_helper->findGroupByName($group_to_lower);
+
+        if ($group) {
+          $found_group[] = $group;
+        }
+      }
+
+      $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
+
+      if (!$has_account) {
+        $has_account = $otb_helper->createCfUser($user_account_details);
+      }
+      $otb_helper->assignCfUserToGroup($has_account->getNid(), $found_group);
+      $login_action = $login_manager->create_session($user_account_details['email'], $password);
+
+      error_log("Login action execute above, let see what is next ---->");
+
+      if ($login_action) {
+        $referer = $this->getUser()->getAttribute("referer");
+        error_log("Login Successful ---->");
+        error_log($referer);
+        error_log("We are about to redirect to the above");
+        $this->redirect("/plan/dashboard");
+      } else {
+        $this->loginError = true;
+        $this->form = new BackendSigninForm();
+
+        error_log("Login Couldn't be completed ...");
+        $this->returnRedirectURL();
+      }
+
+      $q = Doctrine_Query::create()
+        ->from("ExtLocales a")
+        ->orderBy("a.local_title ASC");
+      $this->locales = $q->execute();
+
+      //$this->setLayout("layout-admin-mentor");
+      $this->setLayout("layout-admin-mentor");
+
+    } catch (\Exception $error) {
+      echo "<pre>";
+      print_r($error);
+      echo "</pre>";
+      die();
     }
-
-    $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
-
-    if (!$has_account) {
-      $has_account = $otb_helper->createCfUser($user_account_details);
-    }
-    $otb_helper->assignCfUserToGroup($has_account->getNid(), $found_group);
-    $login_action = $login_manager->create_session($user_account_details['email'], $password);
-
-    error_log("Login action execute above, let see what is next ---->");
-
-    if ($login_action) {
-      $referer = $this->getUser()->getAttribute("referer");
-      error_log("Login Successful ---->");
-      error_log($referer);
-      error_log("We are about to redirect to the above");
-      $this->redirect("/plan/dashboard");
-    } else {
-      $this->loginError = true;
-      $this->form = new BackendSigninForm();
-
-      error_log("Login Couldn't be completed ...");
-      $this->returnRedirectURL();
-    }
-
-    $q = Doctrine_Query::create()
-      ->from("ExtLocales a")
-      ->orderBy("a.local_title ASC");
-    $this->locales = $q->execute();
-
-    //$this->setLayout("layout-admin-mentor");
-    $this->setLayout("layout-admin-mentor");
   }
 
   private function loginAdmin($username, $password)

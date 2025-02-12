@@ -177,7 +177,7 @@ class OTBHelper
 
         $group_found = $q->fetchOne();
 
-        if (!$group_found) {
+        if (!$group_found && $force_check) {
             $group = 'reviewer';
 
             $q = Doctrine_Query::create()

@@ -705,7 +705,7 @@ class formsActions extends sfActions
 
             error_log("Create bill URL --->{$url}");
             error_log(json_encode($data));
-            
+
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -716,6 +716,13 @@ class formsActions extends sfActions
                   ],
                   'data' => $data
             ]);
+
+            error_log("Response ---> Create bill");
+
+            error_log($query_response->status);
+
+            error_log(json_encode($query_response->content));
+
 
             if ($query_response->status == 200 || $query_response->status == 201) {
                   $this->cache->set("{$this->key}_bill_ref", $query_response->content['bill_ref'], 3600);

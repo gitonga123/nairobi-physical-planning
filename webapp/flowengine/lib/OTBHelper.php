@@ -209,6 +209,7 @@ class OTBHelper
 
         $reviewer->setStrphoneMain1($data['phone_number']);
         $reviewer->setStrdepartment($data['department']);
+        $reviewer->setBDeleted(0);
         $reviewer->save();
 
         $audit = new Audit();

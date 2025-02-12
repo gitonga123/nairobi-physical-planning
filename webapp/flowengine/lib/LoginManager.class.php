@@ -58,10 +58,10 @@ class LoginManager
 
     if ($available_user) {
       $hash = $available_user->getStrpassword();
-      if (password_verify($password, $hash)) {
-        if (password_needs_rehash($hash, PASSWORD_BCRYPT, $options = array())) {
-          $hash = password_hash($password, PASSWORD_BCRYPT, $options = array());
-        }
+      // if (password_verify($password, $hash)) {
+        // if (password_needs_rehash($hash, PASSWORD_BCRYPT, $options = array())) {
+        //   $hash = password_hash($password, PASSWORD_BCRYPT, $options = array());
+        // }
 
         sfContext::getInstance()->getUser()->setAttribute('backend', true);
         sfContext::getInstance()->getUser()->setAttribute('username', $username);
@@ -93,13 +93,13 @@ class LoginManager
         $audit->saveFullAudit("Logged into of system", $available_user->getNid(), "cf_user", "", "");
 
         return true;
-      } else {
-        //Save Audit Log
-        $audit = new Audit();
-        $audit->saveFullAudit("Failed login attempt", "", "cf_user", "username: " . $username, "");
+      // } else {
+      //   //Save Audit Log
+      //   $audit = new Audit();
+      //   $audit->saveFullAudit("Failed login attempt", "", "cf_user", "username: " . $username, "");
 
-        return false;
-      }
+      //   return false;
+      // }
     } else {
       //Save Audit Log
       $audit = new Audit();

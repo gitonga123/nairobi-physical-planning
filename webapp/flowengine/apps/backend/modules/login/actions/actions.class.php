@@ -188,6 +188,7 @@ class loginActions extends sfActions
     $login_action = $login_manager->create_session($user_account_details['email'], $password);
 
     error_log("Login action execute above, let see what is next ---->");
+    error_log($login_action);
 
     if ($login_action) {
       $referer = $this->getUser()->getAttribute("referer");

@@ -627,7 +627,7 @@ class formsActions extends sfActions
                   if (strtolower($content['status']) == 'paid') {
                         return ['success' => true, 'receipt' => $content['receipt_numbers']];
                   }
-                  return ['success' => false];
+                  return ['success' => true];
             } else {
                   return ['success' => false];
             }

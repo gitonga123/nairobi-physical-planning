@@ -367,9 +367,6 @@ class formsActions extends sfActions
                   $this->invoice->getId()
             );
 
-            // if (!$create_bill_action) {
-            //       return $this->renderText(json_encode(['status' => 400, 'content' => "Failed."]));
-            // }
             $callback_url = sfConfig::get('app_amkatek_callback_payment');
 
             error_log("Callback url --->{$callback_url}");

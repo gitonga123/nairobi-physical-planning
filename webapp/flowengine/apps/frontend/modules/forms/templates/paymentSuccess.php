@@ -334,6 +334,8 @@
 		function initiatePayment() {
 			$("#mpesa_confirmation_id").html();
 			$("#response_wallet_area_id").html();
+			$("#response_area_id").html();
+
 			setButtonLoading('initiate_payment_loader', true);
 			const formData = $('#checkout_initial_payment').serialize();
 			$.ajax({
@@ -347,7 +349,7 @@
 						setButtonLoading('initiate_payment_loader', false);
 						return;
 					}
-					if (data.status === 201) {
+					if (data.status === 201 || data.status === 200) {
 						let paymentOption = '';
 						if (data?.content?.verify_otp) {
 							paymentOption = `<div class="card shadow mt-3 mb-4">

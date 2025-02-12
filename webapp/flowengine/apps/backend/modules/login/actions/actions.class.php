@@ -21,12 +21,16 @@ class loginActions extends sfActions
     $login_manager = new LoginManager();
     $this->loginError = "";
 
+
     //If there are no site settings then run installation wizard
     $q = Doctrine_Query::create()
       ->from("ApSettings a");
     if ($q->count() == 0) {
       $this->redirect("/plan/install");
     }
+
+    $login_manager = new LoginManager();
+    $login_manager->destroy_session();
 
     //Check if current reviewer is already logged in and redirect
     if ($login_manager->validate_session()) {
@@ -104,7 +108,7 @@ class loginActions extends sfActions
 
     $formatted_username = strtolower($user_api_data['username']);
     $formatted_last_name = strtolower(string: $last_name);
-    
+
     $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$formatted_username}{$formatted_last_name}@uasin.go.ke";
     $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';
 

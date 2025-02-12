@@ -158,6 +158,9 @@
 		const button = $(`#${buttonId}`);
 		if (isLoading) {
 			button.prop('disabled', true).html('<span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + message + '...</span>');
+			$("#mpesa_confirmation_id").html();
+			$("#response_wallet_area_id").html();
+			$("#response_area_id").html();
 		} else {
 			if (buttonId == 'initiate_payment_loader') {
 				button.prop('disabled', false).html('Initiate Payment');
@@ -165,6 +168,7 @@
 				button.prop('disabled', false).html('Confirm Payment');
 			}
 		}
+
 	}
 
 	function showAlert(areaId, type, message) {
@@ -234,7 +238,6 @@
 <script>
 	$(document).ready(function () {
 		function confirmPayment(currentInterval = 1, maxInterval = 10) {
-			console.log("Confirm payment being executed ---->", currentInterval, maxInterval);
 			setButtonLoading('initiate_payment_loader', true);
 			setButtonLoading('confirm_payment', true);
 			$.ajax({

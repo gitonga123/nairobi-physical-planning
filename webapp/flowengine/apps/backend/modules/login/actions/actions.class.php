@@ -107,7 +107,7 @@ class loginActions extends sfActions
     $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "{$user_api_data['username']}";
 
     $formatted_username = strtolower($user_api_data['username']);
-    $formatted_last_name = strtolower(string: $last_name);
+    $formatted_last_name = strtolower($last_name);
 
     $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$formatted_username}{$formatted_last_name}@uasin.go.ke";
     $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';

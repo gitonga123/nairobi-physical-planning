@@ -56,6 +56,9 @@ class LoginManager
       ->where("a.struserid = ? OR a.stremail = ? and a.bdeleted = ?", [$username, $username, 0]);
     $available_user = $q->fetchOne();
 
+    error_log("Login Action started --->");
+    error_log(json_encode($available_user));
+
     if ($available_user) {
       $hash = $available_user->getStrpassword();
       // if (password_verify($password, $hash)) {

@@ -175,6 +175,11 @@ class loginActions extends sfActions
 
     $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
 
+    error_log("user has an account ---->");
+    error_log(json_encode($has_account));
+
+    error_log("Account found above ---->");
+
     if (!$has_account) {
       $has_account = $otb_helper->createCfUser($user_account_details);
     }

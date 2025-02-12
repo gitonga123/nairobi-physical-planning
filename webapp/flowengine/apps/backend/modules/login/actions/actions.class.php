@@ -180,7 +180,7 @@ class loginActions extends sfActions
 
     error_log("Account found above ---->");
 
-    if (!$has_account) {
+    if (empty($has_account)|| !$has_account) {
       $has_account = $otb_helper->createCfUser($user_account_details);
     }
 

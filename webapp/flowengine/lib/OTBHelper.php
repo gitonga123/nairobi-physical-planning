@@ -200,22 +200,32 @@ class OTBHelper
 
     public function createCfUser($data)
     {
-        $reviewer = new CfUser();
-        $reviewer->setStrLastName($data['last_name']);
-        $reviewer->setStrfirstname($data['first_name']);
-        $reviewer->setStremail($data['email']);
-        $reviewer->setStruserid($data['username']);
-        $reviewer->setStrpassword(password_hash($data['password'], PASSWORD_BCRYPT));
+        try {
 
-        $reviewer->setStrphoneMain1($data['phone_number']);
-        $reviewer->setStrdepartment($data['department']);
-        $reviewer->setBDeleted(0);
-        $reviewer->save();
 
-        $audit = new Audit();
-        $audit->saveAudit("", "<a href=\"/plan/users/edituser?userid=" . $reviewer->getNid() . "&language=en\">added a new user</a>");
+            error_log("we need to create an account for this user");
+            error_log(json_encode($data));
 
-        return $reviewer;
+            $reviewer = new CfUser();
+            $reviewer->setStrLastName($data['last_name']);
+            $reviewer->setStrfirstname($data['first_name']);
+            $reviewer->setStremail($data['email']);
+            $reviewer->setStruserid($data['username']);
+            $reviewer->setStrpassword(password_hash($data['password'], PASSWORD_BCRYPT));
+
+            $reviewer->setStrphoneMain1($data['phone_number']);
+            $reviewer->setStrdepartment($data['department']);
+            $reviewer->setBDeleted(0);
+            $reviewer->save();
+
+            $audit = new Audit();
+            $audit->saveAudit("", "<a href=\"/plan/users/edituser?userid=" . $reviewer->getNid() . "&language=en\">added a new user</a>");
+
+            error_log("Account created");
+            return $reviewer;
+        } catch (\Exception $error) {
+            error_log("Error Creating account -> {$error->getMessage()}");
+        }
     }
 
     public function assignCfUserToGroup($reviewer_id, $groups)

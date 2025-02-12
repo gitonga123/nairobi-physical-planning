@@ -100,9 +100,12 @@ class loginActions extends sfActions
     error_log("Use details above --->");
 
     $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
-    $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "L{$user_api_data['username']}";
+    $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "{$user_api_data['username']}";
 
-    $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$user_api_data['username']}{$last_name}@uasin.go.ke";
+    $formatted_username = strtolower($user_api_data['username']);
+    $formatted_last_name = strtolower(string: $last_name);
+    
+    $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$formatted_username}{$formatted_last_name}@uasin.go.ke";
     $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';
 
     $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";

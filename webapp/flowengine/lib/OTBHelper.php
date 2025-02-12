@@ -141,7 +141,7 @@ class OTBHelper
     {
         $q = Doctrine_Query::create()
             ->from('CfUser u')
-            ->where('u.stremail =? or u.struserid =?', [$email, $username]);
+            ->where('u.struserid =?', [$username]);
 
         return $q->fetchOne();
     }

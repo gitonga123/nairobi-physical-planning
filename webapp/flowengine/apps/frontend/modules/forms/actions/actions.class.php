@@ -601,7 +601,7 @@ class formsActions extends sfActions
 
             $stream = new Stream();
 
-            error_log(message: "Checkout Jambo Pay URL --->{$url}");
+            error_log( "Checkout Jambo Pay URL --->{$url}");
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
@@ -647,7 +647,7 @@ class formsActions extends sfActions
 
                   $stream = new Stream();
 
-                  error_log(message: "Sub county list URL --->{$url}");
+                  error_log( "Sub county list URL --->{$url}");
 
                   $query_response = $stream->sendRequest([
                         'url' => $url,
@@ -703,7 +703,7 @@ class formsActions extends sfActions
 
             $url = sfConfig::get('app_api_jambo_url') . 'api/v1/create_bill/';
 
-            error_log(message: "Create bill URL --->{$url}");
+            error_log( "Create bill URL --->{$url}");
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',

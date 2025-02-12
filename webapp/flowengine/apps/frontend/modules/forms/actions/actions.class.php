@@ -358,7 +358,7 @@ class formsActions extends sfActions
             error_log("Sub county name is ----> {$subcounty_name}");
 
             $subcounty = $this->subcountyList($subcounty_name);
-            $this->createBill(
+            $create_bill_action = $this->createBill(
                   [
                         'sub_county' => $subcounty,
                         'bill_number' => $billing_reference_number,
@@ -366,6 +366,10 @@ class formsActions extends sfActions
                   ],
                   $this->invoice->getId()
             );
+
+            if (!$create_bill_action) {
+                  return $this->renderText(json_encode(['status' => 400, 'content' => "Failed."]));
+            }
             $callback_url = sfConfig::get('app_amkatek_callback_payment');
 
             error_log("Callback url --->{$callback_url}");
@@ -729,8 +733,12 @@ class formsActions extends sfActions
 
 
                   error_log($query_response->content['bill_ref']);
+
+                  return true;
             } else {
                   error_log("Unable to create the bill at the moment");
+
+                  return false;
             }
       }
 

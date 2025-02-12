@@ -133,7 +133,7 @@ class loginActions extends sfActions
     error_log("jambo_pay_groups ---->");
 
 
-    $jambo_pay_groups[] = 'reviewer';
+    // $jambo_pay_groups[] = 'reviewer';
 
     error_log(json_encode($jambo_pay_groups));
 

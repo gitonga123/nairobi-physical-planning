@@ -368,12 +368,15 @@ class formsActions extends sfActions
             );
             $callback_url = sfConfig::get('app_amkatek_callback_payment');
 
+            error_log("Callback url --->{$callback_url}");
             $payload = [
                   'phone_number' => $request->getPostParameter('phone_number'),
                   'amount' => $this->invoice->getTotalAmount(),
                   'bill_number' => $billing_reference_number,
                   'callback_url' => $callback_url
             ];
+
+            error_log("Url bill sent to ----> {$url}");
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
@@ -428,6 +431,7 @@ class formsActions extends sfActions
 
             $ref = $this->cache->get("{$this->key}_jambo_pay_ref");
 
+            error_log("Verify OTP URL --->{$url}");
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -459,6 +463,7 @@ class formsActions extends sfActions
             $stream = new Stream();
 
             $ref = $this->cache->get("{$this->key}_jambo_pay_ref");
+            error_log("Regenerate OTP URL --->{$url}");
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -596,6 +601,8 @@ class formsActions extends sfActions
 
             $stream = new Stream();
 
+            error_log(message: "Checkout Jambo Pay URL --->{$url}");
+
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -639,6 +646,8 @@ class formsActions extends sfActions
                   $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/sub_counties/';
 
                   $stream = new Stream();
+
+                  error_log(message: "Sub county list URL --->{$url}");
 
                   $query_response = $stream->sendRequest([
                         'url' => $url,
@@ -693,6 +702,8 @@ class formsActions extends sfActions
             $data['items'] = $items;
 
             $url = sfConfig::get('app_api_jambo_url') . 'api/v1/create_bill/';
+
+            error_log(message: "Create bill URL --->{$url}");
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',

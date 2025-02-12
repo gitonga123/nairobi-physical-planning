@@ -13,10 +13,14 @@ if ($sf_user->mfHasCredential("managestages")) {
 				<?php echo __('stages'); ?>
 			</div>
 
-			<div class="panel-heading text-right">
-				<a class="btn btn-primary" id="newstage"
-					href="/plan/stages/new/filter/<?php echo $filter; ?>"><?php echo __('+ Add New Stage'); ?></a>
-			</div>
+			<?php
+			if ($sf_user->mfHasCredential('access_security')) {
+				?>
+				<div class="panel-heading text-right">
+					<a class="btn btn-primary" id="newstage"
+						href="/plan/stages/new/filter/<?php echo $filter; ?>"><?php echo __('+ Add New Stage'); ?></a>
+				</div>
+			<?php } ?>
 
 			<div class="panel-body p-b-0">
 				<?php
@@ -35,7 +39,7 @@ if ($sf_user->mfHasCredential("managestages")) {
 							<?php echo $stage->getTitle(); ?>
 						</div>
 						<div class="list-group-item">
-							
+
 							<a class="btn btn-primary btn-sm btn-form" style="margin-right: 10px;"
 								href="/plan/stages/actions/id/<?php echo $stage->getId(); ?>"><span class="fa fa-edit"></span>
 								Actions</a>

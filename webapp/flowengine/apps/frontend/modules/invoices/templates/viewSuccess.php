@@ -87,7 +87,7 @@ $invoice_manager->update_invoices($application->getId());
                                 echo "<pre>Decoded Receipt ID: " . print_r($receipt_id, true) . "</pre>";
                                 echo "<pre>Extracted Receipt Number: " . print_r($receipt_number1, true) . "</pre>";
 
-                                if (!empty($receipt_number)) {
+                                if (!empty($receipt_number1)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
                                     foreach ($receipt_id as $index => $receipt_number) {
                                         echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">

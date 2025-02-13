@@ -90,7 +90,10 @@ class invoicesActions extends sfActions
             
             var_dump($receipt_data);
 
-            $receipt_ids = explode($receipt_data, ',');
+            $from_string_ids = trim($receipt_data);
+            var_dump($from_string_ids);
+
+            $receipt_ids = explode($from_string_ids, ',');
             var_dump($receipt_ids);die;
 
             // Debug raw value

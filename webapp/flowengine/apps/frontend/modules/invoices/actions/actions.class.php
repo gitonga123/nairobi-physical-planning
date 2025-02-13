@@ -107,15 +107,12 @@ class invoicesActions extends sfActions
                 $api_url = sfConfig::get('app_api_jambo_url');
 
                 var_dump("Should be looping at this point---->");
-                $my_string = '';
 
                 foreach ($receipt_ids as $key => $receipt_number) {
 
                     $index = $key + 1;
-                    $my_string .= "<a title='Download Receipt {$index}' href='{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning/' class='btn btn-primary' style='margin-right: 10px;'><i class='fas fa-file-download'></i> Receipt{$key}</a>";
-                    var_dump('<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
-                            <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
-                          </a>');
+                    $my_string = "<a title='Download Receipt {$index}' href='{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning/' class='btn btn-primary' style='margin-right: 10px;'><i class='fas fa-file-download'></i> Receipt{$key}</a>";
+                    
 
                     var_dump($my_string);
                 }

@@ -98,11 +98,7 @@ class invoicesActions extends sfActions
                 $api_url = sfConfig::get('app_api_jambo_url');
 
                 foreach ($receipt_ids as $key => $receipt_number) {
-
-                    $index = $key + 1;
-                    $my_string = "<a title='Download Receipt {$index}' href='{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning/' class='btn btn-primary' style='margin-right: 10px;'><i class='fas fa-file-download'></i> Receipt{$key}</a>";
-
-
+                    $my_string = "{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning";
                     array_push($this->list_print_urls, $my_string);
                 }
             }

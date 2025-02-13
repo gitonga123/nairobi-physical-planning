@@ -2658,7 +2658,7 @@ class Templateparser
 
         $inv_fees = $inv_fees . '
                  <table width="2000px" cellspacing="0" cellpadding="0" border-spacing="0" style="border: 1px solid #d2d2d2; margin-bottom: 20px; width:100%;">
-                 <thead><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Service Code</th><th width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Service Description</th><th style="padding:5px 12px; text-align:left;" nowrap>Amount (' . $currency . ')</th></tr></thead><tbody>';
+                 <tbody><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Item</th><th style="padding:5px 12px; text-align:left;" nowrap>Total Amount (' . $currency . ')</th></tr>';
         $grand_total = 0;
         $inv_details = $invoice->getMfInvoiceDetail();
         $total_found = false;
@@ -2678,7 +2678,7 @@ class Templateparser
                 }
             }
             if ($inv_detail->getDescription() == "Attached Invoice") {
-                $inv_fees = $inv_fees . '<tr><td align="left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">-</td><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
             } else {
                 if ($inv_detail->getDescription() == "Choose Fee" || $inv_detail->getAmount() == "0") {
                     //Dont display
@@ -2687,9 +2687,9 @@ class Templateparser
                     if (sizeof($pieces) > 1) {
                         $description = $pieces[1];
 
-                        $inv_fees = $inv_fees . '<tr><td align="left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $pieces[0] . '</td><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
+                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
                     } else {
-                        $inv_fees = $inv_fees . '<tr><td align"left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">-</td><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
+                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
                     }
                     $grand_total += $inv_detail->getAmount();
                 }
@@ -2744,10 +2744,10 @@ class Templateparser
 
         $values['inv_total'] = number_format($invoice->getTotalAmount());
 
-        $values['inv_date_created'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
+        $values['inv_date_created'] = date('Y-m-d', strtotime($inv_created_at));
         $values['payment_date'] = $payment_date;
         $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
-        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']);
+        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.";
         $values['inv_date_created_yyymmdd'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
 
         if ($inv_expires_at) {

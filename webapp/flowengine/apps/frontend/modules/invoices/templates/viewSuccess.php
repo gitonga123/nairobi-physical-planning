@@ -76,33 +76,36 @@ $invoice_manager->update_invoices($application->getId());
                             if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                 $receipt_data = $invoice->getReceiptNumber(); // Get raw value
                         
-                                var_dump($receipt_data); // Check if it's actually a string
-                        
-                                // Fix: Ensure it’s a clean JSON string
-                                $cleaned_data = trim($receipt_data, '"'); // Remove leading/trailing quotes if needed
-
-                                echo "cleaned data get datatype" . gettype($receipt_ids);
-                        
-                                // Try decoding
-                                $receipt_ids = json_decode($cleaned_data, true);
-
-                                // Debugging
+                                // Debug raw value
                                 echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
-                                echo "<pre>Cleaned Receipt Number: " . print_r($cleaned_data, true) . "</pre>";
-                                echo "<pre>Decoded Receipt IDs: " . print_r($receipt_ids, true) . "</pre>";
+                                echo "<pre>Raw Data Type: " . gettype($receipt_data) . "</pre>";
 
+                                // First decode attempt
+                                $first_decode = json_decode($receipt_data, true);
+
+                                // Check if the first decode is still a string (meaning double-encoded JSON)
+                                if (is_string($first_decode)) {
+                                    $receipt_ids = json_decode($first_decode, true); // Decode again
+                                } else {
+                                    $receipt_ids = $first_decode; // Use the first decode result
+                                }
+
+                                // Debugging outputs
+                                echo "<pre>First Decode: " . print_r($first_decode, true) . "</pre>";
+                                echo "<pre>Decoded Receipt IDs: " . print_r($receipt_ids, true) . "</pre>";
+                                echo "<pre>Decoded Data Type: " . gettype($receipt_ids) . "</pre>";
+
+                                // Ensure decoding was successful and we have an array
                                 if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_ids) && !empty($receipt_ids)) {
-                                    echo "No errors found";
                                     $api_url = sfConfig::get('app_api_jambo_url');
 
                                     foreach ($receipt_ids as $index => $receipt_number) {
                                         echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
-                    <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
-                  </a>';
+                                                <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
+                                              </a>';
                                     }
                                 } else {
-                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.{$receipt_ids[0]}</p>";
-                                    echo "get datatype" . gettype($receipt_ids);
+                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
                                 }
                             }
 

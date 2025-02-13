@@ -87,13 +87,17 @@ use_helper("I18N");
 
                             }
                             if (count($list_print_urls) > 0) {
-                                ?>
-                                <a title="Download Receipt" href="<?php echo $list_print_urls[0] ?>" class="btn btn-primary"><i
-                                        class="fas fa-file-download"></i>
-                                    <?php echo __(" Receipt - 1");
+                                foreach ($list_print_urls as $key => $receipt_number) {
+                                    $index += 1;
                                     ?>
-                                </a>
-                            <?php } ?>
+                                    <a title="Download Receipt" href="<?php echo $receipt_number ?>" class="btn btn-primary"><i
+                                            class="fas fa-file-download"></i>
+                                        <?php echo __(" Receipt - {$index}");
+                                        ?>
+                                    </a>
+                                    <?php
+                                }
+                            } ?>
                         </td>
                     </tr>
                     <?php

@@ -100,6 +100,7 @@ $invoice_manager->update_invoices($application->getId());
                                     }
                                 } else {
                                     echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.{$receipt_ids[0]}</p>";
+                                    echo "get datatype" . gettype($receipt_ids);
                                 }
                             }
 

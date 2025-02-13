@@ -101,9 +101,12 @@ class invoicesActions extends sfActions
             echo "<pre>Raw Receipt Number: " . print_r($receipt_ids, true) . "</pre>";
             echo "<pre>Raw Data Type: " . gettype($receipt_ids) . "</pre>";
 
+            var_dump(is_array($receipt_ids) && !empty($receipt_ids));
 
             if (is_array($receipt_ids) && !empty($receipt_ids)) {
                 $api_url = sfConfig::get('app_api_jambo_url');
+
+                var_dump("Should be looping at this point---->");
 
                 foreach ($receipt_ids as $index => $receipt_number) {
                     $list_print_urls .= '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">

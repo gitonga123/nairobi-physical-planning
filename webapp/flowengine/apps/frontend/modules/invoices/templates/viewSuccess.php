@@ -79,7 +79,6 @@ $invoice_manager->update_invoices($application->getId());
                                 $api_url = sfConfig::get('app_api_jambo_url');
 
                                 echo '<a title="Download Receipt" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary"><i class="fas fa-file-download"></i> ' . __("Receipt") . '</a>';
-                                die;
                             } ?>
                             <?php
                             $expired = false;

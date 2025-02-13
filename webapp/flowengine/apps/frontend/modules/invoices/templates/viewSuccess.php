@@ -70,15 +70,31 @@ $invoice_manager->update_invoices($application->getId());
                                 </button>
                             <?php } ?>
                             <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
-                                $receipt_id = json_decode($invoice->getReceiptNumber(), true);
-                                $receipt_number = $receipt_id[0];
+                                $receipt_data = $invoice->getReceiptNumber();  // Get the raw value
+                        
+                                echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
 
-                                $api_url = sfConfig::get('app_api_jambo_url');
+                                // Try to decode only if it’s a JSON string
+                                $receipt_id = json_decode($receipt_data, true);
 
-                                // echo "<pre>".print_r($invoice->getReceiptNumber(), true)."</pre>";
-                                echo "<pre>" . print_r($receipt_id) . "</pre>";
+                                // If json_decode fails, use the raw value
+                                if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_id)) {
+                                    $receipt_number = !empty($receipt_id) ? $receipt_id[0] : null;
+                                } else {
+                                    $receipt_number = $receipt_data; // Fallback if it's not JSON
+                                }
 
-                                echo '<a title="Download Receipt" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary"><i class="fas fa-file-download"></i> ' . __("Receipt") . '</a>';
+                                echo "<pre>Decoded Receipt ID: " . print_r($receipt_id, true) . "</pre>";
+                                echo "<pre>Extracted Receipt Number: " . print_r($receipt_number, true) . "</pre>";
+
+                                if (!empty($receipt_number)) {
+                                    $api_url = sfConfig::get('app_api_jambo_url');
+                                    echo '<a title="Download Receipt" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary">
+                                             <i class="fas fa-file-download"></i> ' . __("Receipt") . '
+                                           </a>';
+                                } else {
+                                    echo "<p style='color:red;'>Error: No valid receipt number found.</p>";
+                                }
                             } ?>
                             <?php
                             $expired = false;

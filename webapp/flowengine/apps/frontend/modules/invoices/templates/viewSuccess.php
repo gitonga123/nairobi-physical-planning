@@ -77,6 +77,8 @@ $invoice_manager->update_invoices($application->getId());
                                 // Try to decode only if it’s a JSON string
                                 $receipt_id = json_decode($receipt_data, true);
 
+                                echo "Receipt echoed ---->" . $receipt_id[0];
+
                                 // If json_decode fails, use the raw value
                                 if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_id)) {
                                     $receipt_number1 = !empty($receipt_id) ? $receipt_id[0] : null;

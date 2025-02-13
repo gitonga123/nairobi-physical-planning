@@ -3004,7 +3004,7 @@ class Templateparser
         } else {
             $values['inv_expires_at'] = "";
         }
-        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']);
+        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']). " SHILLINGS ONLY.";
 
         $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
 
@@ -4241,7 +4241,7 @@ class Templateparser
             $content = str_replace('{jambo_pay_ref}', $invoice->getDocRefNumber(), $content);
         }
         if ($this->find('{inv_total_words}', $content)) {
-            $content = str_replace('{inv_total_words}', $otb_helper->convert_number_to_words($grand_total), $content);
+            $content = str_replace('{inv_total_words}', $otb_helper->convert_number_to_words($grand_total). " SHILLINGS ONLY.", $content);
         }
 
         if ($this->find('{inv_status}', $content)) {

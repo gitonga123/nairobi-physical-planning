@@ -90,6 +90,7 @@ $invoice_manager->update_invoices($application->getId());
                                 echo "<pre>Decoded Receipt IDs: " . print_r($receipt_ids, true) . "</pre>";
 
                                 if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_ids) && !empty($receipt_ids)) {
+                                    echo "No errors found";
                                     $api_url = sfConfig::get('app_api_jambo_url');
 
                                     foreach ($receipt_ids as $index => $receipt_number) {

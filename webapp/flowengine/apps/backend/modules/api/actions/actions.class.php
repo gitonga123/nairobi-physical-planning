@@ -182,7 +182,7 @@ class apiActions extends sfActions
 
                 $invoice->setPaid(2);
                 if (array_key_exists('receipt_number', $response)) {
-                    $invoice->setReceiptNumber($response['receipt_number']);
+                    $invoice->setReceiptNumber(json_encode($response['receipt_number']));
                 }
                 $invoice->save();
 

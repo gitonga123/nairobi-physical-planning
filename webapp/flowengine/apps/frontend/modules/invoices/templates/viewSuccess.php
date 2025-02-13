@@ -71,21 +71,20 @@ $invoice_manager->update_invoices($application->getId());
                             <?php } ?>
                             <?php
 
-
+                            // start
+                        
                             if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                 $receipt_data = $invoice->getReceiptNumber(); // Get raw value
-                                // First decode attempt
-                                $first_decode = json_decode($receipt_data, true);
+                        
+                                $receipt_ids = explode($receipt_data, ',');
 
-                                // Check if the first decode is still a string (meaning double-encoded JSON)
-                                if (is_string($first_decode)) {
-                                    $receipt_ids = json_decode($first_decode, true); // Decode again
-                                } else {
-                                    $receipt_ids = $first_decode; // Use the first decode result
-                                }
 
-                                // Ensure decoding was successful and we have an array
-                                if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_ids) && !empty($receipt_ids)) {
+                                // Debug raw value
+                                echo "<pre>Raw Receipt Number: " . print_r($receipt_ids, true) . "</pre>";
+                                echo "<pre>Raw Data Type: " . gettype($receipt_ids) . "</pre>";
+
+
+                                if (is_array($receipt_ids) && !empty($receipt_ids)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
 
                                     foreach ($receipt_ids as $index => $receipt_number) {
@@ -93,6 +92,8 @@ $invoice_manager->update_invoices($application->getId());
                                                 <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
                                               </a>';
                                     }
+                                } else {
+                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
                                 }
                             }
 

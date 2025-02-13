@@ -83,8 +83,13 @@ $invoice_manager->update_invoices($application->getId());
                                 // First decode attempt
                                 $first_decode = json_decode($receipt_data, true);
 
+                                echo "error below";
+
+                                echo json_last_error();
+
                                 // Check if the first decode is still a string (meaning double-encoded JSON)
                                 if (is_string($first_decode)) {
+                                    echo "Decode string -->";
                                     $receipt_ids = json_decode($first_decode, true); // Decode again
                                 } else {
                                     $receipt_ids = $first_decode; // Use the first decode result

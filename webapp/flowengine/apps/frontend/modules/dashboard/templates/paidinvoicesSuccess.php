@@ -58,6 +58,8 @@ use_helper("I18N");
 
                                         $receipt_ids = json_decode($from_string_ids, true);
 
+                                        var_dump($receipt_ids);
+
                                         if (is_array($receipt_ids) && !empty($receipt_ids)) {
                                             $api_url = sfConfig::get('app_api_jambo_url');
 

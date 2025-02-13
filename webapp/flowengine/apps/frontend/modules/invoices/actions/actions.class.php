@@ -87,11 +87,11 @@ class invoicesActions extends sfActions
 
         if ($this->invoice->getPaid() == 2 && !empty($this->invoice->getReceiptNumber())) {
             $receipt_data = $this->invoice->getReceiptNumber(); // Get raw value
-            var_dump($receipt_data);die;
+            
             echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
 
             $receipt_ids = explode($receipt_data, ',');
-
+            var_dump($receipt_ids);die;
 
             // Debug raw value
             echo "<pre>Raw Receipt Number: " . print_r($receipt_ids, true) . "</pre>";

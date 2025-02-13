@@ -69,40 +69,30 @@ $invoice_manager->update_invoices($application->getId());
                                     <i class="fa fa-print me-2"></i> <?php echo __('Print Invoice'); ?>
                                 </button>
                             <?php } ?>
-                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
-                                $receipt_data = $invoice->getReceiptNumber();  // Get the raw value
+                            <?php
+
+                            // start
+                            if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
+                                $receipt_data = $invoice->getReceiptNumber(); // Get raw value
                         
-                                echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
+                                // Decode the JSON string into an array
+                                $receipt_ids = json_decode($receipt_data, true);
 
-                                // Try to decode only if it’s a JSON string
-                                $receipt_id = json_decode($receipt_data, true);
-
-                                echo "Receipt echoed ---->" . $receipt_id;
-
-                                // If json_decode fails, use the raw value
-                                if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_id)) {
-                                    $receipt_number1 = !empty($receipt_id) ? $receipt_id[0] : null;
-                                } else {
-                                    $receipt_number1 = $receipt_data; // Fallback if it's not JSON
-                                }
-
-                                echo "<pre>Decoded Receipt ID: " . print_r($receipt_id, true) . "</pre>";
-                                echo "<pre>Extracted Receipt Number: " . print_r($receipt_number1, true) . "</pre>";
-
-                                if (!empty($receipt_number1)) {
+                                // Check if decoding was successful and if it's a valid array
+                                if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_ids) && !empty($receipt_ids)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
-                                    echo "Count --->" . count($receipt_id);
-                                    foreach ($receipt_id as $index => $receipt_number) {
-                                        echo "{$index}";
+
+                                    foreach ($receipt_ids as $index => $receipt_number) {
                                         echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
                                                 <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
                                               </a>';
                                     }
                                 } else {
-                                    echo "<p style='color:red;'>Error: No valid receipt number found.</p>";
+                                    echo "<p style='color:red;'>Error: No valid receipt numbers found.</p>";
                                 }
-                            } ?>
-                            <?php
+                            }
+
+                            // end
                             $expired = false;
                             $db_date_event = str_replace('/', '-', $invoice->getExpiresAt());
                             $db_date_event = strtotime($db_date_event);

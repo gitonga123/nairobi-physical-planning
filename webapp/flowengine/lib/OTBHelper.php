@@ -922,7 +922,7 @@ class OTBHelper
 
     /**
      *  Kibes Idea
-     * @param type $number
+     * @param $number
      * @return boolean
      * 
      */

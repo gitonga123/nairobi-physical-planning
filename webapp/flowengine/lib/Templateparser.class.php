@@ -2611,6 +2611,8 @@ class Templateparser
 
         $invoice_manager = new InvoiceManager();
 
+        $otb_helper = new OTBHelper();
+
         $invoice = Doctrine_Core::getTable("MfInvoice")->find($invoice_id);
         $application = Doctrine_Core::getTable("FormEntry")->find($invoice->getAppId());
 
@@ -2745,6 +2747,7 @@ class Templateparser
         $values['inv_date_created'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
         $values['payment_date'] = $payment_date;
         $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
+        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']);
         $values['inv_date_created_yyymmdd'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
 
         if ($inv_expires_at) {
@@ -2843,6 +2846,7 @@ class Templateparser
         $values = array();
 
         $invoice_manager = new InvoiceManager();
+        $otb_helper = new OTBHelper();
 
         $invoice = Doctrine_Core::getTable("MfInvoiceArchive")->find($invoice_id);
         $application = Doctrine_Core::getTable("FormEntryArchive")->find($invoice->getAppId());
@@ -2894,14 +2898,14 @@ class Templateparser
         $inv_fees = "";
 
         $inv_fees = $inv_fees . '
-                 <table width="2000px" cellspacing="0" cellpadding="0" border-spacing="0" style="border: 1px solid #d2d2d2; margin-bottom: 20px; width:100%;">
-                 <thead><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Service Code</th><th width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Service Description</th><th style="padding:5px 12px; text-align:left;" nowrap>Amount (' . $currency . ')</th></tr></thead><tbody>';
+                 <table width="100%" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                 <tbody><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Item</th><th style="padding:5px 12px; text-align:left;" nowrap>Total Amount (' . $currency . ')</th></tr>';
         $grand_total = 0;
         $inv_details = $invoice->getMfInvoiceDetail();
         $total_found = false;
         foreach ($inv_details as $inv_detail) {
             if ($inv_detail->getDescription() == "Attached Invoice") {
-                $inv_fees = $inv_fees . '<tr><td align="left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">-</td><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
             } else {
                 if ($inv_detail->getDescription() == "Fee" && $inv_detail->getAmount() == "0") {
                     //Dont display
@@ -2920,9 +2924,9 @@ class Templateparser
                             $description = $apform->getFormName();
                         }
 
-                        $inv_fees = $inv_fees . '<tr><td align="left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $pieces[0] . '</td><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
                     } else {
-                        $inv_fees = $inv_fees . '<tr><td align"left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">-</td><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
                     }
                     $grand_total += $inv_detail->getAmount();
                 }
@@ -2953,7 +2957,7 @@ class Templateparser
                 $currency = sfConfig::get("app_currency");
             }
 
-            $inv_fees = $inv_fees . '<tr><td align="left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"></td><td align="right" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"><b>Total (' . $currency . ')</b></td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $grand_total . '</td></tr>';
+            $inv_fees = $inv_fees . '<tr><td align="right" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"><b>Total (' . $currency . ')</b></td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $grand_total . '</td></tr>';
         }
 
         $inv_fees = $inv_fees . '</tbody>
@@ -3000,6 +3004,7 @@ class Templateparser
         } else {
             $values['inv_expires_at'] = "";
         }
+        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']);
 
         $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
 
@@ -3681,6 +3686,7 @@ class Templateparser
 
         $profile_form = "";
 
+
         if ($formprofile) {
             $prof_entry_id = $formprofile->getEntryId();
 
@@ -3700,6 +3706,8 @@ class Templateparser
         $conditions = "";
 
         $invoice_total = 0;
+
+        $otb_helper = new OTBHelper();
 
         /*$q = Doctrine_Query::create()
             ->from('ApprovalCondition a')
@@ -4164,15 +4172,15 @@ class Templateparser
         $inv_fees = "";
 
         $inv_fees = $inv_fees . '
-             <table width="2000px" cellspacing="0" cellpadding="0" border-spacing="0" style="border: 1px solid #d2d2d2; margin-bottom: 20px; width:100%;">
-             <thead><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Service Code</th><th width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Service Description</th><th style="padding:5px 12px; text-align:left;" nowrap>Amount (' . $currency . ')</th></tr></thead><tbody>';
+            <table width="100%" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tbody><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Item</th><th style="padding:5px 12px; text-align:left;" nowrap>Total Amount (' . $currency . ')</th></tr>';
         $grand_total = 0;
         $inv_details = $invoice->getMfInvoiceDetail();
         $total_found = false;
         foreach ($inv_details as $inv_detail) {
             if ($inv_detail->getDescription() == "Attached Invoice") {
                 $url = html_entity_decode($detail->getAmount());
-                $inv_fees = $inv_fees . "<tr><td align='left' width='20%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'>-</td><td align='left' width='80%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'>" . $inv_detail->getDescription() . "</td><td align='left' style='border-top: 1px solid #d2d2d2; padding:5px 12px;'>" . $inv_detail->getAmount() . "</td></tr>";
+                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
             } else {
                 if ($inv_detail->getAmount() == "0") {
                     //Dont display
@@ -4181,9 +4189,9 @@ class Templateparser
                     if (sizeof($pieces) > 1) {
                         $description = $pieces[1];
 
-                        $inv_fees = $inv_fees . "<tr><td align='left' width='20%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'>" . $pieces[0] . "</td><td align='left' width='80%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'>" . $description . "</td><td align='left' style='border-top: 1px solid #d2d2d2; padding:5px 12px;'>" . $inv_detail->getAmount() . "</td></tr>";
+                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
                     } else {
-                        $inv_fees = $inv_fees . "<tr><td align='left' width='20%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'>-</td><td align='left' width='80%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'>" . $inv_detail->getDescription() . "</td><td align='left' style='border-top: 1px solid #d2d2d2; padding:5px 12px;'>" . $inv_detail->getAmount() . "</td></tr>";
+                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
                     }
                     $grand_total += $inv_detail->getAmount();
                 }
@@ -4195,7 +4203,7 @@ class Templateparser
         }
 
         if ($total_found == false) {
-            $inv_fees = $inv_fees . "<tr><td align='left' width='20%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'></td><td align='right' width='80%' style='border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;'><b>Total (" . $currency . ")</b></td><td align='left' style='border-top: 1px solid #d2d2d2; padding:5px 12px;'>" . $grand_total . "</td></tr>";
+            $inv_fees = $inv_fees . '<tr><td align="right" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"><b>Total (' . $currency . ')</b></td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $grand_total . '</td></tr>';
         }
 
         $inv_fees = $inv_fees . "</tbody>
@@ -4231,6 +4239,9 @@ class Templateparser
         }
         if ($this->find('{jambo_pay_ref}', $content)) {
             $content = str_replace('{jambo_pay_ref}', $invoice->getDocRefNumber(), $content);
+        }
+        if ($this->find('{inv_total_words}', $content)) {
+            $content = str_replace('{inv_total_words}', $otb_helper->convert_number_to_words($grand_total), $content);
         }
 
         if ($this->find('{inv_status}', $content)) {

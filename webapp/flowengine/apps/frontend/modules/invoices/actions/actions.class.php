@@ -114,7 +114,7 @@ class invoicesActions extends sfActions
                     $my_string = "<a title='Download Receipt {$index}' href='{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning/' class='btn btn-primary' style='margin-right: 10px;'><i class='fas fa-file-download'></i> Receipt{$key}</a>";
                     
 
-                    var_dump($my_string);
+                    array_push($list_print_urls, $my_string);
                 }
             }
 

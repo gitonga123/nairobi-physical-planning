@@ -72,29 +72,36 @@ $invoice_manager->update_invoices($application->getId());
                             <?php
 
                             // start
+                        
                             if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                 $receipt_data = $invoice->getReceiptNumber(); // Get raw value
                         
-                                // Decode the JSON string
-                                $receipt_ids = json_decode($receipt_data, true);
+                                var_dump($receipt_data); // Check if it's actually a string
+                        
+                                // Fix: Ensure it’s a clean JSON string
+                                $cleaned_data = trim($receipt_data, '"'); // Remove leading/trailing quotes if needed
+                        
+                                // Try decoding
+                                $receipt_ids = json_decode($cleaned_data, true);
 
-                                // Debugging outputs
+                                // Debugging
                                 echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
+                                echo "<pre>Cleaned Receipt Number: " . print_r($cleaned_data, true) . "</pre>";
                                 echo "<pre>Decoded Receipt IDs: " . print_r($receipt_ids, true) . "</pre>";
 
-                                // Ensure decoding was successful and $receipt_ids is an array
                                 if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_ids) && !empty($receipt_ids)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
 
                                     foreach ($receipt_ids as $index => $receipt_number) {
                                         echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
-                                                <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
-                                              </a>';
+                    <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
+                  </a>';
                                     }
                                 } else {
                                     echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
                                 }
                             }
+
 
                             // end
                             $expired = false;

@@ -78,8 +78,8 @@ use_helper("I18N");
                                             <?php
                                         }
                                     } ?>
-
-
+                                
+<p>Paid invoic</p>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -75,6 +75,7 @@ $invoice_manager->update_invoices($application->getId());
                         
                             if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                 $receipt_data = $invoice->getReceiptNumber(); // Get raw value
+                                echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
                         
                                 $receipt_ids = explode($receipt_data, ',');
 

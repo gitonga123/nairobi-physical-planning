@@ -579,11 +579,14 @@ class formsActions extends sfActions
                   return $this->renderText(json_encode(['success' => false, 'status' => 404, 'content' => ['msg' => 'invoice/application not found']]));
             }
 
+            error_log("Invoice is checking if paid ---->{$this->invoice->getPaid()}");
             if ($this->invoice && $this->invoice->getPaid() == 2) {
                   return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
             }
 
             $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
+
+            error_log("Billing Reference Number ---> {$billing_reference_number}");
 
             $result = $this->check_payment_jambo_pay($billing_reference_number);
 
@@ -621,12 +624,14 @@ class formsActions extends sfActions
                   $content = $query_response->content;
                   error_log("Payment confirmation is ---->");
                   error_log(print_r($content, true));
+                  error_log("Paid status ---->");
+
                   if (strtolower($content['status']) == 'paid') {
                         return ['success' => true, 'receipt' => $content['receipt_numbers']];
-                  } else{
-                        return ['success' => true];
+                  } else {
+                        return ['success' => false];
                   }
-                  
+
             } else {
                   return ['success' => false];
             }

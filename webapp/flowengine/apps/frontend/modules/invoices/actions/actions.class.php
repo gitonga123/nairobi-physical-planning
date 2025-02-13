@@ -85,6 +85,32 @@ class invoicesActions extends sfActions
             }
         }
 
+        if ($this->invoice->getPaid() == 2 && !empty($this->invoice->getReceiptNumber())) {
+            $receipt_data = $this->invoice->getReceiptNumber(); // Get raw value
+            var_dump($receipt_data);die;
+            echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
+
+            $receipt_ids = explode($receipt_data, ',');
+
+
+            // Debug raw value
+            echo "<pre>Raw Receipt Number: " . print_r($receipt_ids, true) . "</pre>";
+            echo "<pre>Raw Data Type: " . gettype($receipt_ids) . "</pre>";
+
+
+            if (is_array($receipt_ids) && !empty($receipt_ids)) {
+                $api_url = sfConfig::get('app_api_jambo_url');
+
+                foreach ($receipt_ids as $index => $receipt_number) {
+                    echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
+                            <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
+                          </a>';
+                }
+            } else {
+                echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
+            }
+        }
+
         $q = Doctrine_Query::create()
             ->from('FormEntry a')
             ->where('a.id = ?', $this->invoice->getAppId());

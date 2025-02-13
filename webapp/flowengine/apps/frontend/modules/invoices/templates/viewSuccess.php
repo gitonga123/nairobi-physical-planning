@@ -71,34 +71,18 @@ $invoice_manager->update_invoices($application->getId());
                             <?php } ?>
                             <?php
 
-                            // start
-                        
+
                             if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                 $receipt_data = $invoice->getReceiptNumber(); // Get raw value
-                        
-                                // Debug raw value
-                                echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
-                                echo "<pre>Raw Data Type: " . gettype($receipt_data) . "</pre>";
-
                                 // First decode attempt
                                 $first_decode = json_decode($receipt_data, true);
 
-                                echo "error below";
-
-                                echo json_last_error();
-
                                 // Check if the first decode is still a string (meaning double-encoded JSON)
                                 if (is_string($first_decode)) {
-                                    echo "Decode string -->";
                                     $receipt_ids = json_decode($first_decode, true); // Decode again
                                 } else {
                                     $receipt_ids = $first_decode; // Use the first decode result
                                 }
-
-                                // Debugging outputs
-                                echo "<pre>First Decode: " . print_r($first_decode, true) . "</pre>";
-                                echo "<pre>Decoded Receipt IDs: " . print_r($receipt_ids, true) . "</pre>";
-                                echo "<pre>Decoded Data Type: " . gettype($receipt_ids) . "</pre>";
 
                                 // Ensure decoding was successful and we have an array
                                 if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_ids) && !empty($receipt_ids)) {
@@ -109,8 +93,6 @@ $invoice_manager->update_invoices($application->getId());
                                                 <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
                                               </a>';
                                     }
-                                } else {
-                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
                                 }
                             }
 

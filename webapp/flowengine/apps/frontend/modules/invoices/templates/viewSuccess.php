@@ -89,9 +89,11 @@ $invoice_manager->update_invoices($application->getId());
 
                                 if (!empty($receipt_number)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
-                                    echo '<a title="Download Receipt" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary">
-                                             <i class="fas fa-file-download"></i> ' . __("Receipt") . '
-                                           </a>';
+                                    foreach ($receipt_ids as $index => $receipt_number) {
+                                        echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
+                                                <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
+                                              </a>';
+                                    }
                                 } else {
                                     echo "<p style='color:red;'>Error: No valid receipt number found.</p>";
                                 }

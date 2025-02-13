@@ -68,19 +68,18 @@ $invoice_manager->update_invoices($application->getId());
                                     onClick="window.location='/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>';">
                                     <i class="fa fa-print me-2"></i> <?php echo __('Print Invoice'); ?>
                                 </button>
-                            <?php } ?>
-                            <?php
+                            <?php }
 
-                            // start
-                            echo "<div>";
-                            foreach ($list_print_urls as $url) {
-                                echo "<div style='margin-bottom: 10px;'>$url</div>"; // Adds spacing between buttons
-                            }
-                            echo "</div>";
+                            foreach ($link_urls as $key => $url) {
+                                $index = $key + 1;
+                                ?>
+                                <a title="Download Receipt" href="<?php echo $url ?>" class="btn btn-primary"><i
+                                        class="fas fa-file-download"></i>
+                                    <?php echo __(" Receipt - {$index}");
+                                    ?>
+                                </a>
+                            <?php }
 
-
-
-                            // end
                             $expired = false;
                             $db_date_event = str_replace('/', '-', $invoice->getExpiresAt());
                             $db_date_event = strtotime($db_date_event);

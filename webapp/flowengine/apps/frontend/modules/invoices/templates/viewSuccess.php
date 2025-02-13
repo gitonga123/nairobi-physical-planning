@@ -70,7 +70,7 @@ $invoice_manager->update_invoices($application->getId());
                                 </button>
                             <?php }
 
-                            foreach ($link_urls as $key => $url) {
+                            foreach ($list_print_urls as $key => $url) {
                                 $index = $key + 1;
                                 ?>
                                 <a title="Download Receipt" href="<?php echo $url ?>" class="btn btn-primary"><i

@@ -57,7 +57,8 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
         ?>
 
         <script language="javascript">
-            function getFee(id, feecode) {
+            function getFee(id, feecode, application_id) {
+                console.log(id, feecode, application_id);
                 var xmlHttpReq1 = false;
                 var self1 = this;
                 // Mozilla/Safari
@@ -86,7 +87,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                 if (feecode == "Choose Fee") {
                     document.getElementById(id).disabled = true;
                 } else {
-                    self.xmlHttpReq1.send('code' + '=' + feecode);
+                    self.xmlHttpReq1.send('code' + '=' + feecode + "&application=" + application_id);
                 }
             }
 
@@ -113,8 +114,9 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
         <div class="more_fees_id">
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control input-md' onChange='getFee("inv_1", this.value)'
-                        id="select_fee_1" data-width="100%">
+                    <select name='feetitle[]' class='form-control input-md'
+                        onChange='getFee("inv_1", this.value, <?php echo $application->getId(); ?>)' id="select_fee_1"
+                        data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
                 </label>
@@ -124,7 +126,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control input-md' onChange='getFee("inv_2", this.value)'
+                    <select name='feetitle[]' class='form-control input-md' onChange='getFee("inv_2", this.value, <?php echo $application->getId(); ?>)'
                         id="select_fee_2" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -135,7 +137,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_3", this.value)' id="select_fee_3"
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_3", this.value, <?php echo $application->getId(); ?>)' id="select_fee_3"
                         data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -146,7 +148,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_4", this.value)' id="select_fee_4"
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_4", this.value, <?php echo $application->getId(); ?>)' id="select_fee_4"
                         data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -157,7 +159,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
 
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_5", this.value)' id="select_fee_5"
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_5", this.value, <?php echo $application->getId(); ?>)' id="select_fee_5"
                         data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -167,7 +169,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_6", this.value)' id="select_fee_6"
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_6", this.value, <?php echo $application->getId(); ?>)' id="select_fee_6"
                         data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -177,7 +179,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_7", this.value)' id="select_fee_7"
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_7", this.value, <?php echo $application->getId(); ?>)' id="select_fee_7"
                         data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -187,7 +189,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_8", this.value)' id="select_fee_8"
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_8", this.value, <?php echo $application->getId(); ?>)' id="select_fee_8"
                         data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -197,7 +199,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_9", this.value)' id="select_fee_9"
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_9", this.value, <?php echo $application->getId(); ?>)' id="select_fee_9"
                         data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -207,7 +209,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_10", this.value)'
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_10", this.value, <?php echo $application->getId(); ?>)'
                         id="select_fee_10" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -217,7 +219,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_11", this.value)'
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_11", this.value, <?php echo $application->getId(); ?>)'
                         id="select_fee_11" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -227,7 +229,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_12", this.value)'
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_12", this.value, <?php echo $application->getId(); ?>)'
                         id="select_fee_12" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -237,7 +239,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_13", this.value)'
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_13", this.value, <?php echo $application->getId(); ?>)'
                         id="select_fee_13" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -247,7 +249,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_14", this.value)'
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_14", this.value, <?php echo $application->getId(); ?>)'
                         id="select_fee_14" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>
@@ -257,7 +259,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             </div>
             <div class='form-group' class='formgroup'>
                 <label class='col-sm-4'>
-                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_15", this.value)'
+                    <select name='feetitle[]' class='form-control' onChange='getFee("inv_15", this.value, <?php echo $application->getId(); ?>)'
                         id="select_fee_15" data-width="100%">
                         <?php echo $feeselect; ?>
                     </select>

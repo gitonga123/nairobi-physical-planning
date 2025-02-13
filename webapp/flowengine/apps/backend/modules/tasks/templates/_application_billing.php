@@ -227,7 +227,7 @@ use_helper("I18N");
                                 ?>
 
                                 <script language="javascript">
-                                    function getFee(id, feecode) {
+                                    function getFee(id, feecode, application_id) {
                                         var xmlHttpReq1 = false;
                                         var self1 = this;
                                         // Mozilla/Safari
@@ -256,7 +256,7 @@ use_helper("I18N");
                                         if (feecode == "Choose Fee") {
                                             document.getElementById(id).disabled = true;
                                         } else {
-                                            self.xmlHttpReq1.send('code' + '=' + feecode);
+                                            self.xmlHttpReq1.send('code' + '=' + feecode + "&application=" + application_id);
                                         }
                                     }
 
@@ -283,7 +283,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_1", this.value)'>
+                                            onChange='getFee("inv_1", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -294,7 +294,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_2", this.value)'>
+                                            onChange='getFee("inv_2", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -305,7 +305,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_3", this.value)'>
+                                            onChange='getFee("inv_3", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -316,7 +316,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_4", this.value)'>
+                                            onChange='getFee("inv_4", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -327,7 +327,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_5", this.value)'>
+                                            onChange='getFee("inv_5", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -338,7 +338,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_6", this.value)'>
+                                            onChange='getFee("inv_6", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -348,7 +348,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_7", this.value)'>
+                                            onChange='getFee("inv_7", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -358,7 +358,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_8", this.value)'>
+                                            onChange='getFee("inv_8", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -368,7 +368,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_9", this.value)'>
+                                            onChange='getFee("inv_9", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -378,7 +378,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_10", this.value)'>
+                                            onChange='getFee("inv_10", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -389,7 +389,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_11", this.value)'>
+                                            onChange='getFee("inv_11", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -400,7 +400,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_12", this.value)'>
+                                            onChange='getFee("inv_12", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -411,7 +411,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_13", this.value)'>
+                                            onChange='getFee("inv_13", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -422,7 +422,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_14", this.value)'>
+                                            onChange='getFee("inv_14", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>
@@ -433,7 +433,7 @@ use_helper("I18N");
                                 <div class='form-group' class='formgroup'>
                                     <label class='col-sm-4'>
                                         <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_15", this.value)'>
+                                            onChange='getFee("inv_15", this.value, <?php echo $application->getId(); ?>)'>
                                             <?php echo $feeselect; ?>
                                         </select>
                                     </label>

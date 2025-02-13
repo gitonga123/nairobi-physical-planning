@@ -80,6 +80,8 @@ $invoice_manager->update_invoices($application->getId());
                         
                                 // Fix: Ensure it’s a clean JSON string
                                 $cleaned_data = trim($receipt_data, '"'); // Remove leading/trailing quotes if needed
+
+                                echo "cleaned data get datatype" . gettype($receipt_ids);
                         
                                 // Try decoding
                                 $receipt_ids = json_decode($cleaned_data, true);

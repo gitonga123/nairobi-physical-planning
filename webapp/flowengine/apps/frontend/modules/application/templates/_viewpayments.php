@@ -65,16 +65,14 @@ use_helper("I18N");
                                 </a>
                             <?php } ?>
 
-                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { 
+                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                 $receipt_id = json_decode($invoice->getReceiptNumber(), true);
                                 $receipt_number = $receipt_id[0];
-                                ?>
-                                <a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $receipt_number; ?>/Physical_Planning/"
-                                    class="btn btn-outline-dark btn-sm"><i class="fas fa-file-download"></i>
-                                    <?php echo __(" Receipt");
-                                    ?>
-                                </a>
-                            <?php } ?>
+                                $api_url = sfConfig::get('app_api_jambo_url');
+
+                                echo '<a title="Download Receipt" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary"><i class="fas fa-file-download"></i> ' . __("Receipt") . '</a>';
+
+                            } ?>
                         </td>
                     </tr>
                     <?php

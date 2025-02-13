@@ -72,9 +72,12 @@ $invoice_manager->update_invoices($application->getId());
                             <?php
 
                             // start
+                            echo "<div>";
                             foreach ($list_print_urls as $url) {
-                                echo $url;
+                                echo "<div style='margin-bottom: 10px;'>$url</div>"; // Adds spacing between buttons
                             }
+                            echo "</div>";
+
 
 
                             // end

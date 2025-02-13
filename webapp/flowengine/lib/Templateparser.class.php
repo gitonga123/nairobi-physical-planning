@@ -361,7 +361,7 @@ class Templateparser
                         if ($this->find('{sf_element_' . $element->getElementId() . '}', $content)) {
                             if ($element->getElementType() == "select") {
                                 if ($element->getElementSelectOptions() == "table") {
-                                    $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$profile_form['element_' .$element->getElementId()]} limit 1";
+                                    $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$profile_form['element_' . $element->getElementId()]} limit 1";
                                     $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                                     foreach ($table_rows as $option) {
                                         $content = str_replace('{sf_element_' . $element->getElementId() . '}', $option[$element->getElementFieldName()], $content);
@@ -539,7 +539,7 @@ class Templateparser
                 if ($element->getElementType() == "select") {
                     if ($this->find('{fm_element_' . $element->getElementId() . '}', $content)) {
                         if ($element->getElementSelectOptions() == "table") {
-                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
+                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
                             $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                             foreach ($table_rows as $option) {
                                 $content = str_replace('{fm_element_' . $element->getElementId() . '}', $option[$element->getElementFieldName()], $content);
@@ -571,7 +571,7 @@ class Templateparser
                     if ($this->find('{fm_element_' . $element->getElementId() . '_zone}', $content)) //return zone_id
                     {
                         if ($element->getElementSelectOptions() == "table" && $element->getElementTableName() == "zones") {
-                            $query = "SELECT zone_id FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
+                            $query = "SELECT zone_id FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
                             $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                             foreach ($table_rows as $option) {
                                 $content = str_replace('{fm_element_' . $element->getElementId() . '_zone}', $option['zone_id'], $content);
@@ -1667,7 +1667,7 @@ class Templateparser
                 if ($childs == 0) {
                     if ($element->getElementType() == "select") {
                         if ($element->getElementSelectOptions() == "table") {
-                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$user_profile_details['element_' .$element->getElementId()]} limit 1";
+                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$user_profile_details['element_' . $element->getElementId()]} limit 1";
                             $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                             foreach ($table_rows as $option) {
                                 $values['sf_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];
@@ -1945,7 +1945,7 @@ class Templateparser
                     $values['fm' . $prefix . '_element_' . $element->getElementId()] = $date;
                 } elseif ($element->getElementType() == "select") {
                     if ($element->getElementSelectOptions() == "table") {
-                        $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
+                        $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
                         $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                         foreach ($table_rows as $option) {
                             $values['fm' . $prefix . '_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];
@@ -2744,6 +2744,7 @@ class Templateparser
 
         $values['inv_date_created'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
         $values['payment_date'] = $payment_date;
+        $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
         $values['inv_date_created_yyymmdd'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
 
         if ($inv_expires_at) {
@@ -2777,7 +2778,8 @@ class Templateparser
             ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
             ->setLabel($invoice->getInvoiceNumber())
             ->setLabelFontSize(15)
-            ->setImageType(QrCode::IMAGE_TYPE_PNG);;
+            ->setImageType(QrCode::IMAGE_TYPE_PNG);
+        ;
         $values['qr_code'] = '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
         $qrCode = new QrCode();
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
@@ -2992,12 +2994,14 @@ class Templateparser
 
         $values['inv_date_created'] = date('d F Y', strtotime($inv_created_at));
 
-        $value['payment_date'] = $payment_date;
+        $values['payment_date'] = $payment_date;
         if ($inv_expires_at) {
             $values['inv_expires_at'] = date('d F Y', strtotime($inv_expires_at));
         } else {
             $values['inv_expires_at'] = "";
         }
+
+        $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
 
         $values['inv_fee_table'] = $inv_fees;
 
@@ -3262,70 +3266,70 @@ class Templateparser
 
         //Check if migrated
         /*if($migrated){
-			
-			//if application is migrated 
-			switch($application->getFormId()){
-				case 939:
-					$migrated_application=Doctrine_Query::create()->from('FormEntry e')->where('e.form_id = ? and e.entry_id = ?', array(7283,$application->getEntryId()))->fetchOne();
-					break;
-				case 7283:
-					$migrated_application=Doctrine_Query::create()->from('FormEntry e')->where('e.form_id = ? and e.entry_id = ?', array(939,$application->getEntryId()))->fetchOne();
-					break;
-			}
-			//check if values have been filled
-			foreach($migrated_application->getMfInvoice() as $invoice){
-				if(strtotime($invoice->getCreatedAt()) >= strtotime($start_of_permit_year) && strtotime($invoice->getCreatedAt()) <= strtotime($end_of_permit_year)){
-					//show total of invoices together - due to clients billed on migrated app
-					$values['inv_total']+=$invoice->getTotalAmount();
-					foreach($invoice->getMfInvoiceDetail() as $inv_detail){
-						if($this->find("Convenience",$inv_detail->getDescription()))
-						{
-							continue;
-						}
-						elseif($this->find("Refuse collection",$inv_detail->getDescription()))
-						{
-							continue;
-						}
-						elseif($this->find("Penalt",$inv_detail->getDescription()))
-						{
-							continue;
-						}
-						elseif($this->find("Arrear",$inv_detail->getDescription()))
-						{
-							continue;
-						}elseif($this->find(' - ',$inv_detail->getDescription())){
-							error_log('--------Desc found-----');
-							//explode
-							$fee_desc=explode(' - ',$inv_detail->getDescription());
-							//check for activity desc
-							if(strlen($values['inv_activity_desc']) == 0 && strlen($values['inv_activity_amt']) == 0){
-								if($fee_desc[0] != ''){
-									//Explode check if first character is numeric & last string
-									error_log('--------Char----1'.substr($fee_desc[0],0,1));
-									error_log('--------Char-----1'.substr($fee_desc[0],-1));
-									if(is_numeric(substr($fee_desc[0],0,1)) && !is_numeric(substr($fee_desc[0],-1))){
-										//new code
-										error_log('--------activity-----'.$inv_detail->getDescription());
-										$values['inv_activity_desc']=$inv_detail->getDescription();
-										$values['inv_activity_amt']=$inv_detail->getAmount();
-									}
-								}elseif($fee_desc[1] != ''){
-									//explode
-									$desc=explode(' ',$fee_desc[1]);
-									if($this->find('.',$desc[0])){
-										//old code
-										$values['inv_activity_desc']=$inv_detail->getDescription();
-										$values['inv_activity_amt']=$inv_detail->getAmount();
-									}
-								}
-							}
-						}					
-						
-						
-					}
-				}
-			}
-		}*/
+            
+            //if application is migrated 
+            switch($application->getFormId()){
+                case 939:
+                    $migrated_application=Doctrine_Query::create()->from('FormEntry e')->where('e.form_id = ? and e.entry_id = ?', array(7283,$application->getEntryId()))->fetchOne();
+                    break;
+                case 7283:
+                    $migrated_application=Doctrine_Query::create()->from('FormEntry e')->where('e.form_id = ? and e.entry_id = ?', array(939,$application->getEntryId()))->fetchOne();
+                    break;
+            }
+            //check if values have been filled
+            foreach($migrated_application->getMfInvoice() as $invoice){
+                if(strtotime($invoice->getCreatedAt()) >= strtotime($start_of_permit_year) && strtotime($invoice->getCreatedAt()) <= strtotime($end_of_permit_year)){
+                    //show total of invoices together - due to clients billed on migrated app
+                    $values['inv_total']+=$invoice->getTotalAmount();
+                    foreach($invoice->getMfInvoiceDetail() as $inv_detail){
+                        if($this->find("Convenience",$inv_detail->getDescription()))
+                        {
+                            continue;
+                        }
+                        elseif($this->find("Refuse collection",$inv_detail->getDescription()))
+                        {
+                            continue;
+                        }
+                        elseif($this->find("Penalt",$inv_detail->getDescription()))
+                        {
+                            continue;
+                        }
+                        elseif($this->find("Arrear",$inv_detail->getDescription()))
+                        {
+                            continue;
+                        }elseif($this->find(' - ',$inv_detail->getDescription())){
+                            error_log('--------Desc found-----');
+                            //explode
+                            $fee_desc=explode(' - ',$inv_detail->getDescription());
+                            //check for activity desc
+                            if(strlen($values['inv_activity_desc']) == 0 && strlen($values['inv_activity_amt']) == 0){
+                                if($fee_desc[0] != ''){
+                                    //Explode check if first character is numeric & last string
+                                    error_log('--------Char----1'.substr($fee_desc[0],0,1));
+                                    error_log('--------Char-----1'.substr($fee_desc[0],-1));
+                                    if(is_numeric(substr($fee_desc[0],0,1)) && !is_numeric(substr($fee_desc[0],-1))){
+                                        //new code
+                                        error_log('--------activity-----'.$inv_detail->getDescription());
+                                        $values['inv_activity_desc']=$inv_detail->getDescription();
+                                        $values['inv_activity_amt']=$inv_detail->getAmount();
+                                    }
+                                }elseif($fee_desc[1] != ''){
+                                    //explode
+                                    $desc=explode(' ',$fee_desc[1]);
+                                    if($this->find('.',$desc[0])){
+                                        //old code
+                                        $values['inv_activity_desc']=$inv_detail->getDescription();
+                                        $values['inv_activity_amt']=$inv_detail->getAmount();
+                                    }
+                                }
+                            }
+                        }					
+                        
+                        
+                    }
+                }
+            }
+        }*/
 
         if ($values['inv_total'] > 0) {
             //Get menu id
@@ -3535,7 +3539,7 @@ class Templateparser
         $str = utf8_decode($str);
         $str = str_replace("&nbsp;", "", $str);
         $str = preg_replace("/\s+/", " ", $str);
-        $str  = preg_replace("/<br\W*?\/>/", "\n", $str);
+        $str = preg_replace("/<br\W*?\/>/", "\n", $str);
         $str = trim($str);
         return $str;
     }
@@ -4142,6 +4146,11 @@ class Templateparser
         $currency = "";
 
         $q = Doctrine_Query::create()
+            ->from("FormEntry a")
+            ->where("a.id = ?", $invoice->getAppId());
+        $application = $q->fetchOne();
+
+        $q = Doctrine_Query::create()
             ->from("ApForms a")
             ->where("a.form_id = ?", $application->getFormId());
         $form = $q->fetchOne();
@@ -4218,7 +4227,10 @@ class Templateparser
         }
 
         if ($this->find('{payment_date}', $content)) {
-            $content = str_replace('{payment_date}', $payment_date, $content);
+            $content = str_replace('{payment_date}', date('Y-m-d H:i:s', strtotime($invoice->getCreatedAt())), $content);
+        }
+        if ($this->find('{jambo_pay_ref}', $content)) {
+            $content = str_replace('{jambo_pay_ref}', $invoice->getDocRefNumber(), $content);
         }
 
         if ($this->find('{inv_status}', $content)) {
@@ -4385,8 +4397,10 @@ class Templateparser
     public function merge_array($element)
     {
         foreach ($element as $key1 => $value1) {
-            if (is_array($value1)) $this->merge_array($value1);
-            else $this->final_array[] = $value1;
+            if (is_array($value1))
+                $this->merge_array($value1);
+            else
+                $this->final_array[] = $value1;
         }
     }
 
@@ -4527,7 +4541,7 @@ class Templateparser
                             $values['fm_c' . $prefix . '_element_' . $element->getElementId()] = $date;
                         } elseif ($element->getElementType() == "select") {
                             if ($element->getElementSelectOptions() == "table") {
-                                $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
+                                $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
                                 $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                                 foreach ($table_rows as $option) {
                                     $values['fm_c' . $prefix . '_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];

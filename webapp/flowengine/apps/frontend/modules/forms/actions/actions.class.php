@@ -407,6 +407,9 @@ class formsActions extends sfActions
                   $transaction->save();
 
                   $this->invoice->setTransactionId($query_response->content["ref"]);
+                  if ($create_bill_action['success']) {
+                        $this->invoice->setDocRefNumber($create_bill_action['bill_ref']);
+                  }
                   $this->invoice->save();
             }
 
@@ -735,10 +738,9 @@ class formsActions extends sfActions
             if ($query_response->status == 200 || $query_response->status == 201) {
                   $this->cache->set("{$this->key}_bill_ref", $query_response->content['bill_ref'], 3600);
 
-
                   error_log($query_response->content['bill_ref']);
 
-                  return true;
+                  return ['success' => true, 'bill_ref' => $query_response->content['bill_ref']];
             } else {
                   error_log("Unable to create the bill at the moment");
 

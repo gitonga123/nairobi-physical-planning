@@ -70,12 +70,12 @@ $invoice_manager->update_invoices($application->getId());
                                 </button>
                             <?php } ?>
                             <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
-                                $receipt_id = json_decode($invoice->getReceiptNumber(), true);
+                                $receipt_id = json_decode($invoice->getReceiptNumber(), false);
                                 $receipt_number = $receipt_id[0];
 
                                 $api_url = sfConfig::get('app_api_jambo_url');
 
-                                echo "<pre>".print_r($invoice->getReceiptNumber(), true)."</pre>";
+                                // echo "<pre>".print_r($invoice->getReceiptNumber(), true)."</pre>";
                                 echo "<pre>".print_r($receipt_id, true)."</pre>";
 
                                 echo '<a title="Download Receipt" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary"><i class="fas fa-file-download"></i> ' . __("Receipt") . '</a>';

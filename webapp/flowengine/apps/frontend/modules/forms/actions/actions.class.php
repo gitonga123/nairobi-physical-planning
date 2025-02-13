@@ -629,7 +629,7 @@ class formsActions extends sfActions
                   if (strtolower($content['status']) == 'paid') {
                         return ['success' => true, 'receipt' => $content['receipt_numbers']];
                   } else {
-                        return ['success' => false];
+                        return ['success' => false, 'message' => 'Invoice still unpaid'];
                   }
 
             } else {

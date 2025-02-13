@@ -48,7 +48,8 @@ use_helper("I18N");
                                     <?php
 
                                     $list_print_urls = [];
-                                    
+
+                                    var_dump($invoice->getReceiptNumber());
 
                                     if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                         $receipt_data = $invoice->getReceiptNumber();

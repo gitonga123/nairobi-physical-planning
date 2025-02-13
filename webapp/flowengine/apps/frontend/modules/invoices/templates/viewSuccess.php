@@ -75,10 +75,14 @@ $invoice_manager->update_invoices($application->getId());
                             if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                 $receipt_data = $invoice->getReceiptNumber(); // Get raw value
                         
-                                // Decode the JSON string into an array
+                                // Decode the JSON string
                                 $receipt_ids = json_decode($receipt_data, true);
 
-                                // Check if decoding was successful and if it's a valid array
+                                // Debugging outputs
+                                echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
+                                echo "<pre>Decoded Receipt IDs: " . print_r($receipt_ids, true) . "</pre>";
+
+                                // Ensure decoding was successful and $receipt_ids is an array
                                 if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_ids) && !empty($receipt_ids)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
 
@@ -88,7 +92,7 @@ $invoice_manager->update_invoices($application->getId());
                                               </a>';
                                     }
                                 } else {
-                                    echo "<p style='color:red;'>Error: No valid receipt numbers found.</p>";
+                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
                                 }
                             }
 

@@ -57,7 +57,7 @@ $invoice_manager->update_invoices($application->getId());
                         echo $html;
                         ?>
 
-                        <div class="text-end btn-invoice mt-3" style="padding-right: 10px;">
+                        <div id="download-receipt-section" class="text-end btn-invoice mt-3" style="padding-right: 10px;">
                             <?php if ($invoice->getDocumentKey()) { ?>
                                 <button class="btn btn-primary btn-sm" id="printinvoice" type="button"
                                     onClick="window.location='<?php echo $invoice->getDocumentKey(); ?>';">

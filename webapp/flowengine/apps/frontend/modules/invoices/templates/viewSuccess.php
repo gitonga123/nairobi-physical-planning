@@ -99,7 +99,7 @@ $invoice_manager->update_invoices($application->getId());
                   </a>';
                                     }
                                 } else {
-                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
+                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.{$receipt_ids[0]}</p>";
                                 }
                             }
 

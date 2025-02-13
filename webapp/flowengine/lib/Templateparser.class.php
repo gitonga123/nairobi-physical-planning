@@ -2701,7 +2701,7 @@ class Templateparser
         }
 
         if ($total_found == false) {
-            $inv_fees = $inv_fees . '<tr><td align="left" width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"></td><td align="right" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"><b>Total (' . $currency . ')</b></td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($grand_total) . '</td></tr>';
+            $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"><b>Total (' . $currency . ')</b></td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($grand_total) . '</td></tr>';
         }
 
         $inv_fees = $inv_fees . '</tbody>

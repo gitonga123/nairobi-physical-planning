@@ -79,17 +79,17 @@ $invoice_manager->update_invoices($application->getId());
 
                                 // If json_decode fails, use the raw value
                                 if (json_last_error() === JSON_ERROR_NONE && is_array($receipt_id)) {
-                                    $receipt_number = !empty($receipt_id) ? $receipt_id[0] : null;
+                                    $receipt_number1 = !empty($receipt_id) ? $receipt_id[0] : null;
                                 } else {
-                                    $receipt_number = $receipt_data; // Fallback if it's not JSON
+                                    $receipt_number1 = $receipt_data; // Fallback if it's not JSON
                                 }
 
                                 echo "<pre>Decoded Receipt ID: " . print_r($receipt_id, true) . "</pre>";
-                                echo "<pre>Extracted Receipt Number: " . print_r($receipt_number, true) . "</pre>";
+                                echo "<pre>Extracted Receipt Number: " . print_r($receipt_number1, true) . "</pre>";
 
                                 if (!empty($receipt_number)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
-                                    foreach ($receipt_ids as $index => $receipt_number) {
+                                    foreach ($receipt_id as $index => $receipt_number) {
                                         echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
                                                 <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
                                               </a>';

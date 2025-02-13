@@ -2747,7 +2747,7 @@ class Templateparser
         $values['inv_date_created'] = date('Y-m-d', strtotime($inv_created_at));
         $values['payment_date'] = $payment_date;
         $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
-        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.";
+        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.");
         $values['inv_date_created_yyymmdd'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
 
         if ($inv_expires_at) {
@@ -3004,7 +3004,7 @@ class Templateparser
         } else {
             $values['inv_expires_at'] = "";
         }
-        $values['inv_total_words'] = $otb_helper->convert_number_to_words($values['inv_total']). " SHILLINGS ONLY.";
+        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.");
 
         $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
 
@@ -4241,7 +4241,7 @@ class Templateparser
             $content = str_replace('{jambo_pay_ref}', $invoice->getDocRefNumber(), $content);
         }
         if ($this->find('{inv_total_words}', $content)) {
-            $content = str_replace('{inv_total_words}', $otb_helper->convert_number_to_words($grand_total). " SHILLINGS ONLY.", $content);
+            $content = str_replace('{inv_total_words}', strtoupper($otb_helper->convert_number_to_words($grand_total) . " SHILLINGS ONLY."), $content);
         }
 
         if ($this->find('{inv_status}', $content)) {

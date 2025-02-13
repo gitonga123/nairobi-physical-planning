@@ -65,14 +65,35 @@ use_helper("I18N");
                                 </a>
                             <?php } ?>
 
-                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
-                                $receipt_id = json_decode($invoice->getReceiptNumber(), true);
-                                $receipt_number = $receipt_id[0];
-                                $api_url = sfConfig::get('app_api_jambo_url');
+                            <?php
 
-                                echo '<a title="Download Receipt" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary"><i class="fas fa-file-download"></i> ' . __("Receipt") . '</a>';
+                            $list_print_urls = [];
 
-                            } ?>
+                            if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
+                                $receipt_data = $invoice->getReceiptNumber();
+
+                                $from_string_ids = trim($receipt_data);
+
+                                $receipt_ids = json_decode($from_string_ids, true);
+
+                                if (is_array($receipt_ids) && !empty($receipt_ids)) {
+                                    $api_url = sfConfig::get('app_api_jambo_url');
+
+                                    foreach ($receipt_ids as $key => $receipt_number) {
+                                        $my_string = "{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning";
+                                        array_push($list_print_urls, $my_string);
+                                    }
+                                }
+
+                            }
+                            if (count($list_print_urls) > 0) {
+                                ?>
+                                <a title="Download Receipt" href="<?php echo $list_print_urls[0] ?>" class="btn btn-primary"><i
+                                        class="fas fa-file-download"></i>
+                                    <?php echo __(" Receipt - 1");
+                                    ?>
+                                </a>
+                            <?php } ?>
                         </td>
                     </tr>
                     <?php

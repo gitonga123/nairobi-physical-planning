@@ -48,6 +48,7 @@ use_helper("I18N");
                                     <?php
 
                                     $list_print_urls = [];
+                                    
 
                                     if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                         $receipt_data = $invoice->getReceiptNumber();
@@ -66,20 +67,20 @@ use_helper("I18N");
                                         }
 
                                     }
+
+                                    var_dump($list_print_urls);
                                     if (count($list_print_urls) > 0) {
                                         foreach ($list_print_urls as $key => $receipt_number) {
                                             $index += 1;
                                             ?>
                                             <a title="Download Receipt" href="<?php echo $receipt_number ?>"
-                                                class="btn btn-primary"><i class="fas fa-file-download"></i>
+                                                class="btn btn-primary btn-sm"><i class="fas fa-file-download"></i>
                                                 <?php echo __(" Receipt - {$index}");
                                                 ?>
                                             </a>
                                             <?php
                                         }
                                     } ?>
-                                
-<p>Paid invoic</p>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

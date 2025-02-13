@@ -2742,9 +2742,9 @@ class Templateparser
 
         $values['inv_total'] = number_format($invoice->getTotalAmount());
 
-        $values['inv_date_created'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
+        $values['inv_date_created'] = date('Y-m-d', strtotime($inv_created_at));
         $values['payment_date'] = $payment_date;
-        $values['inv_date_created_yyymmdd'] = date('Y-m-d H:i:s', strtotime($inv_created_at));
+        $values['inv_date_created_yyymmdd'] = date('Y-m-d', strtotime($inv_created_at));
 
         if ($inv_expires_at) {
             $values['inv_expires_at'] = date('d F Y', strtotime($inv_expires_at));

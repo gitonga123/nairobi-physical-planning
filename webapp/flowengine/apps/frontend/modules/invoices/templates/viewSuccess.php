@@ -90,6 +90,7 @@ $invoice_manager->update_invoices($application->getId());
                                 if (!empty($receipt_number1)) {
                                     $api_url = sfConfig::get('app_api_jambo_url');
                                     foreach ($receipt_id as $index => $receipt_number) {
+                                        echo "{$index}";
                                         echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
                                                 <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
                                               </a>';

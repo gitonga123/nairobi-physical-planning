@@ -85,7 +85,7 @@ class invoicesActions extends sfActions
             }
         }
 
-        $list_print_urls = "";
+        $list_print_urls = [];
 
         if ($this->invoice->getPaid() == 2 && !empty($this->invoice->getReceiptNumber())) {
             $receipt_data = $this->invoice->getReceiptNumber(); // Get raw value
@@ -110,9 +110,9 @@ class invoicesActions extends sfActions
 
                 foreach ($receipt_ids as $index => $receipt_number) {
 
-                    $list_print_urls .= '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
+                    var_dump('<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
                             <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
-                          </a>';
+                          </a>');
 
                     var_dump($list_print_urls);
                 }
@@ -120,6 +120,8 @@ class invoicesActions extends sfActions
 
             var_dump($list_print_urls);
         }
+
+        die;
 
         $q = Doctrine_Query::create()
             ->from('FormEntry a')

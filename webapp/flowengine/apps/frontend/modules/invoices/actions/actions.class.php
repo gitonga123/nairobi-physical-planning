@@ -94,7 +94,10 @@ class invoicesActions extends sfActions
             var_dump($from_string_ids);
 
             $receipt_ids = explode($from_string_ids, ',');
-            var_dump($receipt_ids);die;
+            var_dump($receipt_ids);
+            var_dump(json_decode($from_string_ids));
+            var_dump(json_decode($from_string_ids, true));
+            die;
 
             // Debug raw value
             echo "<pre>Raw Receipt Number: " . print_r($receipt_ids, true) . "</pre>";

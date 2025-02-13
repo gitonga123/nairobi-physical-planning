@@ -8,7 +8,8 @@
  * @author     Thomas Juma
  * @version    2.5: 2017-01-24
  */
-class feesActions extends sfActions {
+class feesActions extends sfActions
+{
 	/**
 	 * Executes 'index' function
 	 *
@@ -16,7 +17,8 @@ class feesActions extends sfActions {
 	 *
 	 * @param sfRequest $request A request object
 	 */
-	public function executeIndex(sfWebRequest $request) {
+	public function executeIndex(sfWebRequest $request)
+	{
 		$wizard_manager = new WizardManager();
 
 		if ($wizard_manager->is_first_run()) {
@@ -41,7 +43,8 @@ class feesActions extends sfActions {
 	 *
 	 * @param sfRequest $request A request object
 	 */
-	public function executeNew(sfWebRequest $request) {
+	public function executeNew(sfWebRequest $request)
+	{
 		$this->form = new FeeForm();
 
 		$this->setLayout("layout-settings");
@@ -54,7 +57,8 @@ class feesActions extends sfActions {
 	 *
 	 * @param sfRequest $request A request object
 	 */
-	public function executeCreate(sfWebRequest $request) {
+	public function executeCreate(sfWebRequest $request)
+	{
 		//Audit
 		Audit::audit("", "Added new fee");
 
@@ -74,7 +78,8 @@ class feesActions extends sfActions {
 	 *
 	 * @param sfRequest $request A request object
 	 */
-	public function executeEdit(sfWebRequest $request) {
+	public function executeEdit(sfWebRequest $request)
+	{
 		$this->forward404Unless($account = Doctrine_Core::getTable('Fee')->find(array($request->getParameter('id'))), sprintf('Object content does not exist (%s).', $request->getParameter('id')));
 
 		$this->form = new FeeForm($account);
@@ -89,7 +94,8 @@ class feesActions extends sfActions {
 	 *
 	 * @param sfRequest $request A request object
 	 */
-	public function executeUpdate(sfWebRequest $request) {
+	public function executeUpdate(sfWebRequest $request)
+	{
 		//Audit
 		Audit::audit("", "Updated existing fee");
 
@@ -110,9 +116,10 @@ class feesActions extends sfActions {
 	 *
 	 * @param sfRequest $request A request object
 	 */
-	protected function processForm(sfWebRequest $request, sfForm $form) {
+	protected function processForm(sfWebRequest $request, sfForm $form)
+	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		
+
 		if ($form->isValid()) {
 			$fee = $form->save();
 
@@ -127,7 +134,8 @@ class feesActions extends sfActions {
 	 *
 	 * @param sfRequest $request A request object
 	 */
-	public function executeDelete(sfWebRequest $request) {
+	public function executeDelete(sfWebRequest $request)
+	{
 		//Audit
 		Audit::audit("", "Deleted existing fee");
 
@@ -138,37 +146,88 @@ class feesActions extends sfActions {
 		$this->redirect('/plan/fees/index');
 	}
 
-	public function executeGetfee(sfWebRequest $request) {
-		$string = $request->getPostParameter("code");
+	public function executeGetfee(sfWebRequest $request)
+	{
 
-		$code = "";
+		try {
 
-		$tok = strtok($string, ":");
+			$invoice_manager = new InvoiceManager();
 
-		while ($tok !== false) {
-			$code = $tok;
-			break;
+			$string = $request->getPostParameter("code");
+
+			$application_id = $request->getPostParameter('application');
+			error_log("Application id ---> {$application_id}");
+
+			$code = "";
+
+			$tok = strtok($string, ":");
+
+			while ($tok !== false) {
+				$code = $tok;
+				break;
+			}
+
+			$q = Doctrine_Query::create()
+				->from("Fee a")
+				->where("a.fee_code = ?", $code)
+				->orWhere("a.id = ?", $code);
+			$fee = $q->fetchOne();
+			if ($fee) {
+				if (empty($application_id)) {
+					$amount = $fee->getAmount() ?? 0;
+					$this->json($amount);
+				} else {
+
+					$q = Doctrine_Query::create()
+						->from('FormEntry a')
+						->where('a.id = ?', $application_id)
+						->limit(1);
+					$application = $q->fetchOne();
+
+					error_log($application);
+
+					
+
+					$application_form = $invoice_manager->getApplicationForm($application->getFormId(), $application->getEntryId());
+
+					$amount = $invoice_manager->getFeeAmount($fee, $application_form[0], $application->getFormId());
+
+					if ($amount) {
+						return $this->json($amount);
+					}
+
+					return $this->json(0);
+				}
+				// $amount =  $fee->getAmount();
+				// if ($amount == 0) {
+				// 	$amount
+				// }
+			}
+
+		} catch (\Exception $error) {
+			error_log($error->getMessage());
+
+			return $this->json(0);
 		}
-
-		$q = Doctrine_Query::create()
-			->from("Fee a")
-			->where("a.fee_code = ?", $code)
-			->orWhere("a.id = ?", $code);
-		$fee = $q->fetchOne();
-		if ($fee) {
-			echo $fee->getAmount();
-		}
-		exit;
+	}
+	private function json($content, $status = 200)
+	{
+		$this->getResponse()->setHttpHeader('Content-Type', 'application/json');
+		$this->getResponse()->setContent(json_encode($content));
+		$this->getResponse()->setStatusCode($status);
+		return sfView::NONE;
 	}
 	//OTB Start Patch - For Implementing Finance Bills
-	public function executeFeerangeindex(sfWebRequest $request) {
+	public function executeFeerangeindex(sfWebRequest $request)
+	{
 		$this->filter = $request->getParameter("filter");
 		$q_range = Doctrine_Query::create()
 			->from('FeeRange f')
 			->where('f.fee_id = ?', $this->filter);
 		$this->fee_ranges = $q_range->execute();
 	}
-	public function executeFeerange(sfWebRequest $request) {
+	public function executeFeerange(sfWebRequest $request)
+	{
 		$this->filter = $request->getParameter("filter");
 		if ($request->getParameter('id')) {
 			$range = Doctrine_Core::getTable('FeeRange')->find(array($request->getParameter('id')));
@@ -179,7 +238,8 @@ class feesActions extends sfActions {
 		$fee = Doctrine_Core::getTable('fee')->find(array($this->filter));
 		//$this->setSfFormChoiceWidgetOptionsFromApFormElements($fee->getInvoicetemplate()->getApplicationform(), 'condition_field');//OTB Patch - Dynamic Condition Fields selection For Implementing Finance Bills
 	}
-	public function executeNewfeerange(sfWebRequest $request) {
+	public function executeNewfeerange(sfWebRequest $request)
+	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		$this->form = new FeeRangeForm();
 		$this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
@@ -190,7 +250,8 @@ class feesActions extends sfActions {
 		$this->redirect('/plan/fees/feerangeindex');
 		$this->setTemplate('feerange');
 	}
-	public function executeUpdatefeerange(sfWebRequest $request) {
+	public function executeUpdatefeerange(sfWebRequest $request)
+	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($range = Doctrine_Core::getTable('FeeRange')->find($request->getParameter('id')));
 		$form = new FeeRangeForm($range);
@@ -202,7 +263,8 @@ class feesActions extends sfActions {
 		$this->redirect('/plan/fees/feerangeindex');
 		$this->setTemplate('feerange');
 	}
-	public function executeDeleterange(sfWebRequest $request) {
+	public function executeDeleterange(sfWebRequest $request)
+	{
 		$this->forward404Unless($fee_range = Doctrine_Core::getTable('FeeRange')->find(array($request->getParameter('id'))), sprintf('Object fee_range does not exist (%s).', $request->getParameter('id')));
 
 		$audit = new Audit();
@@ -215,35 +277,39 @@ class feesActions extends sfActions {
 		$this->redirect('/plan/fees/feerangeindex/filter/' . $fee_id);
 	}
 
-	public function executeChangebasefield(sfWebRequest $request) {
+	public function executeChangebasefield(sfWebRequest $request)
+	{
 		$invoicetemplate = Doctrine_Core::getTable('invoicetemplates')->find(array($request->getParameter('invoicetemplate_id')));
 		if ($invoicetemplate) {
 			$elements = Doctrine_Core::getTable('ApFormElements')->getAllFields($invoicetemplate->getApplicationform());
 			error_log(print_r($elements, true));
 			echo json_encode($elements);
 			/*$new_options='';
-				  foreach($elements as $key => $value){
-					$new_options .= "<option value='".$key."'>".$value."</option>";
-				  }
-			*/
+																																	   foreach($elements as $key => $value){
+																																		 $new_options .= "<option value='".$key."'>".$value."</option>";
+																																	   }
+																																 */
 		}
 		exit();
 	}
-	protected function setSfFormChoiceWidgetOptionsFromApFormElements($apform_id, $widget_name) {
+	protected function setSfFormChoiceWidgetOptionsFromApFormElements($apform_id, $widget_name)
+	{
 		$widget = $this->form->getWidget($widget_name);
 		$widget->setOptions(array('choices' => Doctrine_Core::getTable('ApFormElements')->getAllFields($apform_id)));
 		//error_log($apform_id." ## configure this form values ### ".print_R($widget->getChoices(), true));
 	}
 
 	//Conditions
-	public function executeRangeconditions(sfWebRequest $request) {
+	public function executeRangeconditions(sfWebRequest $request)
+	{
 		$this->filter = $request->getParameter("filter");
 		$q_range = Doctrine_Query::create()
 			->from('FeeRangeCondition f')
 			->where('f.fee_range_id = ?', $this->filter);
 		$this->fee_range_conditions = $q_range->execute();
 	}
-	public function executeRangeconditionform(sfWebRequest $request) {
+	public function executeRangeconditionform(sfWebRequest $request)
+	{
 		$this->filter = $request->getParameter("filter");
 		error_log("the filter ya range condition form #### " . $this->filter);
 		if ($request->getParameter('id')) {
@@ -256,7 +322,8 @@ class feesActions extends sfActions {
 		$fee = Doctrine_Core::getTable('fee')->find(array($fee_range->getFeeId()));
 		$this->setSfFormChoiceWidgetOptionsFromApFormElements($fee->getInvoicetemplates()->getApplicationform(), 'condition_field'); //OTB Patch - Dynamic Condition Fields selection For Implementing Finance Bills
 	}
-	public function executeNewfeerangecondition(sfWebRequest $request) {
+	public function executeNewfeerangecondition(sfWebRequest $request)
+	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		$this->form = new FeeRangeConditionForm();
 		$this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
@@ -267,7 +334,8 @@ class feesActions extends sfActions {
 		$this->redirect('/plan/fees/rangeconditions');
 		$this->setTemplate('feerangecondition');
 	}
-	public function executeUpdatefeerangecondition(sfWebRequest $request) {
+	public function executeUpdatefeerangecondition(sfWebRequest $request)
+	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($rangecondition = Doctrine_Core::getTable('FeeRangeCondition')->find($request->getParameter('id')));
 		$form = new FeeRangeConditionForm($rangecondition);
@@ -280,7 +348,8 @@ class feesActions extends sfActions {
 		$this->redirect('/plan/fees/rangeconditions');
 		$this->setTemplate('rangeconditions');
 	}
-	public function executeDeleterangecondition(sfWebRequest $request) {
+	public function executeDeleterangecondition(sfWebRequest $request)
+	{
 		$this->forward404Unless($fee_range_condition = Doctrine_Core::getTable('FeeRangeCondition')->find(array($request->getParameter('id'))), sprintf('Object fee_range_condition does not exist (%s).', $request->getParameter('id')));
 
 		$audit = new Audit();
@@ -293,7 +362,8 @@ class feesActions extends sfActions {
 		$this->redirect('/plan/fees/rangeconditions/filter/' . $fee_range_id);
 	}
 	//OTB End Patch - For Implementing Finance Bills
-	public function executeGetfeecode(sfWebRequest $request) {
+	public function executeGetfeecode(sfWebRequest $request)
+	{
 		$service_id = $request->getParameter('service_id');
 		$q = Doctrine_Query::create()
 			->from('FeeCode c')
@@ -304,7 +374,8 @@ class feesActions extends sfActions {
 		return $this->renderText(json_encode($fee_code_arr));
 	}
 	//OTB dublicate fee
-	public function executeFeedublicate(sfWebRequest $request) {
+	public function executeFeedublicate(sfWebRequest $request)
+	{
 		$fee_id = $request->getParameter('id');
 		//get fee
 		$q = Doctrine_Query::create()

@@ -2746,8 +2746,6 @@ class Templateparser
 
         $values['inv_date_created'] = date('Y-m-d', strtotime($inv_created_at));
         $values['payment_date'] = $payment_date;
-        $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
-        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.");
         $values['inv_date_created_yyymmdd'] = date('Y-m-d', strtotime($inv_created_at));
 
         if ($inv_expires_at) {

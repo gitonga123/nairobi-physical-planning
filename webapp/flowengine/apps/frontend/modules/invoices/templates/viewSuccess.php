@@ -72,30 +72,8 @@ $invoice_manager->update_invoices($application->getId());
                             <?php
 
                             // start
-                        
-                            if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
-                                $receipt_data = $invoice->getReceiptNumber(); // Get raw value
-                                echo "<pre>Raw Receipt Number: " . print_r($receipt_data, true) . "</pre>";
-                        
-                                $receipt_ids = explode($receipt_data, ',');
-
-
-                                // Debug raw value
-                                echo "<pre>Raw Receipt Number: " . print_r($receipt_ids, true) . "</pre>";
-                                echo "<pre>Raw Data Type: " . gettype($receipt_ids) . "</pre>";
-
-
-                                if (is_array($receipt_ids) && !empty($receipt_ids)) {
-                                    $api_url = sfConfig::get('app_api_jambo_url');
-
-                                    foreach ($receipt_ids as $index => $receipt_number) {
-                                        echo '<a title="Download Receipt ' . ($index + 1) . '" href="' . $api_url . '/api/v1/print/receipt/' . $receipt_number . '/Physical_Planning/" class="btn btn-primary" style="margin-right: 10px;">
-                                                <i class="fas fa-file-download"></i> ' . __("Receipt ") . ($index + 1) . '
-                                              </a>';
-                                    }
-                                } else {
-                                    echo "<p style='color:red;'>Error: No valid receipt numbers found or JSON decode failed.</p>";
-                                }
+                            foreach ($list_print_urls as $url) {
+                                echo $url;
                             }
 
 

@@ -85,43 +85,29 @@ class invoicesActions extends sfActions
             }
         }
 
-        $list_print_urls = [];
+        $this->list_print_urls = [];
 
         if ($this->invoice->getPaid() == 2 && !empty($this->invoice->getReceiptNumber())) {
-            $receipt_data = $this->invoice->getReceiptNumber(); // Get raw value
-
-            var_dump($receipt_data);
+            $receipt_data = $this->invoice->getReceiptNumber();
 
             $from_string_ids = trim($receipt_data);
-            var_dump($from_string_ids);
 
             $receipt_ids = json_decode($from_string_ids, true);
 
-            // Debug raw value
-            echo "<pre>Raw Receipt Number: " . print_r($receipt_ids, true) . "</pre>";
-            echo "<pre>Raw Data Type: " . gettype($receipt_ids) . "</pre>";
-
-            var_dump(is_array($receipt_ids) && !empty($receipt_ids));
-
             if (is_array($receipt_ids) && !empty($receipt_ids)) {
                 $api_url = sfConfig::get('app_api_jambo_url');
-
-                var_dump("Should be looping at this point---->");
 
                 foreach ($receipt_ids as $key => $receipt_number) {
 
                     $index = $key + 1;
                     $my_string = "<a title='Download Receipt {$index}' href='{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning/' class='btn btn-primary' style='margin-right: 10px;'><i class='fas fa-file-download'></i> Receipt{$key}</a>";
-                    
 
-                    array_push($list_print_urls, $my_string);
+
+                    array_push($this->list_print_urls, $my_string);
                 }
             }
 
-            var_dump($list_print_urls);
         }
-
-        die;
 
         $q = Doctrine_Query::create()
             ->from('FormEntry a')

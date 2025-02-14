@@ -380,7 +380,7 @@ class ApplicationManager
                 echo $dle->getMessage(); // handle the error
                 exit;
             }
-            error_log('------APp no generated----' . $application_number);
+            error_log('------APp no generated----202' . $application_number);
             return $application_number;
         } else {
             error_log('-------No ap_number_generator found-----');
@@ -411,7 +411,7 @@ class ApplicationManager
             $form_numbers->setFormId($form_id);
             $form_numbers->setApplicationNumber($application_number);
             $form_numbers->save();
-            error_log('------APp no generated----' . $application_number);
+            error_log('------APp no generated----203' . $application_number);
             return $application_number;
         }
     }
@@ -1770,7 +1770,7 @@ class ApplicationManager
                 echo $dle->getMessage(); // handle the error
                 exit;
             }
-            error_log('------APp no generated----' . $merchant_identifier);
+            error_log('------APp no generated----204' . $merchant_identifier);
             return $merchant_identifier;
         } else {
             error_log('-------No ap_merchant_generator found-----');
@@ -1801,7 +1801,7 @@ class ApplicationManager
             $merchant_numbers->setFormId($form_id);
             $merchant_numbers->setMerchantIdentifier($merchant_identifier);
             $merchant_numbers->save();
-            error_log('------APp no generated----' . $merchant_identifier);
+            error_log('------APp no generated----205' . $merchant_identifier);
             return $merchant_identifier;
         }
     }

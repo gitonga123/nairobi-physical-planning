@@ -78,7 +78,7 @@ class ApplicationManager
         //check if set
         if ($form->getPaymentEnableMerchant() && strlen($form->getPaymentMerchantIdentifier())) {
             //set incremented merchant identifier
-            $submission->setMerchantIdentifier($this->generate_merchant_number($form_id));
+            //$submission->setMerchantIdentifier($this->generate_merchant_number($form_id));
         }
 
         //Save business id if current_profile is set

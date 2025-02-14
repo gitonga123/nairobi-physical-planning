@@ -972,7 +972,7 @@ class ApplicationManager
                 ->andWhere("a.stage_id = ?", $stage_id);
 
             if ($q->count() == 0 && $id) {
-                //Update last reference as ended
+                // Update last reference as ended
                 $q = Doctrine_Query::create()
                     ->from("ApplicationReference a")
                     ->where("a.application_id = ?", $id)
@@ -987,7 +987,7 @@ class ApplicationManager
 
                 if (sfContext::getInstance()->getUser()->getAttribute('userid', 0)) {
                     $appref = new ApplicationReference();
-                    $appref->setStageId($stage_id);
+                    $appref->setStageId( $stage_id);
                     $appref->setApplicationId($id);
                     $appref->setApprovedBy(sfContext::getInstance()->getUser()->getAttribute('userid', 0));
                     $appref->setStartDate(date('Y-m-d H:i:s'));
@@ -1018,6 +1018,21 @@ class ApplicationManager
     //Send notifications for current stage of the application
     public function queue_notifications($application_id, $form_id, $entry_id, $user_id, $stage_id)
     {
+        $q = Doctrine_Query::create()
+            ->from("ApplicationReference a")
+            ->where("a.application_id = ?", $application_id)
+            ->orderBy("a.id DESC")
+            ->limit(1);
+
+        $movement_history = $q->fetchOne();
+
+        error_log("Movement history send sms -->{$movement_history->getIsSmsSent()}");
+
+        if ($movement_history->getIsSmsSent() == 1) {
+            return;
+        }
+
+
         $q = Doctrine_Query::create()
             ->from('Notifications b')
             ->where('b.submenu_id = ?', $stage_id)
@@ -1078,6 +1093,11 @@ class ApplicationManager
                     $notifier->sendsms($no, $sms);
                 }
             }
+
+            error_log("Movement history send sms recorded.");
+
+            $movement_history->setIsSmsSent(1);
+            $movement_history->save();
         }
     }
 

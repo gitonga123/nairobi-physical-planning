@@ -10,41 +10,39 @@ class mailnotifications
 
 	}
 
-	public function sendemail($from,$to,$subject,$body)
+	public function sendemail($from, $to, $subject, $body)
 	{
 		$q = Doctrine_Query::create()
-		   ->from("SfGuardUserProfile a")
-		   ->where("a.email = ?", $to);
-        $user = $q->fetchOne();
-		$username='';
-		$userid="";
-		if($user)
-		{
-			$userid = $user->getUserId();			
-			$username=$user->getFullname();
+			->from("SfGuardUserProfile a")
+			->where("a.email = ?", $to);
+		$user = $q->fetchOne();
+		$username = '';
+		$userid = "";
+		if ($user) {
+			$userid = $user->getUserId();
+			$username = $user->getFullname();
 		}
 
-			//Get settings
-			$q = Doctrine_Query::create()
-				->from("ApSettings a")
-				->orderBy("a.id DESC");
-			$apsettings = $q->fetchOne();
-			
-			$organisation_name = "";
-			$organisation_email = "";
-			
-			if($apsettings)
-			{
-				$organisation_name = $apsettings->getOrganisationName();
-				$organisation_email = $apsettings->getOrganisationEmail();
-				$organisation_logo='/'.$apsettings->getUploadDir().'/'.$apsettings->getAdminImageUrl();
-			}
+		//Get settings
+		$q = Doctrine_Query::create()
+			->from("ApSettings a")
+			->orderBy("a.id DESC");
+		$apsettings = $q->fetchOne();
 
-			$tophtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		$organisation_name = "";
+		$organisation_email = "";
+
+		if ($apsettings) {
+			$organisation_name = $apsettings->getOrganisationName();
+			$organisation_email = $apsettings->getOrganisationEmail();
+			$organisation_logo = '/' . $apsettings->getUploadDir() . '/' . $apsettings->getAdminImageUrl();
+		}
+
+		$tophtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						<html xmlns="http://www.w3.org/1999/xhtml">
 						<head>
 						<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-						<title>'.$subject.'</title>
+						<title>' . $subject . '</title>
 						<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 						<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,800,800italic"/>
 						<style type="text/css">
@@ -250,7 +248,7 @@ class mailnotifications
 										<!--Logo and Social Start-->
 										<table width="180" border="0" align="left" cellpadding="0" cellspacing="0">
 											<tr>
-											<td valign="top"><a href="#" target="_blank"><img mc:edit="logo" src="http://'.$_SERVER['HTTP_HOST'].''.$organisation_logo.'" width="150" height="50" alt="logo"/></a></td>
+											<td valign="top"><a href="#" target="_blank"><img mc:edit="logo" src="http://' . $_SERVER['HTTP_HOST'] . '' . $organisation_logo . '" width="150" height="50" alt="logo"/></a></td>
 											</tr>
 										</table>
 										<!--Logo and Social End-->
@@ -271,13 +269,13 @@ class mailnotifications
 										<!--Main Content Start-->
 										<table width="100%" border="0" cellspacing="0" cellpadding="0" style=" border-bottom:1px solid #e8e8e8;">
 											<tr>
-											<td align="left" valign="top" bgcolor="#ffffff" mc:edit="main-text" style="padding:10px 20px; border-top:1px solid #e8e8e8" class="maintext">'.$subject.'</td>
+											<td align="left" valign="top" bgcolor="#ffffff" mc:edit="main-text" style="padding:10px 20px; border-top:1px solid #e8e8e8" class="maintext">' . $subject . '</td>
 											</tr>
 											<tr>
 											<td valign="top" bgcolor="#ffffff" style="padding:10px 20px;" mc:edit="main-content" class="textdark" align="left">';
 
 
-			$bottomhtml = '</td></td></table></td>
+		$bottomhtml = '</td></td></table></td>
 							</tr>
 						</table>
 						<!--Content End-->
@@ -301,7 +299,7 @@ class mailnotifications
 			<table width="606" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
 			<tr>
 			<td align="left" class="footertext">
-				&copy; '.date('Y').' '.$organisation_name.' . All Rights Reserved.</p>
+				&copy; ' . date('Y') . ' ' . $organisation_name . ' . All Rights Reserved.</p>
 			</td>
 			</table>
 				</table>
@@ -309,41 +307,39 @@ class mailnotifications
 			</html>
 			';
 
-			$body = $tophtml.$body.$bottomhtml;
-			
-			// Instantiation and passing `true` enables exceptions
-			$mail = new PHPMailer(true);
-			//notification history
-		try
- 		{
+		$body = $tophtml . $body . $bottomhtml;
+
+		// Instantiation and passing `true` enables exceptions
+		$mail = new PHPMailer(true);
+		//notification history
+		try {
 			// Enable verbose debug output
 			//$mail->SMTPDebug = 2;
-			if(strlen($apsettings->getSmtpHost()) && $apsettings->getSmtpEnable())
-			{
-				$mail->isSMTP(); 
+			if (strlen($apsettings->getSmtpHost()) && $apsettings->getSmtpEnable()) {
+				$mail->isSMTP();
 				// Specify main and backup SMTP servers
-				$mail->Host= $apsettings->getSmtpHost();
-				$mail->Port= $apsettings->getSmtpPort();
-				$mail->SMTPAuth=$apsettings->getSmtpAuth();
-				$mail->Username=$apsettings->getSmtpUsername();
-				$mail->Password=$apsettings->getSmtpPassword();
-				$mail->SMTPSecure=$apsettings->getSmtpSecure();
+				$mail->Host = $apsettings->getSmtpHost();
+				$mail->Port = $apsettings->getSmtpPort();
+				$mail->SMTPAuth = $apsettings->getSmtpAuth();
+				$mail->Username = $apsettings->getSmtpUsername();
+				$mail->Password = $apsettings->getSmtpPassword();
+				$mail->SMTPSecure = $apsettings->getSmtpSecure();
 			}
-			$mail->setFrom($organisation_email,$organisation_name);
-			$mail->addAddress($to,$username);
-			$mail->addReplyTo($organisation_email,$organisation_name);
+			$mail->setFrom($organisation_email, $organisation_name);
+			$mail->addAddress($to, $username);
+			$mail->addReplyTo($organisation_email, $organisation_name);
 			// Attachments
 			//$mail->addAttachment('/var/tmp/file.tar.gz'); 
 			// Content
 			// Set email format to HTML
 			$mail->isHTML(true);
-			$mail->Subject=$subject;
-			$mail->Body=$body;
+			$mail->Subject = $subject;
+			$mail->Body = $body;
 			//$mail->AltBody='';
 			$mail->send();
 			//notification history
 			$ntf_arch = new NotificationHistory();
-			if(strlen($userid)){
+			if (strlen($userid)) {
 				$ntf_arch->setUserId($userid);
 			}
 			$ntf_arch->setNotification($subject);
@@ -352,25 +348,23 @@ class mailnotifications
 			$ntf_arch->setConfirmedReceipt('1');
 			$ntf_arch->save();
 			error_log("Message sent! ---> daniel 1");
-		}
-		catch(Exception $e)
-		{
+		} catch (Exception $e) {
 			error_log("Could not send notification. Mailer error: {$mail->ErrorInfo}");
 			//try mail function
-			try{
+			try {
 				$headers = "";
-				$headers .= "Reply-To: ".$organisation_name." <".$organisation_email.">\r\n";
-				$headers .= "Return-Path: ".$organisation_name." <".$organisation_email.">\r\n";
-				$headers .= "From: ".$organisation_name." <".$organisation_email.">\r\n";
-				$headers .= "Organization: ".$organisation_name."r\r\n";
+				$headers .= "Reply-To: " . $organisation_name . " <" . $organisation_email . ">\r\n";
+				$headers .= "Return-Path: " . $organisation_name . " <" . $organisation_email . ">\r\n";
+				$headers .= "From: " . $organisation_name . " <" . $organisation_email . ">\r\n";
+				$headers .= "Organization: " . $organisation_name . "r\r\n";
 				$headers .= "MIME-Version: 1.0\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 				$headers .= "X-Priority: 3\r\n";
-				$headers .= "X-Mailer: PHP". phpversion() ."\r\n";
+				$headers .= "X-Mailer: PHP" . phpversion() . "\r\n";
 				//mail($to,$subject,$body,$headers);
 				error_log('Mail sent!');
 				$ntf_arch = new NotificationHistory();
-				if(strlen($userid)){
+				if (strlen($userid)) {
 					$ntf_arch->setUserId($userid);
 				}
 				$ntf_arch->setNotification($subject);
@@ -378,9 +372,9 @@ class mailnotifications
 				$ntf_arch->setSentOn(date('Y-m-d'));
 				$ntf_arch->setConfirmedReceipt('1');
 				$ntf_arch->save();
-			}catch(Exception $e){
+			} catch (Exception $e) {
 				$ntf_arch = new NotificationHistory();
-				if(strlen($userid)){
+				if (strlen($userid)) {
 					$ntf_arch->setUserId($userid);
 				}
 				$ntf_arch->setNotification($subject);
@@ -398,121 +392,115 @@ class mailnotifications
 	{
 		error_log('Sending sms to --->' . $receiver);
 		error_log('The calling function: ' . debug_backtrace()[1]['function']);
+		error_log('----SMS--no----' . $receiver);
 		return;
 		try {
 			if (substr($receiver, 0, 1) == "0") {
 				//ADD COUNTRY CODE
-				$receiver=substr($receiver,1);
-				$receiver = sfConfig::get('app_country_code').$receiver;
+				$receiver = substr($receiver, 1);
+				$receiver = sfConfig::get('app_country_code') . $receiver;
 			}
-			
-            error_log("SEND SMS:::: Country Code {sfConfig::get('app_country_code') ---->}".$receiver);
-            //Remove + sign from $receiver / mobile number
-            $receiver = str_replace("+","", $receiver);
-            error_log("SEND SMS :::: The receiver is ---->"."+".$receiver);
-            $africa_talking = new AfricasTalking('kajiado-cp',  "66320afdd5a6184158988ee2a5b91192dc11c17b2332744662f47941ac0eac87");
 
-            // Get one of the services
-	    $sms = $africa_talking->sms();
-	    $result   = $sms->send([
-			'to'      => "+".$receiver,
-			'message' => $body,
-                        'from' => 'KajiadoEDAM'
-	    ]);
-            error_log($body);
-            error_log("SEND SMS::: Message sent -->");
-            error_log(json_encode($result));
-	    return $result;
+			error_log("SEND SMS:::: Country Code {sfConfig::get('app_country_code') ---->}" . $receiver);
+			//Remove + sign from $receiver / mobile number
+			$receiver = str_replace("+", "", $receiver);
+			error_log("SEND SMS :::: The receiver is ---->" . "+" . $receiver);
+			$africa_talking = new AfricasTalking('kajiado-cp', "66320afdd5a6184158988ee2a5b91192dc11c17b2332744662f47941ac0eac87");
 
-			error_log('----SMS--no----'.$receiver);
-			$stream= new Stream();
-			$stream_response=$stream->sendRequest( array (
-				'url'     => sfConfig::get('app_sms_url'),
-				'method'  => 'POST',  // GET, POST, PUT, DELETE,
-				'cookie'  => $response->cookie, 
-				'ssl'     => 'default',  // default: ensure SSL verification
-										 // self: When working with self-signed
-										 //       certificates
-										 // none: Disable ssl verification
-										 // array: An array with the parameters as 
-										 //        defined in https://www.php.net/manual/en/context.ssl.php
+			// Get one of the services
+			$sms = $africa_talking->sms();
+			$result = $sms->send([
+				'to' => "+" . $receiver,
+				'message' => $body,
+				'from' => 'KajiadoEDAM'
+			]);
+			error_log($body);
+			error_log("SEND SMS::: Message sent -->");
+			error_log(json_encode($result));
+			return $result;
+
+			error_log('----SMS--no----' . $receiver);
+			$stream = new Stream();
+			$stream_response = $stream->sendRequest(array(
+				'url' => sfConfig::get('app_sms_url'),
+				'method' => 'POST',  // GET, POST, PUT, DELETE,
+				'cookie' => $response->cookie,
+				'ssl' => 'default',  // default: ensure SSL verification
+				// self: When working with self-signed
+				//       certificates
+				// none: Disable ssl verification
+				// array: An array with the parameters as 
+				//        defined in https://www.php.net/manual/en/context.ssl.php
 				'contentType' => 'json', // text: for sending plain text content to the server
-										 // json: for sending json data 
-										 // multipart: for file uploads
-										 // default: url-encoded data
-				'data'    => array (
+				// json: for sending json data 
+				// multipart: for file uploads
+				// default: url-encoded data
+				'data' => array(
 					"sender_id" => sfConfig::get('app_sms_shortcode'),
 					"recipients" => $receiver,
 					"content" => $body
 				),
-				'headers' => array (
-				  // Additional headers to send with the request
-				  'token' => sfConfig::get('app_sms_api_key')
+				'headers' => array(
+					// Additional headers to send with the request
+					'token' => sfConfig::get('app_sms_api_key')
 				)
 			));
-			error_log(print_r($stream_response,true));
+			error_log(print_r($stream_response, true));
 
-		}catch(Exception $ex)
-		{
-                    error_log("Encountered an error while sending: ".$ex->getMessage());
+		} catch (Exception $ex) {
+			error_log("Encountered an error while sending: " . $ex->getMessage());
 		}
 	}
 
 	public function queueemail($from, $to, $subject, $body, $userid, $application_id)
 	{
-	  try
-		{
+		try {
 			$q = Doctrine_Query::create()
-			   ->from("NotificationQueue a")
-				 ->where("a.application_id = ?", $application_id)
-				 ->andWhere("a.notification = ?", $body)
-				 ->andWhere("a.notification_type = ?", "email");
+				->from("NotificationQueue a")
+				->where("a.application_id = ?", $application_id)
+				->andWhere("a.notification = ?", $body)
+				->andWhere("a.notification_type = ?", "email");
 
 			//Don't queue duplicate messages
-			if($q->count() == 0)
-			{
+			if ($q->count() == 0) {
 				$notification = new NotificationQueue();
 				$notification->setUserId($userid);
 				$notification->setNotification($subject);
 				$notification->setNotificationType('email');
-				$notification->setSentOn(''.date('Y-m-d').'');
+				$notification->setSentOn('' . date('Y-m-d') . '');
 				$notification->setSent('0');
 				$notification->setApplicationId($application_id);
 
 				$notification->save();
 			}
-		}catch(Exception $ex)
-		{
-        error_log("Encountered an error while queuing: ".$ex->getMessage());
+		} catch (Exception $ex) {
+			error_log("Encountered an error while queuing: " . $ex->getMessage());
 		}
 	}
 
 	public function queuesms($receiver, $body, $userid, $application_id)
 	{
-	  try
-		{
+		try {
 			$q = Doctrine_Query::create()
-			   ->from("NotificationQueue a")
-				 ->where("a.application_id = ?", $application_id)
-				 ->andWhere("a.notification = ?", $body)
-				 ->andWhere("a.notification_type = ?", "sms");
+				->from("NotificationQueue a")
+				->where("a.application_id = ?", $application_id)
+				->andWhere("a.notification = ?", $body)
+				->andWhere("a.notification_type = ?", "sms");
 
 			//Don't queue duplicate messages
-			if($q->count() == 0)
-			{
+			if ($q->count() == 0) {
 				$notification = new NotificationQueue();
 				$notification->setUserId($userid);
 				$notification->setNotification($body);
 				$notification->setNotificationType('sms');
-				$notification->setSentOn(''.date('Y-m-d').'');
+				$notification->setSentOn('' . date('Y-m-d') . '');
 				$notification->setSent('0');
 				$notification->setApplicationId($application_id);
 
 				$notification->save();
 			}
-		}catch(Exception $ex)
-		{
-        error_log("Encountered an error while queuing: ".$ex->getMessage());
+		} catch (Exception $ex) {
+			error_log("Encountered an error while queuing: " . $ex->getMessage());
 		}
 	}
 }

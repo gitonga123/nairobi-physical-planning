@@ -361,7 +361,7 @@ class ApplicationManager
 
         if ($form_numbers) {
             $application_number = $form_numbers->getApplicationNumber();
-            error_log('-------App no from ap_number_generator---' . $application_number);
+            error_log('-------App no from ap_number_generator 102---' . $application_number);
             try {
                 //LOCK ap_number_generator
                 //$gotLock = $lockingManager->getLock($form_numbers, 'jwage');
@@ -1751,7 +1751,7 @@ class ApplicationManager
 
         if ($merchant_numbers) {
             $merchant_identifier = $merchant_numbers->getMerchantIdentifier();
-            error_log('-------App no from ap_number_generator---' . $merchant_identifier);
+            error_log('-------App no from ap_number_generator 101---' . $merchant_identifier);
             try {
                 //LOCK ap_number_generator
                 //$gotLock = $lockingManager->getLock($form_numbers, 'jwage');

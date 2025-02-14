@@ -2754,6 +2754,8 @@ class Templateparser
             $values['inv_expires_at'] = "";
         }
 
+        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.");
+
         $values['inv_fee_table'] = $inv_fees;
 
         $reference = $invoice->getFormEntry()->getFormId() . "/" . $invoice->getFormEntry()->getEntryId() . "/" . $invoice->getId();

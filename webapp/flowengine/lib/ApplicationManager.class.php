@@ -987,7 +987,7 @@ class ApplicationManager
 
                 if (sfContext::getInstance()->getUser()->getAttribute('userid', 0)) {
                     $appref = new ApplicationReference();
-                    $appref->setStageId( $stage_id);
+                    $appref->setStageId($stage_id);
                     $appref->setApplicationId($id);
                     $appref->setApprovedBy(sfContext::getInstance()->getUser()->getAttribute('userid', 0));
                     $appref->setStartDate(date('Y-m-d H:i:s'));
@@ -1026,10 +1026,12 @@ class ApplicationManager
 
         $movement_history = $q->fetchOne();
 
-        error_log("Movement history send sms -->{$movement_history->getIsSmsSent()}");
-
-        if ($movement_history->getIsSmsSent() == 1) {
-            return;
+        if ($movement_history) {
+            if ($movement_history->getIsSmsSent() == 1 && $stage_id == $movement_history->getStageId()) {
+                return;
+            }
+        } else {
+            error_log("No movement history found for application_id: $application_id");
         }
 
 

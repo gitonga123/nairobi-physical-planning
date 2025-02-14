@@ -13,7 +13,7 @@ if($sf_user->mfHasCredential("managelanguages"))
 
         <div class="panel-heading text-right">
            <a class="btn btn-primary" id="newpage" href="/backend.php/languages/new" ><?php echo __('+ Add Language'); ?></a>
-           <a class="btn btn-primary m-l10" id="newlanguage" href="<?php echo public_path('backend.php/languages/translate') ?>"><?php echo __('Translate Labels'); ?></a>
+           <a class="btn btn-primary m-l10" id="newlanguage" href="<?php echo public_path('plan/languages/translate') ?>"><?php echo __('Translate Labels'); ?></a>
         </div>
 
 

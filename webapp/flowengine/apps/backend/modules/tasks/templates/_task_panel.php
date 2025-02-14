@@ -17,9 +17,9 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
     <div class="alert alert-success">
         <strong>Please!</strong> Select a fee(s) from the list to create an invoice.
     </div>
-    <form class="form-bordered" id="feeform" method="post"
-        action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>" id="MailContentForm" name="MailContentForm"
-        onSubmit="return validate_editfield();" autocomplete="off" data-ajax="false">
+    <form class="form-bordered" id="feeform" method="post" action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>"
+        id="MailContentForm" name="MailContentForm" onSubmit="return validate_editfield();" autocomplete="off"
+        data-ajax="false">
         <?php
         $grandtotal = 0;
         $q = Doctrine_Query::create()

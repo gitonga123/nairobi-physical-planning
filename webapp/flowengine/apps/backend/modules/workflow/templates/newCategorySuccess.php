@@ -9,7 +9,7 @@ $audit->saveAudit("", "Accessed Workflow Category");
     <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __("You are here"); ?>:</span>
         <ol class="breadcrumb">
-            <li><a href="<?php echo public_path("/backend.php"); ?>"><?php echo __("Home"); ?></a></li>
+            <li><a href="<?php echo public_path("/backend.php/dashboard"); ?>"><?php echo __("Home"); ?></a></li>
             <li class="active"><?php echo __("Workflow Category"); ?></li>
         </ol>
     </div>

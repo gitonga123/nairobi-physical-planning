@@ -15,7 +15,8 @@ if ($sf_user->mfHasCredential("manageagencies")) {
         <h3 class="panel-title"><?php echo __('Agency'); ?></h3>
       </div>
       <div class="panel-heading">
-        <a class="btn btn-primary settings-margin42" id="newdepartment" href="<?php echo url_for('/backend.php/agency/new') ?>"><?php echo __('New Agency'); ?></a>
+        <a class="btn btn-primary settings-margin42" id="newdepartment"
+          href="<?php echo url_for('/backend.php/agency/new') ?>"><?php echo __('New Agency'); ?></a>
       </div>
 
       <div class="panel panel-body panel-body-nopadding ">
@@ -40,14 +41,21 @@ if ($sf_user->mfHasCredential("manageagencies")) {
                   <td><?php echo $count++; ?></td>
                   <td><?php echo $agency->getName() ?></td>
                   <td>
-                    <a id="editdepartment<?php echo $agency->getId(); ?>" href="<?php echo url_for('/backend.php/agency/edit/id/' . $agency->getId()); ?>" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+                    <a id="editdepartment<?php echo $agency->getId(); ?>"
+                      href="<?php echo url_for('/backend.php/agency/edit/id/' . $agency->getId()); ?>"
+                      title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i
+                          class="fa fa-pencil"></i></span></a>
                     <?php
                     /*$q = Doctrine_Query::create()
            ->from("AgencyUser a")
            ->where("a.agency_id = ?", $agency->getId());
         $agency_members = $q->execute();*/
                     ?>
-                    <a id="deletedepartment<?php echo $agency->getId(); ?>" onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="<?php echo url_for('/backend.php/agency/delete/id/' . $agency->getId()); ?>" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>
+                    <a id="deletedepartment<?php echo $agency->getId(); ?>"
+                      onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }"
+                      href="<?php echo url_for('/backend.php/agency/delete/id/' . $agency->getId()); ?>"
+                      title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i
+                          class="fa fa-trash-o"></i></span></a>
 
                   </td>
                 </tr>

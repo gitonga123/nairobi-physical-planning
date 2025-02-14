@@ -3,8 +3,9 @@
 ?>
 <div class="contentpanel">
 
-    <form id="stageform" class="form-bordered" action="/backend.php/stages/groups/id/<?php echo $stage->getId(); ?>" method="post" autocomplete="off" data-ajax="false">
-      <div class="panel panel-default">
+  <form id="stageform" class="form-bordered" action="/backend.php/stages/groups/id/<?php echo $stage->getId(); ?>"
+    method="post" autocomplete="off" data-ajax="false">
+    <div class="panel panel-default">
 
       <div class="panel-heading">
         <h3 class="panel-title"><?php echo $stage->getTitle().' Stage'; ?></h3>
@@ -69,9 +70,14 @@
         </div>
       </div>
       <div class="panel-footer">
-           <a class="btn btn-danger mr10" href="/backend.php/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a><button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
-     </div>
-   </div>
+        <a class="btn btn-danger mr10"
+          href="/backend.php/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a>
+        <?php if ($sf_user->mfHasCredential('access_security')) {
+          ?>
+          <button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname"
+            value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
+        <?php } ?>
+      </div>
 
     </form>
 </div>

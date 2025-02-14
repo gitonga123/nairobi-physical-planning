@@ -31,9 +31,10 @@
         <h3 class="panel-title"><?php echo $reviewer->getStrfirstname()." ".$reviewer->getStrlastname();  ?></h3> <?php echo __("Reviewer Informaiton"); ?>
     </div>
 
-    <div class="panel-heading text-right">
-        <a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>" class="btn btn-default"><span class="fa fa-history"></span>  <?php echo __("Audit Log"); ?></a>
-    </div>
+        <div class="panel-heading text-right">
+            <a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>" class="btn btn-default"><span
+                    class="fa fa-history"></span> <?php echo __("Audit Log"); ?></a>
+        </div>
 
     <div class="panel-body">
         <div class="media media-pro">
@@ -281,40 +282,42 @@
                                         <p class="table-showing pull-left"><strong><?php echo count($current_paginator) ?></strong> <?php echo __('Tasks'); ?>
 
                                             <?php if ($current_paginator->haveToPaginate()): ?>
-                                                - <strong><?php echo $current_paginator->getPage() ?>/<?php echo $current_paginator->getLastPage() ?></strong>
-                                            <?php endif; ?></p>
+                                                <ul class="pagination pagination-sm mb0 mt0 pull-right">
+                                                    <li><a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/1#end">
+                                                            <i class="fa fa-angle-left"></i>
+                                                        </a></li>
 
-                                        <?php if ($current_paginator->haveToPaginate()): ?>
-                                            <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/1#end">
-                                                        <i class="fa fa-angle-left"></i>
-                                                    </a></li>
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getPreviousPage() ?>#end">
+                                                            <i class="fa fa-angle-left"></i>
+                                                        </a></li>
 
-                                                <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getPreviousPage() ?>#end">
-                                                        <i class="fa fa-angle-left"></i>
-                                                    </a></li>
+                                                    <?php foreach ($current_paginator->getLinks() as $page): ?>
+                                                        <?php if ($page == $current_paginator->getPage()): ?>
+                                                            <li class="active"><a href=""><?php echo $page ?></a>
+                                                            <?php else: ?>
+                                                            <li><a
+                                                                    href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $page ?>#end"><?php echo $page ?></a>
+                                                            </li>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
 
-                                                <?php foreach ($current_paginator->getLinks() as $page): ?>
-                                                    <?php if ($page == $current_paginator->getPage()): ?>
-                                                        <li class="active"><a href=""><?php echo $page ?></a>
-                                                    <?php else: ?>
-                                                        <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getNextPage() ?>#end">
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a></li>
 
-                                                <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getNextPage() ?>#end">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </a></li>
-
-                                                <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getLastPage() ?>#end">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </a></li>
-                                            </ul>
-                                        <?php endif; ?>
-                                    </th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/currentpage/<?php echo $current_paginator->getLastPage() ?>#end">
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a></li>
+                                                </ul>
+                                            <?php endif; ?>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
 
                         </div>
                         <div class="tab-pane fade" id="tab2default">
@@ -377,27 +380,33 @@
 
                                             <?php if ($completed_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/1#end">
+                                                    <li><a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
                                                     <?php foreach ($completed_paginator->getLinks() as $page): ?>
                                                         <?php if ($page == $completed_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
-                                                        <?php else: ?>
-                                                            <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <?php else: ?>
+                                                            <li><a
+                                                                    href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $page ?>#end"><?php echo $page ?></a>
+                                                            </li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getNextPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getLastPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/completepage/<?php echo $completed_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>
@@ -467,27 +476,33 @@
 
                                             <?php if ($cancel_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/1#end">
+                                                    <li><a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
                                                     <?php foreach ($cancel_paginator->getLinks() as $page): ?>
                                                         <?php if ($page == $cancel_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
-                                                        <?php else: ?>
-                                                            <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <?php else: ?>
+                                                            <li><a
+                                                                    href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $page ?>#end"><?php echo $page ?></a>
+                                                            </li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getNextPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getLastPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/cancelpage/<?php echo $cancel_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>
@@ -527,27 +542,33 @@
 
                                             <?php if ($audit_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/1#end">
+                                                    <li><a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
                                                     <?php foreach ($audit_paginator->getLinks() as $page): ?>
                                                         <?php if ($page == $audit_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
-                                                        <?php else: ?>
-                                                            <li><a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <?php else: ?>
+                                                            <li><a
+                                                                    href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $page ?>#end"><?php echo $page ?></a>
+                                                            </li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getNextPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getLastPage() ?>#end">
+                                                    <li> <a
+                                                            href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>/auditpage/<?php echo $audit_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>

@@ -29,6 +29,7 @@ class loginActions extends sfActions
 
     //Check if current reviewer is already logged in and redirect
     if ($login_manager->validate_session()) {
+      error_log("This user has a session already?");
       $this->redirect("/backend.php/dashboard");
     }
 
@@ -56,9 +57,6 @@ class loginActions extends sfActions
           $this->loginError = true;
         }
       }
-    } else {
-      $referer = $this->getContext()->getActionStack()->getSize() > 1 ? $request->getUri() : $request->getReferer();
-      $_SESSION['referer'] = $referer;
     }
 
     $q = Doctrine_Query::create()
@@ -68,6 +66,36 @@ class loginActions extends sfActions
 
     //$this->setLayout("layout-admin-mentor");
     $this->setLayout("layout-admin-mentor");
+
+
+  }
+
+  private function loginAdmin($username, $password)
+  {
+    $login_manager = new LoginManager();
+
+    $login_action = $login_manager->create_session($username, $password);
+
+    if ($login_action) {
+      $referer = $this->getUser()->getAttribute("referer");
+      error_log($referer);
+      error_log("Super Admin login above --->");
+
+      $url = sfConfig::get('app_sso_backend_jambo_url') . "/backend.php/dashboard";
+      // redirect to plan instance of backend.php
+      $this->redirect($url);
+    } else {
+      $this->loginError = true;
+      // $this->form = new BackendSigninForm();
+      // $this->returnRedirectURL();
+    }
+  }
+
+
+  public function returnRedirectURL()
+  {
+    $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') : "/plan";
+    return $this->redirect($url);
   }
 
   /**

@@ -6,8 +6,7 @@ class agencyActions extends sfActions
   {
     $wizard_manager = new WizardManager();
 
-    if($wizard_manager->is_first_run())
-    {
+    if ($wizard_manager->is_first_run()) {
       $this->redirect("/backend.php/dashboard");
     }
 	$q = Doctrine_Core::getTable('agency')
@@ -154,7 +153,7 @@ class agencyActions extends sfActions
         $this->redirect('/backend.php/logout');
       }
 
-       $this->redirect('/backend.php/agency/index');
+      $this->redirect('/backend.php/agency/index');
     }
   }
 }

@@ -59,28 +59,35 @@
 }
 
 @media print {
-    body {
-        font-size: 12px;
-        margin: 10mm;
-        /* Adjust margins for better fit */
+    .panel {
+        page-break-inside: avoid;
+        /* Prevents breaking inside panel */
+        border: 2px solid black !important;
+        /* Ensures border on each page */
+        padding: 10px;
     }
 
-    .panel-heading h3 {
-        font-size: 14px;
+    .panel-heading {
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
     }
 
     .panel-body {
-        page-break-inside: avoid;
-        /* Prevents splitting of panel content */
+        page-break-before: auto;
     }
 
     .payment-options {
         page-break-before: always;
-        /* Moves payment options to a new page */
+        /* Moves Payment Options to a new page */
+        border: 2px solid black !important;
+        /* Independent border on new page */
+        padding: 10px;
     }
 
     table {
         page-break-inside: avoid;
-        /* Prevents table splitting */
+        /* Prevents table rows from splitting */
+        width: 100%;
     }
 }

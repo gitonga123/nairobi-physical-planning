@@ -2657,7 +2657,7 @@ class Templateparser
         $inv_fees = "";
 
         $inv_fees = $inv_fees . '
-                 <table width="2000px" cellspacing="0" cellpadding="0" border-spacing="0" style="border: 1px solid #d2d2d2; margin-bottom: 20px; width:100%;">
+                 <table width="100%" style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 0px; padding-bottom: 0px;">
                  <tbody><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Item</th><th style="padding:5px 12px; text-align:left;" nowrap>Total Amount (' . $currency . ')</th></tr>';
         $grand_total = 0;
         $inv_details = $invoice->getMfInvoiceDetail();
@@ -2898,7 +2898,7 @@ class Templateparser
         $inv_fees = "";
 
         $inv_fees = $inv_fees . '
-                 <table width="100%" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                 <table width="100%" style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 0px; padding-bottom: 0px;">
                  <tbody><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Item</th><th style="padding:5px 12px; text-align:left;" nowrap>Total Amount (' . $currency . ')</th></tr>';
         $grand_total = 0;
         $inv_details = $invoice->getMfInvoiceDetail();
@@ -4172,7 +4172,7 @@ class Templateparser
         $inv_fees = "";
 
         $inv_fees = $inv_fees . '
-            <table width="100%" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <table width="100%" style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 0px; padding-bottom: 0px;">
             <tbody><tr><th width="20%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; text-align:left;" nowrap>Item</th><th style="padding:5px 12px; text-align:left;" nowrap>Total Amount (' . $currency . ')</th></tr>';
         $grand_total = 0;
         $inv_details = $invoice->getMfInvoiceDetail();

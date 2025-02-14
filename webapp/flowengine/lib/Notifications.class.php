@@ -391,9 +391,6 @@ class mailnotifications
 	public function sendsms($receiver, $body)
 	{
 		error_log('Sending sms to --->' . $receiver);
-		error_log('The calling function: ' . debug_backtrace()[1]['function']);
-		error_log('----SMS--no----' . $receiver);
-		return;
 		try {
 			if (substr($receiver, 0, 1) == "0") {
 				//ADD COUNTRY CODE

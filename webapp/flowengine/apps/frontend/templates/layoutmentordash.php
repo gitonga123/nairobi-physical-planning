@@ -129,7 +129,7 @@
 										<p class="text-muted mb-0"><?php echo $sf_user->getProfile()->getEmail(); ?></p>
 									</div>
 								</div>
-								<a class="dropdown-item" href="/plan/settings">Account Settings</a>
+								<a class="dropdown-item" href="/backend.php/settings">Account Settings</a>
 								<a class="dropdown-item text-primary" href="/plan/signon/logout">Logout</a>
 							</div>
 						</li>
@@ -205,7 +205,7 @@
 
 							<div class="custom-sidebar-nav mt-5">
 								<ul>
-									<li><a href="/plan/settings"><i class="fas fa-user-cog"></i>Profile <span><i
+									<li><a href="/backend.php/settings"><i class="fas fa-user-cog"></i>Profile <span><i
 													class="fas fa-chevron-right"></i></span></a></li>
 									<li><a href="/plan/signon/logout"><i class="fas fa-sign-out-alt"></i>Logout
 											<span><i class="fas fa-chevron-right"></i></span></a></li>

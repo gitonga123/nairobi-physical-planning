@@ -396,7 +396,7 @@ class mailnotifications
 
 	public function sendsms($receiver, $body)
 	{
-		error_log('Send Sms testing 1--->');
+		error_log('Sending sms to --->' . $receiver);
 		error_log('The calling function: ' . debug_backtrace()[1]['function']);
 		return;
 		try {

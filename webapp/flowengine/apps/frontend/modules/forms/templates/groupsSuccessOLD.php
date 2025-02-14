@@ -114,7 +114,7 @@ else:
 	                    <p><?php echo __('To provide additional details, follow the steps below'); ?>:</p>
 	                    <ol>
 	                        <li><?php echo __('Click on your Name at the top right of the screen.'); ?></li>
-	                        <li><?php echo __('Click on'); ?> <a href="/plan/settings"><?php echo __('Account Settings'); ?></a>.</li>
+	                        <li><?php echo __('Click on'); ?> <a href="/backend.php/settings"><?php echo __('Account Settings'); ?></a>.</li>
 	                        <li><?php echo __('Click on the "Edit Additional Details" tab.') ?></li>
 	                        <li><?php echo __('Click the "Add Additional Details" button, give your details and submit.'); ?></li>
 	                    </ol>

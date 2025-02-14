@@ -56,7 +56,7 @@
 			</div><!--panel-body-->
 			
 			<div class="panel-footer">
-				<button class="btn btn-primary" onClick="window.location='/plan/settings';"><?php echo sfConfig::get('app_'.$_SESSION['locale'].'_back'); ?></button>
+				<button class="btn btn-primary" onClick="window.location='/backend.php/settings';"><?php echo sfConfig::get('app_'.$_SESSION['locale'].'_back'); ?></button>
 				<button class="submit btn btn-primary" name="submitbuttonname" value="submitbuttonvalue"><?php echo sfConfig::get('app_'.$_SESSION['locale'].'_submit'); ?></button>
 			</div>
         

@@ -394,7 +394,7 @@ class mailnotifications
 
 	public function sendsms($receiver, $body)
 	{
-		error_log('Sending sms to --->' . $receiver);
+		error_log('Sending sms to --->1' . $receiver);
 		try {
 			if (substr($receiver, 0, 1) == "0") {
 				//ADD COUNTRY CODE
@@ -419,7 +419,7 @@ class mailnotifications
 				return;
 			}
 
-			error_log('Sending sms to --->' . $receiver);
+			error_log('Sending sms to --->2' . $receiver);
 
 			$stream = new Stream();
 			$stream_response = $stream->sendRequest(

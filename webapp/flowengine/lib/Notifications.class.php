@@ -396,10 +396,11 @@ class mailnotifications
 
 	public function sendsms($receiver, $body)
 	{
-	  try
-		{
-			if(substr($receiver, 0,1) == "0")
-			{
+		error_log('Send Sms testing 1--->');
+		error_log('The calling function: ' . debug_backtrace()[1]['function']);
+		return;
+		try {
+			if (substr($receiver, 0, 1) == "0") {
 				//ADD COUNTRY CODE
 				$receiver=substr($receiver,1);
 				$receiver = sfConfig::get('app_country_code').$receiver;

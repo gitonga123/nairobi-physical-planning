@@ -280,165 +280,313 @@ use_helper("I18N");
                                     }
                                 </script>
 
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_1", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_1' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
 
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_2", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_2' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
+                                <hr />
+                                <div class="more_fees_id">
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control input-md'
+                                                onChange='getFee("inv_1", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_1" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_1' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_1')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_3", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_3' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control input-md'
+                                                onChange='getFee("inv_2", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_2" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_2' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_2')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_4", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_4' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_3", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_3" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_3' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_3')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_5", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_5' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_4", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_4" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_4' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_4')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_6", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_6' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_7", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_7' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_8", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_8' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_9", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_9' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_10", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_10' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_11", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_11' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_12", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_12' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_13", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_13' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_14", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_14' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
-                                </div>
-
-                                <div class='form-group' class='formgroup'>
-                                    <label class='col-sm-4'>
-                                        <select name='feetitle[]' class='form-control'
-                                            onChange='getFee("inv_15", this.value, <?php echo $application->getId(); ?>)'>
-                                            <?php echo $feeselect; ?>
-                                        </select>
-                                    </label>
-                                    <div class='col-sm-8'> <input type='number' id='inv_15' onkeyup='updateTotal();'
-                                            name='feevalue[]' class='form-control' value="0" /></div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_5", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_5" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_5' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_5')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_6", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_6" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_6' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_6')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_7", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_7" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_7' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_7')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_8", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_8" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_8' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_8')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_9", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_9" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_9' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_9')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_10", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_10" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_10' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_10')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_11", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_11" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_11' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_11')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_12", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_12" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_12' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_12')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_13", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_13" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_13' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_13')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_14", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_14" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_14' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_14')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='form-group fee-group formgroup'>
+                                        <label class='col-sm-4'>
+                                            <select name='feetitle[]' class='form-control'
+                                                onChange='getFee("inv_15", this.value, <?php echo $application->getId(); ?>)'
+                                                id="select_fee_15" data-width="100%">
+                                                <?php echo $feeselect; ?>
+                                            </select>
+                                        </label>
+                                        <div class='col-sm-8'>
+                                            <div class="input-group">
+                                                <input type='number' id='inv_15' onkeyup='updateTotal();' name='feevalue[]'
+                                                    disabled='disabled' class='form-control' value="0" />
+                                                <span class="input-group-btn">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-fee custom-delete-button"
+                                                        onclick="clearField('inv_15')">X</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <input type='hidden' id='totalfee' name='feevalue[]'
@@ -462,3 +610,111 @@ use_helper("I18N");
 
     </div>
 </div>
+
+<script language="javascript">
+
+    function clearField(id) {
+        switch (id) {
+            case 'inv_1':
+                $("#inv_1").val(0);
+                $("#inv_1").attr('disabled', 'disabled');
+                $("#select_fee_1").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_2':
+                $("#inv_2").val(0);
+                $("#inv_2").attr('disabled', 'disabled');
+                $("#select_fee_2").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_3':
+                $("#inv_3").val(0);
+                $("#inv_3").attr('disabled', 'disabled');
+                $("#select_fee_3").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_4':
+                $("#inv_4").val(0);
+                $("#inv_4").attr('disabled', 'disabled');
+                $("#select_fee_4").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_5':
+                $("#inv_5").val(0);
+                $("#inv_5").attr('disabled', 'disabled');
+                $("#select_fee_5").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_6':
+                $("#inv_6").val(0);
+                $("#inv_6").attr('disabled', 'disabled');
+                $("#select_fee_6").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_7':
+                $("#inv_7").val(0);
+                $("#inv_7").attr('disabled', 'disabled');
+                $("#select_fee_7").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_8':
+                $("#inv_8").val(0);
+                $("#inv_8").attr('disabled', 'disabled');
+                $("#select_fee_8").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_9':
+                $("#inv_9").val(0);
+                $("#inv_9").attr('disabled', 'disabled');
+                $("#select_fee_9").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_10':
+                $("#inv_10").val(0);
+                $("#inv_10").attr('disabled', 'disabled');
+                $("#select_fee_10").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_11':
+                $("#inv_11").val(0);
+                $("#inv_11").attr('disabled', 'disabled');
+                $("#select_fee_11").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_12':
+                $("#inv_12").val(0);
+                $("#inv_12").attr('disabled', 'disabled');
+                $("#select_fee_12").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_13':
+                $("#inv_13").val(0);
+                $("#inv_13").attr('disabled', 'disabled');
+                $("#select_fee_13").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_14':
+                $("#inv_14").val(0);
+                $("#inv_14").attr('disabled', 'disabled');
+                $("#select_fee_14").val('0').trigger('change');
+                updateTotal();
+                break;
+            case 'inv_15':
+                $("#inv_15").val(0);
+                $("#inv_15").attr('disabled', 'disabled');
+                $("#select_fee_15").val('0').trigger('change');
+                updateTotal();
+                break;
+
+            default:
+                break;
+        }
+    }
+</script>
+<style>
+    .custom-delete-button {
+        height: 100%;
+        padding-top: 8px;
+        padding-bottom: 9px;
+    }
+</style>

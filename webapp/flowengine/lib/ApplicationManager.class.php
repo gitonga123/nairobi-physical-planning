@@ -48,54 +48,63 @@ class ApplicationManager
     //Create a new application from a form submission
     public function create_application($form_id, $entry_id, $user_id, $save_as_draft)
     {
-        $submission = new FormEntry();
-        $submission->setDeclined('0');
-        $submission->setUserId($user_id);
-        $submission->setFormId($form_id);
-        $submission->setEntryId($entry_id);
-        $audit = new Audit();
-        error_log('-------entry_id------' . $entry_id);
-        if ($save_as_draft) {
-            error_log('-------------DRAFT SAVE--------');
-            $submission->setApplicationId("Draft-" . date("Y-m-d H:i:s"));
-            $submission->setApproved("0");
-            $submission->setDateOfSubmission(date("Y-m-d H:i:s"));
-            $audit->saveClientAudit($submission->getId(), "Draft application submitted");
-        } else {
-            $submission->setApplicationId($this->generate_application_number($form_id));
-            $submission->setApproved($this->get_submission_stage($form_id, $entry_id));
-            $submission->setDateOfSubmission(date("Y-m-d H:i:s"));
+        try {
+            $submission = new FormEntry();
+            $submission->setDeclined('0');
+            $submission->setUserId($user_id);
+            $submission->setFormId($form_id);
+            $submission->setEntryId($entry_id);
+            $audit = new Audit();
+            error_log('-------entry_id------' . $entry_id);
+            if ($save_as_draft) {
+                error_log('-------------DRAFT SAVE--------');
+                $submission->setApplicationId("Draft-" . date("Y-m-d H:i:s"));
+                $submission->setApproved("0");
+                $submission->setDateOfSubmission(date("Y-m-d H:i:s"));
+                $audit->saveClientAudit($submission->getId(), "Draft application submitted");
+            } else {
+                $submission->setApplicationId($this->generate_application_number($form_id));
+                error_log("Set application id ---> next submission stage");
+                $submission->setApproved($this->get_submission_stage($form_id, $entry_id));
+                error_log("Set submission stage ---> next submission date");
+                $submission->setDateOfSubmission(date("Y-m-d H:i:s"));
 
-            $audit->saveClientAudit($submission->getId(), "Submitted application");
+                error_log("Saved Details below --->");
+
+                $audit->saveClientAudit($submission->getId(), "Submitted application");
+            }
+
+            //OTB ADD
+            //Check merchant enable and merchant identifier
+            $q = Doctrine_Query::create()
+                ->from('ApForms f')
+                ->where('f.form_id = ?', $form_id);
+            $form = $q->fetchOne();
+            //check if set
+            if ($form->getPaymentEnableMerchant() && strlen($form->getPaymentMerchantIdentifier())) {
+                //set incremented merchant identifier
+                //$submission->setMerchantIdentifier($this->generate_merchant_number($form_id));
+            }
+
+            //Save business id if current_profile is set
+            if (sfContext::getInstance()->getUser()->getAttribute("current_profile")) {
+                $submission->setBusinessId(sfContext::getInstance()->getUser()->getAttribute("current_profile"));
+            }
+
+            $submission->save();
+
+            $this->update_services($submission->getId());
+            //otb add send ifc file(s)
+            //$this->sendIfc($submission);
+
+            // register plan to zizi
+            // $api = new ApiCalls();
+            // $api->registerPlan($form_id, $submission);
+            return $submission;
+        } catch (Exception $ex) {
+            error_log("Save application with number --->: " . $ex);
+            error_log($ex->getMessage());
         }
-
-        //OTB ADD
-        //Check merchant enable and merchant identifier
-        $q = Doctrine_Query::create()
-            ->from('ApForms f')
-            ->where('f.form_id = ?', $form_id);
-        $form = $q->fetchOne();
-        //check if set
-        if ($form->getPaymentEnableMerchant() && strlen($form->getPaymentMerchantIdentifier())) {
-            //set incremented merchant identifier
-            //$submission->setMerchantIdentifier($this->generate_merchant_number($form_id));
-        }
-
-        //Save business id if current_profile is set
-        if (sfContext::getInstance()->getUser()->getAttribute("current_profile")) {
-            $submission->setBusinessId(sfContext::getInstance()->getUser()->getAttribute("current_profile"));
-        }
-
-        $submission->save();
-
-        $this->update_services($submission->getId());
-        //otb add send ifc file(s)
-        //$this->sendIfc($submission);
-
-        // register plan to zizi
-        // $api = new ApiCalls();
-        // $api->registerPlan($form_id, $submission);
-        return $submission;
     }
 
     //Create a new application from a form submission

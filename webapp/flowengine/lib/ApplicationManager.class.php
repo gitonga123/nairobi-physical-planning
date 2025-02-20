@@ -74,6 +74,8 @@ class ApplicationManager
                 $audit->saveClientAudit($submission->getId(), "Submitted application");
             }
 
+            error_log("Values have been set --->");
+
             //OTB ADD
             //Check merchant enable and merchant identifier
             $q = Doctrine_Query::create()
@@ -86,10 +88,15 @@ class ApplicationManager
                 //$submission->setMerchantIdentifier($this->generate_merchant_number($form_id));
             }
 
+            error_log("Business Id Seetting ---> " . sfContext::getInstance()->getUser()->getAttribute("current_profile"));
             //Save business id if current_profile is set
             if (sfContext::getInstance()->getUser()->getAttribute("current_profile")) {
                 $submission->setBusinessId(sfContext::getInstance()->getUser()->getAttribute("current_profile"));
             }
+
+            error_log("SUbmission ----> below");
+
+            error_log(json_encode($submission));
 
             $submission->save();
 
@@ -693,6 +700,7 @@ class ApplicationManager
     //Check if an application requires the generation of permits
     public function update_services($application_id)
     {
+        try {
         //Only auto generate permit if there is permit template configured for the current stage and there is nothing owed
         if ($this->permit_manager->needs_permit_for_current_stage($application_id)) {
             $this->permit_manager->create_permit($application_id);
@@ -720,7 +728,11 @@ class ApplicationManager
             //OTB causes infinity loading since on submission doesn't find permit and reloads the same action over and over
             //Redirect to applications page if permit is not available
             //echo "<script language='javascript'>window.parent.location.href = '/plan/application/view/id/" . $application_id."/done/1';</script>";
-            //exit;
+           
+        } //exit;
+        } catch (Exception $ex) {
+            error_log("Check if application needs permis erro --->: " . $ex);
+            error_log($ex->getMessage());
         }
     }
 

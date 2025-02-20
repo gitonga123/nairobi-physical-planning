@@ -701,35 +701,35 @@ class ApplicationManager
     public function update_services($application_id)
     {
         try {
-        //Only auto generate permit if there is permit template configured for the current stage and there is nothing owed
-        if ($this->permit_manager->needs_permit_for_current_stage($application_id)) {
-            $this->permit_manager->create_permit($application_id);
-        }
-
-        //If application form has just been paid for from the frontend then redirect to the generated permit
-        // This improves userability as the client doesn't need to search for where the permit link is
-        if ($_SESSION['just_submitted'] && empty(sfContext::getInstance()->getUser()->getAttribute('userid'))) {
-            //Redirect to permits page if available (more user friendly that way)
-            if ($this->permit_manager->has_permit($application_id)) {
-                //redirect to permit page
-                $q = Doctrine_Query::create()
-                    ->from("SavedPermit a")
-                    ->leftJoin("a.FormEntry b")
-                    ->where("b.id = ?", $application_id)
-                    ->andWhere("a.permit_status <> 3")
-                    ->limit(1);
-                $permit = $q->fetchOne();
-
-                if ($permit) {
-                    echo "<script language='javascript'>window.parent.location.href = '/plan/permits/view/id/" . $permit->getId() . "/done/1';</script>";
-                    exit;
-                }
+            //Only auto generate permit if there is permit template configured for the current stage and there is nothing owed
+            if ($this->permit_manager->needs_permit_for_current_stage($application_id)) {
+                $this->permit_manager->create_permit($application_id);
             }
-            //OTB causes infinity loading since on submission doesn't find permit and reloads the same action over and over
-            //Redirect to applications page if permit is not available
-            //echo "<script language='javascript'>window.parent.location.href = '/plan/application/view/id/" . $application_id."/done/1';</script>";
-           
-        } //exit;
+
+            //If application form has just been paid for from the frontend then redirect to the generated permit
+            // This improves userability as the client doesn't need to search for where the permit link is
+            if ($_SESSION['just_submitted'] && empty(sfContext::getInstance()->getUser()->getAttribute('userid'))) {
+                //Redirect to permits page if available (more user friendly that way)
+                if ($this->permit_manager->has_permit($application_id)) {
+                    //redirect to permit page
+                    $q = Doctrine_Query::create()
+                        ->from("SavedPermit a")
+                        ->leftJoin("a.FormEntry b")
+                        ->where("b.id = ?", $application_id)
+                        ->andWhere("a.permit_status <> 3")
+                        ->limit(1);
+                    $permit = $q->fetchOne();
+
+                    if ($permit) {
+                        echo "<script language='javascript'>window.parent.location.href = '/plan/permits/view/id/" . $permit->getId() . "/done/1';</script>";
+                        exit;
+                    }
+                }
+                //OTB causes infinity loading since on submission doesn't find permit and reloads the same action over and over
+                //Redirect to applications page if permit is not available
+                //echo "<script language='javascript'>window.parent.location.href = '/plan/application/view/id/" . $application_id."/done/1';</script>";
+
+            } //exit;
         } catch (Exception $ex) {
             error_log("Check if application needs permis erro --->: " . $ex);
             error_log($ex->getMessage());
@@ -1150,458 +1150,462 @@ class ApplicationManager
     //Execute triggers for current stage if any
     public function execute_triggers($application)
     {
-        $q = Doctrine_Query::create()
-            ->from('SubMenus a')
-            ->where('a.id = ?', $application->getApproved())
-            ->limit(1);
-
-        $current_stage = $q->fetchOne();
-
-        if ($current_stage) {
-            //1. If stage has default reviewers, assign them
+        try {
             $q = Doctrine_Query::create()
-                ->from("WorkflowReviewers a")
-                ->where("a.workflow_id = ?", $application->getApproved());
-            $workflow_reviewers = $q->execute();
+                ->from('SubMenus a')
+                ->where('a.id = ?', $application->getApproved())
+                ->limit(1);
 
-            foreach ($workflow_reviewers as $reviewer) {
-                //If already assigned then skip
+            $current_stage = $q->fetchOne();
+
+            if ($current_stage) {
+                //1. If stage has default reviewers, assign them
                 $q = Doctrine_Query::create()
-                    ->from("Task a")
-                    ->where("a.status = 1")
-                    ->andWHere("a.owner_user_id = ?", $reviewer->getReviewerId());
+                    ->from("WorkflowReviewers a")
+                    ->where("a.workflow_id = ?", $application->getApproved());
+                $workflow_reviewers = $q->execute();
 
-                if ($q->count() > 0) {
-                    continue;
+                foreach ($workflow_reviewers as $reviewer) {
+                    //If already assigned then skip
+                    $q = Doctrine_Query::create()
+                        ->from("Task a")
+                        ->where("a.status = 1")
+                        ->andWHere("a.owner_user_id = ?", $reviewer->getReviewerId());
+
+                    if ($q->count() > 0) {
+                        continue;
+                    }
+
+                    $task = new Task();
+                    $task->setType(2);
+                    $task->setCreatorUserId($reviewer->getReviewerId());
+                    $task->setOwnerUserId($reviewer->getReviewerId());
+                    $task->setDuration("0");
+                    $task->setStartDate(date('Y-m-d'));
+                    $task->setEndDate("");
+                    $task->setPriority('3');
+                    $task->setIsLeader("0");
+                    $task->setActive("1");
+                    $task->setStatus("1");
+                    $task->setLastUpdate(date('Y-m-d'));
+                    $task->setDateCreated(date('Y-m-d'));
+                    $task->setRemarks("");
+                    $task->setTaskStage($application->getApproved());
+                    $task->setApplicationId($application->getId());
+                    $task->save();
                 }
 
-                $task = new Task();
-                $task->setType(2);
-                $task->setCreatorUserId($reviewer->getReviewerId());
-                $task->setOwnerUserId($reviewer->getReviewerId());
-                $task->setDuration("0");
-                $task->setStartDate(date('Y-m-d'));
-                $task->setEndDate("");
-                $task->setPriority('3');
-                $task->setIsLeader("0");
-                $task->setActive("1");
-                $task->setStatus("1");
-                $task->setLastUpdate(date('Y-m-d'));
-                $task->setDateCreated(date('Y-m-d'));
-                $task->setRemarks("");
-                $task->setTaskStage($application->getApproved());
-                $task->setApplicationId($application->getId());
-                $task->save();
-            }
+                //2. Check if all invoices are paid and application needs movement
+                $invoice_manager = new InvoiceManager();
 
-            //2. Check if all invoices are paid and application needs movement
-            $invoice_manager = new InvoiceManager();
-
-            if (!$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->invoice_count($application->getId()) > 0) {
-                if ($current_stage->getStageType() == 3) {
-                    if ($current_stage->getStageProperty() == 2) {
-                        //Move application to another stage
-                        $next_stage = $current_stage->getStageTypeMovement();
-                        $application->setApproved($next_stage);
-                        //$application->save();
+                if (!$invoice_manager->has_unpaid_invoice($application->getId()) && $invoice_manager->invoice_count($application->getId()) > 0) {
+                    if ($current_stage->getStageType() == 3) {
+                        if ($current_stage->getStageProperty() == 2) {
+                            //Move application to another stage
+                            $next_stage = $current_stage->getStageTypeMovement();
+                            $application->setApproved($next_stage);
+                            //$application->save();
+                        }
                     }
                 }
-            }
 
-            //3. If all tasks are complete then move to the next stage
-            if ($current_stage->getStageType() == 2) {
-                if ($current_stage->getStageProperty() == 2) {
-                    $q = Doctrine_Query::create()
-                        ->from("Task a")
-                        ->where("a.application_id = ?", $application->getId());
-                    $total_tasks = $q->count();
-
-                    $q = Doctrine_Query::create()
-                        ->from("Task a")
-                        ->where("a.status = ?", 1)
-                        ->andWhere("a.application_id = ?", $application->getId());
-                    $total_pending_tasks = $q->count();
-
-                    $q = Doctrine_Query::create()
-                        ->from("ServiceInspections a")
-                        ->where("a.stage_id = ?", $current_stage->getId());
-                    $inspections_required = $q->execute();
-
-                    $all_inspections_done = true;
-
-                    foreach ($inspections_required as $required_inspection) {
-                        $done = false;
+                //3. If all tasks are complete then move to the next stage
+                if ($current_stage->getStageType() == 2) {
+                    if ($current_stage->getStageProperty() == 2) {
+                        $q = Doctrine_Query::create()
+                            ->from("Task a")
+                            ->where("a.application_id = ?", $application->getId());
+                        $total_tasks = $q->count();
 
                         $q = Doctrine_Query::create()
-                            ->from("Inspections a")
-                            ->where("a.stage_id = ?", $current_stage->getId())
-                            ->andWhere("a.application_id = ?", $application->getId())
-                            ->andWhere("a.department_id = ?", $required_inspection->getDepartmentId());
-                        $inspections = $q->execute();
+                            ->from("Task a")
+                            ->where("a.status = ?", 1)
+                            ->andWhere("a.application_id = ?", $application->getId());
+                        $total_pending_tasks = $q->count();
 
-                        foreach ($inspections as $inspection) {
+                        $q = Doctrine_Query::create()
+                            ->from("ServiceInspections a")
+                            ->where("a.stage_id = ?", $current_stage->getId());
+                        $inspections_required = $q->execute();
+
+                        $all_inspections_done = true;
+
+                        foreach ($inspections_required as $required_inspection) {
+                            $done = false;
+
                             $q = Doctrine_Query::create()
-                                ->from("Task a")
-                                ->where("a.id = ?", $inspection->getTaskId());
-                            $task = $q->fetchOne();
+                                ->from("Inspections a")
+                                ->where("a.stage_id = ?", $current_stage->getId())
+                                ->andWhere("a.application_id = ?", $application->getId())
+                                ->andWhere("a.department_id = ?", $required_inspection->getDepartmentId());
+                            $inspections = $q->execute();
 
-                            if ($task->getStatus() != 1) {
-                                $done = true;
+                            foreach ($inspections as $inspection) {
+                                $q = Doctrine_Query::create()
+                                    ->from("Task a")
+                                    ->where("a.id = ?", $inspection->getTaskId());
+                                $task = $q->fetchOne();
+
+                                if ($task->getStatus() != 1) {
+                                    $done = true;
+                                }
+                            }
+
+                            if ($done == false) {
+                                $all_inspections_done = false;
                             }
                         }
 
-                        if ($done == false) {
-                            $all_inspections_done = false;
+                        if ($all_inspections_done && $total_pending_tasks == 0 && $total_tasks > 0) {
+                            //Move application to another stage
+                            $next_stage = $current_stage->getStageTypeMovement();
+                            $application->setApproved($next_stage);
+                            //$application->save();
                         }
-                    }
-
-                    if ($all_inspections_done && $total_pending_tasks == 0 && $total_tasks > 0) {
-                        //Move application to another stage
-                        $next_stage = $current_stage->getStageTypeMovement();
-                        $application->setApproved($next_stage);
-                        //$application->save();
                     }
                 }
-            }
-            //OTB Start - Add trigger for changing application number
-            //4. If stage has change identifier set as true, change identifier and start as required
-            if ($current_stage->getChangeIdentifier() == 1) {
-                if ($current_stage->getChangeIdentifierCondition() && $application->getFormId()) {
-                    if ($application->getFormId() == $current_stage->getChangeFieldForm()) {
-                        //Check if condition has been met
-                        $query = "SELECT id, element_" . $current_stage->getChangeFieldElement();
-                        $query .= " from ap_form_" . $current_stage->getChangeFieldForm();
-                        $query .= " WHERE id = " . $application->getEntryId();
-                        $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
-                        //Check if element has options or is a text
-                        $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElement()];
-                        if (is_numeric($element)) {
-                            //Get value
-                            $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $element);
-                            $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue());
-                            if (!is_null($current_stage->getChangeFieldElementValue_1())) {
-                                $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_1());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_2())) {
-                                $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_2());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_3())) {
-                                $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_3());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_4())) {
-                                $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_4());
-                            }
-                            error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
-                            //Compare the two
-                            if (strcmp($value, $condition_value) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier();
-                            } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_1();
-                            } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_2();
-                            } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_3();
-                            } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_4();
+                //OTB Start - Add trigger for changing application number
+                //4. If stage has change identifier set as true, change identifier and start as required
+                if ($current_stage->getChangeIdentifier() == 1) {
+                    if ($current_stage->getChangeIdentifierCondition() && $application->getFormId()) {
+                        if ($application->getFormId() == $current_stage->getChangeFieldForm()) {
+                            //Check if condition has been met
+                            $query = "SELECT id, element_" . $current_stage->getChangeFieldElement();
+                            $query .= " from ap_form_" . $current_stage->getChangeFieldForm();
+                            $query .= " WHERE id = " . $application->getEntryId();
+                            $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
+                            //Check if element has options or is a text
+                            $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElement()];
+                            if (is_numeric($element)) {
+                                //Get value
+                                $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $element);
+                                $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue());
+                                if (!is_null($current_stage->getChangeFieldElementValue_1())) {
+                                    $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_1());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_2())) {
+                                    $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_2());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_3())) {
+                                    $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_3());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_4())) {
+                                    $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElement(), $current_stage->getChangeFieldElementValue_4());
+                                }
+                                error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
+                                //Compare the two
+                                if (strcmp($value, $condition_value) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier();
+                                } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_1();
+                                } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_2();
+                                } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_3();
+                                } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_4();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
                             } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
+                                //element value is a string
+                                if (strcasecmp($element, $current_stage->getChangeFieldElementValue()) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            }
+                        } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_1()) {
+                            //Check if condition has been met
+                            $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_1();
+                            $query .= " from ap_form_" . $current_stage->getChangeFieldForm_1();
+                            $query .= " WHERE id = " . $application->getEntryId();
+                            $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
+                            //Check if element has options or is a text
+                            $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_1()];
+                            if (is_numeric($element)) {
+                                //Get value
+                                $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $element);
+                                $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValueForm_1());
+                                if (!is_null($current_stage->getChangeFieldElementValue_1Form_1())) {
+                                    $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_1Form_1());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_2Form_1())) {
+                                    $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_2Form_1());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_3Form_1())) {
+                                    $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_3Form_1());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_4Form_1())) {
+                                    $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_4Form_1());
+                                }
+                                error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
+                                //Compare the two
+                                if (strcmp($value, $condition_value) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_1();
+                                } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_1Form_1();
+                                } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_2Form_1();
+                                } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_3Form_1();
+                                } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_4Form_1();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            } else {
+                                //element value is a string
+                                if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_1()) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_1();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            }
+                        } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_2()) {
+                            //Check if condition has been met
+                            $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_2();
+                            $query .= " from ap_form_" . $current_stage->getChangeFieldForm_2();
+                            $query .= " WHERE id = " . $application->getEntryId();
+                            $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
+                            //Check if element has options or is a text
+                            $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_2()];
+                            if (is_numeric($element)) {
+                                //Get value
+                                $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $element);
+                                $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValueForm_2());
+                                if (!is_null($current_stage->getChangeFieldElementValue_1Form_2())) {
+                                    $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_1Form_2());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_2Form_2())) {
+                                    $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_2Form_2());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_3Form_2())) {
+                                    $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_3Form_2());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_4Form_2())) {
+                                    $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_4Form_2());
+                                }
+                                error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
+                                //Compare the two
+                                if (strcmp($value, $condition_value) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_2();
+                                } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_1Form_2();
+                                } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_2Form_2();
+                                } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_3Form_2();
+                                } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_4Form_2();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            } else {
+                                //element value is a string
+                                if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_2()) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_2();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            }
+                        } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_3()) {
+                            //Check if condition has been met
+                            $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_3();
+                            $query .= " from ap_form_" . $current_stage->getChangeFieldForm_3();
+                            $query .= " WHERE id = " . $application->getEntryId();
+                            $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
+                            //Check if element has options or is a text
+                            $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_3()];
+                            if (is_numeric($element)) {
+                                //Get value
+                                $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $element);
+                                $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValueForm_3());
+                                if (!is_null($current_stage->getChangeFieldElementValue_1Form_3())) {
+                                    $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_1Form_3());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_2Form_3())) {
+                                    $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_2Form_3());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_3Form_3())) {
+                                    $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_3Form_3());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_4Form_3())) {
+                                    $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_4Form_3());
+                                }
+                                error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
+                                //Compare the two
+                                if (strcmp($value, $condition_value) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_3();
+                                } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_1Form_3();
+                                } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_2Form_3();
+                                } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_3Form_3();
+                                } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_4Form_3();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            } else {
+                                //element value is a string
+                                if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_3()) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_3();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            }
+                        } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_4()) {
+                            //Check if condition has been met
+                            $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_4();
+                            $query .= " from ap_form_" . $current_stage->getChangeFieldForm_4();
+                            $query .= " WHERE id = " . $application->getEntryId();
+                            $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
+                            //Check if element has options or is a text
+                            $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_4()];
+                            if (is_numeric($element)) {
+                                //Get value
+                                $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $element);
+                                $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValueForm_4());
+                                if (!is_null($current_stage->getChangeFieldElementValue_1Form_4())) {
+                                    $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_1Form_4());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_2Form_4())) {
+                                    $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_2Form_4());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_3Form_4())) {
+                                    $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_3Form_4());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_4Form_4())) {
+                                    $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_4Form_4());
+                                }
+                                error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
+                                //Compare the two
+                                if (strcmp($value, $condition_value) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_4();
+                                } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_1Form_4();
+                                } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_2Form_4();
+                                } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_3Form_4();
+                                } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_4Form_4();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            } else {
+                                //element value is a string
+                                if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_4()) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_4();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            }
+                        } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_5()) {
+                            //Check if condition has been met
+                            $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_5();
+                            $query .= " from ap_form_" . $current_stage->getChangeFieldForm_5();
+                            $query .= " WHERE id = " . $application->getEntryId();
+                            $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
+                            //Check if element has options or is a text
+                            $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_5()];
+                            if (is_numeric($element)) {
+                                //Get value
+                                $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $element);
+                                $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValueForm_5());
+                                if (!is_null($current_stage->getChangeFieldElementValue_1Form_5())) {
+                                    $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_1Form_5());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_2Form_5())) {
+                                    $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_2Form_5());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_3Form_5())) {
+                                    $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_3Form_5());
+                                }
+                                if (!is_null($current_stage->getChangeFieldElementValue_4Form_5())) {
+                                    $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_4Form_5());
+                                }
+                                error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
+                                //Compare the two
+                                if (strcmp($value, $condition_value) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_5();
+                                } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_1Form_5();
+                                } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_2Form_5();
+                                } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_3Form_5();
+                                } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifier_4Form_5();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
+                            } else {
+                                //element value is a string
+                                if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_5()) == 0) {
+                                    $app_identifier = $current_stage->getConditionalIdentifierForm_5();
+                                } else {
+                                    //Return default
+                                    $app_identifier = $current_stage->getNewIdentifier();
+                                }
                             }
                         } else {
-                            //element value is a string
-                            if (strcasecmp($element, $current_stage->getChangeFieldElementValue()) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        }
-                    } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_1()) {
-                        //Check if condition has been met
-                        $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_1();
-                        $query .= " from ap_form_" . $current_stage->getChangeFieldForm_1();
-                        $query .= " WHERE id = " . $application->getEntryId();
-                        $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
-                        //Check if element has options or is a text
-                        $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_1()];
-                        if (is_numeric($element)) {
-                            //Get value
-                            $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $element);
-                            $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValueForm_1());
-                            if (!is_null($current_stage->getChangeFieldElementValue_1Form_1())) {
-                                $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_1Form_1());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_2Form_1())) {
-                                $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_2Form_1());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_3Form_1())) {
-                                $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_3Form_1());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_4Form_1())) {
-                                $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_1(), $current_stage->getChangeFieldElementValue_4Form_1());
-                            }
-                            error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
-                            //Compare the two
-                            if (strcmp($value, $condition_value) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_1();
-                            } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_1Form_1();
-                            } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_2Form_1();
-                            } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_3Form_1();
-                            } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_4Form_1();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        } else {
-                            //element value is a string
-                            if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_1()) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_1();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        }
-                    } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_2()) {
-                        //Check if condition has been met
-                        $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_2();
-                        $query .= " from ap_form_" . $current_stage->getChangeFieldForm_2();
-                        $query .= " WHERE id = " . $application->getEntryId();
-                        $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
-                        //Check if element has options or is a text
-                        $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_2()];
-                        if (is_numeric($element)) {
-                            //Get value
-                            $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $element);
-                            $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValueForm_2());
-                            if (!is_null($current_stage->getChangeFieldElementValue_1Form_2())) {
-                                $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_1Form_2());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_2Form_2())) {
-                                $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_2Form_2());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_3Form_2())) {
-                                $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_3Form_2());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_4Form_2())) {
-                                $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_2(), $current_stage->getChangeFieldElementValue_4Form_2());
-                            }
-                            error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
-                            //Compare the two
-                            if (strcmp($value, $condition_value) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_2();
-                            } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_1Form_2();
-                            } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_2Form_2();
-                            } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_3Form_2();
-                            } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_4Form_2();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        } else {
-                            //element value is a string
-                            if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_2()) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_2();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        }
-                    } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_3()) {
-                        //Check if condition has been met
-                        $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_3();
-                        $query .= " from ap_form_" . $current_stage->getChangeFieldForm_3();
-                        $query .= " WHERE id = " . $application->getEntryId();
-                        $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
-                        //Check if element has options or is a text
-                        $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_3()];
-                        if (is_numeric($element)) {
-                            //Get value
-                            $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $element);
-                            $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValueForm_3());
-                            if (!is_null($current_stage->getChangeFieldElementValue_1Form_3())) {
-                                $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_1Form_3());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_2Form_3())) {
-                                $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_2Form_3());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_3Form_3())) {
-                                $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_3Form_3());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_4Form_3())) {
-                                $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_3(), $current_stage->getChangeFieldElementValue_4Form_3());
-                            }
-                            error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
-                            //Compare the two
-                            if (strcmp($value, $condition_value) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_3();
-                            } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_1Form_3();
-                            } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_2Form_3();
-                            } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_3Form_3();
-                            } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_4Form_3();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        } else {
-                            //element value is a string
-                            if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_3()) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_3();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        }
-                    } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_4()) {
-                        //Check if condition has been met
-                        $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_4();
-                        $query .= " from ap_form_" . $current_stage->getChangeFieldForm_4();
-                        $query .= " WHERE id = " . $application->getEntryId();
-                        $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
-                        //Check if element has options or is a text
-                        $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_4()];
-                        if (is_numeric($element)) {
-                            //Get value
-                            $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $element);
-                            $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValueForm_4());
-                            if (!is_null($current_stage->getChangeFieldElementValue_1Form_4())) {
-                                $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_1Form_4());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_2Form_4())) {
-                                $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_2Form_4());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_3Form_4())) {
-                                $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_3Form_4());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_4Form_4())) {
-                                $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_4(), $current_stage->getChangeFieldElementValue_4Form_4());
-                            }
-                            error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
-                            //Compare the two
-                            if (strcmp($value, $condition_value) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_4();
-                            } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_1Form_4();
-                            } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_2Form_4();
-                            } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_3Form_4();
-                            } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_4Form_4();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        } else {
-                            //element value is a string
-                            if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_4()) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_4();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        }
-                    } elseif ($application->getFormId() == $current_stage->getChangeFieldForm_5()) {
-                        //Check if condition has been met
-                        $query = "SELECT id, element_" . $current_stage->getChangeFieldElementForm_5();
-                        $query .= " from ap_form_" . $current_stage->getChangeFieldForm_5();
-                        $query .= " WHERE id = " . $application->getEntryId();
-                        $entry_details = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
-                        //Check if element has options or is a text
-                        $element = $entry_details[0]["element_" . $current_stage->getChangeFieldElementForm_5()];
-                        if (is_numeric($element)) {
-                            //Get value
-                            $value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $element);
-                            $condition_value = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValueForm_5());
-                            if (!is_null($current_stage->getChangeFieldElementValue_1Form_5())) {
-                                $condition_value_1 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_1Form_5());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_2Form_5())) {
-                                $condition_value_2 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_2Form_5());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_3Form_5())) {
-                                $condition_value_3 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_3Form_5());
-                            }
-                            if (!is_null($current_stage->getChangeFieldElementValue_4Form_5())) {
-                                $condition_value_4 = Doctrine_Core::getTable('ApElementOptions')->getElementOptionsValue($application->getFormId(), $current_stage->getChangeFieldElementForm_5(), $current_stage->getChangeFieldElementValue_4Form_5());
-                            }
-                            error_log('---value----' . $value . '----condition_value-----' . $condition_value . '-----condition_value_1----' . $condition_value_1 . '------condition_value_2----' . $condition_value_2 . '-------condition_value_3----' . $condition_value_3 . '-----condition_value_4-----' . $condition_value_4);
-                            //Compare the two
-                            if (strcmp($value, $condition_value) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_5();
-                            } elseif (isset($condition_value_1) && strcmp($value, $condition_value_1) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_1Form_5();
-                            } elseif (isset($condition_value_2) && strcmp($value, $condition_value_2) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_2Form_5();
-                            } elseif (isset($condition_value_3) && strcmp($value, $condition_value_3) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_3Form_5();
-                            } elseif (isset($condition_value_4) && strcmp($value, $condition_value_4) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifier_4Form_5();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
-                        } else {
-                            //element value is a string
-                            if (strcasecmp($element, $current_stage->getChangeFieldElementValueForm_5()) == 0) {
-                                $app_identifier = $current_stage->getConditionalIdentifierForm_5();
-                            } else {
-                                //Return default
-                                $app_identifier = $current_stage->getNewIdentifier();
-                            }
+                            //default
+                            $app_identifier = $current_stage->getNewIdentifier();
                         }
                     } else {
-                        //default
                         $app_identifier = $current_stage->getNewIdentifier();
                     }
-                } else {
-                    $app_identifier = $current_stage->getNewIdentifier();
+                    error_log('--APP identifier--' . $app_identifier . '----');
+                    $new_app_id = str_replace("{Y}", date("Y"), $app_identifier); //OTB Replace, Y in identifier with current year
+                    //OTB ADD Only change no. if current app_id doesn't match the identifier
+                    if (strpos($application->getApplicationId(), $new_app_id) === false):
+                        $starting_number = $current_stage->getNewIdentifierStart();
+                        error_log('--APP identifier Year replaced--' . $new_app_id . '----');
+                        $q = Doctrine_Query::create()
+                            ->from("FormEntry a")
+                            ->where("a.form_id = ? AND a.application_id LIKE ?", array($application->getFormId(), "%" . $new_app_id . "%"))
+                            ->orderBy("a.application_id DESC");
+                        $other_submissions = $q->count();
+
+                        if ($other_submissions > 0 && $starting_number) {
+                            $last_entry = $q->fetchOne();
+                            $new_app_id = $this->change_identifier_number_generator($new_app_id, $last_entry);
+                            //$new_app_id++;
+                        } else if ($starting_number) {
+                            $new_app_id = $new_app_id . $starting_number;
+                        } else //if starting number is null, then only replace the identifier (prefix) of the app number. (separator must be included in prefix)
+                        {
+                            $arr = explode(substr($current_stage->getNewIdentifier(), -1), $application->getApplicationId(), 2);
+                            $new_app_id = $new_app_id . $arr[1];
+                        }
+                        error_log('--APP identifier final--' . $new_app_id . '----');
+                        //Save old app no and set
+                        if ($application->getId()) {
+                            Doctrine_Manager::getInstance()->getCurrentConnection()->execute("Insert into application_number_history (form_entry_id,application_number) Values ('" . $application->getId() . "','" . $application->getApplicationId() . "')");
+                        }
+                        $application->setApplicationId($new_app_id);
+                        //$application->save();
+                    endif;
                 }
-                error_log('--APP identifier--' . $app_identifier . '----');
-                $new_app_id = str_replace("{Y}", date("Y"), $app_identifier); //OTB Replace, Y in identifier with current year
-                //OTB ADD Only change no. if current app_id doesn't match the identifier
-                if (strpos($application->getApplicationId(), $new_app_id) === false):
-                    $starting_number = $current_stage->getNewIdentifierStart();
-                    error_log('--APP identifier Year replaced--' . $new_app_id . '----');
-                    $q = Doctrine_Query::create()
-                        ->from("FormEntry a")
-                        ->where("a.form_id = ? AND a.application_id LIKE ?", array($application->getFormId(), "%" . $new_app_id . "%"))
-                        ->orderBy("a.application_id DESC");
-                    $other_submissions = $q->count();
+                //OTB End - Add trigger for changing application number
 
-                    if ($other_submissions > 0 && $starting_number) {
-                        $last_entry = $q->fetchOne();
-                        $new_app_id = $this->change_identifier_number_generator($new_app_id, $last_entry);
-                        //$new_app_id++;
-                    } else if ($starting_number) {
-                        $new_app_id = $new_app_id . $starting_number;
-                    } else //if starting number is null, then only replace the identifier (prefix) of the app number. (separator must be included in prefix)
-                    {
-                        $arr = explode(substr($current_stage->getNewIdentifier(), -1), $application->getApplicationId(), 2);
-                        $new_app_id = $new_app_id . $arr[1];
-                    }
-                    error_log('--APP identifier final--' . $new_app_id . '----');
-                    //Save old app no and set
-                    if ($application->getId()) {
-                        Doctrine_Manager::getInstance()->getCurrentConnection()->execute("Insert into application_number_history (form_entry_id,application_number) Values ('" . $application->getId() . "','" . $application->getApplicationId() . "')");
-                    }
-                    $application->setApplicationId($new_app_id);
-                    //$application->save();
-                endif;
             }
-            //OTB End - Add trigger for changing application number
-
+        } catch (Exception $error) {
+            error_log("Execute triggers --->" . $error->getMessage());
         }
     }
 

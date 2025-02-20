@@ -63,7 +63,7 @@ class signonActions extends sfActions
             
             $stream_response = $stream->sendRequest([
                 'url' => $url,
-                'method' => 'POST', // GET, POST, PUT, DELETE,
+                'method' => 'POST',
                 'ssl' => 'none',
                 'contentType' => 'json',
                 'data' => [

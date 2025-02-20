@@ -1097,9 +1097,10 @@ class ApplicationManager
             }
 
             error_log("Movement history send sms recorded.");
-
-            $movement_history->setIsSmsSent(1);
-            $movement_history->save();
+            if ($movement_history) {
+                $movement_history->setIsSmsSent(1);
+                $movement_history->save();
+            }
         }
     }
 

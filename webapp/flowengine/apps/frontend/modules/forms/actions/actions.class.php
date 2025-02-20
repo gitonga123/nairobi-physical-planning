@@ -367,6 +367,14 @@ class formsActions extends sfActions
                   $this->invoice->getId()
             );
 
+            error_log("Create bill action reference details --->");
+            error_log(json_encode($create_bill_action));
+            
+            if (isset($create_bill_action['bill_ref'])) {
+                  $this->invoice->setDocRefNumber($create_bill_action['bill_ref']);
+                  $this->invoice->save();
+            }
+
             $callback_url = sfConfig::get('app_amkatek_callback_payment');
 
             error_log("Callback url --->{$callback_url}");
@@ -407,10 +415,7 @@ class formsActions extends sfActions
                   $transaction->save();
 
                   $this->invoice->setTransactionId($query_response->content["ref"]);
-                  if ($create_bill_action['success']) {
-                        $this->invoice->setDocRefNumber($create_bill_action['bill_ref']);
-                  }
-                  $this->invoice->save();
+
             }
 
             return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));

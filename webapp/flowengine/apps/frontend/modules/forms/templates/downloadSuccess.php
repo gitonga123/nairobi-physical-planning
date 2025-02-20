@@ -295,7 +295,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	#$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/".$target_file;
 	//$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
 	// $link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
-	$link = "/plan/forms/download?q=" . $_GET['q'];
+	$link = "https://sisibopay.uasingishu.go.ke/plan/forms/download?q=" . $_GET['q'];
 
 	$filename = $PNG_TEMP_DIR . 'test' . md5($link . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
 
@@ -380,14 +380,14 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 
 
 		/*if($element_file_qr_all_pages != 1){//If this file field is not set to mark qr on all pages, set pasges to first page only
-					 if($page_count == 1){
-						 $pdf->Write(0,"Scan QR code to confirm authenticity");
-						 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-					 }
-				 }else{
-					 $pdf->Write(0,"Scan QR code to confirm authenticity");
-					 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-				 }*/
+								 if($page_count == 1){
+									 $pdf->Write(0,"Scan QR code to confirm authenticity");
+									 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
+								 }
+							 }else{
+								 $pdf->Write(0,"Scan QR code to confirm authenticity");
+								 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
+							 }*/
 		$page_count++;
 	}
 	//remove the element_x-xx- suffix we added to all uploaded files

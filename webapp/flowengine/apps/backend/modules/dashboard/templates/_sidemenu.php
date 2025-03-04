@@ -135,7 +135,7 @@ $site_settings = Functions::site_settings();
     <?php
     }
 
-    if ($sf_user->mfHasCredential("access_reports")) {
+    if ($sf_user->mfHasCredential("access_reports_updated")) {
     ?>
       <li class="nav-parent <?php if ($sf_context->getModuleName() == "reports") {
                               echo "nav-active active";

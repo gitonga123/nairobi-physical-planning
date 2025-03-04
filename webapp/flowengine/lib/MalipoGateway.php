@@ -363,7 +363,7 @@ class MalipoGateway
 			return 'invoice_not_found';
 		}
 
-		$transaction->setPaymentMerchantType('SisiboPay - ' . $response['mode_of_payment']);
+		$transaction->setPaymentMerchantType('SISIBOPay - ' . $response['mode_of_payment']);
 
 		$transaction->setPaymentStatus('paid');
 		$transaction->setPaymentDate(date("Y-m-d H:i:s"));

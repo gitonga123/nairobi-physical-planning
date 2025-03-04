@@ -931,13 +931,13 @@ function mf_get_entry_details($dbh, $form_id, $entry_id, $options = array())
 
 							if ($show_image_preview === true && $is_image_file) {
 								if (!empty($options['machform_path'])) { //if the form is called from advanced form code
-									$entry_details[$i]['value'] .= '<img src="/plan/forms/viewimg?q=' . $q_string . '" style="max-width: 350px;margin: 15px 0;" /><br/><a class="entry_link" href="/plan/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
+									$entry_details[$i]['value'] .= '<img src="/index.php/forms/viewimg?q=' . $q_string . '" style="max-width: 350px;margin: 15px 0;" /><br/><a class="entry_link" href="/index.php/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
 								} else {
-									$entry_details[$i]['value'] .= '<img src="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/plan/forms/viewimg?q=' . $q_string . '" style="max-width: 350px;margin: 15px 0;" /><br/><a class="entry_link" href="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/plan/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
+									$entry_details[$i]['value'] .= '<img src="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/index.php/forms/viewimg?q=' . $q_string . '" style="max-width: 350px;margin: 15px 0;" /><br/><a class="entry_link" href="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/index.php/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
 								}
 							} else {
 								if (!empty($options['machform_path'])) { //if the form is called from advanced form code
-									$entry_details[$i]['value'] .= '<a class="entry_link" href="/plan/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
+									$entry_details[$i]['value'] .= '<a class="entry_link" href="/index.php/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
 								} else {
 									$signed_file_name = str_replace($actual_file_name, str_replace('.pdf', '--signed.pdf', $actual_file_name), $actual_file_name);
 									$signed_file_path = "asset_data/form_$form_id/files/$signed_file_name";
@@ -946,7 +946,7 @@ function mf_get_entry_details($dbh, $form_id, $entry_id, $options = array())
 									$can_sign_attachment = in_array($element_id, $my_allowed_signing_fields);
 
 									if (!$_is_signed) {
-										$entry_details[$i]['value'] .= '<a class="entry_link" href="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/plan/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
+										$entry_details[$i]['value'] .= '<a class="entry_link" href="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/index.php/forms/download?q=' . $q_string . '">' . $filename_value . '</a><br/>';
 									} else {
 										$entry_details[$i]['value'] .= '<a class="entry_link btn" href="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/' . $signed_file_path . '" download="' . $filename_value . '">' . str_replace('.pdf', '--signed.pdf', $filename_value) . '</a><br/>';
 									}

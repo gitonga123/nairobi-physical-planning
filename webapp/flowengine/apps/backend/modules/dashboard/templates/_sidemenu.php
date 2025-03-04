@@ -53,7 +53,7 @@ $site_settings = Functions::site_settings();
     <?php
     }
 
-    if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("has_hod_access")) {
+    if ($sf_user->mfHasCredential("access_reviewers")) {
     ?>
       <li <?php if ($sf_context->getModuleName() == "users") {
             echo "class='active'";

@@ -295,7 +295,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	#$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/".$target_file;
 	//$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
 	// $link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
-	$link = "https://sisibopay.uasingishu.go.ke/plan/forms/download?q=" . $_GET['q'];
+	$link = "/plan/forms/download?q=" . $_GET['q'];
 
 	$filename = $PNG_TEMP_DIR . 'test' . md5($link . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
 

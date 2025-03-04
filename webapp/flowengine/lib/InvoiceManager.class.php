@@ -73,6 +73,9 @@ class InvoiceManager
 
             //replace src=" for images with src="http://localhost
             $invoice_content = str_replace('src="', 'src="http' . $ssl_suffix . '://' . $_SERVER['HTTP_HOST'] . '/', $invoice_content);
+            error_log("Invoice content is --->");
+
+            error_log($invoice_content);
         }
 
         $html .= $invoice_content;

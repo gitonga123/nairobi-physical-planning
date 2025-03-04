@@ -321,7 +321,7 @@ class formsActions extends sfActions
                   //Update transaction details
                   $transaction->setStatus(1);
                   $transaction->setPaymentStatus("pending");
-                  $transaction->setPaymentMerchantType('Jambo Pay');
+                  $transaction->setPaymentMerchantType('SISIBOPAY');
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
                   $transaction->setInvoiceId($this->invoice->getId());
                   $transaction->setPaymentCurrency('KES');
@@ -336,7 +336,7 @@ class formsActions extends sfActions
                   $transaction->setPaymentId($billing_reference_number);
                   $transaction->setDateCreated(date("Y-m-d H:i:s"));
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
-                  $transaction->setPaymentMerchantType('Jambo Pay');
+                  $transaction->setPaymentMerchantType('SISIBOPAY');
                   $transaction->setPaymentTestMode("0");
                   $transaction->setPaymentDate(date("Y-m-d H:i:s"));
                   $transaction->setInvoiceId($this->invoice->getId());
@@ -613,7 +613,7 @@ class formsActions extends sfActions
 
             $stream = new Stream();
 
-            error_log("Checkout Jambo Pay URL --->{$url}");
+            error_log("Checkout SISIBO Pay URL --->{$url}");
 
             $query_response = $stream->sendRequest([
                   'url' => $url,

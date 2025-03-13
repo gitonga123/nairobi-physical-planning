@@ -343,10 +343,12 @@ class MalipoGateway
 		error_log($response['bill_number']);
 		error_log($response['reference']);
 
+		$reference = isset($response['reference']) ? $response['reference'] :$response['ref'];
+ 
 		$q = Doctrine_Query::create()
 			->from("ApFormPayments a")
 			->where("a.payment_id = ?", $response['bill_number'])
-			->where("a.narration = ?", $response['reference'])
+			->where("a.narration = ?", $reference)
 			->orderBy('a.afp_id desc');
 		$transaction = $q->fetchOne();
 

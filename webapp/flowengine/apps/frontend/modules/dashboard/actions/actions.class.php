@@ -93,6 +93,8 @@ class dashboardActions extends sfActions
 			->where("a.circulation_id = ?", $this->getUser()->getGuardUser()->getId())
 			->limit(2);
 		$this->transferring_applications = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Home");
 		$this->setLayout("layoutmentordash");
 	}
 	public function executeApplicationslist(sfWebRequest $request)

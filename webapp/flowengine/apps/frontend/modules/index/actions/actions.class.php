@@ -39,6 +39,8 @@ class indexActions extends sfActions
         {
             return $this->redirect("/plan/errors/notfound");
         }
+
+        $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Home");
         $this->setLayout('layouthomentor') ;
     }
 

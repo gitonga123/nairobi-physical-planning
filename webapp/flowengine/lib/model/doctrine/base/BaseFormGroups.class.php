@@ -71,7 +71,7 @@ abstract class BaseFormGroups extends sfDoctrineRecord
                'autoincrement' => false,
                'length' => '',
           ));
-          $this->hasColumn('order_id', 'integer', 4, array(
+          $this->hasColumn('ordering', 'integer', 4, array(
                'type' => 'integer',
                'fixed' => 0,
                'unsigned' => false,

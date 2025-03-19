@@ -57,7 +57,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
 									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-									->orderBy('a.ordering DESC');
+									->orderBy('a.ordering ASC');
 							}
 							$forms = $q->execute();
 							foreach ($forms as $form) {

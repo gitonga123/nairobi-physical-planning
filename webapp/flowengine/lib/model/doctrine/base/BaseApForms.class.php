@@ -509,1597 +509,1607 @@ Doctrine_Manager::getInstance()->bindComponent('ApForms', 'doctrine');
  */
 abstract class BaseApForms extends sfDoctrineRecord
 {
-    public function setTableDefinition()
-    {
-        $this->setTableName('ap_forms');
-        $this->hasColumn('form_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => true,
-             'autoincrement' => true,
-             'length' => 4,
-             ));
-        $this->hasColumn('logic_permission_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('logic_workflow_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('form_name', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_description', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_name_hide', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('form_email', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_redirect', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_success_message', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_password', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('form_unique_ip', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_frame_height', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_has_css', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_captcha', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_active', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_review', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_default_application', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('esl_from_name', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esl_from_email_address', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('esl_subject', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esl_content', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esl_plain_text', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('esr_email_address', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('esr_from_name', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esr_from_email_address', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('esr_subject', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esr_content', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esr_plain_text', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_tags', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_redirect_enable', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_unique_ip_maxcount', 'integer', 11, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 11,
-             ));
-        $this->hasColumn('form_unique_ip_period', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_captcha_type', 'string', 1, array(
-             'type' => 'string',
-             'fixed' => 1,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'r',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('form_theme_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_resume_enable', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_resume_subject', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Submit',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_resume_content', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Submit',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_resume_from_name', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Submit',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_resume_from_email_address', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Submit',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_custom_script_enable', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_custom_script_url', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Submit',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_limit_enable', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_limit', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_label_alignment', 'string', 11, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'top_label',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 11,
-             ));
-        $this->hasColumn('form_language', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('form_page_total', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_lastpage_title', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_submit_primary_text', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Submit',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_submit_secondary_text', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Previous',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_submit_primary_img', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_submit_secondary_img', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_submit_use_image', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_review_primary_text', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Submit',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_review_secondary_text', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'Previous',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_review_primary_img', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_review_secondary_img', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_review_use_image', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_review_title', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_review_description', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('form_pagination_type', 'string', 11, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'steps',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 11,
-             ));
-        $this->hasColumn('form_schedule_enable', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_schedule_start_date', 'date', 25, array(
-             'type' => 'date',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('form_schedule_end_date', 'date', 25, array(
-             'type' => 'date',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('form_schedule_start_hour', 'time', 25, array(
-             'type' => 'time',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('form_schedule_end_hour', 'time', 25, array(
-             'type' => 'time',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('esl_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('esr_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_enable_merchant', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '-1',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_merchant_type', 'string', 25, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'paypal_standard',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('payment_paypal_email', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('payment_paypal_language', 'string', 5, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'US',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 5,
-             ));
-        $this->hasColumn('payment_currency', 'string', 5, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'USD',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 5,
-             ));
-        $this->hasColumn('payment_show_total', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_total_location', 'string', 11, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'top',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 11,
-             ));
-        $this->hasColumn('payment_enable_recurring', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_recurring_cycle', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_recurring_unit', 'string', 5, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'month',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 5,
-             ));
-        $this->hasColumn('payment_price_type', 'string', 11, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'fixed',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 11,
-             ));
-        $this->hasColumn('payment_price_amount', 'decimal', 62, array(
-             'type' => 'decimal',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0.00',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 62,
-             'scale' => '2',
-             ));
-        $this->hasColumn('payment_price_name', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('payment_enable_discount', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('logic_field_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('logic_page_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_enable_trial', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_trial_period', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_trial_unit', 'string', 5, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => 'month',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 5,
-             ));
-        $this->hasColumn('payment_trial_amount', 'decimal', 62, array(
-             'type' => 'decimal',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0.00',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 62,
-             'scale' => '2',
-             ));
-        $this->hasColumn('payment_pesapal_live_secret_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_pesapal_live_public_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_pesapal_test_secret_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_pesapal_test_public_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_pesapal_enable_test_mode', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_paypal_enable_test_mode', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_enable_invoice', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_invoice_email', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('payment_delay_notifications', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '1',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_ask_billing', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_ask_shipping', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_discount_element_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_disabled_message', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('payment_enable_tax', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_tax_rate', 'decimal', 62, array(
-             'type' => 'decimal',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0.00',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 62,
-             'scale' => '2',
-             ));
-        $this->hasColumn('payment_tax_amount', 'float', null, array(
-             'type' => 'float',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('payment_discount_code', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('webhook_enable', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_discount_type', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('payment_discount_amount', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('logic_email_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('form_stage', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_group', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_department', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_department_stage', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_idn', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('form_type', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_code', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('payment_cellulant_checkout_url', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_cellulant_merchant_username', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_cellulant_merchant_password', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_cellulant_service_id', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_jambopay_business', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_jambopay_shared_key', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('logic_webhook_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('logic_success_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('esl_bcc_email_address', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esl_replyto_email_address', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esl_pdf_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('esl_pdf_content', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esr_bcc_email_address', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('esr_replyto_email_address', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('esr_pdf_enable', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('esr_pdf_content', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('payment_enable_setupfee', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_setupfee_amount', 'decimal', 62, array(
-             'type' => 'decimal',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0.00',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 62,
-             'scale' => '2',
-             ));
-        $this->hasColumn('payment_stripe_live_secret_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_stripe_live_public_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_stripe_test_secret_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_stripe_test_public_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_stripe_enable_test_mode', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_stripe_enable_receipt', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_stripe_receipt_element_id', 'integer', 11, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 11,
-             ));
-        $this->hasColumn('payment_authorizenet_live_apiloginid', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_authorizenet_live_transkey', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_authorizenet_test_apiloginid', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_authorizenet_test_transkey', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_authorizenet_enable_test_mode', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_authorizenet_save_cc_data', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_braintree_live_merchant_id', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_braintree_live_public_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_braintree_live_private_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_braintree_live_encryption_key', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('payment_braintree_test_merchant_id', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_braintree_test_public_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_braintree_test_private_key', 'string', 50, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 50,
-             ));
-        $this->hasColumn('payment_braintree_test_encryption_key', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('payment_braintree_enable_test_mode', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_paypal_rest_live_clientid', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_paypal_rest_live_secret_key', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_paypal_rest_test_clientid', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_paypal_rest_test_secret_key', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_paypal_rest_enable_test_mode', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_discount_max_usage', 'integer', 11, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 11,
-             ));
-        $this->hasColumn('payment_discount_expiry_date', 'string', 100, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 100,
-             ));
-        $this->hasColumn('payment_onsubmission ', 'integer', 1, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 1,
-             ));
-        $this->hasColumn('payment_merchant_identifier', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-    }
+     public function setTableDefinition()
+     {
+          $this->setTableName('ap_forms');
+          $this->hasColumn('form_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => true,
+               'autoincrement' => true,
+               'length' => 4,
+          ));
+          $this->hasColumn('logic_permission_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('logic_workflow_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('form_name', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_description', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_name_hide', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('form_email', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_redirect', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_success_message', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_password', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('form_unique_ip', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_frame_height', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_has_css', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_captcha', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_active', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '1',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_review', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_default_application', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('esl_from_name', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esl_from_email_address', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('esl_subject', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esl_content', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esl_plain_text', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('esr_email_address', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('esr_from_name', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esr_from_email_address', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('esr_subject', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esr_content', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esr_plain_text', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_tags', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_redirect_enable', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_unique_ip_maxcount', 'integer', 11, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 11,
+          ));
+          $this->hasColumn('form_unique_ip_period', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_captcha_type', 'string', 1, array(
+               'type' => 'string',
+               'fixed' => 1,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'r',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('form_theme_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_resume_enable', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_resume_subject', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Submit',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_resume_content', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Submit',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_resume_from_name', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Submit',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_resume_from_email_address', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Submit',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_custom_script_enable', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_custom_script_url', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Submit',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_limit_enable', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_limit', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_label_alignment', 'string', 11, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'top_label',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 11,
+          ));
+          $this->hasColumn('form_language', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('form_page_total', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '1',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_lastpage_title', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_submit_primary_text', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Submit',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_submit_secondary_text', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Previous',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_submit_primary_img', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_submit_secondary_img', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_submit_use_image', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_review_primary_text', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Submit',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_review_secondary_text', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'Previous',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_review_primary_img', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_review_secondary_img', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_review_use_image', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_review_title', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_review_description', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('form_pagination_type', 'string', 11, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'steps',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 11,
+          ));
+          $this->hasColumn('form_schedule_enable', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_schedule_start_date', 'date', 25, array(
+               'type' => 'date',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('form_schedule_end_date', 'date', 25, array(
+               'type' => 'date',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('form_schedule_start_hour', 'time', 25, array(
+               'type' => 'time',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('form_schedule_end_hour', 'time', 25, array(
+               'type' => 'time',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('esl_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('esr_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_enable_merchant', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '-1',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_merchant_type', 'string', 25, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'paypal_standard',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('payment_paypal_email', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('payment_paypal_language', 'string', 5, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'US',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 5,
+          ));
+          $this->hasColumn('payment_currency', 'string', 5, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'USD',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 5,
+          ));
+          $this->hasColumn('payment_show_total', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_total_location', 'string', 11, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'top',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 11,
+          ));
+          $this->hasColumn('payment_enable_recurring', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_recurring_cycle', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '1',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_recurring_unit', 'string', 5, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'month',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 5,
+          ));
+          $this->hasColumn('payment_price_type', 'string', 11, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'fixed',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 11,
+          ));
+          $this->hasColumn('payment_price_amount', 'decimal', 62, array(
+               'type' => 'decimal',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0.00',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 62,
+               'scale' => '2',
+          ));
+          $this->hasColumn('payment_price_name', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('payment_enable_discount', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('logic_field_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('logic_page_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_enable_trial', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_trial_period', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '1',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_trial_unit', 'string', 5, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => 'month',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 5,
+          ));
+          $this->hasColumn('payment_trial_amount', 'decimal', 62, array(
+               'type' => 'decimal',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0.00',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 62,
+               'scale' => '2',
+          ));
+          $this->hasColumn('payment_pesapal_live_secret_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_pesapal_live_public_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_pesapal_test_secret_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_pesapal_test_public_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_pesapal_enable_test_mode', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_paypal_enable_test_mode', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_enable_invoice', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_invoice_email', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('payment_delay_notifications', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '1',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_ask_billing', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_ask_shipping', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_discount_element_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_disabled_message', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('payment_enable_tax', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_tax_rate', 'decimal', 62, array(
+               'type' => 'decimal',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0.00',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 62,
+               'scale' => '2',
+          ));
+          $this->hasColumn('payment_tax_amount', 'float', null, array(
+               'type' => 'float',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('payment_discount_code', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('webhook_enable', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_discount_type', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('payment_discount_amount', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('logic_email_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('form_stage', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_group', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_department', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_department_stage', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_idn', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('form_type', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_code', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('payment_cellulant_checkout_url', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_cellulant_merchant_username', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_cellulant_merchant_password', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_cellulant_service_id', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_jambopay_business', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_jambopay_shared_key', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('logic_webhook_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('logic_success_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('esl_bcc_email_address', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esl_replyto_email_address', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esl_pdf_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('esl_pdf_content', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esr_bcc_email_address', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('esr_replyto_email_address', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('esr_pdf_enable', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('esr_pdf_content', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('payment_enable_setupfee', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_setupfee_amount', 'decimal', 62, array(
+               'type' => 'decimal',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0.00',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 62,
+               'scale' => '2',
+          ));
+          $this->hasColumn('payment_stripe_live_secret_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_stripe_live_public_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_stripe_test_secret_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_stripe_test_public_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_stripe_enable_test_mode', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_stripe_enable_receipt', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_stripe_receipt_element_id', 'integer', 11, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 11,
+          ));
+          $this->hasColumn('payment_authorizenet_live_apiloginid', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_authorizenet_live_transkey', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_authorizenet_test_apiloginid', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_authorizenet_test_transkey', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_authorizenet_enable_test_mode', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_authorizenet_save_cc_data', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_braintree_live_merchant_id', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_braintree_live_public_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_braintree_live_private_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_braintree_live_encryption_key', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('payment_braintree_test_merchant_id', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_braintree_test_public_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_braintree_test_private_key', 'string', 50, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 50,
+          ));
+          $this->hasColumn('payment_braintree_test_encryption_key', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('payment_braintree_enable_test_mode', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_paypal_rest_live_clientid', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_paypal_rest_live_secret_key', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_paypal_rest_test_clientid', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_paypal_rest_test_secret_key', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_paypal_rest_enable_test_mode', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_discount_max_usage', 'integer', 11, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 11,
+          ));
+          $this->hasColumn('payment_discount_expiry_date', 'string', 100, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 100,
+          ));
+          $this->hasColumn('payment_onsubmission ', 'integer', 1, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 1,
+          ));
+          $this->hasColumn('payment_merchant_identifier', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('ordering', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => true,
+               'autoincrement' => true,
+               'length' => 4,
+          ));
+     }
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->hasMany('ApFormGroups', array(
-             'local' => 'form_id',
-             'foreign' => 'form_id'));
-    
-        $this->hasMany('FormEntry', array(
-             'local' => 'form_id',
-             'foreign' => 'form_id'));
-		$this->hasOne('ApNumberGenerator', array(
-			'local' => 'form_id',
-			'foreign' => 'form_id'
-		));
-		$this->hasOne('ApMerchantGenerator', array(
-			'local' => 'form_id',
-			'foreign' => 'form_id'
-		));
-		$this->hasMany('ApiContent', array(
-			'local' => 'form_id',
-			'foreign' => 'form_id'
-		));
-		$this->hasMany('ApFormPayments', array(
-			'local' => 'form_id',
-			'foreign' => 'form_id'
-		));
+     public function setUp()
+     {
+          parent::setUp();
+          $this->hasMany('ApFormGroups', array(
+               'local' => 'form_id',
+               'foreign' => 'form_id'
+          ));
+
+          $this->hasMany('FormEntry', array(
+               'local' => 'form_id',
+               'foreign' => 'form_id'
+          ));
+          $this->hasOne('ApNumberGenerator', array(
+               'local' => 'form_id',
+               'foreign' => 'form_id'
+          ));
+          $this->hasOne('ApMerchantGenerator', array(
+               'local' => 'form_id',
+               'foreign' => 'form_id'
+          ));
+          $this->hasMany('ApiContent', array(
+               'local' => 'form_id',
+               'foreign' => 'form_id'
+          ));
+          $this->hasMany('ApFormPayments', array(
+               'local' => 'form_id',
+               'foreign' => 'form_id'
+          ));
           $this->hasMany('sfGuardUserCategoriesForms', array(
-			'local' => 'form_id',
-			'foreign' => 'formid'
-		));
-    }
+               'local' => 'form_id',
+               'foreign' => 'formid'
+          ));
+     }
 }

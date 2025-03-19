@@ -40,6 +40,8 @@ class invoicesActions extends sfActions
         $this->pager->setPage($request->getParameter('page', 1));
         $this->pager->init();
 
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Invoices ");
+
         $this->setLayout("layoutmentordash");
     }
 
@@ -61,6 +63,12 @@ class invoicesActions extends sfActions
             ->from('MfInvoice a')
             ->where('a.id = ?', $request->getParameter("id"));
         $this->invoice = $q->fetchOne();
+
+        if (empty($this->invoice)) {
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Invoice Not Found");
+
+            return $this->redirect("/plan/errors/notfound");
+        }
 
         if ($request->getParameter("confirm") == md5($this->invoice->getId())) {
             $this->invoice->setPaid("15");
@@ -109,6 +117,8 @@ class invoicesActions extends sfActions
             ->from('FormEntry a')
             ->where('a.id = ?', $this->invoice->getAppId());
         $this->application = $q->fetchOne();
+
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Invoice " . $this->invoice->getInvoiceNumber());
 
         $this->setLayout("layoutmentordash");
     }

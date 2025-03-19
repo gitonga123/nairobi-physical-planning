@@ -1,10 +1,27 @@
+<?php
+/**
+ * Frontend Layout.
+ *
+ * Main layout for the frontend
+ *
+ * @package		Frontend
+ * @theme		eCitizen
+ * @author		Webmasters Africa (info@webmastersafrica.com)
+ */
+use_helper("I18N");
+
+//Logout backend users so they don't clash with frontend security & set language
+include_component('index', 'checksession');
+
+$site_settings = Functions::site_settings();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 	<meta charset="utf-8">
-	<title>Uasin Gishu County - Physical Planning Portal</title>
+	<title><?php echo isset($sf_response) ? $sf_response->getTitle() : $site_settings->getOrganisationName(); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicon -->
@@ -68,26 +85,30 @@
 								<ul class="submenu">
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' ? 'active' : ''; ?>">
-										<a href="/plan/forms/groups/">Submit New</a></li>
+										<a href="/plan/forms/groups/">Submit New</a>
+									</li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "correctionsList" ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/correctionsList">Corrections Applications</a></li>
+										<a href="/plan/dashboard/correctionsList">Corrections Applications</a>
+									</li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "applicationslist" ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/applicationslist">All Applications</a></li>
+										<a href="/plan/dashboard/applicationslist">All Applications</a>
+									</li>
 								</ul>
 							</li>
 							<li
 								class="has-submenu <?php echo ($sf_context->getModuleName() == 'dashboard' || $sf_context->getModuleName() == 'invoices') && ($sf_context->getActionName() == "invoiceslist" || $sf_context->getActionName() == "paidinvoices" || $sf_context->getActionName() == "view") ? 'active' : ''; ?>">
-								<a href="/plan/dashboard/invoiceslist">Invoices <i
-										class="fas fa-chevron-down"></i></a>
+								<a href="/plan/dashboard/invoiceslist">Invoices <i class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
 									<li
 										class="<?php echo ($sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "invoiceslist") ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/invoiceslist">Pending Invoices</a></li>
+										<a href="/plan/dashboard/invoiceslist">Pending Invoices</a>
+									</li>
 									<li
 										class="<?php echo $sf_context->getModuleName() == 'dashboard' && $sf_context->getActionName() == "paidinvoices" ? 'active' : ''; ?>">
-										<a href="/plan/dashboard/paidinvoices">Paid Invoices</a></li>
+										<a href="/plan/dashboard/paidinvoices">Paid Invoices</a>
+									</li>
 								</ul>
 							</li>
 							<li
@@ -218,7 +239,9 @@
 							<div class="footer-widget footer-menu">
 								<h2 class="footer-title">County Information</h2>
 								<ul>
-									<li><a href="https://www.info@uasingishu.go.ke/plan/files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance Bill</a></li>
+									<li><a
+											href="https://www.info@uasingishu.go.ke/plan/files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
+											Bill</a></li>
 									<li><a
 											href="https://www.info@uasingishu.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
 											Department</a></li>
@@ -239,14 +262,14 @@
 										<span><i class="fas fa-map-marker-alt"></i></span>
 										<p>
 											Official Contacts
-											<p>
-												<span tel="05320160000">05320160000</span>
-												<br />
-												<span tel="05320130148">05320130148</span>
-												<br />
-												<span tel="+254710646464">+254710 64 64 64</span>
-												<br />
-											</p>
+										<p>
+											<span tel="05320160000">05320160000</span>
+											<br />
+											<span tel="05320130148">05320130148</span>
+											<br />
+											<span tel="+254710646464">+254710 64 64 64</span>
+											<br />
+										</p>
 									</div>
 
 									<p class="mb-0">

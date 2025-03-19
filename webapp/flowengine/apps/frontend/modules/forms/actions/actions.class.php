@@ -53,7 +53,7 @@ class formsActions extends sfActions
       {
             $q = Doctrine_Query::create()
                   ->from('FormGroups a')
-                  ->orderBy('a.group_name ASC');
+                  ->orderBy('a.ordering ASC');
             $this->groups = $q->execute();
 
             if ($request->getParameter("profile")) {
@@ -71,6 +71,8 @@ class formsActions extends sfActions
                   //$this->setLayout("layoutdash");
 
             }
+
+            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Submit Applications");
 
             $this->setLayout("layoutmentordash");
       }
@@ -108,12 +110,16 @@ class formsActions extends sfActions
       {
             $this->current_profile = $this->getUser()->getAttribute("current_profile");
 
+            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Submit Application");
+
             if ($this->current_profile) {
                   $this->setLayout("layoutmentordash");
             } else {
                   //$this->setLayout("layoutformbuilder");
                   $this->setLayout("layoutmentordashsubmit");
             }
+
+            
       }
 
       /**
@@ -125,6 +131,7 @@ class formsActions extends sfActions
        */
       public function executeConfirm(sfWebRequest $request)
       {
+            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Confirm Applications");
             if ($this->getUser()->getAttribute("current_profile")) {
                   $this->setLayout("layoutprofile");
             } else {
@@ -169,6 +176,8 @@ class formsActions extends sfActions
             }
 
             $this->user = Doctrine_Core::getTable('sfGuardUser')->find($this->getUser()->getGuardUser()->getId());
+
+            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Payment");
 
             if ($this->getUser()->getAttribute("current_profile")) {
                   $this->setLayout("layoutprofile");

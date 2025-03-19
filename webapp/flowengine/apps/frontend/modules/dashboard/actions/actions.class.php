@@ -94,7 +94,7 @@ class dashboardActions extends sfActions
 			->limit(2);
 		$this->transferring_applications = $q->execute();
 
-		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Home");
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Dashboard");
 		$this->setLayout("layoutmentordash");
 	}
 	public function executeApplicationslist(sfWebRequest $request)
@@ -108,6 +108,7 @@ class dashboardActions extends sfActions
 			->orderBy('a.id desc');
 
 		$this->all_applications = $q->execute();
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Applications");
 		$this->setLayout("layoutmentordash");
 	}
 	public function executeCorrectionsList(sfWebRequest $request)
@@ -120,6 +121,8 @@ class dashboardActions extends sfActions
 			->andWhere("a.declined = 1")
 			->orderBy("a.id DESC");
 		$this->corrections_applications = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Applications Corrections");
 		$this->setLayout("layoutmentordash");
 	}
 	public function executePlotinformation(sfWebRequest $request)
@@ -173,6 +176,8 @@ class dashboardActions extends sfActions
 			->where("i.paid = ? and e.user_id = ? and e.deleted_status = ? and e.parent_submission =?", [1, $this->getUser()->getGuardUser()->getId(), 0, 0])
 			->orderBy('i.id desc');
 		$this->all_invoices = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Pending Invoices");
 		$this->setLayout("layoutmentordash");
 	}	
 	public function executePaidinvoices(sfWebRequest $request)
@@ -185,6 +190,8 @@ class dashboardActions extends sfActions
 			->where("i.paid = ? and e.user_id = ? and e.deleted_status = ? and e.parent_submission =?", [2, $this->getUser()->getGuardUser()->getId(), 0, 0])
 			->orderBy('i.id desc');
 		$this->all_invoices = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Paid Invoices");
 		$this->setLayout("layoutmentordash");
 	}
 	private function _applicationsQuery($cols = null, $request = null)

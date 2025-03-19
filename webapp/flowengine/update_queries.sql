@@ -14,3 +14,4 @@ ALTER TABLE sub_menus ADD COLUMN distribute_equally boolean DEFAULT FALSE;
 ALTER TABLE `ap_form_elements` ADD COLUMN  `element_subcounty` int(11) default 0;
 ALTER TABLE `mf_invoice` ADD COLUMN `receipt_number` VARCHAR(255) NULL;
 ALTER TABLE `application_reference` ADD COLUMN `is_sms_sent` int(1) DEFAULT 0;
+ALTER TABLE `form_groups` ADD COLUMN `ordering` int(11) DEFAULT 10;

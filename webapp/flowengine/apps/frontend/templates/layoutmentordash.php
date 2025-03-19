@@ -1,10 +1,28 @@
+<?php
+/**
+ * Frontend Layout.
+ *
+ * Main layout for the frontend
+ *
+ * @package		Frontend
+ * @theme		eCitizen
+ * @author		Webmasters Africa (info@webmastersafrica.com)
+ */
+use_helper("I18N");
+
+//Logout backend users so they don't clash with frontend security & set language
+include_component('index', 'checksession');
+
+$site_settings = Functions::site_settings();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 	<meta charset="utf-8">
-	<title>Uasin Gishu County - Physical Planning Portal</title>
+	<title><?php echo isset($sf_response) ? $sf_response->getTitle() : $site_settings->getOrganisationName(); ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicon -->

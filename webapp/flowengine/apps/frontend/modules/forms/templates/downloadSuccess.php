@@ -311,16 +311,18 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 
 	$saved_permit = $helper->getApplicationLatestPermit($app_details->getId());
 
-	$link = 'Approved';
+	$link = "/index.php/forms/download?q=" . $_GET['q'];
+
+	$link_qr = 'Approved';
 
 	if ($saved_permit) {
-		$link = "https://sisibo.uasingishu.go.ke/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId();
+		$link_qr = "https://sisibo.uasingishu.go.ke/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId();
 	}
 
 
 	$filename = $PNG_TEMP_DIR . 'test' . md5($link . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
 
-	QRcode::png($link, $filename, $errorCorrectionLevel, $matrixPointSize, 1);
+	QRcode::png($link_qr, $filename, $errorCorrectionLevel, $matrixPointSize, 1);
 
 	$pieces = explode("/", $filename);
 

@@ -24,6 +24,15 @@ $file_hash = $params['hash'];
 $element_mark_file_with_qr_code = $params['element_mark_file_with_qr_code'];//OTB Africa Add QR on attachments
 $element_file_qr_all_pages = $params['element_file_qr_all_pages'];//OTB Africa Add QR on attachments
 $element_file_qr_page_position = $params['element_file_qr_page_position'];//OTB Africa Add QR on attachments
+
+error_log(json_encode($params));
+
+error_log("element_mark_file_with_qr_code ---->{$element_mark_file_with_qr_code}");
+error_log("element_file_qr_all_pages ---->{$element_file_qr_all_pages}");
+error_log("element_file_qr_page_position ---->{$element_file_qr_page_position}");
+
+error_log("Debug above");
+
 $otbhelper = new OTBHelper();
 $app_details = $otbhelper->getApplicationDetailsUsingCompositeDetails($form_id, $id);
 $stage_approved = $otbhelper->getStageWithSetStageType();
@@ -380,14 +389,14 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 
 
 		/*if($element_file_qr_all_pages != 1){//If this file field is not set to mark qr on all pages, set pasges to first page only
-								 if($page_count == 1){
-									 $pdf->Write(0,"Scan QR code to confirm authenticity");
-									 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-								 }
-							 }else{
-								 $pdf->Write(0,"Scan QR code to confirm authenticity");
-								 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-							 }*/
+									   if($page_count == 1){
+										   $pdf->Write(0,"Scan QR code to confirm authenticity");
+										   $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
+									   }
+								   }else{
+									   $pdf->Write(0,"Scan QR code to confirm authenticity");
+									   $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
+								   }*/
 		$page_count++;
 	}
 	//remove the element_x-xx- suffix we added to all uploaded files

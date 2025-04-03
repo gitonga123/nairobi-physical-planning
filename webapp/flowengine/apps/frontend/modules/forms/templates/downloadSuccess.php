@@ -23,7 +23,7 @@ $file_hash = $params['hash'];
 //OTB ADD
 $element_mark_file_with_qr_code = $params['element_mark_file_with_qr_code'];//OTB Africa Add QR on attachments
 $element_file_qr_all_pages = $params['element_file_qr_all_pages'];//OTB Africa Add QR on attachments
-$element_file_qr_page_position = $params['element_file_qr_page_position'];//OTB Africa Add QR on attachments
+$element_file_qr_page_position = is_null($params['element_file_qr_page_position']) ? "top_right" : $params['element_file_qr_page_position'];//OTB Africa Add QR on attachments
 
 error_log(json_encode($params));
 
@@ -281,6 +281,10 @@ header("Content-Disposition: attachment; filename=\"" . addslashes($header_file)
 header("Content-Transfer-Encoding: binary");
 //OTB Africa Add QR on attachments
 error_log('----$extension--' . $extension . '-----element_mark_file_with_qr_code---' . $element_mark_file_with_qr_code);
+error_log("Extension type is --->{$extension}");
+error_log("Stage Approved ---->{$stage_approved} - Application id {$app_details->getId()}");
+error_log("Check application aproved ----> {$otbhelper->checkApplicationApproved($stage_approved, $app_details->getId())}");
+
 if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkApplicationApproved($stage_approved, $app_details->getId())) {
 	error_log('-------------QR CODE TO BE MARKED----------');
 	#$prefix_folder_fpdf = dirname(__FILE__)."/../../../../../lib/vendor/otbafrica/fpdf/";
@@ -389,14 +393,14 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 
 
 		/*if($element_file_qr_all_pages != 1){//If this file field is not set to mark qr on all pages, set pasges to first page only
-									   if($page_count == 1){
-										   $pdf->Write(0,"Scan QR code to confirm authenticity");
-										   $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-									   }
-								   }else{
-									   $pdf->Write(0,"Scan QR code to confirm authenticity");
-									   $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-								   }*/
+											 if($page_count == 1){
+												 $pdf->Write(0,"Scan QR code to confirm authenticity");
+												 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
+											 }
+										 }else{
+											 $pdf->Write(0,"Scan QR code to confirm authenticity");
+											 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
+										 }*/
 		$page_count++;
 	}
 	//remove the element_x-xx- suffix we added to all uploaded files

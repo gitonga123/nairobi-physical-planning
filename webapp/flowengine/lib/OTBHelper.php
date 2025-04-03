@@ -1495,9 +1495,20 @@ class OTBHelper
         $res = $q->fetchOne();
 
         return $res;
+    }
 
 
+    public function getApplicationLatestPermit($application_id)
+    {
+        $q = Doctrine_Query::create()
+            ->from("SavedPermit a")
+            ->where("a.application_id = ?", $application_id)
+            ->andWhere("a.permit_status <> 3")
+            ->limit(1);
+        $saved_permit = $q->fetchOne();
 
+
+        return $saved_permit;
     }
 
     /**

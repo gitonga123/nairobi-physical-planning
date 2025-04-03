@@ -378,13 +378,13 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 		////// check if application already approved
 		//if(){
 		//error_log("Application approved!! Bar code permitted") ;
-		if ($element_file_qr_all_pages != 1) {//If this file field is not set to mark qr on all pages, set pasges to first page only
+		if ($element_file_qr_all_pages != 1) {//If this file field is not set to mark qr on all pages, set pages to first page only
 			if ($page_count == 1) {
-				$pdf->Write(0, "Scan QR code to confirm authenticity");
+				// $pdf->Write(0, "Scan QR code to confirm authenticity");
 				$pdf->Image($qr_code_image, $x_qr_pos, $y_qr_pos);
 			}
 		} else {
-			$pdf->Write(0, "Scan QR code to confirm authenticity");
+			// $pdf->Write(0, "Scan QR code to confirm authenticity");
 			$pdf->Image($qr_code_image, $x_qr_pos, $y_qr_pos);
 		}
 		//}else{
@@ -392,7 +392,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 		//}
 
 
-		/*if($element_file_qr_all_pages != 1){//If this file field is not set to mark qr on all pages, set pasges to first page only
+		/*if($element_file_qr_all_pages != 1){//If this file field is not set to mark qr on all pages, set pages to first page only
 											 if($page_count == 1){
 												 $pdf->Write(0,"Scan QR code to confirm authenticity");
 												 $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);

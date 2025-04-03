@@ -312,9 +312,9 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	$saved_permit = $helper->getApplicationLatestPermit($app_details->getId());
 
 	$link = 'Approved';
-	
+
 	if ($saved_permit) {
-		$link = "http://" . $_SERVER['HTTP_HOST'] . "/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId();
+		$link = "https://sisibo.uasingishu.go.ke/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId();
 	}
 
 

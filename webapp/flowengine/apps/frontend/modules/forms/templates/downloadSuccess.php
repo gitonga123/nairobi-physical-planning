@@ -316,7 +316,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	$link_qr = 'Approved';
 
 	if ($saved_permit) {
-		$link_qr = "https://usn.malipo.org/index.php/permitchecker/openrequest?permitref=" . $saved_permit->getId();
+		$link_qr = "https://sisibopay.uasingishu.go.ke/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId();
 	}
 
 

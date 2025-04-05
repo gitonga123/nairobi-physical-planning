@@ -282,7 +282,7 @@ header("Content-Transfer-Encoding: binary");
 //OTB Africa Add QR on attachments
 error_log('----$extension--' . $extension . '-----element_mark_file_with_qr_code---' . $element_mark_file_with_qr_code);
 error_log("Extension type is --->{$extension}");
-error_log("Stage Approved ---->{$stage_approved} - Application id {$app_details->getId()}");
+error_log("Stage Approved ---->{json_encode($stage_approved)} - Application id {$app_details->getId()}");
 error_log("Check application aproved ----> {$otbhelper->checkApplicationApproved($stage_approved, $app_details->getId())}");
 
 if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkApplicationApproved($stage_approved, $app_details->getId())) {

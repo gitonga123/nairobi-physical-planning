@@ -24,7 +24,7 @@ function mf_get_entry_values($dbh, $form_id, $entry_id, $use_review_table = fals
 	}
 
 	//get form elements	
-$query = "select 
+	$query = "select 
 					element_id,
 					element_type,
 					element_constraint,
@@ -90,13 +90,13 @@ $query = "select
 		$form_elements[$i]['element_plot_no'] = $row['element_plot_no']; //OTB patch
 		$form_elements[$i]['element_block_no'] = $row['element_block_no']; //OTB patch
 		$form_elements[$i]['element_subcounty'] = $row['element_subcounty']; //OTB patch
-		$form_elements[$i]['element_owner_phone']= $row['element_owner_phone'];
-		$form_elements[$i]['element_owner_address']= $row['element_owner_address'];
-		$form_elements[$i]['element_owner_email']= $row['element_owner_email'];
-		$form_elements[$i]['element_ward']= $row['element_ward'];
-		$form_elements[$i]['element_plot_area']= $row['element_plot_area'];
-		$form_elements[$i]['element_plot_length']= $row['element_plot_length'];
-		$form_elements[$i]['element_plot_width']= $row['element_plot_width'];
+		$form_elements[$i]['element_owner_phone'] = $row['element_owner_phone'];
+		$form_elements[$i]['element_owner_address'] = $row['element_owner_address'];
+		$form_elements[$i]['element_owner_email'] = $row['element_owner_email'];
+		$form_elements[$i]['element_ward'] = $row['element_ward'];
+		$form_elements[$i]['element_plot_area'] = $row['element_plot_area'];
+		$form_elements[$i]['element_plot_length'] = $row['element_plot_length'];
+		$form_elements[$i]['element_plot_width'] = $row['element_plot_width'];
 		$form_elements[$i]['element_ownertype'] = $row['element_ownertype']; //OTB patch
 		$form_elements[$i]['element_table_name'] = $row['element_table_name']; //OTB patch
 		$form_elements[$i]['element_field_value'] = $row['element_field_value']; //OTB patch
@@ -501,13 +501,13 @@ function mf_get_entry_details($dbh, $form_id, $entry_id, $options = array())
 		$form_elements[$i]['element_plot_no'] = $row['element_plot_no']; //OTB patch
 		$form_elements[$i]['element_block_no'] = $row['element_block_no']; //OTB patch
 		$form_elements[$i]['element_subcounty'] = $row['element_subcounty']; //OTB patch
-		$form_elements[$i]['element_owner_phone']= $row['element_owner_phone'];
-		$form_elements[$i]['element_owner_address']= $row['element_owner_address'];
-		$form_elements[$i]['element_owner_email']= $row['element_owner_email'];
-		$form_elements[$i]['element_ward']= $row['element_ward'];
-		$form_elements[$i]['element_plot_area']= $row['element_plot_area'];
-		$form_elements[$i]['element_plot_length']= $row['element_plot_length'];
-		$form_elements[$i]['element_plot_width']= $row['element_plot_width'];
+		$form_elements[$i]['element_owner_phone'] = $row['element_owner_phone'];
+		$form_elements[$i]['element_owner_address'] = $row['element_owner_address'];
+		$form_elements[$i]['element_owner_email'] = $row['element_owner_email'];
+		$form_elements[$i]['element_ward'] = $row['element_ward'];
+		$form_elements[$i]['element_plot_area'] = $row['element_plot_area'];
+		$form_elements[$i]['element_plot_length'] = $row['element_plot_length'];
+		$form_elements[$i]['element_plot_width'] = $row['element_plot_width'];
 		$form_elements[$i]['element_ownertype'] = $row['element_ownertype']; //OTB patch
 		$trans_text = $translation->getOptionTranslationManual("ap_form_elements", "element_guidelines", $form_id, $row['element_id'], $locale);
 		if ($trans_text) {
@@ -520,6 +520,9 @@ function mf_get_entry_details($dbh, $form_id, $entry_id, $options = array())
 		$form_elements[$i]['element_matrix_allow_multiselect'] = $row['matrix_multiselect_status'];
 		$form_elements[$i]['element_existing_stage'] = $row['element_existing_stage'];
 		$form_elements[$i]['element_existing_form'] = $row['element_existing_form'];
+
+		error_log("1. Element mark file with qr code ---> form id {$form_id}----> element_id {$row['element_id']} ----> element mark file with qr code {$row['element_mark_file_with_qr_code']}");
+		error_log(json_encode($row));
 
 		//store element title into array for reference later
 		$element_title_lookup[$row['element_id']] = $row['element_title'];
@@ -690,6 +693,9 @@ function mf_get_entry_details($dbh, $form_id, $entry_id, $options = array())
 		$entry_details[$i]['element_option_query'] = $element_option_query;
 		$entry_details[$i]['element_existing_form'] = $element_existing_form;
 		$entry_details[$i]['element_existing_stage'] = $element_existing_stage;
+
+		error_log("2. Element mark file with qr code ---> form id {$form_id}----> element_id {$element['element_id']} ----> element mark file with qr code {$element['element_mark_file_with_qr_code']}");
+		error_log(json_encode($element));
 
 
 		if ('simple_name' == $element_type) { //Simple Name - 2 elements
@@ -892,6 +898,8 @@ function mf_get_entry_details($dbh, $form_id, $entry_id, $options = array())
 					//encode the long query string for more readibility
 					//OTB Africa Start Add QR on attachments
 					//Check if we should mark with QR code according to field properties
+					error_log("3. Element mark file with qr code ---> form id {$form_id}----> element_id {$element_id} ----> element mark file with qr code {$element_mark_file_with_qr_code} ----> element fire qr all pages ---> {$element_file_qr_all_pages} ---> element file qr page position { $element_file_qr_page_position}");
+					error_log(json_encode($element));
 					if ($element_mark_file_with_qr_code == 1 and $element_file_qr_users == "clients" and empty(sfContext::getInstance()->getUser()->getAttribute('userid'))) {
 						$q_string = base64_encode("form_id={$form_id}&id={$entry_id}&el=element_{$element_id}&element_mark_file_with_qr_code={$element_mark_file_with_qr_code}&element_file_qr_all_pages={$element_file_qr_all_pages}&element_file_qr_page_position={$element_file_qr_page_position}&hash={$filename_md5}");
 					} else if ($element_mark_file_with_qr_code == 1 and $element_file_qr_users == "reviewers" and !empty(sfContext::getInstance()->getUser()->getAttribute('userid'))) {

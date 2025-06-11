@@ -4249,7 +4249,7 @@ class reportsActions extends sfActions
 
     $this->iframe = "{$is_http}://" . sfConfig::get('app_report_url') . '/public/dashboard/' . $request->getParameter('dashboard');
   }
-  public function executeManagement(sfWebRequest $request)
+  public function executeManagementR(sfWebRequest $request)
   {
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
       $is_http = "https";

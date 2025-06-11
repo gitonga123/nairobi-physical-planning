@@ -146,7 +146,7 @@ $site_settings = Functions::site_settings();
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "embed" && $sf_user->mfHasCredential("access_reports_m")) {
                 echo 'class="active"';
               } ?>>
-            <a href="<?php echo url_for('/plan/reports/management?dashboard=788ea657-2af2-4afd-b7a0-1a566dba7373') ?>"><i class="fa fa-area-chart"></i> <span><?php echo __('Management Reports'); ?></span></a>
+            <a href="<?php echo url_for('/plan/reports/managementR?dashboard=788ea657-2af2-4afd-b7a0-1a566dba7373') ?>"><i class="fa fa-area-chart"></i> <span><?php echo __('Management Reports'); ?></span></a>
 
           </li>
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "professionals" && $sf_user->mfHasCredential("access_reports_m")) {

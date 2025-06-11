@@ -143,7 +143,7 @@ $site_settings = Functions::site_settings();
         <ul class="children" <?php if ($sf_context->getModuleName() == "reports") {
                                 echo "style='display: block'";
                               } ?>>
-          <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "embed" && $sf_user->mfHasCredential("access_reports_m")) {
+          <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "managementR" && $sf_user->mfHasCredential("access_reports_m")) {
                 echo 'class="active"';
               } ?>>
             <a href="<?php echo url_for('/plan/reports/managementR?dashboard=788ea657-2af2-4afd-b7a0-1a566dba7373') ?>"><i class="fa fa-area-chart"></i> <span><?php echo __('Management Reports'); ?></span></a>

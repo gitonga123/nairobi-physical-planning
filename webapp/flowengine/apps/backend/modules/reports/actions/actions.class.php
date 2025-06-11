@@ -252,7 +252,7 @@ class reportsActions extends sfActions
     function GetDays($sStartDate, $sEndDate)
     {
       $aDays[] = $start_date;
-      $start_date  = $sStartDate;
+      $start_date = $sStartDate;
       $end_date = $sEndDate;
       $current_date = $start_date;
       while (strtotime($current_date) <= strtotime($end_date)) {
@@ -318,7 +318,7 @@ class reportsActions extends sfActions
           $record_columns[] = $form->getFormCode();
           $record_columns[] = $form->getFormName();
         } else {
-          $record_columns[] =  "-";
+          $record_columns[] = "-";
         }
 
         $record_columns[] = $application->getApplicationId();
@@ -442,7 +442,7 @@ class reportsActions extends sfActions
           $record_columns[] = $form->getFormCode();
           $record_columns[] = $form->getFormName();
         } else {
-          $record_columns[] =  "-";
+          $record_columns[] = "-";
         }
 
         $record_columns[] = $application->getApplicationId();
@@ -544,7 +544,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -595,7 +595,7 @@ class reportsActions extends sfActions
     function GetDays($sStartDate, $sEndDate)
     {
       $aDays[] = $start_date;
-      $start_date  = $sStartDate;
+      $start_date = $sStartDate;
       $end_date = $sEndDate;
       $current_date = $start_date;
       while (strtotime($current_date) <= strtotime($end_date)) {
@@ -681,7 +681,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -857,7 +857,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -961,7 +961,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -1086,7 +1086,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -2114,7 +2114,7 @@ class reportsActions extends sfActions
     function GetDays($sStartDate, $sEndDate)
     {
       $aDays[] = $start_date;
-      $start_date  = $sStartDate;
+      $start_date = $sStartDate;
       $end_date = $sEndDate;
       $current_date = $start_date;
       while (strtotime($current_date) <= strtotime($end_date)) {
@@ -2742,7 +2742,7 @@ class reportsActions extends sfActions
           $record_columns[] = $form->getFormCode();
           $record_columns[] = $form->getFormName();
         } else {
-          $record_columns[] =  "-";
+          $record_columns[] = "-";
         }
 
         $record_columns[] = $application->getApplicationId();
@@ -2888,7 +2888,7 @@ class reportsActions extends sfActions
           $record_columns[] = $form->getFormCode();
           $record_columns[] = $form->getFormName();
         } else {
-          $record_columns[] =  "-";
+          $record_columns[] = "-";
         }
 
         $record_columns[] = $application->getApplicationId();
@@ -2985,7 +2985,7 @@ class reportsActions extends sfActions
     function GetDays($sStartDate, $sEndDate)
     {
       $aDays[] = $start_date;
-      $start_date  = $sStartDate;
+      $start_date = $sStartDate;
       $end_date = $sEndDate;
       $current_date = $start_date;
       while (strtotime($current_date) <= strtotime($end_date)) {
@@ -3051,7 +3051,7 @@ class reportsActions extends sfActions
           $record_columns[] = $form->getFormCode();
           $record_columns[] = $form->getFormName();
         } else {
-          $record_columns[] =  "-";
+          $record_columns[] = "-";
         }
 
         $record_columns[] = $application->getApplicationId();
@@ -3135,7 +3135,7 @@ class reportsActions extends sfActions
     function GetDays($sStartDate, $sEndDate)
     {
       $aDays[] = $start_date;
-      $start_date  = $sStartDate;
+      $start_date = $sStartDate;
       $end_date = $sEndDate;
       $current_date = $start_date;
       while (strtotime($current_date) <= strtotime($end_date)) {
@@ -3301,7 +3301,7 @@ class reportsActions extends sfActions
           $record_columns[] = $form->getFormCode();
           $record_columns[] = $form->getFormName();
         } else {
-          $record_columns[] =  "-";
+          $record_columns[] = "-";
         }
 
         $record_columns[] = $application->getApplicationId();
@@ -3393,7 +3393,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -3432,7 +3432,7 @@ class reportsActions extends sfActions
     function GetDays($sStartDate, $sEndDate)
     {
       $aDays[] = $start_date;
-      $start_date  = $sStartDate;
+      $start_date = $sStartDate;
       $end_date = $sEndDate;
       $current_date = $start_date;
       while (strtotime($current_date) <= strtotime($end_date)) {
@@ -3522,7 +3522,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -3639,7 +3639,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -3735,7 +3735,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -3851,7 +3851,7 @@ class reportsActions extends sfActions
         $record_columns[] = $form->getFormCode();
         $record_columns[] = $form->getFormName();
       } else {
-        $record_columns[] =  "-";
+        $record_columns[] = "-";
       }
 
       $record_columns[] = $application->getApplicationId();
@@ -4054,7 +4054,7 @@ class reportsActions extends sfActions
         if ($form) {
           $record_columns[] = $form->getFormDescription();
         } else {
-          $record_columns[] =  "-";
+          $record_columns[] = "-";
         }
 
         $record_columns[] = $application->getApplicationId();
@@ -4176,7 +4176,8 @@ class reportsActions extends sfActions
   public function executeLogin(sfWebRequest $request)
   {
     $user = $this->validateRequest($request);
-    if ($user === sfView::NONE) return sfView::NONE;
+    if ($user === sfView::NONE)
+      return sfView::NONE;
 
     $time = time();
     $link = sprintf(
@@ -4192,21 +4193,23 @@ class reportsActions extends sfActions
   public function executeUser(sfWebRequest $request)
   {
     $user = $this->validateRequest($request);
-    if ($user === sfView::NONE) return sfView::NONE;
+    if ($user === sfView::NONE)
+      return sfView::NONE;
 
     return $this->json(array(
-      'username'   => 'admin' == $user->getStruserid() ? 'anon' : $user->getStruserid(),
+      'username' => 'admin' == $user->getStruserid() ? 'anon' : $user->getStruserid(),
       'first_name' => 'admin' == $user->getStruserid() ? 'Anonymous' : $user->getStrfirstname(),
-      'last_name'  => 'admin' == $user->getStruserid() ? 'User' : $user->getStrlastname(),
-      'dash_id'    => 1,
-      'email'      => 'admin' == $user->getStruserid() ? 'anon@otbafrica.com' : $user->getStremail()
+      'last_name' => 'admin' == $user->getStruserid() ? 'User' : $user->getStrlastname(),
+      'dash_id' => 1,
+      'email' => 'admin' == $user->getStruserid() ? 'anon@otbafrica.com' : $user->getStremail()
     ));
   }
 
   public function executeGroup(sfWebRequest $request)
   {
     $user = $this->validateRequest($request);
-    if ($user === sfView::NONE) return sfView::NONE;
+    if ($user === sfView::NONE)
+      return sfView::NONE;
 
     $groups = array();
     foreach ($user->getMfGuardUserGroup() as $group)
@@ -4222,7 +4225,7 @@ class reportsActions extends sfActions
     } else {
       $is_http = "http";
     }
-    
+
     $this->iframe = "{$is_http}://" . sfConfig::get('app_report_url') . '/public/dashboard/' . $request->getParameter('dashboard');
   }
 
@@ -4233,9 +4236,9 @@ class reportsActions extends sfActions
     } else {
       $is_http = "http";
     }
-    
+
     $this->iframe = "{$is_http}://" . sfConfig::get('app_report_url') . '/public/dashboard/' . $request->getParameter('dashboard');
-  }  
+  }
   public function executeProfessionals(sfWebRequest $request)
   {
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
@@ -4243,9 +4246,19 @@ class reportsActions extends sfActions
     } else {
       $is_http = "http";
     }
-    
+
     $this->iframe = "{$is_http}://" . sfConfig::get('app_report_url') . '/public/dashboard/' . $request->getParameter('dashboard');
-  }  
+  }
+  public function executeManagement(sfWebRequest $request)
+  {
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+      $is_http = "https";
+    } else {
+      $is_http = "http";
+    }
+
+    $this->iframe = "{$is_http}://" . sfConfig::get('app_report_url') . '/public/dashboard/' . $request->getParameter('dashboard');
+  }
   public function executeSubcountyReports(sfWebRequest $request)
   {
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
@@ -4253,7 +4266,7 @@ class reportsActions extends sfActions
     } else {
       $is_http = "http";
     }
-    
+
     $this->iframe = "{$is_http}://" . sfConfig::get('app_report_url') . '/public/dashboard/' . $request->getParameter('dashboard');
   }
 
@@ -4264,7 +4277,7 @@ class reportsActions extends sfActions
     } else {
       $is_http = "http";
     }
-    
+
     $this->iframe = "{$is_http}://" . sfConfig::get('app_report_url') . '/public/dashboard/' . $request->getParameter('dashboard');
   }
   public function executeQuestion(sfWebRequest $request)
@@ -4280,7 +4293,7 @@ class reportsActions extends sfActions
     if (!($request->getParameter('key') == hash('sha256', $key . $timestamp))) {
       return $this->json(array(
         'success' => false,
-        'error'   => "User not authenticated.",
+        'error' => "User not authenticated.",
       ), 403);
     }
 
@@ -4288,7 +4301,7 @@ class reportsActions extends sfActions
     if (false === $user) {
       return $this->json(array(
         'success' => false,
-        'error'   => "User not found."
+        'error' => "User not found."
       ), 404);
     }
 

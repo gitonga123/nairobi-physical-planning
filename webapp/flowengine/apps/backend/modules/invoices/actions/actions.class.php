@@ -1329,7 +1329,7 @@ class invoicesActions extends sfActions
             error_log("Paid status ---->{$content['status']}");
 
             if (strtolower($content['status']) == 'paid') {
-                $processed = $this->execute_process_payment($$query_response->content);
+                $processed = $this->execute_process_payment($query_response->content);
 
                 if (!$processed) {
                     throw new sfException('Something Went Wrong. Please try again later.', 500);

@@ -1337,11 +1337,11 @@ class invoicesActions extends sfActions
                     throw new sfException('Something Went Wrong. Please try again later.', 500);
                 }
                 $this->getUser()->setFlash('notice', 'Invoice Paid');
-                return $this->redirect('/plan/applications/view/id/' . $invoice_id);
+                return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
             } else {
                 $this->getUser()->setFlash('notice', 'Invoice Still Unpaid');
 
-                return $this->redirect('/plan/applications/view/id/' . $invoice_id);
+                return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
             }
 
         } else {

@@ -353,7 +353,7 @@ class MalipoGateway
 			->orderBy('a.afp_id desc');
 		$transaction = $q->fetchOne();
 
-		if (!$transaction) {
+	if (!$transaction) {
 			return 'transaction_not_found';
 		}
 

@@ -1326,10 +1326,10 @@ class invoicesActions extends sfActions
             $content = $query_response->content;
             error_log("Payment confirmation is ---->");
             error_log(print_r($content, true));
-            error_log("Paid status ---->");
+            error_log("Paid status ---->{$content['status']}");
 
             if (strtolower($content['status']) == 'paid') {
-                $processed = $this->execute_process_payment($content);
+                $processed = $this->execute_process_payment($$query_response->content);
 
                 if (!$processed) {
                     throw new sfException('Something Went Wrong. Please try again later.', 500);
@@ -1347,13 +1347,10 @@ class invoicesActions extends sfActions
         }
     }
 
-    public function execute_process_payment($response)
+    private function execute_process_payment($response)
     {
         try {
             $response = json_decode($response, true);
-
-            var_dump($response);
-            die;
 
             error_log("Callback url coming hot");
 

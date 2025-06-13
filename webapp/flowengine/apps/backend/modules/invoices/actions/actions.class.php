@@ -1352,6 +1352,9 @@ class invoicesActions extends sfActions
         try {
             $response = json_decode($response, true);
 
+            var_dump($response);
+            die;
+
             error_log("Callback url coming hot");
 
             error_log(print_r($response, true));

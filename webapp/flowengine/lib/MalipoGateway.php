@@ -338,14 +338,17 @@ class MalipoGateway
 
 	public function jambo_pay_ipn($response)
 	{
-		var_dump($response);die;
+
+
+		error_log("Bill Number ----->" . $response['bill_number']);
+		error_log("Reference ----->" . $response['reference']);
+
+		var_dump($response);
+		die;
 		error_log("Bill Number details below ---->");
 
-		error_log($response['bill_number']);
-		error_log($response['reference']);
+		$reference = isset($response['reference']) ? $response['reference'] : $response['ref'];
 
-		$reference = isset($response['reference']) ? $response['reference'] :$response['ref'];
- 
 		$q = Doctrine_Query::create()
 			->from("ApFormPayments a")
 			->where("a.payment_id = ?", $response['bill_number'])

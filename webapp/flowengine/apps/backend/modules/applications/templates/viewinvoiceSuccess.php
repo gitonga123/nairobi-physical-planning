@@ -8,15 +8,17 @@
  * @subpackage tasks
  * @author     Webmasters Africa / Thomas Juma (thomas.juma@webmastersafrica.com)
  */
-  use_helper("I18N");
+use_helper("I18N");
 
-  $templateparser = new TemplateParser();
-  $invoice_manager = new InvoiceManager();
+$templateparser = new TemplateParser();
+$invoice_manager = new InvoiceManager();
 
-  $application = $invoice->getFormEntry();
+$application = $invoice->getFormEntry();
 ?>
 <div class="pageheader">
-  <h2><i class="fa fa-th-list"></i> <?php echo __("Tasks"); ?> <span><?php echo $application->getApplicationId(); ?></span></h2>
+  <h2><i class="fa fa-th-list"></i> <?php echo __("Tasks"); ?>
+    <span><?php echo $application->getApplicationId(); ?></span>
+  </h2>
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __("You are here"); ?>:</span>
     <ol class="breadcrumb">
@@ -38,55 +40,53 @@
     <div class="panel-body">
 
 
-    <?php
-    //Displays the user panel
-    include_partial('tasks/task_user_info', array('application' => $application));
-    ?>
+      <?php
+      //Displays the user panel
+      include_partial('tasks/task_user_info', array('application' => $application));
+      ?>
 
 
-    <div class="panel panel-default m-b-0">
+      <div class="panel panel-default m-b-0">
 
-     <div class="panel-heading">
-              <h5 class="bug-key-title"><?php echo $application->getApplicationId(); ?></h5>
-              <div class="panel-title">
-                <?php
-                  $q = Doctrine_Query::create()
-                    ->from("ApForms a")
-                    ->where("a.form_id = ?", $application->getFormId())
-                      ->limit(1);
-                  $form = $q->fetchOne();
-                  if($form)
-                  {
-                      echo $form->getFormName();
-                  }
-                ?>
-              </div>
-       </div>
-
-       <div class="panel-heading text-right">
-            <a class="btn btn-primary btn-sm" id="printinvoice"
-                href="/plan/applications/printinvoice/id/<?php echo $invoice->getId(); ?>"><i
-                        class="fa fa-print"></i></a>
-       </div>
-
-      <div class="panel-body padding-0 panel-bordered" style="border-top:0;">
-        <?php
-            $html = "";
-
-            try {
-                $html = $invoice_manager->generate_invoice_template($invoice->getId(), false);
-            } catch (Exception $ex) {
-                error_log("Debug-t: Invoice Parse Error: " . $ex);
-
-                $html = $invoice_manager->generate_invoice_template_old_parser($invoice->getId(), false);
+        <div class="panel-heading">
+          <h5 class="bug-key-title"><?php echo $application->getApplicationId(); ?></h5>
+          <div class="panel-title">
+            <?php
+            $q = Doctrine_Query::create()
+              ->from("ApForms a")
+              ->where("a.form_id = ?", $application->getFormId())
+              ->limit(1);
+            $form = $q->fetchOne();
+            if ($form) {
+              echo $form->getFormName();
             }
+            ?>
+          </div>
+        </div>
 
-            echo $html;
-        ?>
+        <div class="panel-heading text-right">
+          <a class="btn btn-primary btn-sm" id="printinvoice"
+            href="/plan/applications/printinvoice/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-print"></i></a>
+        </div>
+
+        <div class="panel-body padding-0 panel-bordered" style="border-top:0;">
+          <?php
+          $html = "";
+
+          try {
+            $html = $invoice_manager->generate_invoice_template($invoice->getId(), false);
+          } catch (Exception $ex) {
+            error_log("Debug-t: Invoice Parse Error: " . $ex);
+
+            $html = $invoice_manager->generate_invoice_template_old_parser($invoice->getId(), false);
+          }
+
+          echo $html;
+          ?>
+        </div>
+
       </div>
-
     </div>
   </div>
-</div>
 
 </div>

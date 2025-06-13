@@ -1319,7 +1319,7 @@ class invoicesActions extends sfActions
                 'bill_number' => $billing_reference_number
             ]
         ]);
-
+        error_log(print_r($query_response, true));
 
 
         if ($query_response->status == 200 || $query_response->status == 201) {
@@ -1345,7 +1345,9 @@ class invoicesActions extends sfActions
             }
 
         } else {
-            throw new sfException('Something Went Wrong. Please try again later.', 500);
+            $this->getUser()->setFlash('notice', 'Invoice Still Unpaid');
+
+            return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
         }
     }
 }

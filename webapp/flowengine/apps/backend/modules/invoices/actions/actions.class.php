@@ -1319,7 +1319,7 @@ class invoicesActions extends sfActions
                 'bill_number' => $billing_reference_number
             ]
         ]);
-        error_log(print_r($query_response, true));
+        error_log(print_r($query_response->content, true));
 
 
         if ($query_response->status == 200 || $query_response->status == 201) {

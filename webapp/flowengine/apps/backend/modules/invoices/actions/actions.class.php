@@ -1329,10 +1329,12 @@ class invoicesActions extends sfActions
             error_log("Paid status ---->{$content['status']}");
 
             if (strtolower($content['status']) == 'paid') {
+
+                var_dump($content);die;
                 $ipn = new MalipoGateway();
                 $processing_response = $ipn->jambo_pay_ipn($content);
                 error_log("Processing payment -----> {$processing_response}");
-                
+
                 if ($processing_response == 'transaction_not_found' || $processing_response == 'invoice_not_found') {
                     throw new sfException('Something Went Wrong. Please try again later.', 500);
                 }

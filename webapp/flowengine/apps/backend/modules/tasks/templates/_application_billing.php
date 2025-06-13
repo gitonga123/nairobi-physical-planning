@@ -89,11 +89,17 @@ use_helper("I18N");
 
                             if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('code_access_rights')) {
                                 ?>
-                                <a class="btn btn-success btn-xs" href="/plan/applications/paynow/id/<?php echo $invoice->getId();
+                                <!-- <a class="btn btn-success btn-xs" href="/plan/applications/paynow/id/<?php echo $invoice->getId();
                                 ?>" id="printinvoice" type="button"><i class="fa fa-check mr5"></i>
-                                    <?php echo __("Pay Now");
+                                    <?php //echo __("Pay Now");
+                                            ?></a> -->
+                                <a title="Check if invoice is paid?" class="btn btn-success btn-xs"
+                                    href="/plan/invoices/checkpaymentstatus/id/<?php echo $invoice->getId(); ?>/bill_ref/<?php echo $invoice->getFormEntry()->getFormId() . "" . $invoice->getFormEntry()->getEntryId() . "" . $invoice->getId() ?>"
+                                    id="check_invoice_is_paid" type="button"><i class="fa fa-check mr5"></i>
+                                    <?php echo __("Check Payment Status");
                                     ?></a>
                                 <?php
+
                             }
 
                             if ($invoice->getPaid() <> 3 && $invoice->getPaid() <> 2 && $sf_user->mfHasCredential('code_access_rights')) {

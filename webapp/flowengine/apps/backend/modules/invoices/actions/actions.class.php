@@ -1329,8 +1329,6 @@ class invoicesActions extends sfActions
             error_log("Paid status ---->{$content['status']}");
 
             if (strtolower($content['status']) == 'paid') {
-
-                var_dump($content['bill_number']);die;
                 $ipn = new MalipoGateway();
                 $processing_response = $ipn->jambo_pay_ipn($content);
                 error_log("Processing payment -----> {$processing_response}");

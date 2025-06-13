@@ -338,6 +338,7 @@ class MalipoGateway
 
 	public function jambo_pay_ipn($response)
 	{
+		var_dump($response);die;
 		error_log("Bill Number details below ---->");
 
 		error_log($response['bill_number']);

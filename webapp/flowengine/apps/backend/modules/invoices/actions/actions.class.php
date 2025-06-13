@@ -126,7 +126,7 @@ class invoicesActions extends sfActions
         // Pad the edges of the barcode
         $code_length = 20;
         for ($i = 1; $i <= strlen($code_string); $i++)
-            $code_length = $code_length + (int)(substr($code_string, ($i - 1), 1));
+            $code_length = $code_length + (int) (substr($code_string, ($i - 1), 1));
         if (strtolower($orientation) == "horizontal") {
             $img_width = $code_length;
             $img_height = $size;
@@ -1058,7 +1058,7 @@ class invoicesActions extends sfActions
                 $totalfound = false;
                 foreach ($invoice->getMfInvoiceDetail() as $fee) {
                     $mystring = $fee->getDescription();
-                    $findme   = "Convenience fee";
+                    $findme = "Convenience fee";
                     $pos = strpos($mystring, $findme);
 
                     if ($pos === false) {
@@ -1072,7 +1072,7 @@ class invoicesActions extends sfActions
                     $grand_total = 0;
                     foreach ($invoice->getMfInvoiceDetail() as $fee) {
                         $mystring = $fee->getDescription();
-                        $findme   = "Convenience fee";
+                        $findme = "Convenience fee";
                         $pos = strpos($mystring, $findme);
 
                         if ($pos === false) {
@@ -1229,11 +1229,13 @@ class invoicesActions extends sfActions
         if ($filter) {
             $q->andWhere("a.form_id = ?", $filter);
         }
-        if (null === $cols) return $q;
+        if (null === $cols)
+            return $q;
 
         $search = $request->getParameter('search')['value'];
 
-        if ("" === $search) return $q;
+        if ("" === $search)
+            return $q;
         $sql = [];
         $params = [];
 
@@ -1266,11 +1268,13 @@ class invoicesActions extends sfActions
         if ($filter) {
             $q->andWhere("e.form_id = ?", $filter);
         }
-        if (null === $cols) return $q;
+        if (null === $cols)
+            return $q;
 
         $search = $request->getParameter('search')['value'];
 
-        if ("" === $search) return $q;
+        if ("" === $search)
+            return $q;
         $sql = [];
         $params = [];
 
@@ -1281,5 +1285,109 @@ class invoicesActions extends sfActions
 
         $q->addWhere("(" . implode(" OR ", $sql) . ")", $params);
         return $q;
+    }
+
+    public function executeCheckpaymentstatus(sfWebRequest $request)
+    {
+        $url = sfConfig::get('app_api_jambo_url') . 'api/v1/bill/status/';
+
+        $token = $_SESSION['jambo_token_backend'];
+
+        $stream = new Stream();
+
+
+        $billing_reference_number = $request->getParameter('bill_ref');
+
+        $invoice_id = $request->getParameter('id');
+
+
+        if (!$invoice_id || !$billing_reference_number) {
+            return $this->renderText(json_encode(['status' => 404, 'content' => ['msg' => 'invoice not found.', 'success' => false]]));
+        }
+
+        error_log("Checkout SISIBO Pay URL --->{$url}");
+
+        $query_response = $stream->sendRequest([
+            'url' => $url,
+            'method' => 'POST',
+            'ssl' => 'none',
+            'contentType' => 'json',
+            'headers' => array(
+                "Authorization" => "JWT " . $token,
+            ),
+            'data' => [
+                'bill_number' => $billing_reference_number
+            ]
+        ]);
+
+
+
+        if ($query_response->status == 200 || $query_response->status == 201) {
+            $content = $query_response->content;
+            error_log("Payment confirmation is ---->");
+            error_log(print_r($content, true));
+            error_log("Paid status ---->");
+
+            if (strtolower($content['status']) == 'paid') {
+                $processed = $this->execute_process_payment($content);
+
+                if (!$processed) {
+                    throw new sfException('Something Went Wrong. Please try again later.', 500);
+                }
+                $this->getUser()->setFlash('notice', 'Invoice Paid');
+                return $this->redirect('/plan/applications/view/id/' . $invoice_id);
+            } else {
+                $this->getUser()->setFlash('notice', 'Invoice Still Unpaid');
+
+                return $this->redirect('/plan/applications/view/id/' . $invoice_id);
+            }
+
+        } else {
+            throw new sfException('Something Went Wrong. Please try again later.', 500);
+        }
+    }
+
+    public function execute_process_payment($response)
+    {
+        try {
+            $response = json_decode($response, true);
+
+            error_log("Callback url coming hot");
+
+            error_log(print_r($response, true));
+
+            if (strtolower($response['status']) == 'success') {
+                $ipn = new MalipoGateway();
+                $message = '';
+                $status_code = '';
+
+                $processing_response = $ipn->jambo_pay_ipn($response);
+
+                switch ($processing_response) {
+                    case 'transaction_not_found':
+                        $message = 'Bill Reference not found.';
+                        $status_code = 404;
+                        break;
+                    case 'invoice_not_found':
+                        $message = 'Bill Reference not found.';
+                        $status_code = 404;
+                        break;
+                    case 'paid':
+                        $message = 'Paid';
+                        $status_code = 200;
+                        break;
+                    default:
+                        $message = 'Paid';
+                        $status_code = 200;
+                        break;
+                }
+
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\Exception $error) {
+            return false;
+        }
     }
 }

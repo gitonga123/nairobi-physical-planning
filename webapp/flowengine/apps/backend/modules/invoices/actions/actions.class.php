@@ -1329,9 +1329,11 @@ class invoicesActions extends sfActions
             error_log("Paid status ---->{$content['status']}");
 
             if (strtolower($content['status']) == 'paid') {
-                $processed = $this->execute_process_payment($query_response->content);
-
-                if (!$processed) {
+                $ipn = new MalipoGateway();
+                $processing_response = $ipn->jambo_pay_ipn($content);
+                error_log("Processing payment -----> {$processing_response}");
+                
+                if ($processing_response == 'transaction_not_found' || $processing_response == 'invoice_not_found') {
                     throw new sfException('Something Went Wrong. Please try again later.', 500);
                 }
                 $this->getUser()->setFlash('notice', 'Invoice Paid');
@@ -1344,50 +1346,6 @@ class invoicesActions extends sfActions
 
         } else {
             throw new sfException('Something Went Wrong. Please try again later.', 500);
-        }
-    }
-
-    private function execute_process_payment($response)
-    {
-        try {
-            $response = json_decode($response, true);
-
-            error_log("Callback url coming hot");
-
-            error_log(print_r($response, true));
-
-            if (strtolower($response['status']) == 'success') {
-                $ipn = new MalipoGateway();
-                $message = '';
-                $status_code = '';
-
-                $processing_response = $ipn->jambo_pay_ipn($response);
-
-                switch ($processing_response) {
-                    case 'transaction_not_found':
-                        $message = 'Bill Reference not found.';
-                        $status_code = 404;
-                        break;
-                    case 'invoice_not_found':
-                        $message = 'Bill Reference not found.';
-                        $status_code = 404;
-                        break;
-                    case 'paid':
-                        $message = 'Paid';
-                        $status_code = 200;
-                        break;
-                    default:
-                        $message = 'Paid';
-                        $status_code = 200;
-                        break;
-                }
-
-                return true;
-            } else {
-                return false;
-            }
-        } catch (\Exception $error) {
-            return false;
         }
     }
 }

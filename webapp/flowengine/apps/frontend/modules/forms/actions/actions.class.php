@@ -513,7 +513,7 @@ class formsActions extends sfActions
                   $q = Doctrine_Query::create()
                         ->from("ApFormPayments a")
                         ->where("a.payment_id = ?", $response['bill_number'])
-                        ->where("a.narration = ?", $response['ref'])
+                        ->orWhere("a.narration = ?", $response['ref'])
                         ->orderBy('a.afp_id desc');
                   $transaction = $q->fetchOne();
 

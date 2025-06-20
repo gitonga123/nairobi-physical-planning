@@ -379,6 +379,11 @@ class MalipoGateway
 
 		$invoice->setPaid(2);
 
+		// update invoice receipt number
+		if (array_key_exists('receipt_number', $response)) {
+			$invoice->setReceiptNumber(json_encode($response['receipt_number']));
+		}
+
 		$invoice->save();
 
 		error_log("Invoice updated above ---->");

@@ -1140,6 +1140,7 @@ class OTBHelper
     public function uppercaseString($string)
     {
 
+        error_log("String received on conversation --->{$string}");
         $word = ucwords(strtolower($string));
         return $word;
     }

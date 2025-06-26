@@ -2755,7 +2755,7 @@ class Templateparser
             $values['inv_expires_at'] = "";
         }
 
-        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.");
+        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($invoice->getTotalAmount()) . " SHILLINGS ONLY.");
 
         $values['inv_fee_table'] = $inv_fees;
 
@@ -3005,7 +3005,7 @@ class Templateparser
         } else {
             $values['inv_expires_at'] = "";
         }
-        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($values['inv_total']) . " SHILLINGS ONLY.");
+        $values['inv_total_words'] = strtoupper($otb_helper->convert_number_to_words($invoice->getTotalAmount()) . " SHILLINGS ONLY.");
 
         $values['jambo_pay_ref'] = $invoice->getDocRefNumber();
 

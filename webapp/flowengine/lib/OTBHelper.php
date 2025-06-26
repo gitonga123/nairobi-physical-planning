@@ -920,7 +920,7 @@ class OTBHelper
         return $monthName;
     }
 
-    public function convert_number_to_words($number): string
+    public function convert_number_to_words_2($number): string
     {
         error_log("Convert number init.");
 
@@ -1025,7 +1025,7 @@ class OTBHelper
      * @return boolean
      * 
      */
-    public function convert_number_to_words_2($number)
+    public function convert_number_to_words($number)
     {
 
         $hyphen = '-';

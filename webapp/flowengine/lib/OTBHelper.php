@@ -922,6 +922,7 @@ class OTBHelper
 
     public function convert_number_to_words($number)
     {
+        error_log("Convert number init.");
         $hyphen = '-';
         $conjunction = ' and ';
         $separator = ', ';
@@ -965,11 +966,14 @@ class OTBHelper
             1000000000000000000 => 'quintillion'
         ];
 
+        error_log("Logic Processing for {$number}.");
+
         if (!is_numeric($number)) {
-            return false;
+            return '';
         }
 
         if ((int) $number < 0) {
+            error_log("Of course number is less than 0");
             return $negative . $this->convert_number_to_words(abs($number));
         }
 
@@ -992,8 +996,11 @@ class OTBHelper
                 $string .= $remainder < 100 ? $conjunction : $separator;
                 $string .= $this->convert_number_to_words($remainder);
             }
-            return $this->uppercaseString($string);
         }
+
+        error_log("Update Case String ---->{$string}");
+
+        return $string ? $this->uppercaseString($string) : '';
     }
 
 

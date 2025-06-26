@@ -967,7 +967,7 @@ class OTBHelper
             1000000000000000000 => 'quintillion'
         ];
 
-        error_log("Is number numeric check ---->{$number}");
+        error_log("Is number numeric check ---->".is_numeric($number));
 
         if (!is_numeric($number)) {
             return '';

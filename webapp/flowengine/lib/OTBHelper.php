@@ -971,6 +971,8 @@ class OTBHelper
             return '';
         }
 
+        error_log("Number is found is --->{$number}");
+
         if ((int) $number < 0) {
             error_log("Number is less than 0");
             return $negative . $this->convert_number_to_words(abs($number));

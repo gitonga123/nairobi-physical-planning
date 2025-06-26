@@ -1028,7 +1028,7 @@ class OTBHelper
     public function convert_number_to_words($number)
     {
 
-        $hyphen = '-';
+        $hyphen = ' ';
         $conjunction = ' and ';
         $separator = ', ';
         $negative = 'negative ';

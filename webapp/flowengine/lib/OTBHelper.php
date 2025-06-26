@@ -967,8 +967,6 @@ class OTBHelper
             1000000000000000000 => 'quintillion'
         ];
 
-        error_log("Logic Processing for {$number}.");
-
         if (!is_numeric($number)) {
             return '';
         }
@@ -985,7 +983,8 @@ class OTBHelper
         if ($number < 100) {
             $tens = ((int) ($number / 10)) * 10;
             $units = $number % 10;
-            return $this->uppercaseString($dictionary[$tens] . ($units ? $hyphen . $dictionary[$units] : ''));
+            $output = $dictionary[$tens] . ($units ? $hyphen . $dictionary[$units] : '');
+            return $this->uppercaseString($output);
         }
 
         if ($number < 1000) {
@@ -995,21 +994,24 @@ class OTBHelper
             return $this->uppercaseString($output);
         }
 
-        // Larger than 1000
-        $baseUnit = pow(1000, floor(log($number, 1000)));
-        $numBaseUnits = (int) ($number / $baseUnit);
-        $remainder = $number % $baseUnit;
-
-        $string = $this->convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
-        if ($remainder) {
-            $string .= $remainder < 100 ? $conjunction : $separator;
-            $string .= $this->convert_number_to_words($remainder);
+        // Handle thousands and above using known dictionary keys
+        foreach (array_reverse($dictionary, true) as $value => $word) {
+            if ($value >= 1000 && $number >= $value) {
+                $numBaseUnits = (int) ($number / $value);
+                $remainder = $number % $value;
+                $string = $this->convert_number_to_words($numBaseUnits) . ' ' . $word;
+                if ($remainder) {
+                    $string .= $remainder < 100 ? $conjunction : $separator;
+                    $string .= $this->convert_number_to_words($remainder);
+                }
+                error_log("Final word string: ----> {$string}");
+                return $this->uppercaseString($string);
+            }
         }
 
-        error_log("Final word string: ----> {$string}");
-
-        return $this->uppercaseString($string);
+        return '';
     }
+
 
 
 

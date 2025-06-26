@@ -920,9 +920,10 @@ class OTBHelper
         return $monthName;
     }
 
-    public function convert_number_to_words($number)
+    public function convert_number_to_words($number): string
     {
         error_log("Convert number init.");
+
         $hyphen = '-';
         $conjunction = ' and ';
         $separator = ', ';
@@ -973,35 +974,43 @@ class OTBHelper
         }
 
         if ((int) $number < 0) {
-            error_log("Of course number is less than 0");
+            error_log("Number is less than 0");
             return $negative . $this->convert_number_to_words(abs($number));
         }
 
         if ($number < 21) {
-            return $dictionary[$number];
-        } elseif ($number < 100) {
-            $tens = ((int) ($number / 10)) * 10;
-            $units = $number % 10;
-            return $dictionary[$tens] . ($units ? $hyphen . $dictionary[$units] : '');
-        } elseif ($number < 1000) {
-            $hundreds = (int) ($number / 100);
-            $remainder = $number % 100;
-            return $dictionary[$hundreds] . ' hundred' . ($remainder ? $conjunction . $this->convert_number_to_words($remainder) : '');
-        } else {
-            $baseUnit = pow(1000, floor(log($number, 1000)));
-            $numBaseUnits = (int) ($number / $baseUnit);
-            $remainder = $number % $baseUnit;
-            $string = $this->convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
-            if ($remainder) {
-                $string .= $remainder < 100 ? $conjunction : $separator;
-                $string .= $this->convert_number_to_words($remainder);
-            }
+            return $this->uppercaseString($dictionary[$number]);
         }
 
-        error_log("Update Case String ---->{$string}");
+        if ($number < 100) {
+            $tens = ((int) ($number / 10)) * 10;
+            $units = $number % 10;
+            return $this->uppercaseString($dictionary[$tens] . ($units ? $hyphen . $dictionary[$units] : ''));
+        }
 
-        return $string ? $this->uppercaseString($string) : '';
+        if ($number < 1000) {
+            $hundreds = (int) ($number / 100);
+            $remainder = $number % 100;
+            $output = $dictionary[$hundreds] . ' hundred' . ($remainder ? $conjunction . $this->convert_number_to_words($remainder) : '');
+            return $this->uppercaseString($output);
+        }
+
+        // Larger than 1000
+        $baseUnit = pow(1000, floor(log($number, 1000)));
+        $numBaseUnits = (int) ($number / $baseUnit);
+        $remainder = $number % $baseUnit;
+
+        $string = $this->convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
+        if ($remainder) {
+            $string .= $remainder < 100 ? $conjunction : $separator;
+            $string .= $this->convert_number_to_words($remainder);
+        }
+
+        error_log("Final word string: ----> {$string}");
+
+        return $this->uppercaseString($string);
     }
+
 
 
     /**

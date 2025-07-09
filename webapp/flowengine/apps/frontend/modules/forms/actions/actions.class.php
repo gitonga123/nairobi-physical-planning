@@ -72,7 +72,7 @@ class formsActions extends sfActions
 
             }
 
-            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Submit Applications");
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Submit Applications");
 
             $this->setLayout("layoutmentordash");
       }
@@ -110,7 +110,7 @@ class formsActions extends sfActions
       {
             $this->current_profile = $this->getUser()->getAttribute("current_profile");
 
-            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Submit Application");
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Submit Application");
 
             if ($this->current_profile) {
                   $this->setLayout("layoutmentordash");
@@ -119,7 +119,7 @@ class formsActions extends sfActions
                   $this->setLayout("layoutmentordashsubmit");
             }
 
-            
+
       }
 
       /**
@@ -131,7 +131,7 @@ class formsActions extends sfActions
        */
       public function executeConfirm(sfWebRequest $request)
       {
-            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Confirm Applications");
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Confirm Applications");
             if ($this->getUser()->getAttribute("current_profile")) {
                   $this->setLayout("layoutprofile");
             } else {
@@ -177,7 +177,7 @@ class formsActions extends sfActions
 
             $this->user = Doctrine_Core::getTable('sfGuardUser')->find($this->getUser()->getGuardUser()->getId());
 
-            $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Payment");
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Payment");
 
             if ($this->getUser()->getAttribute("current_profile")) {
                   $this->setLayout("layoutprofile");
@@ -378,7 +378,7 @@ class formsActions extends sfActions
 
             error_log("Create bill action reference details --->");
             error_log(json_encode($create_bill_action));
-            
+
             if (isset($create_bill_action['bill_ref'])) {
                   $this->invoice->setDocRefNumber($create_bill_action['bill_ref']);
                   $this->invoice->save();
@@ -703,6 +703,50 @@ class formsActions extends sfActions
       public function wardList()
       {
             $api = '/api/v1/county/wards/';
+      }
+
+      public function executeSubcounties()
+      {
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/sub_counties/';
+
+            $stream = new Stream();
+
+            error_log("Sub county list URL --->{$url}");
+
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'GET',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'headers' => [
+                        "Authorization" => "JWT {$this->token}",
+                  ]
+            ]);
+
+            return $this->renderText(json_encode($query_response->content));
+
+      }
+
+      public function executeWards()
+      {
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/wards/';
+
+            $stream = new Stream();
+
+            error_log("Ward sub county list URL --->{$url}");
+
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'GET',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'headers' => [
+                        "Authorization" => "JWT {$this->token}",
+                  ]
+            ]);
+
+            return $this->renderText(json_encode($query_response->content));
+
       }
 
 

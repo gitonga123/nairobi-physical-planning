@@ -1,14 +1,15 @@
 <!-- Form -->
+<form method="post" action="<?php echo url_for('/backend.php/login') ?>">
+    <?php if ($form->isCSRFProtected()): ?>
+        <?php echo $form['_csrf_token']->render(); ?>
+    <?php endif; ?>
+    <?php echo $form->renderGlobalErrors() ?>
 
-<?php if (false) { ?>
-    <form method="post" action="<?php echo url_for('/plan/login') ?>">
+    <?php if (false) { ?>
         <?php if ($form->isCSRFProtected()): ?>
             <?php echo $form['_csrf_token']->render(); ?>
         <?php endif; ?>
         <?php echo $form->renderGlobalErrors() ?>
-
-
-        <p class="account-subtitle">Please Login to Access your dashboard</p>
 
         <?php if ($loginError): ?>
             <p class="mt5 mb20" style="color: #F00;">
@@ -29,6 +30,7 @@
 
         <div class="text-center forgotpass m-1"><a class="text-primary" href="/plan/login/forgot">Forgot
                 Password?</a></div>
-    </form>
-<?php } ?>
+
+    <?php } ?>
+</form>
 <!-- /Form -->

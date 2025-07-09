@@ -103,14 +103,14 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                     </li>
                     <?php
                 }
-
+                
                 if ($sf_user->mfHasCredential("access_forms")) {
                     ?>
-                    <li class="nav-parent  <?php if ($sf_context->getModuleName() == "department" || $sf_context->getModuleName() == "formgroups" || $sf_context->getModuleName() == "feecategories" || $sf_context->getModuleName() == "invoiceapiaccounts" || $sf_context->getModuleName() == "fees" || $sf_context->getModuleName() == "permits" || $sf_context->getModuleName() == "jsonreports") {
+                    <li class="nav-parent  <?php if ($sf_context->getModuleName() == "department" || $sf_context->getModuleName() == "formgroups" || $sf_context->getModuleName() == "feecategories" || $sf_context->getModuleName() == "invoiceapiaccounts" || $sf_context->getModuleName() == "fees" || $sf_context->getModuleName() == "permits" || $sf_context->getModuleName() == "jsonreports" || $sf_context->getModuleName() == "currencies" || $sf_context->getModuleName() == "subcounty" || $sf_context->getModuleName() == "ward") {
                         echo "nav-active active";
                     } ?>"><a href=""><i class="fa fa-magic"></i>
                             <span><?php echo __('Other Settings'); ?></span></a>
-                        <ul class="children" <?php if ($sf_context->getModuleName() == "department" || $sf_context->getModuleName() == "formgroups" || $sf_context->getModuleName() == "feecategories" || $sf_context->getModuleName() == "invoiceapiaccounts" || $sf_context->getModuleName() == "fees" || $sf_context->getModuleName() == "permits" || $sf_context->getModuleName() == "jsonreports" || $sf_context->getModuleName() == "applications") {
+                        <ul class="children" <?php if ($sf_context->getModuleName() == "department" || $sf_context->getModuleName() == "formgroups" || $sf_context->getModuleName() == "feecategories" || $sf_context->getModuleName() == "invoiceapiaccounts" || $sf_context->getModuleName() == "fees" || $sf_context->getModuleName() == "permits" || $sf_context->getModuleName() == "jsonreports" || $sf_context->getModuleName() == "applications" || $sf_context->getModuleName() == "currencies" || $sf_context->getModuleName() == "subcounty" || $sf_context->getModuleName() == "ward") {
                             echo "style='display: block'";
                         } ?>>
                             <?php
@@ -135,7 +135,6 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                                 </li>
                                 <?php
                             }
-
                             if ($sf_user->mfHasCredential("managefees")) {
                                 ?>
                                 <li <?php if ($sf_context->getModuleName() == "feecategories") {
@@ -173,6 +172,18 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                                 } ?>>
                                     <a href="<?php echo url_for('/plan/zones/index') ?>"><i
                                             class="fa fa-caret-right"></i><?php echo __('Fee zones'); ?></a>
+                                </li>
+                                <li <?php if ($sf_context->getModuleName() == "subcounty") {
+                                    echo "class='active'";
+                                } ?>>
+                                    <a href="<?php echo url_for('/backend.php/subcounty/index') ?>"><i
+                                            class="fa fa-caret-right"></i><?php echo __('Sub Counties'); ?></a>
+                                </li>
+                                <li <?php if ($sf_context->getModuleName() == "ward") {
+                                    echo "class='active'";
+                                } ?>>
+                                    <a href="<?php echo url_for('/backend.php/ward/index') ?>"><i
+                                            class="fa fa-caret-right"></i><?php echo __('Ward'); ?></a>
                                 </li>
                                 <?php
                             }

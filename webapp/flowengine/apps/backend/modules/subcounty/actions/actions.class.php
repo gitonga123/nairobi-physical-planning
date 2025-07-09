@@ -21,4 +21,57 @@ class SubcountyActions extends sfActions
         $this->setLayout("layout-settings");
     }
 
+    public function executeUpdatesubcounties(sfWebRequest $request)
+    {
+        $sub_counties = $this->sub_counties();
+
+        foreach ($sub_counties as $sub_county) {
+            $q = Doctrine_Query::create()
+                ->from('Subcounty s')
+                ->where('s.name ?', $sub_county['title']);
+            $found = $q->fetchOne();
+
+            if ($found) {
+                $found->setName($sub_county['title']);
+                $found->setUuid($sub_county['id']);
+
+                $found->save();
+            } else {
+                $record = new Subcounty();
+
+                $record->setName($sub_county['title']);
+                $record->setUuid($sub_county['id']);
+
+                $record->save();
+            }
+        }
+
+        return $this->renderText(json_encode(array('status' => 'success')));
+    }
+
+
+    public function sub_counties()
+    {
+        $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/sub_counties/';
+
+        $stream = new Stream();
+
+        error_log("Sub county list URL --->{$url}");
+
+        $query_response = $stream->sendRequest([
+            'url' => $url,
+            'method' => 'GET',
+            'ssl' => 'none',
+            'contentType' => 'json',
+            'headers' => [
+                "Authorization" => "JWT {$_SESSION['jambo_backup_token']}",
+            ]
+        ]);
+
+        if ($query_response->status !== 201 || $query_response->status !== 200) {
+            return [];
+        }
+
+        return $query_response->content->results;
+    }
 }

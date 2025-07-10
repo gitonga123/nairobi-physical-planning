@@ -471,7 +471,10 @@ class apiActions extends sfActions
             $data[] = [
                 'id' => $ward->getId(),
                 'name' => $ward->getName(),
-                'subcounty' => $ward->getSubcounty() ? $ward->getSubcounty()->getName() : null
+                'subcounty' => $ward->getSubcounty() ? [
+                    'id' => $ward->getSubcounty()->getId(),
+                    'name' => $ward->getSubcounty()->getName()
+                ] : null
             ];
         }
 

@@ -59,6 +59,7 @@ class SubcountyActions extends sfActions
         $stream = new Stream();
 
         error_log("Sub county list URL --->{$url}");
+        error_log($_SESSION['jambo_token_backend']);
 
         $query_response = $stream->sendRequest([
             'url' => $url,
@@ -69,6 +70,8 @@ class SubcountyActions extends sfActions
                 "Authorization" => "JWT {$_SESSION['jambo_token_backend']}",
             ]
         ]);
+
+        var_dump($query_response);
 
         if ($query_response->status !== 201 || $query_response->status !== 200) {
             return [];

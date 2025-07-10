@@ -391,11 +391,12 @@ class apiActions extends sfActions
 
     private function getSubCounties()
     {
+        var_dump("We are here");
         $q = Doctrine_Query::create()
             ->from("Subcounty s")
             ->orderBy("a.id ASC");
         $sub_counties = $q->execute();
-
+        var_dump($sub_counties);die;
         $sub_counties_list = [];
 
         foreach ($sub_counties as $subcounty) {
@@ -408,7 +409,7 @@ class apiActions extends sfActions
             $temp = [];
         }
 
-        var_dump($sub_counties_list);die;
+        
 
         return $sub_counties_list;
     }

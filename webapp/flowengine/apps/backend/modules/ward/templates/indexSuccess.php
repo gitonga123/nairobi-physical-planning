@@ -49,6 +49,7 @@ if ($sf_user->mfHasCredential("managefees")) {
                                 <th class="no-sort">#</th>
                                 <th><?php echo __('UUID'); ?></th>
                                 <th><?php echo __('Ward'); ?></th>
+                                <th><?php echo __('Action'); ?></th>
                             </tr>
                         </thead>
                         <tbody>

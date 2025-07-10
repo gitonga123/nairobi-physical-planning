@@ -23,7 +23,7 @@ jobs:
           rsync -az --delete \
             -e "ssh -o StrictHostKeyChecking=no" \
             ./ \
-            user@your-server:/var/www/uasingishu_webapp/
+            daniel@34.41.159.232:/var/www/uasingishu_webapp/
         env:
           user: daniel
           your-server: 34.41.159.232

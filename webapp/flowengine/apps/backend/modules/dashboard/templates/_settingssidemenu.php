@@ -176,13 +176,13 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                                 <li <?php if ($sf_context->getModuleName() == "subcounty") {
                                     echo "class='active'";
                                 } ?>>
-                                    <a href="<?php echo url_for('/backend.php/subcounty/index') ?>"><i
+                                    <a href="<?php echo url_for('/plan/subcounty/index') ?>"><i
                                             class="fa fa-caret-right"></i><?php echo __('Sub Counties'); ?></a>
                                 </li>
                                 <li <?php if ($sf_context->getModuleName() == "ward") {
                                     echo "class='active'";
                                 } ?>>
-                                    <a href="<?php echo url_for('/backend.php/ward/index') ?>"><i
+                                    <a href="<?php echo url_for('/plan/ward/index') ?>"><i
                                             class="fa fa-caret-right"></i><?php echo __('Ward'); ?></a>
                                 </li>
                                 <?php

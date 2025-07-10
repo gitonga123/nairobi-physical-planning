@@ -64,7 +64,7 @@ class SubcountyActions extends sfActions
             'ssl' => 'none',
             'contentType' => 'json',
             'headers' => [
-                "Authorization" => "JWT {$_SESSION['jambo_backup_token']}",
+                "Authorization" => "JWT {$_SESSION['jambo_token_backend']}",
             ]
         ]);
 

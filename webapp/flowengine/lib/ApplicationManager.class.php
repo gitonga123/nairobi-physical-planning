@@ -488,12 +488,18 @@ class ApplicationManager
 
     public function get_application_details($form_id, $entry_id)
     {
-        $prefix_folder = dirname(__FILE__) . "/vendor/cp_machform/";
-        require_once($prefix_folder . 'config.php');
+        $prefix_folder = dirname(__FILE__) . "/vendor/form_builder/";
+        require_once($prefix_folder . 'includes/init.php');
+
+        require_once($prefix_folder . '../../../config/form_builder_config.php');
         require_once($prefix_folder . 'includes/db-core.php');
         require_once($prefix_folder . 'includes/helper-functions.php');
+        require_once($prefix_folder . 'includes/check-session.php');
 
+        require_once($prefix_folder . 'includes/language.php');
         require_once($prefix_folder . 'includes/entry-functions.php');
+        require_once($prefix_folder . 'includes/post-functions.php');
+        require_once($prefix_folder . 'includes/users-functions.php');
         $param['checkbox_image'] = '/assets_unified/images/59_blue_16.png';
         $dbh = mf_connect_db();
         $entry_details = mf_get_entry_details($dbh, $form_id, $entry_id, $param);

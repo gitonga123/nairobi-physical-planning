@@ -28,7 +28,7 @@ class SubcountyActions extends sfActions
         foreach ($sub_counties as $sub_county) {
             $q = Doctrine_Query::create()
                 ->from('Subcounty s')
-                ->where('s.name ?', $sub_county['title']);
+                ->where('s.name = ?', $sub_county['title']);
             $found = $q->fetchOne();
 
             if ($found) {

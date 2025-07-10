@@ -29,12 +29,12 @@ class WardActions extends sfActions
         foreach ($wards as $ward) {
             $q = Doctrine_Query::create()
                 ->from('Ward w')
-                ->where('w.name ?', $ward['title']);
+                ->where('w.name = ?', $ward['title']);
             $found = $q->fetchOne();
 
             $q = Doctrine_Query::create()
                 ->from('Subcounty s')
-                ->where('s.name ?', $ward['sub_county']['title']);
+                ->where('s.name = ?', $ward['sub_county']['title']);
             $sub_county = $q->fetchOne();
 
             if (!$sub_county) {

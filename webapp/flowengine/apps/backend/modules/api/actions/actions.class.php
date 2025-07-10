@@ -492,7 +492,7 @@ class apiActions extends sfActions
         ]));
     }
 
-    public function executeWardView(sfWebRequest $request)
+    public function executeWardsView(sfWebRequest $request)
     {
         $id = $request->getParameter('id');
 

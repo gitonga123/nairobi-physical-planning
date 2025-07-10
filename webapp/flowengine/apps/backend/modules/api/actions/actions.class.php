@@ -438,7 +438,7 @@ class apiActions extends sfActions
 
         $wards_list = [];
 
-        foreach ($subcounty->getWards() as $ward) {
+        foreach ($subcounty->getWard() as $ward) {
             $wards_list[] = [
                 'id' => $ward->getId(),
                 'name' => $ward->getName()

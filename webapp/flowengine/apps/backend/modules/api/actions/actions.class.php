@@ -423,7 +423,7 @@ class apiActions extends sfActions
         ]));
     }
 
-    public function executeSubcountyView(sfWebRequest $request)
+    public function executeSubCountiesView(sfWebRequest $request)
     {
         $id = $request->getParameter('id');
 

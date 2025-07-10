@@ -28,7 +28,7 @@ api_sub_counties:
 
 api_subcounty_view:
   url:   /api/sub_counties/:id
-  param: { module: api, action: subcountyView }
+  param: { module: api, action: subCountiesView }
   requirements:
     id: \d+
 

@@ -391,12 +391,11 @@ class apiActions extends sfActions
 
     private function getSubCounties()
     {
-        var_dump("We are here");
+        //Get list of all objects
         $q = Doctrine_Query::create()
-            ->from("Subcounty s")
-            ->orderBy("a.id ASC");
+            ->from('Subcounty s')
+            ->orderBy('s.id ASC');
         $sub_counties = $q->execute();
-        var_dump($sub_counties);die;
         $sub_counties_list = [];
 
         foreach ($sub_counties as $subcounty) {
@@ -409,7 +408,7 @@ class apiActions extends sfActions
             $temp = [];
         }
 
-        
+
 
         return $sub_counties_list;
     }
@@ -428,7 +427,7 @@ class apiActions extends sfActions
     {
         $id = $request->getParameter('id');
 
-        $subcounty = Doctrine_Core::getTable('Subcounty')->find($id);
+        $subcounty = Doctrine_Core::getTable('Subcounty')->find(array($id));
 
         if (!$subcounty) {
             return $this->renderText(json_encode([

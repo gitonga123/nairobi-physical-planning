@@ -60,7 +60,7 @@ if ($sf_user->mfHasCredential("managefees")) {
                                     <td><?php echo $ward->getName(); ?></td>
                                     <td align="center">
                                         <a id="wardedit<?php echo $ward->getId(); ?>"
-                                            href="/plan/wards/view/id/<?php echo $ward->getId(); ?>"
+                                            href="/plan/ward/view/id/<?php echo $ward->getId(); ?>"
                                             title="<?php echo __('View'); ?>"><span class="label label-primary"><i
                                                     class="fa fa-eye"></i></span></a>
                                     </td>

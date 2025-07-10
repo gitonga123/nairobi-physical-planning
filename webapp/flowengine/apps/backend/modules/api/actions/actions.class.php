@@ -408,6 +408,8 @@ class apiActions extends sfActions
             $temp = [];
         }
 
+        var_dump($sub_counties_list);die;
+
         return $sub_counties_list;
     }
 

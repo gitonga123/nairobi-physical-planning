@@ -392,35 +392,129 @@ class apiActions extends sfActions
     private function getSubCounties()
     {
         $q = Doctrine_Query::create()
-            ->from("Menus a")
-            ->whereNotIn('a.id', [200028, 200018, 11])
+            ->from("Subcounty s")
             ->orderBy("a.id ASC");
-        $districts = $q->execute();
+        $sub_counties = $q->execute();
 
-        $districts_list = [];
+        $sub_counties_list = [];
 
-        foreach ($districts as $district) {
+        foreach ($sub_counties as $subcounty) {
             $temp = [
-                'id' => $district->getId(),
-                'name' => $district->getTitle()
+                'id' => $subcounty->getId(),
+                'name' => $subcounty->getName()
             ];
 
-            array_push($districts_list, $temp);
+            array_push($sub_counties_list, $temp);
             $temp = [];
         }
 
-        return $districts_list;
+        return $sub_counties_list;
     }
 
     public function executeSubCounties(sfWebRequest $request)
     {
-        $districts = $this->getSubCounties();
+        $sub_counties = $this->getSubCounties();
         return $this->renderText(json_encode([
             'success' => true,
-            'data' => $districts,
-            'itemCount' => count($districts)
+            'data' => $sub_counties,
+            'itemCount' => count($sub_counties)
         ]));
     }
+
+    public function executeSubcountyView(sfWebRequest $request)
+    {
+        $id = $request->getParameter('id');
+
+        $subcounty = Doctrine_Core::getTable('Subcounty')->find($id);
+
+        if (!$subcounty) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'message' => 'Subcounty not found.'
+            ]));
+        }
+
+        $wards_list = [];
+
+        foreach ($subcounty->getWards() as $ward) {
+            $wards_list[] = [
+                'id' => $ward->getId(),
+                'name' => $ward->getName()
+            ];
+        }
+
+        $response = [
+            'success' => true,
+            'data' => [
+                'id' => $subcounty->getId(),
+                'name' => $subcounty->getName(),
+                'wards' => $wards_list
+            ]
+        ];
+
+        return $this->renderText(json_encode($response));
+    }
+
+    public function executeWards(sfWebRequest $request)
+    {
+        $wards = Doctrine_Query::create()
+            ->from('Ward w')
+            ->leftJoin('w.Subcounty s')
+            ->orderBy('w.id ASC')
+            ->execute();
+
+        $data = [];
+
+        foreach ($wards as $ward) {
+            $data[] = [
+                'id' => $ward->getId(),
+                'name' => $ward->getName(),
+                'subcounty' => $ward->getSubcounty() ? $ward->getSubcounty()->getName() : null
+            ];
+        }
+
+        return $this->renderText(json_encode([
+            'success' => true,
+            'data' => $data,
+            'itemCount' => count($data)
+        ]));
+    }
+
+    public function executeWardView(sfWebRequest $request)
+    {
+        $id = $request->getParameter('id');
+
+        $ward = Doctrine_Query::create()
+            ->from('Ward w')
+            ->leftJoin('w.Subcounty s')
+            ->where('w.id = ?', $id)
+            ->fetchOne();
+
+        if (!$ward) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'message' => 'Ward not found.'
+            ]));
+        }
+
+        $response = [
+            'success' => true,
+            'data' => [
+                'id' => $ward->getId(),
+                'name' => $ward->getName(),
+                'subcounty' => $ward->getSubcounty()
+                    ? [
+                        'id' => $ward->getSubcounty()->getId(),
+                        'name' => $ward->getSubcounty()->getName()
+                    ]
+                    : null
+            ]
+        ];
+
+        return $this->renderText(json_encode($response));
+    }
+
+
 
     public function executeApplicationsList(sfWebRequest $request)
     {

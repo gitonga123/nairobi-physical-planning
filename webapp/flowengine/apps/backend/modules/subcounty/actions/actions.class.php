@@ -73,7 +73,7 @@ class SubcountyActions extends sfActions
 
         var_dump($query_response->status);
 
-        var_dump(json_decode($query_response->content));
+        var_dump($query_response->content);
         die;
 
         if ($query_response->status !== 201 || $query_response->status !== 200) {

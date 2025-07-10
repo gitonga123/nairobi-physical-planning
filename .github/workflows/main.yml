@@ -18,13 +18,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.MALIPO_SERVER_KEY }}
 
-      - name: Add server to known_hosts
-        run: |
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
       - name: Deploy to server
         run: |
           rsync -az --delete \
-            -e "ssh" \
+            --exclude=".git/" \
+            --exclude="node_modules/" \
+            --exclude=".env" \
+            -e "ssh -o StrictHostKeyChecking=no" \
             ./ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/uasingishu_webapp/
+            daniel@34.41.159.232:/var/www/uasingishu_webapp/

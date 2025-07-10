@@ -51,7 +51,7 @@ abstract class BaseWard extends sfDoctrineRecord
     {
         parent::setUp();
 
-        $this->hasMany('Subcounty', array(
+        $this->hasOne('Subcounty', array(
             'local' => 'subcounty_id',
             'foreign' => 'id'
         ));

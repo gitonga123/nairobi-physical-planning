@@ -34,7 +34,7 @@ class WardActions extends sfActions
 
             $q = Doctrine_Query::create()
                 ->from('Subcounty s')
-                ->where('s.name = ?', $ward['sub_county']['title']);
+                ->where('s.uuid = ?', $ward['sub_county']['id']);
             $sub_county = $q->fetchOne();
 
             if (!$sub_county) {
@@ -78,10 +78,12 @@ class WardActions extends sfActions
             ]
         ]);
 
-        if ($query_response->status !== 201 || $query_response->status !== 200) {
+        if ($query_response->status > 201) {
             return [];
         }
 
-        return $query_response->content->results;
+        $data = $query_response->content;
+
+        return $data['results'];
     }
 }

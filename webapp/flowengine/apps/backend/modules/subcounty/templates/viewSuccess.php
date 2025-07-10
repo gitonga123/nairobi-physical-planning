@@ -22,7 +22,7 @@ use_helper("I18N");
       <label class="col-sm-4 control-label"><?php echo __('Wards'); ?></label><br>
       <div class="col-sm-12">
         <ul class="list-group">
-          <?php foreach ($subcounty->getWards() as $ward) { ?>
+          <?php foreach ($subcounty->getWard() as $ward) { ?>
             <li class="list-group-item"><?php echo $ward->getName() ?></li>
           <?php } ?>
         </ul>

@@ -25,6 +25,8 @@ class SubcountyActions extends sfActions
     {
         $sub_counties = $this->sub_counties();
 
+        var_dump($sub_counties);die;
+
         foreach ($sub_counties as $sub_county) {
             $q = Doctrine_Query::create()
                 ->from('Subcounty s')

@@ -48,14 +48,14 @@ class WardActions extends sfActions
             if ($found) {
                 $found->setName($ward['title']);
                 $found->setUuid($ward['id']);
-                $found->setSubcountId($sub_county['id']);
+                $found->setSubcountyId($sub_county['id']);
                 $found->save();
             } else {
                 $record = new Ward();
 
                 $record->setName($ward['title']);
                 $record->setUuid($ward['id']);
-                $record->setSubcountId($sub_county['id']);
+                $record->setSubcountyId($sub_county['id']);
                 $record->save();
             }
         }

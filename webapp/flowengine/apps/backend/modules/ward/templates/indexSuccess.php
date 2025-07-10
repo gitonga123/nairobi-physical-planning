@@ -55,6 +55,7 @@ if ($sf_user->mfHasCredential("managefees")) {
                         <tbody>
                             <?php foreach ($wards as $ward): ?>
                                 <tr id="row_<?php echo $ward->getId() ?>">
+                                    <td><?php echo $ward->getId(); ?></td>
                                     <td><?php echo $ward->getUuid(); ?></td>
                                     <td><?php echo $ward->getName(); ?></td>
                                     <td align="center">

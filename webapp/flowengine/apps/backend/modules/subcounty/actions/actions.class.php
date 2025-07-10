@@ -76,4 +76,11 @@ class SubcountyActions extends sfActions
 
         return $data['results'];
     }
+
+    public function executeView(sfWebRequest $request)
+    {
+        $this->forward404Unless($this->ward = Doctrine_Core::getTable('Subcounty')->find(array($request->getParameter('id'))), sprintf('Object content does not exist (%s).', $request->getParameter('id')));
+
+        $this->setLayout("layout-settings");
+    }
 }

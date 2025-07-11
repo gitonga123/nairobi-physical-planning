@@ -668,6 +668,7 @@ class apiActions extends sfActions
                     ->leftJoin('f.SubMenus s')
                     ->leftJoin('f.MfInvoice m')
                     ->where("f.entry_id IS NOT NULL")
+                    ->whereIn('f.id', [1919, 1920, 1921, 1927])
                     ->andWhere("f.approved > 0");
 
                 if (!is_null($with_permit) && $with_permit == '0') {
@@ -876,7 +877,8 @@ class apiActions extends sfActions
             ->addSelect('s.title')
             ->addSelect('f.date_of_submission')
             ->addSelect('p.permit_id')
-            ->from('FormEntry f');
+            ->from('FormEntry f')
+            ->whereIn('f.id', [1919, 1920, 1921, 1927]);
         if (count($entries) > 0) {
 
             $new_entry_list = '(' . implode(' OR ', $entries) . ')';
@@ -1149,22 +1151,33 @@ class apiActions extends sfActions
 
     private function map_location_with_form_type()
     {
-        $mapping_forms_element = [
-            5952 => "DEVELOPMENT PERMISSION BUILDING PLAN",
-            47349 => "DEVELOPMENT PERMISSION PERIMETER WALL",
-            67355 => "BUILDING PLANS APPLICATION RENEWAL",
-            38732 => "DEMOLITION APPROVAL",
-            46092 => "OUTDOOR ADVERTISING",
-            25445 => "PLANNING APPLICATION",
-            89966 => "HOARDING APPLICATION",
-            88401 => "RENOVATION WORKS"
+        return [
+            25952 => 65,
+            47349 => 65,
+            67355 => 65,
+            38732 => 122,
+            46092 => 10,
+            25445 => 177,
+            89966 => 65,
+            88401 => 75
         ];
     }
 
 
-    public function executeApplicationUpdate(sfWebRequest $request)
+    public function executeApplicationsUpdate(sfWebRequest $request)
     {
-        $plot_location = $request->getPostParameter('plot_location');
+        $rawContent = $request->getContent();
+        $data = json_decode($rawContent, true);
+
+        if (!array_key_exists('plot_location', $data)) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'data' => [],
+                'message' => 'Plot details not found..'
+            ]));
+        }
+
+        $plot_location = $data['plot_location'];
 
         $application_id = $request->getParameter('id');
 
@@ -1172,10 +1185,94 @@ class apiActions extends sfActions
             ->from("FormEntry a")
             ->where('a.id = ?', $application_id)
             ->andWhere('a.parent_submission = 0')
-            ->andWhere('a.deleted = 0');
+            ->leftJoin('a.SubMenus s')
+            ->leftJoin('a.MfInvoice m');
 
         $application = $q->fetchOne();
 
+
+        if (!$application) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'data' => [],
+                'message' => 'Application not found.'
+            ]));
+        }
+
+        $element_id = $this->map_location_with_form_type()[$application->getFormId()];
+
+        $groups = $this->permitType();
+
+        $update_query = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id} = '{$plot_location}' WHERE id = {$application->getEntryId()}";
+
+        $updated = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query);
+        $application_manager = new ApplicationManager();
+        $app_info = [];
+        if ($updated) {
+            $entry_details = $application_manager->get_application_details(
+                $application->getFormId(),
+                $application->getEntryId()
+            );
+
+            foreach ($entry_details as $data) {
+                if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
+                    $new_label = str_replace(' ', '', $data['label']);
+                    $new_label = strtolower($new_label);
+                    if (stristr($new_label, 'blocknumber')) {
+                        $app_info['block_number'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'plotno')) {
+                        $app_info['plot_no'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, 'subcounty')) {
+                        $app_info['subcounty'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, 'ward')) {
+                        $app_info['ward'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'plotlatitude')) {
+                        $app_info['plot_location'] = trim($data['value']);
+                    }
+                }
+
+                $permits = $application->getSavedPermits() ? $application->getSavedPermits()->getData()[0] : false;
+                $allPaid = true;
+                $invoices = $application->getMfInvoice();
+                if ($invoices) {
+                    foreach ($invoices->getData() as $invoice) {
+                        if ($invoice->getPaid() != 2) {
+                            $allPaid = false;
+                            break;
+                        }
+                    }
+                } else {
+                    $allPaid = false;
+                }
+                $app_info['application_date'] = $application->getDateOfSubmission();
+                $app_info['application_id'] = $application->getId();
+                $app_info['application_number'] = $application->getApplicationId();
+                $app_info['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "";
+                $app_info['service_type'] = $groups[$application->getFormId()];
+                $app_info['approval_status'] = $permits ? "Approved" : "Pending Approval";
+                $app_info['invoices_paid'] = $allPaid;
+            }
+
+            return $this->renderText(json_encode([
+                'success' => false,
+                'data' => $app_info,
+                'links' => [],
+                'meta' => [],
+                'message' => "Application Updated. "
+            ]));
+        }
+
+        return $this->renderText(json_encode([
+            'success' => false,
+            'data' => [],
+            'message' => 'Failed to update the application.'
+        ]));
 
     }
 }

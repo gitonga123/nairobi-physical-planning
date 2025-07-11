@@ -408,16 +408,27 @@ class apiActions extends sfActions
         foreach ($sub_counties as $subcounty) {
             $temp = [
                 'id' => $subcounty->getId(),
-                'name' => $subcounty->getName()
+                'name' => $subcounty->getName(),
+                'wards' => $this->getWardListForCounty($subcounty)
             ];
 
             array_push($sub_counties_list, $temp);
             $temp = [];
         }
-
-
-
         return $sub_counties_list;
+    }
+
+    private function getWardListForCounty($subcounty)
+    {
+        $wards_list = [];
+        foreach ($subcounty->getWard() as $ward) {
+            $wards_list[] = [
+                'id' => $ward->getId(),
+                'name' => $ward->getName()
+            ];
+        }
+
+        return $wards_list;
     }
 
     public function executeSubCounties(sfWebRequest $request)

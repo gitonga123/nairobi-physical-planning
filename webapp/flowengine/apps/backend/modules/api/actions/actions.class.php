@@ -1144,10 +1144,38 @@ class apiActions extends sfActions
                 $final[$form_id] = "(" . implode(' OR ', $entry_parts) . " AND f.form_id = $form_id)";
             }
         }
-
-
-
         return $final;
+    }
+
+    private function map_location_with_form_type()
+    {
+        $mapping_forms_element = [
+            5952 => "DEVELOPMENT PERMISSION BUILDING PLAN",
+            47349 => "DEVELOPMENT PERMISSION PERIMETER WALL",
+            67355 => "BUILDING PLANS APPLICATION RENEWAL",
+            38732 => "DEMOLITION APPROVAL",
+            46092 => "OUTDOOR ADVERTISING",
+            25445 => "PLANNING APPLICATION",
+            89966 => "HOARDING APPLICATION",
+            88401 => "RENOVATION WORKS"
+        ];
+    }
+
+
+    public function executeApplicationUpdate(sfWebRequest $request)
+    {
+        $plot_location = $request->getPostParameter('plot_location');
+
+        $application_id = $request->getParameter('id');
+
+        $q = Doctrine_Query::create()
+            ->from("FormEntry a")
+            ->where('a.id = ?', $application_id)
+            ->andWhere('a.parent_submission = 0')
+            ->andWhere('a.deleted = 0');
+
+        $application = $q->fetchOne();
+
 
     }
 }

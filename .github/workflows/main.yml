@@ -20,10 +20,13 @@ jobs:
 
       - name: Deploy to server
         run: |
-          rsync -az --delete \
+          rsync -az --no-group --no-times --no-perms \
+            --exclude=".git/" \
+            --exclude="node_modules/" \
+            --exclude=".env" \
+            --exclude="webapp/flowengine/config/" \
+            --exclude="webapp/flowengine/apps/backend/config/" \
+            --exclude="webapp/flowengine/apps/frontend/config/" \
             -e "ssh -o StrictHostKeyChecking=no" \
             ./ \
             daniel@34.41.159.232:/var/www/uasingishu_webapp/
-        env:
-          user: daniel
-          your-server: 34.41.159.232

@@ -439,7 +439,7 @@ class profilesActions extends sfActions
     {
         $q = Doctrine_Query::create()
             ->from('FormEntry a')
-            ->leftJoin('a.SavedPermit b')
+            ->leftJoin('a.SavedPermits b')
             ->where("a.service_id = ?", $service)
             ->andWhere('a.parent_submission = ?', 0)
             ->andWhere('a.approved <> 0')
@@ -450,7 +450,7 @@ class profilesActions extends sfActions
     {
         $q = Doctrine_Query::create()
             ->from('FormEntry a')
-            ->leftJoin('a.SavedPermit b')
+            ->leftJoin('a.SavedPermits b')
             ->where("a.service_id = ?", $service)
             ->andWhere('a.parent_submission = ?', 0)
             ->andWhere('a.approved <> 0')
@@ -731,7 +731,7 @@ class profilesActions extends sfActions
     {
         $q = Doctrine_Query::create()
             ->from('FormEntry a')
-            ->leftJoin('a.SavedPermit b')
+            ->leftJoin('a.SavedPermits b')
             ->where("a.service_id = ?", $service)
             ->andWhere('a.parent_submission = ?', 0)
             ->andWhere('a.approved <> 0')
@@ -742,7 +742,7 @@ class profilesActions extends sfActions
     {
         $q = Doctrine_Query::create()
             ->from('FormEntry a')
-            ->leftJoin('a.SavedPermit b')
+            ->leftJoin('a.SavedPermits b')
             ->where("a.service_id = ?", $service)
             ->andWhere('a.parent_submission = ?', 0)
             ->andWhere('a.approved <> 0')

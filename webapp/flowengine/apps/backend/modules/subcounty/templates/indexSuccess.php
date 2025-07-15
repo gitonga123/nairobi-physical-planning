@@ -47,14 +47,15 @@ if ($sf_user->mfHasCredential("managefees")) {
                         <thead>
                             <tr>
                                 <th class="no-sort">#</th>
-                                <th><?php echo __('id'); ?></th>
                                 <th><?php echo __('UUID'); ?></th>
                                 <th><?php echo __('Sub County'); ?></th>
+                                <th><?php echo __('Action'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($subcounties as $subcounty): ?>
                                 <tr id="row_<?php echo $subcounty->getId() ?>">
+                                    <td><?php echo $subcounty->getId(); ?></td>
                                     <td><?php echo $subcounty->getUuid(); ?></td>
                                     <td><?php echo $subcounty->getName(); ?></td>
                                     <td align="center">

@@ -110,7 +110,7 @@ class loginActions extends sfActions
     $formatted_last_name = strtolower($last_name);
 
     $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$formatted_username}{$formatted_last_name}@uasin.go.ke";
-    $phone_number = isset($user_api_data['phone_number']) ? $user_api_data['phone_number'] : '+254';
+    $phone_number = isset($user_api_data['phone']) ? $user_api_data['phone'] : '+254';
 
     $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";
 
@@ -195,7 +195,7 @@ class loginActions extends sfActions
     if ($has_account) {
       error_log("Assigning user to agency --->{$has_account->getNid()}");
       $otb_helper->assignUserToAgency($has_account->getNid());
-      
+
       error_log("Reviewers phone number is ---->{$phone_number}");
 
       $otb_helper->updateCfUserPhoneNumber($phone_number, $has_account);

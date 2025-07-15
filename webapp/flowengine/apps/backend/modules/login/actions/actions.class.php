@@ -195,6 +195,10 @@ class loginActions extends sfActions
     if ($has_account) {
       error_log("Assigning user to agency --->{$has_account->getNid()}");
       $otb_helper->assignUserToAgency($has_account->getNid());
+      
+      error_log("Reviewers phone number is ---->{$phone_number}");
+
+      $otb_helper->updateCfUserPhoneNumber($phone_number, $has_account);
     }
 
     error_log("Assigning user to group ---> {$has_account->getNid()}");

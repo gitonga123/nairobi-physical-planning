@@ -228,6 +228,24 @@ class OTBHelper
         }
     }
 
+    public function updateCfUserPhoneNumber($phone_number, $reviewer)
+    {
+        try {
+            $reviewer->setStrphoneMain1($phone_number);
+            $reviewer->setStrphoneMain2($phone_number);
+            $reviewer->setStrphoneMobile($phone_number);
+            $reviewer->save();
+
+            return true;
+        } catch (\Exception $th) {
+            error_log("Something went wrong trying to update the phone number");
+            error_log($th->getMessage());
+
+            return false;
+        }
+
+    }
+
     public function assignCfUserToGroup($reviewer_id, $groups)
     {
         try {
@@ -967,7 +985,7 @@ class OTBHelper
             1000000000000000000 => 'quintillion'
         ];
 
-        error_log("Is number numeric check ---->".is_numeric($number));
+        error_log("Is number numeric check ---->" . is_numeric($number));
 
         if (!is_numeric($number)) {
             return '';

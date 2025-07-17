@@ -21,28 +21,7 @@ install_step_one:
 dashboard:
   url: /dashboard 
   param: { module: dashboard, action: index }
-
-api_sub_counties:
-  url:   /api/sub_counties
-  param: { module: api, action: subCounties }
-
-api_subcounty_view:
-  url:   /api/sub_counties/:id
-  param: { module: api, action: subCountiesView }
-  requirements:
-    id: \d+
-
-api_wards_list:
-  url:   /api/wards
-  param: { module: api, action: wards }
-
-api_ward_view:
-  url:   /api/wards/:id
-  param: { module: api, action: wardView }
-  requirements:
-    id: \d+
-
-
+  
 apply2:
   url:  /apply2
   param: { module: sfApply, action: apply2 }

@@ -744,6 +744,9 @@ class apiActions extends sfActions
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
+
+                    error_log("New error label ----> {$new_label}");
+
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }
@@ -759,7 +762,10 @@ class apiActions extends sfActions
                         $app_info['ward'] = trim($data['value']);
                     }
                     if (stristr($new_label, 'plotlatitude')) {
-                        $app_info['plot_location'] = trim($data['value']);
+                        $app_info['latitude'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'plotlongitude:')) {
+                        $app_info['longitude'] = trim($data['value']);
                     }
                 }
             }
@@ -1160,15 +1166,29 @@ class apiActions extends sfActions
         return $final;
     }
 
-    private function map_location_with_form_type()
+    private function map_location_with_form_type_latitude()
     {
         return [
-            25952 => 65,
+            25952 => 108,
             47349 => 65,
             67355 => 65,
             38732 => 122,
             46092 => 10,
-            25445 => 177,
+            25445 => 198,
+            89966 => 65,
+            88401 => 75
+        ];
+    }
+
+    private function map_location_with_form_type_longitude()
+    {
+        return [
+            25952 => 109,
+            47349 => 65,
+            67355 => 65,
+            38732 => 122,
+            46092 => 10,
+            25445 => 199,
             89966 => 65,
             88401 => 75
         ];
@@ -1180,7 +1200,7 @@ class apiActions extends sfActions
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
-        if (!array_key_exists('plot_location', $data)) {
+        if (!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data)) {
             return $this->renderText(json_encode([
                 'success' => false,
                 'data' => [],
@@ -1188,7 +1208,8 @@ class apiActions extends sfActions
             ]));
         }
 
-        $plot_location = $data['plot_location'];
+        $plot_latitude = $data['plot_latitude'];
+        $plot_longitude = $data['plot_longitude'];
 
         $application_id = $request->getParameter('id');
 
@@ -1210,16 +1231,23 @@ class apiActions extends sfActions
             ]));
         }
 
-        $element_id = $this->map_location_with_form_type()[$application->getFormId()];
+        $element_id = $this->map_location_with_form_type_latitude()[$application->getFormId()];
 
         $groups = $this->permitType();
 
-        $update_query = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id} = '{$plot_location}' WHERE id = {$application->getEntryId()}";
+        $update_query = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id} = '{$plot_latitude}' WHERE id = {$application->getEntryId()}";
 
         $updated = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query);
+
+
+        $element_id_2 = $this->map_location_with_form_type_longitude()[$application->getFormId()];
+
+        $update_query_2 = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id_2} = '{$plot_longitude}' WHERE id = {$application->getEntryId()}";
+
+        $updated_2 = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query_2);
         $application_manager = new ApplicationManager();
         $app_info = [];
-        if ($updated) {
+        if ($updated || $updated_2) {
             $entry_details = $application_manager->get_application_details(
                 $application->getFormId(),
                 $application->getEntryId()
@@ -1229,6 +1257,7 @@ class apiActions extends sfActions
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
+
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }
@@ -1244,7 +1273,10 @@ class apiActions extends sfActions
                         $app_info['ward'] = trim($data['value']);
                     }
                     if (stristr($new_label, 'plotlatitude')) {
-                        $app_info['plot_location'] = trim($data['value']);
+                        $app_info['latitude'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'plotlongitude:')) {
+                        $app_info['longitude'] = trim($data['value']);
                     }
                 }
 

@@ -1204,6 +1204,9 @@ class apiActions extends sfActions
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
+
+        error_log(print_r($data, true));
+
         if (!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data)) {
             return $this->renderText(json_encode([
                 'success' => false,
@@ -1212,8 +1215,8 @@ class apiActions extends sfActions
             ]));
         }
 
-        $plot_latitude = $data['plot_latitude'];
-        $plot_longitude = $data['plot_longitude'];
+        $plot_latitude = $data['latitude'];
+        $plot_longitude = $data['longitude'];
 
         $application_id = $request->getParameter('id');
 

@@ -1310,7 +1310,7 @@ class apiActions extends sfActions
             }
 
             return $this->renderText(json_encode([
-                'success' => false,
+                'success' => true,
                 'data' => $app_info,
                 'links' => [],
                 'meta' => [],

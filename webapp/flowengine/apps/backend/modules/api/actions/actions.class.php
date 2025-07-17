@@ -745,7 +745,7 @@ class apiActions extends sfActions
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
 
-                    error_log("New error label ----> {$new_label}");
+                    error_log("New error label ----> {$new_label} 1");
 
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
@@ -1258,6 +1258,8 @@ class apiActions extends sfActions
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
 
+                    error_log("New error label ----> {$new_label} 1");
+                    
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }

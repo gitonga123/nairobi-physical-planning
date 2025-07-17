@@ -740,6 +740,8 @@ class apiActions extends sfActions
                 $app->getEntryId()
             );
 
+            error_log("Application id is ---> {$app->getId()}");
+
             foreach ($entry_details as $data) {
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
                     $new_label = str_replace(' ', '', $data['label']);

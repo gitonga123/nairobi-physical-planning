@@ -764,10 +764,10 @@ class apiActions extends sfActions
                         $app_info['ward'] = trim($data['value']);
                     }
                     if (stristr($new_label, 'plotlatitude')) {
-                        $app_info['latitude'] = trim($data['value']);
+                        $app_info['latitude'] = floatval(trim($data['value']));
                     }
                     if (stristr($new_label, 'plotlongitude')) {
-                        $app_info['longitude'] = trim($data['value']);
+                        $app_info['longitude'] = floatval(trim($data['value']));
                     }
                 }
             }
@@ -788,7 +788,7 @@ class apiActions extends sfActions
                 $allPaid = false;
             }
             $app_info['application_date'] = $app->getDateOfSubmission();
-            $app_info['application_id'] = $app->getId();
+            $app_info['application_id'] = intval($app->getId());
             $app_info['application_number'] = $app->getApplicationId();
             $app_info['current_stage'] = $app->getSubMenus() ? $app->getSubMenus()->getTitle() : "";
             $app_info['service_type'] = $groups[$app->getFormId()];
@@ -1280,10 +1280,10 @@ class apiActions extends sfActions
                         $app_info['ward'] = trim($data['value']);
                     }
                     if (stristr($new_label, 'plotlatitude')) {
-                        $app_info['latitude'] = trim($data['value']);
+                        $app_info['latitude'] = floatval(trim($data['value']));
                     }
                     if (stristr($new_label, 'plotlongitude')) {
-                        $app_info['longitude'] = trim($data['value']);
+                        $app_info['longitude'] = floatval(trim($data['value']));
                     }
                 }
 
@@ -1301,7 +1301,7 @@ class apiActions extends sfActions
                     $allPaid = false;
                 }
                 $app_info['application_date'] = $application->getDateOfSubmission();
-                $app_info['application_id'] = $application->getId();
+                $app_info['application_id'] =intval($application->getId());
                 $app_info['application_number'] = $application->getApplicationId();
                 $app_info['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "";
                 $app_info['service_type'] = $groups[$application->getFormId()];

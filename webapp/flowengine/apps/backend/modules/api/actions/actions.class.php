@@ -769,6 +769,8 @@ class apiActions extends sfActions
                     }
                 }
             }
+
+            error_log("\n\n");
             $permits = $app->getSavedPermits() ? $app->getSavedPermits()->getData()[0] : false;
             $allPaid = true; // assume all are paid unless we find one that's not
             $invoices = $app->getMfInvoice();
@@ -1259,7 +1261,7 @@ class apiActions extends sfActions
                     $new_label = strtolower($new_label);
 
                     error_log("New error label ----> {$new_label} 1");
-                    
+
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }

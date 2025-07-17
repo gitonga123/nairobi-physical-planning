@@ -766,7 +766,7 @@ class apiActions extends sfActions
                     if (stristr($new_label, 'plotlatitude')) {
                         $app_info['latitude'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'plotlongitude:')) {
+                    if (stristr($new_label, 'plotlongitude')) {
                         $app_info['longitude'] = trim($data['value']);
                     }
                 }
@@ -1279,7 +1279,7 @@ class apiActions extends sfActions
                     if (stristr($new_label, 'plotlatitude')) {
                         $app_info['latitude'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'plotlongitude:')) {
+                    if (stristr($new_label, 'plotlongitude')) {
                         $app_info['longitude'] = trim($data['value']);
                     }
                 }

@@ -771,8 +771,6 @@ class apiActions extends sfActions
                     }
                 }
             }
-
-            error_log("\n\n");
             $permits = $app->getSavedPermits() ? $app->getSavedPermits()->getData()[0] : false;
             $allPaid = true; // assume all are paid unless we find one that's not
             $invoices = $app->getMfInvoice();
@@ -1209,10 +1207,7 @@ class apiActions extends sfActions
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
-        error_log(print_r($data, true));
-
-
-        error_log("Print r above --->");
+       
 
         if (empty($data)) {
             $data = [
@@ -1220,6 +1215,11 @@ class apiActions extends sfActions
                 'longitude' => $request->getParameter('longitude')
             ];
         }
+
+         error_log(print_r($data, true));
+
+
+        error_log("Print r above --->");
 
         if ((!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data))) {
             return $this->renderText(json_encode([
@@ -1274,10 +1274,14 @@ class apiActions extends sfActions
                 $application->getEntryId()
             );
 
+            error_log("Application id is ---> {$application->getId()}");
+
             foreach ($entry_details as $data) {
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
+
+                     error_log("New error label ----> {$new_label} 2");
 
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);

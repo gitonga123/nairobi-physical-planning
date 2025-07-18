@@ -1204,6 +1204,10 @@ class apiActions extends sfActions
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
+        error_log("Content received is --->");
+        error_log(json_encode($rawContent));
+        $data = json_decode($rawContent, true);
+
 
         error_log(print_r($data, true));
 

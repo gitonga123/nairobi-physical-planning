@@ -1209,7 +1209,12 @@ class apiActions extends sfActions
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
-        if (!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data)) {
+        error_log(print_($data, true));
+
+
+        error_log("Print r above --->");
+
+        if ((!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data)) || ) {
             return $this->renderText(json_encode([
                 'success' => false,
                 'data' => [],

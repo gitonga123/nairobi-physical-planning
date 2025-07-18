@@ -1208,6 +1208,8 @@ class apiActions extends sfActions
         error_log(json_encode($rawContent));
         $data = json_decode($rawContent, true);
 
+        error_log("Am at this point --->");
+
 
         error_log(print_r($data, true));
 

@@ -30,3 +30,24 @@ CREATE TABLE `wards` (
     CONSTRAINT `fk_ward_subcounty` FOREIGN KEY (`subcounty_id`) REFERENCES `subcounties` (`id`) ON DELETE
     SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE OR REPLACE VIEW form_entry_application_coordinates AS
+SELECT fe.application_id,
+    f25445.id AS entry_id,
+    f25445.element_198 AS latitude,
+    f25445.element_199 AS longitude
+FROM form_entry fe
+    INNER JOIN ap_form_25445 f25445 ON fe.entry_id = f25445.id
+WHERE fe.form_id = 25445
+    AND f25445.element_198 IS NOT NULL
+    AND f25445.element_199 IS NOT NULL
+UNION
+SELECT fe.application_id,
+    f25952.id AS entry_id,
+    f25952.element_108 AS latitude,
+    f25952.element_109 AS longitude
+FROM form_entry fe
+    INNER JOIN ap_form_25952 f25952 ON fe.entry_id = f25952.id
+WHERE fe.form_id = 25952
+    AND f25952.element_108 IS NOT NULL
+    AND f25952.element_109 IS NOT NULL;

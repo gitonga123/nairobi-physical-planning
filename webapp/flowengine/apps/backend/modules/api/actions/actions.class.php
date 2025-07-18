@@ -1205,7 +1205,7 @@ class apiActions extends sfActions
         error_log("Above is get parameters");
         error_log("Latitude ----> {$request->getParameter('latitude')}");
         error_log("Longitude ----> {$request->getParameter('longitude')}");
-        
+
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
@@ -1213,6 +1213,13 @@ class apiActions extends sfActions
 
 
         error_log("Print r above --->");
+
+        if (empty($data)) {
+            $data = [
+                'latitude' => $request->getParameter('latitude'),
+                'longitude' => $request->getParameter('longitude')
+            ];
+        }
 
         if ((!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data))) {
             return $this->renderText(json_encode([

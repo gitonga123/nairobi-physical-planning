@@ -1201,17 +1201,9 @@ class apiActions extends sfActions
 
     public function executeApplicationsUpdate(sfWebRequest $request)
     {
+        error_log(print_r($request->getPostParameters(), true));
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
-
-        error_log("Content received is --->");
-        error_log(json_encode($rawContent));
-        $data = json_decode($rawContent, true);
-
-        error_log("Am at this point --->");
-
-
-        error_log(print_r($data, true));
 
         if (!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data)) {
             return $this->renderText(json_encode([
@@ -1307,7 +1299,7 @@ class apiActions extends sfActions
                     $allPaid = false;
                 }
                 $app_info['application_date'] = $application->getDateOfSubmission();
-                $app_info['application_id'] =intval($application->getId());
+                $app_info['application_id'] = intval($application->getId());
                 $app_info['application_number'] = $application->getApplicationId();
                 $app_info['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "";
                 $app_info['service_type'] = $groups[$application->getFormId()];

@@ -1202,6 +1202,10 @@ class apiActions extends sfActions
     public function executeApplicationsUpdate(sfWebRequest $request)
     {
         error_log(print_r($request->getPostParameters(), true));
+        error_log("Above is get parameters");
+        error_log("Latitude ----> {$request->getPostParameter('latitude')}");
+        error_log("Longitude ----> {$request->getPostParameter('longitude')}");
+        
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 

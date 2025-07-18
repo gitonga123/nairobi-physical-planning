@@ -1214,7 +1214,7 @@ class apiActions extends sfActions
 
         error_log("Print r above --->");
 
-        if ((!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data)) || ) {
+        if ((!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data))) {
             return $this->renderText(json_encode([
                 'success' => false,
                 'data' => [],

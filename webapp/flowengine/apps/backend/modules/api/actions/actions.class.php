@@ -1203,8 +1203,8 @@ class apiActions extends sfActions
     {
         error_log(print_r($request->getPostParameters(), true));
         error_log("Above is get parameters");
-        error_log("Latitude ----> {$request->getPostParameter('latitude')}");
-        error_log("Longitude ----> {$request->getPostParameter('longitude')}");
+        error_log("Latitude ----> {$request->getParameter('latitude')}");
+        error_log("Longitude ----> {$request->getParameter('longitude')}");
         
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);

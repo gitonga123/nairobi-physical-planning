@@ -1209,7 +1209,7 @@ class apiActions extends sfActions
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
-        error_log(print_($data, true));
+        error_log(print_r($data, true));
 
 
         error_log("Print r above --->");

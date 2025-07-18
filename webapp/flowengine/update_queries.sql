@@ -32,7 +32,7 @@ CREATE TABLE `wards` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE OR REPLACE VIEW form_entry_application_coordinates AS
-SELECT fe.application_id,
+SELECT fe.id,
     fe.application_id as 'Application' ,
     CASE fe.form_id WHEN 25445 THEN "PLANNING APPLICATION" ELSE 'NA' END as Service,
     f25445.element_198 AS latitude,
@@ -44,7 +44,7 @@ WHERE fe.form_id = 25445
     AND f25445.element_198 IS NOT NULL
     AND f25445.element_199 IS NOT NULL
 UNION
-SELECT fe.application_id,
+SELECT fe.id,
     fe.application_id as 'Application' ,
     CASE fe.form_id WHEN 25952 THEN "DEVELOPMENT PERMISSION BUILDING PLAN" ELSE 'NA' END as Service,
     f25952.element_108 AS latitude,

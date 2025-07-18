@@ -1196,6 +1196,22 @@ class apiActions extends sfActions
         ];
     }
 
+    public function executeUasinGishuMap(sfWebRequest $request)
+    {
+        $this->getResponse()->setContentType('application/json');
+
+        $filePath = sfConfig::get('sf_web_dir') . '/maps/uasin_gishu_map.json';
+
+        if (file_exists($filePath)) {
+            $json = file_get_contents($filePath);
+            return $this->renderText($json);
+        } else {
+            $this->getResponse()->setStatusCode(404);
+            return $this->renderText(json_encode(['error' => 'Map file not found']));
+        }
+    }
+
+
 
     public function executeApplicationsUpdate(sfWebRequest $request)
     {
@@ -1207,7 +1223,7 @@ class apiActions extends sfActions
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
 
-       
+
 
         if (empty($data)) {
             $data = [
@@ -1216,7 +1232,7 @@ class apiActions extends sfActions
             ];
         }
 
-         error_log(print_r($data, true));
+        error_log(print_r($data, true));
 
 
         error_log("Print r above --->");
@@ -1281,7 +1297,7 @@ class apiActions extends sfActions
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
 
-                     error_log("New error label ----> {$new_label} 2");
+                    error_log("New error label ----> {$new_label} 2");
 
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);

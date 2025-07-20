@@ -338,7 +338,7 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                                 <li <?php if ($sf_context->getModuleName() == "logviewer") {
                                     echo "class='active'";
                                 } ?>>
-                                    <a href="<?php echo url_for('/backend.php/logviewer/index') ?>">
+                                    <a href="<?php echo url_for('/plan/logviewer/index') ?>">
                                         <i class="fa fa-caret-right"></i><?php echo __('Technical System Logs'); ?>
                                     </a>
                                 </li>

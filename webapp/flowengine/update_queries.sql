@@ -54,3 +54,10 @@ FROM form_entry fe
 WHERE fe.form_id = 25952
     AND f25952.element_108 IS NOT NULL
     AND f25952.element_109 IS NOT NULL;
+    
+CREATE TABLE `system_log_path` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(255) NOT NULL,
+    `path` VARCHAR(255) NOT NULL,
+    `deleted` TINYINT
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;

@@ -103,7 +103,7 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                     </li>
                     <?php
                 }
-                
+
                 if ($sf_user->mfHasCredential("access_forms")) {
                     ?>
                     <li class="nav-parent  <?php if ($sf_context->getModuleName() == "department" || $sf_context->getModuleName() == "formgroups" || $sf_context->getModuleName() == "feecategories" || $sf_context->getModuleName() == "invoiceapiaccounts" || $sf_context->getModuleName() == "fees" || $sf_context->getModuleName() == "permits" || $sf_context->getModuleName() == "jsonreports" || $sf_context->getModuleName() == "currencies" || $sf_context->getModuleName() == "subcounty" || $sf_context->getModuleName() == "ward") {
@@ -285,11 +285,11 @@ if ($sf_user->mfHasCredential("code_access_rights")):
 
                 if ($sf_user->mfHasCredential("access_security")) {
                     ?>
-                    <li class="nav-parent  <?php if ($sf_context->getModuleName() == "usercategories" || $sf_context->getModuleName() == "groups" || $sf_context->getModuleName() == "credentials" || ($sf_context->getModuleName() == "wizard" && $sf_context->getActionName() == "security")) {
+                    <li class="nav-parent  <?php if ($sf_context->getModuleName() == "usercategories" || $sf_context->getModuleName() == "groups" || $sf_context->getModuleName() == "credentials" || $sf_context->getModuleName() == "logviewer" || ($sf_context->getModuleName() == "wizard" || $sf_context->getActionName() == "security")) {
                         echo "nav-active active";
                     } ?>"><a href=""><i class="fa fa-unlock-alt"></i>
                             <span><?php echo __('Security'); ?></span></a>
-                        <ul class="children" <?php if ($sf_context->getModuleName() == "usercategories" || $sf_context->getModuleName() == "groups" || $sf_context->getModuleName() == "credentials" || ($sf_context->getModuleName() == "wizard" && $sf_context->getActionName() == "security")) {
+                        <ul class="children" <?php if ($sf_context->getModuleName() == "usercategories" || $sf_context->getModuleName() == "groups" || $sf_context->getModuleName() == "credentials" || ($sf_context->getModuleName() == "wizard" && $sf_context->getActionName() == "security" || $sf_context->getModuleName() == "logviewer")) {
                             echo "style='display: block'";
                         } ?>>
                             <?php
@@ -330,6 +330,16 @@ if ($sf_user->mfHasCredential("code_access_rights")):
                                 } ?>>
                                     <a href="<?php echo url_for('/plan/signingsessions/index') ?>">
                                         <i class="fa fa-edit"></i><?php echo __('Signing Sessions'); ?>
+                                    </a>
+                                </li>
+                                <?php
+                            }
+                            if ($sf_user->mfHasCredential("manage_system_technical_logs")) { ?>
+                                <li <?php if ($sf_context->getModuleName() == "logviewer") {
+                                    echo "class='active'";
+                                } ?>>
+                                    <a href="<?php echo url_for('/backend.php/logviewer/index') ?>">
+                                        <i class="fa fa-caret-right"></i><?php echo __('Technical System Logs'); ?>
                                     </a>
                                 </li>
                                 <?php

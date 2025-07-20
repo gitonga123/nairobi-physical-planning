@@ -30,3 +30,10 @@ CREATE TABLE `wards` (
     CONSTRAINT `fk_ward_subcounty` FOREIGN KEY (`subcounty_id`) REFERENCES `subcounties` (`id`) ON DELETE
     SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE `system_log_path` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(255) NOT NULL,
+    `path` VARCHAR(255) NOT NULL,
+    `deleted` TINYINT
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;

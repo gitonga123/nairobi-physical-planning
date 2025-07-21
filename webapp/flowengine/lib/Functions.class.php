@@ -785,7 +785,7 @@ EOL;
 
             $mailnotifications = new mailnotifications();
             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
-            if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                 $body = <<<EOL
                     Hi $review_name,
 
@@ -795,7 +795,7 @@ EOL;
                     http://$host/plan/tasks/view/id/$task_id
                     EOL;
 
-                $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
             }
         }
     }

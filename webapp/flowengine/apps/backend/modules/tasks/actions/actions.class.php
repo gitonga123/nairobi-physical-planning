@@ -439,13 +439,13 @@ class tasksActions extends sfActions
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
-                        if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                        if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                             $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",\n"
                                 . "You have been assigned a new task on Application ID: " . $this->application->getApplicationId() . ".\n"
                                 . "\"" . $request->getPostParameter("description") . "\"\n"
                                 . "View it here: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
 
-                            $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                            $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                         }
                     }
                     foreach ($otherreviewers as $reviewer) {
@@ -568,13 +568,13 @@ class tasksActions extends sfActions
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
-                        if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                        if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                             $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                 . "you have been assigned a new task on Application " . $this->application->getApplicationId() . ". "
                                 . "Task: \"" . $request->getPostParameter("description") . "\". "
                                 . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
 
-                            $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                            $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                         }
                         $count++;
                     }
@@ -698,13 +698,13 @@ class tasksActions extends sfActions
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
-                        if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                        if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                             $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                 . "you've been assigned a new task on Application " . $this->application->getApplicationId() . ": "
                                 . "\"" . $request->getPostParameter("description") . "\". "
                                 . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
 
-                            $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                            $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                         }
                         $count++;
                     }
@@ -873,13 +873,13 @@ class tasksActions extends sfActions
 
                             $mailnotifications = new mailnotifications();
                             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
-                            if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                                 $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                     . "you have a new task on Application " . $this->application->getApplicationId() . ": "
                                     . "\"" . $request->getPostParameter("description") . "\". "
                                     . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
 
-                                $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                             }
                         }
                         foreach ($otherreviewers as $reviewer) {
@@ -1001,13 +1001,13 @@ class tasksActions extends sfActions
 
                             $mailnotifications = new mailnotifications();
                             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
-                            if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                                 $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                     . "you've been assigned a task on App " . $this->application->getApplicationId() . ": "
                                     . "\"" . $request->getPostParameter("description") . "\". "
                                     . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
 
-                                $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                             }
                             $count++;
                         }
@@ -1130,12 +1130,12 @@ class tasksActions extends sfActions
 
                             $mailnotifications = new mailnotifications();
                             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
-                            if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                                 $body = "Hi " . $reviewer->getStrfirstname() . ", you've been assigned a new task on App " . $this->application->getApplicationId() .
                                     ": \"" . $request->getPostParameter("description") . "\". View it here: http://" . $_SERVER['HTTP_HOST'] .
                                     "/plan/tasks/view/id/" . $this->task->getId();
 
-                                $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                             }
                             $count++;
                         }
@@ -1282,12 +1282,12 @@ class tasksActions extends sfActions
 
                                 $mailnotifications = new mailnotifications();
                                 $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "Paid Invoice", $body);
-                                if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                                if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                                     $body = "Hi " . $reviewer->getStrfirstname() . ", " . $notification .
                                         " View app " . $application->getApplicationId() . ": http://" . $_SERVER['HTTP_HOST'] .
                                         "/plan/applications/view/id/" . $application->getId();
 
-                                    $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                                    $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                                 }
                             }
                         }
@@ -1556,13 +1556,13 @@ class tasksActions extends sfActions
 
             $mailnotifications = new mailnotifications();
             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $user_profile->getEmail(), "New Message", $body);
-            if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                 $body = "Hi " . $user_profile->getFullname() .
                     ", you have a new message on " . $application->getApplicationId() .
                     " from " . $reviewer->getStrfirstname() . " (" . $reviewer->getStrdepartment() . "). " .
                     "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/application/view/id/" . $application->getId();
 
-                $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
             }
             echo json_encode(array('success' => true, 'message' => array('name' => $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname(), 'content' => trim($request->getPostParameter("txtmessage")), 'time' => $message->getActionTimestamp())));
         } elseif ($request->getPostParameter("txtmemo")) {

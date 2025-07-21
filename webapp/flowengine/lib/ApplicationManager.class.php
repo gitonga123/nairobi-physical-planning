@@ -651,6 +651,15 @@ class ApplicationManager
 
                     $mailnotifications = new mailnotifications();
                     $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "Corrected Application", $body);
+
+                    if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                        $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",\n\n"
+                            . $notification . "\n\n"
+                            . "Click here to view the application:\n"
+                            . "http://" . $_SERVER['HTTP_HOST'] . "/plan/applications/view/id/" . $submission->getId() . "\n"
+                            . "(Application ID: " . $submission->getApplicationId() . ")";
+                        $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                    }
                 }
             }
         } elseif ($current_stage && $current_stage->getStageType() == 12 && $current_stage->getStageProperty() == 2) {

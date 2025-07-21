@@ -766,7 +766,7 @@ EOL;
             $audit->saveFullAudit("<a href=\"/plan/tasks/view/id/" . $task->getId() . "\">Assigned " . $task->getTypeName() . " task on " . $app_id . " to " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
 
             $review_name = $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname();
-            $host = sfConfig::get('app_sso_jambo_url');
+            $host = sfConfig::get('app_sso_backend_jambo_url');
             $task_id = $task->getId();
             $body = <<<EOL
                     Hi $review_name,<br>

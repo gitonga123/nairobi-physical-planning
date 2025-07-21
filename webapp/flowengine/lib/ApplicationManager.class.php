@@ -1226,7 +1226,7 @@ class ApplicationManager
 
                     $q = Doctrine_Query::create()
                         ->from('CfUser a')
-                        ->where('a.nid = ?', $reviewer->getNid());
+                        ->where('a.nid = ?', $reviewer->getReviewerId());
                     $reviewerR = $q->fetchOne();
 
                     if ($reviewerR && ($reviewerR->getMobile() && strlen($reviewerR->getMobile()) > 5)) {

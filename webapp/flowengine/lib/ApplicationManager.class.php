@@ -1223,6 +1223,16 @@ class ApplicationManager
                     $task->setTaskStage($application->getApproved());
                     $task->setApplicationId($application->getId());
                     $task->save();
+                    $mailnotifications = new mailnotifications();
+                    $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+                    if ($reviewer->getMobile() && strlen($reviewer->getMobile()) > 5) {
+                        $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
+                            . "you have been assigned a new task on Application " . $application->getApplicationId() . ". "
+                            . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $task->getId();
+
+                        $mailnotifications->sendsms($reviewer->getMobile(), $body);
+                    }
+
                 }
 
                 //2. Check if all invoices are paid and application needs movement

@@ -766,7 +766,7 @@ EOL;
             $audit->saveFullAudit("<a href=\"/plan/tasks/view/id/" . $task->getId() . "\">Assigned " . $task->getTypeName() . " task on " . $app_id . " to " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
 
             $review_name = $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname();
-            $host = $_SERVER['HTTP_HOST'];
+            $host = sfConfig::get('app_sso_jambo_url');
             $task_id = $task->getId();
             $body = <<<EOL
                     Hi $review_name,<br>
@@ -792,7 +792,7 @@ EOL;
                     You have been assigned a new task on $app_id.
 
                     Click here to view the task:
-                    http://$host/plan/tasks/view/id/$task_id
+                    https://$host/plan/tasks/view/id/$task_id
                     EOL;
 
                 $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);

@@ -422,20 +422,18 @@ class tasksActions extends sfActions
                         $reviewer = $q->fetchOne();
 
                         $body = "
-                                    Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",<br>
-                                    <br>
-                                    You have been assigned a new task on " . $this->application->getApplicationId() . ":<br>
-                                    <br><br>
-                                    &ldquo; " . $request->getPostParameter("description") . " &rdquo;
-                                    <br>
-                                    <br>
-                                    Click here to view the task: <br>
-                                    ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
-                                    ------- <br>
+                            Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",<br><br>
+                            You have been assigned a new task on " . $this->application->getApplicationId() . ":<br><br>
+                            &ldquo;" . $request->getPostParameter("description") . "&rdquo;<br><br>
+                            Click here to view the task: <br>
+                            ------- <br>
+                            <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>
+                                Link to " . $this->application->getApplicationId() . " task
+                            </a><br>
+                            ------- <br><br>
+                        ";
 
-                                    <br>
-                                    ";
+
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
@@ -443,7 +441,7 @@ class tasksActions extends sfActions
                             $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",\n"
                                 . "You have been assigned a new task on Application ID: " . $this->application->getApplicationId() . ".\n"
                                 . "\"" . $request->getPostParameter("description") . "\"\n"
-                                . "View it here: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
+                                . "View it here:" . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
 
                             $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                         }
@@ -560,7 +558,7 @@ class tasksActions extends sfActions
                                     <br>
                                     Click here to view the task: <br>
                                     ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                    <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                     ------- <br>
 
                                     <br>
@@ -572,7 +570,7 @@ class tasksActions extends sfActions
                             $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                 . "you have been assigned a new task on Application " . $this->application->getApplicationId() . ". "
                                 . "Task: \"" . $request->getPostParameter("description") . "\". "
-                                . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
+                                . "View: " . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
 
                             $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                         }
@@ -690,7 +688,7 @@ class tasksActions extends sfActions
                                         <br>
                                         Click here to view the task: <br>
                                         ------- <br>
-                                        <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                        <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                         ------- <br>
 
                                         <br>
@@ -702,7 +700,7 @@ class tasksActions extends sfActions
                             $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                 . "you've been assigned a new task on Application " . $this->application->getApplicationId() . ": "
                                 . "\"" . $request->getPostParameter("description") . "\". "
-                                . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
+                                . "View: " . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
 
                             $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                         }
@@ -865,7 +863,7 @@ class tasksActions extends sfActions
                                     <br>
                                     Click here to view the task: <br>
                                     ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                    <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                     ------- <br>
 
                                     <br>
@@ -877,7 +875,7 @@ class tasksActions extends sfActions
                                 $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                     . "you have a new task on Application " . $this->application->getApplicationId() . ": "
                                     . "\"" . $request->getPostParameter("description") . "\". "
-                                    . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
+                                    . "View: " . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
 
                                 $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                             }
@@ -993,7 +991,7 @@ class tasksActions extends sfActions
                                     <br>
                                     Click here to view the task: <br>
                                     ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                    <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                     ------- <br>
 
                                     <br>
@@ -1005,7 +1003,7 @@ class tasksActions extends sfActions
                                 $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
                                     . "you've been assigned a task on App " . $this->application->getApplicationId() . ": "
                                     . "\"" . $request->getPostParameter("description") . "\". "
-                                    . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId();
+                                    . "View: " . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
 
                                 $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                             }
@@ -1122,7 +1120,7 @@ class tasksActions extends sfActions
                                         <br>
                                         Click here to view the task: <br>
                                         ------- <br>
-                                        <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                        <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                         ------- <br>
 
                                         <br>
@@ -1132,8 +1130,8 @@ class tasksActions extends sfActions
                             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
                             if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                                 $body = "Hi " . $reviewer->getStrfirstname() . ", you've been assigned a new task on App " . $this->application->getApplicationId() .
-                                    ": \"" . $request->getPostParameter("description") . "\". View it here: http://" . $_SERVER['HTTP_HOST'] .
-                                    "/plan/tasks/view/id/" . $this->task->getId();
+                                    ": \"" . $request->getPostParameter("description") . "\". View it here:". sfConfig::get('app_sso_jambo_url') .
+                                    "plan/tasks/view/id/" . $this->task->getId();
 
                                 $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                             }
@@ -1274,7 +1272,7 @@ class tasksActions extends sfActions
 	                        <br>
 	                        Click here to view the application: <br>
 	                        ------- <br>
-	                        <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/applications/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
+	                        <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/applications/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
 	                        ------- <br>
 
 	                        <br>
@@ -1284,8 +1282,8 @@ class tasksActions extends sfActions
                                 $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "Paid Invoice", $body);
                                 if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                                     $body = "Hi " . $reviewer->getStrfirstname() . ", " . $notification .
-                                        " View app " . $application->getApplicationId() . ": http://" . $_SERVER['HTTP_HOST'] .
-                                        "/plan/applications/view/id/" . $application->getId();
+                                        " View app " . $application->getApplicationId() . ": " . sfConfig::get('app_sso_jambo_url') . 
+                                        "plan/applications/view/id/" . $application->getId();
 
                                     $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                                 }
@@ -1548,7 +1546,7 @@ class tasksActions extends sfActions
             <br>
             Click here to view the application: <br>
             ------- <br>
-            <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/application/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
+            <a href='" . sfConfig::get('app_sso_jambo_url') . "plan/application/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
             ------- <br>
 
             <br>
@@ -1560,7 +1558,7 @@ class tasksActions extends sfActions
                 $body = "Hi " . $user_profile->getFullname() .
                     ", you have a new message on " . $application->getApplicationId() .
                     " from " . $reviewer->getStrfirstname() . " (" . $reviewer->getStrdepartment() . "). " .
-                    "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/application/view/id/" . $application->getId();
+                    "View: " . sfConfig::get('app_sso_jambo_url') . "plan/application/view/id/" . $application->getId();
 
                 $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
             }

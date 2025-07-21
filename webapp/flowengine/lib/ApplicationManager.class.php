@@ -652,11 +652,12 @@ class ApplicationManager
                     $mailnotifications = new mailnotifications();
                     $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "Corrected Application", $body);
 
+                    // TODO use system config urls
                     if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
                         $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",\n\n"
                             . $notification . "\n\n"
                             . "Click here to view the application:\n"
-                            . "http://" . $_SERVER['HTTP_HOST'] . "/plan/applications/view/id/" . $submission->getId() . "\n"
+                            . sfConfig::get('app_sso_jambo_url') . "plan/applications/view/id/" . $submission->getId() . "\n"
                             . "(Application ID: " . $submission->getApplicationId() . ")";
                         $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
                     }
@@ -1234,7 +1235,7 @@ class ApplicationManager
                     if ($reviewerR && ($reviewerR->getStrphoneMain1() && strlen($reviewerR->getStrphoneMain1()) > 5)) {
                         $body = "Hi " . $reviewerR->getStrfirstname() . " " . $reviewerR->getStrlastname() . ", "
                             . "you have been assigned a new task on Application " . $application->getApplicationId() . ". "
-                            . "View: http://" . $_SERVER['HTTP_HOST'] . "/plan/tasks/view/id/" . $task->getId();
+                            . "View: " . sfConfig::get('app_sso_jambo_url') . "plan/tasks/view/id/" . $task->getId();
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewerR->getStremail(), "New Task", $body);

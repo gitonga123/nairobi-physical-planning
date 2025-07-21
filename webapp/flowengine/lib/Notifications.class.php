@@ -394,6 +394,66 @@ class mailnotifications
 
 	public function sendsms($receiver, $body)
 	{
+		$original = $receiver;
+		error_log('Sending SMS to (raw input) ---> ' . $original);
+
+		try {
+			// Remove all non-digit characters
+			$receiver = preg_replace('/\D+/', '', $receiver);
+
+			// Normalize phone number to international format
+			if (substr($receiver, 0, 1) === "0") {
+				// Replace starting 0 with country code
+				$receiver = sfConfig::get('app_country_code') . substr($receiver, 1);
+			} elseif (substr($receiver, 0, 3) === "254") {
+				// Already in correct format, do nothing
+			} elseif (substr($receiver, 0, 4) === "254") {
+				// Just a fallback case, already handled
+			} elseif (substr($receiver, 0, 4) === "+254") {
+				// Strip the plus
+				$receiver = substr($receiver, 1);
+			} else {
+				error_log("Invalid phone number format: " . $original);
+				return;
+			}
+
+			// Retrieve token from session
+			$token = $_SESSION['jambo_token'] ??
+				$_SESSION['jambo_token_backend'] ??
+				$_SESSION['jambo_backup_token'] ?? null;
+
+			if (empty($token)) {
+				error_log("Unable to send SMS because no token was found.");
+				return;
+			}
+
+			error_log('Sending SMS to (normalized) ---> ' . $receiver);
+
+			$stream = new Stream();
+			$stream_response = $stream->sendRequest([
+				'url' => sfConfig::get('app_api_jambo_url') . 'api/v1/accounts/send_sms/',
+				'method' => 'POST',
+				'ssl' => 'default',
+				'contentType' => 'json',
+				'data' => [
+					'phone_number' => $receiver,
+					'message' => $body
+				],
+				'headers' => [
+					'Authorization' => "JWT " . $token
+				]
+			]);
+
+			error_log("SMS response: " . print_r($stream_response, true));
+
+		} catch (Exception $ex) {
+			error_log("Error while sending SMS: " . $ex->getMessage());
+		}
+	}
+
+
+	public function sendsms_older($receiver, $body)
+	{
 		error_log('Sending sms to --->1' . $receiver);
 		try {
 			if (substr($receiver, 0, 1) == "0") {

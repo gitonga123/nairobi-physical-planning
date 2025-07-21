@@ -1201,7 +1201,8 @@ class ApplicationManager
                     $q = Doctrine_Query::create()
                         ->from("Task a")
                         ->where("a.status = 1")
-                        ->andWHere("a.owner_user_id = ?", $reviewer->getReviewerId());
+                        ->andWHere("a.owner_user_id = ?", $reviewer->getReviewerId())
+                        ->andWhere("a.application_id = ?", $application->getId());
 
                     if ($q->count() > 0) {
                         continue;

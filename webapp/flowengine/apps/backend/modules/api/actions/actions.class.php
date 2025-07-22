@@ -498,8 +498,88 @@ class apiActions extends sfActions
             $total_count = $result[1];
             $page = $result[2];
         } else {
-            if (!is_null($subcounty)) {
-                $form_list = $form_listing;
+
+            $cache_key = 'apps_list_' . md5(json_encode([
+                'permit' => $with_permit,
+                'forms' => $form_list,
+                'start' => $new_start_date,
+                'end' => $new_end_date,
+                'limit' => $limit,
+                'page' => $page
+            ]));
+
+            $cached_result = $this->cache->get($cache_key);
+
+            if ($cached_result) {
+                $cached_values = json_decode($cached_result, true);
+
+                $app_list = new Doctrine_Collection('FormEntry');
+                foreach ($cached_values[0] as $row) {
+                    $form = new FormEntry();
+                    $form->fromArray($row);
+                    $app_list->add($form);
+                }
+
+                $total_count = $cached_values[1];
+            } else {
+                $q_app = Doctrine_Query::create()
+                    ->addSelect('f.id')
+                    ->addSelect('f.application_id')
+                    ->addSelect('f.entry_id')
+                    ->addSelect('f.form_id')
+                    ->addSelect('s.title')
+                    ->addSelect('f.date_of_submission')
+                    ->addSelect('p.permit_id')
+                    ->from('FormEntry f')
+                    ->leftJoin('f.SubMenus s')
+                    ->leftJoin('f.MfInvoice m')
+                    ->where("f.entry_id IS NOT NULL")
+                    ->andWhere("f.approved > 0");
+
+                if (!is_null($with_permit) && $with_permit == '0') {
+                    $q_app->leftJoin('f.SavedPermits p')->where('p.id IS NULL');
+                } else if (!is_null($with_permit) && $with_permit == '1') {
+                    $q_app->leftJoin('f.SavedPermits p');
+                    $q_app->andWhere('f.id = p.application_id')
+                        ->andWhere('f.approved = s.id')
+                        ->andWhere('p.permit_id IS NOT NULL')
+                        ->andWhere("p.permit_id <>''");
+                } else {
+                    $q_app->leftJoin('f.SavedPermits p');
+                }
+
+                if (count($form_list) > 0) {
+                    $q_app->andWhereIn('f.form_id', $form_list);
+                }
+
+                if (!is_null($new_start_date) && !is_null($new_end_date)) {
+                    $q_app->andWhere('f.date_of_submission BETWEEN ? AND ?', [$new_start_date, $new_end_date]);
+                } elseif (!is_null($new_start_date)) {
+                    $q_app->andWhere('f.date_of_submission BETWEEN ? AND ?', [
+                        date("Y-m-d", strtotime($new_start_date)) . " 00:00:00",
+                        date("Y-m-d", strtotime($new_start_date)) . " 23:59:59"
+                    ]);
+                } elseif (!is_null($new_end_date)) {
+                    $q_app->andWhere('f.date_of_submission BETWEEN ? AND ?', [
+                        date("Y-m-d", strtotime($new_end_date)) . " 00:00:00",
+                        date("Y-m-d", strtotime($new_end_date)) . " 23:59:59"
+                    ]);
+                }
+
+                $q_app->orderBy('f.id DESC');
+                $total_count = $q_app->count();
+
+                $q_app->limit($limit);
+
+                if (!is_null($page)) {
+                    $page = intval($page);
+                    $offset = ($page - 1) * ($limit ?? 10);
+                    $q_app->offset($offset);
+                }
+
+                $app_list = $q_app->execute();
+
+                $this->cache->set($cache_key, json_encode([$app_list->toArray(true), $total_count]), 300); // 5 min
             }
             $q_app = Doctrine_Query::create()
                 ->addSelect('f.id')
@@ -578,6 +658,22 @@ class apiActions extends sfActions
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
+
+                    error_log("New error label ----> {$new_label} 1");
+
+                    if (stristr($new_label, 'blocknumber')) {
+                        $app_info['block_number'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'ownernames')) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, "owner'sname")) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, "phonenumber")) {
+                        $app_info['phone_number'] = trim($data['value']);
+                    }
                     if (stristr($new_label, 'plotno')) {
                         $app_info['plot_no2'] = trim($data['value']);
                     }
@@ -760,4 +856,433 @@ class apiActions extends sfActions
         return [$app_list, $total_count, $page];
     }
 
+    public function mapping_forms_with_plot_id($form_ids)
+    {
+
+        $new_forms_c = $this->cache->get("mapping_forms_plot_id");
+
+        if ($new_forms_c) {
+            return json_decode($new_forms_c);
+        }
+
+        $new_form_ids = array_flip($form_ids);
+
+        $new_forms = array_fill_keys(array_keys($new_form_ids), []);
+
+        $sql_query = '';
+        if (count($form_ids) > 0) {
+            $in = implode(',', $form_ids);
+            $sql_query = "select form_id, element_id from ap_form_elements where (element_plot_no = 1 OR element_block_no = 1) and form_id IN ($in) order by form_id asc;";
+        } else {
+            $sql_query = "select form_id, element_id from ap_form_elements where (element_plot_no = 1 OR element_block_no = 1) order by form_id asc;";
+
+        }
+
+        if (!$sql_query) {
+            return [];
+        }
+        $result = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($sql_query);
+
+        foreach ($result as $option) {
+            array_push($new_forms[$option['form_id']], $option['element_id']);
+        }
+
+
+        $this->cache->set("mapping_forms_plot_id", json_encode($new_forms), 3600);
+
+        return $new_forms;
+    }
+
+    public function mapping_forms_with_subcounty($form_ids)
+    {
+        $new_forms_c = $this->cache->get("mapping_forms_subcounty");
+
+        if ($new_forms_c) {
+            return json_decode($new_forms_c);
+        }
+
+        $new_form_ids = array_flip($form_ids);
+
+        $new_forms = array_fill_keys(array_keys($new_form_ids), []);
+
+        $sql_query = '';
+        if (count($form_ids) > 0) {
+            $in = implode(',', $form_ids);
+            $sql_query = "select form_id, element_id from ap_form_elements where element_subcounty = 1 and form_id IN ($in) order by form_id asc;";
+        } else {
+            $sql_query = "select form_id, element_id from ap_form_elements where element_subcounty  = 1 order by form_id asc;";
+        }
+
+        if (!$sql_query) {
+            return [];
+        }
+
+        $result = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($sql_query);
+
+        foreach ($result as $option) {
+            array_push($new_forms[$option['form_id']], $option['element_id']);
+        }
+
+        $this->cache->set("mapping_forms_subcounty", json_encode($new_forms), 3600);
+
+        return $new_forms;
+    }
+
+    public function mapping_forms_with_ward($form_ids)
+    {
+        $new_forms_c = $this->cache->get("mapping_forms_ward");
+
+        if ($new_forms_c) {
+            return json_decode($new_forms_c);
+        }
+
+        $new_form_ids = array_flip($form_ids);
+
+        $new_forms = array_fill_keys(array_keys($new_form_ids), []);
+
+        $sql = '';
+        if (count($form_ids) > 0) {
+            $in = implode(',', $form_ids);
+            $sql = "select form_id, element_id from ap_form_elements where element_ward = 1 and form_id IN ($in) order by form_id asc;";
+        } else {
+            $sql = "select form_id, element_id from ap_form_elements where element_ward = 1 order by form_id asc;";
+        }
+
+
+        if (!$sql) {
+            return [];
+        }
+
+        $result = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($sql);
+
+        foreach ($result as $option) {
+            array_push($new_forms[$option['form_id']], $option['element_id']);
+        }
+
+        $this->cache->set("mapping_forms_ward", json_encode($new_forms), 3600);
+
+        return $new_forms;
+    }
+
+
+    public function get_entries_with_options_as_values($form_ids, $element_val)
+    {
+        $n_form_ids = [];
+
+        $form_ids_extracted = [];
+
+        foreach ($form_ids as $key => $value) {
+            if ($key && count($value) > 0) {
+                $sql = "SELECT option_id FROM ap_element_options  WHERE form_id = ? AND element_id = ? AND `live` = 1  AND `option_text` LIKE ? ORDER BY aeo_id DESC";
+
+                $params = [$key, $value[0], "%$element_val%"];
+
+                $results = Doctrine_Manager::getInstance()
+                    ->getCurrentConnection()
+                    ->fetchOne($sql, $params);
+
+                if ($results) {
+                    $form_ids_extracted[$key] = ['element_id' => $value[0], 'option_id' => $results];
+                }
+
+            }
+        }
+
+        $results = [];
+
+        $queries = [];
+
+        if (count($form_ids_extracted) < 1) {
+            return [];
+        }
+
+        foreach ($form_ids_extracted as $form_id => $value) {
+            $queries[] = "SELECT id, {$form_id} AS form_id FROM ap_form_{$form_id} WHERE element_{$value['element_id']} = {$value['option_id']}";
+        }
+
+
+        $sql = implode(' UNION ALL ', $queries);
+
+        $results = Doctrine_Manager::getInstance()
+            ->getCurrentConnection()
+            ->fetchAssoc($sql);
+
+        if (!$results) {
+            return [];
+        }
+
+
+        $n_form_ids = [];
+
+        foreach ($results as $result) {
+            if (!is_null($result) && !empty($result)) {
+                $n_form_ids[$result['form_id']][] = $result['id'];
+            }
+        }
+
+        return $n_form_ids;
+    }
+
+    public function get_entries_with_plot_no($form_ids, $plot)
+    {
+        $n_form_ids = [];
+        foreach ($form_ids as $key => $value) {
+
+            if (count($value) > 0) {
+                $sql = "select id, element_{$value[0]} from ap_form_{$key} where element_{$value[0]} like '%{$plot}%' order by id desc";
+
+                $results = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($sql);
+
+                if ($results) {
+
+                    $n_form_ids[$key] = [];
+                    foreach ($results as $option) {
+                        if (!is_null($option) && !empty($option)) {
+                            $n_form_ids[$key][] = $option['id'];
+                        }
+                    }
+                }
+            }
+        }
+        return $n_form_ids;
+    }
+
+    private function merge_search_query($input)
+    {
+        $grouped = [];
+
+        // Step 1: Group values by form_id
+        foreach ($input as $group) {
+            foreach ($group as $form_id => $entries) {
+                if (!isset($grouped[$form_id])) {
+                    $grouped[$form_id] = [];
+                }
+                $grouped[$form_id][] = $entries;
+            }
+        }
+
+        $final = [];
+
+        foreach ($grouped as $form_id => $entry_groups) {
+            // Convert each entry list to a set for intersection
+            $intersected = call_user_func_array('array_intersect', $entry_groups);
+
+            if (count($intersected) === 1) {
+                $entry_id = current($intersected);
+                $final[$form_id] = "(f.entry_id = $entry_id AND f.form_id = $form_id)";
+            } else {
+                // If no intersection, merge all unique values
+                $all_ids = array_merge(...$entry_groups);
+                $unique_ids = array_unique($all_ids);
+                sort($unique_ids, SORT_NUMERIC);
+
+                $entry_parts = array_map(fn($id) => "f.entry_id = $id", $unique_ids);
+                $final[$form_id] = "(" . implode(' OR ', $entry_parts) . " AND f.form_id = $form_id)";
+            }
+        }
+        return $final;
+    }
+
+    private function map_location_with_form_type_latitude()
+    {
+        return [
+            25952 => 108,
+            47349 => 65,
+            67355 => 65,
+            38732 => 122,
+            46092 => 10,
+            25445 => 198,
+            89966 => 65,
+            88401 => 75
+        ];
+    }
+
+    private function map_location_with_form_type_longitude()
+    {
+        return [
+            25952 => 109,
+            47349 => 65,
+            67355 => 65,
+            38732 => 122,
+            46092 => 10,
+            25445 => 199,
+            89966 => 65,
+            88401 => 75
+        ];
+    }
+
+    public function executeUasinGishuMap(sfWebRequest $request)
+    {
+        $this->getResponse()->setContentType('application/json');
+
+        $filePath = sfConfig::get('sf_web_dir') . '/maps/uasin_gishu_map.json';
+
+        if (file_exists($filePath)) {
+            $json = file_get_contents($filePath);
+            return $this->renderText($json);
+        } else {
+            $this->getResponse()->setStatusCode(404);
+            return $this->renderText(json_encode(['error' => 'Map file not found']));
+        }
+    }
+
+
+
+    public function executeApplicationsUpdate(sfWebRequest $request)
+    {
+        error_log(print_r($request->getPostParameters(), true));
+        error_log("Above is get parameters");
+        error_log("Latitude ----> {$request->getParameter('latitude')}");
+        error_log("Longitude ----> {$request->getParameter('longitude')}");
+
+        $rawContent = $request->getContent();
+        $data = json_decode($rawContent, true);
+
+
+
+        if (empty($data)) {
+            $data = [
+                'latitude' => $request->getParameter('latitude'),
+                'longitude' => $request->getParameter('longitude')
+            ];
+        }
+
+        error_log(print_r($data, true));
+
+
+        error_log("Print r above --->");
+
+        if ((!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data))) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'data' => [],
+                'message' => 'Plot details not found..'
+            ]));
+        }
+
+        $plot_latitude = $data['latitude'];
+        $plot_longitude = $data['longitude'];
+
+        $application_id = $request->getParameter('id');
+
+        $q = Doctrine_Query::create()
+            ->from("FormEntry a")
+            ->where('a.id = ?', $application_id)
+            ->andWhere('a.parent_submission = 0')
+            ->leftJoin('a.SubMenus s')
+            ->leftJoin('a.MfInvoice m');
+
+        $application = $q->fetchOne();
+
+
+        if (!$application) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'data' => [],
+                'message' => 'Application not found.'
+            ]));
+        }
+
+        $element_id = $this->map_location_with_form_type_latitude()[$application->getFormId()];
+
+        $groups = $this->permitType();
+
+        $update_query = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id} = '{$plot_latitude}' WHERE id = {$application->getEntryId()}";
+
+        $updated = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query);
+
+
+        $element_id_2 = $this->map_location_with_form_type_longitude()[$application->getFormId()];
+
+        $update_query_2 = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id_2} = '{$plot_longitude}' WHERE id = {$application->getEntryId()}";
+
+        $updated_2 = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query_2);
+        $application_manager = new ApplicationManager();
+        $app_info = [];
+        if ($updated || $updated_2) {
+            $entry_details = $application_manager->get_application_details(
+                $application->getFormId(),
+                $application->getEntryId()
+            );
+
+            error_log("Application id is ---> {$application->getId()}");
+
+            foreach ($entry_details as $data) {
+                if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
+                    $new_label = str_replace(' ', '', $data['label']);
+                    $new_label = strtolower($new_label);
+
+                    error_log("New error label ----> {$new_label} 2");
+
+                    if (stristr($new_label, 'blocknumber')) {
+                        $app_info['block_number'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'plotno')) {
+                        $app_info['plot_no'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, 'ownernames')) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, "owner'sname")) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, "phonenumber")) {
+                        $app_info['phone_number'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, 'subcounty')) {
+                        $app_info['subcounty'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, 'ward')) {
+                        $app_info['ward'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'plotlatitude')) {
+                        $app_info['latitude'] = floatval(trim($data['value']));
+                    }
+                    if (stristr($new_label, 'plotlongitude')) {
+                        $app_info['longitude'] = floatval(trim($data['value']));
+                    }
+                }
+
+                $permits = $application->getSavedPermits() ? $application->getSavedPermits()->getData()[0] : false;
+                $allPaid = true;
+                $invoices = $application->getMfInvoice();
+                if ($invoices) {
+                    foreach ($invoices->getData() as $invoice) {
+                        if ($invoice->getPaid() != 2) {
+                            $allPaid = false;
+                            break;
+                        }
+                    }
+                } else {
+                    $allPaid = false;
+                }
+                $app_info['application_date'] = $application->getDateOfSubmission();
+                $app_info['application_id'] = intval($application->getId());
+                $app_info['application_number'] = $application->getApplicationId();
+                $app_info['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "";
+                $app_info['service_type'] = $groups[$application->getFormId()];
+                $app_info['approval_status'] = $permits ? "Approved" : "Pending Approval";
+                $app_info['invoices_paid'] = $allPaid;
+            }
+
+            return $this->renderText(json_encode([
+                'success' => true,
+                'data' => $app_info,
+                'links' => [],
+                'meta' => [],
+                'message' => "Application Updated. "
+            ]));
+        }
+
+        return $this->renderText(json_encode([
+            'success' => false,
+            'data' => [],
+            'message' => 'Failed to update the application.'
+        ]));
+
+    }
 }

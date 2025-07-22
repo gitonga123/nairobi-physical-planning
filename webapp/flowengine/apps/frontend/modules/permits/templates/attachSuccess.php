@@ -16,7 +16,7 @@ use_helper("I18N");
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __("You are here"); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/index.php"><?php echo __("Home"); ?></a></li>
+      <li><a href="/plan/"><?php echo __("Home"); ?></a></li>
       <li class="active"><?php echo $application->getApplicationId(); ?></li>
     </ol>
   </div>
@@ -37,7 +37,7 @@ use_helper("I18N");
                         if(empty($document_key)) //Can't attach if there is already a signed permit
                         {
                             ?>
-                        <form id="bannerform" class="form-bordered form-horizontal" action="/index.php/permits/create/id/<?php echo $permit->getId(); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false">
+                        <form id="bannerform" class="form-bordered form-horizontal" action="/plan/permits/create/id/<?php echo $permit->getId(); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false">
                             <div class="panel-body panel-body-nopadding">
 
                                   <?php echo $form->renderGlobalErrors() ?>
@@ -46,7 +46,7 @@ use_helper("I18N");
                                   <?php endif; ?>
 
                                 <div class="form-group">
-                                    <label class="col-sm-12"><i class="bold-label"><a href='/index.php/permits/print/id/<?php echo $permit->getId(); ?>'><?php echo __('Click here to print your application. Sign it and attach it below to continue.'); ?></a></i></label>
+                                    <label class="col-sm-12"><i class="bold-label"><a href='/plan/permits/print/id/<?php echo $permit->getId(); ?>'><?php echo __('Click here to print your application. Sign it and attach it below to continue.'); ?></a></i></label>
                                 </div>
 
                                   <div class="form-group">

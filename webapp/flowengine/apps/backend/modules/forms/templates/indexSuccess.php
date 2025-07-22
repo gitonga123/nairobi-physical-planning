@@ -353,11 +353,11 @@ EOT;
 
                 <div class="panel-heading text-right">
                       <?php if(!empty($_SESSION['mf_user_privileges']['priv_new_forms'])){ ?>
-                                <a href="/backend.php/forms/form" id="button_create_form" class="btn btn-primary">
+                                <a href="/plan/forms/form" id="button_create_form" class="btn btn-primary">
                                     + Add Form
                                 </a>
 
-                                <a href="/backend.php/services/index" id="button_create_form"  class="btn btn-default btn-sm">
+                                <a href="/plan/services/index" id="button_create_form"  class="btn btn-default btn-sm">
                                     </span>< Back to Services
                                 </a>
                         <?php } ?>
@@ -387,17 +387,17 @@ EOT;
                                 <div class="dropui-content">
                                     <ul>
                                         <li class="sub_separator">Sort Ascending</li>
-                                        <li <?php if($form_sort_by_complete == 'date_created-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_date_created_link" href="/backend.php/forms/index?sortby=date_created-asc">Date Created</a></li>
-                                        <li <?php if($form_sort_by_complete == 'form_title-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_title_link" href="/backend.php/forms/index?sortby=form_title-asc">Form Title</a></li>
-                                        <li <?php if($form_sort_by_complete == 'form_tags-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_tag_link" href="/backend.php/forms/index?sortby=form_tags-asc">Form Tags</a></li>
-                                        <li <?php if($form_sort_by_complete == 'today_entries-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_today_entries_link" href="/backend.php/forms/index?sortby=today_entries-asc">Today's Entries</a></li>
-                                        <li <?php if($form_sort_by_complete == 'total_entries-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_total_entries_link" href="/backend.php/forms/index?sortby=total_entries-asc">Total Entries</a></li>
+                                        <li <?php if($form_sort_by_complete == 'date_created-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_date_created_link" href="/plan/forms/index?sortby=date_created-asc">Date Created</a></li>
+                                        <li <?php if($form_sort_by_complete == 'form_title-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_title_link" href="/plan/forms/index?sortby=form_title-asc">Form Title</a></li>
+                                        <li <?php if($form_sort_by_complete == 'form_tags-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_tag_link" href="/plan/forms/index?sortby=form_tags-asc">Form Tags</a></li>
+                                        <li <?php if($form_sort_by_complete == 'today_entries-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_today_entries_link" href="/plan/forms/index?sortby=today_entries-asc">Today's Entries</a></li>
+                                        <li <?php if($form_sort_by_complete == 'total_entries-asc'){ echo 'class="sort_active"'; } ?>><a id="sort_total_entries_link" href="/plan/forms/index?sortby=total_entries-asc">Total Entries</a></li>
                                         <li class="sub_separator">Sort Descending</li>
-                                        <li <?php if($form_sort_by_complete == 'date_created-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_date_created_link" href="/backend.php/forms/index?sortby=date_created-desc">Date Created</a></li>
-                                        <li <?php if($form_sort_by_complete == 'form_title-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_title_link" href="/backend.php/forms/index?sortby=form_title-desc">Form Title</a></li>
-                                        <li <?php if($form_sort_by_complete == 'form_tags-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_tag_link" href="/backend.php/forms/index?sortby=form_tags-desc">Form Tags</a></li>
-                                        <li <?php if($form_sort_by_complete == 'today_entries-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_today_entries_link" href="/backend.php/forms/index?sortby=today_entries-desc">Today's Entries</a></li>
-                                        <li <?php if($form_sort_by_complete == 'total_entries-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_total_entries_link" href="/backend.php/forms/index?sortby=total_entries-desc">Total Entries</a></li>
+                                        <li <?php if($form_sort_by_complete == 'date_created-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_date_created_link" href="/plan/forms/index?sortby=date_created-desc">Date Created</a></li>
+                                        <li <?php if($form_sort_by_complete == 'form_title-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_title_link" href="/plan/forms/index?sortby=form_title-desc">Form Title</a></li>
+                                        <li <?php if($form_sort_by_complete == 'form_tags-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_form_tag_link" href="/plan/forms/index?sortby=form_tags-desc">Form Tags</a></li>
+                                        <li <?php if($form_sort_by_complete == 'today_entries-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_today_entries_link" href="/plan/forms/index?sortby=today_entries-desc">Today's Entries</a></li>
+                                        <li <?php if($form_sort_by_complete == 'total_entries-desc'){ echo 'class="sort_active"'; } ?>><a id="sort_total_entries_link" href="/plan/forms/index?sortby=total_entries-desc">Total Entries</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -537,34 +537,34 @@ EOT;
                                   <ul class="nav navbar-nav">
 
                                     <?php if(!empty($_SESSION['mf_user_privileges']['priv_administer']) || !empty($user_permissions[$form_id]['edit_form'])){ ?>
-                                        <li><a class="mf_link_edit" href="/backend.php/forms/form?id=<?php echo $form_id; ?>" id="edit_<?php echo $form_id; ?>"><span class="icon-pencil"></span>Edit</a>
+                                        <li><a class="mf_link_edit" href="/plan/forms/form?id=<?php echo $form_id; ?>" id="edit_<?php echo $form_id; ?>"><span class="icon-pencil"></span>Edit</a>
                                     <?php } ?>
 
                                   </ul>
                                   <ul class="nav navbar-nav navbar-right">
                                     <?php if(!empty($_SESSION['mf_user_privileges']['priv_administer']) || !empty($user_permissions[$form_id]['edit_form'])){ ?>
-                                  <li>  <a class="mf_link_emails" href="/backend.php/forms/notificationsettings?id=<?php echo $form_id; ?>" id="notification_<?php echo $form_id; ?>"><span class="icon-envelope-opened"></span>Notifications</a></li>
+                                  <li>  <a class="mf_link_emails" href="/plan/forms/notificationsettings?id=<?php echo $form_id; ?>" id="notification_<?php echo $form_id; ?>"><span class="icon-envelope-opened"></span>Notifications</a></li>
 
-                                  <li>  <a class="mf_link_payment" href="/backend.php/forms/paymentsettings?id=<?php echo $form_id; ?>" id="payment_<?php echo $form_id; ?>"><span class="icon-cart"></span>Payment</a></li>
+                                  <li>  <a class="mf_link_payment" href="/plan/forms/paymentsettings?id=<?php echo $form_id; ?>" id="payment_<?php echo $form_id; ?>"><span class="icon-cart"></span>Payment</a></li>
 
-                                    <li><a class="mf_link_logic" href="/backend.php/forms/logicsettings?id=<?php echo $form_id; ?>" id="logic_<?php echo $form_id; ?>"><span class="icon-shuffle"></span>Logic</a></li>
+                                    <li><a class="mf_link_logic" href="/plan/forms/logicsettings?id=<?php echo $form_id; ?>" id="logic_<?php echo $form_id; ?>"><span class="icon-shuffle"></span>Logic</a></li>
 
-                                  <li>  <a class="mf_link_logic" href="/backend.php/forms/bulkfilters?id=<?php echo $form_id; ?>" id="filters_<?php echo $form_id; ?>"><span class="icon-shuffle"></span>Filters</a></li>
+                                  <li>  <a class="mf_link_logic" href="/plan/forms/bulkfilters?id=<?php echo $form_id; ?>" id="filters_<?php echo $form_id; ?>"><span class="icon-shuffle"></span>Filters</a></li>
 
-                                  <li>  <a class="mf_link_logic" href="/backend.php/forms/bulkoptions?id=<?php echo $form_id; ?>" id="options_<?php echo $form_id; ?>"><span class="icon-shuffle"></span>Options</a></li>
+                                  <li>  <a class="mf_link_logic" href="/plan/forms/bulkoptions?id=<?php echo $form_id; ?>" id="options_<?php echo $form_id; ?>"><span class="icon-shuffle"></span>Options</a></li>
 
                                     <?php } ?>
 
                                     <?php if(!empty($_SESSION['mf_user_privileges']['priv_administer']) || !empty($user_permissions[$form_id]['edit_report'])){ ?>
-                                      <li>  <a class="mf_link_report" href="/backend.php/forms/managereport?id=<?php echo $form_id; ?>" id="report_<?php echo $form_id; ?>"><span class="icon-chart"></span>Report</a></li>
+                                      <li>  <a class="mf_link_report" href="/plan/forms/managereport?id=<?php echo $form_id; ?>" id="report_<?php echo $form_id; ?>"><span class="icon-chart"></span>Report</a></li>
 
                                     <?php } ?>
 
-                                  <li>  <a class="mf_link_view" href="/backend.php/forms/view?id=<?php echo $form_id; ?>" id="view_<?php echo $form_id; ?>"><span class="icon-search"></span>View</a></li>
+                                  <li>  <a class="mf_link_view" href="/plan/forms/view?id=<?php echo $form_id; ?>" id="view_<?php echo $form_id; ?>"><span class="icon-search"></span>View</a></li>
 
 
-                                  <li>  <a class="mf_link_view" href="/backend.php/forms/translate?id=<?php echo $form_id; ?>" id="view_<?php echo $form_id; ?>"><span class="icon-pencil"></span>Translations</a></li>
-                                  <li>  <a class="mf_link_view" href="/backend.php/forms/signableattachments?id=<?php echo $form_id; ?>" id="view_<?php echo $form_id; ?>"><span class="fa fa-clipboard"></span>Signable Attachments</a></li>
+                                  <li>  <a class="mf_link_view" href="/plan/forms/translate?id=<?php echo $form_id; ?>" id="view_<?php echo $form_id; ?>"><span class="icon-pencil"></span>Translations</a></li>
+                                  <li>  <a class="mf_link_view" href="/plan/forms/signableattachments?id=<?php echo $form_id; ?>" id="view_<?php echo $form_id; ?>"><span class="fa fa-clipboard"></span>Signable Attachments</a></li>
                                   </ul>
                                 </div><!--/.nav-collapse -->
                               </div><!--/.container-fluid -->
@@ -716,6 +716,6 @@ EOT;
 </div>
 <script language="javascript">
     jQuery(document).ready(function () {
-        $("#contentload").load("<?php echo public_path("backend.php/forms/ajaxindex"); ?>");
+        $("#contentload").load("<?php echo public_path("plan/forms/ajaxindex"); ?>");
     });
 </script>

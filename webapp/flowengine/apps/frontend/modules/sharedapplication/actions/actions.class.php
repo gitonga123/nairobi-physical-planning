@@ -39,7 +39,7 @@ class sharedapplicationActions extends sfActions
                   $shareapplication = $q->fetchOne();
                   $shareapplication->delete();
                   
-                  $this->redirect("/index.php/sharedapplication/index");
+                  $this->redirect("/plan/sharedapplication/index");
         }
 
   /**
@@ -58,7 +58,7 @@ class sharedapplicationActions extends sfActions
               $shareapplication = $q->fetchOne();
               $shareapplication->delete();
               
-              $this->redirect("/index.php/sharedapplication/index");
+              $this->redirect("/plan/sharedapplication/index");
     }
 
   /**
@@ -116,7 +116,7 @@ class sharedapplicationActions extends sfActions
                 else {
                     //do nothing
                 }
-                $this->redirect("/index.php/sharedapplication/view/id/".$this->application->getId());
+                $this->redirect("/plan/sharedapplication/view/id/".$this->application->getId());
               // 
 		
     }

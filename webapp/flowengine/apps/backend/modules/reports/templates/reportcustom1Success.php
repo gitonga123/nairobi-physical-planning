@@ -47,7 +47,7 @@ mysql_select_db(sfConfig::get('app_mysql_db'),$dbconn);
 		 ?>
          </div>
          <div style="float: right;">
-            <a href="/backend.php/reports/printcustom1/form/<?php echo $application_form; ?>/startdate/<?php echo $startdate; ?>/enddate/<?php echo $enddate; ?>"><u>Export to Excel</u></a>
+            <a href="/plan/reports/printcustom1/form/<?php echo $application_form; ?>/startdate/<?php echo $startdate; ?>/enddate/<?php echo $enddate; ?>"><u>Export to Excel</u></a>
          </div>
          </label>
 			<table>

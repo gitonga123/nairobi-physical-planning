@@ -23,7 +23,7 @@
       <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __('You are here') ?>:</span>
         <ol class="breadcrumb">
-          <li><a href="<?php echo public_path('backend.php'); ?>"><?php echo __('Home') ?></a></li>
+          <li><a href="<?php echo public_path('plan'); ?>"><?php echo __('Home') ?></a></li>
           <li class="active"><?php echo __('Feedback Messages') ?></li>
         </ol>
       </div>
@@ -35,7 +35,7 @@
             <div class="col-sm-3 col-lg-2">
                 <ul class="nav nav-pills nav-stacked nav-email">
                     <li class="active">
-                    <a href="<?php echo public_path('backend.php/feedback/index'); ?>">
+                    <a href="<?php echo public_path('plan/feedback/index'); ?>">
                     	
                         <span class="badge pull-right"><?php echo sizeof($query_res); ?></span>
                         <i class="glyphicon glyphicon-inbox"></i> <?php echo __('Feedback Inbox') ?>
@@ -68,9 +68,9 @@
                                   <td>
                                       <?php if($message['status'] == 1) //new messages
                                                   { ?>
-                                      <a href="<?php echo public_path('backend.php/feedback/view/id/'. $message['id']); ?>" class="star"><i class="glyphicon glyphicon-star"></i><b style="color: green"> <?php echo __('New') ?> </b></a>
+                                      <a href="<?php echo public_path('plan/feedback/view/id/'. $message['id']); ?>" class="star"><i class="glyphicon glyphicon-star"></i><b style="color: green"> <?php echo __('New') ?> </b></a>
                                      <?php } else {?>
-                                    <a href="<?php echo public_path('backend.php/feedback/view/id/'. $message['id']); ?>" class="star"> <i class="glyphicon glyphicon-star-empty"></i> </a>
+                                    <a href="<?php echo public_path('plan/feedback/view/id/'. $message['id']); ?>" class="star"> <i class="glyphicon glyphicon-star-empty"></i> </a>
                                      <?php
                                                   } ?>
                                   </td> 
@@ -81,7 +81,7 @@
                                              $datetime = new DateTime($message['date_created']) ;
                                              echo $datetime->format('l jS \of F Y h:i:s A');
                                              ?></span>
-                                           <a class href="<?php echo public_path('backend.php/feedback/view/id/'. $message['id']); ?>"> <h4 class="text-primary"> <?php echo $message['element_1_1']." ".$message['element_1_2'] ."(".$message['element_2'].")"?> </h4></a>
+                                           <a class href="<?php echo public_path('plan/feedback/view/id/'. $message['id']); ?>"> <h4 class="text-primary"> <?php echo $message['element_1_1']." ".$message['element_1_2'] ."(".$message['element_2'].")"?> </h4></a>
                                             <small class="text-muted"></small>
                                             <p class="email-summary"> 
                                                 <?php $words = explode(" ",$message['element_3']);  ?>
@@ -102,7 +102,7 @@
 					  
                                             ?> 
                                                 
-                                                <a class href="<?php echo public_path('backend.php/feedback/view/id/'. $message['id']); ?>"><i class="md md-add-alarm"></i>
+                                                <a class href="<?php echo public_path('plan/feedback/view/id/'. $message['id']); ?>"><i class="md md-add-alarm"></i>
                                                 <span> <?php echo __('Read More'); ?></span></a>
                                             </p>
                                         </div>

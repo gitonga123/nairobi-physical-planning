@@ -3,20 +3,24 @@ Options +FollowSymLinks +ExecCGI
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # uncomment the following line, if you are having trouble
-  # getting no_script_name to work
+  # Uncomment if needed
   #RewriteBase /
 
-  # we skip all files with .something
+  # Allow direct access to the applicationsUpdate POST endpoint
+  RewriteCond %{REQUEST_METHOD} =POST
+  RewriteCond %{REQUEST_URI} ^/backend\.php/api/applicationsUpdate/id/\d+$
+  RewriteRule ^ - [L]
+
+  # Skip all files with a dot (e.g. .css, .js), except .html
   #RewriteCond %{REQUEST_URI} \..+$
   #RewriteCond %{REQUEST_URI} !\.html$
   #RewriteRule .* - [L]
 
-  # we check if the .html version is here (caching)
+  # We check if the .html version is here (caching)
   RewriteRule ^$ index.html [QSA]
   RewriteRule ^([^.]+)$ $1.html [QSA]
   RewriteCond %{REQUEST_FILENAME} !-f
 
-  # no, so we redirect to our front web controller
+  # No, so we redirect to our front web controller
   RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>

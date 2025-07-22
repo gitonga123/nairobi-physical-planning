@@ -27,7 +27,7 @@ $entry_id = $application->getEntryId();
       <div class="panel-body">
         <div style="margin: 10px;">
 
-          <button class="btn btn-primary pull-right" type="button" style="margin-top: -15px;" onClick="window.location='/backend.php/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history'">
+          <button class="btn btn-primary pull-right" type="button" style="margin-top: -15px;" onClick="window.location='/plan/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history'">
           Reset
           </button>
           <button class="btn btn-primary pull-right" type="button" style="margin-top: -15px; margin-right: 5px;" data-toggle="modal" data-target="#auditModal">
@@ -89,13 +89,13 @@ $entry_id = $application->getEntryId();
         <div align="center">
           <ul class="pagination pagination-sm mb0 mt0">
             <li>
-              <a href="/backend.php/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/1<?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+              <a href="/plan/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/1<?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
               <i class="fa fa-angle-left"></i>
               </a>
             </li>
 
             <li> 
-              <a href="/backend.php/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $apppager->getPreviousPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+              <a href="/plan/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $apppager->getPreviousPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
               <i class="fa fa-angle-left"></i>
               </a>
             </li>
@@ -104,15 +104,15 @@ $entry_id = $application->getEntryId();
             <?php if ($page == $apppager->getPage()): ?>
                 <li class="active"><a href=""><?php echo $page ?></a>
             <?php else: ?>
-              <li><a href="/backend.php/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $page ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>"><?php echo $page ?></a></li>
+              <li><a href="/plan/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $page ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>"><?php echo $page ?></a></li>
             <?php endif; ?>
             <?php endforeach; ?>
 
-            <li> <a href="/backend.php/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $apppager->getNextPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+            <li> <a href="/plan/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $apppager->getNextPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
             <i class="fa fa-angle-right"></i>
             </a></li>
 
-            <li> <a href="/backend.php/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $apppager->getLastPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+            <li> <a href="/plan/applications/view/id/<?php echo $application->getId(); ?>/current_tab/history/apppage/<?php echo $apppager->getLastPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
             <i class="fa fa-angle-right"></i>
             </a></li>
           </ul>

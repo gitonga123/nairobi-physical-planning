@@ -6,7 +6,7 @@ use_helper("I18N");
    <div class="breadcrumb-wrapper">
      <span class="label"><?php echo __("You are here"); ?>:</span>
      <ol class="breadcrumb">
-       <li><a href="<?php echo public_path(); ?>backend.php"><?php echo __("Home"); ?></a></li>
+       <li><a href="<?php echo public_path('plan/dashboard'); ?>plan"><?php echo __("Home"); ?></a></li>
        <li class="active"><?php echo __("Applications"); ?></li>
      </ol>
    </div>
@@ -32,7 +32,7 @@ use_helper("I18N");
         else
         {
           ?>
-          <form action="/backend.php/forms/decline" method="POST"  autocomplete="off" data-ajax="false">
+          <form action="/plan/forms/decline" method="POST"  autocomplete="off" data-ajax="false">
             <fieldset>
               <input type="hidden" name="entryid" value="<?php echo $entry->getId(); ?>">
               <input type="hidden" name="moveto" value="<?php echo $moveto; ?>">

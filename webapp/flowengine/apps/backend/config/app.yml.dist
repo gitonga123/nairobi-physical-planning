@@ -13,5 +13,5 @@ all:
   
   ifc_user: demo
   ifc_user_api: dBEapvsdvRGRfAHL9QqAsrX7kR3F9KZdUYps9DV5Bd7Hk5PGpFdhrVsGbywV4F9Q9vrvpP
-#  custom_link: /statistics/web/backend.php
+#  custom_link: /statistics/web/plan
 #  custom_link_title: Management Reports and Statistics

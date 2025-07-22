@@ -7,7 +7,7 @@
 	<title>Uasin Gishu County Revenue Collection - Admin Portal Dashboard</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/admin/assets/css/bootstrap.min.css">
@@ -70,8 +70,10 @@
 	<script src="/asset_mentor/admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 	<!-- Datatables JS -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 	<script src="/asset_mentor/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="/asset_mentor/admin/assets/plugins/datatables/datatables.min.js"></script>
+	<script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
 
 	<!-- Custom JS -->
 	<script src="/asset_mentor/admin/assets/js/script.js"></script>

@@ -58,11 +58,11 @@ if ($current_stage->getStageType() == 4) :
                                     </td>
                                     <td>
                                         <?php if (!Functions::isDocumentInSigningSession($file['local_file'])) : ?>
-                                            <a class="btn btn-info" href="/backend.php/signingsessions/add?document=<?php echo $file['local_file'] ?>&name=<?php echo $file['file_name'] ?>&type=Attachment&application_id=<?php echo $application_id ?>&slug=<?php echo $file['slug'] ?>&redirect_to=/backend.php/applications/view/id/<?php echo $application_id ?>&id=<?php echo str_replace('-', '', $file['slug']) ?>">
+                                            <a class="btn btn-info" href="/plan/signingsessions/add?document=<?php echo $file['local_file'] ?>&name=<?php echo $file['file_name'] ?>&type=Attachment&application_id=<?php echo $application_id ?>&slug=<?php echo $file['slug'] ?>&redirect_to=/plan/applications/view/id/<?php echo $application_id ?>&id=<?php echo str_replace('-', '', $file['slug']) ?>">
                                                 <i class="fa fa-plus"></i> Add to Signing List
                                             </a>
                                         <?php else : ?>
-                                            <a class="btn btn-danger" href="/backend.php/signingsessions/remove?document=<?php echo $file['local_file'] ?>&redirect_to=/backend.php/applications/view/id/<?php echo $application_id ?>">
+                                            <a class="btn btn-danger" href="/plan/signingsessions/remove?document=<?php echo $file['local_file'] ?>&redirect_to=/plan/applications/view/id/<?php echo $application_id ?>">
                                                 <i class="fa fa-minus"></i> Remove from Signing List
                                             </a>
                                         <?php endif; ?>

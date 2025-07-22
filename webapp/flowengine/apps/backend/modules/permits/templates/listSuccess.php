@@ -11,7 +11,7 @@ $agency_manager = new AgencyManager();//OTB - Managing agency access
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="<?php echo public_path('/'); ?>backend.php"><?php echo __('Home'); ?></a></li>
+      <li><a href="<?php echo public_path('/'); ?>plan"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo __('Services'); ?></li>
     </ol>
   </div>
@@ -24,7 +24,7 @@ $agency_manager = new AgencyManager();//OTB - Managing agency access
 				<tbody>
 					<tr>
 						<td class="form-group border-bottom-0">        
-							<select size="1" name="table2_length" aria-controls="table2" class="select2" onChange="window.location='/backend.php/permits/list/filter/' + this.value;">
+							<select size="1" name="table2_length" aria-controls="table2" class="select2" onChange="window.location='/plan/permits/list/filter/' + this.value;">
         						<option value="0">Select Product/Service</option>
 								<?php 
 									foreach($form_options as $option){
@@ -56,7 +56,7 @@ $agency_manager = new AgencyManager();//OTB - Managing agency access
 	<table class="table table-striped table-hover mb0 border-top-0 border-left-0 border-right-0 panel-table">
 		<thead class="form-horizontal">
 		  	<tr>
-				<form method="post" action="/backend.php/permits/list">
+				<form method="post" action="/plan/permits/list">
 					<?php if($filter): ?>
 						<input type="hidden" name="filter" value="<?php echo $filter ?>"/>
 					<?php endif; ?>
@@ -128,9 +128,9 @@ $agency_manager = new AgencyManager();//OTB - Managing agency access
 				return true;
 			},
 			"rowCallback":function(row,data,index){
-				var btn='<a title="<?php echo __('View permit') ?>" href="'+window.location.protocol+'//'+window.location.hostname+':'+window.location.port+'/backend.php/permits/view/id/'+data.id+'"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>';
+				var btn='<a title="<?php echo __('View permit') ?>" href="'+window.location.protocol+'//'+window.location.hostname+':'+window.location.port+'/plan/permits/view/id/'+data.id+'"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>';
 				$('td:eq(10)',row).html(btn);
-				var link='<a title="<?php echo __('View Application') ?>" href="'+window.location.protocol+'//'+window.location.hostname+':'+window.location.port+'/backend.php/applications/view/id/'+data.app_id+'">'+data.application_id+'</a>';
+				var link='<a title="<?php echo __('View Application') ?>" href="'+window.location.protocol+'//'+window.location.hostname+':'+window.location.port+'/plan/applications/view/id/'+data.app_id+'">'+data.application_id+'</a>';
 				$('td:eq(2)',row).html(link);
 			},
 			columns: [

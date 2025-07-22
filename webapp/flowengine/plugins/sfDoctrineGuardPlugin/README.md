@@ -268,7 +268,7 @@ These modules are auto-generated thanks to the symfony admin generator.
 
   * Access the modules with the default route `sf_guard_user`:
 
-    http://www.example.com/backend.php/guard/users
+    http://www.example.com/plan/guard/users
 
 ## Applying for Accounts ##
 

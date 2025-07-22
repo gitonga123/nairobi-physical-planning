@@ -33,12 +33,12 @@ class applicationsActions extends sfActions
 			$this->forward404Unless($application, sprintf('Application id %s does not exist!', $application));
 			if ($sub_menu) {
 				switch ($sub_menu->getStageType()) {
-						//correction
+					//correction
 					case 5:
-						$this->redirect('/backend.php/forms/decline?moveto=' . $stage . '&form_entry_id=' . $application->getId());
+						$this->redirect('/plan/forms/decline?moveto=' . $stage . '&form_entry_id=' . $application->getId());
 						break;
 					case 6:
-						$this->redirect('/backend.php/forms/reject?moveto=' . $stage . '&form_entry_id=' . $application->getId());
+						$this->redirect('/plan/forms/reject?moveto=' . $stage . '&form_entry_id=' . $application->getId());
 						break;
 					case 11:
 						//Check conditions
@@ -49,7 +49,7 @@ class applicationsActions extends sfActions
 						error_log('----Conditions--' . $count_conditions);
 						if ($count_conditions <= 0) {
 							$this->getUser()->setFlash('notice', 'Application has no Conditions of approval set! Agenda stage requires Conditions to be set.');
-							$this->redirect("/backend.php/applications/view/id/" . $application->getId() . "/current_tab/reviews");
+							$this->redirect("/plan/applications/view/id/" . $application->getId() . "/current_tab/reviews");
 						}
 						$application->setApproved($stage);
 						break;
@@ -61,7 +61,7 @@ class applicationsActions extends sfActions
 						//Check the no of pending invoices
 						if ($q->count() == 0) {
 							$this->getUser()->setFlash('notice', 'Application has no pending Invoice(s)! Invoice is required.');
-							$this->redirect("/backend.php/applications/view/id/" . $application->getId() . "/current_tab/billing");
+							$this->redirect("/plan/applications/view/id/" . $application->getId() . "/current_tab/billing");
 						}
 						$application->setApproved($stage);
 						continue;
@@ -79,14 +79,14 @@ class applicationsActions extends sfActions
 			}
 
 			/*if($task_id){// Patch - Null ref check
-			$task_manager = new TasksManager();
-			$task_manager->cancelTask($task_id) ;
-			//Need to execute cancel tasks if an application moves
-			Audit::audit("", "Moved application #".$request->getParameter('id')." To stage ".$request->getParameter("stage"));
-			}*/
+												$task_manager = new TasksManager();
+												$task_manager->cancelTask($task_id) ;
+												//Need to execute cancel tasks if an application moves
+												Audit::audit("", "Moved application #".$request->getParameter('id')." To stage ".$request->getParameter("stage"));
+												}*/
 		}
 
-		$this->redirect("/backend.php/applications/view/id/" . $application->getId());
+		$this->redirect("/plan/applications/view/id/" . $application->getId());
 	}
 	/*End  patch*/
 	/**
@@ -104,11 +104,11 @@ class applicationsActions extends sfActions
 		if ($this->application->getApproved() != 0) {
 			$this->forward404Unless($agency_manager->checkAgencyApplicationAccess($this->getUser()->getAttribute('userid'), $request->getParameter('id')), 'No agency access for user ' . $this->getUser()->getAttribute('userid'));
 		}
-		
+
 		if ($this->application->getDeletedStatus() == 1) {
 			$this->forward404Unless($this->application->getDeletedStatus() != 1, 'Application is Archived/Deleted' . $this->getUser()->getAttribute('userid'));
 		}
-		
+
 		$q = Doctrine_Query::create()
 			->from("EntryDecline a")
 			->where("a.entry_id = ?", $this->application->getId());
@@ -430,13 +430,13 @@ class applicationsActions extends sfActions
 				$this->application->save();
 
 				if ($this->getUser()->getAttribute("task_id")) {
-					$this->redirect("/backend.php/tasks/view/id/" . $this->getUser()->getAttribute("task_id"));
+					$this->redirect("/plan/tasks/view/id/" . $this->getUser()->getAttribute("task_id"));
 				} else {
-					$this->redirect("/backend.php/applications/view/id/" . $this->application->getId());
+					$this->redirect("/plan/applications/view/id/" . $this->application->getId());
 				}
 			} else {
 				$this->getUser()->setFlash('error', 'The user you specified does not exist');
-				$this->redirect("/backend.php/applications/transfer/id/" . $this->application->getId());
+				$this->redirect("/plan/applications/transfer/id/" . $this->application->getId());
 			}
 		}
 	}
@@ -526,7 +526,7 @@ class applicationsActions extends sfActions
 		} else {
 			$this->getUser()->setFlash('notice', 'Application : ' . $application->getApplicationId() . ' does not have an expired permit!');
 		}
-		$this->redirect('/backend.php/applications/view/id/' . $application->getId());
+		$this->redirect('/plan/applications/view/id/' . $application->getId());
 	}
 	public function executeMovetoworkflow(sfWebRequest $request)
 	{
@@ -543,7 +543,7 @@ class applicationsActions extends sfActions
 		//Save audit of invoice confirmation   
 		$audit = new Audit();
 		$audit::audit($app->getId(), "Workflow logic move");
-		$this->redirect('/backend.php/applications/view/id/' . $app->getId());
+		$this->redirect('/plan/applications/view/id/' . $app->getId());
 	}
 	/**
 	 * ADD cyclic on demand +1 year
@@ -616,7 +616,7 @@ class applicationsActions extends sfActions
 		} else {
 			$this->getUser()->setFlash('notice', 'Application : ' . $application->getApplicationId() . ' does not have an expired permit!');
 		}
-		$this->redirect('/backend.php/applications/view/id/' . $application->getId());
+		$this->redirect('/plan/applications/view/id/' . $application->getId());
 	}
 	// to be able to submit new form
 	public function executeNew(sfWebRequest $request)
@@ -691,7 +691,7 @@ class applicationsActions extends sfActions
 				$approval_cond->save();
 				//Redirect
 				$this->getUser()->setFlash('notice', 'Condition added!');
-				$this->redirect("/backend.php/applications/view/id/" . $condition->getEntryId() . "/current_tab/reviews");
+				$this->redirect("/plan/applications/view/id/" . $condition->getEntryId() . "/current_tab/reviews");
 			}
 		}
 	}
@@ -786,6 +786,13 @@ class applicationsActions extends sfActions
 		$notification->sendemail('', 'george@africa.com', 'Test', 'Test of mail sending');
 		exit();
 	}
+
+	public function executeSMStest(sfWebRequest $request)
+	{
+		$notification = new mailnotifications();
+		$notification->sendsms('0710594298', 'Hi 254708688818, Testing 1,2,3');
+		exit();
+	}
 	########### Sasalog :: end addition by James
 
 	# get a list of permits that are not activated
@@ -813,7 +820,7 @@ class applicationsActions extends sfActions
 		$q = "UPDATE saved_permit SET is_activated = 1 WHERE application_id = " . $application_id;
 		$conn->execute($q);
 
-		$this->redirect('/backend.php/applications/view/id/' . $application_id);
+		$this->redirect('/plan/applications/view/id/' . $application_id);
 	}
 	public function executeSearchdetail(sfWebRequest $request)
 	{

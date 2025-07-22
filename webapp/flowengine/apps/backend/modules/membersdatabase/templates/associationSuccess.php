@@ -12,12 +12,12 @@ if($sf_user->mfHasCredential("managememberdatabase"))
 <div class="panel-heading">
 			<h3 class="panel-title"><?php echo __('Validation Record'); ?></h3>
 				<div class="pull-right">
-            <a class="btn btn-primary-alt settings-margin42" id="newplot" href="<?php echo public_path(); ?>backend.php/membersdatabase/new"><?php echo __('New Validation Record'); ?></a>
+            <a class="btn btn-primary-alt settings-margin42" id="newplot" href="<?php echo public_path(); ?>plan/membersdatabase/new"><?php echo __('New Validation Record'); ?></a>
 
             <script language="javascript">
             jQuery(document).ready(function(){
               $( "#newplot" ).click(function() {
-                  $("#contentload").load("<?php echo public_path(); ?>backend.php/membersdatabase/new");
+                  $("#contentload").load("<?php echo public_path(); ?>plan/membersdatabase/new");
               });
             });
             </script>
@@ -50,18 +50,18 @@ if($sf_user->mfHasCredential("managememberdatabase"))
       <td><?php echo $record->getMembersNo() ?></td>
       <td><?php echo $record->getFullName() ?></td>
       <td>
-						<a id="editrecord<?php echo $record->getId(); ?>" href="<?php echo public_path(); ?>backend.php/membersdatabase/edit/id/<?php echo $record->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
-						<a id="deleterecord<?php echo $record->getId(); ?>" href="<?php echo public_path(); ?>backend.php/membersdatabase/delete/id/<?php echo $record->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>
-						<a id="validaterecord<?php echo $record->getId(); ?>" href="<?php echo public_path(); ?>backend.php/membersdatabase/validate/id/<?php echo $record->getId(); ?>" title="<?php echo __('Validate'); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+						<a id="editrecord<?php echo $record->getId(); ?>" href="<?php echo public_path(); ?>plan/membersdatabase/edit/id/<?php echo $record->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+						<a id="deleterecord<?php echo $record->getId(); ?>" href="<?php echo public_path(); ?>plan/membersdatabase/delete/id/<?php echo $record->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>
+						<a id="validaterecord<?php echo $record->getId(); ?>" href="<?php echo public_path(); ?>plan/membersdatabase/validate/id/<?php echo $record->getId(); ?>" title="<?php echo __('Validate'); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
 
             <script language="javascript">
             jQuery(document).ready(function(){
               $( "#editrecord<?php echo $record->getId(); ?>" ).click(function() {
-                  $("#contentload").load("<?php echo public_path(); ?>backend.php/membersdatabase/edit/id/<?php echo $record->getId(); ?>");
+                  $("#contentload").load("<?php echo public_path(); ?>plan/membersdatabase/edit/id/<?php echo $record->getId(); ?>");
               });
               $( "#deleterecord<?php echo $record->getId(); ?>" ).click(function() {
                   if(confirm('Are you sure you want to delete this record?')){
-                    $("#contentload").load("<?php echo public_path(); ?>backend.php/membersdatabase/delete/id/<?php echo $record->getId(); ?>");
+                    $("#contentload").load("<?php echo public_path(); ?>plan/membersdatabase/delete/id/<?php echo $record->getId(); ?>");
                   }
                   else
                   {
@@ -70,7 +70,7 @@ if($sf_user->mfHasCredential("managememberdatabase"))
               });
               $( "#validaterecord<?php echo $record->getId(); ?>" ).click(function() {
                   if(confirm('Are you sure you want to validate this record for submission of applications?')){
-                    $("#contentload").load("<?php echo public_path(); ?>backend.php/membersdatabase/validate/id/<?php echo $record->getId(); ?>");
+                    $("#contentload").load("<?php echo public_path(); ?>plan/membersdatabase/validate/id/<?php echo $record->getId(); ?>");
                   }
                   else
                   {

@@ -443,7 +443,7 @@ function remove_attachment(filename,form_id,element_id,holder_id,is_db_live,key_
 	$.ajax({
 		   type: "POST",
 		   async: true,
-		   url: "/index.php/forms/delete",
+		   url: "/plan/forms/delete",
 		   data: {
 				  filename: filename,
 				  form_id: form_id,

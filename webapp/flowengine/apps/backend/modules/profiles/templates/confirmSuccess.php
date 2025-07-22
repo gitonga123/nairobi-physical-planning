@@ -15,8 +15,8 @@ use_helper("I18N");
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
-      <li><a href="/backend.php/frusers/index"><?php echo __('Users'); ?></a></li>
+      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+      <li><a href="/plan/frusers/index"><?php echo __('Users'); ?></a></li>
     </ol>
   </div>
 </div>
@@ -105,7 +105,7 @@ use_helper("I18N");
                             $userprofileinspection->setDeleted(0);
                             $userprofileinspection->save();
                             
-                            header("Location: /backend.php/profiles/view/id/".$business->getId());
+                            header("Location: /plan/profiles/view/id/".$business->getId());
                             exit;
                         }else{
                             if(empty($_SESSION['review_id'])){

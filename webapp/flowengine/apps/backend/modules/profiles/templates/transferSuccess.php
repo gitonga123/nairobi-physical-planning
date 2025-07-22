@@ -16,8 +16,8 @@ use_helper("I18N");
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
-      <li><a href="/backend.php/frusers/index"><?php echo __('Users'); ?></a></li>
+      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+      <li><a href="/plan/frusers/index"><?php echo __('Users'); ?></a></li>
     </ol>
   </div>
 </div>
@@ -31,7 +31,7 @@ use_helper("I18N");
             <h3 class="panel-title">Transfer <?php echo $business->getTitle(); ?> to another user</h3>
 
             <div class="pull-right">
-                <a class="btn btn-primary" id="newpage" href="/backend.php/profiles/index/filter/<?php echo $business->getFormId(); ?>" ><?php echo __('Back to list'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/plan/profiles/index/filter/<?php echo $business->getFormId(); ?>" ><?php echo __('Back to list'); ?></a>
             </div>
         </div>
 

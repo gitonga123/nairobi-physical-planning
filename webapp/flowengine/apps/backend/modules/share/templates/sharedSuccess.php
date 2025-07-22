@@ -16,7 +16,7 @@ $otbhelper = new OTBHelper() ;
     <h2><i class="fa fa-home"></i><?php echo __('Sharing'); ?></h2>
     <div class="breadcrumb-wrapper">
         <ol class="breadcrumb">
-            <li><a href="<?php echo public_path('backend.php') ?>"><?php echo __('Home'); ?></a></li>
+            <li><a href="<?php echo public_path('plan') ?>"><?php echo __('Home'); ?></a></li>
             <li class="active"><?php echo __('Shared applications'); ?></li>
         </ol>
     </div>
@@ -33,7 +33,7 @@ $otbhelper = new OTBHelper() ;
             <?php if ($sf_user->getFlash('share_error_exists')) : ?>
                 <div class="alert alert-warning alert-dismissable">
                     <?php echo __("Sorry cannot share this application. This application is already shared with selected user. Please try a different user!") ?>
-                    <a class="btn btn-primary" href="<?php echo public_path('backend.php/share/share/id/'.$id) ?>">
+                    <a class="btn btn-primary" href="<?php echo public_path('plan/share/share/id/'.$id) ?>">
                         <?php echo __("Back") ?>
                     </a>
                 </div>
@@ -41,7 +41,7 @@ $otbhelper = new OTBHelper() ;
             <?php if ($sf_user->getFlash('uknown_share_error')) : ?>
                 <div class="alert alert-danger">
                     <?php echo __("Oops! Uknown error occured while sharing this application. Please try again later") ?>
-                    <a class="btn btn-primary" href="<?php echo public_path('backend.php/share/share/id/'.$id) ?>">
+                    <a class="btn btn-primary" href="<?php echo public_path('plan/share/share/id/'.$id) ?>">
                         <?php echo __("Back") ?>
                     </a>
                 </div>
@@ -140,12 +140,12 @@ $otbhelper = new OTBHelper() ;
                             </td>
                             <td>
                                 <?php if($res->getStatus() == "active"):  ?>  
-                                <a class="btn btn-danger" href="<?php echo public_path('backend.php/share/cancel/id/'.$res->getId()) ?>">
+                                <a class="btn btn-danger" href="<?php echo public_path('plan/share/cancel/id/'.$res->getId()) ?>">
                                     <?php echo __("Cancel") ?>
                                 </a>
                                  <?php endif;  ?>
                                 <?php if($res->getStatus() == "inactive"):  ?>  
-                                <a class="btn btn-success" href="<?php echo public_path('backend.php/share/activate/id/'.$res->getId()) ?>">
+                                <a class="btn btn-success" href="<?php echo public_path('plan/share/activate/id/'.$res->getId()) ?>">
                                     <?php echo __("Activate") ?>
                                 </a>
                                  <?php endif;  ?>

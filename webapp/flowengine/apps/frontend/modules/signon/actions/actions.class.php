@@ -30,7 +30,10 @@ class signonActions extends sfActions
             $this->getUser()->signOut();
             $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_logout_url') . '?return_url=' . sfConfig::get('app_sso_homepage') : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signout');
         } else {
-            $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_logout_url') . '?return_url=' . sfContext::getInstance()->getController()->genUrl('logout/index', true) : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signout');
+            if ($this->getUser()->isAuthenticated()) {
+                $this->getUser()->signOut();
+            }
+            $url = sfConfig::get('app_sso_secret') ? sfConfig::get('app_sso_logout_url') . '?return_url=' . sfConfig::get('app_sso_homepage') : sfContext::getInstance()->getController()->genUrl('sfGuardAuth/signout');
         }
         return $this->redirect($url);
     }
@@ -54,10 +57,13 @@ class signonActions extends sfActions
             $is_valid = true;
 
             $stream = new Stream();
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/accounts/login/token/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/accounts/login/token/';
+
+            error_log("Verification url is ---->{$url}");
+            
             $stream_response = $stream->sendRequest([
                 'url' => $url,
-                'method' => 'POST', // GET, POST, PUT, DELETE,
+                'method' => 'POST',
                 'ssl' => 'none',
                 'contentType' => 'json',
                 'data' => [
@@ -65,10 +71,12 @@ class signonActions extends sfActions
                 ]
             ]);
 
-            if ($stream_response->status !== 200) {
-                throw new sfException('Something Went Wrong. Please try again later.', $stream_response->status);
-            }
+            error_log("Token verification from jambo --->{$stream_response->status}");
+            error_log(json_encode($stream_response->content));
 
+            if ($stream_response->status !== 200) {
+                throw new sfException($stream_response->content['error'], $stream_response->status);
+            }
 
             $this->token = $stream_response->content['token'];
 
@@ -76,13 +84,13 @@ class signonActions extends sfActions
                 throw new sfException('Something Went Wrong. Please try again later.', 500);
             }
 
+            $this->cache = new sfFileCache([
+                'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+            ]);
+
             $_SESSION['jambo_token'] = $this->token;
 
-            error_log("Session key generate from jambo pay ---->");
-
-            error_log($this->token);
-
-            $url = sfConfig::get('app_sso_jambo_url') . 'api/v1/accounts/user_info/';
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/accounts/user_info/';
             // fetch user information
             $stream_response = $stream->sendRequest([
                 'url' => $url,
@@ -106,6 +114,7 @@ class signonActions extends sfActions
             $fullname = $first_name . " " . $last_name;
 
             $this->sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->createQuery('u')->where('username = ?', $username)->orderBy('u.id DESC')->fetchOne();
+            $this->cache->set("jambo_token_{$username}", $this->token, 3600);
 
             if (!$this->sfGuardUser) {
                 // create user
@@ -145,13 +154,23 @@ class signonActions extends sfActions
 
             $this->getUser()->signin($this->sfGuardUser, false);
 
+            $url = '';
+
             if ($this->getUser()->getAttribute('referer')) {
-                return $this->redirect($this->getUser()->getAttribute('referer'));
+                $url = sfConfig::get('app_sso_jambo_web_url') . "/home";
             } else {
-                return $this->redirect('@homepage');
+                $url = sfConfig::get('app_sso_jambo_web_url') . "/plan/" . "/";
             }
+
+            if (empty($url)) {
+                return $this->redirect('@homepage');
+            } else {
+                return $this->redirect($url);
+            }
+
+
         } catch (\Exception $error) {
-            throw new sfException($error->getMessage(), $stream_response->status);
+            throw new sfException($error->getMessage(), 500);
         }
     }
 
@@ -219,7 +238,7 @@ class signonActions extends sfActions
                 //  until their account is activated in the backend
                 if (sfConfig::get('app_enable_categories') == "yes") {
                     //if(!$this->sfGuardUser->getIsActive()) {
-                    //    return $this->redirect("/index.php/index/inactive?reg=1");
+                    //    return $this->redirect("/plan/index/inactive?reg=1");
                     //}
                 }
             } else {
@@ -227,7 +246,7 @@ class signonActions extends sfActions
                 //  until their account is activated in the backend
                 if (sfConfig::get('app_enable_categories') == "yes") {
                     //if(!$this->sfGuardUser->getIsActive()) {
-                    //    return $this->redirect("/index.php/index/inactive?reg=0");
+                    //    return $this->redirect("/plan/index/inactive?reg=0");
                     //}
                 }
 
@@ -258,7 +277,7 @@ class signonActions extends sfActions
             // //If form_categories have been configured, redirect user to choose user category or enter additional details
             // if(sfConfig::get('app_enable_categories') == "yes" && sizeof($profiles) == 0)
             // {
-            //     return $this->redirect("/index.php/frusers/category");
+            //     return $this->redirect("/plan/frusers/category");
             // }
 
             //Redirect to referer if exists else redirect to homepage

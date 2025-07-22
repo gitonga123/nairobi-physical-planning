@@ -1,12 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 	<symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-		<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+		<path
+			d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
 	</symbol>
 	<symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-		<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+		<path
+			d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
 	</symbol>
 	<symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-		<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+		<path
+			d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
 	</symbol>
 </svg>
 <div class="col-md-7 col-lg-8 col-xl-9">
@@ -14,29 +17,36 @@
 		<nav class="user-tabs">
 			<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
 				<li>
-					<a class="nav-link active" href="# <?php $application->getApplicationId(); ?>" data-bs-toggle="tab"> Payment for Application No. - <?php echo $application->getApplicationId(); ?></a>
+					<a class="nav-link active" href="# <?php $application->getApplicationId(); ?>" data-bs-toggle="tab">
+						Payment for Application No. - <?php echo $application->getApplicationId(); ?></a>
 				</li>
 			</ul>
 		</nav>
-		<?php if ($invoice->getPaid() == 1) : ?>
+		<?php if ($invoice->getPaid() == 1): ?>
 			<div class="accordion mb-3" id="accordionCheckoutForm">
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse"
+							data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 							Checkout
 						</button>
 					</h2>
-					<div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+					<div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
+						data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							<form class="form-horizontal" id="checkout_initial_payment" action="<?php echo '/index.php/forms/initiatePayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>">
+							<form class="form-horizontal" id="checkout_initial_payment"
+								action="<?php echo '/plan/forms/initiatePayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>">
 								<div id="response_area_id"></div>
 								<div class="form-group" style="margin: 2px;">
 									<label for="phone_number">Phone Number:</label>
-									<input type="text" class="form-control input-lg" id="phone_number" placeholder="Phone Number" name="phone_number" value="<?php echo $user->getProfile()->getMobile(); ?>">
+									<input type="text" class="form-control input-lg" id="phone_number"
+										placeholder="Phone Number" name="phone_number"
+										value="<?php echo $user->getProfile()->getMobile(); ?>">
 								</div>
 								<div class="form-group p-t-10" style="margin: 2px; margin-top:10px;">
 									<button type="submit" class="btn btn-md btn-dark" id="initiate_payment_loader">
-										<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+										<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+											style="display: none;"></span>
 										Initiate Payment
 									</button>
 								</div>
@@ -49,7 +59,7 @@
 					</div>
 				</div>
 			</div>
-		<?php elseif ($invoice->getPaid() == 2) : ?>
+		<?php elseif ($invoice->getPaid() == 2): ?>
 
 			<div class="alert alert-success mt-2" role="alert">
 				<div class="d-flex align-items-center">
@@ -62,14 +72,16 @@
 			<div class="mb-3">
 
 				<div class="d-flex justify-content-between">
-					<a class="btn btn-outline-info btn-block me-5" href="/index.php/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
+					<a class="btn btn-outline-info btn-block me-5"
+						href="/plan/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
 
-					<a class="btn btn-outline-success btn-block" href="/index.php/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
+					<a class="btn btn-outline-success btn-block"
+						href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
 
 				</div>
 
 			</div>
-		<?php else : ?>
+		<?php else: ?>
 			<div class="alert alert-warning mt-2" role="alert">
 				<div class="d-flex align-items-center">
 					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
@@ -81,9 +93,11 @@
 			<div class="mb-3">
 
 				<div class="d-flex justify-content-between">
-					<a class="btn btn-outline-info btn-block me-5" href="/index.php/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
+					<a class="btn btn-outline-info btn-block me-5"
+						href="/plan/application/view/id/<?php echo $application->getId(); ?>">Application Details</a>
 
-					<a class="btn btn-outline-success btn-block" href="/index.php/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
+					<a class="btn btn-outline-success btn-block"
+						href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>">Invoice Details</a>
 
 				</div>
 
@@ -92,19 +106,21 @@
 		<div class="accordion mb-3" id="accordionInvoice Info">
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingOne">
-					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 						Invoice # <?php echo $invoice->getInvoiceNumber(); ?> - Fee(s)
 					</button>
 				</h2>
 
-				<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+				<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+					data-bs-parent="#accordionExample">
 					<div class="accordion-body">
 						<ul class="list-group">
 							<li class="list-group-item active d-flex justify-content-between align-items-center">
 								<strong>Description</strong>
 								<strong>Amount(<?php echo $invoice->getCurrency(); ?>)</strong>
 							</li>
-							<?php foreach ($invoice->MfInvoiceDetail as $fee) :
+							<?php foreach ($invoice->MfInvoiceDetail as $fee):
 								$code = '';
 								$description = $fee->getDescription();
 								$pieces = explode(":", $description);
@@ -115,14 +131,16 @@
 									$description = "<span>{$code}</span><span>{$description}</span>";
 								}
 
-							?>
+								?>
 								<li class="list-group-item d-flex justify-content-between align-items-center">
 									<?php echo $description; ?>
 									<span><?php echo $fee->getAmount(); ?></span>
 								</li>
 							<?php endforeach; ?>
 						</ul>
-						<p class="mt-3"><strong>Total Amount: <?php echo  $invoice->getCurrency() . '&nbsp;&nbsp;' . $invoice->getTotalAmount(); ?></strong></p>
+						<p class="mt-3"><strong>Total Amount:
+								<?php echo $invoice->getCurrency() . '&nbsp;&nbsp;' . $invoice->getTotalAmount(); ?></strong>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -131,18 +149,26 @@
 </div>
 <script>
 	// global files
-	const wallet_url = "<?php echo '/index.php/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
-	const confirm_payment_url = "<?php echo '/index.php/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
-	const redirect_url = "<?php echo '/index.php/invoices/view/id/' . $invoice->getId(); ?>";
-	const regenerate_otp_url = "<?php echo '/index.php/forms/regeneratejamboonetimepassword/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const wallet_url = "<?php echo '/plan/forms/verifyOtp/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const confirm_payment_url = "<?php echo '/plan/forms/confirmMpesaPayment/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
+	const redirect_url = "<?php echo '/plan/invoices/view/id/' . $invoice->getId(); ?>";
+	const regenerate_otp_url = "<?php echo '/plan/forms/regeneratejamboonetimepassword/application/' . $application->getId() . '/invoice/' . $invoice->getId(); ?>";
 
 	function setButtonLoading(buttonId, isLoading, message = 'Initiating') {
 		const button = $(`#${buttonId}`);
 		if (isLoading) {
 			button.prop('disabled', true).html('<span><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + message + '...</span>');
+			$("#mpesa_confirmation_id").html();
+			$("#response_wallet_area_id").html();
+			$("#response_area_id").html();
 		} else {
-			button.prop('disabled', false).html('Initiate Payment');
+			if (buttonId == 'initiate_payment_loader') {
+				button.prop('disabled', false).html('Initiate Payment');
+			} else if (buttonId == 'confirm_payment') {
+				button.prop('disabled', false).html('Confirm Payment');
+			}
 		}
+
 	}
 
 	function showAlert(areaId, type, message) {
@@ -185,7 +211,7 @@
 			data: {
 				invoice_id: "<?php echo $invoice->getId(); ?>"
 			},
-			success: function(response) {
+			success: function (response) {
 				const data = JSON.parse(response);
 				if (data.success) {
 					showAlert('response_wallet_area_id', 'success', 'A new OTP has been sent to your phone.');
@@ -200,7 +226,7 @@
 				regenerateButton.prop('disabled', false).text('Regenerate OTP');
 				setButtonLoading('initiate_payment_loader', false);
 			},
-			error: function() {
+			error: function () {
 				showAlert('response_wallet_area_id', 'danger', 'Something went wrong. Please try again later.');
 				regenerateButton.prop('disabled', false).text('Regenerate OTP');
 				setButtonLoading('initiate_payment_loader', false);
@@ -210,26 +236,32 @@
 </script>
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(function () {
 		function confirmPayment(currentInterval = 1, maxInterval = 10) {
-			console.log("Confirm payment being executed ---->", currentInterval, maxInterval);
 			setButtonLoading('initiate_payment_loader', true);
+			setButtonLoading('confirm_payment', true);
 			$.ajax({
 				url: confirm_payment_url,
 				type: 'GET',
-				success: function(response) {
+				success: function (response) {
 					const data = JSON.parse(response);
 					if (data?.success) {
 						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');
 						window.location.href = redirect_url;
 					} else {
-						showAlert('mpesa_confirmation_id', 'info', 'Waiting for Payment to proceed...');
+						showAlert('mpesa_confirmation_id', 'info', data?.data?.msg);
+						setTimeout(function () {
+							showAlert('mpesa_confirmation_id', 'info', 'Waiting for Payment to proceed...');
+						}, 5000); // 5000 milliseconds = 5 seconds
+
 					}
 					setButtonLoading('initiate_payment_loader', false);
+					setButtonLoading('confirm_payment', false);
 				},
-				error: function() {
+				error: function () {
 					showAlert('mpesa_confirmation_id', 'warning', 'Failed! Something went Wrong. Please try again later.');
 					setButtonLoading('initiate_payment_loader', false);
+					setButtonLoading('confirm_payment', false);
 				}
 			});
 			currentInterval = currentInterval + 1;
@@ -241,7 +273,7 @@
 			$.ajax({
 				url: confirm_payment_url,
 				type: 'GET',
-				success: function(response) {
+				success: function (response) {
 					const data = JSON.parse(response);
 					if (data?.success) {
 						showAlert('mpesa_confirmation_id', 'success', 'Redirecting...');
@@ -252,14 +284,14 @@
 					}
 					setButtonLoading('initiate_payment_loader', false);
 				},
-				error: function() {
+				error: function () {
 					setButtonLoading('initiate_payment_loader', false);
 				}
 			});
 		}
 
 		function handleOTPVerification() {
-			$('#wallet_checkout_id').submit(function(event) {
+			$('#wallet_checkout_id').submit(function (event) {
 				event.preventDefault();
 				const verifyButton = $('#verify_otp_button');
 				const regenerateOTP = $("#regenerate_otp_function_div");
@@ -268,7 +300,7 @@
 					url: $(this).attr('action'),
 					type: 'POST',
 					data: $(this).serialize(),
-					success: function(response) {
+					success: function (response) {
 						const otpResponseData = JSON.parse(response);
 						if (otpResponseData.status === 201 || otpResponseData.success) {
 							$("#regenerate_otp_function_div").hide();
@@ -291,7 +323,7 @@
 
 						}
 					},
-					error: function() {
+					error: function () {
 						showAlert('response_wallet_area_id', 'danger', 'Something Went Wrong! Try again later...');
 						verifyButton.prop('disabled', false).text('Verify');
 					}
@@ -302,20 +334,22 @@
 		function initiatePayment() {
 			$("#mpesa_confirmation_id").html();
 			$("#response_wallet_area_id").html();
+			$("#response_area_id").html();
+
 			setButtonLoading('initiate_payment_loader', true);
 			const formData = $('#checkout_initial_payment').serialize();
 			$.ajax({
 				url: $('#checkout_initial_payment').attr('action'),
 				type: 'POST',
 				data: formData,
-				success: function(response) {
+				success: function (response) {
 					const data = JSON.parse(response);
 					if (data?.content?.errors) {
 						showAlert('response_area_id', 'danger', data.content.errors);
 						setButtonLoading('initiate_payment_loader', false);
 						return;
 					}
-					if (data.status === 201) {
+					if (data.status === 201 || data.status === 200) {
 						let paymentOption = '';
 						if (data?.content?.verify_otp) {
 							paymentOption = `<div class="card shadow mt-3 mb-4">
@@ -373,18 +407,16 @@
 						}
 						$('#form_checkout_container').show();
 						$('#checkout_form_options_id').html(paymentOption);
-						$('#resend_payment').click(function(event) {
+						$('#resend_payment').click(function (event) {
 							event.preventDefault();
 							initiatePayment();
 
 						});
-						$('#confirm_payment').click(function(event) {
+						$('#confirm_payment').click(function (event) {
 							event.preventDefault();
 							confirmPayment();
 						});
 						handleOTPVerification();
-
-						console.log("After one minute check if payment has gone through");
 
 						setTimeout(() => initialCheckingPayment(), 60 * 1000);
 					} else {
@@ -392,7 +424,7 @@
 					}
 					setButtonLoading('initiate_payment_loader', false);
 				},
-				error: function() {
+				error: function () {
 					showAlert('response_area_id', 'danger', 'Something Went Wrong! Try again later.');
 					setButtonLoading('initiate_payment_loader', false);
 				}
@@ -400,7 +432,7 @@
 		}
 
 
-		$('#checkout_initial_payment').submit(function(event) {
+		$('#checkout_initial_payment').submit(function (event) {
 			event.preventDefault();
 			initiatePayment();
 		});

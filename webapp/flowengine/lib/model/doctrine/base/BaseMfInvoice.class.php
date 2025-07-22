@@ -23,6 +23,7 @@ Doctrine_Manager::getInstance()->bindComponent('MfInvoice', 'doctrine');
  * @property float                                  $total_amount                                Type: float
  * @property string                                 $currency                                    Type: string(250)
  * @property string                                 $doc_ref_number                              Type: string(250)
+ * @property string                                 $receipt_number                              Type: string(250)
  * @property int                                    $template_id                                 Type: integer(8)
  * @property string                                 $document_key                                Type: string(255)
  * @property int                                    $remote_validate                             Type: integer(4)
@@ -83,228 +84,242 @@ Doctrine_Manager::getInstance()->bindComponent('MfInvoice', 'doctrine');
  */
 abstract class BaseMfInvoice extends sfDoctrineRecord
 {
-    public function setTableDefinition()
-    {
-        $this->setTableName('mf_invoice');
-        $this->hasColumn('id', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => true,
-             'autoincrement' => true,
-             'length' => 8,
-             ));
-        $this->hasColumn('app_id', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 8,
-             ));
-        $this->hasColumn('invoice_number', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('paid', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 8,
-             ));
-        $this->hasColumn('created_at', 'timestamp', 25, array(
-             'type' => 'timestamp',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('updated_at', 'timestamp', 25, array(
-             'type' => 'timestamp',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('expires_at', 'timestamp', 25, array(
-             'type' => 'timestamp',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
-        $this->hasColumn('mda_code', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('service_code', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('branch', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('due_date', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('payer_id', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('payer_name', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('total_amount', 'float', null, array(
-             'type' => 'float',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('currency', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('doc_ref_number', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('template_id', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 8,
-             ));
-        $this->hasColumn('document_key', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('remote_validate', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('pdf_path', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('message_id', 'string', 255, array(
-            'type' => 'string',
-            'fixed' => 0,
-            'unsigned' => false,
-            'primary' => false,
-            'notnull' => false,
-            'autoincrement' => false,
-            'length' => 255,
-        ));
-        $this->hasColumn('transaction_id', 'string', 255, array(
-            'type' => 'string',
-            'fixed' => 0,
-            'unsigned' => false,
-            'primary' => false,
-            'notnull' => false,
-            'autoincrement' => false,
-            'length' => 255,
-        ));
-    }
+     public function setTableDefinition()
+     {
+          $this->setTableName('mf_invoice');
+          $this->hasColumn('id', 'integer', 8, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => true,
+               'autoincrement' => true,
+               'length' => 8,
+          ));
+          $this->hasColumn('app_id', 'integer', 8, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 8,
+          ));
+          $this->hasColumn('invoice_number', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('paid', 'integer', 8, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 8,
+          ));
+          $this->hasColumn('created_at', 'timestamp', 25, array(
+               'type' => 'timestamp',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('updated_at', 'timestamp', 25, array(
+               'type' => 'timestamp',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('expires_at', 'timestamp', 25, array(
+               'type' => 'timestamp',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 25,
+          ));
+          $this->hasColumn('mda_code', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('service_code', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('branch', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('due_date', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('payer_id', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('payer_name', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('total_amount', 'float', null, array(
+               'type' => 'float',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('currency', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('doc_ref_number', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('receipt_number', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('template_id', 'integer', 8, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 8,
+          ));
+          $this->hasColumn('document_key', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('remote_validate', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('pdf_path', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('message_id', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('transaction_id', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+     }
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->hasOne('FormEntry', array(
-             'local' => 'app_id',
-             'foreign' => 'id'));
+     public function setUp()
+     {
+          parent::setUp();
+          $this->hasOne('FormEntry', array(
+               'local' => 'app_id',
+               'foreign' => 'id'
+          ));
 
-        $this->hasMany('MfInvoiceDetail', array(
-             'local' => 'id',
-             'foreign' => 'invoice_id'));
+          $this->hasMany('MfInvoiceDetail', array(
+               'local' => 'id',
+               'foreign' => 'invoice_id'
+          ));
 
-        $this->hasMany('UploadReceipt', array(
-            'local' => 'id',
-            'foreign' => 'invoice_id'));
-        $this->hasMany('ApFormPayments', array(
-            'local' => 'id',
-            'foreign' => 'invoice_id'));
-        $this->hasOne('Invoicetemplates', array(
-             'local' => 'template_id',
-             'foreign' => 'id'));
-    }
+          $this->hasMany('UploadReceipt', array(
+               'local' => 'id',
+               'foreign' => 'invoice_id'
+          ));
+          $this->hasMany('ApFormPayments', array(
+               'local' => 'id',
+               'foreign' => 'invoice_id'
+          ));
+          $this->hasOne('Invoicetemplates', array(
+               'local' => 'template_id',
+               'foreign' => 'id'
+          ));
+     }
 }

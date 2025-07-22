@@ -32,6 +32,7 @@ class permitsActions extends sfActions
     $this->pager->setQuery($q);
     $this->pager->setPage($request->getParameter('page', 1));
     $this->pager->init();
+    $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Permits");
 
     $this->setLayout("layoutmentordash");
   }
@@ -80,12 +81,15 @@ class permitsActions extends sfActions
       $application_id = $this->permit->getFormEntry()->getId();
 
       $this->permit->delete();
-      $this->redirect("/index.php/application/view/id/" . $application_id);
+      $this->redirect("/plan/application/view/id/" . $application_id);
     }
 
     $this->application = $this->permit->getFormEntry();
 
     $this->done = $request->getParameter("done", 0);
+
+
+    $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Permit - ".$this->permit->getPermitId());
 
     $this->setLayout("layoutmentordash");
   }
@@ -118,7 +122,7 @@ class permitsActions extends sfActions
 
       $this->permit->setDocumentKey("asset_signed/" . $filename . $extension);
       $this->permit->save();
-      $this->redirect("/index.php/permits/view/id/" . $this->permit->getId());
+      $this->redirect("/plan/permits/view/id/" . $this->permit->getId());
     } else {
       $this->forward('permits', 'attach');
     }
@@ -213,6 +217,6 @@ class permitsActions extends sfActions
       readfile($file_name);
       exit();
     } else
-      return $this->redirect('/index.php/permits/view/id/' . $permit_id);
+      return $this->redirect('/plan/permits/view/id/' . $permit_id);
   }
 }

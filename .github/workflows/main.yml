@@ -1,0 +1,32 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.MALIPO_SERVER_KEY }}
+
+      - name: Deploy to server
+        run: |
+          rsync -az --no-group --no-times --no-perms \
+            --exclude=".git/" \
+            --exclude="node_modules/" \
+            --exclude=".env" \
+            --exclude="webapp/flowengine/config/" \
+            --exclude="webapp/flowengine/apps/backend/config/" \
+            --exclude="webapp/flowengine/apps/frontend/config/" \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ \
+            daniel@34.41.159.232:/var/www/uasingishu_webapp/

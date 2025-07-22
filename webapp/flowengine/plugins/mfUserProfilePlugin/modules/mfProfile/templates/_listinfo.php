@@ -24,7 +24,7 @@
 		$_SESSION['AP_SUCCESS']['desc']  = "Entry #{$entry_id} has been deleted.";
 		
 		$ssl_suffix = get_ssl_suffix();	
-		header("Location: /backend.php/forms/manageentries?id={$form_id}");
+		header("Location: /plan/forms/manageentries?id={$form_id}");
 		exit;
 	}
 		

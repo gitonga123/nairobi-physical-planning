@@ -53,7 +53,7 @@ class applicationActions extends sfActions
 
         //If page does not exist then redirect to 404
         if (empty($this->application)) {
-            return $this->redirect("/index.php/errors/notfound");
+            return $this->redirect("/plan/errors/notfound");
         }
 
         $this->getUser()->setAttribute("checkout", false);
@@ -99,7 +99,7 @@ class applicationActions extends sfActions
         $user_registered_as = Doctrine_Query::create()
             ->from('sfGuardUserProfile u')
             ->where('u.user_id = ?', $this->getUser()->getGuardUser()->getId());
-        $user_registered_as_res =   $user_registered_as->fetchOne();
+        $user_registered_as_res = $user_registered_as->fetchOne();
         //if we have something
         if ($user_registered_as_res) {
             $q = Doctrine_Query::create()
@@ -121,6 +121,8 @@ class applicationActions extends sfActions
         $this->revisions = $q->execute();
         //Set layout
         //$this->setLayout("layoutdash");
+
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Application Details");
         $this->setLayout("layoutmentordash");
     }
 
@@ -153,7 +155,7 @@ class applicationActions extends sfActions
             ->andWhere('a.user_id = ?', $this->getUser()->getGuardUser()->getId());
         $application = $q->fetchOne();
 
-        $form_id  = (int) $application->getFormId();
+        $form_id = (int) $application->getFormId();
         $entry_id = (int) $application->getEntryId();
 
         if (empty($form_id) || empty($entry_id)) {
@@ -179,16 +181,16 @@ class applicationActions extends sfActions
 
         $template_data_options = array();
 
-        $template_data_options['as_plain_text']           = false;
-        $template_data_options['target_is_admin']        = true;
-        $template_data_options['machform_path']        = $mf_settings['base_url'];
-        $template_data_options['show_image_preview']   = true;
-        $template_data_options['use_list_layout']       = true;
+        $template_data_options['as_plain_text'] = false;
+        $template_data_options['target_is_admin'] = true;
+        $template_data_options['machform_path'] = $mf_settings['base_url'];
+        $template_data_options['show_image_preview'] = true;
+        $template_data_options['use_list_layout'] = true;
 
         $template_data = mf_get_template_variables($dbh, $form_id, $entry_id, $template_data_options);
 
         $template_variables = $template_data['variables'];
-        $template_values    = $template_data['values'];
+        $template_values = $template_data['values'];
 
         $pdf_content = '<html><body>{entry_data}</body></html>';
 
@@ -232,7 +234,7 @@ class applicationActions extends sfActions
         $this->application->save();
 
         $this->getUser()->setFlash('notice', 'The request for transfer of ownership has been cancelled');
-        return $this->redirect("/index.php/dashboard");
+        return $this->redirect("/plan/dashboard");
     }
 
 
@@ -281,7 +283,7 @@ class applicationActions extends sfActions
                 Application '" . $this->application->getApplicationId() . "' has been transferred to your account from '" . $previous_user->getFullname() . "'. <br>
                 <br>
                 Click here to view the application details:<br>
-                <a href='http://" . $_SERVER['HTTP_HOST'] . "/index.php/application/view/id/" . $this->application->getId() . "'>" . $this->application->getApplicationId() . "</a>
+                <a href='http://" . $_SERVER['HTTP_HOST'] . "/plan/application/view/id/" . $this->application->getId() . "'>" . $this->application->getApplicationId() . "</a>
                 <br>
                 <br>
                 Thanks,<br>
@@ -293,7 +295,7 @@ class applicationActions extends sfActions
 
 
         $this->getUser()->setFlash('notice', 'The request for transfer of ownership has been accepted');
-        return $this->redirect("/index.php/dashboard");
+        return $this->redirect("/plan/dashboard");
     }
 
     /**
@@ -314,7 +316,9 @@ class applicationActions extends sfActions
 
         //If page does not exist then redirect to 404
         if (empty($this->application)) {
-            return $this->redirect("/index.php/errors/notfound");
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Application Not Found");
+
+            return $this->redirect("/plan/errors/notfound");
         }
 
         $q = Doctrine_Query::create()
@@ -345,6 +349,8 @@ class applicationActions extends sfActions
             ->limit(2);
         $this->transferring_applications = $q->execute();
 
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Edit Application" . $this->application->getApplicationId());
+
         $this->setLayout("layoutmentordash");
     }
 
@@ -364,6 +370,9 @@ class applicationActions extends sfActions
 
         if ($savedpermit) {
             $application = $savedpermit->getApplication();
+
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Permit " . $savedpermit->getPermitId());
+
 
             #require_once(dirname(__FILE__)."/../../../../../lib/vendor/dompdf/dompdf_config.inc.php");
 
@@ -391,11 +400,11 @@ class applicationActions extends sfActions
         exit;
     }
     /* Executes 'Share' action
-	 *
-	 * Allows the client to share selected application with another client
-	 *
-	 * @param sfRequest $request A request object
-	 */
+     *
+     * Allows the client to share selected application with another client
+     *
+     * @param sfRequest $request A request object
+     */
     public function executeShare(sfWebRequest $request)
     {
 
@@ -438,26 +447,26 @@ class applicationActions extends sfActions
                 $notify = new mailnotifications();
                 $body = "<p>User " . $this->getUser() . " has shared application " . $this->application->getApplicationId() . " with you (" . $user_share[0]['fullname'] . " (" . $user_share[0]['email'] . ")).</p><p>Kindly login to " . sfConfig::get('app_organisation_name') . " " . sfConfig::get('app_organisation_description') . " to proceed";
                 $notify->sendemail('', $user_share[0]['email'], 'Shared Application', $body);
-                $this->redirect("/index.php/application/shared");
+                $this->redirect("/plan/application/shared");
             }
         }
         $this->setLayout("layoutdash");
     }
 
     /* Executes 'Shared' action
-	 *
-	 * Shows success message if application is shared successfully
-	 *
-	 * @param sfRequest $request A request object
-	 */
+     *
+     * Shows success message if application is shared successfully
+     *
+     * @param sfRequest $request A request object
+     */
     public function executeShared(sfWebRequest $request)
     {
         $this->setLayout("layoutdash");
     }
     /*
-	* Search for application 
-	* OTB patch
-	*/
+     * Search for application 
+     * OTB patch
+     */
     public function executeSearch(sfWebRequest $request)
     {
         $user = $this->getUser();
@@ -526,10 +535,10 @@ class applicationActions extends sfActions
                 $this->application->setApproved($this->application->getStage()->getSharedStage());
                 $this->application->save();
             }
-            $this->redirect("/index.php/application/shared");
+            $this->redirect("/plan/application/shared");
         } else {
             $this->getUser()->setFlash('shared_error', htmlentities('<p>Application wasn\'t shared with the user!</p>'));
-            $this->redirect("/index.php/application/share");
+            $this->redirect("/plan/application/share");
         }
     }
     //OTB END

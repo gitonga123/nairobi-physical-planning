@@ -29,7 +29,7 @@ function find($needle, $haystack)
 
 ?>
 <div class="g12" style="padding-left: 3px;">
-			<h1><?php echo $report->getTitle(); ?> <div style='float: right;'><button onClick="window.location='/backend.php/reports/exportcustom/id/<?php echo $report->getId(); ?>/form/<?php echo $_POST['application_form'] ?>/from/<?php echo $_POST['from_date']; ?>/to/<?php echo $_POST['to_date']; ?>/filter/<?php echo $_POST['filter']; ?>';">Export</button></div></h1>
+			<h1><?php echo $report->getTitle(); ?> <div style='float: right;'><button onClick="window.location='/plan/reports/exportcustom/id/<?php echo $report->getId(); ?>/form/<?php echo $_POST['application_form'] ?>/from/<?php echo $_POST['from_date']; ?>/to/<?php echo $_POST['to_date']; ?>/filter/<?php echo $_POST['filter']; ?>';">Export</button></div></h1>
 			<div  style='width: 100%;'>
 			
 			<?php

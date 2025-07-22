@@ -5,7 +5,7 @@ $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
 <div class="contentpanel">
 
     <form id="stageform" class="form-bordered"
-          action="/backend.php/permittemplates/signinggroups/id/<?php echo $template->getId(); ?>" method="post"
+          action="/plan/permittemplates/signinggroups/id/<?php echo $template->getId(); ?>" method="post"
           autocomplete="off" data-ajax="false">
         <div class="panel panel-default">
 
@@ -49,7 +49,7 @@ $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
                 </div>
             </div>
             <div class="panel-footer">
-                <a class="btn btn-danger mr10" href="/backend.php/permittemplates/index"><?php echo __('Back'); ?></a>
+                <a class="btn btn-danger mr10" href="/plan/permittemplates/index"><?php echo __('Back'); ?></a>
                 <button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname"
                         value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
             </div>

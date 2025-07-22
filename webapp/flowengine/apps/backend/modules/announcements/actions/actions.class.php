@@ -109,7 +109,7 @@ class announcementsActions extends sfActions
     {
       $announcement = $form->save();
 
-      $this->redirect('/backend.php/announcements/index');
+      $this->redirect('/plan/announcements/index');
     }
   }
 
@@ -126,7 +126,7 @@ class announcementsActions extends sfActions
 
     $announcement->delete();
 
-    $this->redirect('/backend.php/announcements/index');
+    $this->redirect('/plan/announcements/index');
   }
 
 }

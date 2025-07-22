@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("manageroles"))
         </div>
 
         <div class="panel-heading text-right">
-                <a class="btn btn-primary" id="newpage" href="/backend.php/credentials/new" ><?php echo __('+ Add Role'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/plan/credentials/new" ><?php echo __('+ Add Role'); ?></a>
         </div>
 
 
@@ -35,8 +35,8 @@ if($sf_user->mfHasCredential("manageroles"))
                         <td><?php echo $role->getName();  ?></td>
                         <td><?php echo $role->getDescription();  ?></td>
                         <td align="center">
-                            <a id="editpage<?php echo $role->getId(); ?>" href="/backend.php/credentials/edit/id/<?php echo $role->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $role->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/credentials/delete/id/<?php echo $role->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $role->getId(); ?>" href="/plan/credentials/edit/id/<?php echo $role->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $role->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/credentials/delete/id/<?php echo $role->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

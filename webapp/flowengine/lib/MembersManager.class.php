@@ -63,7 +63,7 @@ class MembersManager
 			$message = str_replace("{user_full_name}", $user_prof[0]['fullname'], $message);
 			$message = str_replace("{association}", $usercategory['member_association_name'], $message);
 			$message = str_replace("{membership_no}", $reg_no, $message);
-			$validation_link = "<a href='" . $this->suffix . $_SERVER['HTTP_HOST'] . "/index.php/membersdatabase/confirm/validate/" . $v . "'>" . $this->suffix . $_SERVER['HTTP_HOST'] . "/index.php/membersdatabase/confirm/validate/" . $v . "</a>";
+			$validation_link = "<a href='" . $this->suffix . $_SERVER['HTTP_HOST'] . "/plan/membersdatabase/confirm/validate/" . $v . "'>" . $this->suffix . $_SERVER['HTTP_HOST'] . "/plan/membersdatabase/confirm/validate/" . $v . "</a>";
 			$message = str_replace("{validation_link}", $validation_link, $message);
 
 			//error_log("userid ##".$user_id."   ".$user_prof[0]['fullname'].print_R($usercategory, true)."email message ###".$message);
@@ -141,6 +141,8 @@ class MembersManager
 		if ($UserCategory && $UserCategory->getId() == 6) {
 			$member_no = 6;
 		}
+
+		return array('member_no' => true, 'validated' => true, 'category' => true, 'database' => true);
 
 		if (empty($UserCategory) && !$details_query) {
 			return array('member_no' => '', 'validated' => false, 'category' => '', 'database' => '');

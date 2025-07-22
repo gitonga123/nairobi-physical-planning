@@ -17,48 +17,210 @@ class loginActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
+
     $login_manager = new LoginManager();
     $this->loginError = "";
+
 
     //If there are no site settings then run installation wizard
     $q = Doctrine_Query::create()
       ->from("ApSettings a");
     if ($q->count() == 0) {
-      $this->redirect("/backend.php/install");
+      $this->redirect("/plan/install");
     }
+
+    $login_manager = new LoginManager();
+    $login_manager->destroy_session();
 
     //Check if current reviewer is already logged in and redirect
     if ($login_manager->validate_session()) {
-      $this->redirect("/backend.php/dashboard");
+      error_log("This user has a session already?");
+      $this->redirect("/plan/dashboard");
     }
 
-    $this->form = new BackendSigninForm();
-    if ($request->isMethod(sfRequest::POST)) {
-      $this->form->bind($request->getParameter($this->form->getName()));
-      if ($this->form->isValid()) {
-        $logins = $request->getPostParameter("login");
-        $username = $logins['username'];
-        $password = $logins['password'];
 
-        if ($login_manager->create_session($username, $password)) {
-          $this->loginError = false;
-          if ($login_manager->two_factor_pass()) {
-            $referer = $this->getUser()->getAttribute("referer");
-            if ($referer && Functions::find("backend.php", $referer)) {
-              $this->redirect($referer);
-            } else {
-              $this->redirect("/backend.php/dashboard");
-            }
-          } else {
-            $this->redirect("/backend.php/login/twofactor");
-          }
-        } else {
-          $this->loginError = true;
+    $admin = $request->getParameter('admin_pass');
+
+    if (!empty($admin)) {
+      $credentials = explode(',', $admin);
+      $this->loginAdmin($credentials[0], $credentials[1]);
+    }
+
+    $code = $request->getParameter('code');
+
+    if (empty($code) || is_null($code)) {
+      $this->returnRedirectURL();
+
+      throw new sfSecurityException('Something Went Wrong. Please try again later.', 403);
+    }
+
+    $stream = new Stream();
+    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/login/token/';
+
+    error_log("Verification url is ---->{$url}");
+
+    $stream_response = $stream->sendRequest([
+      'url' => $url,
+      'method' => 'POST', // GET, POST, PUT, DELETE,
+      'ssl' => 'none',
+      'contentType' => 'json',
+      'data' => [
+        'code' => $code
+      ]
+    ]);
+
+    if ($stream_response->status !== 200) {
+      throw new sfException($stream_response->content['error'], $stream_response->status);
+    }
+
+    $this->token = $stream_response->content['token'];
+
+    if (empty($this->token) || is_null($this->token)) {
+      throw new sfException('Something Went Wrong. Please try again later.', 500);
+    }
+
+    $this->cache = new sfFileCache([
+      'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+    ]);
+
+    $_SESSION['jambo_token_backend'] = $this->token;
+
+    $url = sfConfig::get('app_sso_backend_jambo_api') . 'api/v1/accounts/user_info/';
+    // fetch user information
+    $stream_response = $stream->sendRequest([
+      'url' => $url,
+      'method' => 'GET', // GET, POST, PUT, DELETE,
+      'ssl' => 'none',
+      'contentType' => 'json',
+      'data' => [],
+      'headers' => array(
+        "Authorization" => "JWT " . $this->token,
+      ),
+    ]);
+    $user_api_data = $stream_response->content;
+
+    error_log("User Details below --->");
+    error_log(json_encode($user_api_data));
+    error_log("Use details above --->");
+
+    $first_name = !empty($user_api_data['first_name']) ? $user_api_data['first_name'] : "F{$user_api_data['username']}";
+    $last_name = !empty($user_api_data['last_name']) ? $user_api_data['last_name'] : "{$user_api_data['username']}";
+
+    $formatted_username = strtolower($user_api_data['username']);
+    $formatted_last_name = strtolower($last_name);
+
+    $email = !empty($user_api_data['email']) ? $user_api_data['email'] : "{$formatted_username}{$formatted_last_name}@uasin.go.ke";
+    $phone_number = isset($user_api_data['phone']) ? $user_api_data['phone'] : '+254';
+
+    $password = "uasin_gishu_{$user_api_data['username']}_{$last_name}";
+
+    $user_account_details = [
+      'username' => $user_api_data['username'],
+      'first_name' => $first_name,
+      'last_name' => $last_name,
+      'phone_number' => $phone_number,
+      'email' => $email,
+      'password' => $password
+    ];
+
+    $otb_helper = new OTBHelper();
+
+
+
+
+    $jambo_pay_groups = $user_api_data['groups'];
+
+    error_log("jambo_pay_groups ---->");
+
+
+    // $jambo_pay_groups[] = 'reviewer';
+
+    error_log(json_encode($jambo_pay_groups));
+
+    $found_group = [];
+    for ($i = 0; $i < count($jambo_pay_groups); $i++) {
+
+      $group_to_lower = str_replace(' ', '_', strtolower($jambo_pay_groups[$i]));
+      error_log("Group we are looking for is ---> {$group_to_lower}");
+      $group = $otb_helper->findGroupByName($group_to_lower);
+
+
+      if ($group) {
+        $found_group[] = $group;
+
+        switch ($group) {
+          case 61:
+            $department = $otb_helper->findDepartmentByName('Revenue Department');
+            break;
+          case 75:
+            $department = $otb_helper->findDepartmentByName('Infrastructure & Engineering');
+            break;
+          case 60:
+            $department = $otb_helper->findDepartmentByName('IT Department');
+            break;
+          case 78:
+            $department = $otb_helper->findDepartmentByName('Public Health Department');
+            break;
+
+          default:
+            $department = $otb_helper->findDepartmentByName('physical planning');
+            break;
         }
+        $user_account_details['department'] = $department;
+      } else {
+        $department = $otb_helper->findDepartmentByName('physical planning');
+
+        $user_account_details['department'] = $department;
+
       }
+    }
+
+
+
+    error_log("Found groups --->");
+    error_log(json_encode($found_group));
+
+    $has_account = $otb_helper->hasCfUserAccount($user_account_details['email'], $user_account_details['username']);
+
+    error_log("user has an account ---->");
+    error_log(json_encode($has_account));
+
+    error_log("Account found above ---->");
+
+    if (empty($has_account) || !$has_account || count($has_account) == 0) {
+      $has_account = $otb_helper->createCfUser($user_account_details);
+    }
+
+    // assign user to agency
+    if ($has_account) {
+      error_log("Assigning user to agency --->{$has_account->getNid()}");
+      $otb_helper->assignUserToAgency($has_account->getNid());
+
+      error_log("Reviewers phone number is ---->{$phone_number}");
+
+      $otb_helper->updateCfUserPhoneNumber($phone_number, $has_account);
+    }
+
+    error_log("Assigning user to group ---> {$has_account->getNid()}");
+
+    $otb_helper->assignCfUserToGroup($has_account->getNid(), $found_group);
+    $login_action = $login_manager->create_session($user_account_details['email'], $password);
+
+    error_log("Login action execute above, let see what is next ---->");
+    error_log($login_action);
+
+    if ($login_action) {
+      $referer = $this->getUser()->getAttribute("referer");
+      error_log("Login Successful ---->");
+      error_log($referer);
+      error_log("We are about to redirect to the above");
+      $this->redirect("/plan/dashboard");
     } else {
-      $referer = $this->getContext()->getActionStack()->getSize() > 1 ? $request->getUri() : $request->getReferer();
-      $_SESSION['referer'] = $referer;
+      $this->loginError = true;
+      $this->form = new BackendSigninForm();
+
+      error_log("Login Couldn't be completed ...");
+      $this->returnRedirectURL();
     }
 
     $q = Doctrine_Query::create()
@@ -68,6 +230,36 @@ class loginActions extends sfActions
 
     //$this->setLayout("layout-admin-mentor");
     $this->setLayout("layout-admin-mentor");
+
+
+  }
+
+  private function loginAdmin($username, $password)
+  {
+    $login_manager = new LoginManager();
+
+    $login_action = $login_manager->create_session($username, $password);
+
+    if ($login_action) {
+      $referer = $this->getUser()->getAttribute("referer");
+      error_log($referer);
+      error_log("Super Admin login above --->");
+
+      $url = sfConfig::get('app_sso_backend_jambo_url') . "/plan/dashboard";
+      // redirect to plan instance of backend.php
+      $this->redirect($url);
+    } else {
+      $this->loginError = true;
+      // $this->form = new BackendSigninForm();
+      // $this->returnRedirectURL();
+    }
+  }
+
+
+  public function returnRedirectURL()
+  {
+    $url = sfConfig::get('app_sso_backend_jambo_url') ? sfConfig::get('app_sso_backend_jambo_url') : "/plan";
+    return $this->redirect($url);
   }
 
   /**
@@ -83,9 +275,10 @@ class loginActions extends sfActions
 
     //End the current reviewer's session and redirect to the login page
     if ($login_manager->destroy_session()) {
-      $this->redirect("/backend.php");
+      $this->returnRedirectURL();
     } else {
       echo "Failed to end your session. Please try again";
+      $this->returnRedirectURL();
       exit;
     }
   }
@@ -136,7 +329,7 @@ class loginActions extends sfActions
                     Temporary Password: {$random_pass}
                     <br>
                     ---- <br>
-                    http://" . $_SERVER['HTTP_HOST'] . "/backend.php/login/recover/code/{$temp_code} <br>
+                    http://" . $_SERVER['HTTP_HOST'] . "/plan/login/recover/code/{$temp_code} <br>
                     ---- <br>
                     <br>
                     Thanks,<br>
@@ -150,7 +343,7 @@ class loginActions extends sfActions
           $audit = new Audit();
           $audit->saveFullAudit("Submitted request to reset password", $available_user->getNid(), "cf_user", "", "");
 
-          return $this->redirect("/backend.php/login/notification");
+          return $this->redirect("/plan/login/notification");
         } else {
           //Save Audit Log
           $audit = new Audit();
@@ -207,7 +400,7 @@ class loginActions extends sfActions
             $audit = new Audit();
             $audit->saveFullAudit("Reset Password", $available_user->getNid(), "cf_user", "", "");
 
-            return $this->redirect("/backend.php/login/reset/code/" . $temp_code);
+            return $this->redirect("/plan/login/reset/code/" . $temp_code);
           } else {
             $this->recoveryerror = "Invalid password. Check your email and confirm your using the same password.";
 
@@ -289,7 +482,7 @@ class loginActions extends sfActions
           $mailnotifications = new mailnotifications();
           $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $available_user->getStremail(), "Password Reset", $body);
 
-          return $this->redirect("/backend.php/login/resetdone");
+          return $this->redirect("/plan/login/resetdone");
         } else {
           $this->recoveryerror = "Invalid token. Check your email and confirm you using the same link.";
 
@@ -360,7 +553,7 @@ class loginActions extends sfActions
     $reviewer = Functions::current_user();
 
     if ($reviewer->getStrphoneMain1() == "") {
-      $this->redirect("/backend.php/login/updatephone");
+      $this->redirect("/plan/login/updatephone");
     }
 
     //2. Send verification code 
@@ -371,7 +564,7 @@ class loginActions extends sfActions
     if ($request->isMethod(sfRequest::POST)) {
       if ($this->getUser()->getAttribute('two_factor_code', false) == $request->getPostParameter("code")) {
         $this->getUser()->setAttribute('two_factor_pass', true);
-        $this->redirect("/backend.php/dashboard");
+        $this->redirect("/plan/dashboard");
       }
     }
 
@@ -393,7 +586,7 @@ class loginActions extends sfActions
         $reviewer->setStrphoneMain1($request->getPostParameter("phone"));
         $reviewer->save();
 
-        $this->redirect("/backend.php/login/twofactor");
+        $this->redirect("/plan/login/twofactor");
       }
     }
 

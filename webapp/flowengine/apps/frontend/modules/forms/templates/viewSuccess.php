@@ -12,32 +12,32 @@
 use_helper('I18N');
 
 $prefix_folder = dirname(__FILE__) . "/../../../../../lib/vendor/form_builder/";
-require($prefix_folder . 'includes/init.php');
+require ($prefix_folder . 'includes/init.php');
 
 header("p3p: CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
 
-require($prefix_folder . '../../../config/form_builder_config.php');
-require($prefix_folder . 'includes/language.php');
-require($prefix_folder . 'includes/db-core.php');
-require($prefix_folder . 'includes/common-validator.php');
-require($prefix_folder . 'includes/view-functions.php');
-require($prefix_folder . 'includes/post-functions.php');
-require($prefix_folder . 'includes/filter-functions.php');
-require($prefix_folder . 'includes/entry-functions.php');
-require($prefix_folder . 'includes/helper-functions.php');
-require($prefix_folder . 'includes/theme-functions.php');
+require ($prefix_folder . '../../../config/form_builder_config.php');
+require ($prefix_folder . 'includes/language.php');
+require ($prefix_folder . 'includes/db-core.php');
+require ($prefix_folder . 'includes/common-validator.php');
+require ($prefix_folder . 'includes/view-functions.php');
+require ($prefix_folder . 'includes/post-functions.php');
+require ($prefix_folder . 'includes/filter-functions.php');
+require ($prefix_folder . 'includes/entry-functions.php');
+require ($prefix_folder . 'includes/helper-functions.php');
+require ($prefix_folder . 'includes/theme-functions.php');
 #require($prefix_folder.'lib/dompdf/dompdf_config.inc.php');
 //require($prefix_folder.'lib/swift-mailer/swift_required.php');
-require($prefix_folder . 'lib/HttpClient.class.php');
-require($prefix_folder . 'lib/recaptchalib.php');
-require($prefix_folder . 'lib/recaptchalib2.php');
-require($prefix_folder . 'lib/php-captcha/php-captcha.inc.php');
-require($prefix_folder . 'lib/text-captcha.php');
-require($prefix_folder . 'hooks/custom_hooks.php');
+require ($prefix_folder . 'lib/HttpClient.class.php');
+require ($prefix_folder . 'lib/recaptchalib.php');
+require ($prefix_folder . 'lib/recaptchalib2.php');
+require ($prefix_folder . 'lib/php-captcha/php-captcha.inc.php');
+require ($prefix_folder . 'lib/text-captcha.php');
+require ($prefix_folder . 'hooks/custom_hooks.php');
 
 $invoice_manager = new InvoiceManager();
 
-$dbh         = mf_connect_db();
+$dbh = mf_connect_db();
 $ssl_suffix = mf_get_ssl_suffix();
 
 if (mf_is_form_submitted()) { //if form submitted
@@ -50,7 +50,7 @@ if (mf_is_form_submitted()) { //if form submitted
         $_SESSION['save_as_draft'] = false;
     }
 
-    $input_array   = mf_sanitize($_POST);
+    $input_array = mf_sanitize($_POST);
     $submit_result = mf_process_form($dbh, $input_array);
     error_log('----------PROCESS FORM---------');
     error_log(print_r($submit_result, true));
@@ -89,7 +89,7 @@ if (mf_is_form_submitted()) { //if form submitted
                         $_SESSION['mf_form_payment_access'][$input_array['form_id']] = true;
                         $_SESSION['mf_payment_record_id'][$input_array['form_id']] = $submit_result['entry_id'];
 
-                        header("Location: /index.php/forms/payment?id={$input_array['form_id']}");
+                        header("Location: /plan/forms/payment?id={$input_array['form_id']}");
                         exit;
                     } else if ($form_properties['payment_merchant_type'] == 'paypal_standard') {
                         echo "<script type=\"text/javascript\">top.location.replace('{$submit_result['form_redirect']}')</script>";
@@ -101,7 +101,7 @@ if (mf_is_form_submitted()) { //if form submitted
                     }
 
                     $_SESSION['review_id'] = $submit_result['review_id'];
-                    header("Location: /index.php/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
+                    header("Location: /plan/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
                     exit;
                 } else if ($target_page_id == 'success') {
                     //redirect to success page
@@ -127,7 +127,7 @@ if (mf_is_form_submitted()) { //if form submitted
                 }
 
                 $_SESSION['review_id'] = $submit_result['review_id'];
-                header("Location: /index.php/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
+                header("Location: /plan/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
                 exit;
             } else {
                 if (!empty($submit_result['next_page_number'])) { //redirect to the next page number
@@ -174,8 +174,8 @@ if (mf_is_form_submitted()) { //if form submitted
                 }
             }
         } else if ($submit_result['status'] === false) { //there are errors, display the form again with the errors
-            $old_values     = $submit_result['old_values'];
-            $custom_error     = @$submit_result['custom_error'];
+            $old_values = $submit_result['old_values'];
+            $custom_error = @$submit_result['custom_error'];
             $error_elements = $submit_result['error_elements'];
             error_log('------OLD VAL---------');
             error_log(print_r($old_values, true));
@@ -203,12 +203,12 @@ if (mf_is_form_submitted()) { //if form submitted
         }
     }
 } else {
-    $form_id         = (int) trim($_GET['id']);
-    $page_number    = (int) trim($_GET['mf_page']);
+    $form_id = (int) trim($_GET['id']);
+    $page_number = (int) trim($_GET['mf_page']);
 
-    $page_number     = mf_verify_page_access($form_id, $page_number);
+    $page_number = mf_verify_page_access($form_id, $page_number);
 
-    $resume_key        = trim($_GET['mf_resume']);
+    $resume_key = trim($_GET['mf_resume']);
     if (!empty($resume_key)) {
         $_SESSION['mf_form_resume_key'][$form_id] = $resume_key;
     }
@@ -224,7 +224,7 @@ if (mf_is_form_submitted()) { //if form submitted
                 ->where("a.id = ?", $_SESSION['mf_invoice']);
             $invoice = $q->fetchOne();
 
-            header("Location: /index.php/application/view/id/" . $invoice->getAppId());
+            header("Location: /plan/application/view/id/" . $invoice->getAppId());
             exit;
         } else {
             $record_id = $_GET['entryid'];
@@ -312,7 +312,7 @@ if (!empty($row)) {
 }
 ?>
 
-<?php if ($current_profile) : ?>
+<?php if ($current_profile): ?>
     <div class="col-md-7 col-lg-8 col-xl-9">
 
         <!-- here -->
@@ -328,7 +328,7 @@ if (!empty($row)) {
             </div>
         </div>
     </div>
-<?php else : ?>
+<?php else: ?>
 
 
     <!-- here -->
@@ -342,53 +342,12 @@ if (!empty($row)) {
         <!--/div-->
     </div>
 <?php endif; ?>
+
+<style>
+    .form-control:disabled,
+    .form-control[readonly] {
+        background-color: #e9ecef;
+        opacity: 1;
+    }
+</style>
 <!-- end here -->
-<script type="text/javascript">
-    $('#element_20').on('keyup', function(e) {
-
-        var value = document.getElementById("element_20").value;
-        $.ajax({
-            type: "GET",
-            url: 'https://livenakururevenue.amkatek.com/index.php/dashboard/plotinformation?q=' + value,
-            success: function(data) {
-
-
-                console.log(data);
-                const obj = JSON.parse(data);
-
-                if (obj.plot_no != undefined) {
-                    console.log("Debug:: API plots.. >>>>> ");
-                    console.log(obj);
-                    //we statically set the fields we want
-                    // upn
-                    document.getElementById("element_9").value = obj.owner_name;
-
-                    //  zone
-                    document.getElementById("element_22").value = obj.ward;
-                    // phyical address
-                    document.getElementById("element_26").value = obj.physical_address;
-                    // area in ha
-                    document.getElementById("element_29").value = obj.plot_size_ha;
-                    // usage
-                    document.getElementById("element_32").value = obj.property_usage;
-                    // town
-                    document.getElementById("element_36").value = obj.town;
-                    // amount
-                    document.getElementById("element_38").value = obj.amount_land_rates;
-                    //
-                    document.getElementById("element_13").value = obj.block_number;
-                    //owner_phone
-                    document.getElementById("element_17").value = obj.owner_phone;
-                    // p.o box
-                    document.getElementById("element_15").value = obj.po_box;
-                    // postacal code
-                    document.getElementById("element_16").value = obj.postal_code;
-
-                    // 
-                } else {
-                    console.log("Debug>>> Plot not found!");
-                }
-            }
-        });
-    });
-</script>

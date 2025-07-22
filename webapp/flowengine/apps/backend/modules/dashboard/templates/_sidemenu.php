@@ -30,9 +30,9 @@ $site_settings = Functions::site_settings();
 
     <h5 class="sidebartitle actitle"><?php echo __("Account"); ?></h5>
     <ul class="nav nav-pills nav-stacked nav-bracket mb30">
-      <li><a href="/backend.php/users/viewuser/userid/<?php echo $sf_user->getAttribute('userid'); ?>"><i class="fa fa-cog"></i> <span><?php echo __("Account Settings"); ?></span></a></li>
-      <li><a href="/backend.php/help/index"><i class="fa fa-question-circle"></i> <span><?php echo __("Help"); ?></span></a></li>
-      <li><a href="/backend.php/login/logout"><i class="fa fa-sign-out"></i> <span><?php echo __("Sign Out"); ?></span></a></li>
+      <li><a href="/plan/users/viewuser/userid/<?php echo $sf_user->getAttribute('userid'); ?>"><i class="fa fa-cog"></i> <span><?php echo __("Account Settings"); ?></span></a></li>
+      <li><a href="/plan/help/index"><i class="fa fa-question-circle"></i> <span><?php echo __("Help"); ?></span></a></li>
+      <li><a href="/plan/login/logout"><i class="fa fa-sign-out"></i> <span><?php echo __("Sign Out"); ?></span></a></li>
     </ul>
   </div>
 
@@ -41,23 +41,23 @@ $site_settings = Functions::site_settings();
     <?php if ($sf_user->mfHasCredential("access_applications")) : ?>
       <li <?php if ($sf_context->getModuleName() == "dashboard" && $sf_context->getActionName() == "index") {
             echo "class='active'";
-          } ?>><a href="/backend.php/dashboard"><i class="fa fa-tasks"></i> <span><?php echo __('Applications'); ?></span></a></li>
+          } ?>><a href="/plan/dashboard"><i class="fa fa-tasks"></i> <span><?php echo __('Applications'); ?></span></a></li>
     <?php endif; ?>
     <?php
     if ($sf_user->mfHasCredential("access_messages")) {
     ?>
       <!--li <?php if ($sf_context->getModuleName() == "messages") {
                 echo "class='active'";
-              } ?>><a href="/backend.php/messages/index"><i class="fa fa-envelope"></i> <span><?php echo __('Messages'); ?></span></a></li-->
+              } ?>><a href="/plan/messages/index"><i class="fa fa-envelope"></i> <span><?php echo __('Messages'); ?></span></a></li-->
 
     <?php
     }
 
-    if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("has_hod_access")) {
+    if ($sf_user->mfHasCredential("access_reviewers")) {
     ?>
       <li <?php if ($sf_context->getModuleName() == "users") {
             echo "class='active'";
-          } ?>><a href="/backend.php/users"><i class="fa fa-th-large"></i> <span><?php echo __('Departments'); ?></span></a></li>
+          } ?>><a href="/plan/users"><i class="fa fa-th-large"></i> <span><?php echo __('Departments'); ?></span></a></li>
       <?php
     }
 
@@ -75,24 +75,24 @@ $site_settings = Functions::site_settings();
       ?>
           <li <?php if ($sf_context->getModuleName() == "profiles") {
                 echo "class='active'";
-              } ?>><a href="/backend.php/profiles/index/filter/<?php echo $profile->getFormid(); ?>"><i class="fa fa-briefcase"></i> <span><?php echo $profile->getForm()->getFormName(); ?></span></a></li>
+              } ?>><a href="/plan/profiles/index/filter/<?php echo $profile->getFormid(); ?>"><i class="fa fa-briefcase"></i> <span><?php echo $profile->getForm()->getFormName(); ?></span></a></li>
       <?php
         }
       }
       ?>
-      <?php if ($sf_user->mfHasCredential("manageplots")) {
+      <?php if ($sf_user->mfHasCredential("manageplotsdisabled")) {
       ?>
         <li <?php if ($sf_context->getModuleName() == "plot") {
               echo "class='active'";
             } ?>>
-          <a href="<?php echo public_path('backend.php/plot/index'); ?>"><i class="fa fa-caret-right"></i><?php echo __('Plot Information'); ?></a>
+          <a href="<?php echo public_path('plan/plot/index'); ?>"><i class="fa fa-caret-right"></i><?php echo __('Plot Information'); ?></a>
         </li>
       <?php
       } ?>
 
       <li <?php if ($sf_context->getModuleName() == "frusers") {
             echo "class='active'";
-          } ?>><a href="/backend.php/frusers/index"><i class="fa fa-user"></i> <span><?php echo __('Users'); ?></span></a></li>
+          } ?>><a href="/plan/frusers/index"><i class="fa fa-user"></i> <span><?php echo __('Users'); ?></span></a></li>
     <?php
     }
 
@@ -107,12 +107,12 @@ $site_settings = Functions::site_settings();
           <li <?php if ($sf_context->getModuleName() == "invoices" && $sf_context->getActionName() == "index") {
                 echo 'class="active"';
               } ?>>
-            <a href="/backend.php/invoices/index"><i class="fa fa-money"></i> <span><?php echo __('Invoices'); ?></span></a>
+            <a href="/plan/invoices/index"><i class="fa fa-money"></i> <span><?php echo __('Invoices'); ?></span></a>
           </li>
           <li <?php if ($sf_context->getModuleName() == "invoices" && $sf_context->getActionName() == "transactions") {
                 echo 'class="active"';
               } ?>>
-            <a href="/backend.php/invoices/transactions"><i class="fa fa-money"></i> <span><?php echo __('Payments'); ?></span></a>
+            <a href="/plan/invoices/transactions"><i class="fa fa-money"></i> <span><?php echo __('Payments'); ?></span></a>
           </li>
         </ul>
       </li>
@@ -123,7 +123,7 @@ $site_settings = Functions::site_settings();
     ?>
       <li <?php if ($sf_context->getModuleName() == "permits") {
             echo "class='active'";
-          } ?>><a href="/backend.php/permits/list"><i class="fa fa-certificate"></i> <span><?php echo __('Permits'); ?></span></a></li>
+          } ?>><a href="/plan/permits/list"><i class="fa fa-certificate"></i> <span><?php echo __('Permits'); ?></span></a></li>
     <?php
     }
 
@@ -131,7 +131,7 @@ $site_settings = Functions::site_settings();
     ?>
       <li <?php if ($sf_context->getModuleName() == "feedback") {
             echo "class='active'";
-          } ?>><a href="/backend.php/feedback/index"><i class="fa fa-certificate"></i> <span><?php echo __('Feedback'); ?></span></a></li>
+          } ?>><a href="/plan/feedback/index"><i class="fa fa-certificate"></i> <span><?php echo __('Feedback'); ?></span></a></li>
     <?php
     }
 
@@ -143,21 +143,21 @@ $site_settings = Functions::site_settings();
         <ul class="children" <?php if ($sf_context->getModuleName() == "reports") {
                                 echo "style='display: block'";
                               } ?>>
-          <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "embed" && $sf_user->mfHasCredential("access_reports_m")) {
+          <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "managementR" && $sf_user->mfHasCredential("access_reports_m")) {
                 echo 'class="active"';
               } ?>>
-            <a href="#"><i class="fa fa-money"></i> <span><?php echo __('Management Reports'); ?></span></a>
+            <a href="<?php echo url_for('/plan/reports/managementR?dashboard=788ea657-2af2-4afd-b7a0-1a566dba7373') ?>"><i class="fa fa-area-chart"></i> <span><?php echo __('Management Reports'); ?></span></a>
 
           </li>
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "professionals" && $sf_user->mfHasCredential("access_reports_m")) {
                 echo 'class="active"';
               } ?>>
-            <a href="#"></a>
+            <a href="<?php echo url_for('/plan/reports/professionals?dashboard=0c8a1850-860b-45c5-87e4-e2f405ed618c') ?>"><i class="fa fa-bar-chart-o"></i><span><?php echo __('Registered Users') ?></span></a>
           </li>
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "revenue" && $sf_user->mfHasCredential("access_reports_m")) {
                 echo 'class="active"';
               } ?>>
-            <a href="#"><i class="fa fa-bar-chart-o"></i><span><?php echo __('Revenue (Paid Bills)') ?></span></a>
+            <a href="<?php echo url_for('/plan/reports/revenue?dashboard=b6ebd20e-595e-4364-9281-b5e9590b10b4') ?>"><i class="fa fa-bar-chart-o"></i><span><?php echo __('Revenue') ?></span></a>
           </li>
 
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "pending" && $sf_user->mfHasCredential("access_reports_m")) {
@@ -188,7 +188,7 @@ $site_settings = Functions::site_settings();
       <li>
         <hr>
       </li>
-      <li><a href="/backend.php/settings/index"><i class="fa fa-cog"> </i> <span><?php echo __("System Settings"); ?></span></a></li>
+      <li><a href="/plan/settings/index"><i class="fa fa-cog"> </i> <span><?php echo __("System Settings"); ?></span></a></li>
     <?php
     }
     ?>

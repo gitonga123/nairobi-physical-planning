@@ -49,7 +49,7 @@ function GetDays($sStartDate, $sEndDate){
 			</form>
 
 <div name='filter' id='filter' class="g12" style="display: none;">
-	<form method="post" action="/backend.php/reports/report9" autocomplete="off" data-ajax="false">
+	<form method="post" action="/plan/reports/report9" autocomplete="off" data-ajax="false">
 			 <fieldset>
 				<label>Filters</label>
 				<section>
@@ -186,7 +186,7 @@ function GetDays($sStartDate, $sEndDate){
 						?>
 						</td>
 						<td class="c">
-						<a title='View Application' href='/backend.php/reports/viewinspections/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
+						<a title='View Application' href='/plan/reports/viewinspections/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
 						</td>
 					</tr>
 				<?php

@@ -69,7 +69,7 @@ if(mf_is_form_submitted()){ //if form submitted
                         $_SESSION['mf_form_payment_access'][$input_array['form_id']] = true;
                         $_SESSION['mf_payment_record_id'][$input_array['form_id']] = $submit_result['entry_id'];
 
-                        header("Location: /index.php/forms/payment?id={$input_array['form_id']}");
+                        header("Location: /plan/forms/payment?id={$input_array['form_id']}");
                         exit;
                     }else if($form_properties['payment_merchant_type'] == 'paypal_standard'){
                         echo "<script type=\"text/javascript\">top.location.replace('{$submit_result['form_redirect']}')</script>";
@@ -81,7 +81,7 @@ if(mf_is_form_submitted()){ //if form submitted
                     }
 
                     $_SESSION['review_id'] = $submit_result['review_id'];
-                    header("Location: /index.php/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
+                    header("Location: /plan/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
                     exit;
                 }else if($target_page_id == 'success'){
                     //redirect to success page
@@ -104,7 +104,7 @@ if(mf_is_form_submitted()){ //if form submitted
                 }
                 
                 $_SESSION['review_id'] = $submit_result['review_id'];
-                header("Location: /index.php/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
+                header("Location: /plan/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
                 exit;
             }else{
                 if(!empty($submit_result['next_page_number'])){ //redirect to the next page number
@@ -210,7 +210,7 @@ if(mf_is_form_submitted()){ //if form submitted
             $application->save();
         }
 
-        header("Location: /backend.php/tasks/view/id/".$task->getId());
+        header("Location: /plan/tasks/view/id/".$task->getId());
         exit;
     }else{
         $form_params = array();

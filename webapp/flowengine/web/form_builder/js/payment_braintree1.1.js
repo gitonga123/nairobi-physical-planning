@@ -92,7 +92,7 @@ function mf_submit_payment(){
 	$.ajax({
 			type: "POST",
 			async: true,
-			url: "/index.php/forms/paymentbraintree",
+			url: "/plan/forms/paymentbraintree",
 			data: {
 					form_id: $("#form_id").val(),
 					payment_properties: payment_data

@@ -18,7 +18,7 @@ function save_form() {
     var e = $("#form_builder_sortable > li.dblive").not(".synched").not(".li_pagination");
     if (e.length >= 1) {
         var d = new Array();
-        e.each(function(g) {
+        e.each(function (g) {
             d[g] = $(this).data("field_properties")
         })
     }
@@ -28,7 +28,7 @@ function save_form() {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/saveform",
+        url: "/plan/forms/saveform",
         data: {
             form_id: b,
             fp: f,
@@ -39,10 +39,10 @@ function save_form() {
         cache: false,
         global: false,
         dataType: "json",
-        error: function(i, g, h) {
+        error: function (i, g, h) {
             alert("Error while saving. Error Message:\n" + i.responseText)
         },
-        success: function(g) {
+        success: function (g) {
             if (g.status == "ok") {
                 $("#bottom_bar_loader").remove();
                 $("#bottom_bar_msg").hide();
@@ -63,7 +63,7 @@ function select_form_header(b) {
     $("#pagination_header").removeClass("highlighted");
     $("#" + b).addClass("highlighted");
     $("#selected_field_image").css("visibility", "hidden");
-    $("#bottom_bar_field_action").fadeOut("fast", function() {
+    $("#bottom_bar_field_action").fadeOut("fast", function () {
         $("#bottom_bar_content").animate({
             "margin-left": "225px"
         }, {
@@ -110,7 +110,7 @@ function select_form_header(b) {
         var i = $("#form_builder_sortable > li.page_break");
         var g = "";
         var h = 1;
-        i.each(function(k) {
+        i.each(function (k) {
             var l = $(this);
             g += '<li><label for="pagetitleinput_' + h + '">' + h + '.</label><input type="text" value="' + l.data("field_properties").page_title + '" autocomplete="off" class="text" id="pagetitleinput_' + h + '" /></li>';
             h++
@@ -153,20 +153,17 @@ function select_form_header(b) {
         $("#form_description").val(d.description);
         $("#form_label_alignment").val(d.label_alignment);
         $("#form_language").val(d.language);
-        if(d.type == 1)
-        {
+        if (d.type == 1) {
             $("#form_application_properties").show();
             $("#form_commentsheet_properties").hide();
         }
-        else if(d.type == 2)
-        {
+        else if (d.type == 2) {
             $("#form_application_properties").hide();
             $("#form_commentsheet_properties").show();
         }
-        else
-        {
-           $("#form_application_properties").hide();
-           $("#form_commentsheet_properties").hide();
+        else {
+            $("#form_application_properties").hide();
+            $("#form_commentsheet_properties").hide();
         }
         if (b == "form_header_title") {
             $("#form_title").focus().select()
@@ -324,13 +321,13 @@ function check_synch_fields() {
     var c = $("#form_builder_sortable > li").not(".dblive").not(".synched").not(".highlighted").not(".li_pagination").not("#li_lastpage");
     if (c.length >= d) {
         var b = new Array();
-        c.each(function(e) {
+        c.each(function (e) {
             b[e] = $(this).data("field_properties")
         });
         $.ajax({
             type: "POST",
             async: true,
-            url: ";/backend.php/forms/synchfields",
+            url: ";/plan/forms/synchfields",
             data: {
                 form_id: a,
                 fp: b
@@ -338,8 +335,8 @@ function check_synch_fields() {
             cache: false,
             global: false,
             dataType: "json",
-            error: function(h, f, g) {},
-            success: function(e) {
+            error: function (h, f, g) { },
+            success: function (e) {
                 if (e.status == "ok") {
                     $(e.updated_element_id).addClass("synched")
                 }
@@ -393,12 +390,12 @@ function select_element(c) {
         }, {
             duration: 200,
             queue: false,
-            complete: function() {
+            complete: function () {
                 $("#bottom_bar_field_action").fadeIn()
             }
         })
     } else {
-        $("#bottom_bar_field_action").fadeOut("fast", function() {
+        $("#bottom_bar_field_action").fadeOut("fast", function () {
             $("#bottom_bar_content").animate({
                 "margin-left": "225px"
             }, {
@@ -461,17 +458,26 @@ function load_properties(p) {
         }
     }
     $("#element_type > option").remove();
-    $.each(a, function(x, w) {
+    $.each(a, function (x, w) {
         $("#element_type").append($("<option></option>").val(x).html(w))
     });
     if (v.type == "name" || v.type == "simple_name" || v.type == "name_wmiddle" || v.type == "simple_name_wmiddle") {
         $("#element_type").val("simple_name");
-         $("#element_footprint_span").hide(); //OTB Patch
-         $("#element_plotsize_span").hide();
+        $("#element_footprint_span").hide(); //OTB Patch
+        $("#element_plotsize_span").hide();
         $("#element_actualplotration_span").hide();
         $("#element_permittedgroundcoverage_span").hide();
         $("#element_file_ifc_span").hide();
         $("#element_plot_no_span").hide();
+        $("#element_block_no_span").hide();
+        $("#element_subcounty_span").hide();
+        $("#element_owner_phone_span").hide();
+        $("#element_owner_address_span").hide();
+        $("#element_owner_email_span").hide();
+        $("#element_ward_span").hide();
+        $("#element_plot_area_span").hide();
+        $("#element_plot_length_span").hide();
+        $("#element_plot_width_span").hide();
         $("#element_ownertype_span").hide();
         $("#prop_element_select_options").hide();
         $("#prop_table_name_conf").hide();
@@ -479,54 +485,83 @@ function load_properties(p) {
         $("#prop_application_conf").hide();
     }
     //OTB patch - Total Plinth Area
-    else if(v.type == "total_plinth_area"){
-         $("#element_footprint_span").hide(); //OTB Patch
-         $("#element_file_ifc_span").hide(); //OTB Patch
-         $("#element_plot_no_span").hide(); //OTB Patch
-         $("#element_ownertype_span").hide(); //OTB Patch
-         $("#prop_element_select_options").hide();
-         $("#prop_table_name_conf").hide();
-         $("#prop_option_query_conf").hide();
-         $("#prop_application_conf").hide();
-          $("#element_type").val("total_plinth_area");
+    else if (v.type == "total_plinth_area") {
+        $("#element_footprint_span").hide(); //OTB Patch
+        $("#element_file_ifc_span").hide(); //OTB Patch
+        $("#element_plot_no_span").hide(); //OTB Patch
+        $("#element_block_no_span").hide();
+        $("#element_subcounty_span").hide();
+        $("#element_owner_phone_span").hide();
+        $("#element_owner_address_span").hide();
+        $("#element_owner_email_span").hide();
+        $("#element_ward_span").hide();
+        $("#element_plot_area_span").hide();
+        $("#element_plot_length_span").hide();
+        $("#element_plot_width_span").hide();
+        $("#element_ownertype_span").hide(); //OTB Patch
+        $("#prop_element_select_options").hide();
+        $("#prop_table_name_conf").hide();
+        $("#prop_option_query_conf").hide();
+        $("#prop_application_conf").hide();
+        $("#element_type").val("total_plinth_area");
     } //OTB patch - Plinth Area
-    else if(v.type == "plinth_area"){
-         $("#element_footprint_span").show(); //OTB patch
+    else if (v.type == "plinth_area") {
+        $("#element_footprint_span").show(); //OTB patch
         $("#element_type").val("plinth_area");
         $("#element_plotsize_span").hide();
         $("#element_actualplotration_span").hide();
         $("#element_permittedgroundcoverage_span").hide();
         $("#element_file_ifc_span").hide();
         $("#element_plot_no_span").hide();
+        $("#element_block_no_span").hide();
+        $("#element_subcounty_span").hide();
         $("#element_ownertype_span").hide();
         $("#prop_element_select_options").hide();
         $("#prop_table_name_conf").hide();
         $("#prop_option_query_conf").hide();
         $("#prop_application_conf").hide();
     }
-	else {
+    else {
         if (v.type == "date" || v.type == "europe_date") {
             $("#element_type").val("date");
-             $("#element_footprint_span").hide(); //OTB Patch
-             $("#element_plotsize_span").hide();
+            $("#element_footprint_span").hide(); //OTB Patch
+            $("#element_plotsize_span").hide();
             $("#element_actualplotration_span").hide();
-             $("#element_permittedgroundcoverage_span").hide();
-             $("#element_file_ifc_span").hide();
-             $("#element_plot_no_span").hide();
-             $("#element_ownertype_span").hide();
-             $("#prop_element_select_options").hide();
-             $("#prop_table_name_conf").hide();
-             $("#prop_option_query_conf").hide();
-             $("#prop_application_conf").hide();
+            $("#element_permittedgroundcoverage_span").hide();
+            $("#element_file_ifc_span").hide();
+            $("#element_plot_no_span").hide();
+            $("#element_block_no_span").hide();
+            $("#element_subcounty_span").hide();
+            $("#element_owner_phone_span").hide();
+            $("#element_owner_address_span").hide();
+            $("#element_owner_email_span").hide();
+            $("#element_ward_span").hide();
+            $("#element_plot_area_span").hide();
+            $("#element_plot_length_span").hide();
+            $("#element_plot_width_span").hide();
+            $("#element_ownertype_span").hide();
+            $("#prop_element_select_options").hide();
+            $("#prop_table_name_conf").hide();
+            $("#prop_option_query_conf").hide();
+            $("#prop_application_conf").hide();
         } else {
             if (v.type == "phone" || v.type == "simple_phone") {
                 $("#element_type").val("phone");
-				$("#element_footprint_span").hide(); //OTB Patch
-				$("#element_plotsize_span").hide();
-				$("#element_actualplotration_span").hide();
-				$("#element_permittedgroundcoverage_span").hide();
-				$("#element_file_ifc_span").hide();
-				$("#element_plot_no_span").hide();
+                $("#element_footprint_span").hide(); //OTB Patch
+                $("#element_plotsize_span").hide();
+                $("#element_actualplotration_span").hide();
+                $("#element_permittedgroundcoverage_span").hide();
+                $("#element_file_ifc_span").hide();
+                $("#element_plot_no_span").hide();
+                $("#element_block_no_span").hide();
+                $("#element_subcounty_span").hide();
+                $("#element_owner_phone_span").show();
+                $("#element_owner_address_span").hide();
+                $("#element_owner_email_span").hide();
+                $("#element_ward_span").hide();
+                $("#element_plot_area_span").hide();
+                $("#element_plot_length_span").hide();
+                $("#element_plot_width_span").hide();
                 $("#element_ownertype_span").hide();
                 $("#prop_element_select_options").hide();
                 $("#prop_table_name_conf").hide();
@@ -577,29 +612,29 @@ function load_properties(p) {
         $("#prop_options fieldset").css("border-color", "#3D6C10")
     }
     //OTB patch For checked footprint
-     if (v.footprint == "1") {
+    if (v.footprint == "1") {
         $("#element_footprint").prop("checked", true)
     } else {
         $("#element_footprint").prop("checked", false)
     }
     /** OTB patch */
-     if (v.permittedgroundcoverage == "1") {
+    if (v.permittedgroundcoverage == "1") {
         $("#element_permittedgroundcoverage").prop("checked", true)
     } else {
         $("#element_permittedgroundcoverage").prop("checked", false)
     }
-     if (v.plotsize == "1") {
+    if (v.plotsize == "1") {
         $("#element_plotsize").prop("checked", true)
     } else {
         $("#element_plotsize").prop("checked", false)
     }
-     if (v.actualplotratio == "1") {
+    if (v.actualplotratio == "1") {
         $("#element_actualplotratio").prop("checked", true)
     } else {
         $("#element_actualplotratio").prop("checked", false)
     }
-     //zone and permitted user
-     if (v.zone == "1") {
+    //zone and permitted user
+    if (v.zone == "1") {
         $("#element_zone").prop("checked", true)
     } else {
         $("#element_zone").prop("checked", false)
@@ -610,7 +645,7 @@ function load_properties(p) {
         $("#element_permitteduser").prop("checked", false)
     }
     //is project cost
-     if (v.projectcost == "1") {
+    if (v.projectcost == "1") {
         $("#element_projectcost").prop("checked", true)
     }
     else {
@@ -654,6 +689,59 @@ function load_properties(p) {
     }
     else {
         $("#element_plot_no").prop("checked", false)
+    }
+    if (v.block_no == "1") {
+        $("#element_block_no").prop("checked", true)
+    }
+    else {
+        $("#element_block_no").prop("checked", false)
+    }
+    if (v.subcounty == "1") {
+        $("#element_subcounty").prop("checked", true)
+    }
+    else {
+        $("#element_subcounty").prop("checked", false)
+    }
+    if (v.owner_phone == "1") {
+        $("#element_owner_phone").prop("checked", true);
+    } else {
+        $("#element_owner_phone").prop("checked", false);
+    }
+
+    if (v.owner_address == "1") {
+        $("#element_owner_address").prop("checked", true);
+    } else {
+        $("#element_owner_address").prop("checked", false);
+    }
+
+    if (v.owner_email == "1") {
+        $("#element_owner_email").prop("checked", true);
+    } else {
+        $("#element_owner_email").prop("checked", false);
+    }
+
+    if (v.ward == "1") {
+        $("#element_ward").prop("checked", true);
+    } else {
+        $("#element_ward").prop("checked", false);
+    }
+
+    if (v.plot_area == "1") {
+        $("#element_plot_area").prop("checked", true);
+    } else {
+        $("#element_plot_area").prop("checked", false);
+    }
+
+    if (v.plot_length == "1") {
+        $("#element_plot_length").prop("checked", true);
+    } else {
+        $("#element_plot_length").prop("checked", false);
+    }
+
+    if (v.plot_width == "1") {
+        $("#element_plot_width").prop("checked", true);
+    } else {
+        $("#element_plot_width").prop("checked", false);
     }
     if (v.ownertype == "1") {
         $("#element_ownertype").prop("checked", true)
@@ -715,6 +803,15 @@ function load_properties(p) {
         $("#element_actualplotration_span").show();//OTB Patch
         $("#element_permittedgroundcoverage_span").show(); //OTB Patch
         $("#element_plot_no_span").show(); //OTB Patch
+        $("#element_block_no_span").show(); //OTB Patch
+        $("#element_subcounty_span").show(); //OTB Patch
+        $("#element_owner_phone_span").show();
+        $("#element_owner_address_span").show();
+        $("#element_owner_email_span").show();
+        $("#element_ward_span").show();
+        $("#element_plot_area_span").show();
+        $("#element_plot_length_span").show();
+        $("#element_plot_width_span").show();
         $("#element_ownertype_span").show(); //OTB Patch
         $("#prop_element_select_options").hide();
         $("#prop_table_name_conf").hide();
@@ -773,6 +870,15 @@ function load_properties(p) {
             $("#prop_number_advance_options").show();
             $("#element_file_ifc_span").hide();
             $("#element_plot_no_span").hide();
+            $("#element_block_no_span").hide();
+            $("#element_subcounty_span").hide();
+            $("#element_owner_phone_span").hide();
+            $("#element_owner_address_span").hide();
+            $("#element_owner_email_span").hide();
+            $("#element_ward_span").hide();
+            $("#element_plot_area_span").show();
+            $("#element_plot_length_span").show();
+            $("#element_plot_width_span").show();
             $("#element_ownertype_span").hide();
             $("#prop_element_select_options").hide();
             $("#prop_table_name_conf").hide();
@@ -812,6 +918,15 @@ function load_properties(p) {
                 $("#prop_placeholder").show();
                 $("#element_file_ifc_span").hide();
                 $("#element_plot_no_span").hide();
+                $("#element_block_no_span").hide();
+                $("#element_subcounty_span").hide();
+                $("#element_owner_phone_span").hide();
+                $("#element_owner_address_span").hide();
+                $("#element_owner_email_span").hide();
+                $("#element_ward_span").hide();
+                $("#element_plot_area_span").hide();
+                $("#element_plot_length_span").hide();
+                $("#element_plot_width_span").hide();
                 $("#element_ownertype_span").hide();
                 $("#prop_element_select_options").hide();
                 $("#prop_table_name_conf").hide();
@@ -824,20 +939,29 @@ function load_properties(p) {
                     $("#element_default_value").val(v.default_value);
                     $("#prop_default_value").show();
                     $("#prop_placeholder").show();
-					//OTB Start Notification to others
-					$("#prop_notify_others").show();
-					$("#element_file_ifc_span").hide();
-					$("#element_plot_no_span").hide();
+                    //OTB Start Notification to others
+                    $("#prop_notify_others").show();
+                    $("#element_file_ifc_span").hide();
+                    $("#element_plot_no_span").hide();
+                    $("#element_block_no_span").hide();
+                    $("#element_subcounty_span").hide();
+                    $("#element_owner_phone_span").hide();
+                    $("#element_owner_address_span").hide();
+                    $("#element_owner_email_span").show();
+                    $("#element_ward_span").show();
+                    $("#element_plot_area_span").hide();
+                    $("#element_plot_length_span").hide();
+                    $("#element_plot_width_span").hide();
                     $("#element_ownertype_span").hide();
                     $("#prop_element_select_options").hide();
                     $("#prop_table_name_conf").hide();
                     $("#prop_option_query_conf").hide();
                     $("#prop_application_conf").hide();
                     if (v.notify_contact == 1) {
-						$("#element_notify_contact").prop("checked", true);
-					} else {
-						$("#element_notify_contact").prop("checked", false);
-					}//OTB End Notification to others
+                        $("#element_notify_contact").prop("checked", true);
+                    } else {
+                        $("#element_notify_contact").prop("checked", false);
+                    }//OTB End Notification to others
                 } else {
                     if (v.type == "signature") {
                         $("#element_size").val(v.size);
@@ -846,6 +970,15 @@ function load_properties(p) {
                         $("#element_readonly_span").hide();
                         $("#element_file_ifc_span").hide();
                         $("#element_plot_no_span").hide();
+                        $("#element_block_no_span").hide();
+                        $("#element_subcounty_span").hide();
+                        $("#element_owner_phone_span").hide();
+                        $("#element_owner_address_span").hide();
+                        $("#element_owner_email_span").hide();
+                        $("#element_ward_span").hide();
+                        $("#element_plot_area_span").hide();
+                        $("#element_plot_length_span").hide();
+                        $("#element_plot_width_span").hide();
                         $("#element_ownertype_span").hide();
                         $("#prop_element_select_options").hide();
                         $("#prop_table_name_conf").hide();
@@ -898,7 +1031,7 @@ function load_properties(p) {
                             }
                             $("#element_unique_span").hide();
                             $("#element_readonly_span").hide();
-							//OTB Start File QR Code verification
+                            //OTB Start File QR Code verification
                             $("#prop_file_authenticity_verification").show();
                             if (v.mark_file_with_qr_code == 1) {
                                 $("#prop_mark_file_with_qr_code").prop("checked", true);
@@ -912,25 +1045,25 @@ function load_properties(p) {
                                 $("#prop_file_qr_all_pages").prop("checked", false);
                             }
 
-							if (v.file_qr_page_position == "top_left") {
-								$("#prop_file_qr_page_position").val("top_left")
-							}else if (v.file_qr_page_position == "top_right") {
-								$("#prop_file_qr_page_position").val("top_right")
-							}else if (v.file_qr_page_position == "bottom_left") {
-								$("#prop_file_qr_page_position").val("bottom_left")
-							}else if (v.file_qr_page_position == "bottom_right") {
-								$("#prop_file_qr_page_position").val("bottom_right")
-							}
+                            if (v.file_qr_page_position == "top_left") {
+                                $("#prop_file_qr_page_position").val("top_left")
+                            } else if (v.file_qr_page_position == "top_right") {
+                                $("#prop_file_qr_page_position").val("top_right")
+                            } else if (v.file_qr_page_position == "bottom_left") {
+                                $("#prop_file_qr_page_position").val("bottom_left")
+                            } else if (v.file_qr_page_position == "bottom_right") {
+                                $("#prop_file_qr_page_position").val("bottom_right")
+                            }
 
-							if (v.file_qr_users == "clients") {
-								$("#prop_file_qr_users").val("clients")
-							}else if (v.file_qr_users == "reviewers") {
-								$("#prop_file_qr_users").val("reviewers")
-							}else if (v.file_qr_users == "both") {
-								$("#prop_file_qr_users").val("both")
-							}
-							//OTB End File QR Code verification
-							$('#element_file_ifc_span').show();
+                            if (v.file_qr_users == "clients") {
+                                $("#prop_file_qr_users").val("clients")
+                            } else if (v.file_qr_users == "reviewers") {
+                                $("#prop_file_qr_users").val("reviewers")
+                            } else if (v.file_qr_users == "both") {
+                                $("#prop_file_qr_users").val("both")
+                            }
+                            //OTB End File QR Code verification
+                            $('#element_file_ifc_span').show();
                             if (v.file_ifc_span == 1) {
                                 $("#element_file_ifc_span").prop("checked", true);
                             } else {
@@ -968,6 +1101,15 @@ function load_properties(p) {
                                 $("#prop_range").show();
                                 $("#element_file_ifc_span").hide();
                                 $("#element_plot_no_span").hide();
+                                $("#element_block_no_span").hide();
+                                $("#element_subcounty_span").hide();
+                                $("#element_owner_phone_span").hide();
+                                $("#element_owner_address_span").hide();
+                                $("#element_owner_email_span").hide();
+                                $("#element_ward_span").hide();
+                                $("#element_plot_area_span").hide();
+                                $("#element_plot_length_span").hide();
+                                $("#element_plot_width_span").hide();
                                 $("#element_ownertype_span").hide();
                                 $("#prop_element_select_options").hide();
                                 $("#prop_table_name_conf").hide();
@@ -985,6 +1127,15 @@ function load_properties(p) {
                                     $("#element_unique_span").hide();
                                     $("#element_file_ifc_span").hide();
                                     $("#element_plot_no_span").hide();
+                                    $("#element_block_no_span").hide();
+                                    $("#element_subcounty_span").hide();
+                                    $("#element_owner_phone_span").hide();
+                                    $("#element_owner_address_span").hide();
+                                    $("#element_owner_email_span").hide();
+                                    $("#element_ward_span").hide();
+                                    $("#element_plot_area_span").hide();
+                                    $("#element_plot_length_span").hide();
+                                    $("#element_plot_width_span").hide();
                                     $("#element_ownertype_span").hide();
                                     $("#prop_element_select_options").hide();
                                     $("#prop_table_name_conf").hide();
@@ -1007,6 +1158,15 @@ function load_properties(p) {
                                         $("#prop_time_options").show();
                                         $("#element_file_ifc_span").hide();
                                         $("#element_plot_no_span").hide();
+                                        $("#element_block_no_span").hide();
+                                        $("#element_subcounty_span").hide();
+                                        $("#element_owner_phone_span").hide();
+                                        $("#element_owner_address_span").hide();
+                                        $("#element_owner_email_span").hide();
+                                        $("#element_ward_span").hide();
+                                        $("#element_plot_area_span").hide();
+                                        $("#element_plot_length_span").hide();
+                                        $("#element_plot_width_span").hide();
                                         $("#element_ownertype_span").hide();
                                         $("#prop_element_select_options").hide();
                                         $("#prop_table_name_conf").hide();
@@ -1063,26 +1223,26 @@ function load_properties(p) {
                                                     $("#prop_default_phone").show();
                                                     $("#phone_format").val(v.type);
                                                     $("#prop_phone_format").show();
-													//OTB Start Notification to others
-													$("#prop_notify_others").show();
-													if (v.notify_contact == 1) {
-														$("#element_notify_contact").prop("checked", true);
-													} else {
-														$("#element_notify_contact").prop("checked", false);
-													}//OTB End Notification to others
+                                                    //OTB Start Notification to others
+                                                    $("#prop_notify_others").show();
+                                                    if (v.notify_contact == 1) {
+                                                        $("#element_notify_contact").prop("checked", true);
+                                                    } else {
+                                                        $("#element_notify_contact").prop("checked", false);
+                                                    }//OTB End Notification to others
                                                 } else {
                                                     if (v.type == "simple_phone") {
                                                         $("#element_default_value").val(v.default_value);
                                                         $("#prop_default_value").show();
                                                         $("#phone_format").val(v.type);
                                                         $("#prop_phone_format").show();
-														//OTB Start Notification to others
-														$("#prop_notify_others").show();
-														if (v.notify_contact == 1) {
-															$("#element_notify_contact").prop("checked", true);
-														} else {
-															$("#element_notify_contact").prop("checked", false);
-														}//OTB End Notification to others
+                                                        //OTB Start Notification to others
+                                                        $("#prop_notify_others").show();
+                                                        if (v.notify_contact == 1) {
+                                                            $("#element_notify_contact").prop("checked", true);
+                                                        } else {
+                                                            $("#element_notify_contact").prop("checked", false);
+                                                        }//OTB End Notification to others
                                                     } else {
                                                         if (v.type == "date" || v.type == "europe_date") {
                                                             $("#date_type").val(v.type);
@@ -1241,7 +1401,7 @@ function load_properties(p) {
                                                                     var l = "";
                                                                     var e = v.options;
                                                                     var b = new Array();
-                                                                    $.each(e, function(w, x) {
+                                                                    $.each(e, function (w, x) {
                                                                         b[x.position] = w
                                                                     });
                                                                     if (v.type == "radio" || v.type == "select") {
@@ -1256,25 +1416,25 @@ function load_properties(p) {
                                                                         $("#prop_element_size").show();
                                                                         $("#element_select_options").val(v.select_options);
                                                                         $("#prop_element_select_options").show();
-                                                                        if(v.select_options == "table"){
+                                                                        if (v.select_options == "table") {
                                                                             $("#table_name").val(v.table_name);
                                                                             $("#field_value").val(v.field_value);
                                                                             $("#field_name").val(v.field_name);
                                                                             $("#prop_table_name_conf").show();
                                                                         }
-                                                                        if(v.select_options == "query"){
+                                                                        if (v.select_options == "query") {
                                                                             $("#option_query").val(v.option_query);
                                                                             $("#field_value_option_query").val(v.field_value);
                                                                             $("#field_name_option_query").val(v.field_name);
                                                                             $("#prop_option_query_conf").show();
                                                                         }
-                                                                        if(v.select_options == "application"){
+                                                                        if (v.select_options == "application") {
                                                                             $("#existing_form").val(v.existing_form);
                                                                             $("#existing_stage").val(v.existing_stage);
                                                                             $("#prop_application_conf").show();
                                                                         }
                                                                     }
-                                                                    $.each(b, function(w, x) {
+                                                                    $.each(b, function (w, x) {
                                                                         if (w > 0) {
                                                                             g = x;
                                                                             h = v.options[x].option;
@@ -1343,7 +1503,7 @@ function load_properties(p) {
                                                                         }
                                                                     }
                                                                     $("#element_unique_span").hide();
-                                                                    $("#element_readonly_span").hide()
+                                                                    $("#element_readonly_span").show()
                                                                 } else {
                                                                     if (v.type == "matrix") {
                                                                         var h = "";
@@ -1353,11 +1513,11 @@ function load_properties(p) {
                                                                         var f = "";
                                                                         var j = v.options;
                                                                         var b = new Array();
-                                                                        $.each(j, function(w, x) {
+                                                                        $.each(j, function (w, x) {
                                                                             b[x.position] = w
                                                                         });
                                                                         var m = "";
-                                                                        $.each(b, function(w, x) {
+                                                                        $.each(b, function (w, x) {
                                                                             if (w > 0) {
                                                                                 choice_element_id = x;
                                                                                 h = v.options[x].row_title;
@@ -1376,10 +1536,10 @@ function load_properties(p) {
                                                                         var s = parseInt($("#" + active_element).data("field_properties").id);
                                                                         var i = v.options[s].column_data;
                                                                         var r = new Array();
-                                                                        $.each(i, function(w, x) {
+                                                                        $.each(i, function (w, x) {
                                                                             r[x.position] = w
                                                                         });
-                                                                        $.each(r, function(w, x) {
+                                                                        $.each(r, function (w, x) {
                                                                             if (w > 0) {
                                                                                 g = x;
                                                                                 h = i[x].column_title;
@@ -1475,180 +1635,169 @@ function set_properties(D, x) {
     var l = active_element.split("_");
     var v = l[1];
 
-    if(D == "prop_remote_url")
-    {
+    if (D == "prop_remote_url") {
         A.option_query = x;
     }
-    else if(D == "prop_remote_criteria")
-    {
+    else if (D == "prop_remote_criteria") {
         A.field_name = x;
     }
-    else if(D == "prop_field_value")
-    {
+    else if (D == "prop_field_value") {
         A.field_value = x;
     }
-    else if(D == "prop_field_error_message")
-    {
+    else if (D == "prop_field_error_message") {
         A.field_error_message = x;
     }
-    else if(D == "prop_remote_value")
-    {
+    else if (D == "prop_remote_value") {
         A.remote_value = x;
     }
-    else if(D == "prop_remote_username")
-    {
+    else if (D == "prop_remote_username") {
         A.remote_username = x;
     }
-    else if(D == "prop_remote_password")
-    {
+    else if (D == "prop_remote_password") {
         A.remote_password = x;
     }
-    else if(D == "prop_remote_server_field")
-    {
+    else if (D == "prop_remote_server_field") {
         A.remote_server_field = x;
     }
-    else if(D == "prop_remote_url_pr")
-    {
+    else if (D == "prop_remote_url_pr") {
         A.option_query = x;
     }
-    else if(D == "prop_remote_username_pr")
-    {
+    else if (D == "prop_remote_username_pr") {
         A.remote_username = x;
     }
-    else if(D == "prop_remote_password_pr")
-    {
+    else if (D == "prop_remote_password_pr") {
         A.remote_password = x;
     }
-    else if(D == "prop_remote_server_field_pr")
-    {
+    else if (D == "prop_remote_server_field_pr") {
         A.remote_server_field = x;
     }
-    else if(D == "prop_remote_value_pr")
-    {
+    else if (D == "prop_remote_value_pr") {
         A.remote_value = x;
     }
-    else if(D == "price_class")
-    {
+    else if (D == "price_class") {
         A.price_class = x;
     }
     //OTB patch for footprint
-    else if(D == "element_footprint")
-    {
+    else if (D == "element_footprint") {
         A.footprint = x;
     }
-    else if(D == "element_plotsize")
-    {
+    else if (D == "element_plotsize") {
         A.plotsize = x;
     }
-    else if(D == "element_actualplotratio")
-    {
+    else if (D == "element_actualplotratio") {
         A.actualplotratio = x;
     }
-    else if(D == "element_permittedgroundcoverage")
-    {
+    else if (D == "element_permittedgroundcoverage") {
         A.permittedgroundcoverage = x;
     }
-     else if(D == "element_zone")
-    {
+    else if (D == "element_zone") {
         A.zone = x;
     }
-    else if(D == "element_projectcost")
-    {
+    else if (D == "element_projectcost") {
         A.projectcost = x;
     }
-    else if(D == "element_groundcoveragereason")
-    {
+    else if (D == "element_groundcoveragereason") {
         A.groundcoveragereason = x;
     }
     //OTB patch - grandtotalplintharea 
-    else if(D == "element_grandtotalplintharea")
-    {
+    else if (D == "element_grandtotalplintharea") {
         A.grandtotalplintharea = x;
     } //OTB patch element_grandtotalfootprintarea
-     else if(D == "element_grandtotalfootprintarea")
-    {
+    else if (D == "element_grandtotalfootprintarea") {
         A.grandtotalfootprintarea = x;
     }
-    else if(D == "element_plotratioreason")
-    {
+    else if (D == "element_plotratioreason") {
         A.plotratioreason = x;
     }
-     else if(D == "element_permitteduser")
-    {
+    else if (D == "element_permitteduser") {
         A.permitteduser = x;
     }
-	//OTB Start File QR Code verification
-    else if(D == "prop_mark_file_with_qr_code")
-    {
-        A.mark_file_with_qr_code = x;	
-	}
-    else if(D == "prop_file_qr_all_pages")
-    {
-        A.file_qr_all_pages = x;	
-	}
-    else if(D == "prop_file_qr_page_position")
-    {
-        A.file_qr_page_position = x;	
-	}
-    else if(D == "prop_file_qr_users")
-    {
-        A.file_qr_users = x;	
-	}
-	//OTB End File QR Code verification
-	//OTB Start Copy notification to other contacts
-	else if(D == "element_notify_contact")
-    {
-        A.notify_contact = x;	
-	}
-	else if(D == "element_file_ifc")
-    {
-        A.file_ifc = x;	
-	}
-	else if(D == "element_plot_no")
-    {
-        A.plot_no = x;	
+    //OTB Start File QR Code verification
+    else if (D == "prop_mark_file_with_qr_code") {
+        A.mark_file_with_qr_code = x;
     }
-	else if(D == "element_ownertype")
-    {
-        A.ownertype = x;	
+    else if (D == "prop_file_qr_all_pages") {
+        A.file_qr_all_pages = x;
     }
-	else if(D == "element_select_options")
-    {
-        A.select_options = x;	
+    else if (D == "prop_file_qr_page_position") {
+        A.file_qr_page_position = x;
     }
-	else if(D == "table_name")
-    {
-        A.table_name = x;	
+    else if (D == "prop_file_qr_users") {
+        A.file_qr_users = x;
     }
-	else if(D == "field_value")
-    {
-        A.field_value = x;	
+    //OTB End File QR Code verification
+    //OTB Start Copy notification to other contacts
+    else if (D == "element_notify_contact") {
+        A.notify_contact = x;
     }
-	else if(D == "field_name")
-    {
-        A.field_name = x;	
+    else if (D == "element_file_ifc") {
+        A.file_ifc = x;
     }
-	else if(D == "option_query")
-    {
-        A.option_query = x;	
+    else if (D == "element_plot_no") {
+        A.plot_no = x;
+    } else if (D == "element_block_no") {
+        A.block_no = x;
+    } else if (D == "element_subcounty") {
+        A.subcounty = x;
     }
-	else if(D == "field_value_option_query")
-    {
-        A.field_value = x;	
+    else if (D == "element_owner_phone") {
+        A.owner_phone = x;
     }
-	else if(D == "field_name_option_query")
-    {
-        A.field_name = x;	
+
+    else if (D == "element_owner_address") {
+        A.owner_address = x;
     }
-	else if(D == "existing_form")
-    {
-        A.existing_form = x;	
+
+    else if (D == "element_owner_email") {
+        A.owner_email = x;
     }
-	else if(D == "existing_stage")
-    {
-        A.existing_stage = x;	
-	}
-	//OTB End Copy notification to other contacts
+
+    else if (D == "element_ward") {
+        A.ward = x;
+    }
+
+    else if (D == "element_plot_area") {
+        A.plot_area = x;
+    }
+
+    else if (D == "element_plot_length") {
+        A.plot_length = x;
+    }
+
+    else if (D == "element_plot_width") {
+        A.plot_width = x;
+    }
+    else if (D == "element_ownertype") {
+        A.ownertype = x;
+    }
+    else if (D == "element_select_options") {
+        A.select_options = x;
+    }
+    else if (D == "table_name") {
+        A.table_name = x;
+    }
+    else if (D == "field_value") {
+        A.field_value = x;
+    }
+    else if (D == "field_name") {
+        A.field_name = x;
+    }
+    else if (D == "option_query") {
+        A.option_query = x;
+    }
+    else if (D == "field_value_option_query") {
+        A.field_value = x;
+    }
+    else if (D == "field_name_option_query") {
+        A.field_name = x;
+    }
+    else if (D == "existing_form") {
+        A.existing_form = x;
+    }
+    else if (D == "existing_stage") {
+        A.existing_stage = x;
+    }
+    //OTB End Copy notification to other contacts
     if (D == "element_label") {
         if (A.type == "section") {
             $("#" + active_element + " > h3").html(x.replace(/\n/g, "<br />"));
@@ -1776,7 +1925,7 @@ function set_properties(D, x) {
                                                     }, {
                                                         duration: 250,
                                                         queue: true,
-                                                        complete: function() {
+                                                        complete: function () {
                                                             $("#main_body").addClass("no_guidelines")
                                                         }
                                                     })
@@ -1799,7 +1948,7 @@ function set_properties(D, x) {
                                                     }, {
                                                         duration: 250,
                                                         queue: true,
-                                                        complete: function() {
+                                                        complete: function () {
                                                             $("#main_body").removeClass("no_guidelines")
                                                         }
                                                     })
@@ -2257,7 +2406,7 @@ function set_properties(D, x) {
                                                                                                                                                                         $.ajax({
                                                                                                                                                                             type: "POST",
                                                                                                                                                                             async: true,
-                                                                                                                                                                            url: "/backend.php/forms/deletedraftfield",
+                                                                                                                                                                            url: "/plan/forms/deletedraftfield",
                                                                                                                                                                             data: {
                                                                                                                                                                                 form_id: I,
                                                                                                                                                                                 element_id: h.data("field_properties").id,
@@ -2266,16 +2415,16 @@ function set_properties(D, x) {
                                                                                                                                                                             cache: false,
                                                                                                                                                                             global: true,
                                                                                                                                                                             dataType: "json",
-                                                                                                                                                                            error: function(V, T, U) {
+                                                                                                                                                                            error: function (V, T, U) {
                                                                                                                                                                                 h.html(m).removeClass("delete_processing")
                                                                                                                                                                             },
-                                                                                                                                                                            success: function(T) {
+                                                                                                                                                                            success: function (T) {
                                                                                                                                                                                 if (T.status == "ok") {
                                                                                                                                                                                     B.type = x;
                                                                                                                                                                                     $.ajax({
                                                                                                                                                                                         type: "POST",
                                                                                                                                                                                         async: true,
-                                                                                                                                                                                        url: "/backend.php/forms/add_field.php",
+                                                                                                                                                                                        url: "/plan/forms/add_field.php",
                                                                                                                                                                                         data: {
                                                                                                                                                                                             element_type: x,
                                                                                                                                                                                             form_id: I,
@@ -2287,11 +2436,11 @@ function set_properties(D, x) {
                                                                                                                                                                                         cache: false,
                                                                                                                                                                                         global: true,
                                                                                                                                                                                         dataType: "json",
-                                                                                                                                                                                        error: function(W, U, V) {
+                                                                                                                                                                                        error: function (W, U, V) {
                                                                                                                                                                                             h.html(m).removeClass("delete_processing");
                                                                                                                                                                                             $("#dialog-message").dialog("open")
                                                                                                                                                                                         },
-                                                                                                                                                                                        success: function(V) {
+                                                                                                                                                                                        success: function (V) {
                                                                                                                                                                                             if (V.status == "ok") {
                                                                                                                                                                                                 var U = $(V.markup);
                                                                                                                                                                                                 U.data("field_properties", h.data("field_properties"));
@@ -2321,7 +2470,7 @@ function set_properties(D, x) {
                                                                                                                                                                         if (A.type == "address") {
                                                                                                                                                                             $("#element_" + A.id + "_6").val(x)
                                                                                                                                                                         } else {
-                                                                                                                                                                            if (A.type == "date" || A.type == "europe_date" || A.type == "time") {} else {
+                                                                                                                                                                            if (A.type == "date" || A.type == "europe_date" || A.type == "time") { } else {
                                                                                                                                                                                 if (A.type == "phone") {
                                                                                                                                                                                     $("#element_" + A.id + "_1").val($("#element_default_phone1").val());
                                                                                                                                                                                     $("#element_" + A.id + "_2").val($("#element_default_phone2").val());
@@ -2358,7 +2507,7 @@ function set_properties(D, x) {
                                                                                                                                                                                     $("#" + active_element + " > div > span").last().hide().slideDown();
                                                                                                                                                                                     $("#prop_other_choices_label").prop("disabled", false).select().focus()
                                                                                                                                                                                 } else {
-                                                                                                                                                                                    $("#" + active_element + " div > span").last().slideUp("slow", function() {
+                                                                                                                                                                                    $("#" + active_element + " div > span").last().slideUp("slow", function () {
                                                                                                                                                                                         $(this).remove()
                                                                                                                                                                                     });
                                                                                                                                                                                     $("#prop_other_choices_label").prop("disabled", true)
@@ -2486,10 +2635,10 @@ function set_properties(D, x) {
                                                                                                                                                                                                                                                                                             P = "Yen"
                                                                                                                                                                                                                                                                                         }
                                                                                                                                                                                                                                                                                         else {
-                                                                                                                                                                                                                                                                                          if (x == "kes") {
-                                                                                                                                                                                                                                                                                            K = "KES";
-                                                                                                                                                                                                                                                                                            P = "Shilling"
-                                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                            if (x == "kes") {
+                                                                                                                                                                                                                                                                                                K = "KES";
+                                                                                                                                                                                                                                                                                                P = "Shilling"
+                                                                                                                                                                                                                                                                                            }
                                                                                                                                                                                                                                                                                         }
                                                                                                                                                                                                                                                                                     }
                                                                                                                                                                                                                                                                                 }
@@ -2509,7 +2658,7 @@ function set_properties(D, x) {
                                                                                                                                                                                                                             $("#" + active_element + " > span.symbol").html(K);
                                                                                                                                                                                                                             if (x == "yen" && A.constraint != "yen") {
                                                                                                                                                                                                                                 $("#" + active_element + " > span").last().remove();
-                                                                                                                                                                                                                                $("#" + active_element + " > span").last().contents().filter(function() {
+                                                                                                                                                                                                                                $("#" + active_element + " > span").last().contents().filter(function () {
                                                                                                                                                                                                                                     return this.nodeType == 3
                                                                                                                                                                                                                                 }).remove();
                                                                                                                                                                                                                                 $("#element_" + A.id + "_1").attr("size", 15);
@@ -2709,8 +2858,8 @@ function set_properties(D, x) {
                                                                                                                                                                                                                                                             var n = "";
                                                                                                                                                                                                                                                             var w = "";
                                                                                                                                                                                                                                                             var L = "";
-                                                                                                                                                                                                                                                            $("#" + active_element + " table tbody").find("tr").each(function() {
-                                                                                                                                                                                                                                                                $(this).find("td input[type=" + c + "]").each(function() {
+                                                                                                                                                                                                                                                            $("#" + active_element + " table tbody").find("tr").each(function () {
+                                                                                                                                                                                                                                                                $(this).find("td input[type=" + c + "]").each(function () {
                                                                                                                                                                                                                                                                     n = $(this).attr("id");
                                                                                                                                                                                                                                                                     w = $(this).attr("name");
                                                                                                                                                                                                                                                                     L = $(this).val();
@@ -2823,7 +2972,7 @@ function add_element(a) {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/addfield",
+        url: "/plan/forms/addfield",
         data: {
             element_type: a,
             form_id: c,
@@ -2834,10 +2983,10 @@ function add_element(a) {
         cache: false,
         global: true,
         dataType: "json",
-        error: function(h, f, g) {
+        error: function (h, f, g) {
             $("#form_builder_sortable .click_processing").remove()
         },
-        success: function(f) {
+        success: function (f) {
             if (f.status == "ok") {
                 var e = $(f.markup);
                 e.data("field_properties", f.field_properties).addClass("synched");
@@ -2869,7 +3018,7 @@ function add_matrix_row(d) {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/addmatrixrow",
+        url: "/plan/forms/addmatrixrow",
         data: {
             form_id: h,
             row_holder_id: "mr_temp_" + a,
@@ -2883,11 +3032,11 @@ function add_matrix_row(d) {
         cache: false,
         global: true,
         dataType: "json",
-        error: function(n, l, m) {
+        error: function (n, l, m) {
             $("#mr_temp_" + a).remove();
             $("#li_mr_temp_" + a).remove()
         },
-        success: function(o) {
+        success: function (o) {
             if (o.status == "ok") {
                 var m = o.element_id;
                 var l = j.data("field_properties").options;
@@ -2897,7 +3046,7 @@ function add_matrix_row(d) {
                 $("#" + o.prop_holder_id).replaceWith(o.new_prop_markup);
                 $("#matrixrow_" + m).focus();
                 var n = $("#matrixrow_" + m).parent().nextAll().children().filter("input.text");
-                $.each(n, function(p, r) {
+                $.each(n, function (p, r) {
                     var q = null;
                     q = $(r).attr("id").split("_");
                     j.data("field_properties").options[q[1]].position++
@@ -2931,7 +3080,7 @@ function delete_matrix_row(g) {
     $.ajax({
         type: "POST",
         async: true,
-        url: "/backend.php/forms/deletematrixrow",
+        url: "/plan/forms/deletematrixrow",
         data: {
             form_id: c,
             element_id: a
@@ -2939,13 +3088,13 @@ function delete_matrix_row(g) {
         cache: false,
         global: true,
         dataType: "json",
-        error: function(j, h, i) {
+        error: function (j, h, i) {
             $("#mr_" + a).removeClass("matrix_row_processing").html(d);
             $("#matrixrow_" + a).prop("disabled", false);
             $("#matrixrowadd_" + a).show();
             $("#matrixrowdel_" + a).show()
         },
-        success: function(l) {
+        success: function (l) {
             if (l.status == "ok") {
                 var i = l.element_id;
                 var j = $("#" + active_element);
@@ -2953,20 +3102,20 @@ function delete_matrix_row(g) {
                 delete h[i];
                 j.data("field_properties").options = h;
                 var k = $("#matrixrow_" + i).parent().nextAll().children().filter("input.text");
-                $.each(k, function(m, o) {
+                $.each(k, function (m, o) {
                     var n = null;
                     n = $(o).attr("id").split("_");
                     j.data("field_properties").options[n[1]].position--
                 });
-                $("#matrixrow_" + i).parent().fadeOut("normal", function() {
+                $("#matrixrow_" + i).parent().fadeOut("normal", function () {
                     $(this).remove()
                 });
-                $("#mr_" + i).fadeOut("normal", function() {
+                $("#mr_" + i).fadeOut("normal", function () {
                     $(this).remove();
                     if ($("#" + active_element + " tbody tr:gt(0)").length > 0) {
                         var n = $("#" + active_element + " tbody tr:gt(0)");
                         var m = new Array();
-                        n.each(function(p) {
+                        n.each(function (p) {
                             var q = null;
                             q = $(this).attr("id").split("_");
                             m[p] = q[1]
@@ -3005,7 +3154,7 @@ function add_matrix_column(a) {
     }
     var p = new Array();
     var d = "";
-    $("#" + active_element + " table tbody").find("tr").each(function() {
+    $("#" + active_element + " table tbody").find("tr").each(function () {
         p = $(this).attr("id").split("_");
         d = p[1];
         $(this).find("td").eq(k).after('<td><input type="' + n + '" value="' + l + '" name="element_' + d + '" id="element_' + d + "_" + l + '"></td>')
@@ -3030,7 +3179,7 @@ function add_matrix_column(a) {
     };
     q.data("field_properties").options[c].column_data = j;
     var r = $("#matrixcol_" + l).parent().nextAll().children().filter("input.text");
-    $.each(r, function(s, u) {
+    $.each(r, function (s, u) {
         var t = null;
         t = $(u).attr("id").split("_");
         q.data("field_properties").options[c].column_data[t[1]].position++
@@ -3052,7 +3201,7 @@ function delete_matrix_column(h) {
     delete d[e];
     c.data("field_properties").options[a].column_data = d;
     var f = $("#matrixcol_" + e).parent().nextAll().children().filter("input.text");
-    $.each(f, function(i, k) {
+    $.each(f, function (i, k) {
         var j = null;
         j = $(k).attr("id").split("_");
         c.data("field_properties").options[a].column_data[j[1]].position--
@@ -3060,7 +3209,7 @@ function delete_matrix_column(h) {
     $("#matrixcol_" + e).parent().remove();
     var b = $("#mc_" + a + "_" + e).index();
     $("#mc_" + a + "_" + e).remove();
-    $("#" + active_element + " table tbody").find("tr").each(function() {
+    $("#" + active_element + " table tbody").find("tr").each(function () {
         $(this).find("td").eq(b).remove()
     })
 }
@@ -3075,232 +3224,225 @@ function set_form_properties(l, a) {
             $("#form_header_desc").html(a.replace(/\n/g, "<br />"));
             d.description = a
         } else {
-            if(l == "form_idn")
-        {
-            d.idn = a
-        }
-        else
-        {
-        if(l == "form_code")
-        {
-            d.code = a
-        }
-        else
-        {
-        if(l == "form_stage")
-        {
-            d.stage = a
-        }
-        else
-        {
-        if(l == "form_group")
-        {
-            d.group = a
-        }
-        else
-        {
-        if(l == "form_department")
-        {
-            d.department = a
-        }
-        else
-        {
-        if(l == "form_department_stage")
-        {
-            d.department_stage = a
-        }
-        else
-        {
-         if(l == "form_type")
-         {
-            d.type = a
-         }
-         else
-         {
-            if (l == "form_review_title") {
-                d.review_title = a
-            } else {
-                if (l == "form_review_description") {
-                    d.review_description = a
-                } else {
-                    if (l == "form_resume_subject") {
-                        d.resume_subject = a
-                    } else {
-                        if (l == "form_resume_content") {
-                            d.resume_content = a
-                        } else {
-                            if (l == "form_resume_from_name") {
-                                d.resume_from_name = a
-                            } else {
-                                if (l == "form_resume_from_email_address") {
-                                    d.resume_from_email_address = a
-                                } else {
-                                    if (l == "form_label_alignment") {
-                                        $("#form_builder_sortable > li").not(".li_pagination").css("width", "");
-                                        $("#form_builder_preview").removeClass("top_label right_label left_label").addClass(a);
-                                        d.label_alignment = a
-                                    } else {
-                                        if (l == "form_language") {
-                                            d.language = a
+            if (l == "form_idn") {
+                d.idn = a
+            }
+            else {
+                if (l == "form_code") {
+                    d.code = a
+                }
+                else {
+                    if (l == "form_stage") {
+                        d.stage = a
+                    }
+                    else {
+                        if (l == "form_group") {
+                            d.group = a
+                        }
+                        else {
+                            if (l == "form_department") {
+                                d.department = a
+                            }
+                            else {
+                                if (l == "form_department_stage") {
+                                    d.department_stage = a
+                                }
+                                else {
+                                    if (l == "form_type") {
+                                        d.type = a
+                                    }
+                                    else {
+                                        if (l == "form_review_title") {
+                                            d.review_title = a
                                         } else {
-                                            if (l == "form_redirect_enable") {
-                                                if (a == 1) {
-                                                    $("#form_success_message").hide();
-                                                    $("#form_redirect_url").show().focus().select()
-                                                } else {
-                                                    $("#form_success_message").show().focus().select();
-                                                    $("#form_redirect_url").hide()
-                                                }
-                                                d.redirect_enable = a
+                                            if (l == "form_review_description") {
+                                                d.review_description = a
                                             } else {
-                                                if (l == "form_review_use_image") {
-                                                    if (a == 1) {
-                                                        $("#div_review_use_image").show();
-                                                        $("#div_review_use_text").hide()
-                                                    } else {
-                                                        $("#div_review_use_image").hide();
-                                                        $("#div_review_use_text").show()
-                                                    }
-                                                    d.review_use_image = a
+                                                if (l == "form_resume_subject") {
+                                                    d.resume_subject = a
                                                 } else {
-                                                    if (l == "form_success_message") {
-                                                        d.success_message = a
+                                                    if (l == "form_resume_content") {
+                                                        d.resume_content = a
                                                     } else {
-                                                        if (l == "form_redirect") {
-                                                            d.redirect = a
+                                                        if (l == "form_resume_from_name") {
+                                                            d.resume_from_name = a
                                                         } else {
-                                                            if (l == "form_custom_script_url") {
-                                                                d.custom_script_url = a
+                                                            if (l == "form_resume_from_email_address") {
+                                                                d.resume_from_email_address = a
                                                             } else {
-                                                                if (l == "form_review") {
-                                                                    d.review = a;
-                                                                    if (($("#li_lastpage").length == 1) && (a == 1)) {
-                                                                        if ($("#li_lastpage").data("field_properties").submit_primary_text == "Submit") {
-                                                                            $("#li_lastpage").data("field_properties").submit_primary_text = "Continue";
-                                                                            $("#btn_submit_lastpage").val("Continue")
-                                                                        }
-                                                                    } else {
-                                                                        if (($("#li_lastpage").length == 1) && (a == 0)) {
-                                                                            if ($("#li_lastpage").data("field_properties").submit_primary_text == "Continue") {
-                                                                                $("#li_lastpage").data("field_properties").submit_primary_text = "Submit";
-                                                                                $("#btn_submit_lastpage").val("Submit")
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    if (a == 1) {
-                                                                        $("#form_prop_review").slideDown("slow", function() {
-                                                                            adjust_main_height();
-                                                                            $("#form_prop_review").show()
-                                                                        })
-                                                                    } else {
-                                                                        $("#form_prop_review").slideUp("slow", function() {
-                                                                            adjust_main_height()
-                                                                        })
-                                                                    }
+                                                                if (l == "form_label_alignment") {
+                                                                    $("#form_builder_sortable > li").not(".li_pagination").css("width", "");
+                                                                    $("#form_builder_preview").removeClass("top_label right_label left_label").addClass(a);
+                                                                    d.label_alignment = a
                                                                 } else {
-                                                                    if (l == "review_primary_text") {
-                                                                        d.review_primary_text = a
+                                                                    if (l == "form_language") {
+                                                                        d.language = a
                                                                     } else {
-                                                                        if (l == "review_primary_img") {
-                                                                            d.review_primary_img = a
-                                                                        } else {
-                                                                            if (l == "review_secondary_text") {
-                                                                                d.review_secondary_text = a
+                                                                        if (l == "form_redirect_enable") {
+                                                                            if (a == 1) {
+                                                                                $("#form_success_message").hide();
+                                                                                $("#form_redirect_url").show().focus().select()
                                                                             } else {
-                                                                                if (l == "review_secondary_img") {
-                                                                                    d.review_secondary_img = a
+                                                                                $("#form_success_message").show().focus().select();
+                                                                                $("#form_redirect_url").hide()
+                                                                            }
+                                                                            d.redirect_enable = a
+                                                                        } else {
+                                                                            if (l == "form_review_use_image") {
+                                                                                if (a == 1) {
+                                                                                    $("#div_review_use_image").show();
+                                                                                    $("#div_review_use_text").hide()
                                                                                 } else {
-                                                                                    if (l == "form_resume_enable") {
-                                                                                        d.resume_enable = a;
-                                                                                        if (a == 1) {
-                                                                                            $("#form_prop_resume").slideDown("slow", function() {
-                                                                                                adjust_main_height();
-                                                                                                $("#form_prop_resume").show()
-                                                                                            })
-                                                                                        } else {
-                                                                                            $("#form_prop_resume").slideUp("slow", function() {
-                                                                                                adjust_main_height()
-                                                                                            })
-                                                                                        }
+                                                                                    $("#div_review_use_image").hide();
+                                                                                    $("#div_review_use_text").show()
+                                                                                }
+                                                                                d.review_use_image = a
+                                                                            } else {
+                                                                                if (l == "form_success_message") {
+                                                                                    d.success_message = a
+                                                                                } else {
+                                                                                    if (l == "form_redirect") {
+                                                                                        d.redirect = a
                                                                                     } else {
-                                                                                        if (l == "form_password") {
-                                                                                            d.password = a
+                                                                                        if (l == "form_custom_script_url") {
+                                                                                            d.custom_script_url = a
                                                                                         } else {
-                                                                                            if (l == "form_limit") {
-                                                                                                d.limit = parseInt(a)
-                                                                                            } else {
-                                                                                                if (l == "form_unique_ip_maxcount") {
-                                                                                                    d.unique_ip_maxcount = parseInt(a)
+                                                                                            if (l == "form_review") {
+                                                                                                d.review = a;
+                                                                                                if (($("#li_lastpage").length == 1) && (a == 1)) {
+                                                                                                    if ($("#li_lastpage").data("field_properties").submit_primary_text == "Submit") {
+                                                                                                        $("#li_lastpage").data("field_properties").submit_primary_text = "Continue";
+                                                                                                        $("#btn_submit_lastpage").val("Continue")
+                                                                                                    }
                                                                                                 } else {
-                                                                                                    if (l == "form_pagination_type") {
-                                                                                                        var j = $("#form_builder_sortable > li.page_break");
-                                                                                                        var e = j.length;
-                                                                                                        var g = 1;
-                                                                                                        var b = "";
-                                                                                                        var k = "";
-                                                                                                        var f = "";
-                                                                                                        j.each(function(m) {
-                                                                                                            var n = $(this);
-                                                                                                            g = m + 1;
-                                                                                                            if (n.attr("id") != "li_lastpage") {
-                                                                                                                var o = n.data("field_properties").id;
-                                                                                                                $("#pagenum_" + o).text(g);
-                                                                                                                $("#pagetotal_" + o).text("Page " + g + " of " + e);
-                                                                                                                if (g == 1) {
-                                                                                                                    k = " ap_tp_num_active";
-                                                                                                                    f = " ap_tp_text_active"
+                                                                                                    if (($("#li_lastpage").length == 1) && (a == 0)) {
+                                                                                                        if ($("#li_lastpage").data("field_properties").submit_primary_text == "Continue") {
+                                                                                                            $("#li_lastpage").data("field_properties").submit_primary_text = "Submit";
+                                                                                                            $("#btn_submit_lastpage").val("Submit")
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                                if (a == 1) {
+                                                                                                    $("#form_prop_review").slideDown("slow", function () {
+                                                                                                        adjust_main_height();
+                                                                                                        $("#form_prop_review").show()
+                                                                                                    })
+                                                                                                } else {
+                                                                                                    $("#form_prop_review").slideUp("slow", function () {
+                                                                                                        adjust_main_height()
+                                                                                                    })
+                                                                                                }
+                                                                                            } else {
+                                                                                                if (l == "review_primary_text") {
+                                                                                                    d.review_primary_text = a
+                                                                                                } else {
+                                                                                                    if (l == "review_primary_img") {
+                                                                                                        d.review_primary_img = a
+                                                                                                    } else {
+                                                                                                        if (l == "review_secondary_text") {
+                                                                                                            d.review_secondary_text = a
+                                                                                                        } else {
+                                                                                                            if (l == "review_secondary_img") {
+                                                                                                                d.review_secondary_img = a
+                                                                                                            } else {
+                                                                                                                if (l == "form_resume_enable") {
+                                                                                                                    d.resume_enable = a;
+                                                                                                                    if (a == 1) {
+                                                                                                                        $("#form_prop_resume").slideDown("slow", function () {
+                                                                                                                            adjust_main_height();
+                                                                                                                            $("#form_prop_resume").show()
+                                                                                                                        })
+                                                                                                                    } else {
+                                                                                                                        $("#form_prop_resume").slideUp("slow", function () {
+                                                                                                                            adjust_main_height()
+                                                                                                                        })
+                                                                                                                    }
                                                                                                                 } else {
-                                                                                                                    k = "";
-                                                                                                                    f = ""
+                                                                                                                    if (l == "form_password") {
+                                                                                                                        d.password = a
+                                                                                                                    } else {
+                                                                                                                        if (l == "form_limit") {
+                                                                                                                            d.limit = parseInt(a)
+                                                                                                                        } else {
+                                                                                                                            if (l == "form_unique_ip_maxcount") {
+                                                                                                                                d.unique_ip_maxcount = parseInt(a)
+                                                                                                                            } else {
+                                                                                                                                if (l == "form_pagination_type") {
+                                                                                                                                    var j = $("#form_builder_sortable > li.page_break");
+                                                                                                                                    var e = j.length;
+                                                                                                                                    var g = 1;
+                                                                                                                                    var b = "";
+                                                                                                                                    var k = "";
+                                                                                                                                    var f = "";
+                                                                                                                                    j.each(function (m) {
+                                                                                                                                        var n = $(this);
+                                                                                                                                        g = m + 1;
+                                                                                                                                        if (n.attr("id") != "li_lastpage") {
+                                                                                                                                            var o = n.data("field_properties").id;
+                                                                                                                                            $("#pagenum_" + o).text(g);
+                                                                                                                                            $("#pagetotal_" + o).text("Page " + g + " of " + e);
+                                                                                                                                            if (g == 1) {
+                                                                                                                                                k = " ap_tp_num_active";
+                                                                                                                                                f = " ap_tp_text_active"
+                                                                                                                                            } else {
+                                                                                                                                                k = "";
+                                                                                                                                                f = ""
+                                                                                                                                            }
+                                                                                                                                            if (a == "steps") {
+                                                                                                                                                b += '<td align="center"><span id="page_num_' + g + '" class="ap_tp_num' + k + '">' + g + '</span><span id="page_title_' + g + '" class="ap_tp_text' + f + '">' + n.data("field_properties").page_title + '</span></td><td align="center" class="ap_tp_arrow">&gt;</td>'
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            $("#pagenum_lastpage").text(g);
+                                                                                                                                            $("#pagetotal_lastpage").text("Page " + g + " of " + e);
+                                                                                                                                            b += '<td align="center"><span id="page_num_' + g + '" class="ap_tp_num">' + g + '</span><span id="page_title_' + g + '" class="ap_tp_text">' + n.data("field_properties").page_title + "</span></td>"
+                                                                                                                                        }
+                                                                                                                                    });
+                                                                                                                                    $("#pagination_header").children().remove();
+                                                                                                                                    if (a == "steps") {
+                                                                                                                                        var i = '<table class="ap_table_pagination" width="100%" border="0" cellspacing="0" cellpadding="0"><tr>' + b + "</tr></table>";
+                                                                                                                                        $("#pagination_header").append(i)
+                                                                                                                                    } else {
+                                                                                                                                        if (a == "percentage") {
+                                                                                                                                            var h = '<h3 id="page_title_1">Page 1 of 1 - Page Title</h3><div class="mf_progress_container"><div id="mf_progress_percentage" class="mf_progress_value" style="width: 1%"><span>1%</span></div></div>';
+                                                                                                                                            $("#pagination_header").append(h);
+                                                                                                                                            $("#page_title_1").html("Page 1 of " + e + " - " + j.eq(0).data("field_properties").page_title);
+                                                                                                                                            var c = Math.round((1 / e) * 100);
+                                                                                                                                            $("#mf_progress_percentage > span").html(c + "%");
+                                                                                                                                            $("#mf_progress_percentage").animate({
+                                                                                                                                                width: c + "%"
+                                                                                                                                            }, {
+                                                                                                                                                duration: 200,
+                                                                                                                                                queue: false
+                                                                                                                                            })
+                                                                                                                                        } else {
+                                                                                                                                            $("#pagination_header").append('<h3 class="no_header">Pagination Header Disabled</h3>')
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                    if (a == "disabled") {
+                                                                                                                                        $("#prop_pagination_style legend").css({
+                                                                                                                                            "background-color": "#DC6666",
+                                                                                                                                            "border-color": "#DC6666"
+                                                                                                                                        });
+                                                                                                                                        $("#prop_pagination_style fieldset").css("border-color", "#DC6666");
+                                                                                                                                        $("#prop_pagination_titles").fadeOut("slow")
+                                                                                                                                    } else {
+                                                                                                                                        $("#prop_pagination_style legend").css({
+                                                                                                                                            "background-color": "#3D6C10",
+                                                                                                                                            "border-color": "#3D6C10"
+                                                                                                                                        });
+                                                                                                                                        $("#prop_pagination_style fieldset").css("border-color", "#3D6C10");
+                                                                                                                                        if (d.pagination_type == "disabled") {
+                                                                                                                                            $("#prop_pagination_titles").slideDown()
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                    d.pagination_type = a
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
                                                                                                                 }
-                                                                                                                if (a == "steps") {
-                                                                                                                    b += '<td align="center"><span id="page_num_' + g + '" class="ap_tp_num' + k + '">' + g + '</span><span id="page_title_' + g + '" class="ap_tp_text' + f + '">' + n.data("field_properties").page_title + '</span></td><td align="center" class="ap_tp_arrow">&gt;</td>'
-                                                                                                                }
-                                                                                                            } else {
-                                                                                                                $("#pagenum_lastpage").text(g);
-                                                                                                                $("#pagetotal_lastpage").text("Page " + g + " of " + e);
-                                                                                                                b += '<td align="center"><span id="page_num_' + g + '" class="ap_tp_num">' + g + '</span><span id="page_title_' + g + '" class="ap_tp_text">' + n.data("field_properties").page_title + "</span></td>"
-                                                                                                            }
-                                                                                                        });
-                                                                                                        $("#pagination_header").children().remove();
-                                                                                                        if (a == "steps") {
-                                                                                                            var i = '<table class="ap_table_pagination" width="100%" border="0" cellspacing="0" cellpadding="0"><tr>' + b + "</tr></table>";
-                                                                                                            $("#pagination_header").append(i)
-                                                                                                        } else {
-                                                                                                            if (a == "percentage") {
-                                                                                                                var h = '<h3 id="page_title_1">Page 1 of 1 - Page Title</h3><div class="mf_progress_container"><div id="mf_progress_percentage" class="mf_progress_value" style="width: 1%"><span>1%</span></div></div>';
-                                                                                                                $("#pagination_header").append(h);
-                                                                                                                $("#page_title_1").html("Page 1 of " + e + " - " + j.eq(0).data("field_properties").page_title);
-                                                                                                                var c = Math.round((1 / e) * 100);
-                                                                                                                $("#mf_progress_percentage > span").html(c + "%");
-                                                                                                                $("#mf_progress_percentage").animate({
-                                                                                                                    width: c + "%"
-                                                                                                                }, {
-                                                                                                                    duration: 200,
-                                                                                                                    queue: false
-                                                                                                                })
-                                                                                                            } else {
-                                                                                                                $("#pagination_header").append('<h3 class="no_header">Pagination Header Disabled</h3>')
                                                                                                             }
                                                                                                         }
-                                                                                                        if (a == "disabled") {
-                                                                                                            $("#prop_pagination_style legend").css({
-                                                                                                                "background-color": "#DC6666",
-                                                                                                                "border-color": "#DC6666"
-                                                                                                            });
-                                                                                                            $("#prop_pagination_style fieldset").css("border-color", "#DC6666");
-                                                                                                            $("#prop_pagination_titles").fadeOut("slow")
-                                                                                                        } else {
-                                                                                                            $("#prop_pagination_style legend").css({
-                                                                                                                "background-color": "#3D6C10",
-                                                                                                                "border-color": "#3D6C10"
-                                                                                                            });
-                                                                                                            $("#prop_pagination_style fieldset").css("border-color", "#3D6C10");
-                                                                                                            if (d.pagination_type == "disabled") {
-                                                                                                                $("#prop_pagination_titles").slideDown()
-                                                                                                            }
-                                                                                                        }
-                                                                                                        d.pagination_type = a
                                                                                                     }
                                                                                                 }
                                                                                             }
@@ -3323,13 +3465,6 @@ function set_form_properties(l, a) {
                         }
                     }
                 }
-            }
-         }
-        }
-        }
-        }
-        }
-        }
             }
         }
     }
@@ -3398,7 +3533,7 @@ function reorganize_page_break() {
                 var c = '<li id="pagination_header" style="display: none" class="li_pagination" title="Click to edit"><table class="ap_table_pagination" width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><span id="page_num_1" class="ap_tp_num ap_tp_num_active">1</span><span id="page_title_1" class="ap_tp_text ap_tp_text_active">Untitled Page</span></td><td align="center" class="ap_tp_arrow">&gt;</td><td align="center"><span id="page_num_2" class="ap_tp_num">2</span><span id="page_title_2" class="ap_tp_text">Untitled Page</span></td></tr></table></li>';
                 $("#form_builder_sortable").prepend(c);
                 $("#pagination_header").fadeIn();
-                $("#pagination_header").click(function(k) {
+                $("#pagination_header").click(function (k) {
                     $("#form_header").data("coming_from_click", 1);
                     var l = $(this).attr("id");
                     select_form_header(l)
@@ -3440,7 +3575,7 @@ function reorganize_page_break() {
                 })
             } else {
                 var e = 2;
-                $("#form_builder_sortable > li.page_break").each(function(l) {
+                $("#form_builder_sortable > li.page_break").each(function (l) {
                     var k = l + 1;
                     if ($(this).attr("id") != "li_lastpage") {
                         var m = $(this).data("field_properties").id;
@@ -3469,7 +3604,7 @@ function reorganize_page_break() {
             if (d == "steps") {
                 $("#pagination_header td").remove()
             }
-            i.each(function(k) {
+            i.each(function (k) {
                 var l = $(this);
                 if (l.index() == 1) {
                     l.before(h)
@@ -3517,7 +3652,7 @@ function reorganize_page_break() {
                 }
             }
         }
-        $("#form_builder_sortable > li.no_fields_in_page").each(function(l) {
+        $("#form_builder_sortable > li.no_fields_in_page").each(function (l) {
             var k = $(this);
             if (k.index() == 1) {
                 if (k.next().hasClass("page_break") == false) {
@@ -3552,7 +3687,7 @@ function rebuild_quantity_link_dropdown() {
     var c = 0;
     var d = new Array();
     var a = new Array();
-    b.each(function(f) {
+    b.each(function (f) {
         var h = null;
         var e = 0;
         h = $(this).data("field_properties");
@@ -3563,7 +3698,7 @@ function rebuild_quantity_link_dropdown() {
         }
         if (h.type == "checkbox") {
             var g = h.options;
-            $.each(g, function(i, j) {
+            $.each(g, function (i, j) {
                 d[c] = j.option + " (#" + e + ")";
                 a[c] = "element_" + h.id + "_" + i;
                 c++
@@ -3576,7 +3711,7 @@ function rebuild_quantity_link_dropdown() {
     });
     $("#prop_number_quantity_link > option").remove();
     $("#prop_number_quantity_link").append('<option value="">-- Please Select --</option>');
-    $.each(d, function(e, g) {
+    $.each(d, function (e, g) {
         var f = '<option value="' + a[e] + '">' + g + "</option>";
         $("#prop_number_quantity_link").append(f)
     });
@@ -3649,12 +3784,12 @@ function rebuild_default_text_random_preview() {
     }
     $("#" + active_element + " :input").val(c.text_default_prefix + random_string(a, b))
 }
-$(function() {
+$(function () {
     $("#tab_field_properties").show();
     $("#tab_form_properties").show();
     $("#builder_tabs_btn").show();
     $("#builder_tabs").tabs();
-    $("#builder_tabs").bind("tabsshow", function(c, d) {
+    $("#builder_tabs").bind("tabsshow", function (c, d) {
         if (d.index === 0) {
             $("#" + active_element).removeClass("highlighted");
             active_element = null;
@@ -3664,7 +3799,7 @@ $(function() {
             $("#form_prop_toggle_a").text("show more options");
             $("#form_prop_toggle_img").attr("src", "/form_builder/images/icons/resultset_next.gif");
             $("#all_form_properties .advanced_prop").hide();
-            $("#bottom_bar_field_action").fadeOut("fast", function() {
+            $("#bottom_bar_field_action").fadeOut("fast", function () {
                 $("#bottom_bar_content").animate({
                     "margin-left": "225px"
                 }, {
@@ -3700,7 +3835,7 @@ $(function() {
         placeholder: "ui-state-highlight",
         scrollSensitivity: 100,
         scrollSpeed: 40,
-        receive: function(g, i) {
+        receive: function (g, i) {
             var e = $("#form_header").data("form_properties").id;
             if ($("#li_dummy").length) {
                 $("#li_dummy").remove();
@@ -3769,14 +3904,14 @@ $(function() {
                 case "btn_signature":
                     c = "signature";
                     break;
-				//OTB patch - btn_plinth_area
-				case "btn_plinth_area":
-					c = "plinth_area";
-					break;
-			   //OTB patch - btn_total_plinth_area
-				case "btn_total_plinth_area":
-					c = "total_plinth_area";
-					break;
+                //OTB patch - btn_plinth_area
+                case "btn_plinth_area":
+                    c = "plinth_area";
+                    break;
+                //OTB patch - btn_total_plinth_area
+                case "btn_total_plinth_area":
+                    c = "total_plinth_area";
+                    break;
                 default:
                     c = "text";
                     break;
@@ -3784,7 +3919,7 @@ $(function() {
             $.ajax({
                 type: "POST",
                 async: true,
-                url: "/backend.php/forms/addfield",
+                url: "/plan/forms/addfield",
                 data: {
                     element_type: c,
                     form_id: e,
@@ -3795,10 +3930,10 @@ $(function() {
                 cache: false,
                 global: true,
                 dataType: "json",
-                error: function(l, j, k) {
+                error: function (l, j, k) {
                     $("#form_builder_sortable .drop_processing").remove()
                 },
-                success: function(k) {
+                success: function (k) {
                     if (k.status == "ok") {
                         var j = $(k.markup);
                         j.data("field_properties", k.field_properties).addClass("synched");
@@ -3813,7 +3948,7 @@ $(function() {
                 }
             })
         },
-        update: function(c, d) {
+        update: function (c, d) {
             if ($(d.item).hasClass("no_fields_in_page")) {
                 $(this).sortable("cancel")
             } else {
@@ -3829,14 +3964,14 @@ $(function() {
         }
     });
     $("#form_builder_sortable").disableSelection();
-    $(document).ready(function() {
+    $(document).ready(function () {
         sidebar_scroll_pos = $("#sidebar").position().top;
         if (isScrolledIntoView("#bottom_bar_limit")) {
             $("#bottom_bar").css("position", "relative").css("background-color", "#fff")
         } else {
             $("#bottom_bar").css("position", "fixed").css("background-color", "#effab4")
         }
-        $(window).scroll(function() {
+        $(window).scroll(function () {
             // if (isScrolledIntoView("#navigation")) {
             //     sidebar_pos = sidebar_scroll_pos
             // } else {
@@ -3858,16 +3993,16 @@ $(function() {
             // }
         })
     });
-    $("#form_builder_preview").delegate("li:not(#pagination_header):not(.no_fields_in_page)", "click", function(c) {
+    $("#form_builder_preview").delegate("li:not(#pagination_header):not(.no_fields_in_page)", "click", function (c) {
         $("#builder_tabs").tabs("select", 1);
         select_element("#" + $(this).attr("id"))
     });
-    $("#form_header_title,#form_header_desc,#pagination_header").click(function(c) {
+    $("#form_header_title,#form_header_desc,#pagination_header").click(function (c) {
         $("#form_header").data("coming_from_click", 1);
         var d = $(this).attr("id");
         select_form_header(d)
     });
-    $("#bottom_bar_add_field").click(function() {
+    $("#bottom_bar_add_field").click(function () {
         $("#builder_tabs").tabs("select", 0);
         if (isScrolledIntoView("#navigation")) {
             sidebar_pos = sidebar_scroll_pos
@@ -3885,7 +4020,7 @@ $(function() {
         active_element = null;
         $("#form_header .highlighted").removeClass("highlighted");
         $("#selected_field_image").css("visibility", "hidden");
-        $("#bottom_bar_field_action").fadeOut("fast", function() {
+        $("#bottom_bar_field_action").fadeOut("fast", function () {
             $("#bottom_bar_content").animate({
                 "margin-left": "225px"
             }, {
@@ -3895,7 +4030,7 @@ $(function() {
         });
         return false
     });
-    $("#bottom_bar_save_form").click(function() {
+    $("#bottom_bar_save_form").click(function () {
         if ($("#form_builder_sortable > li.no_fields_in_page").length > 0) {
             $("#ui-dialog-title-dialog-warning").html("Unable to save. Your form contain empty pages!");
             $("#dialog-warning-msg").html("Your form contain one or more empty pages<br />Please add a field into the empty page or delete the empty page.");
@@ -3903,20 +4038,20 @@ $(function() {
             return false
         }
         $("#bottom_bar_msg").text("Please wait... Synching...");
-        $("#bottom_bar_content").fadeOut("fast", function() {
+        $("#bottom_bar_content").fadeOut("fast", function () {
             $("#bottom_bar_loader").fadeIn()
         });
         var c = $("#form_header").data("form_properties").id;
         var e = $("#form_builder_sortable > li").not(".dblive").not(".synched").not(".li_pagination").not("#li_lastpage");
         if (e.length >= 1) {
             var d = new Array();
-            e.each(function(f) {
+            e.each(function (f) {
                 d[f] = $(this).data("field_properties")
             });
             $.ajax({
                 type: "POST",
                 async: true,
-                url: "/backend.php/forms/synchfields",
+                url: "/plan/forms/synchfields",
                 data: {
                     form_id: c,
                     fp: d
@@ -3924,8 +4059,8 @@ $(function() {
                 cache: false,
                 global: false,
                 dataType: "json",
-                error: function(h, f, g) {},
-                success: function(f) {
+                error: function (h, f, g) { },
+                success: function (f) {
                     if (f.status == "ok") {
                         $(f.updated_element_id).addClass("synched");
                         save_form()
@@ -3946,10 +4081,10 @@ $(function() {
             def: "click,mouseout"
         }
     });
-    $("#element_label").bind("keyup mouseout", function() {
+    $("#element_label").bind("keyup mouseout", function () {
         set_properties("element_label", $(this).val())
     });
-    $("#element_required").bind("change", function() {
+    $("#element_required").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "1"
@@ -3958,7 +4093,7 @@ $(function() {
         }
         set_properties("element_required", c)
     });
-    $("#element_unique").bind("change", function() {
+    $("#element_unique").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "1"
@@ -3967,7 +4102,7 @@ $(function() {
         }
         set_properties("element_unique", c)
     });
-    $("#element_readonly").bind("change", function() {
+    $("#element_readonly").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "1"
@@ -3976,7 +4111,7 @@ $(function() {
         }
         set_properties("element_readonly", c)
     });
-    $("#element_public").bind("click", function() {
+    $("#element_public").bind("click", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "0"
@@ -3985,7 +4120,7 @@ $(function() {
         }
         set_properties("element_visibility", c)
     });
-    $("#element_hidden").bind("click", function() {
+    $("#element_hidden").bind("click", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "2"
@@ -3994,7 +4129,7 @@ $(function() {
         }
         set_properties("element_visibility", c)
     });
-    $("#element_private").bind("click", function() {
+    $("#element_private").bind("click", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "1"
@@ -4003,32 +4138,32 @@ $(function() {
         }
         set_properties("element_visibility", c)
     });
-    $("#element_default_value_text_static").bind("click", function() {
+    $("#element_default_value_text_static").bind("click", function () {
         if ($(this).prop("checked") == true) {
             set_properties("element_text_default_type", "static")
         }
     });
-    $("#element_default_value_text_random").bind("click", function() {
+    $("#element_default_value_text_random").bind("click", function () {
         if ($(this).prop("checked") == true) {
             set_properties("element_text_default_type", "random")
         }
     });
-    $("#element_text_default_length").bind("keyup mouseout", function() {
+    $("#element_text_default_length").bind("keyup mouseout", function () {
         set_properties("element_text_default_length", $(this).val())
     });
-    $("#element_text_default_prefix").bind("keyup mouseout", function() {
+    $("#element_text_default_prefix").bind("keyup mouseout", function () {
         set_properties("element_text_default_prefix", $(this).val())
     });
-    $("#element_text_default_random_type").bind("change", function() {
+    $("#element_text_default_random_type").bind("change", function () {
         set_properties("element_text_default_random_type", $(this).val())
     });
-    $("#element_text_default_case").bind("change", function() {
+    $("#element_text_default_case").bind("change", function () {
         set_properties("element_text_default_case", $(this).val())
     });
-    $("#element_instructions").bind("keyup mouseout", function() {
+    $("#element_instructions").bind("keyup mouseout", function () {
         set_properties("element_guidelines", $(this).val())
     });
-    $("#element_custom_css").bind("keyup mouseout", function() {
+    $("#element_custom_css").bind("keyup mouseout", function () {
         set_properties("element_custom_css", $(this).val())
     });
     //OTB patch - For plinth area
@@ -4069,7 +4204,7 @@ $(function() {
         }
         set_properties("element_permittedgroundcoverage", b)
     });
-    
+
     $("#element_zone").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
@@ -4079,8 +4214,8 @@ $(function() {
         }
         set_properties("element_zone", b)
     });
-    
-     $("#element_projectcost").bind("change", function () {
+
+    $("#element_projectcost").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
             b = "1"
@@ -4109,7 +4244,7 @@ $(function() {
         }
         set_properties("element_grandtotalfootprintarea", b)
     });
-     $("#element_groundcoveragereason").bind("change", function () {
+    $("#element_groundcoveragereason").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
             b = "1"
@@ -4118,7 +4253,7 @@ $(function() {
         }
         set_properties("element_groundcoveragereason", b)
     });
-     $("#element_plotratioreason").bind("change", function () {
+    $("#element_plotratioreason").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
             b = "1"
@@ -4127,7 +4262,7 @@ $(function() {
         }
         set_properties("element_plotratioreason", b)
     });
-    
+
     $("#element_file_ifc").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
@@ -4155,6 +4290,94 @@ $(function() {
         }
         set_properties("element_plot_no", b)
     });
+    $("#element_block_no").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1"
+        } else {
+            b = "0"
+        }
+        set_properties("element_block_no", b)
+    });
+    $("#element_subcounty").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1"
+        } else {
+            b = "0"
+        }
+        set_properties("element_subcounty", b)
+    });
+    $("#element_owner_phone").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1";
+        } else {
+            b = "0";
+        }
+        set_properties("element_owner_phone", b);
+    });
+
+    $("#element_owner_address").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1";
+        } else {
+            b = "0";
+        }
+        set_properties("element_owner_address", b);
+    });
+
+    $("#element_owner_email").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1";
+        } else {
+            b = "0";
+        }
+        set_properties("element_owner_email", b);
+    });
+
+    $("#element_ward").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1";
+        } else {
+            b = "0";
+        }
+        set_properties("element_ward", b);
+    });
+
+    $("#element_plot_area").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1";
+        } else {
+            b = "0";
+        }
+        set_properties("element_plot_area", b);
+    });
+
+    $("#element_plot_length").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1";
+        } else {
+            b = "0";
+        }
+        set_properties("element_plot_length", b);
+    });
+
+    $("#element_plot_width").bind("change", function () {
+        var b;
+        if ($(this).prop("checked") == true) {
+            b = "1";
+        } else {
+            b = "0";
+        }
+        set_properties("element_plot_width", b);
+    });
+
     $("#element_ownertype").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
@@ -4165,7 +4388,7 @@ $(function() {
         set_properties("element_ownertype", b)
     });
     ////
-    $("#element_choices").delegate("input.text", "keyup", function(p) {
+    $("#element_choices").delegate("input.text", "keyup", function (p) {
         var n = $(this);
         var g = n.attr("id").split("_");
         var i = g[1];
@@ -4212,7 +4435,7 @@ $(function() {
             };
             r.data("field_properties").options = j;
             var q = $("#choice_" + k).parent().nextAll().children().filter("input.text");
-            $.each(q, function(e, t) {
+            $.each(q, function (e, t) {
                 var s = null;
                 s = $(t).attr("id").split("_");
                 r.data("field_properties").options[s[1]].position++
@@ -4229,7 +4452,7 @@ $(function() {
             r.data("field_properties").options[i].option = n.val()
         }
     });
-    $("#element_choices").delegate("input.choices_default", "click", function(k) {
+    $("#element_choices").delegate("input.choices_default", "click", function (k) {
         var i = $(this);
         var g = i.attr("id").split("_");
         var h = g[1];
@@ -4247,8 +4470,8 @@ $(function() {
                         $("#element_" + d).val(h)
                     }
                 }
-                $(l.data("field_properties").options).each(function(e, m) {
-                    $.each(m, function(n, o) {
+                $(l.data("field_properties").options).each(function (e, m) {
+                    $.each(m, function (n, o) {
                         l.data("field_properties").options[n].is_default = "0"
                     })
                 });
@@ -4264,8 +4487,8 @@ $(function() {
                         $("#element_" + d).val("")
                     }
                 }
-                $(l.data("field_properties").options).each(function(e, m) {
-                    $.each(m, function(n, o) {
+                $(l.data("field_properties").options).each(function (e, m) {
+                    $.each(m, function (n, o) {
                         l.data("field_properties").options[n].is_default = "0"
                     })
                 });
@@ -4283,7 +4506,7 @@ $(function() {
             }
         }
     });
-    $("#element_choices").delegate("img.add_choice", "click", function(p) {
+    $("#element_choices").delegate("img.add_choice", "click", function (p) {
         var n = $(this);
         var g = n.attr("id").split("_");
         var i = g[1];
@@ -4328,13 +4551,13 @@ $(function() {
         };
         r.data("field_properties").options = j;
         var q = $("#choice_" + k).parent().nextAll().children().filter("input.text");
-        $.each(q, function(e, t) {
+        $.each(q, function (e, t) {
             var s = null;
             s = $(t).attr("id").split("_");
             r.data("field_properties").options[s[1]].position++
         })
     });
-    $("#element_choices").delegate("img.del_choice", "click", function(k) {
+    $("#element_choices").delegate("img.del_choice", "click", function (k) {
         if ($("#element_choices > li").size() <= 1) {
             $("#ui-dialog-title-dialog-warning").html("Unable to delete this choice!");
             $("#dialog-warning-msg").html("You cannot delete all choices! <br />At least 1 choice is required.");
@@ -4357,7 +4580,7 @@ $(function() {
         delete h[g];
         m.data("field_properties").options = h;
         var l = $("#choice_" + g).parent().nextAll().children().filter("input.text");
-        $.each(l, function(e, o) {
+        $.each(l, function (e, o) {
             var n = null;
             n = $(o).attr("id").split("_");
             m.data("field_properties").options[n[1]].position--
@@ -4371,10 +4594,10 @@ $(function() {
             }
         }
     });
-    $("#choice_max_entry").bind("keyup mouseout", function() {
+    $("#choice_max_entry").bind("keyup mouseout", function () {
         set_properties("element_choice_max_entry", $(this).val())
     });
-    $("#prop_choice_max_entry_enable").bind("change", function() {
+    $("#prop_choice_max_entry_enable").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             $("#form_choice_max_entry").slideDown()
@@ -4384,7 +4607,7 @@ $(function() {
             $("#form_choice_max_entry").hide()
         }
     });
-    $("#bulk_import_choices").click(function() {
+    $("#bulk_import_choices").click(function () {
         $("#bulk_insert_choices").val("");
         if ($("#" + active_element).data("field_properties").options[1] !== undefined) {
             if (($("#" + active_element).data("field_properties").options[1].option == "First option") && ($("#element_choices > li").size() == 3)) {
@@ -4396,7 +4619,7 @@ $(function() {
         $("#bulk_insert_choices").focus();
         return false
     });
-    $("#bulk_import_matrix_row").click(function() {
+    $("#bulk_import_matrix_row").click(function () {
         $("#bulk_insert_rows").val("");
         if ($("#" + active_element + " table td.first_col").eq(0).text() == "First Question" && $("#" + active_element + " table td.first_col").eq(1).text() == "Second Question" && $("#" + active_element + " table td.first_col").eq(2).text() == "Third Question" && $("#" + active_element + " table td.first_col").eq(3).text() == "Fourth Question") {
             $("#bulk_insert_rows").val("New question 1\nNew question 2\nNew question 3")
@@ -4406,7 +4629,7 @@ $(function() {
         $("#bulk_insert_rows").focus();
         return false
     });
-    $("#bulk_import_matrix_column").click(function() {
+    $("#bulk_import_matrix_column").click(function () {
         $("#bulk_insert_columns").val("");
         if ($("#" + active_element + " table thead th").eq(1).text() == "Answer A" && $("#" + active_element + " table thead th").eq(2).text() == "Answer B" && $("#" + active_element + " table thead th").eq(3).text() == "Answer C" && $("#" + active_element + " table thead th").eq(4).text() == "Answer D") {
             $("#bulk_insert_columns").val("Answer E\nAnswer F\nAnswer G")
@@ -4416,89 +4639,89 @@ $(function() {
         $("#bulk_insert_columns").focus();
         return false
     });
-    $("#element_choice_columns").bind("change", function() {
+    $("#element_choice_columns").bind("change", function () {
         set_properties("element_choice_columns", $(this).val())
     });
-    $("#prop_choice_limit_rule").bind("change", function() {
+    $("#prop_choice_limit_rule").bind("change", function () {
         set_properties("element_choice_limit_rule", $(this).val())
     });
-    $("#prop_choice_limit_qty").bind("keyup mouseout", function() {
+    $("#prop_choice_limit_qty").bind("keyup mouseout", function () {
         set_properties("element_choice_limit_qty", $(this).val())
     });
-    $("#prop_choice_limit_range_min").bind("keyup mouseout", function() {
+    $("#prop_choice_limit_range_min").bind("keyup mouseout", function () {
         set_properties("element_choice_limit_range_min", $(this).val())
     });
-    $("#prop_choice_limit_range_max").bind("keyup mouseout", function() {
+    $("#prop_choice_limit_range_max").bind("keyup mouseout", function () {
         set_properties("element_choice_limit_range_max", $(this).val())
     });
-    $("#element_range_min").bind("keyup mouseout", function() {
+    $("#element_range_min").bind("keyup mouseout", function () {
         set_properties("element_range_min", $(this).val())
     });
-    $("#element_range_max").bind("keyup mouseout", function() {
+    $("#element_range_max").bind("keyup mouseout", function () {
         set_properties("element_range_max", $(this).val())
     });
-    $("#element_range_limit_by").bind("change", function() {
+    $("#element_range_limit_by").bind("change", function () {
         set_properties("element_range_limit_by", $(this).val())
     });
-    $("#element_range_number_limit_by").bind("change", function() {
+    $("#element_range_number_limit_by").bind("change", function () {
         set_properties("element_range_limit_by", $(this).val())
     });
-    $("#element_type").bind("change", function() {
+    $("#element_type").bind("change", function () {
         set_properties("element_type_change", $(this).val())
     });
-    $("#element_size").bind("change", function() {
+    $("#element_size").bind("change", function () {
         set_properties("element_size", $(this).val())
     });
-    $("#element_select_options").bind("change", function() {
+    $("#element_select_options").bind("change", function () {
         set_properties("element_select_options", $(this).val());
-        if($(this).val() == 'default'){
+        if ($(this).val() == 'default') {
             $("#prop_choices").show();
             $('#prop_table_name_conf').hide();
             $('#prop_option_query_conf').hide();
             $('#prop_application_conf').hide();
         }
-        if($(this).val() == 'table'){
+        if ($(this).val() == 'table') {
             $("#prop_choices").hide();
             $('#prop_option_query_conf').hide();
             $('#prop_table_name_conf').show();
             $('#prop_application_conf').hide();
         }
-        if($(this).val() == 'query'){
+        if ($(this).val() == 'query') {
             $("#prop_choices").hide();
             $('#prop_table_name_conf').hide();
             $('#prop_option_query_conf').show();
             $('#prop_application_conf').hide();
         }
-        if($(this).val() == 'application'){
+        if ($(this).val() == 'application') {
             $("#prop_choices").hide();
             $('#prop_table_name_conf').hide();
             $('#prop_option_query_conf').hide();
             $('#prop_application_conf').show();
         }
     });
-    $("#name_format").bind("change", function() {
+    $("#name_format").bind("change", function () {
         set_properties("element_type", $(this).val())
     });
-    $("#phone_format").bind("change", function() {
+    $("#phone_format").bind("change", function () {
         set_properties("element_type", $(this).val())
     });
-    $("#element_default_value,#element_default_value_text").bind("keyup mouseout", function() {
+    $("#element_default_value,#element_default_value_text").bind("keyup mouseout", function () {
         set_properties("element_default_value", $(this).val())
     });
-    $("#element_default_phone1,#element_default_phone2,#element_default_phone3").bind("keyup mouseout", function() {
+    $("#element_default_phone1,#element_default_phone2,#element_default_phone3").bind("keyup mouseout", function () {
         var c = $("#element_default_phone1").val() + $("#element_default_phone2").val() + $("#element_default_phone3").val();
         set_properties("element_default_value", c)
     });
-    $("#element_default_value_textarea").bind("keyup mouseout", function() {
+    $("#element_default_value_textarea").bind("keyup mouseout", function () {
         set_properties("element_default_value", $(this).val())
     });
-    $("#element_default_date").bind("keyup mouseout", function() {
+    $("#element_default_date").bind("keyup mouseout", function () {
         set_properties("element_default_value", $(this).val());
         var c = $("#" + active_element).data("field_properties");
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/stringtotime",
+            url: "/plan/forms/stringtotime",
             data: {
                 default_date: $(this).val(),
                 date_format: c.type
@@ -4506,8 +4729,8 @@ $(function() {
             cache: false,
             global: false,
             dataType: "json",
-            error: function(g, d, f) {},
-            success: function(e) {
+            error: function (g, d, f) { },
+            success: function (e) {
                 if (e.status == "ok") {
                     if (c.type == "date") {
                         var d = e.default_date.split("-");
@@ -4526,13 +4749,13 @@ $(function() {
             }
         })
     });
-    $("#element_default_time").bind("keyup mouseout", function() {
+    $("#element_default_time").bind("keyup mouseout", function () {
         set_properties("element_default_value", $(this).val());
         var c = $("#" + active_element).data("field_properties");
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/stringtotime",
+            url: "/plan/forms/stringtotime",
             data: {
                 default_time: $(this).val(),
                 time_24hour: c.time_24hour
@@ -4540,8 +4763,8 @@ $(function() {
             cache: false,
             global: false,
             dataType: "json",
-            error: function(g, d, f) {},
-            success: function(e) {
+            error: function (g, d, f) { },
+            success: function (e) {
                 if (e.status == "ok") {
                     var d = e.default_time.split("-");
                     $("#element_" + c.id + "_1").val(d[0]);
@@ -4552,10 +4775,10 @@ $(function() {
             }
         })
     });
-    $("#prop_other_choices_label").bind("keyup mouseout", function() {
+    $("#prop_other_choices_label").bind("keyup mouseout", function () {
         set_properties("element_choice_other_label", $(this).val())
     });
-    $("#prop_choices_other_checkbox").bind("change", function() {
+    $("#prop_choices_other_checkbox").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4564,7 +4787,7 @@ $(function() {
         }
         set_properties("element_choice_has_other", c)
     });
-    $("#prop_choices_randomize").bind("change", function() {
+    $("#prop_choices_randomize").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "random"
@@ -4573,7 +4796,7 @@ $(function() {
         }
         set_properties("constraint", c)
     });
-    $("#prop_text_as_password").bind("change", function() {
+    $("#prop_text_as_password").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = "password"
@@ -4632,15 +4855,15 @@ $(function() {
         set_properties("prop_remote_server_field", $(this).val())
     });
 
-    $("#prop_remote_value_pr").bind("change", function() {
+    $("#prop_remote_value_pr").bind("change", function () {
         set_properties("prop_remote_value", $(this).val())
     });
 
-     $("#price_class").bind("change", function() {
+    $("#price_class").bind("change", function () {
         set_properties("price_class", $(this).val())
     });
 
-    $("#element_enable_placeholder,#element_enable_placeholder_text").bind("change", function() {
+    $("#element_enable_placeholder,#element_enable_placeholder_text").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4649,7 +4872,7 @@ $(function() {
         }
         set_properties("element_enable_placeholder", c)
     });
-    $("#prop_section_email_display").bind("change", function() {
+    $("#prop_section_email_display").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4658,10 +4881,10 @@ $(function() {
         }
         set_properties("element_section_display_in_email", c)
     });
-    $("#prop_section_size").bind("change", function() {
+    $("#prop_section_size").bind("change", function () {
         set_properties("element_size", $(this).val())
     });
-    $("#prop_section_enable_scroll").bind("change", function() {
+    $("#prop_section_enable_scroll").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4670,7 +4893,7 @@ $(function() {
         }
         set_properties("element_section_enable_scroll", c)
     });
-    $("#prop_time_showsecond").bind("change", function() {
+    $("#prop_time_showsecond").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4679,7 +4902,7 @@ $(function() {
         }
         set_properties("element_time_showsecond", c)
     });
-    $("#prop_time_24hour").bind("change", function() {
+    $("#prop_time_24hour").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4688,13 +4911,13 @@ $(function() {
         }
         set_properties("element_time_24hour", c)
     });
-    $("#element_countries").bind("change", function() {
+    $("#element_countries").bind("change", function () {
         set_properties("element_default_value", $(this).val())
     });
-    $("#money_format").bind("change", function() {
+    $("#money_format").bind("change", function () {
         set_properties("constraint", $(this).val())
     });
-    $("#prop_address_hideline2").bind("change", function() {
+    $("#prop_address_hideline2").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4703,7 +4926,7 @@ $(function() {
         }
         set_properties("element_address_hideline2", c)
     });
-    $("#prop_address_us_only").bind("change", function() {
+    $("#prop_address_us_only").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4712,7 +4935,7 @@ $(function() {
         }
         set_properties("element_address_us_only", c)
     });
-    $("#prop_date_range").bind("change", function() {
+    $("#prop_date_range").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4721,10 +4944,10 @@ $(function() {
         }
         set_properties("element_date_enable_range", c)
     });
-    $("#prop_date_range_format_switcher").bind("change", function() {
+    $("#prop_date_range_format_switcher").bind("change", function () {
         set_properties("element_date_range_format", $(this).val())
     });
-    $("#date_range_min_relative").bind("keyup mouseout", function() {
+    $("#date_range_min_relative").bind("keyup mouseout", function () {
         var d = parseInt($(this).val());
         if (d < 0) {
             var c = ("0000" + Math.abs(d)).slice(-4) + "-00-01"
@@ -4733,7 +4956,7 @@ $(function() {
         }
         set_properties("element_date_range_min", c)
     });
-    $("#date_range_max_relative").bind("keyup mouseout", function() {
+    $("#date_range_max_relative").bind("keyup mouseout", function () {
         var c = parseInt($(this).val());
         if (c < 0) {
             var d = ("0000" + Math.abs(c)).slice(-4) + "-00-01"
@@ -4742,7 +4965,7 @@ $(function() {
         }
         set_properties("element_date_range_max", d)
     });
-    $("#prop_date_selection_limit").bind("change", function() {
+    $("#prop_date_selection_limit").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4751,7 +4974,7 @@ $(function() {
         }
         set_properties("element_date_enable_selection_limit", c)
     });
-    $("#prop_date_past_future_selection").bind("change", function() {
+    $("#prop_date_past_future_selection").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4760,10 +4983,10 @@ $(function() {
         }
         set_properties("element_date_disable_past_future", c)
     });
-    $("#date_selection_max").bind("keyup mouseout", function() {
+    $("#date_selection_max").bind("keyup mouseout", function () {
         set_properties("element_date_selection_max", $(this).val())
     });
-    $("#prop_date_disable_specific").bind("change", function() {
+    $("#prop_date_disable_specific").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4772,13 +4995,13 @@ $(function() {
         }
         set_properties("element_date_disable_specific", c)
     });
-    $("#date_disabled_list").bind("keyup mouseout", function() {
+    $("#date_disabled_list").bind("keyup mouseout", function () {
         set_properties("element_date_disabled_list", $(this).val())
     });
-    $("#prop_date_past_future").bind("change", function() {
+    $("#prop_date_past_future").bind("change", function () {
         set_properties("date_past_future", $(this).val())
     });
-    $("#prop_date_disable_weekend").bind("change", function() {
+    $("#prop_date_disable_weekend").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4787,14 +5010,14 @@ $(function() {
         }
         set_properties("element_date_disable_weekend", c)
     });
-    $("#date_type").bind("change", function() {
+    $("#date_type").bind("change", function () {
         set_properties("element_type", $(this).val())
     });
     $("#linked_picker_range_min").datepick({
         onSelect: update_date_range_min_linked,
         showTrigger: "#date_range_min_pick_img"
     });
-    $("#date_range_min_mm,#date_range_min_dd,#date_range_min_yyyy").bind("blur mouseout", function() {
+    $("#date_range_min_mm,#date_range_min_dd,#date_range_min_yyyy").bind("blur mouseout", function () {
         var c = parseInt($("#date_range_min_dd").val(), 10);
         var f = parseInt($("#date_range_min_mm").val(), 10) - 1;
         var d = parseInt($("#date_range_min_yyyy").val(), 10);
@@ -4808,7 +5031,7 @@ $(function() {
         onSelect: update_date_range_max_linked,
         showTrigger: "#date_range_max_pick_img"
     });
-    $("#date_range_max_mm,#date_range_max_dd,#date_range_max_yyyy").bind("blur mouseout", function() {
+    $("#date_range_max_mm,#date_range_max_dd,#date_range_max_yyyy").bind("blur mouseout", function () {
         var f = parseInt($("#date_range_max_dd").val(), 10);
         var e = parseInt($("#date_range_max_mm").val(), 10) - 1;
         var c = parseInt($("#date_range_max_yyyy").val(), 10);
@@ -4822,7 +5045,7 @@ $(function() {
         multiSelect: 999,
         multiSeparator: ", ",
         showTrigger: "#date_disable_specific_pick_img",
-        onClose: function(e) {
+        onClose: function (e) {
             var c = e.length;
             for (var d = 0; d < c; d++) {
                 e[d] = $.datepick.formatDate("mm/dd/yyyy", e[d])
@@ -4831,7 +5054,7 @@ $(function() {
             set_properties("element_date_disabled_list", f)
         }
     });
-    $("#prop_file_enable_type_limit").bind("change", function() {
+    $("#prop_file_enable_type_limit").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4840,13 +5063,13 @@ $(function() {
         }
         set_properties("element_file_enable_type_limit", c)
     });
-    $("#prop_file_block_or_allow").bind("change", function() {
+    $("#prop_file_block_or_allow").bind("change", function () {
         set_properties("element_file_block_or_allow", $(this).val())
     });
-    $("#file_type_list").bind("keyup mouseout", function() {
+    $("#file_type_list").bind("keyup mouseout", function () {
         set_properties("element_file_type_list", $(this).val())
     });
-    $("#prop_file_as_attachment").bind("change", function() {
+    $("#prop_file_as_attachment").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4855,7 +5078,7 @@ $(function() {
         }
         set_properties("element_file_as_attachment", c)
     });
-    $("#prop_file_enable_advance").bind("change", function() {
+    $("#prop_file_enable_advance").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4864,7 +5087,7 @@ $(function() {
         }
         set_properties("element_file_enable_advance", c)
     });
-    $("#prop_file_auto_upload").bind("change", function() {
+    $("#prop_file_auto_upload").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4873,7 +5096,7 @@ $(function() {
         }
         set_properties("element_file_auto_upload", c)
     });
-    $("#prop_file_multi_upload").bind("change", function() {
+    $("#prop_file_multi_upload").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4882,10 +5105,10 @@ $(function() {
         }
         set_properties("element_file_enable_multi_upload", c)
     });
-    $("#file_max_selection").bind("keyup mouseout change", function() {
+    $("#file_max_selection").bind("keyup mouseout change", function () {
         set_properties("element_file_max_selection", $(this).val())
     });
-    $("#prop_file_limit_size").bind("change", function() {
+    $("#prop_file_limit_size").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4894,10 +5117,10 @@ $(function() {
         }
         set_properties("element_file_enable_size_limit", c)
     });
-    $("#file_size_max").bind("keyup mouseout", function() {
+    $("#file_size_max").bind("keyup mouseout", function () {
         set_properties("element_file_size_max", $(this).val())
     });
-	//OTB Start File QR Code verification
+    //OTB Start File QR Code verification
     $("#prop_mark_file_with_qr_code").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
@@ -4940,8 +5163,8 @@ $(function() {
         }
         set_properties("prop_file_qr_users", b)
     });
-	//OTB End File QR Code verification
-	//OTB Start Copy notification to other contacts
+    //OTB End File QR Code verification
+    //OTB Start Copy notification to other contacts
     $("#element_notify_contact").bind("change", function () {
         var b;
         if ($(this).prop("checked") == true) {
@@ -4951,8 +5174,8 @@ $(function() {
         }
         set_properties("element_notify_contact", b)
     });
-	//OTB End Copy notification to other contacts
-    $("#prop_number_enable_quantity").bind("change", function() {
+    //OTB End Copy notification to other contacts
+    $("#prop_number_enable_quantity").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4961,10 +5184,10 @@ $(function() {
         }
         set_properties("element_number_enable_quantity", c)
     });
-    $("#prop_number_quantity_link").bind("change", function() {
+    $("#prop_number_quantity_link").bind("change", function () {
         set_properties("element_number_quantity_link", $(this).val())
     });
-    $("#prop_submit_use_text").bind("click", function() {
+    $("#prop_submit_use_text").bind("click", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 0
@@ -4973,7 +5196,7 @@ $(function() {
         }
         set_properties("submit_use_image", c)
     });
-    $("#prop_submit_use_image").bind("click", function() {
+    $("#prop_submit_use_image").bind("click", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -4982,19 +5205,19 @@ $(function() {
         }
         set_properties("submit_use_image", c)
     });
-    $("#submit_primary_text").bind("keyup mouseout", function() {
+    $("#submit_primary_text").bind("keyup mouseout", function () {
         set_properties("submit_primary_text", $(this).val())
     });
-    $("#submit_secondary_text").bind("keyup mouseout", function() {
+    $("#submit_secondary_text").bind("keyup mouseout", function () {
         set_properties("submit_secondary_text", $(this).val())
     });
-    $("#submit_primary_img").bind("keyup mouseout", function() {
+    $("#submit_primary_img").bind("keyup mouseout", function () {
         set_properties("submit_primary_img", $(this).val())
     });
-    $("#submit_secondary_img").bind("keyup mouseout", function() {
+    $("#submit_secondary_img").bind("keyup mouseout", function () {
         set_properties("submit_secondary_img", $(this).val())
     });
-    $("#element_matrix_row").delegate("input.text", "keyup", function(g) {
+    $("#element_matrix_row").delegate("input.text", "keyup", function (g) {
         var i = $(this);
         var h = i.attr("id").split("_");
         var c = h[1];
@@ -5014,17 +5237,17 @@ $(function() {
             }
         }
     });
-    $("#element_matrix_row").delegate("img.add_choice", "click", function(c) {
+    $("#element_matrix_row").delegate("img.add_choice", "click", function (c) {
         var d = $(this);
         if ($("#element_matrix_row li.li_mr_temp_holder").length == 0) {
             add_matrix_row(d)
         }
     });
-    $("#element_matrix_row").delegate("img.del_choice", "click", function(c) {
+    $("#element_matrix_row").delegate("img.del_choice", "click", function (c) {
         var d = $(this);
         delete_matrix_row(d)
     });
-    $("#element_matrix_column").delegate("input.text", "keyup", function(h) {
+    $("#element_matrix_column").delegate("input.text", "keyup", function (h) {
         var j = $(this);
         var i = j.attr("id").split("_");
         var f = i[1];
@@ -5041,15 +5264,15 @@ $(function() {
             d.data("field_properties").options[c].column_data[f].column_title = j.val()
         }
     });
-    $("#element_matrix_column").delegate("img.add_choice", "click", function(c) {
+    $("#element_matrix_column").delegate("img.add_choice", "click", function (c) {
         var d = $(this);
         add_matrix_column(d)
     });
-    $("#element_matrix_column").delegate("img.del_choice", "click", function(c) {
+    $("#element_matrix_column").delegate("img.del_choice", "click", function (c) {
         var d = $(this);
         delete_matrix_column(d)
     });
-    $("#prop_matrix_allow_multiselect").bind("change", function() {
+    $("#prop_matrix_allow_multiselect").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -5058,10 +5281,10 @@ $(function() {
         }
         set_properties("element_matrix_allow_multiselect", c)
     });
-    $("#form_title").bind("keyup mouseout", function() {
+    $("#form_title").bind("keyup mouseout", function () {
         set_form_properties("form_title", $(this).val())
     });
-    $("#form_description").bind("keyup mouseout", function() {
+    $("#form_description").bind("keyup mouseout", function () {
         set_form_properties("form_description", $(this).val())
     });
     $("#form_idn").bind("keyup mouseout", function () {
@@ -5070,19 +5293,19 @@ $(function() {
     $("#form_code").bind("keyup mouseout", function () {
         set_form_properties("form_code", $(this).val())
     });
-    $("#form_success_message_option").click(function() {
+    $("#form_success_message_option").click(function () {
         set_form_properties("form_redirect_enable", 0)
     });
-    $("#form_redirect_option").click(function() {
+    $("#form_redirect_option").click(function () {
         set_form_properties("form_redirect_enable", 1)
     });
-    $("#form_success_message").bind("keyup mouseout", function() {
+    $("#form_success_message").bind("keyup mouseout", function () {
         set_form_properties("form_success_message", $(this).val())
     });
-    $("#form_redirect_url").bind("keyup mouseout", function() {
+    $("#form_redirect_url").bind("keyup mouseout", function () {
         set_form_properties("form_redirect", $(this).val())
     });
-    $("#form_review,#form_resume").bind("change", function() {
+    $("#form_review,#form_resume").bind("change", function () {
         var c;
         if ($(this).prop("checked") == true) {
             c = 1
@@ -5095,43 +5318,43 @@ $(function() {
             set_form_properties("form_resume_enable", c)
         }
     });
-    $("#form_review_title").bind("keyup mouseout", function() {
+    $("#form_review_title").bind("keyup mouseout", function () {
         set_form_properties("form_review_title", $(this).val())
     });
-    $("#form_review_description").bind("keyup mouseout", function() {
+    $("#form_review_description").bind("keyup mouseout", function () {
         set_form_properties("form_review_description", $(this).val())
     });
-    $("#form_review_use_text").click(function() {
+    $("#form_review_use_text").click(function () {
         set_form_properties("form_review_use_image", 0)
     });
-    $("#form_review_use_image").click(function() {
+    $("#form_review_use_image").click(function () {
         set_form_properties("form_review_use_image", 1)
     });
-    $("#review_primary_text").bind("keyup mouseout", function() {
+    $("#review_primary_text").bind("keyup mouseout", function () {
         set_form_properties("review_primary_text", $(this).val())
     });
-    $("#review_primary_img").bind("keyup mouseout", function() {
+    $("#review_primary_img").bind("keyup mouseout", function () {
         set_form_properties("review_primary_img", $(this).val())
     });
-    $("#review_secondary_text").bind("keyup mouseout", function() {
+    $("#review_secondary_text").bind("keyup mouseout", function () {
         set_form_properties("review_secondary_text", $(this).val())
     });
-    $("#review_secondary_img").bind("keyup mouseout", function() {
+    $("#review_secondary_img").bind("keyup mouseout", function () {
         set_form_properties("review_secondary_img", $(this).val())
     });
-    $("#form_resume_subject").bind("keyup mouseout", function() {
+    $("#form_resume_subject").bind("keyup mouseout", function () {
         set_form_properties("form_resume_subject", $(this).val())
     });
-    $("#form_resume_content").bind("keyup mouseout", function() {
+    $("#form_resume_content").bind("keyup mouseout", function () {
         set_form_properties("form_resume_content", $(this).val())
     });
-    $("#form_resume_from_name").bind("keyup mouseout", function() {
+    $("#form_resume_from_name").bind("keyup mouseout", function () {
         set_form_properties("form_resume_from_name", $(this).val())
     });
-    $("#form_resume_from_email_address").bind("keyup mouseout", function() {
+    $("#form_resume_from_email_address").bind("keyup mouseout", function () {
         set_form_properties("form_resume_from_email_address", $(this).val())
     });
-    $("#form_password_option").bind("change", function() {
+    $("#form_password_option").bind("change", function () {
         $("#form_header").data("form_properties").password = "";
         $("#form_password_data").val("");
         if ($(this).prop("checked") == true) {
@@ -5140,10 +5363,10 @@ $(function() {
             $("#form_password").fadeOut("slow")
         }
     });
-    $("#form_password_data").bind("keyup mouseout", function() {
+    $("#form_password_data").bind("keyup mouseout", function () {
         set_form_properties("form_password", $(this).val())
     });
-    $("#form_captcha").bind("change", function() {
+    $("#form_captcha").bind("change", function () {
         if ($(this).prop("checked") == true) {
             $("#form_header").data("form_properties").captcha = 1;
             $("#form_captcha_type_option").slideDown()
@@ -5152,10 +5375,10 @@ $(function() {
             $("#form_captcha_type_option").fadeOut("slow")
         }
     });
-    $("#form_captcha_type").bind("change", function() {
+    $("#form_captcha_type").bind("change", function () {
         $("#form_header").data("form_properties").captcha_type = $(this).val()
     });
-    $("#form_unique_ip").bind("change", function() {
+    $("#form_unique_ip").bind("change", function () {
         if ($(this).prop("checked") == true) {
             $("#form_unique_ip_div").slideDown();
             $("#form_header").data("form_properties").unique_ip = 1
@@ -5164,20 +5387,20 @@ $(function() {
             $("#form_header").data("form_properties").unique_ip = 0
         }
     });
-    $("#form_unique_ip_maxcount").bind("keyup mouseout", function() {
+    $("#form_unique_ip_maxcount").bind("keyup mouseout", function () {
         set_form_properties("form_unique_ip_maxcount", $(this).val())
     });
-    $("#form_unique_ip_period").bind("change", function() {
+    $("#form_unique_ip_period").bind("change", function () {
         $("#form_header").data("form_properties").unique_ip_period = $(this).val()
     });
-    $("#form_name_hide").bind("change", function() {
+    $("#form_name_hide").bind("change", function () {
         if ($(this).prop("checked") == true) {
             $("#form_header").data("form_properties").name_hide = 1
         } else {
             $("#form_header").data("form_properties").name_hide = 0
         }
     });
-    $("#form_limit_option").bind("change", function() {
+    $("#form_limit_option").bind("change", function () {
         if ($(this).prop("checked") == true) {
             $("#form_limit_div").slideDown();
             $("#form_header").data("form_properties").limit_enable = 1
@@ -5186,10 +5409,10 @@ $(function() {
             $("#form_header").data("form_properties").limit_enable = 0
         }
     });
-    $("#form_limit").bind("keyup mouseout", function() {
+    $("#form_limit").bind("keyup mouseout", function () {
         set_form_properties("form_limit", $(this).val())
     });
-    $("#form_prop_toggle_a,#form_prop_toggle_img").click(function() {
+    $("#form_prop_toggle_a,#form_prop_toggle_img").click(function () {
         if ($("#form_prop_toggle_a").text() == "show more options") {
             $("#form_prop_toggle_a").text("show less options");
             $("#form_prop_toggle_img").attr("src", "/form_builder/images/icons/resultset_up.gif");
@@ -5206,17 +5429,17 @@ $(function() {
             $("#form_prop_toggle_a").text("show more options");
             $("#form_prop_toggle_img").attr("src", "/form_builder/images/icons/resultset_next.gif");
             $("#form_prop_review,#form_prop_resume").hide();
-            $("#all_form_properties .advanced_prop").slideUp("slow", function() {
+            $("#all_form_properties .advanced_prop").slideUp("slow", function () {
                 adjust_main_height()
             });
             $("#form_prop_toggle_a").data("expand", 0)
         }
         return false
     });
-    $("#form_label_alignment").bind("change", function() {
+    $("#form_label_alignment").bind("change", function () {
         set_form_properties("form_label_alignment", $(this).val())
     });
-    $("#form_language").bind("change", function() {
+    $("#form_language").bind("change", function () {
         set_form_properties("form_language", $(this).val())
     });
     $("#form_stage").bind("change", function () {
@@ -5233,47 +5456,44 @@ $(function() {
     });
     $("#form_type").bind("change", function () {
         set_form_properties("form_type", $(this).val());
-        if($(this).val() == 1)
-        {
+        if ($(this).val() == 1) {
             $("#form_application_properties").show();
             $("#form_commentsheet_properties").hide();
         }
-        else if($(this).val() == 2)
-        {
+        else if ($(this).val() == 2) {
             $("#form_application_properties").hide();
             $("#form_commentsheet_properties").show();
         }
-        else
-        {
-           $("#form_application_properties").hide();
-           $("#form_commentsheet_properties").hide();
+        else {
+            $("#form_application_properties").hide();
+            $("#form_commentsheet_properties").hide();
         }
     });
-    $("#table_name").bind("change", function() {
+    $("#table_name").bind("change", function () {
         set_properties("table_name", $(this).val())
     });
-    $("#field_value").bind("change", function() {
+    $("#field_value").bind("change", function () {
         set_properties("field_value", $(this).val())
     });
-    $("#field_name").bind("change", function() {
+    $("#field_name").bind("change", function () {
         set_properties("field_name", $(this).val())
     });
-    $("#option_query").bind("change", function() {
+    $("#option_query").bind("change", function () {
         set_properties("option_query", $(this).val())
     });
-    $("#field_value_option_query").bind("change", function() {
+    $("#field_value_option_query").bind("change", function () {
         set_properties("field_value", $(this).val())
     });
-    $("#field_name_option_query").bind("change", function() {
+    $("#field_name_option_query").bind("change", function () {
         set_properties("field_name", $(this).val())
     });
-    $("#existing_form").bind("change", function() {
+    $("#existing_form").bind("change", function () {
         set_properties("existing_form", $(this).val())
     });
-    $("#existing_stage").bind("change", function() {
+    $("#existing_stage").bind("change", function () {
         set_properties("existing_stage", $(this).val())
     });
-    $("#pagination_style_steps,#pagination_style_percentage,#pagination_style_disabled").bind("click", function() {
+    $("#pagination_style_steps,#pagination_style_percentage,#pagination_style_disabled").bind("click", function () {
         var d;
         var c = $(this).attr("id");
         if (c == "pagination_style_steps") {
@@ -5289,7 +5509,7 @@ $(function() {
         }
         set_form_properties("form_pagination_type", d)
     });
-    $("#pagination_title_list").delegate("input.text", "keyup", function(j) {
+    $("#pagination_title_list").delegate("input.text", "keyup", function (j) {
         var h = $(this);
         var k = h.attr("id").split("_");
         var c = parseInt(k[1]);
@@ -5317,7 +5537,7 @@ $(function() {
         d.eq(c - 1).data("field_properties").page_title = h.val();
         d.eq(c - 1).removeClass("synched")
     });
-    $("#form_schedule_enable").bind("change", function() {
+    $("#form_schedule_enable").bind("change", function () {
         if ($(this).prop("checked") == true) {
             $("#form_header").data("form_properties").schedule_enable = 1;
             $("#form_prop_scheduling_start").fadeIn();
@@ -5332,7 +5552,7 @@ $(function() {
         onSelect: update_scheduling_start_linked,
         showTrigger: "#scheduling_start_pick_img"
     });
-    $("#scheduling_start_mm,#scheduling_start_dd,#scheduling_start_yyyy").bind("blur mouseout", function() {
+    $("#scheduling_start_mm,#scheduling_start_dd,#scheduling_start_yyyy").bind("blur mouseout", function () {
         var c = parseInt($("#scheduling_start_dd").val(), 10);
         var f = parseInt($("#scheduling_start_mm").val(), 10) - 1;
         var e = parseInt($("#scheduling_start_yyyy").val(), 10);
@@ -5342,14 +5562,14 @@ $(function() {
             $("#form_header").data("form_properties").schedule_start_date = d
         }
     });
-    $("#scheduling_start_hour,#scheduling_start_minute,#scheduling_start_ampm").bind("change", function() {
+    $("#scheduling_start_hour,#scheduling_start_minute,#scheduling_start_ampm").bind("change", function () {
         $("#form_header").data("form_properties").schedule_start_hour = $("#scheduling_start_hour").val() + ":" + $("#scheduling_start_minute").val() + ":" + $("#scheduling_start_ampm").val()
     });
     $("#linked_picker_scheduling_end").datepick({
         onSelect: update_scheduling_end_linked,
         showTrigger: "#scheduling_end_pick_img"
     });
-    $("#scheduling_end_mm,#scheduling_end_dd,#scheduling_end_yyyy").bind("blur mouseout", function() {
+    $("#scheduling_end_mm,#scheduling_end_dd,#scheduling_end_yyyy").bind("blur mouseout", function () {
         var c = parseInt($("#scheduling_end_dd").val(), 10);
         var f = parseInt($("#scheduling_end_mm").val(), 10) - 1;
         var d = parseInt($("#scheduling_end_yyyy").val(), 10);
@@ -5359,10 +5579,10 @@ $(function() {
             $("#form_header").data("form_properties").schedule_end_date = e
         }
     });
-    $("#scheduling_end_hour,#scheduling_end_minute,#scheduling_end_ampm").bind("change", function() {
+    $("#scheduling_end_hour,#scheduling_end_minute,#scheduling_end_ampm").bind("change", function () {
         $("#form_header").data("form_properties").schedule_end_hour = $("#scheduling_end_hour").val() + ":" + $("#scheduling_end_minute").val() + ":" + $("#scheduling_end_ampm").val()
     });
-    $("#form_custom_script_enable").bind("change", function() {
+    $("#form_custom_script_enable").bind("change", function () {
         if ($(this).prop("checked") == true) {
             $("#form_header").data("form_properties").custom_script_enable = 1;
             $("#form_custom_script_div").slideDown()
@@ -5371,10 +5591,10 @@ $(function() {
             $("#form_custom_script_div").fadeOut("slow")
         }
     });
-    $("#form_custom_script_url").bind("keyup mouseout", function() {
+    $("#form_custom_script_url").bind("keyup mouseout", function () {
         set_form_properties("form_custom_script_url", $(this).val())
     });
-    $("#social a").click(function() {
+    $("#social a").click(function () {
         var d = $(this).attr("id");
         var c;
         switch (d) {
@@ -5435,13 +5655,13 @@ $(function() {
             case "a_signature":
                 c = "signature";
                 break;
-			//OTB patch - Plinth Areas
-			case "a_plinth_area":
-				c = "plinth_area";
-				break;
-			case "a_total_plinth_area":
-				c = "total_plinth_area";
-				break;
+            //OTB patch - Plinth Areas
+            case "a_plinth_area":
+                c = "plinth_area";
+                break;
+            case "a_total_plinth_area":
+                c = "total_plinth_area";
+                break;
             default:
                 c = "text";
                 break
@@ -5457,13 +5677,13 @@ $(function() {
         draggable: false,
         resizable: false,
         position: ["center", "center"],
-        open: function() {
+        open: function () {
             $(this).next().find("button").blur()
         },
         buttons: [{
             text: "Close",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 $("#bottom_bar_loader").hide();
                 $("#bottom_bar_content").show();
                 $(this).dialog("close")
@@ -5478,13 +5698,13 @@ $(function() {
         position: ["center", "center"],
         draggable: false,
         resizable: false,
-        open: function() {
+        open: function () {
             $(this).next().find("button").blur()
         },
         buttons: [{
             text: "OK",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 $(this).dialog("close")
             }
         }]
@@ -5497,14 +5717,14 @@ $(function() {
         resizable: false,
         draggable: false,
         position: ["center", "center"],
-        open: function() {
+        open: function () {
             $("#btn-field-delete-ok").blur()
         },
         buttons: [{
             text: "Yes. Delete this field",
             id: "btn-field-delete-ok",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 var d = $("#" + active_element);
                 var c = d.html();
                 var e = $("#form_header").data("form_properties").id;
@@ -5513,7 +5733,7 @@ $(function() {
                 $.ajax({
                     type: "POST",
                     async: true,
-                    url: "/backend.php/forms/deletelivefield",
+                    url: "/plan/forms/deletelivefield",
                     data: {
                         form_id: e,
                         element_id: d.data("field_properties").id
@@ -5521,19 +5741,19 @@ $(function() {
                     cache: false,
                     global: true,
                     dataType: "json",
-                    error: function(h, f, g) {
+                    error: function (h, f, g) {
                         d.html(c).removeClass("delete_processing")
                     },
-                    success: function(f) {
+                    success: function (f) {
                         if (f.status == "ok") {
-                            $("#li_" + f.element_id).fadeOut("normal", function() {
+                            $("#li_" + f.element_id).fadeOut("normal", function () {
                                 $(this).remove();
                                 reorganize_page_break();
                                 $("#form_builder_sortable").sortable("refreshPositions")
                             });
                             active_element = null;
                             $("#selected_field_image").css("visibility", "hidden");
-                            $("#bottom_bar_field_action").fadeOut("fast", function() {
+                            $("#bottom_bar_field_action").fadeOut("fast", function () {
                                 $("#bottom_bar_content").animate({
                                     "margin-left": "225px"
                                 }, {
@@ -5554,7 +5774,7 @@ $(function() {
             text: "Cancel",
             id: "btn-field-delete-cancel",
             "class": "btn_secondary_action",
-            click: function() {
+            click: function () {
                 $(this).dialog("close")
             }
         }]
@@ -5567,21 +5787,21 @@ $(function() {
         resizable: false,
         draggable: false,
         position: ["center", "center"],
-        open: function() {
+        open: function () {
             $("#btn-choice-delete-ok").blur()
         },
         buttons: [{
             text: "Yes. I understand",
             id: "btn-choice-delete-ok",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 $(this).dialog("close")
             }
         }, {
             text: "Cancel",
             id: "btn-field-delete-choice-cancel",
             "class": "btn_secondary_action",
-            click: function() {
+            click: function () {
                 $(this).dialog("close")
             }
         }]
@@ -5594,25 +5814,25 @@ $(function() {
         resizable: false,
         draggable: false,
         position: ["center", "center"],
-        open: function() {
+        open: function () {
             $("#btn-form-saved-ok").blur()
         },
         buttons: [{
             text: "Yes. Continue editing",
             id: "btn-form-saved-ok",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 var c = $("#form_header").data("form_properties").id;
                 var d = new Date().getTime();
-                window.location.replace("/backend.php/forms/form?id=" + c + "&t=" + d)
+                window.location.replace("/plan/forms/form?id=" + c + "&t=" + d)
             }
         }, {
             text: "I'm finished",
             id: "btn-form-saved-cancel",
             "class": "btn_secondary_action",
-            click: function() {
+            click: function () {
                 var c = $("#form_header").data("form_properties").id;
-                window.location.replace("/backend.php/forms/index?id=" + c + "&hl=1")
+                window.location.replace("/plan/forms/index?id=" + c + "&hl=1")
             }
         }]
     });
@@ -5624,13 +5844,13 @@ $(function() {
         position: ["center", "center"],
         draggable: false,
         resizable: false,
-        open: function() {
+        open: function () {
             $(this).next().find("button").blur()
         },
         buttons: [{
             text: "Add Choices",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 if ($("#bulk_insert_choices").val() == "") {
                     $(this).dialog("close")
                 } else {
@@ -5643,7 +5863,7 @@ $(function() {
                     var j = "";
                     var d = k.data("field_properties").id;
                     var e = k.data("field_properties").type;
-                    $.each(c, function(l, m) {
+                    $.each(c, function (l, m) {
                         h[f] = {
                             position: i,
                             option: m,
@@ -5692,7 +5912,7 @@ $(function() {
         }, {
             text: "Cancel",
             "class": "btn_secondary_action",
-            click: function() {
+            click: function () {
                 $(this).dialog("close")
             }
         }]
@@ -5704,14 +5924,14 @@ $(function() {
         width: 500,
         draggable: false,
         resizable: false,
-        open: function() {
+        open: function () {
             $(this).next().find("button").blur()
         },
         position: ["center", "center"],
         buttons: [{
             text: "Add Rows",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 if ($("#bulk_insert_rows").val() == "") {
                     $(this).dialog("close")
                 } else {
@@ -5726,7 +5946,7 @@ $(function() {
                     $.ajax({
                         type: "POST",
                         async: true,
-                        url: "/backend.php/forms/addmatrixrow",
+                        url: "/plan/forms/addmatrixrow",
                         data: {
                             form_id: e,
                             row_holder_id: "mr_temp_" + h,
@@ -5740,13 +5960,13 @@ $(function() {
                         cache: false,
                         global: true,
                         dataType: "json",
-                        error: function(l, j, k) {
+                        error: function (l, j, k) {
                             $("#mr_temp_" + h).remove()
                         },
-                        success: function(k) {
+                        success: function (k) {
                             if (k.status == "ok") {
                                 var j = d.data("field_properties").options;
-                                $.each(k.new_row_data, function(l, m) {
+                                $.each(k.new_row_data, function (l, m) {
                                     j[l] = m
                                 });
                                 d.data("field_properties").options = j;
@@ -5764,7 +5984,7 @@ $(function() {
         }, {
             text: "Cancel",
             "class": "btn_secondary_action",
-            click: function() {
+            click: function () {
                 $(this).dialog("close")
             }
         }]
@@ -5775,7 +5995,7 @@ $(function() {
         closeOnEscape: false,
         draggable: false,
         resizable: false,
-        open: function() {
+        open: function () {
             $(this).next().find("button").blur()
         },
         width: 515,
@@ -5783,7 +6003,7 @@ $(function() {
         buttons: [{
             text: "Add Columns",
             "class": "bb_button bb_small bb_green",
-            click: function() {
+            click: function () {
                 if ($("#bulk_insert_columns").val() == "") {
                     $(this).dialog("close")
                 } else {
@@ -5797,7 +6017,7 @@ $(function() {
                     t.data("field_properties").last_option_id = n + j.length - 1;
                     var f = "";
                     var u = n;
-                    $.each(j, function(v, w) {
+                    $.each(j, function (v, w) {
                         f += '<th scope="col" id="mc_' + d + "_" + u + '">' + w + "</th>";
                         u++
                     });
@@ -5811,12 +6031,12 @@ $(function() {
                     var r = new Array();
                     var e = "";
                     var s = "";
-                    $("#" + active_element + " table tbody").find("tr").each(function() {
+                    $("#" + active_element + " table tbody").find("tr").each(function () {
                         r = $(this).attr("id").split("_");
                         e = r[1];
                         s = "";
                         u = n;
-                        $.each(j, function(v, w) {
+                        $.each(j, function (v, w) {
                             s += '<td><input type="' + p + '" value="' + u + '" name="element_' + e + '" id="element_' + e + "_" + u + '"></td>';
                             u++
                         });
@@ -5833,7 +6053,7 @@ $(function() {
                     $("#" + active_element + " table th:gt(0)").css("width", i + "%");
                     var l = t.data("field_properties").options[d].column_data;
                     var c = m;
-                    $.each(j, function(v, w) {
+                    $.each(j, function (v, w) {
                         l[h] = {
                             column_title: w,
                             is_db_live: 0,
@@ -5850,12 +6070,12 @@ $(function() {
         }, {
             text: "Cancel",
             "class": "btn_secondary_action",
-            click: function() {
+            click: function () {
                 $(this).dialog("close")
             }
         }]
     });
-    $(document).ajaxError(function(f, g, d, c) {
+    $(document).ajaxError(function (f, g, d, c) {
         $("#dialog-message").dialog("open")
     });
     $("#social li").draggable({
@@ -5866,7 +6086,7 @@ $(function() {
         addClasses: true
     });
     $("#form_builder_sortable li").not(".li_pagination").addClass("synched dblive");
-    $("#bottom_bar_duplicate_field").click(function() {
+    $("#bottom_bar_duplicate_field").click(function () {
         var e = $("#form_builder_sortable > li").not(".li_pagination").size() + 1;
         $('<li id="li_temp_' + e + '" class="duplicate_processing"><img src="/form_builder/images/loader_small.gif" style="vertical-align: middle"/> duplicating field ...</li>').insertAfter("#" + active_element).hide().fadeIn();
         var d = $("#form_header").data("form_properties").id;
@@ -5875,7 +6095,7 @@ $(function() {
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/addfield",
+            url: "/plan/forms/addfield",
             data: {
                 element_type: f.type,
                 form_id: d,
@@ -5887,10 +6107,10 @@ $(function() {
             cache: false,
             global: true,
             dataType: "json",
-            error: function(i, g, h) {
+            error: function (i, g, h) {
                 $("#form_builder_sortable .duplicate_processing").remove()
             },
-            success: function(h) {
+            success: function (h) {
                 if (h.status == "ok") {
                     var g = $(h.markup);
                     g.data("field_properties", h.field_properties);
@@ -5898,8 +6118,8 @@ $(function() {
                     if (g.data("field_properties").type == "section") {
                         $("#li_" + h.element_id + " > h3").html($("#li_" + h.element_id + " > h3").html().replace(/\n/g, "<br />"))
                     } else {
-                        if (g.data("field_properties").type == "page_break") {} else {
-                            if (g.data("field_properties").type == "matrix") {} else {
+                        if (g.data("field_properties").type == "page_break") { } else {
+                            if (g.data("field_properties").type == "matrix") { } else {
                                 if ($("#li_" + h.element_id + " > label").length > 0) {
                                     $("#li_" + h.element_id + " > label").html($("#li_" + h.element_id + " > label").html().replace(/\n/g, "<br />"))
                                 } else {
@@ -5921,7 +6141,7 @@ $(function() {
         });
         return false
     });
-    $("#bottom_bar_delete_field").click(function() {
+    $("#bottom_bar_delete_field").click(function () {
         var d = $("#" + active_element);
         if ($("#form_builder_sortable > li").not(".li_pagination").not(".page_break").size() <= 1) {
             $("#ui-dialog-title-dialog-warning").html("Unable to delete this field!");
@@ -5938,7 +6158,7 @@ $(function() {
                 $.ajax({
                     type: "POST",
                     async: true,
-                    url: "/backend.php/forms/deletedraftfield",
+                    url: "/plan/forms/deletedraftfield",
                     data: {
                         form_id: e,
                         element_id: d.data("field_properties").id,
@@ -5947,19 +6167,19 @@ $(function() {
                     cache: false,
                     global: true,
                     dataType: "json",
-                    error: function(h, f, g) {
+                    error: function (h, f, g) {
                         d.html(c).removeClass("delete_processing")
                     },
-                    success: function(f) {
+                    success: function (f) {
                         if (f.status == "ok") {
-                            $("#li_" + f.element_id).fadeOut("normal", function() {
+                            $("#li_" + f.element_id).fadeOut("normal", function () {
                                 $(this).remove();
                                 reorganize_page_break();
                                 $("#form_builder_sortable").sortable("refreshPositions")
                             });
                             active_element = null;
                             $("#selected_field_image").css("visibility", "hidden");
-                            $("#bottom_bar_field_action").fadeOut("fast", function() {
+                            $("#bottom_bar_field_action").fadeOut("fast", function () {
                                 $("#bottom_bar_content").animate({
                                     "margin-left": "225px"
                                 }, {
@@ -5982,7 +6202,7 @@ $(function() {
     });
     $("#bottom_bar").fadeIn();
     $("#editor_loading").fadeOut("slow");
-    $(window).on("beforeunload", function() {
+    $(window).on("beforeunload", function () {
         var c = b();
         return c
     });
@@ -6000,14 +6220,14 @@ $(function() {
         $.ajax({
             type: "POST",
             async: true,
-            url: "/backend.php/forms/ping",
+            url: "/plan/forms/ping",
             data: {
                 form_id: c
             },
             cache: false,
             global: true,
             dataType: "json",
-            complete: function() {
+            complete: function () {
                 setTimeout(a, 300000)
             }
         })

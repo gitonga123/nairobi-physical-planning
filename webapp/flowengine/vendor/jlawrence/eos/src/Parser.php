@@ -549,7 +549,7 @@ class Parser {
      *
      * The Lanczos Approximation method of finding gamma values
      *
-     * @link http://www.rskey.org/CMS/index.php/the-library/11
+     * @link http://www.rskey.org/CMS/plan/the-library/11
      * @link http://algolist.manual.ru/maths/count_fast/gamma_function.php
      * @link https://en.wikipedia.org/wiki/Lanczos_approximation
      * @param $z Number to obtain the gamma of

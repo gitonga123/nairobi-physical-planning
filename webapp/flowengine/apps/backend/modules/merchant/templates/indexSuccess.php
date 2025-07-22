@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("managecurrencies"))
 			<h3 class="panel-title"><?php echo __('Merchants'); ?></h3>
 </div>
 <div class="panel-heading">
-	<a class="btn btn-primary settings-margin42" id="newfee" href="<?php echo url_for('/backend.php/merchant/new') ?>"><?php echo __('New Merchant'); ?></a>
+	<a class="btn btn-primary settings-margin42" id="newfee" href="<?php echo url_for('/plan/merchant/new') ?>"><?php echo __('New Merchant'); ?></a>
 </div>
  
 <div class="panel panel-body panel-body-nopadding ">
@@ -39,11 +39,11 @@ if($sf_user->mfHasCredential("managecurrencies"))
     <?php foreach ($merchants as $c): ?>
     <tr id="row_<?php echo $c->getId() ?>">
 		
-                <td><a href="<?php echo url_for('/backend.php/merchant/edit?id='.$c->getId()) ?>"><?php echo $c->getName() ?></a></td>
-		<td><a href="<?php echo url_for('/backend.php/merchant/edit?id='.$c->getId()) ?>"><?php echo $c->getDescription() ?></a></td>
-		<td><a href="<?php echo url_for('/backend.php/merchant/edit?id='.$c->getId()) ?>"><?php echo $c->getLink() ?></a></td>
-                <td><a href="<?php echo url_for('/backend.php/merchant/edit?id='.$c->getId()) ?>"><?php echo $otbhelper->getCurrencyISOCode($c->getCurrencyId()) ?></a></td>
-		<td><a href="<?php echo url_for('/backend.php/merchant/edit?id='.$c->getId()) ?>">
+                <td><a href="<?php echo url_for('/plan/merchant/edit?id='.$c->getId()) ?>"><?php echo $c->getName() ?></a></td>
+		<td><a href="<?php echo url_for('/plan/merchant/edit?id='.$c->getId()) ?>"><?php echo $c->getDescription() ?></a></td>
+		<td><a href="<?php echo url_for('/plan/merchant/edit?id='.$c->getId()) ?>"><?php echo $c->getLink() ?></a></td>
+                <td><a href="<?php echo url_for('/plan/merchant/edit?id='.$c->getId()) ?>"><?php echo $otbhelper->getCurrencyISOCode($c->getCurrencyId()) ?></a></td>
+		<td><a href="<?php echo url_for('/plan/merchant/edit?id='.$c->getId()) ?>">
                 
                 <?php if ($c->getStatus() == 1): ?>
                         <button class="btn btn-success"> <?php  echo __('Active') ; ?> </button>
@@ -54,9 +54,9 @@ if($sf_user->mfHasCredential("managecurrencies"))
                 <?php endif; ?> 
                 </a></td>
     <td>					
-	  <a id="editmer<?php echo $c->getId() ?>" href="<?php echo url_for('/backend.php/merchant/edit?id='.$c->getId()) ?>" alt="Edit" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+	  <a id="editmer<?php echo $c->getId() ?>" href="<?php echo url_for('/plan/merchant/edit?id='.$c->getId()) ?>" alt="Edit" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
      
-      <a id="deletemer<?php echo $c->getId() ?>" href="<?php echo url_for('/backend.php/merchant/delete?id='.$c->getId()) ?>" alt="Delete" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>
+      <a id="deletemer<?php echo $c->getId() ?>" href="<?php echo url_for('/plan/merchant/delete?id='.$c->getId()) ?>" alt="Delete" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>
 	 
 
            

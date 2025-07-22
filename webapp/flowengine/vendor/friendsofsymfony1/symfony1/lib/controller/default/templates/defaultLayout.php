@@ -9,7 +9,7 @@
 <?php include_stylesheets() ?>
 <?php include_javascripts() ?>
 
-<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="shortcut icon" href="/asset_mentor/assets/img/favicon.ico" />
 
 <!--[if lt IE 7.]>
 <?php echo stylesheet_tag('/sf/sf_default/css/ie.css') ?>

@@ -23,7 +23,7 @@ class formsActions extends sfActions
     $wizard_manager = new WizardManager();
 
     if ($wizard_manager->is_first_run()) {
-      $this->redirect("/backend.php/dashboard");
+      $this->redirect("/plan/dashboard");
     }
 
     if ($request->getParameter("filter")) {
@@ -201,6 +201,19 @@ class formsActions extends sfActions
   public function executeEmbedcode(sfWebRequest $request)
   {
     $this->setLayout("layout-settings");
+  }
+
+
+  /**
+   * Executes 'Ajaxindex' action
+   *
+   * Displays list of dynamically generated forms
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeAjaxindex(sfWebRequest $request)
+  {
+    $this->setLayout(false);
   }
 
   /**
@@ -528,7 +541,7 @@ class formsActions extends sfActions
         //Audit 
         Audit::audit($application->getId(), "Moved application to " . $stage_title);
       }
-      $this->redirect("/backend.php/tasks/view/id/" . $task->getId());
+      $this->redirect("/plan/tasks/view/id/" . $task->getId());
     }
 
     $this->setLayout("layout-settings");
@@ -780,7 +793,7 @@ class formsActions extends sfActions
     $ap_form->setFormCode($settings["form_code"]);
     $ap_form->save();
 
-    $this->redirect("/backend.php/forms/index");
+    $this->redirect("/plan/forms/index");
   }
 
   /**
@@ -829,7 +842,7 @@ class formsActions extends sfActions
         Audit::audit($application->getId(), "Moved application to " . $stage_title);
       }
 
-      $this->redirect("/backend.php/tasks/view/id/" . $task->getId());
+      $this->redirect("/plan/tasks/view/id/" . $task->getId());
     }
     //OTB ADD
     if ($request->getParameter('form_entry_id')) {
@@ -864,7 +877,7 @@ class formsActions extends sfActions
         //Audit 
         Audit::audit($application->getId(), "Moved application to " . $stage_title);
       }
-      $this->redirect("/backend.php/applications/view/id/" . $application->getId());
+      $this->redirect("/plan/applications/view/id/" . $application->getId());
     }
   }
 
@@ -906,7 +919,7 @@ class formsActions extends sfActions
       $permit_manager = new PermitManager();
       $permit_manager->create_permit($application->getId());
 
-      $this->redirect("/backend.php/tasks/view/id/" . $task->getId());
+      $this->redirect("/plan/tasks/view/id/" . $task->getId());
     }
     if ($request->getParameter('form_entry_id')) {
       $this->forward404Unless($application = Doctrine_Core::getTable('FormEntry')->find($request->getParameter('form_entry_id')));
@@ -932,7 +945,7 @@ class formsActions extends sfActions
       $permit_manager = new PermitManager();
       $permit_manager->create_permit($application->getId());
 
-      $this->redirect("/backend.php/applications/view/id/" . $application->getId());
+      $this->redirect("/plan/applications/view/id/" . $application->getId());
     }
   }
 
@@ -1013,7 +1026,7 @@ class formsActions extends sfActions
     $decline->setUpdatedAt(date("Y-m-d H:m:s"));
     $decline->save();
 
-    $this->redirect("/backend.php/applications/view/id/" . $application->getId());
+    $this->redirect("/plan/applications/view/id/" . $application->getId());
   }
 
   /**
@@ -1083,7 +1096,7 @@ class formsActions extends sfActions
     $rejection->setUpdatedAt(date("Y-m-d H:m:s"));
     $rejection->save();
 
-    $this->redirect("/backend.php/applications/view/id/" . $application->getId());
+    $this->redirect("/plan/applications/view/id/" . $application->getId());
   }
 
   /**
@@ -1347,7 +1360,7 @@ class formsActions extends sfActions
       }
     }
 
-    $this->redirect("/backend.php/forms/translate?id=" . $form_id . "&filter=" . $filter);
+    $this->redirect("/plan/forms/translate?id=" . $form_id . "&filter=" . $filter);
   }
 
   public function executeGetcurrency(sfWebRequest $request)
@@ -1501,7 +1514,7 @@ class formsActions extends sfActions
       }
 
 
-      $this->redirect("/backend.php/forms/signableattachments?id=$form_id");
+      $this->redirect("/plan/forms/signableattachments?id=$form_id");
     }
 
 

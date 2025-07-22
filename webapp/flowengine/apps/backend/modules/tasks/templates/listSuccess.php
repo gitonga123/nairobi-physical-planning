@@ -16,7 +16,7 @@ use_helper("I18N");
 <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __("You are here"); ?>:</span>
     <ol class="breadcrumb">
-    <li><a href="/backend.php/dashboard"><?php echo __("Home"); ?></a></li>
+    <li><a href="/plan/dashboard"><?php echo __("Home"); ?></a></li>
     <li class="active"><?php echo __("Tasks"); ?></li>
     </ol>
 </div>

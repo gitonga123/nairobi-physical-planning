@@ -1,5 +1,5 @@
  
-        <form  class="form-bordered form-horizontal" id="registration_form" action="/index.php/frusers/update/id/<?php echo $form->getObject()->getId();  ?>" method="post" enctype="multipart/form-data"   autocomplete="off" data-ajax="false">
+        <form  class="form-bordered form-horizontal" id="registration_form" action="/plan/frusers/update/id/<?php echo $form->getObject()->getId();  ?>" method="post" enctype="multipart/form-data"   autocomplete="off" data-ajax="false">
 		   <?php echo $form->renderGlobalErrors(); ?>
             <?php
             if($sf_user->hasFlash("notice"))
@@ -56,7 +56,7 @@
 			</div><!--panel-body-->
 			
 			<div class="panel-footer">
-				<button class="btn btn-primary" onClick="window.location='/index.php/settings';"><?php echo sfConfig::get('app_'.$_SESSION['locale'].'_back'); ?></button>
+				<button class="btn btn-primary" onClick="window.location='/plan/settings';"><?php echo sfConfig::get('app_'.$_SESSION['locale'].'_back'); ?></button>
 				<button class="submit btn btn-primary" name="submitbuttonname" value="submitbuttonvalue"><?php echo sfConfig::get('app_'.$_SESSION['locale'].'_submit'); ?></button>
 			</div>
         

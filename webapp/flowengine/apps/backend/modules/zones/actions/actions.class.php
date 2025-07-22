@@ -107,7 +107,7 @@ class zonesActions extends sfActions
     {
       $feecode = $form->save();
 
-      $this->redirect('/backend.php/zones/index');
+      $this->redirect('/plan/zones/index');
     }
   }
 
@@ -127,7 +127,7 @@ class zonesActions extends sfActions
 
     $zone->delete();
 
-    $this->redirect('/backend.php/zones/index');
+    $this->redirect('/plan/zones/index');
   }
   public function executeUpdatezones(sfWebRequest $request)
   {

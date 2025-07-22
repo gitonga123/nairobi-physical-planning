@@ -7,7 +7,7 @@
 	<title>Uasin Gishu County - Admin Portal</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/admin/assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/admin/assets/css/bootstrap.min.css">
@@ -31,7 +31,7 @@
 					</div>
 					<div class="login-right">
 						<div class="login-right-wrap">
-							<h1>E-Services Revenue Collection Admin Portal</h1>
+							<h1>Physical Planning, and Urban Development</h1>
 
 							<?php echo $sf_content ?>
 
@@ -42,10 +42,10 @@
 
 
 
-							<div class="text-center dont-have">Don’t have an account? <a href="mailto:info.eservices@uasingishu.go.ke">Contact System Admin @ info.eservices@uasingishu.go.ke</a></div>
+							<div class="text-center dont-have">Don’t have an account? <a href="mailto:lands@uasingishu.go.ke">Contact System Admin - lands@uasingishu.go.ke</a></div>
 							<div class="col-md-12 ">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County E-services. All rights reserved.</p>
+									<p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County Physical Planning. All rights reserved.</p>
 								</div>
 							</div>
 						</div>

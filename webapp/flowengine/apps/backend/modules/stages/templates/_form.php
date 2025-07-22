@@ -4,7 +4,7 @@ use_helper("I18N");
 <script type="text/javascript" src="/assets_backend/js/jquery.bootstrap-duallistbox.js"></script>
 
 
-<form id="stageform" class="form-bordered" action="<?php echo url_for('/backend.php/stages/' . ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '/id/' . $form->getObject()->getId() : '')) ?>/filter/<?php echo $filter; ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> autocomplete="off" data-ajax="false">
+<form id="stageform" class="form-bordered" action="<?php echo url_for('/plan/stages/' . ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '/id/' . $form->getObject()->getId() : '')) ?>/filter/<?php echo $filter; ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> autocomplete="off" data-ajax="false">
 	<div class="panel panel-default">
 
 		<div class="panel-heading">
@@ -49,7 +49,7 @@ use_helper("I18N");
 					$('#sub_menus_title').keyup(function() {
 						$.ajax({
 							type: "POST",
-							url: "/backend.php/stages/checkname/filter/<?php echo $filter; ?>",
+							url: "/plan/stages/checkname/filter/<?php echo $filter; ?>",
 							data: {
 								'name': $('input:text[id=sub_menus_title]').val()
 							},
@@ -210,7 +210,7 @@ use_helper("I18N");
 							$('#sub_menus_change_field_form').change(function() {
 								var form = $(this).val();
 								$.ajax({
-									url: '<?php echo url_for('/backend.php/usercategories/updatememeberfields') ?>',
+									url: '<?php echo url_for('/plan/usercategories/updatememeberfields') ?>',
 									data: {
 										form: form
 									},
@@ -251,7 +251,7 @@ use_helper("I18N");
 							var field = $(this).val();
 							var form = $('#sub_menus_change_field_form').val();
 							$.ajax({
-								url: '<?php echo url_for('/backend.php/usercategories/elementvalues') ?>',
+								url: '<?php echo url_for('/plan/usercategories/elementvalues') ?>',
 								data: {
 									form: form,
 									element: field
@@ -452,7 +452,7 @@ use_helper("I18N");
 							$('#sub_menus_change_field_form_1').change(function() {
 								var form = $(this).val();
 								$.ajax({
-									url: '<?php echo url_for('/backend.php/usercategories/updatememeberfields') ?>',
+									url: '<?php echo url_for('/plan/usercategories/updatememeberfields') ?>',
 									data: {
 										form: form
 									},
@@ -493,7 +493,7 @@ use_helper("I18N");
 							var field = $(this).val();
 							var form = $('#sub_menus_change_field_form_1').val();
 							$.ajax({
-								url: '<?php echo url_for('/backend.php/usercategories/elementvalues') ?>',
+								url: '<?php echo url_for('/plan/usercategories/elementvalues') ?>',
 								data: {
 									form: form,
 									element: field
@@ -694,7 +694,7 @@ use_helper("I18N");
 							$('#sub_menus_change_field_form_2').change(function() {
 								var form = $(this).val();
 								$.ajax({
-									url: '<?php echo url_for('/backend.php/usercategories/updatememeberfields') ?>',
+									url: '<?php echo url_for('/plan/usercategories/updatememeberfields') ?>',
 									data: {
 										form: form
 									},
@@ -735,7 +735,7 @@ use_helper("I18N");
 							var field = $(this).val();
 							var form = $('#sub_menus_change_field_form_2').val();
 							$.ajax({
-								url: '<?php echo url_for('/backend.php/usercategories/elementvalues') ?>',
+								url: '<?php echo url_for('/plan/usercategories/elementvalues') ?>',
 								data: {
 									form: form,
 									element: field
@@ -936,7 +936,7 @@ use_helper("I18N");
 							$('#sub_menus_change_field_form_3').change(function() {
 								var form = $(this).val();
 								$.ajax({
-									url: '<?php echo url_for('/backend.php/usercategories/updatememeberfields') ?>',
+									url: '<?php echo url_for('/plan/usercategories/updatememeberfields') ?>',
 									data: {
 										form: form
 									},
@@ -977,7 +977,7 @@ use_helper("I18N");
 							var field = $(this).val();
 							var form = $('#sub_menus_change_field_form_3').val();
 							$.ajax({
-								url: '<?php echo url_for('/backend.php/usercategories/elementvalues') ?>',
+								url: '<?php echo url_for('/plan/usercategories/elementvalues') ?>',
 								data: {
 									form: form,
 									element: field
@@ -1178,7 +1178,7 @@ use_helper("I18N");
 							$('#sub_menus_change_field_form_4').change(function() {
 								var form = $(this).val();
 								$.ajax({
-									url: '<?php echo url_for('/backend.php/usercategories/updatememeberfields') ?>',
+									url: '<?php echo url_for('/plan/usercategories/updatememeberfields') ?>',
 									data: {
 										form: form
 									},
@@ -1219,7 +1219,7 @@ use_helper("I18N");
 							var field = $(this).val();
 							var form = $('#sub_menus_change_field_form_4').val();
 							$.ajax({
-								url: '<?php echo url_for('/backend.php/usercategories/elementvalues') ?>',
+								url: '<?php echo url_for('/plan/usercategories/elementvalues') ?>',
 								data: {
 									form: form,
 									element: field
@@ -1420,7 +1420,7 @@ use_helper("I18N");
 							$('#sub_menus_change_field_form_5').change(function() {
 								var form = $(this).val();
 								$.ajax({
-									url: '<?php echo url_for('/backend.php/usercategories/updatememeberfields') ?>',
+									url: '<?php echo url_for('/plan/usercategories/updatememeberfields') ?>',
 									data: {
 										form: form
 									},
@@ -1461,7 +1461,7 @@ use_helper("I18N");
 							var field = $(this).val();
 							var form = $('#sub_menus_change_field_form_5').val();
 							$.ajax({
-								url: '<?php echo url_for('/backend.php/usercategories/elementvalues') ?>',
+								url: '<?php echo url_for('/plan/usercategories/elementvalues') ?>',
 								data: {
 									form: form,
 									element: field

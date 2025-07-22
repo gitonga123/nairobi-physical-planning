@@ -62,9 +62,9 @@
 		   ?>
                 </td>
                 <td style="vertical-align:middle">
-                    <a class='btn btn-default btn-xs' title='<?php echo __('Pick Task'); ?>' href='<?php echo public_path("backend.php/tasks/pickinspection/id/".$application->getId()); ?>'><?php echo __('Pick Task'); ?> <span class="fa fa-arrow-right"></span></a>
+                    <a class='btn btn-default btn-xs' title='<?php echo __('Pick Task'); ?>' href='<?php echo public_path("plan/tasks/pickinspection/id/".$application->getId()); ?>'><?php echo __('Pick Task'); ?> <span class="fa fa-arrow-right"></span></a>
 					<br/>
-                    <a class='btn btn-default btn-xs' title='<?php echo __('View'); ?>' href='<?php echo public_path("backend.php/applications/view/id/".$application->getId()); ?>'><?php echo __('View'); ?> <span class="fa fa-eye"></span></a>
+                    <a class='btn btn-default btn-xs' title='<?php echo __('View'); ?>' href='<?php echo public_path("plan/applications/view/id/".$application->getId()); ?>'><?php echo __('View'); ?> <span class="fa fa-eye"></span></a>
                 </td>
             </tr>
         <?php } ?>
@@ -80,11 +80,11 @@
 
                 <?php if ($current_paginator->haveToPaginate()): ?>
                     <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                        <li><a href="/backend.php/dashboard/index/current/inspections/page/1<?php echo $filter; ?>">
+                        <li><a href="/plan/dashboard/index/current/inspections/page/1<?php echo $filter; ?>">
                                 <i class="fa fa-angle-left"></i>
                             </a></li>
 
-                        <li> <a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $current_paginator->getPreviousPage().$filter; ?>">
+                        <li> <a href="/plan/dashboard/index/current/inspections/page/<?php echo $current_paginator->getPreviousPage().$filter; ?>">
                                 <i class="fa fa-angle-left"></i>
                             </a></li>
 
@@ -92,15 +92,15 @@
                             <?php if ($page == $current_paginator->getPage()): ?>
                                 <li class="active"><a href=""><?php echo $page ?></a>
                             <?php else: ?>
-                                <li><a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $page.$filter ?>"><?php echo $page; ?></a></li>
+                                <li><a href="/plan/dashboard/index/current/inspections/page/<?php echo $page.$filter ?>"><?php echo $page; ?></a></li>
                             <?php endif; ?>
                         <?php endforeach; ?>
 
-                        <li> <a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $current_paginator->getNextPage().$filter; ?>">
+                        <li> <a href="/plan/dashboard/index/current/inspections/page/<?php echo $current_paginator->getNextPage().$filter; ?>">
                                 <i class="fa fa-angle-right"></i>
                             </a></li>
 
-                        <li> <a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $current_paginator->getLastPage().$filter; ?>">
+                        <li> <a href="/plan/dashboard/index/current/inspections/page/<?php echo $current_paginator->getLastPage().$filter; ?>">
                                 <i class="fa fa-angle-right"></i>
                             </a></li>
                     </ul>

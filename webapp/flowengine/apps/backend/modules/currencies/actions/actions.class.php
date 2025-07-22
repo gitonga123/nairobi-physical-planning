@@ -16,7 +16,7 @@ class currenciesActions extends sfActions
 
     if($wizard_manager->is_first_run())
     {
-      $this->redirect("/backend.php/dashboard");
+      $this->redirect("/plan/dashboard");
     }
     $this->currenciess = Doctrine_Core::getTable('Currencies')
       ->createQuery('a')
@@ -66,7 +66,7 @@ class currenciesActions extends sfActions
     $this->forward404Unless($currencies = Doctrine_Core::getTable('Currencies')->find(array($request->getParameter('id'))), sprintf('Object currencies does not exist (%s).', $request->getParameter('id')));
     $currencies->delete();
     $this->getUser()->setFlash("Success", "Record Deleted Successfuly") ;
-    $this->redirect('/backend.php/currencies/index/');
+    $this->redirect('/plan/currencies/index/');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -77,7 +77,7 @@ class currenciesActions extends sfActions
       $currencies = $form->save();
       $this->getUser()->setFlash("Success", "Record saved Successfuly") ;
       //
-      $this->redirect('/backend.php/currencies/index/');
+      $this->redirect('/plan/currencies/index/');
     }
   }
 }

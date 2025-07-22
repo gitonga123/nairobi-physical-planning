@@ -57,7 +57,7 @@ class tasksActions extends sfActions
             //Audit 
             Audit::audit($request->getParameter('id'), "Picked a task");
 
-            $this->redirect("/backend.php/tasks/view?id=" . $task_id);
+            $this->redirect("/plan/tasks/view?id=" . $task_id);
         } else {
             //If there exists a pending task for this user and application then redirect to that task
             $q = Doctrine_Query::create()
@@ -72,10 +72,10 @@ class tasksActions extends sfActions
                 //Audit
                 Audit::audit($request->getParameter('id'), "Picked a task");
 
-                $this->redirect("/backend.php/tasks/view?id=" . $task->getId());
+                $this->redirect("/plan/tasks/view?id=" . $task->getId());
             }
 
-            $this->redirect("/backend.php/tasks/list");
+            $this->redirect("/plan/tasks/list");
         }
     }
 
@@ -131,7 +131,7 @@ class tasksActions extends sfActions
                 $inspection->save();
             }
 
-            $this->redirect("/backend.php/tasks/view?id=" . $task_id);
+            $this->redirect("/plan/tasks/view?id=" . $task_id);
         } else {
             //If there exists a pending task for this user and application then redirect to that task
             $q = Doctrine_Query::create()
@@ -178,10 +178,10 @@ class tasksActions extends sfActions
                     $inspection->save();
                 }
 
-                $this->redirect("/backend.php/tasks/view?id=" . $task->getId());
+                $this->redirect("/plan/tasks/view?id=" . $task->getId());
             }
 
-            $this->redirect("/backend.php/tasks/list");
+            $this->redirect("/plan/tasks/list");
         }
     }
 
@@ -223,11 +223,11 @@ class tasksActions extends sfActions
         }
 
         if (empty($this->task)) {
-            $this->redirect("/backend.php/dashboard");
+            $this->redirect("/plan/dashboard");
         }
 
         //Audit
-        Audit::audit("", "Viewed a task <a href='/backend.php/tasks/view/id/" . $this->task->getId() . "'></a>");
+        Audit::audit("", "Viewed a task <a href='/plan/tasks/view/id/" . $this->task->getId() . "'></a>");
 
 
         //Check JSON. Generate if empty
@@ -356,7 +356,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         } else {
                             $task = new Task();
                             $task->setType($request->getPostParameter("task_type"));
@@ -405,7 +405,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         }
 
 
@@ -422,23 +422,29 @@ class tasksActions extends sfActions
                         $reviewer = $q->fetchOne();
 
                         $body = "
-                                    Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",<br>
-                                    <br>
-                                    You have been assigned a new task on " . $this->application->getApplicationId() . ":<br>
-                                    <br><br>
-                                    &ldquo; " . $request->getPostParameter("description") . " &rdquo;
-                                    <br>
-                                    <br>
-                                    Click here to view the task: <br>
-                                    ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
-                                    ------- <br>
+                            Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",<br><br>
+                            You have been assigned a new task on " . $this->application->getApplicationId() . ":<br><br>
+                            &ldquo;" . $request->getPostParameter("description") . "&rdquo;<br><br>
+                            Click here to view the task: <br>
+                            ------- <br>
+                            <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>
+                                Link to " . $this->application->getApplicationId() . " task
+                            </a><br>
+                            ------- <br><br>
+                        ";
 
-                                    <br>
-                                    ";
+
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+                        if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                            $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ",\n"
+                                . "You have been assigned a new task on Application ID: " . $this->application->getApplicationId() . ".\n"
+                                . "\"" . $request->getPostParameter("description") . "\"\n"
+                                . "View it here:" . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
+
+                            $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+                        }
                     }
                     foreach ($otherreviewers as $reviewer) {
                         $application = $request->getPostParameter("application");
@@ -480,7 +486,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         } else {
                             $task = new Task();
                             $task->setType($request->getPostParameter("task_type"));
@@ -529,7 +535,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         }
 
                         $q = Doctrine_Query::create()
@@ -552,7 +558,7 @@ class tasksActions extends sfActions
                                     <br>
                                     Click here to view the task: <br>
                                     ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                    <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                     ------- <br>
 
                                     <br>
@@ -560,6 +566,14 @@ class tasksActions extends sfActions
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+                        if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                            $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
+                                . "you have been assigned a new task on Application " . $this->application->getApplicationId() . ". "
+                                . "Task: \"" . $request->getPostParameter("description") . "\". "
+                                . "View: " . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
+
+                            $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+                        }
                         $count++;
                     }
 
@@ -603,7 +617,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         } else {
                             $task = new Task();
                             $task->setType($request->getPostParameter("task_type"));
@@ -652,7 +666,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         }
                         $q = Doctrine_Query::create()
                             ->from('FormEntry a')
@@ -674,7 +688,7 @@ class tasksActions extends sfActions
                                         <br>
                                         Click here to view the task: <br>
                                         ------- <br>
-                                        <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                        <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                         ------- <br>
 
                                         <br>
@@ -682,6 +696,14 @@ class tasksActions extends sfActions
 
                         $mailnotifications = new mailnotifications();
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+                        if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                            $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
+                                . "you've been assigned a new task on Application " . $this->application->getApplicationId() . ": "
+                                . "\"" . $request->getPostParameter("description") . "\". "
+                                . "View: " . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
+
+                            $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+                        }
                         $count++;
                     }
 
@@ -766,7 +788,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             } else {
                                 $task = new Task();
                                 $task->setType($request->getPostParameter("task_type"));
@@ -815,7 +837,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             }
 
 
@@ -841,7 +863,7 @@ class tasksActions extends sfActions
                                     <br>
                                     Click here to view the task: <br>
                                     ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                    <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                     ------- <br>
 
                                     <br>
@@ -849,6 +871,14 @@ class tasksActions extends sfActions
 
                             $mailnotifications = new mailnotifications();
                             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+                            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                                $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
+                                    . "you have a new task on Application " . $this->application->getApplicationId() . ": "
+                                    . "\"" . $request->getPostParameter("description") . "\". "
+                                    . "View: " . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
+
+                                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+                            }
                         }
                         foreach ($otherreviewers as $reviewer) {
 
@@ -889,7 +919,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             } else {
                                 $task = new Task();
                                 $task->setType($request->getPostParameter("task_type"));
@@ -938,7 +968,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             }
 
                             $q = Doctrine_Query::create()
@@ -961,7 +991,7 @@ class tasksActions extends sfActions
                                     <br>
                                     Click here to view the task: <br>
                                     ------- <br>
-                                    <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                    <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                     ------- <br>
 
                                     <br>
@@ -969,6 +999,14 @@ class tasksActions extends sfActions
 
                             $mailnotifications = new mailnotifications();
                             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+                            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                                $body = "Hi " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . ", "
+                                    . "you've been assigned a task on App " . $this->application->getApplicationId() . ": "
+                                    . "\"" . $request->getPostParameter("description") . "\". "
+                                    . "View: " . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId();
+
+                                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+                            }
                             $count++;
                         }
 
@@ -1011,7 +1049,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             } else {
                                 $task = new Task();
                                 $task->setType($request->getPostParameter("task_type"));
@@ -1060,7 +1098,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             }
                             $q = Doctrine_Query::create()
                                 ->from('FormEntry a')
@@ -1082,7 +1120,7 @@ class tasksActions extends sfActions
                                         <br>
                                         Click here to view the task: <br>
                                         ------- <br>
-                                        <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
+                                        <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $this->task->getId() . "'>Link to " . $this->application->getApplicationId() . " task</a><br>
                                         ------- <br>
 
                                         <br>
@@ -1090,6 +1128,13 @@ class tasksActions extends sfActions
 
                             $mailnotifications = new mailnotifications();
                             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+                            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                                $body = "Hi " . $reviewer->getStrfirstname() . ", you've been assigned a new task on App " . $this->application->getApplicationId() .
+                                    ": \"" . $request->getPostParameter("description") . "\". View it here:". sfConfig::get('app_sso_backend_jambo_url') .
+                                    "plan/tasks/view/id/" . $this->task->getId();
+
+                                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+                            }
                             $count++;
                         }
 
@@ -1227,7 +1272,7 @@ class tasksActions extends sfActions
 	                        <br>
 	                        Click here to view the application: <br>
 	                        ------- <br>
-	                        <a href='http://" . $_SERVER['HTTP_HOST'] . "/backend.php/applications/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
+	                        <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/applications/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
 	                        ------- <br>
 
 	                        <br>
@@ -1235,6 +1280,13 @@ class tasksActions extends sfActions
 
                                 $mailnotifications = new mailnotifications();
                                 $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "Paid Invoice", $body);
+                                if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                                    $body = "Hi " . $reviewer->getStrfirstname() . ", " . $notification .
+                                        " View app " . $application->getApplicationId() . ": " . sfConfig::get('app_sso_backend_jambo_url') . 
+                                        "plan/applications/view/id/" . $application->getId();
+
+                                    $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+                                }
                             }
                         }
                     }
@@ -1255,13 +1307,13 @@ class tasksActions extends sfActions
                         $task->save();
                     }
 
-                    $this->redirect("/backend.php/tasks/view/id/" . $request->getParameter("redirect"));
+                    $this->redirect("/plan/tasks/view/id/" . $request->getParameter("redirect"));
                 } else {
                     $q = Doctrine_Query::create()
                         ->from('CfUser a')
                         ->where('a.nid = ?', $this->getUser()->getAttribute('userid'));
                     $reviewer = $q->fetchOne();
-                    $this->redirect("/backend.php/applications/view/id/" . $request->getPostParameter("application"));
+                    $this->redirect("/plan/applications/view/id/" . $request->getPostParameter("application"));
                 }
             }
         } else {
@@ -1278,13 +1330,13 @@ class tasksActions extends sfActions
                         $task->save();
                     }
 
-                    $this->redirect("/backend.php/tasks/view/id/" . $request->getParameter("redirect"));
+                    $this->redirect("/plan/tasks/view/id/" . $request->getParameter("redirect"));
                 } else {
                     $q = Doctrine_Query::create()
                         ->from('CfUser a')
                         ->where('a.nid = ?', $this->getUser()->getAttribute('userid'));
                     $reviewer = $q->fetchOne();
-                    $this->redirect("/backend.php/tasks/department/filter/" . $reviewer->getStrdepartment());
+                    $this->redirect("/plan/tasks/department/filter/" . $reviewer->getStrdepartment());
                 }
             }
         }
@@ -1384,7 +1436,7 @@ class tasksActions extends sfActions
         if ($request->getPostParameter("submit")) {
             $this->redirect($request->getPostParameter("submit"));
         } else {
-            $this->redirect('/backend.php/tasks/view/id/' . $this->task->getId());
+            $this->redirect('/plan/tasks/view/id/' . $this->task->getId());
         }
     }
 
@@ -1414,9 +1466,9 @@ class tasksActions extends sfActions
             $application->save();
 
             if ($request->getParameter("redirect")) {
-                $this->redirect("/backend.php/dashboard");
+                $this->redirect("/plan/dashboard");
             } else {
-                $this->redirect("/backend.php/users/viewuser/userid/" . $this->task->getOwnerUserId());
+                $this->redirect("/plan/users/viewuser/userid/" . $this->task->getOwnerUserId());
             }
         }
     }
@@ -1494,7 +1546,7 @@ class tasksActions extends sfActions
             <br>
             Click here to view the application: <br>
             ------- <br>
-            <a href='http://" . $_SERVER['HTTP_HOST'] . "/index.php/application/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
+            <a href='" . sfConfig::get('app_sso_backend_jambo_url') . "plan/application/view/id/" . $application->getId() . "'>Link to " . $application->getApplicationId() . "</a><br>
             ------- <br>
 
             <br>
@@ -1502,6 +1554,14 @@ class tasksActions extends sfActions
 
             $mailnotifications = new mailnotifications();
             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $user_profile->getEmail(), "New Message", $body);
+            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                $body = "Hi " . $user_profile->getFullname() .
+                    ", you have a new message on " . $application->getApplicationId() .
+                    " from " . $reviewer->getStrfirstname() . " (" . $reviewer->getStrdepartment() . "). " .
+                    "View: " . sfConfig::get('app_sso_backend_jambo_url') . "plan/application/view/id/" . $application->getId();
+
+                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+            }
             echo json_encode(array('success' => true, 'message' => array('name' => $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname(), 'content' => trim($request->getPostParameter("txtmessage")), 'time' => $message->getActionTimestamp())));
         } elseif ($request->getPostParameter("txtmemo")) {
             //Audit

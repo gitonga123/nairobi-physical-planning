@@ -27,8 +27,8 @@ mysql -h 192.168.16.4 -P 3306 --protocol=TCP -u root -p
 
 >> gd for qr code -> sudo apt install php7.4-gd
 
->> Manual user Activation - http://localhost:89/index.php/sfApply/confirm?validate=n779b9d0da6f4e374
-https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=n779b9d0da6f4e374
+>> Manual user Activation - http://localhost:89/plan/sfApply/confirm?validate=n779b9d0da6f4e374
+https://livenakururevenue.amkatek.com/plan/sfApply/confirm?validate=n779b9d0da6f4e374
 -- Make sure u get the code from (select * from sf_guard_user_profile ;)
 
 >> db queries
@@ -69,11 +69,11 @@ INSERT INTO api_users VALUES(null,'demo1','demo1') ;
 //mod wsgi issue - https://stackoverflow.com/questions/33320889/invalid-command-wsgidaemonprocess-deploy-django-application-on-centos-6-7
 sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3
 // validate a user 
-/index.php/sfApply/confirm?validate=n7f3ddd94534ba07e&username=boniface
-live demo - https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=n7fe94d023406c08b&username=stella
+/plan/sfApply/confirm?validate=n7f3ddd94534ba07e&username=boniface
+live demo - https://livenakururevenue.amkatek.com/plan/sfApply/confirm?validate=n7fe94d023406c08b&username=stella
 Live - 
-https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=rcf9d327cb6fda648&username=boniface
-https://livenakururevenue.amkatek.com/index.php/sfApply/confirm?validate=r97c6d5177098a833&username=boniface
+https://livenakururevenue.amkatek.com/plan/sfApply/confirm?validate=rcf9d327cb6fda648&username=boniface
+https://livenakururevenue.amkatek.com/plan/sfApply/confirm?validate=r97c6d5177098a833&username=boniface
 // strict mode disable
 SET @@global.sql_mode= '';
 
@@ -123,4 +123,4 @@ ALTER TABLE plot ADD COLUMN property_usage VARCHAR(256) NULL ;
 // Add column to check emailing status
 ALTER TABLE cf_user ADD COLUMN emailing_status INTEGER DEFAULT 0 ;
 
->>> plot check url - http://localhost:89/index.php/dashboard/plotinformation?q=684
+>>> plot check url - http://localhost:89/plan/dashboard/plotinformation?q=684

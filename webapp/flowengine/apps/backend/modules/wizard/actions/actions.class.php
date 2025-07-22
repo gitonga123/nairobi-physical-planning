@@ -251,7 +251,7 @@ class wizardActions extends sfActions
 
       if($wizard_manager->is_first_run())
       {
-          $this->redirect("/backend.php/dashboard");
+          $this->redirect("/plan/dashboard");
       }
   }
 
@@ -272,7 +272,7 @@ class wizardActions extends sfActions
 
       if($this->step == 5)
       {
-          $this->redirect("/backend.php/services/index");
+          $this->redirect("/plan/services/index");
       }
 
 	  if($request->getPostParameter("step") == 1)
@@ -503,37 +503,37 @@ class wizardActions extends sfActions
 				  if($stageaction == 1) //Move to Next Stage
 				  {
 					  $title = "Send to Next Stage";
-					  $link = "/backend.php/forms/move?moveto=".$stages[$count + 1];
+					  $link = "/plan/forms/move?moveto=".$stages[$count + 1];
 				  }
 				  elseif($stageaction == 2) //Move to Previous Stage
 				  {
 					  $title = "Send Back";
-					  $link = "/backend.php/forms/move?moveto=".$stages[$count - 1];
+					  $link = "/plan/forms/move?moveto=".$stages[$count - 1];
 				  }
 				  elseif($stageaction == 3) //Skip Next Stage
 				  {
 					  $title = "Send to Next Stage";
-					  $link = "/backend.php/forms/move?moveto=".$stages[$count + 2];
+					  $link = "/plan/forms/move?moveto=".$stages[$count + 2];
 				  }
 				  elseif($stageaction == 4) //Skip Previous Stage
 				  {
 					  $title = "Send Back";
-					  $link = "/backend.php/forms/move?moveto=".$stages[$count - 2];
+					  $link = "/plan/forms/move?moveto=".$stages[$count - 2];
 				  }
 				  elseif($stageaction == 5) //Move to Next Stage as Declined
 				  {
 					  $title = "Send to Next Stage and Decline";
-					  $link = "/backend.php/forms/decline?moveto=".$stages[$count + 1];
+					  $link = "/plan/forms/decline?moveto=".$stages[$count + 1];
 				  }
 				  elseif($stageaction == 6) //Move to Previous Stage as Declined
 				  {
 					  $title = "Send to Previous Stage and Decline";
-					  $link = "/backend.php/forms/decline?moveto=".$stages[$count - 1];
+					  $link = "/plan/forms/decline?moveto=".$stages[$count - 1];
 				  }
 				  elseif($stageaction == 7) //Move to Next Stage as Approved
 				  {
 					  $title = "Send to Next Stage and Approve";
-					  $link = "/backend.php/forms/approve?approved=1&moveto=".$stages[$count + 1];
+					  $link = "/plan/forms/approve?approved=1&moveto=".$stages[$count + 1];
 				  }
 
 				  $action = new Buttons();
@@ -676,13 +676,13 @@ class wizardActions extends sfActions
 	  }
 	  elseif($request->getPostParameter("step") == 9)
 	  {
-			$this->redirect("/backend.php/services/index");
+			$this->redirect("/plan/services/index");
 	  }
     $this->setLayout("layout-settings");
 
     if($wizard_manager->is_first_run())
     {
-        $this->redirect("/backend.php/dashboard");
+        $this->redirect("/plan/dashboard");
     }
 
     $this->getUser()->setAttribute('post_resume', $this->step);
@@ -710,7 +710,7 @@ class wizardActions extends sfActions
 
             $action = new Buttons();
             $action->setTitle('Send to '.$stage->getTitle());
-            $action->setLink('/backend.php/forms/move?moveto='.$to);
+            $action->setLink('/plan/forms/move?moveto='.$to);
 			$action->setImg("");
 			$action->setTooltip("");
             $action->save();

@@ -1,7 +1,7 @@
 <?php
 	use_helper("I18N");
 ?>
-<form  action="/backend.php/zones/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered bform">
+<form  action="/plan/zones/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered bform">
 
 <?php echo $form->renderHiddenFields() ?>
 
@@ -12,7 +12,7 @@
     </div>
 
 		<div class="panel-heading">
-          <a class="btn btn-primary" id="" href="/backend.php/zones/index" ><?php echo __('Back to List'); ?></a>
+          <a class="btn btn-primary" id="" href="/plan/zones/index" ><?php echo __('Back to List'); ?></a>
     </div>
 
 

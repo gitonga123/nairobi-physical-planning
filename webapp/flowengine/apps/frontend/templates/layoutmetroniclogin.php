@@ -28,12 +28,12 @@ License: You must have a valid license purchased only from themeforest (the abov
   <meta content="Uasin Gishu CG Portal keywords" name="keywords">
   <meta content="keenthemes" name="author">
 
-  <meta property="og:site_name" content="UASIN GISHU COUNTY E-SERVICES">
-  <meta property="og:title" content="UASIN GISHU COUNTY E-SERVICES">
-  <meta property="og:description" content="UASIN GISHU COUNTY E-SERVICES">
+  <meta property="og:site_name" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
+  <meta property="og:title" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
+  <meta property="og:description" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="UASIN GISHU COUNTY E-SERVICES"><!-- link to image for socio -->
-  <meta property="og:url" content="UASIN GISHU COUNTY E-SERVICES">
+  <meta property="og:image" content="Uasin Gishu COUNTY Physical Planning and Urban Development"><!-- link to image for socio -->
+  <meta property="og:url" content="Uasin Gishu COUNTY Physical Planning and Urban Development">
 
   <link rel="shortcut icon" href="favicon.ico">
 
@@ -79,8 +79,8 @@ License: You must have a valid license purchased only from themeforest (the abov
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li><a href="/index.php/login">Log In</a></li>
-                        <li><a href="/index.php/register">Registration</a></li>
+                        <li><a href="/plan/login">Log In</a></li>
+                        <li><a href="/plan/register">Registration</a></li>
                     </ul>
                 </div>
                 <!-- END TOP BAR MENU -->
@@ -194,7 +194,7 @@ License: You must have a valid license purchased only from themeforest (the abov
         <div class="row">
           <!-- BEGIN COPYRIGHT -->
           <div class="col-md-6 col-sm-6 padding-top-10">
-            2023 © Nakuru Country Government. ALL Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            2023 © Uasin Gishu Country Government. ALL Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
           </div>
           <!-- END COPYRIGHT -->
          

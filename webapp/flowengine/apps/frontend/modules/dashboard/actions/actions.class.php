@@ -23,12 +23,12 @@ class dashboardActions extends sfActions
 	{
 		//If the user is not authenticated then redirect to index page
 		if (!$this->getUser()->isAuthenticated()) {
-			$this->redirect('/index.php');
+			$this->redirect('/plan/');
 		}
 
 		//If no user is authenticated then signout. Backend session and Frontend session mix ups
 		if ($this->getUser()->getGuardUser() == null) {
-			header("Location: /index.php/signon/logout");
+			header("Location: /plan/signon/logout");
 		}
 		// All permits
 		$q = Doctrine_Query::create()
@@ -55,7 +55,7 @@ class dashboardActions extends sfActions
 			->leftJoin("a.Stage s")
 			->where("a.user_id = ? and a.deleted_status = ? and a.parent_submission =?", [$this->getUser()->getGuardUser()->getId(), 0, 0])
 			->orderBy('a.id desc')
-			->limit(1000);
+			->limit(100);
 
 		$this->latest_applications = $q->execute();
 
@@ -93,6 +93,8 @@ class dashboardActions extends sfActions
 			->where("a.circulation_id = ?", $this->getUser()->getGuardUser()->getId())
 			->limit(2);
 		$this->transferring_applications = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Dashboard");
 		$this->setLayout("layoutmentordash");
 	}
 	public function executeApplicationslist(sfWebRequest $request)
@@ -106,6 +108,7 @@ class dashboardActions extends sfActions
 			->orderBy('a.id desc');
 
 		$this->all_applications = $q->execute();
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Applications");
 		$this->setLayout("layoutmentordash");
 	}
 	public function executeCorrectionsList(sfWebRequest $request)
@@ -118,6 +121,8 @@ class dashboardActions extends sfActions
 			->andWhere("a.declined = 1")
 			->orderBy("a.id DESC");
 		$this->corrections_applications = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Applications Corrections");
 		$this->setLayout("layoutmentordash");
 	}
 	public function executePlotinformation(sfWebRequest $request)
@@ -171,6 +176,8 @@ class dashboardActions extends sfActions
 			->where("i.paid = ? and e.user_id = ? and e.deleted_status = ? and e.parent_submission =?", [1, $this->getUser()->getGuardUser()->getId(), 0, 0])
 			->orderBy('i.id desc');
 		$this->all_invoices = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Pending Invoices");
 		$this->setLayout("layoutmentordash");
 	}	
 	public function executePaidinvoices(sfWebRequest $request)
@@ -183,6 +190,8 @@ class dashboardActions extends sfActions
 			->where("i.paid = ? and e.user_id = ? and e.deleted_status = ? and e.parent_submission =?", [2, $this->getUser()->getGuardUser()->getId(), 0, 0])
 			->orderBy('i.id desc');
 		$this->all_invoices = $q->execute();
+
+		$this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Paid Invoices");
 		$this->setLayout("layoutmentordash");
 	}
 	private function _applicationsQuery($cols = null, $request = null)

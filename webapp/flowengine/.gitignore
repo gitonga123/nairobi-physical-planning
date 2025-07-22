@@ -21,3 +21,4 @@ zizi_responses.log
 composer.lock
 composer.phar
 ../cp_instance.session.sql
+.env

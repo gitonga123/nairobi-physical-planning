@@ -17,8 +17,8 @@ use_helper("I18N");
 	<div class="breadcrumb-wrapper">
 		<span class="label"><?php echo __('You are here'); ?>:</span>
 		<ol class="breadcrumb">
-			<li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
-			<li><a href="/backend.php/frusers/index"><?php echo __('Users'); ?></a></li>
+			<li><a href="/plan"><?php echo __('Home'); ?></a></li>
+			<li><a href="/plan/frusers/index"><?php echo __('Users'); ?></a></li>
 		</ol>
 	</div>
 </div>
@@ -75,7 +75,7 @@ use_helper("I18N");
 					<div class="tab-pane active" id="ptab1">
 						<form class="form-bordered form-horizontal border-top-1">
 							<div class="form-group"><label class="col-sm-2 control-label"><i class="bold-label-2"><?php echo __('Full Name'); ?></i></label>
-								<div class="col-sm-10"><?php echo $user->getProfile()->getFullname(); ?><a class='btn btn-default pull-right' href="/backend.php/frusers/edit/id/<?php echo $user->getId(); ?>"><i class="fa fa-pencil"></i> <span class="hidden-xs"><?php echo __('Edit Basic Details'); ?></span></a></div>
+								<div class="col-sm-10"><?php echo $user->getProfile()->getFullname(); ?><a class='btn btn-default pull-right' href="/plan/frusers/edit/id/<?php echo $user->getId(); ?>"><i class="fa fa-pencil"></i> <span class="hidden-xs"><?php echo __('Edit Basic Details'); ?></span></a></div>
 							</div>
 							<div class="form-group"><label class="col-sm-2 control-label"><i class="bold-label-2"><?php echo __('Email Address'); ?></i></label>
 								<div class="col-sm-10"><?php echo $user->getProfile()->getEmail(); ?></div>
@@ -144,7 +144,7 @@ use_helper("I18N");
 							if ($profile && !sfConfig::get('app_sso')) {
 							?>
 								<div class="form-group">
-									<div class="col-sm-12"><a class='btn btn-default pull-right' href="/backend.php/frusers/editadditional/formid/<?php echo $profile->getFormId() ?>/entryid/<?php echo $profile->getEntryId(); ?>">&nbsp; <?php echo __('Edit Additional Details'); ?></a></div>
+									<div class="col-sm-12"><a class='btn btn-default pull-right' href="/plan/frusers/editadditional/formid/<?php echo $profile->getFormId() ?>/entryid/<?php echo $profile->getEntryId(); ?>">&nbsp; <?php echo __('Edit Additional Details'); ?></a></div>
 								</div>
 							<?php
 								include_partial('frusers/listinfo', array('form_id' => $profile->getFormId(), 'entry_id' => $profile->getEntryId()));
@@ -228,11 +228,11 @@ use_helper("I18N");
 													?>
 												</td>
 												<td class="aligncenter">
-													<a title='<?php echo __('View Application'); ?>' href='/backend.php/applications/view/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-search-plus"></i></span></a>
+													<a title='<?php echo __('View Application'); ?>' href='/plan/applications/view/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-search-plus"></i></span></a>
 													<?php
 													if ($application->getApproved() == 0) {
 													?>
-														<a onClick="if(confirm('Are you sure you want to delete this draft?')){ return true; }else{ return false; }" title='<?php echo __('Delete Draft'); ?>' href='/backend.php/frusers/show/id/<?php echo $application->getUserId(); ?>/remove/<?php echo $application->getId(); ?>'><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+														<a onClick="if(confirm('Are you sure you want to delete this draft?')){ return true; }else{ return false; }" title='<?php echo __('Delete Draft'); ?>' href='/plan/frusers/show/id/<?php echo $application->getUserId(); ?>/remove/<?php echo $application->getId(); ?>'><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
 													<?php
 													}
 													?>
@@ -243,7 +243,7 @@ use_helper("I18N");
 										?>
 										<tr>
 											<td colspan="6" class="radius-bl radius-br">
-												<a href="/backend.php/frusers/recover/id/<?php echo $user->getId(); ?>" class="btn btn-primary pull-right" id="recoverapplication"><?php echo __('Recover An Application'); ?></a>
+												<a href="/plan/frusers/recover/id/<?php echo $user->getId(); ?>" class="btn btn-primary pull-right" id="recoverapplication"><?php echo __('Recover An Application'); ?></a>
 											</td>
 										</tr>
 									</tbody>
@@ -313,7 +313,7 @@ use_helper("I18N");
 													?>
 												</td>
 												<td class="aligncenter">
-													<a title='<?php echo __('View Application'); ?>' href='/backend.php/permits/view/id/<?php echo $permit->getId(); ?>'><span class="label label-primary"><i class="fa fa-search-plus"></i></span></a>
+													<a title='<?php echo __('View Application'); ?>' href='/plan/permits/view/id/<?php echo $permit->getId(); ?>'><span class="label label-primary"><i class="fa fa-search-plus"></i></span></a>
 												</td>
 											</tr>
 										<?php
@@ -321,7 +321,7 @@ use_helper("I18N");
 										?>
 										<tr>
 											<td colspan="6" class="radius-bl radius-br">
-												<a href="/backend.php/frusers/recover/id/<?php echo $user->getId(); ?>" class="btn btn-primary pull-right" id="recoverapplication"><?php echo __('Recover An Application'); ?></a>
+												<a href="/plan/frusers/recover/id/<?php echo $user->getId(); ?>" class="btn btn-primary pull-right" id="recoverapplication"><?php echo __('Recover An Application'); ?></a>
 											</td>
 										</tr>
 									</tbody>
@@ -353,7 +353,7 @@ use_helper("I18N");
 													<td><?php echo $business->getCreatedAt() ?></td>
 													<td><?php echo ($business->getDeleted()) ? "<span class='label label-danger'>Not Active</span>" : "<span class='label label-success'>Active</span>"; ?></td>
 													<td>
-														<a title="<?php echo __('View Business'); ?>" href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+														<a title="<?php echo __('View Business'); ?>" href="/plan/profiles/view/id/<?php echo $business->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
 													</td>
 												</tr>
 											<?php
@@ -372,11 +372,11 @@ use_helper("I18N");
 
 													<?php if ($businesses->haveToPaginate()) : ?>
 														<ul class="pagination pagination-sm mb0 mt0 pull-right">
-															<li><a href="/backend.php/frusers/show/page/1">
+															<li><a href="/plan/frusers/show/page/1">
 																	<i class="fa fa-angle-left"></i>
 																</a></li>
 
-															<li><a href="/backend.php/frusers/show/page/<?php echo $businesses->getPreviousPage() ?>">
+															<li><a href="/plan/frusers/show/page/<?php echo $businesses->getPreviousPage() ?>">
 																	<i class="fa fa-angle-left"></i>
 																</a></li>
 
@@ -384,15 +384,15 @@ use_helper("I18N");
 																<?php if ($page == $businesses->getPage()) : ?>
 																	<li class="active"><a href=""><?php echo $page ?></li></a>
 																<?php else : ?>
-																	<li><a href="/backend.php/frusers/show/page/<?php echo $page ?>"><?php echo $page ?></a></li>
+																	<li><a href="/plan/frusers/show/page/<?php echo $page ?>"><?php echo $page ?></a></li>
 																<?php endif; ?>
 															<?php endforeach; ?>
 
-															<li><a href="/backend.php/frusers/show/page/<?php echo $businesses->getNextPage() ?>">
+															<li><a href="/plan/frusers/show/page/<?php echo $businesses->getNextPage() ?>">
 																	<i class="fa fa-angle-right"></i>
 																</a></li>
 
-															<li><a href="/backend.php/frusers/show/<?php echo $businesses->getLastPage() ?>">
+															<li><a href="/plan/frusers/show/<?php echo $businesses->getLastPage() ?>">
 																	<i class="fa fa-angle-right"></i>
 																</a>
 															</li>
@@ -468,8 +468,8 @@ use_helper("I18N");
 													?>
 												</td>
 												<td class="aligncenter">
-													<a title='<?php echo __('View Application'); ?>' href='/backend.php/applications/viewarchive/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-search-plus"></i></span></a>
-													<a title='<?php echo __('Unarchive Application'); ?>' href='/backend.php/applications/reversearchive/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-arrow-left"></i></span></a>
+													<a title='<?php echo __('View Application'); ?>' href='/plan/applications/viewarchive/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-search-plus"></i></span></a>
+													<a title='<?php echo __('Unarchive Application'); ?>' href='/plan/applications/reversearchive/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-arrow-left"></i></span></a>
 												</td>
 											</tr>
 										<?php
@@ -477,7 +477,7 @@ use_helper("I18N");
 										?>
 										<tr>
 											<td colspan="6" class="radius-bl radius-br">
-												<a href="/backend.php/frusers/recover/id/<?php echo $user->getId(); ?>" class="btn btn-primary pull-right" id="recoverapplication"><?php echo __('Recover An Application'); ?></a>
+												<a href="/plan/frusers/recover/id/<?php echo $user->getId(); ?>" class="btn btn-primary pull-right" id="recoverapplication"><?php echo __('Recover An Application'); ?></a>
 											</td>
 										</tr>
 									</tbody>

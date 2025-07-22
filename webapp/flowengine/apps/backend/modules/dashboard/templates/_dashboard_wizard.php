@@ -18,7 +18,7 @@
     <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __("You are here"); ?>:</span>
         <ol class="breadcrumb">
-            <li><a href="/backend.php"><?php echo __("Home"); ?></a></li>
+            <li><a href="/plan"><?php echo __("Home"); ?></a></li>
             <li class="active"><?php echo __("Workflow"); ?></li>
         </ol>
     </div>
@@ -64,7 +64,7 @@
                                     <div class="tab-content">
 
                                         <div id="tabgroups" class="tab-pane <?php if($wizard_manager->resume_step() == 0){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/security"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/security"); ?>">
                                                 <input type="hidden" name="step" value="1" />
                                                 <div id="groups">
                                                     <?php
@@ -106,7 +106,7 @@
                                         </div><!-- tab-pane -->
 
                                         <div id="tabcredentials" class="tab-pane <?php if($wizard_manager->resume_step() == 1){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/security"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/security"); ?>">
                                                 <input type="hidden" name="step" value="2" />
                                                 <?php
                                                 $count = 0;
@@ -160,7 +160,7 @@
                                         </div><!-- tab-pane -->
 
                                         <div id="tabreviewers" class="tab-pane <?php if($wizard_manager->resume_step() == 2){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/security"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/security"); ?>">
                                                 <input type="hidden" name="step" value="3" />
                                                 <div id="users">
                                                 </div>
@@ -204,7 +204,7 @@
                                     <div class="tab-content">
 
                                         <div id="tabdepartments" class="tab-pane <?php if($wizard_manager->resume_step() == 3){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="1" />
                                                 <div id="departments">
                                                     <div class="form-group">
@@ -234,7 +234,7 @@
                                         </div>
 
                                         <div id="tabassignreviewers" class="tab-pane <?php if($wizard_manager->resume_step() == 4){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="2" />
                                                 <div id="users">
                                                     <?php
@@ -281,7 +281,7 @@
                                         </div>
 
                                         <div id="tabworkflows" class="tab-pane <?php if($wizard_manager->resume_step() == 5){ echo "active"; } ?>">
-                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/wizard/workflow"); ?>">
+                                            <form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/wizard/workflow"); ?>">
                                                 <input type="hidden" name="step" value="3" />
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label"><h5>Workflow Category</h5></label>
@@ -355,7 +355,7 @@
                                             </div>
 
                                             <div class="panel-footer">
-                                                <a href="/backend.php/dashboard" class="btn btn-success pull-right" style="color: #FFF;" id="submitusers"><?php echo __("Next"); ?></a>
+                                                <a href="/plan/dashboard" class="btn btn-success pull-right" style="color: #FFF;" id="submitusers"><?php echo __("Next"); ?></a>
                                             </div>
                                         </div>
                                     </div>
@@ -378,10 +378,10 @@
 													->from('FormGroups g');
 												$form_groups=$q->count();
 												if($form_groups){
-													header("Location: /backend.php/forms/form");
+													header("Location: /plan/forms/form");
 													exit;
 												}else{
-													header("Location: /backend.php/formgroups/new");
+													header("Location: /plan/formgroups/new");
 													exit;
 												}
                                             }
@@ -389,7 +389,7 @@
                                                 echo "Unavailable until other configuration are complete";
                                             }
                                             ?>
-                                            <form class="form-horizontal form-bordered" method="post" action="/backend.php/dashboard">
+                                            <form class="form-horizontal form-bordered" method="post" action="/plan/dashboard">
                                                 <input type="hidden" name="step" value="8" />
                                                 <div class="panel-footer">
                                                     <button type="submit" class="btn btn-success pull-right" style="margin-top: 10px;" id="submitgroups"><?php echo __("Next"); ?></button>
@@ -402,7 +402,7 @@
                                             if($wizard_manager->resume_step() == 8) {
                                                 ?>
                                                 <h2>Creating an invoice template</h2>
-                                                <form id="invoicetemplatesform" class="form-bordered" action="/backend.php/<?php echo 'invoicetemplates/'.($invoice_form->getObject()->isNew() ? 'create' : 'update'.(!$invoice_form->getObject()->isNew() ? '?id='.$invoice_form->getObject()->getId() : '')) ?>" method="post">
+                                                <form id="invoicetemplatesform" class="form-bordered" action="/plan/<?php echo 'invoicetemplates/'.($invoice_form->getObject()->isNew() ? 'create' : 'update'.(!$invoice_form->getObject()->isNew() ? '?id='.$invoice_form->getObject()->getId() : '')) ?>" method="post">
                                                 <div class="panel-body padding-0">
                                                 <?php if (!$invoice_form->getObject()->isNew()): ?>
                                                     <input type="hidden" name="sf_method" value="put" />
@@ -876,7 +876,7 @@
                                             if($wizard_manager->resume_step() == 9) {
                                                 ?>
                                                 <h2>Create a permit template</h2>
-                                                <form id="permitform" class="form-bordered" action="/backend.php/<?php echo 'permittemplates/'.($permit_form->getObject()->isNew() ? 'create' : 'update'.(!$permit_form->getObject()->isNew() ? '?id='.$permit_form->getObject()->getId() : '')) ?>" method="post"  autocomplete="off">
+                                                <form id="permitform" class="form-bordered" action="/plan/<?php echo 'permittemplates/'.($permit_form->getObject()->isNew() ? 'create' : 'update'.(!$permit_form->getObject()->isNew() ? '?id='.$permit_form->getObject()->getId() : '')) ?>" method="post"  autocomplete="off">
                                                 <div class="panel-body padding-0">
                                                 <?php if (!$permit_form->getObject()->isNew()): ?>
                                                     <input type="hidden" name="sf_method" value="put" />
@@ -1426,7 +1426,7 @@
                                                     ?>
                                                     <script language="javascript">
                                                         jQuery(document).ready(function(){
-                                                            $("#loadinner").load("/backend.php/conditionsmng/index/filter/<?php echo $permitid; ?>");
+                                                            $("#loadinner").load("/plan/conditionsmng/index/filter/<?php echo $permitid; ?>");
                                                         });
                                                     </script>
                                                 </div>
@@ -1460,14 +1460,14 @@
                                         <div id="tabcurrency" class="tab-pane <?php if($wizard_manager->resume_step() == 10){ echo "active"; } ?>">
                                             <?php
                                             if($wizard_manager->resume_step() == 10) {
-                                                header("Location: /backend.php/currencies/new");
+                                                header("Location: /plan/currencies/new");
                                                 exit;
                                             }
                                             else{
                                                 echo "Unavailable until other configuration are complete";
                                             }
                                             ?>
-                                            <form class="form-horizontal form-bordered" method="post" action="/backend.php/dashboard">
+                                            <form class="form-horizontal form-bordered" method="post" action="/plan/dashboard">
                                                 <div class="panel-footer">
                                                     <button type="submit" class="btn btn-success pull-right" style="margin-top: 10px;" id="submitgroups"><?php echo __("Next"); ?></button>
                                                 </div>
@@ -1477,14 +1477,14 @@
                                         <div id="tabMerchant" class="tab-pane <?php if($wizard_manager->resume_step() == 11){ echo "active"; } ?>">
                                             <?php
                                             if($wizard_manager->resume_step() == 11) {
-                                                header("Location: /backend.php/merchant/new");
+                                                header("Location: /plan/merchant/new");
                                                 exit;
                                             }
                                             else{
                                                 echo "Unavailable until other configuration are complete";
                                             }
                                             ?>
-                                            <form class="form-horizontal form-bordered" method="post" action="/backend.php/dashboard">
+                                            <form class="form-horizontal form-bordered" method="post" action="/plan/dashboard">
                                                 <div class="panel-footer">
                                                     <button type="submit" class="btn btn-success pull-right" style="margin-top: 10px;" id="submitgroups"><?php echo __("Next"); ?></button>
                                                 </div>
@@ -1494,14 +1494,14 @@
                                         <div id="tabFeeCategory" class="tab-pane <?php if($wizard_manager->resume_step() == 12){ echo "active"; } ?>">
                                             <?php
                                             if($wizard_manager->resume_step() == 12) {
-                                                header("Location: /backend.php/feecategories/new");
+                                                header("Location: /plan/feecategories/new");
                                                 exit;
                                             }
                                             else{
                                                 echo "Unavailable until other configuration are complete";
                                             }
                                             ?>
-                                            <form class="form-horizontal form-bordered" method="post" action="/backend.php/dashboard">
+                                            <form class="form-horizontal form-bordered" method="post" action="/plan/dashboard">
                                                 <div class="panel-footer">
                                                     <button type="submit" class="btn btn-success pull-right" style="margin-top: 10px;" id="submitgroups"><?php echo __("Next"); ?></button>
                                                 </div>
@@ -1510,14 +1510,14 @@
                                         <div id="tabFee" class="tab-pane <?php if($wizard_manager->resume_step() == 13){ echo "active"; } ?>">
                                             <?php
                                             if($wizard_manager->resume_step() == 13) {
-                                                header("Location: /backend.php/fees/new");
+                                                header("Location: /plan/fees/new");
                                                 exit;
                                             }
                                             else{
                                                 echo "Unavailable until other configuration are complete";
                                             }
                                             ?>
-                                            <form class="form-horizontal form-bordered" method="post" action="/backend.php/dashboard">
+                                            <form class="form-horizontal form-bordered" method="post" action="/plan/dashboard">
                                                 <div class="panel-footer">
                                                     <button type="submit" class="btn btn-success pull-right" style="margin-top: 10px;" id="submitgroups"><?php echo __("Next"); ?></button>
                                                 </div>
@@ -1526,14 +1526,14 @@
                                         <div id="tabagency" class="tab-pane <?php if($wizard_manager->resume_step() == 14){ echo "active"; } ?>">
                                             <?php
                                             if($wizard_manager->resume_step() == 14) {
-                                                header("Location: /backend.php/agency/new");
+                                                header("Location: /plan/agency/new");
                                                 exit;
                                             }
                                             else{
                                                 echo "Unavailable until other configuration are complete";
                                             }
                                             ?>
-                                            <form class="form-horizontal form-bordered" method="post" action="/backend.php/dashboard">
+                                            <form class="form-horizontal form-bordered" method="post" action="/plan/dashboard">
                                                 <div class="panel-footer">
                                                     <button type="submit" class="btn btn-success pull-right" style="margin-top: 10px;" id="submitgroups"><?php echo __("Next"); ?></button>
                                                 </div>

@@ -109,7 +109,7 @@ class faqActions extends sfActions
     {
       $faq = $form->save();
 
-      $this->redirect('/backend.php/faq/index');
+      $this->redirect('/plan/faq/index');
     }
   }
 
@@ -126,7 +126,7 @@ class faqActions extends sfActions
 
     $faq->delete();
 
-    $this->redirect('/backend.php/faq/index');
+    $this->redirect('/plan/faq/index');
   }
 
 }

@@ -5,7 +5,7 @@
     -webkit-box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
     box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
     color: #fff;
-    background: #44ade2 !important;
+    background: #006838 !important;
 }
 
 .logopanel {
@@ -15,7 +15,14 @@
     box-sizing: border-box;
     -webkit-box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
     box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
-    background: #EC578b !important;
+    background: #fff !important;
+}
+
+.logopanel .img {
+    margin-left: 5px;
+    width: 200px;
+    height: 28px;
+    object-fit: cover;
 }
 
 .searchform input.form-control {
@@ -27,7 +34,7 @@
     -moz-border-radius: 3px;
     border-radius: 3px;
     box-shadow: none;
-    background: #44ade2;
+    background: #006838;
     color: #fff;
     padding: 7px 67px;
     font-size: 16px;
@@ -43,8 +50,44 @@
     border-radius: 3px;
 }
 
-.nav-bracket>li.active>a, .nav-bracket>li.active>a:hover, .nav-bracket>li.active>a:focus {
+.nav-bracket>li.active>a,
+.nav-bracket>li.active>a:hover,
+.nav-bracket>li.active>a:focus {
     background: transparent;
-    color: #EC578b;
+    color: #006838;
     box-shadow: none;
+}
+
+@media print {
+    .panel {
+        page-break-inside: avoid;
+        /* Prevents breaking inside panel */
+        border: 2px solid black !important;
+        /* Ensures border on each page */
+        padding: 10px;
+    }
+
+    .panel-heading {
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+
+    .panel-body {
+        page-break-before: auto;
+    }
+
+    .payment-options {
+        page-break-before: always;
+        /* Moves Payment Options to a new page */
+        border: 2px solid black !important;
+        /* Independent border on new page */
+        padding: 10px;
+    }
+
+    table {
+        page-break-inside: avoid;
+        /* Prevents table rows from splitting */
+        width: 100%;
+    }
 }

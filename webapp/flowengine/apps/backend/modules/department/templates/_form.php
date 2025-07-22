@@ -1,7 +1,7 @@
 <?php
 	use_helper("I18N");
 ?>
-<form  action="/backend.php/department/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
+<form  action="/plan/department/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
 
   <?php if (!$form->getObject()->isNew()): ?>
   <input type="hidden" name="sf_method" value="put" />
@@ -18,7 +18,7 @@
     </div>
 
 		<div class="panel-heading text-right">
-          <a class="btn btn-primary" id="newpage" href="/backend.php/department/index" ><?php echo __('Back to List'); ?></a>
+          <a class="btn btn-primary" id="newpage" href="/plan/department/index" ><?php echo __('Back to List'); ?></a>
     </div>
 
 
@@ -47,7 +47,7 @@
     </div><!-- panel-body -->
     <div class="panel-footer">
       <button type="submit" class="btn btn-primary"><?php echo __('Submit'); ?></button>
-      <?php if(!$form->getObject()->isNew()){ ?><a href="/backend.php/department/delete/id/<?php echo $form->getObject()->getId(); ?>" class="btn btn-danger"><?php echo __('Delete'); ?></a><?php } ?>
+      <?php if(!$form->getObject()->isNew()){ ?><a href="/plan/department/delete/id/<?php echo $form->getObject()->getId(); ?>" class="btn btn-danger"><?php echo __('Delete'); ?></a><?php } ?>
     </div>
  </div><!-- panel-default -->
 </form>

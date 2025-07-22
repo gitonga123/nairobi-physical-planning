@@ -54,10 +54,10 @@ if (mf_is_form_submitted()) {
 				}
 
 				if (sfConfig::get('app_sso_secret')) {
-					header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . "/index.php/mfRegister/notification?id={$_GET['formid']}&done=2");
+					header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . "/plan/mfRegister/notification?id={$_GET['formid']}&done=2");
 					exit;
 				} else {
-					header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . "/index.php/mfRegister/notification?id={$_GET['formid']}&done=1");
+					header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . "/plan/mfRegister/notification?id={$_GET['formid']}&done=1");
 					exit;
 				}
 			} else if ($submit_result['logic_page_enable'] === true) {

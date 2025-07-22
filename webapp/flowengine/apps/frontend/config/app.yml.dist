@@ -37,7 +37,7 @@ all:
   #set to false for countries that are not using single sign on
   site_base_url: http://usn.malipo.org/
   sso_jambo_web_url: http://ugselfservice.jambopay.co.ke:8081
-  sso_jambo_url: http://uasingishu.jambopay.co.ke:8080/
+  api_jambo_url: http://uasingishu.jambopay.co.ke:8080/
   sso_authorize_url: http://ugselfservice.jambopay.co.ke:8081/#/auth/login
   sso_logout_url: http://ugselfservice.jambopay.co.ke:8081/#/dashboard
   sso_register_url: http://ugselfservice.jambopay.co.ke:8081/#/auth/signup

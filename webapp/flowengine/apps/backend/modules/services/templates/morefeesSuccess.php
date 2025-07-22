@@ -12,8 +12,8 @@ use_helper("I18N");
     <form action="#" method="post">
 
         <div class="panel-heading text-right">
-                <a href="/backend.php/services" class="btn btn-primary"><?php echo __("Back to Services"); ?></a>
-                <a class="btn btn-primary" id="newfee" href="/backend.php/services/newmorefees/serviceid/<?php echo $service->getId(); ?>" > <?php echo __('+ Add Fee'); ?></a>
+                <a href="/plan/services" class="btn btn-primary"><?php echo __("Back to Services"); ?></a>
+                <a class="btn btn-primary" id="newfee" href="/plan/services/newmorefees/serviceid/<?php echo $service->getId(); ?>" > <?php echo __('+ Add Fee'); ?></a>
         </div>
 
         <div class="panel-body">
@@ -33,8 +33,8 @@ use_helper("I18N");
                         <td><?php echo $fee->getId(); ?></td>
                         <td><?php echo $fee->getFeeTitle();  ?></td>
                         <td align="center">
-                            <a id="editfee<?php echo $fee->getId(); ?>" href="/backend.php/services/editmorefees/serviceid/<?php echo $service->getId(); ?>/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletefee<?php echo $fee->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/services/deletemorefees/serviceid/<?php echo $service->getId(); ?>/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editfee<?php echo $fee->getId(); ?>" href="/plan/services/editmorefees/serviceid/<?php echo $service->getId(); ?>/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletefee<?php echo $fee->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/services/deletemorefees/serviceid/<?php echo $service->getId(); ?>/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

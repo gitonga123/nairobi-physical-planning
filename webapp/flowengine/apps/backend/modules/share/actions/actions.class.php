@@ -61,7 +61,7 @@ class shareActions extends sfActions {
                 //$this->getUser()->setFlash('share_error_exists', "share error exists") ;
 				sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
 				$this->getUser()->setFlash('shared_error',$user_share);
-				$this->redirect("/backend.php/share/share/id/".$request->getParameter('id')."");
+				$this->redirect("/plan/share/share/id/".$request->getParameter('id')."");
             }
             else if($otbhelper->checkifAppShared($request->getParameter("architect"), $request->getParameter("id"))== "not_shared") {
                 //false
@@ -98,7 +98,7 @@ class shareActions extends sfActions {
                 $this->getUser()->setFlash('uknown_share_error', "unknown") ;
             }
            /* */
-            $this->redirect("/backend.php/share/shared/id/".$request->getParameter('id')."");
+            $this->redirect("/plan/share/shared/id/".$request->getParameter('id')."");
         }
         $this->setLayout("layout");
     }
@@ -131,7 +131,7 @@ class shareActions extends sfActions {
                ->where('f.id = ? ', $id) ;
        $res = $q->execute(); 
        //
-        $this->redirect("/backend.php/share/shared");
+        $this->redirect("/plan/share/shared");
     }
     /**
      * Activate applicatiion shared
@@ -144,7 +144,7 @@ class shareActions extends sfActions {
                ->where('f.id = ? ', $id) ;
        $res = $q->execute(); 
        //
-        $this->redirect("/backend.php/share/shared");
+        $this->redirect("/plan/share/shared");
     }
 	//OTB ADD
 	public function executeSharemove(sfWebRequest $request)
@@ -162,10 +162,10 @@ class shareActions extends sfActions {
 				$this->application->setApproved($this->application->getStage()->getSharedStage());
 				$this->application->save();
 			}
-			$this->redirect("/backend.php/share/shared");
+			$this->redirect("/plan/share/shared");
 		}else{
 			$this->getUser()->setFlash('shared_error',htmlentities('<p>Application wasn\'t shared with the user!</p>'));
-			$this->redirect("/backend.php/share/share");
+			$this->redirect("/plan/share/share");
 		}
 		
 	}

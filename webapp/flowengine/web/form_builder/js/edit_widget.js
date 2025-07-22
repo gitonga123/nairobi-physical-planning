@@ -393,7 +393,7 @@ $(function(){
 					   	success: function(response_data){
 							   
 						   if(response_data.status == 'ok'){
-							   window.location.replace('/backend.php/forms/managereport?id=' + response_data.form_id);
+							   window.location.replace('/plan/forms/managereport?id=' + response_data.form_id);
 						   }	  
 						}
 				});

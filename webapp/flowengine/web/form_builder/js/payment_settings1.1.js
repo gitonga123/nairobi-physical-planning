@@ -126,7 +126,7 @@ $(function(){
 		}else{
 			//ajax
 			$.ajax({
-				url: "/backend.php/forms/getcurrency",
+				url: "/plan/forms/getcurrency",
 				data:{
 					merchant: merchant_type
 				},
@@ -782,7 +782,7 @@ $(function(){
 				$.ajax({
 					   type: "POST",
 					   async: true,
-					   url: "/backend.php/forms/savepaymentsettings",
+					   url: "/plan/forms/savepaymentsettings",
 					   data: {
 							  	payment_properties: $("#ps_main_list").data('payment_properties'),
 							  	field_prices: liprice_prop_array
@@ -797,7 +797,7 @@ $(function(){
 					   success: function(response_data){
 							   
 						   if(response_data.status == 'ok'){
-							   window.location.replace('/backend.php/forms/index?id=' + response_data.form_id + '&hl=1');
+							   window.location.replace('/plan/forms/index?id=' + response_data.form_id + '&hl=1');
 						   }else{
 							   alert('Error! Unable to save payment settings. Please try again.');
 						   }

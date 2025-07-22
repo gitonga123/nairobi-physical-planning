@@ -23,7 +23,7 @@ include_component('dashboard', 'checksession');
   <meta name="author" content="<?php echo $site_settings->getOrganisationName(); ?>">
   <title><?php echo $site_settings->getOrganisationName(); ?></title>
 
-  <link rel="shortcut icon" href="/assets_backend/images/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="/asset_mentor/assets/img/favicon.ico" type="image/png">
   <?php
 	//Displays all required stylesheets
 	include_component('dashboard', 'stylesheets');

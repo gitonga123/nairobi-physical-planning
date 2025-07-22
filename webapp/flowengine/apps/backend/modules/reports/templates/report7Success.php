@@ -9,8 +9,8 @@ use_helper("I18N");
         </div>
 
         <div class="panel-heading text-right">
-              <a class="btn btn-primary" id="export" href="/backend.php/reports/printreport7" ><?php echo __('Export'); ?></a>
-              <a class="btn btn-primary" id="newpage" href="/backend.php/reports/list" ><?php echo __('Back to Reports'); ?></a>
+              <a class="btn btn-primary" id="export" href="/plan/reports/printreport7" ><?php echo __('Export'); ?></a>
+              <a class="btn btn-primary" id="newpage" href="/plan/reports/list" ><?php echo __('Back to Reports'); ?></a>
         </div>
         <div class="panel-body">
 

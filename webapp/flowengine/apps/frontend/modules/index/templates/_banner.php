@@ -128,9 +128,9 @@ if(sizeof($banners) > 0)
                             <i class="bigger icofont-safety-hat"></i>
                             <i class="smaller icofont-safety-hat"></i>
                             <span></span>
-                            <a href="#inspec"><h3>Advertising <br/> permit</h3></a>
+                            <a href="#inspec"><h3>Outdoor Advertising <br/> permit</h3></a>
                             <p>
-                                Apply for Adversting License to market your business
+                                Apply for Outdoor Advertising License to market your business
                             </p>
                         </div>
                     </div>
@@ -250,7 +250,7 @@ if(sizeof($banners) > 0)
                     <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="singleService">
                             <div class="serviceThumb">
-                            <img src="/theme/images/construction/Planner.png" alt=""/>
+                            <img src="/theme/images/construction/plan/ner.png" alt=""/>
                             </div>
                             <div class="serviceDetails">
                                 <h2 id="inspec">Construction Enforcement</h2>

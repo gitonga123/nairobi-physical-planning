@@ -1,5 +1,5 @@
 <!-- Register Form -->
-<form amethod="post" id="registration_form" action="/index.php/apply" method="post" enctype="multipart/form-data">
+<form amethod="post" id="registration_form" action="/plan/apply" method="post" enctype="multipart/form-data">
 <?php
                     echo $form->renderHiddenFields();
                   ?>
@@ -132,7 +132,7 @@
 									</div>
 									<button class="btn btn-primary login-btn" type="submit">Sign Up</button>
 									<div class="account-footer text-center mt-3">
-										Already have an account? <a class="forgot-link mb-0" href="/index.php/login">Login</a>
+										Already have an account? <a class="forgot-link mb-0" href="/plan/login">Login</a>
 									</div>
 								</form>
 								<!-- /Register Form -->

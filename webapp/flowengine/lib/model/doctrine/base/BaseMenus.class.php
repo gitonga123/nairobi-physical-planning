@@ -136,7 +136,6 @@ abstract class BaseMenus extends sfDoctrineRecord
 			'local' => 'id',
 			'foreign' => 'menu_id'
 		));
-		//OTB END
-        
+		//OTB END 
     }
 }

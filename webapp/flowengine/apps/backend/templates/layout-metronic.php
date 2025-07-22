@@ -16,16 +16,16 @@ License: For each use you must have a valid license purchased only from above li
 	<head><base href="../../../"/>
 		<title>Uasin Gishu County - Administration Portal</title>
 		<meta charset="utf-8" />
-		<meta name="description" content="Uasin Gishu County e-services portal" />
-		<meta name="keywords" content="Uasin Gishu County e-services portal" />
+		<meta name="description" content="Uasin Gishu County Physical Planning and Urban Development portal" />
+		<meta name="keywords" content="Uasin Gishu County Physical Planning and Urban Development portal" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Uasin Gishu County e-services portal" />
-		<meta property="og:url" content="https://uasingishu.go.ke" />
+		<meta property="og:title" content="Uasin Gishu County Physical Planning and Urban Development portal" />
+		<meta property="og:url" content="https://info@uasingishu.go.ke" />
 		<meta property="og:site_name" content="Uasin Gishu County | Portal" />
-		<link rel="canonical" href="https://uasingishu.go.ke" />
-		<link rel="shortcut icon" href="/asset_theme_metronic/theme/assets/demo2/src/media/logos/favicon.ico" />
+		<link rel="canonical" href="https://info@uasingishu.go.ke" />
+		<link rel="shortcut icon" href="/asset_mentor/assets/img/favicon.ico" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->
@@ -71,7 +71,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Wrapper-->
 						<div class="d-flex flex-center flex-column flex-column-fluid px-lg-10 pb-15 pb-lg-20">
                         <!--begin::Form-->
-							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post" data-kt-redirect-url="../../demo2/dist/index.html" action="<?php echo url_for('/backend.php/login/index') ?>">
+							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post" data-kt-redirect-url="../../demo2/dist/index.html" action="<?php echo url_for('/plan/login/index') ?>">
 								<!--begin::Heading-->
 								<div class="text-center mb-11">
                                 <?php //echo $form->renderHiddenFields() ?>

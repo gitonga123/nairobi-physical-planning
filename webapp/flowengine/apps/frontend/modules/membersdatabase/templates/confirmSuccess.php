@@ -1,6 +1,6 @@
 <div class="content">
   <ul class="breadcrumb">
-    <li><a href="/index.php">Home</a> <span class="divider">/</span></li>
+    <li><a href="/plan/">Home</a> <span class="divider">/</span></li>
     <li class="active">Membership Verification</li>
   </ul>    <!-- Docs nav
   ================================================== -->

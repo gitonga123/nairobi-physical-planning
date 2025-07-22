@@ -4,8 +4,8 @@
   <div class="breadcrumb-wrapper">
     <span class="label">You are here:</span>
     <ol class="breadcrumb">
-      <li><a href="<?php echo public_path('backend.php'); ?>"><?php echo __('Home') ?></a></li>
-      <li><a href="<?php echo public_path('backend.php/feedback/index'); ?>"><?php echo __('View Feedback Messages') ?></a></li>
+      <li><a href="<?php echo public_path('plan'); ?>"><?php echo __('Home') ?></a></li>
+      <li><a href="<?php echo public_path('plan/feedback/index'); ?>"><?php echo __('View Feedback Messages') ?></a></li>
       <li class="active"><?php echo __('View Message') ?></li>
     </ol>
   </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-3 inbox-info-btn">
                   <div class="btn-group">
-                    <a href="<?php echo public_path('backend.php/feedback/index'); ?>"><button class="btn btn-primary blue">
+                    <a href="<?php echo public_path('plan/feedback/index'); ?>"><button class="btn btn-primary blue">
                         <i class="fa fa-inbox"></i> <?php echo __('Feeback Inbox') ?> </button> </a>
 
                   </div>

@@ -22,7 +22,7 @@
          </div> 
          
          <div class="panel-body padding-0"> 
-         <form id="registration_form" action="<?php if($form->getObject()->isNew()){ echo public_path('backend.php/apply2') ?> <?php }else{ echo public_path('backend.php/frusers/update/id/'.$form->getObject()->getId()); } ?>" method="post" enctype="multipart/form-data" autocomplete="off" data-ajax="false">     
+         <form id="registration_form" action="<?php if($form->getObject()->isNew()){ echo public_path('plan/apply2') ?> <?php }else{ echo public_path('plan/frusers/update/id/'.$form->getObject()->getId()); } ?>" method="post" enctype="multipart/form-data" autocomplete="off" data-ajax="false">     
 				 <?php echo $form->renderGlobalErrors(); ?>
             <?php
             if($sf_user->hasFlash("notice"))
@@ -135,7 +135,7 @@
  jQuery(document).ready(function(){
 	$("#submitbuttonname").click(function() {
 		 $.ajax({
-			url: '<?php if($form->getObject()->isNew()){ echo public_path('backend.php/apply2') ?> <?php }else{ echo public_path('backend.php/frusers/update/id/'.$form->getObject()->getId()); } ?>',
+			url: '<?php if($form->getObject()->isNew()){ echo public_path('plan/apply2') ?> <?php }else{ echo public_path('plan/frusers/update/id/'.$form->getObject()->getId()); } ?>',
 			cache: false,
 			type: 'POST',
 			data : $('#registration_form').serialize(),

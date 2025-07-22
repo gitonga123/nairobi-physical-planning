@@ -428,7 +428,7 @@ class BillingApi
             throw new \InvalidArgumentException('Missing the required parameter $account_id when calling getCreditCardInfo');
         }
         // parse inputs
-        $resourcePath = "/v2.1/accounts/{accountId}/billing_plan/credit_card";
+        $resourcePath = "/v2.1/accounts/{accountId}/billing_/plan/credit_card";
         $httpBody = '';
         $queryParams = [];
         $headerParams = [];
@@ -471,7 +471,7 @@ class BillingApi
                 $httpBody,
                 $headerParams,
                 '\DocuSign\eSign\Model\CreditCardInformation',
-                '/v2.1/accounts/{accountId}/billing_plan/credit_card'
+                '/v2.1/accounts/{accountId}/billing_/plan/credit_card'
             );
 
             return [$this->apiClient->getSerializer()->deserialize($response, '\DocuSign\eSign\Model\CreditCardInformation', $httpHeader), $statusCode, $httpHeader];
@@ -522,7 +522,7 @@ class BillingApi
             throw new \InvalidArgumentException('Missing the required parameter $account_id when calling getDowngradeRequestBillingInfo');
         }
         // parse inputs
-        $resourcePath = "/v2.1/accounts/{accountId}/billing_plan/downgrade";
+        $resourcePath = "/v2.1/accounts/{accountId}/billing_/plan/downgrade";
         $httpBody = '';
         $queryParams = [];
         $headerParams = [];
@@ -565,7 +565,7 @@ class BillingApi
                 $httpBody,
                 $headerParams,
                 '\DocuSign\eSign\Model\DowngradRequestBillingInfoResponse',
-                '/v2.1/accounts/{accountId}/billing_plan/downgrade'
+                '/v2.1/accounts/{accountId}/billing_/plan/downgrade'
             );
 
             return [$this->apiClient->getSerializer()->deserialize($response, '\DocuSign\eSign\Model\DowngradRequestBillingInfoResponse', $httpHeader), $statusCode, $httpHeader];
@@ -1437,7 +1437,7 @@ class BillingApi
             throw new \InvalidArgumentException('Missing the required parameter $account_id when calling purchaseEnvelopes');
         }
         // parse inputs
-        $resourcePath = "/v2.1/accounts/{accountId}/billing_plan/purchased_envelopes";
+        $resourcePath = "/v2.1/accounts/{accountId}/billing_/plan/purchased_envelopes";
         $httpBody = '';
         $queryParams = [];
         $headerParams = [];
@@ -1485,7 +1485,7 @@ class BillingApi
                 $httpBody,
                 $headerParams,
                 null,
-                '/v2.1/accounts/{accountId}/billing_plan/purchased_envelopes'
+                '/v2.1/accounts/{accountId}/billing_/plan/purchased_envelopes'
             );
 
             return [null, $statusCode, $httpHeader];
@@ -1534,7 +1534,7 @@ class BillingApi
             throw new \InvalidArgumentException('Missing the required parameter $account_id when calling updateDowngradeAccountBillingPlan');
         }
         // parse inputs
-        $resourcePath = "/v2.1/accounts/{accountId}/billing_plan/downgrade";
+        $resourcePath = "/v2.1/accounts/{accountId}/billing_/plan/downgrade";
         $httpBody = '';
         $queryParams = [];
         $headerParams = [];
@@ -1582,7 +1582,7 @@ class BillingApi
                 $httpBody,
                 $headerParams,
                 '\DocuSign\eSign\Model\DowngradePlanUpdateResponse',
-                '/v2.1/accounts/{accountId}/billing_plan/downgrade'
+                '/v2.1/accounts/{accountId}/billing_/plan/downgrade'
             );
 
             return [$this->apiClient->getSerializer()->deserialize($response, '\DocuSign\eSign\Model\DowngradePlanUpdateResponse', $httpHeader), $statusCode, $httpHeader];

@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="<?php echo url_for('/backend.php/applications/view?id='.$application->getId()) ?>"><?php echo $application->getApplicationId(); ?></a></td>
+                    <td><a href="<?php echo url_for('/plan/applications/view?id='.$application->getId()) ?>"><?php echo $application->getApplicationId(); ?></a></td>
                     <td><?php echo date('d F Y', strtotime($task->getDateCreated())); ?></td>
                     <td><span class="label label-default"><?php echo $task->getStatusName(); ?></span></td>
                     <td><span class="label label-default"><?php echo $application->getServiceName()." &gt; ".$application->getStatusName(); ?></span></td>

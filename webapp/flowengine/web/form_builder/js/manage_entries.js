@@ -92,7 +92,7 @@ $(function(){
 		$.ajax({
 			   	type: "POST",
 			   	async: true,
-			   	url: "/backend.php/forms/savecolumnpreference",
+			   	url: "/plan/forms/savecolumnpreference",
 			   	data: {form_id: form_id,
 					  col_pref: selected_columns
 					  },
@@ -105,7 +105,7 @@ $(function(){
 			   	success: function(response_data){
 					   
 				   if(response_data.status == 'ok'){
-					   window.location.replace('/backend.php/forms/manageentries?id=' + response_data.form_id);
+					   window.location.replace('/plan/forms/manageentries?id=' + response_data.form_id);
 				   }	  
 				}
 		});
@@ -131,7 +131,7 @@ $(function(){
 		$.ajax({
 			   	type: "POST",
 			   	async: true,
-			   	url: "/backend.php/forms/savefilter",
+			   	url: "/plan/forms/savefilter",
 			   	data: {form_id: form_id,
 					   filter_prop: filter_prop_array,
 					   filter_type: $("#filter_all_any").val()
@@ -145,7 +145,7 @@ $(function(){
 			   	success: function(response_data){
 					   
 				   if(response_data.status == 'ok'){
-					   window.location.replace('/backend.php/forms/manageentries?id=' + response_data.form_id);
+					   window.location.replace('/plan/forms/manageentries?id=' + response_data.form_id);
 				   }	  
 				}
 		});
@@ -156,7 +156,7 @@ $(function(){
 		var form_id = $("#entries_options").data("formid");
 		var sort_element = $(this).val();
 		
-		window.location.replace('/backend.php/forms/manageentries?id=' + form_id + '&sortby=' + sort_element);
+		window.location.replace('/plan/forms/manageentries?id=' + form_id + '&sortby=' + sort_element);
 	});
 
 	//delegate change event into filter field name dropdown
@@ -319,7 +319,7 @@ $(function(){
 			$.ajax({
 				   	type: "POST",
 				   	async: true,
-				   	url: "/backend.php/forms/clearfilter",
+				   	url: "/plan/forms/clearfilter",
 				   	data: {form_id: form_id},
 				   	cache: false,
 				   	global: false,
@@ -330,7 +330,7 @@ $(function(){
 				   	success: function(response_data){
 						   
 					   if(response_data.status == 'ok'){
-						   window.location.replace('/backend.php/forms/manageentries?id=' + response_data.form_id);
+						   window.location.replace('/plan/forms/manageentries?id=' + response_data.form_id);
 					   }	  
 					}
 			});
@@ -455,7 +455,7 @@ $(function(){
 					$.ajax({
 						   type: "POST",
 						   async: true,
-						   url: "/backend.php/forms/deleteentries",
+						   url: "/plan/forms/deleteentries",
 						   data: {
 								  	form_id: form_id,
 								  	delete_all: $("#col_select").data('full_selection'),
@@ -471,7 +471,7 @@ $(function(){
 									   
 							   if(response_data.status == 'ok'){
 								   //redirect to entries page again
-								   window.location.replace('/backend.php/forms/manageentries?id=' + response_data.form_id);
+								   window.location.replace('/plan/forms/manageentries?id=' + response_data.form_id);
 							   }	  
 									   
 						   }
@@ -565,7 +565,7 @@ $(function(){
 					$.ajax({
 						   type: "POST",
 						   async: true,
-						   url: "/backend.php/forms/resetentrynumber",
+						   url: "/plan/forms/resetentrynumber",
 						   data: {
 								  	form_id: form_id
 								  },
@@ -579,7 +579,7 @@ $(function(){
 									   
 							   if(response_data.status == 'ok'){
 								   //redirect to entries page again
-								   window.location.replace('/backend.php/forms/manageentries?id=' + response_data.form_id);
+								   window.location.replace('/plan/forms/manageentries?id=' + response_data.form_id);
 							   }	  
 									   
 						   }
@@ -637,7 +637,7 @@ $(function(){
 		e.preventDefault();  //stop the browser from following the redirect
 		
 		if(full_selection == 1){ //all entries being selected
-			window.location.href = '/backend.php/forms/exportentries?type='+ export_type +'&form_id=' + form_id + '&' + selected_fields;
+			window.location.href = '/plan/forms/exportentries?type='+ export_type +'&form_id=' + form_id + '&' + selected_fields;
 		}else{
 			if(selected_checkboxes.length > 0){ //some entries being selected
 				var selected_entries = selected_checkboxes.serializeArray();
@@ -647,9 +647,9 @@ $(function(){
 				    selected_entries_id[index] = (value.name.split('_'))[1];
 				});
 
-				window.location.href = '/backend.php/forms/exportentries?type='+ export_type +'&form_id=' + form_id + '&entries_id=' + selected_entries_id.join(',') + '&' + selected_fields;
+				window.location.href = '/plan/forms/exportentries?type='+ export_type +'&form_id=' + form_id + '&entries_id=' + selected_entries_id.join(',') + '&' + selected_fields;
 			}else{ //none of the entries being selected, consider this as full selection as well
-				window.location.href = '/backend.php/forms/exportentries?type='+ export_type +'&form_id=' + form_id + '&' + selected_fields;
+				window.location.href = '/plan/forms/exportentries?type='+ export_type +'&form_id=' + form_id + '&' + selected_fields;
 			}
 		}
 				
@@ -662,7 +662,7 @@ $(function(){
 		var temp = $(this).parent().attr("id").split("_");
 		var selected_entry_id = temp[1];
 
-		window.location.href = '/backend.php/forms/viewentry?form_id=' + form_id + '&entry_id=' + selected_entry_id;
+		window.location.href = '/plan/forms/viewentry?form_id=' + form_id + '&entry_id=' + selected_entry_id;
 	});
 
 });

@@ -1,7 +1,7 @@
 <?php
 	use_helper("I18N");
 ?>
-<form  action="/backend.php/invoiceapiaccounts/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
+<form  action="/plan/invoiceapiaccounts/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
 
   <?php if (!$form->getObject()->isNew()): ?>
   <input type="hidden" name="sf_method" value="put" />
@@ -17,7 +17,7 @@
       <?php echo $form->renderGlobalErrors() ?>
 
       <div class="pull-right">
-          <a class="btn btn-primary" id="newpage" href="/backend.php/invoiceapiaccounts/index" ><?php echo __('Back to List'); ?></a>
+          <a class="btn btn-primary" id="newpage" href="/plan/invoiceapiaccounts/index" ><?php echo __('Back to List'); ?></a>
       </div>
     </div>
     <div class="panel-body padding-0">

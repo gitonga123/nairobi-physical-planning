@@ -175,9 +175,9 @@ $r = new sfPatternRoutingTest(new sfEventDispatcher(), null, $options);
 // query string
 $t->diag('query string');
 $r->clearRoutes();
-$r->connect('test', new sfRoute('/index.php/:module/:action', array('module' => 'default', 'action' => 'index')));
+$r->connect('test', new sfRoute('/plan/:module/:action', array('module' => 'default', 'action' => 'index')));
 $params = array('module' => 'default', 'action' => 'index');
-$url = '/index.php/default/index?test=1&toto=2';
+$url = '/plan/default/index?test=1&toto=2';
 $t->is($r->parse($url), $params, '->parse() does not take query string into account');
 
 // default values
@@ -473,7 +473,7 @@ $r->clearRoutes();
 $msg = '->insertRouteBefore() throws an sfConfigurationException when trying to insert a route before a non existent one';
 try
 {
-  $r->insertRouteBefore('test2', 'test', new sfRoute('/index.php/:module/:action', array('module' => 'default', 'action' => 'index')));
+  $r->insertRouteBefore('test2', 'test', new sfRoute('/plan/:module/:action', array('module' => 'default', 'action' => 'index')));
   $t->fail($msg);
 }
 catch (sfConfigurationException $e)

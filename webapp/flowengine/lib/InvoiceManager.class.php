@@ -137,9 +137,9 @@ class InvoiceManager
     public function get_invoice_by_reference($reference)
     {
         $exploded = explode('/', $reference);
-        $form_id           = (int) $exploded[0];
-        $entry_id          = (int) $exploded[1];
-        $invoice_id          = (int) $exploded[2];
+        $form_id = (int) $exploded[0];
+        $entry_id = (int) $exploded[1];
+        $invoice_id = (int) $exploded[2];
 
         if ($invoice_id != "1") {
             $q = Doctrine_Query::create()
@@ -575,7 +575,7 @@ class InvoiceManager
         require_once($prefix_folder . 'includes/theme-functions.php');
         require_once($prefix_folder . 'includes/post-functions.php');
 
-        $dbh         = mf_connect_db();
+        $dbh = mf_connect_db();
 
         $submission = $this->get_application_by_id($application_id);
 
@@ -653,12 +653,12 @@ class InvoiceManager
 
             $payment_currency = $row['payment_currency'];
             $payment_price_type = $row['payment_price_type'];
-            $payment_price_amount = (float)$row['payment_price_amount'];
+            $payment_price_amount = (float) $row['payment_price_amount'];
 
-            $payment_enable_tax = (int)$row['payment_enable_tax'];
-            $payment_tax_rate = (float)$row['payment_tax_rate'];
-            $payment_tax_amount = (float)$row['payment_tax_amount'];
-            $payment_tax_code = (float)$row['payment_discount_code'];
+            $payment_enable_tax = (int) $row['payment_enable_tax'];
+            $payment_tax_rate = (float) $row['payment_tax_rate'];
+            $payment_tax_amount = (float) $row['payment_tax_amount'];
+            $payment_tax_code = (float) $row['payment_discount_code'];
             $payment_price_name = $row['payment_price_name'];
             $form_name = $row['form_name'];
 
@@ -667,9 +667,9 @@ class InvoiceManager
             //make sure the amount paid match or larger
             $payment_amount = "";
             if ($payment_price_type == 'variable') {
-                $payment_amount = (float)mf_get_payment_total($dbh, $submission->getFormId(), $submission->getEntryId(), 0, 'live');
+                $payment_amount = (float) mf_get_payment_total($dbh, $submission->getFormId(), $submission->getEntryId(), 0, 'live');
             } else if ($payment_price_type == 'fixed') {
-                $payment_amount = (float)$payment_price_amount;
+                $payment_amount = (float) $payment_price_amount;
             }
 
             $total_amount = $payment_amount;
@@ -891,9 +891,9 @@ class InvoiceManager
             //make sure the amount paid match or larger
             $payment_amount = "";
             if ($payment_price_type == 'variable') {
-                $payment_amount = (float)mf_get_payment_total($dbh, $submission->getFormId(), $submission->getEntryId(), 0, 'live');
+                $payment_amount = (float) mf_get_payment_total($dbh, $submission->getFormId(), $submission->getEntryId(), 0, 'live');
             } else if ($payment_price_type == 'fixed') {
-                $payment_amount = (float)$payment_price_amount;
+                $payment_amount = (float) $payment_price_amount;
             }
 
             $total_amount = $difference_total;
@@ -1050,7 +1050,7 @@ class InvoiceManager
 
 
 
-        $query  = "select
+        $query = "select
                 form_code,
                 payment_currency,
                 payment_price_type,
@@ -1072,15 +1072,15 @@ class InvoiceManager
         $sth = mf_do_query($query, $params, $dbh);
         $row = mf_do_fetch_result($sth);
 
-        $payment_price_type          = $row['payment_price_type'];
-        $payment_enable_tax          = (int) $row['payment_enable_tax'];
-        $payment_tax_rate              = (float) $row['payment_tax_rate'];
-        $payment_tax_amount          = (float) $row['payment_tax_amount'];
-        $payment_tax_code         = $row['payment_discount_code'];
-        $payment_price_name         = $row['payment_price_name'];
-        $payment_price_amount         = $row['payment_price_amount'];
-        $payment_onsubmission         = $row['payment_onsubmission'];
-        $payment_enable_merchant         = $row['payment_enable_merchant'];
+        $payment_price_type = $row['payment_price_type'];
+        $payment_enable_tax = (int) $row['payment_enable_tax'];
+        $payment_tax_rate = (float) $row['payment_tax_rate'];
+        $payment_tax_amount = (float) $row['payment_tax_amount'];
+        $payment_tax_code = $row['payment_discount_code'];
+        $payment_price_name = $row['payment_price_name'];
+        $payment_price_amount = $row['payment_price_amount'];
+        $payment_onsubmission = $row['payment_onsubmission'];
+        $payment_enable_merchant = $row['payment_enable_merchant'];
 
         $currency = $row['payment_currency'];
 
@@ -1292,7 +1292,7 @@ class InvoiceManager
             $index++;
         }
 
-        $query  = "select
+        $query = "select
             form_code,
             payment_currency,
             payment_price_type,
@@ -1310,7 +1310,7 @@ class InvoiceManager
         $sth = mf_do_query($query, $params, $dbh);
         $row = mf_do_fetch_result($sth);
 
-        $payment_currency      = $row['payment_currency'];
+        $payment_currency = $row['payment_currency'];
         $service_code = $row['form_code'];
 
 
@@ -1501,7 +1501,7 @@ class InvoiceManager
             require_once($prefix_folder . 'includes/db-core.php');
             require_once($prefix_folder . 'includes/helper-functions.php');
 
-            $dbh         = mf_connect_db();
+            $dbh = mf_connect_db();
 
             $submission = $this->get_application_by_id($existing_invoice->getAppId());
 
@@ -1576,7 +1576,7 @@ class InvoiceManager
 
         require_once($prefix_folder . 'includes/OAuth.php');
 
-        $dbh         = mf_connect_db();
+        $dbh = mf_connect_db();
 
         $invoice = $this->get_invoice_by_id($invoice_id);
         $submission = $this->get_application_by_id($invoice->getAppId());
@@ -1593,7 +1593,7 @@ class InvoiceManager
                 if ($row['billing_state'] != "" && $invoice->getPaid() != 2 && $invoice->getPaid() != 3) {
                     //Query pesapal status
                     //get form properties data
-                    $query  = "select
+                    $query = "select
                                               form_name,
                                               form_has_css,
                                               form_redirect,
@@ -1726,7 +1726,7 @@ class InvoiceManager
                         $invoiceNumber = $row['billing_zipcode'];
                         $beepTransactionID = $row['billing_state'];
 
-                        $url = "http://197.159.100.249:9000/hub/services/paymentGateway/XML/index.php";
+                        $url = "http://197.159.100.249:9000/hub/services/paymentGateway/XML/plan/";
                         $client = new IXR_Client($url);
                         $client->debug = false;
 
@@ -1856,7 +1856,7 @@ class InvoiceManager
                     if (intval($next_stage) === 1) {
                         error_log("Application form --- " . $application->getFormId());
                         error_log("Form Entry ---" . $application->getEntryId());
-                        $stage_to_send =  $application_manager->get_submission_stage($application->getFormId(), $application->getEntryId());
+                        $stage_to_send = $application_manager->get_submission_stage($application->getFormId(), $application->getEntryId());
                         if ($stage_to_send) {
                             $next_stage = $stage_to_send;
                         }
@@ -2787,9 +2787,20 @@ class InvoiceManager
             $this->update_invoices($application->getId());
         }
     }
+
+    public function getApplicationForm($form_id, $entry_id)
+    {
+        $query = "SELECT * FROM ap_form_" . $form_id . " WHERE id = '" . $entry_id . "'";
+
+        $application_form = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetchAll();
+
+        return $application_form;
+    }
     //Note Start Patch - For Implementing Dynamic Fees
     public function getFeeAmount($fee, $application_form, $application_form_id, $estimate_requested = false)
     {
+        error_log("Am at this point ---- 1");
+
         $fee_amount = 0;
         $base_field_value = str_replace(',', '', $this->getFieldValue($fee->getBaseField(), $application_form, $application_form_id));
 
@@ -2845,7 +2856,7 @@ class InvoiceManager
                         } else {
                             $needle = strtolower(str_replace(" ", "", $f_con->getConditionValue()));
                             $haystack = strtolower(str_replace(" ", "", $coniditon_field_value));
-                            $condition_met =  strpos($haystack, $needle) !== false ? true : false;
+                            $condition_met = strpos($haystack, $needle) !== false ? true : false;
                         }
                         // error_log("===>Is like field checking for fee --->" . $fee->getId() . " Condition met --->" . $condition_met);
                     } else if (!$coniditon_field_value && $f_con->getConditionField()) {
@@ -2935,7 +2946,7 @@ class InvoiceManager
                 ->where('a.form_id = ? and a.entry_id = ?', array($application_form_id, $application_form['id']))
                 ->orderBy('a.id ASC');
             $app = $q->fetchOne();
-            error_log('--------Form ID PArseFormula----' . $app->getId() . "The formula ---->" . $formula);
+            error_log('--------Form ID ParseFormula----' . $app->getId() . "The formula ---->" . $formula);
             return $templateparser->parse($app->getId(), $application_form_id, $application_form['id'], $formula);
         }
     }

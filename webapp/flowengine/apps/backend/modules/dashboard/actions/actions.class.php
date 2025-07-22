@@ -20,6 +20,17 @@ class dashboardActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
+        // $login_manager = new LoginManager();
+
+        // //End the current reviewer's session and redirect to the login page
+        // if ($login_manager->destroy_session()) {
+        //     $this->redirect("/plan/dashboard");
+        // } else {
+        //     echo "Failed to end your session. Please try again";
+        //     $this->redirect("/plan/dashboard");
+        //     exit;
+        // }
+
         //If this is the first run after installation then display the wizard, else display the dashboard
         $wizard_manager = new WizardManager();
 
@@ -51,8 +62,10 @@ class dashboardActions extends sfActions
             $this->first_run = false;
             $current_reviewer = Functions::current_user();
 
+
+
             if ($current_reviewer == null) {
-                $this->redirect("/backend.php/login/logout");
+                $this->redirect("/plan/login/logout");
             }
 
             $this->logged_user = $current_reviewer;
@@ -98,6 +111,7 @@ class dashboardActions extends sfActions
             }
             $app_list = [];
 
+
             //Completed Tasks (Today)
             $q = Doctrine_Query::create()
                 ->from("Task a")
@@ -123,6 +137,8 @@ class dashboardActions extends sfActions
             } else {
                 $this->filter = "/filter/" . $allowed_stages[0];
             }
+
+
 
             if ($request->getParameter("current") == "available" || empty($request->getParameter("current"))) {
 
@@ -432,7 +448,7 @@ class dashboardActions extends sfActions
             $user->setUserdefined2Value($params['struserdefined2_value']);
             $user->save();
 
-            $this->redirect('/backend.php/dashboard');
+            $this->redirect('/plan/dashboard');
         }
     }
     private function _entiresQuery($cols = null, $request = null, $app_list = [])
@@ -457,11 +473,13 @@ class dashboardActions extends sfActions
                 $q->andWhereIn('s.id', $allowed_stages[0]);
             }
         }
-        if (null === $cols || empty($cols)) return $q;
+        if (null === $cols || empty($cols))
+            return $q;
 
         $search = $request->getParameter('search')['value'];
 
-        if ("" === $search || empty($search)) return $q;
+        if ("" === $search || empty($search))
+            return $q;
         $sql = [];
         $params = [];
 

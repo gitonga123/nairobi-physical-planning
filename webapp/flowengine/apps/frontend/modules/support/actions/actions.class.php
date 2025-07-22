@@ -30,6 +30,8 @@ class supportActions extends sfActions
         $this->pager->setQuery($q);
         $this->pager->setPage($request->getParameter('page', 1));
         $this->pager->init();
+
+        $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Support");
         $this->setLayout("layoutmentordash");
     }
 
@@ -102,7 +104,7 @@ class supportActions extends sfActions
         $message->setActionTimestamp(date('Y-m-d'));
         $message->save();
 
-        $this->redirect('/index.php/messages');
+        $this->redirect('/plan/messages');
         $this->setLayout("layoutmentordash");
     }
 
@@ -131,6 +133,8 @@ class supportActions extends sfActions
             $message->setActionTimestamp(date('Y-m-d'));
             $message->save();
         }
+
+        $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Support");
         $this->setLayout("layoutmentordash");
     }
 }

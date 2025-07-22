@@ -679,7 +679,6 @@ class apiActions extends sfActions
                     ->leftJoin('f.SubMenus s')
                     ->leftJoin('f.MfInvoice m')
                     ->where("f.entry_id IS NOT NULL")
-                    ->whereIn('f.id', [1919, 1920, 1921, 1927])
                     ->andWhere("f.approved > 0");
 
                 if (!is_null($with_permit) && $with_permit == '0') {
@@ -751,6 +750,16 @@ class apiActions extends sfActions
 
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'ownernames')) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, "owner'sname")) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, "phonenumber")) {
+                        $app_info['phone_number'] = trim($data['value']);
                     }
                     if (stristr($new_label, 'plotno')) {
                         $app_info['plot_no'] = trim($data['value']);
@@ -896,8 +905,7 @@ class apiActions extends sfActions
             ->addSelect('s.title')
             ->addSelect('f.date_of_submission')
             ->addSelect('p.permit_id')
-            ->from('FormEntry f')
-            ->whereIn('f.id', [1919, 1920, 1921, 1927]);
+            ->from('FormEntry f');
         if (count($entries) > 0) {
 
             $new_entry_list = '(' . implode(' OR ', $entries) . ')';
@@ -1304,6 +1312,17 @@ class apiActions extends sfActions
                     }
                     if (stristr($new_label, 'plotno')) {
                         $app_info['plot_no'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, 'ownernames')) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+
+                    if (stristr($new_label, "owner'sname")) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, "phonenumber")) {
+                        $app_info['phone_number'] = trim($data['value']);
                     }
 
                     if (stristr($new_label, 'subcounty')) {

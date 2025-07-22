@@ -1191,10 +1191,14 @@ class apiActions extends sfActions
 
         $updated = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query);
 
+        error_log("Update request --->{$update_query}");
+
 
         $element_id_2 = $this->map_location_with_form_type_longitude()[$application->getFormId()];
 
+
         $update_query_2 = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id_2} = '{$plot_longitude}' WHERE id = {$application->getEntryId()}";
+        error_log("Update request --->{$update_query_2}");
 
         $updated_2 = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query_2);
         $application_manager = new ApplicationManager();

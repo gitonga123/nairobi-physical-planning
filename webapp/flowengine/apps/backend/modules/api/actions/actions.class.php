@@ -534,6 +534,7 @@ class apiActions extends sfActions
                     ->leftJoin('f.SubMenus s')
                     ->leftJoin('f.MfInvoice m')
                     ->where("f.entry_id IS NOT NULL")
+                    ->andWhere('a.parent_submission = 0')
                     ->andWhere("f.approved > 0");
 
                 if (!is_null($with_permit) && $with_permit == '0') {

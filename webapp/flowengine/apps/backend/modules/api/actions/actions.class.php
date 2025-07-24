@@ -508,6 +508,8 @@ class apiActions extends sfActions
                 'page' => $page
             ]));
 
+            error_log("apps list ----> {$cache_key}");
+
             $cached_result = $this->cache->get($cache_key);
 
             if ($cached_result) {

@@ -719,6 +719,8 @@ class apiActions extends sfActions
 
                 $q_app->limit($limit);
 
+                error_log("Page ----> {$page} ----> {$limit}");
+
                 if (!is_null($page)) {
                     $page = intval($page);
                     $offset = ($page - 1) * ($limit ?? 10);

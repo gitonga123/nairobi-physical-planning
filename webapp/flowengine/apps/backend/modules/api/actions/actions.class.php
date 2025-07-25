@@ -642,8 +642,6 @@ class apiActions extends sfActions
                 'page' => $page
             ]));
 
-            error_log("apps list ----> {$cache_key}");
-
             $cached_result = $this->cache->get($cache_key);
 
             if ($cached_result) {
@@ -749,7 +747,7 @@ class apiActions extends sfActions
                     if (stristr($new_label, "phonenumber")) {
                         $app_info['phone_number'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'plotno')) {
+                    if (stristr($new_label, 'plotnumber')) {
                         $app_info['plot_no'] = trim($data['value']);
                     }
 
@@ -774,7 +772,6 @@ class apiActions extends sfActions
             if ($invoices) {
                 foreach ($invoices->getData() as $invoice) {
                     if ($invoice->getPaid() != 2) {
-                        // Found an invoice that is not paid
                         $allPaid = false;
                         break;
                     }
@@ -1212,7 +1209,7 @@ class apiActions extends sfActions
 
     public function executeApplicationsUpdate(sfWebRequest $request)
     {
-        return $this->renderText(json_encode(['error' => 'Please login to perform this action.']));
+        // return $this->renderText(json_encode(['error' => 'Please login to perform this action.']));
         error_log("Above is get parameters, {$request->getParameter('id')}");
         error_log("Latitude ----> {$request->getParameter('latitude')}");
         error_log("Longitude ----> {$request->getParameter('longitude')}");
@@ -1297,7 +1294,7 @@ class apiActions extends sfActions
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'plotno')) {
+                    if (stristr($new_label, 'plotnumber')) {
                         $app_info['plot_no'] = trim($data['value']);
                     }
 

@@ -30,11 +30,11 @@ $site_settings = Functions::site_settings();
 
     <h5 class="sidebartitle actitle"><?php echo __("Account"); ?></h5>
     <ul class="nav nav-pills nav-stacked nav-bracket mb30">
-      <li><a href="/backend.php/users/viewuser/userid/<?php echo $sf_user->getAttribute('userid'); ?>"><i
+      <li><a href="/plan/users/viewuser/userid/<?php echo $sf_user->getAttribute('userid'); ?>"><i
             class="fa fa-cog"></i> <span><?php echo __("Account Settings"); ?></span></a></li>
-      <li><a href="/backend.php/help/index"><i class="fa fa-question-circle"></i>
+      <li><a href="/plan/help/index"><i class="fa fa-question-circle"></i>
           <span><?php echo __("Help"); ?></span></a></li>
-      <li><a href="/backend.php/login/logout"><i class="fa fa-sign-out"></i>
+      <li><a href="/plan/login/logout"><i class="fa fa-sign-out"></i>
           <span><?php echo __("Sign Out"); ?></span></a></li>
     </ul>
   </div>
@@ -44,15 +44,15 @@ $site_settings = Functions::site_settings();
     <?php if ($sf_user->mfHasCredential("access_applications")): ?>
       <li <?php if ($sf_context->getModuleName() == "dashboard" && $sf_context->getActionName() == "index") {
         echo "class='active'";
-      } ?>><a href="/backend.php/dashboard"><i class="fa fa-tasks"></i>
+      } ?>><a href="/plan/dashboard"><i class="fa fa-tasks"></i>
           <span><?php echo __('Applications'); ?></span></a></li>
     <?php endif; ?>
     <?php
     if ($sf_user->mfHasCredential("access_messages")) {
       ?>
-      <!--li <?php if ($sf_context->getModuleName() == "messages") {
+      <li <?php if ($sf_context->getModuleName() == "messages") {
         echo "class='active'";
-      } ?>><a href="/backend.php/messages/index"><i class="fa fa-envelope"></i> <span><?php echo __('Messages'); ?></span></a></li-->
+      } ?>></li><a href="/plan/messages/index"><i class="fa fa-envelope"></i> <span><?php echo __('Messages'); ?></span></a></li>
 
       <?php
     }
@@ -61,7 +61,7 @@ $site_settings = Functions::site_settings();
       ?>
       <li <?php if ($sf_context->getModuleName() == "users") {
         echo "class='active'";
-      } ?>><a href="/backend.php/users"><i
+      } ?>><a href="/plan/users"><i
             class="fa fa-th-large"></i> <span><?php echo __('Departments'); ?></span></a></li>
       <?php
     }
@@ -80,7 +80,7 @@ $site_settings = Functions::site_settings();
           ?>
           <li <?php if ($sf_context->getModuleName() == "profiles") {
             echo "class='active'";
-          } ?>><a href="/backend.php/profiles/index/filter/<?php echo $profile->getFormid(); ?>"><i class="fa fa-briefcase"></i>
+          } ?>><a href="/plan/profiles/index/filter/<?php echo $profile->getFormid(); ?>"><i class="fa fa-briefcase"></i>
               <span><?php echo $profile->getForm()->getFormName(); ?></span></a></li>
           <?php
         }
@@ -91,7 +91,7 @@ $site_settings = Functions::site_settings();
         <li <?php if ($sf_context->getModuleName() == "plot") {
           echo "class='active'";
         } ?>>
-          <a href="<?php echo public_path('backend.php/plot/index'); ?>"><i
+          <a href="<?php echo public_path('plan/plot/index'); ?>"><i
               class="fa fa-caret-right"></i><?php echo __('Plot Information'); ?></a>
         </li>
         <?php
@@ -100,7 +100,7 @@ $site_settings = Functions::site_settings();
       <li <?php if ($sf_context->getModuleName() == "frusers") {
         echo "class='active'";
       } ?>><a
-          href="/backend.php/frusers/index"><i class="fa fa-user"></i> <span><?php echo __('Users'); ?></span></a></li>
+          href="/plan/frusers/index"><i class="fa fa-user"></i> <span><?php echo __('Users'); ?></span></a></li>
       <?php
     }
 
@@ -116,13 +116,13 @@ $site_settings = Functions::site_settings();
           <li <?php if ($sf_context->getModuleName() == "invoices" && $sf_context->getActionName() == "index") {
             echo 'class="active"';
           } ?>>
-            <a href="/backend.php/invoices/index"><i class="fa fa-money"></i>
+            <a href="/plan/invoices/index"><i class="fa fa-money"></i>
               <span><?php echo __('Invoices'); ?></span></a>
           </li>
           <li <?php if ($sf_context->getModuleName() == "invoices" && $sf_context->getActionName() == "transactions") {
             echo 'class="active"';
           } ?>>
-            <a href="/backend.php/invoices/transactions"><i class="fa fa-money"></i>
+            <a href="/plan/invoices/transactions"><i class="fa fa-money"></i>
               <span><?php echo __('Payments'); ?></span></a>
           </li>
         </ul>
@@ -135,7 +135,7 @@ $site_settings = Functions::site_settings();
       <li <?php if ($sf_context->getModuleName() == "permits") {
         echo "class='active'";
       } ?>><a
-          href="/backend.php/permits/list"><i class="fa fa-certificate"></i> <span><?php echo __('Permits'); ?></span></a>
+          href="/plan/permits/list"><i class="fa fa-certificate"></i> <span><?php echo __('Permits'); ?></span></a>
       </li>
       <?php
     }
@@ -151,13 +151,13 @@ $site_settings = Functions::site_settings();
           <li <?php if ($sf_context->getModuleName() == "gis" && $sf_context->getActionName() == "index") {
             echo 'class="active"';
           } ?>>
-            <a href="/backend.php/gis/index"><i class="fa fa-list-ol"></i>
+            <a href="/plan/gis/index"><i class="fa fa-list-ol"></i>
               <span><?php echo __('List'); ?></span></a>
           </li>
           <li <?php if ($sf_context->getModuleName() == "gis" && $sf_context->getActionName() == "map") {
             echo 'class="active"';
           } ?>>
-            <a href="/backend.php/gis/map"><i class="fa fa-globe"></i>
+            <a href="/plan/gis/map"><i class="fa fa-globe"></i>
               <span><?php echo __('Map'); ?></span></a>
           </li>
         </ul>
@@ -170,7 +170,7 @@ $site_settings = Functions::site_settings();
       <li <?php if ($sf_context->getModuleName() == "feedback") {
         echo "class='active'";
       } ?>><a
-          href="/backend.php/feedback/index"><i class="fa fa-certificate"></i>
+          href="/plan/feedback/index"><i class="fa fa-certificate"></i>
           <span><?php echo __('Feedback'); ?></span></a></li>
       <?php
     }
@@ -229,7 +229,7 @@ $site_settings = Functions::site_settings();
       <li>
         <hr>
       </li>
-      <li><a href="/backend.php/settings/index"><i class="fa fa-cog"> </i>
+      <li><a href="/plan/settings/index"><i class="fa fa-cog"> </i>
           <span><?php echo __("System Settings"); ?></span></a></li>
       <?php
     }

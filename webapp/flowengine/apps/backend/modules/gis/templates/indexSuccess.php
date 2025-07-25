@@ -11,7 +11,7 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
     <div class="breadcrumb-wrapper">
       <span class="label"><?php echo __('You are here'); ?>:</span>
       <ol class="breadcrumb">
-        <li><a href="<?php echo public_path('/gis'); ?>backend.php"><?php echo __('Home'); ?></a></li>
+        <li><a href="<?php echo public_path('/gis'); ?>plan"><?php echo __('Home'); ?></a></li>
         <li class="active"><?php echo __('GIS'); ?></li>
       </ol>
     </div>
@@ -138,8 +138,8 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
               <tr class="application-row">
                 <td>${index + 1}</td>
                 <td><strong>${item.service_type}</strong></td>
-                <td><a href="/backend.php/applications/view/id/${item.application_id}" target="_blank">${item.application_number}</a></td>
-                <td><a href="/backend.php/dashboard/index/current/available/filter/${item.current_stage_id}" target="_blank">${item.current_stage}</a></td>
+                <td><a href="/plan/applications/view/id/${item.application_id}" target="_blank">${item.application_number}</a></td>
+                <td><a href="/plan/dashboard/index/current/available/filter/${item.current_stage_id}" target="_blank">${item.current_stage}</a></td>
                 <td>${item.owner ?? "-"}</td>
                 <td><small><strong>Block:</strong> ${item.block_number}<br><strong>Plot:</strong> ${item.plot_no}</small></td>
                 <td><small><strong>Subcounty:</strong> ${item.subcounty}<br><strong>Ward:</strong> ${item.ward}</small></td>

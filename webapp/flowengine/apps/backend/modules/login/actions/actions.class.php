@@ -246,7 +246,6 @@ class loginActions extends sfActions
       error_log("Super Admin login above --->");
 
       $url = sfConfig::get('app_sso_backend_jambo_url') . "/plan/dashboard";
-      // redirect to plan instance of backend.php
       $this->redirect($url);
     } else {
       $this->loginError = true;

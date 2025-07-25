@@ -1212,6 +1212,7 @@ class apiActions extends sfActions
 
     public function executeApplicationsUpdate(sfWebRequest $request)
     {
+        return $this->renderText(json_encode(['error' => 'Please login to perform this action.']));
         error_log("Above is get parameters, {$request->getParameter('id')}");
         error_log("Latitude ----> {$request->getParameter('latitude')}");
         error_log("Longitude ----> {$request->getParameter('longitude')}");

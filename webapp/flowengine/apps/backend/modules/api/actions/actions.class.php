@@ -793,17 +793,17 @@ class apiActions extends sfActions
                 }
             }
             $permits = $app->getSavedPermits() ? $app->getSavedPermits()->getData()[0] : false;
-            $allPaid = 'true';
+            $allPaid = 'paid';
             $invoices = $app->getMfInvoice();
             if ($invoices) {
                 foreach ($invoices->getData() as $invoice) {
                     if ($invoice->getPaid() != 2) {
-                        $allPaid = 'false';
+                        $allPaid = 'pending';
                         break;
                     }
                 }
             } else {
-                $allPaid = 'false';
+                $allPaid = 'pending';
             }
             $app_info['application_date'] = $app->getDateOfSubmission();
             $app_info['application_id'] = intval($app->getId());
@@ -1235,10 +1235,7 @@ class apiActions extends sfActions
 
     public function executeApplicationsUpdate(sfWebRequest $request)
     {
-        // return $this->renderText(json_encode(['error' => 'Please login to perform this action.']));
-        error_log("Above is get parameters, {$request->getParameter('id')}");
-        error_log("Latitude ----> {$request->getParameter('latitude')}");
-        error_log("Longitude ----> {$request->getParameter('longitude')}");
+        return $this->renderText(json_encode(['error' => 'Please login to perform this action.']));
 
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
@@ -1249,11 +1246,6 @@ class apiActions extends sfActions
                 'longitude' => $request->getParameter('longitude')
             ];
         }
-
-        error_log(print_r($data, true));
-
-
-        error_log("Print r above --->");
 
         if ((!array_key_exists('latitude', $data) && !array_key_exists('longitude', $data))) {
             return $this->renderText(json_encode([
@@ -1294,14 +1286,10 @@ class apiActions extends sfActions
 
         $updated = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query);
 
-        error_log("Update request --->{$update_query}");
-
-
         $element_id_2 = $this->map_location_with_form_type_longitude()[$application->getFormId()];
 
 
         $update_query_2 = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id_2} = '{$plot_longitude}' WHERE id = {$application->getEntryId()}";
-        error_log("Update request --->{$update_query_2}");
 
         $updated_2 = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query_2);
         $application_manager = new ApplicationManager();
@@ -1354,22 +1342,22 @@ class apiActions extends sfActions
                 }
 
                 $permits = $application->getSavedPermits() ? $application->getSavedPermits()->getData()[0] : false;
-                $allPaid = 'true';
+                $allPaid = 'paid';
                 $invoices = $application->getMfInvoice();
                 if ($invoices) {
                     foreach ($invoices->getData() as $invoice) {
                         if ($invoice->getPaid() != 2) {
-                            $allPaid = 'false';
+                            $allPaid = 'pending';
                             break;
                         }
                     }
                 } else {
-                    $allPaid = "false";
+                    $allPaid = "pending";
                 }
                 $app_info['application_date'] = $application->getDateOfSubmission();
                 $app_info['application_id'] = intval($application->getId());
                 $app_info['application_number'] = $application->getApplicationId();
-                $app_info['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "";
+                $app_info['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "-";
                 $app_info['current_stage_id'] = $application->getSubMenus() ? $application->getSubMenus()->getId() : "0";
                 $app_info['service_type'] = $groups[$application->getFormId()];
                 $app_info['approval_status'] = $permits ? "Approved" : "Pending Approval";

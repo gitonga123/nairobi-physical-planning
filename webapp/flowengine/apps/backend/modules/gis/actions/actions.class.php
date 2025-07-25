@@ -19,4 +19,11 @@ class GisActions extends sfActions
 
         $this->setLayout('layout');
     }
+    public function executeMap(sfWebRequest $request)
+    {
+        $otb_helper = new OTBHelper();
+        $this->application_types = $otb_helper->getPermitTypes($this->getUser()->getAttribute('userid'));
+
+        $this->setLayout('layout');
+    }
 }

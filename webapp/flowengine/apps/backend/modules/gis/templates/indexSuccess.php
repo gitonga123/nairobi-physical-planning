@@ -158,11 +158,11 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
                 class="application-row"
                 
               >
-                <td style="border-left: 6px solid ${item.invoice_status ? '#198754' : '#dc3545'};">${index + 1}</td>
-                <td><strong>${item.service_type}</strong></td>
+                <td>${index + 1}</td>
+                <td style="border-left: 5px solid ${item.invoices_paid ? '#198754' : '#dc3545'};"><strong>${item.service_type}</strong></td>
                 <td>
                   <a href="/plan/applications/view/id/${item.application_id}" target="_blank">
-                    ${item.application_number}
+                    ${item.application_number - item.invoice_status}
                   </a>
                 </td>
                 <td>

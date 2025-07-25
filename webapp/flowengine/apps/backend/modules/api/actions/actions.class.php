@@ -634,10 +634,6 @@ class apiActions extends sfActions
         } else {
 
             $cache_key = 'apps_list_' . md5(json_encode([
-                'permit' => $with_permit,
-                'forms' => $form_list,
-                'start' => $new_start_date,
-                'end' => $new_end_date,
                 'limit' => $limit,
                 'page' => $page
             ]));

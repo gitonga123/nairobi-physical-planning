@@ -85,11 +85,11 @@
 
                                         <?php if ($pager->haveToPaginate()) : ?>
                                             <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                <li><a href="/backend.php/applications/messages/page/1">
+                                                <li><a href="/plan/applications/messages/page/1">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
-                                                <li><a href="/backend.php/applications/messages/page/<?php echo $pager->getPreviousPage() ?>">
+                                                <li><a href="/plan/applications/messages/page/<?php echo $pager->getPreviousPage() ?>">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
@@ -97,15 +97,15 @@
                                                     <?php if ($page == $pager->getPage()) : ?>
                                                         <li class="active"><a href=""><?php echo $page ?></li></a>
                                                     <?php else : ?>
-                                                        <li><a href="/backend.php/applications/messages/page/<?php echo $page ?>"><?php echo $page ?></a></li>
+                                                        <li><a href="/plan/applications/messages/page/<?php echo $page ?>"><?php echo $page ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
 
-                                                <li><a href="/backend.php/applications/messages/page/<?php echo $pager->getNextPage() ?>">
+                                                <li><a href="/plan/applications/messages/page/<?php echo $pager->getNextPage() ?>">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
 
-                                                <li><a href="/backend.php/applications/messages/page/<?php echo $pager->getLastPage() ?>">
+                                                <li><a href="/plan/applications/messages/page/<?php echo $pager->getLastPage() ?>">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a>
                                                 </li>

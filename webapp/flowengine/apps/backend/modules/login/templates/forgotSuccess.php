@@ -4,7 +4,7 @@
         <div class="loginuser">
             <p class="account-subtitle">Enter your email address below. We will send an email with instruction on how to reset your password</p>
         </div>
-        <form method="post" action="/backend.php/login/forgot" autocomplete="off">
+        <form method="post" action="/plan/login/forgot" autocomplete="off">
             <?php if ($form->isCSRFProtected()) : ?>
                 <?php echo $form['_csrf_token']->render(); ?>
             <?php endif; ?>
@@ -19,7 +19,7 @@
             </div>
         </form>
 
-        <div class="text-center dont-have forgotpass m-1 mt-1"><a class="link text-primary" href="/backend.php/login">Remember Password?</a></div>
+        <div class="text-center dont-have forgotpass m-1 mt-1"><a class="link text-primary" href="/plan/login">Remember Password?</a></div>
     </div><!-- lockedpanel -->
 
 </section>  

@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("managefees"))
         </div>
 
         <div class="panel-heading text-right">
-                <a class="btn btn-primary" id="newpage" href="/backend.php/feecategories/new" ><?php echo __('+ Add Category'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/plan/feecategories/new" ><?php echo __('+ Add Category'); ?></a>
         </div>
         <div class="panel-body">
 
@@ -31,8 +31,8 @@ if($sf_user->mfHasCredential("managefees"))
                         <td><?php echo $category->getId(); ?></td>
                         <td><?php echo $category->getTitle();  ?></td>
                         <td align="center">
-                            <a id="editpage<?php echo $category->getId(); ?>" href="/backend.php/feecategories/edit/id/<?php echo $category->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $category->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/feecategories/delete/id/<?php echo $category->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $category->getId(); ?>" href="/plan/feecategories/edit/id/<?php echo $category->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $category->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/feecategories/delete/id/<?php echo $category->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

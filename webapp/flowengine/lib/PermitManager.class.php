@@ -437,9 +437,7 @@ class PermitManager {
         $template = $q->fetchOne();
 
         $html = $this->generate_permit_template($permit_id, true);
-        #require_once(dirname(__FILE__)."/vendor/dompdf/dompdf_config.inc.php");
-        error_log('-------HTML---------');
-        error_log('-------'.$html);
+
         $dompdf = new Dompdf();
 		$dompdf->set_option('isRemoteEnabled', TRUE);
         $dompdf->loadHtml($html);
@@ -1300,8 +1298,7 @@ class PermitManager {
         $template = $q->fetchOne();
 
         $html = $this->generate_permit_template($permit_id, true);
-        error_log('-------HTML-----------------------');
-        error_log('-----'.$html);
+
         //$html = str_replace('http://localhost:8000/barcode/barcode.processor.php?','',$html);
         #require_once(dirname(__FILE__)."/vendor/dompdf/dompdf_config.inc.php");
 

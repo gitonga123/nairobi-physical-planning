@@ -9,7 +9,7 @@ if($sf_user->mfHasCredential('createapplications')) {
         <div class="breadcrumb-wrapper">
             
             <ol class="breadcrumb">
-                <li><a href="/backend.php">Home</a></li>
+                <li><a href="/plan">Home</a></li>
                 <li>Users</li>
                 <li class="active">Recover Application</li>
             </ol>
@@ -35,7 +35,7 @@ if($sf_user->mfHasCredential('createapplications')) {
     <div class="tab-content">
     <div class="tab-pane <?php if ($step == 1) { ?>active<?php } ?>" id="ptab1">
         <form class="form-horizontal form-bordered" method="post"
-              action="/backend.php/frusers/recover/id/<?php echo $user_id; ?>">
+              action="/plan/frusers/recover/id/<?php echo $user_id; ?>">
             <input type="hidden" name="step" value="2"/>
 
             <?php
@@ -97,7 +97,7 @@ if($sf_user->mfHasCredential('createapplications')) {
             ?>
             <div class="alert alert-success" id="alertdiv" name="alertdiv">
                 <button type="button" class="close" onClick="document.getElementById('alertdiv').style.display = 'none';" aria-hidden="true">&times;</button>
-                <strong><?php echo __('Success'); ?>!</strong> <?php echo __('You have recovered an application: <a href="/backend.php/applications/view/id/'.$submission->getId().'">'.$submission->getApplicationId().'</a>'); ?></a>.
+                <strong><?php echo __('Success'); ?>!</strong> <?php echo __('You have recovered an application: <a href="/plan/applications/view/id/'.$submission->getId().'">'.$submission->getApplicationId().'</a>'); ?></a>.
             </div>
             <?php
             $_SESSION['formid'] = "";

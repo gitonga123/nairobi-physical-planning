@@ -221,7 +221,7 @@ EOT;
 		<div id="content" class="full">
 			<div class="panel panel-default">
 					<div class="panel-heading" id="me_form_title" <?php if(!empty($total_incomplete_entries)){ echo 'style="max-width: 80%"'; } ?>>
-							<h2 class="panel-title"><?php echo "<a href='/backend.php/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
+							<h2 class="panel-title"><?php echo "<a href='/plan/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
 							<small>Edit and manage your form entries</small>
 
 						<?php if(!empty($total_incomplete_entries)){ ?>

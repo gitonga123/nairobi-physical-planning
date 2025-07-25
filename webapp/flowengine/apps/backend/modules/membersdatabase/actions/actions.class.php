@@ -6,28 +6,28 @@ class membersdatabaseActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $q = Doctrine_Query::create()
-      ->from('MembersDatabase a')
-      ->orderBy('a.id DESC');
-    $this->records = $q->execute();
-
-    $this->setLayout("layout-settings");
+       ->from('MembersDatabase a')
+	   ->orderBy('a.id DESC');
+     $this->records = $q->execute();
+	 
+	$this->setLayout("layout-settings");
   }
 
   public function executeAssociation(sfWebRequest $request)
   {
     $q = Doctrine_Query::create()
-      ->from('MembersDatabase a')
-      ->where('a.user_category_id = ?', $request->getParameter('filter'))
-      ->orderBy('a.id DESC');
-    $this->records = $q->execute();
-
-    $this->setLayout("layout-settings");
+       ->from('MembersDatabase a')
+	   ->where('a.user_category_id = ?',$request->getParameter('filter'))
+	   ->orderBy('a.id DESC');
+     $this->records = $q->execute();
+	 
+	$this->setLayout("layout-settings");
   }
 
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new MembersDatabaseForm();
-    $this->setLayout("layout-settings");
+	$this->setLayout("layout-settings");
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -45,7 +45,7 @@ class membersdatabaseActions extends sfActions
   {
     $this->forward404Unless($record = Doctrine_Core::getTable('MembersDatabase')->find(array($request->getParameter('id'))), sprintf('Object record does not exist (%s).', $request->getParameter('id')));
     $this->form = new MembersDatabaseForm($record);
-    $this->setLayout("layout-settings");
+	  $this->setLayout("layout-settings");
   }
 
   public function executeUpdate(sfWebRequest $request)
@@ -65,11 +65,11 @@ class membersdatabaseActions extends sfActions
     $this->forward404Unless($record = Doctrine_Core::getTable('MembersDatabase')->find(array($request->getParameter('id'))), sprintf('Object record does not exist (%s).', $request->getParameter('id')));
 
     $audit = new Audit();
-    $audit->saveAudit("", "deleted record of id " . $record->getId());
+    $audit->saveAudit("", "deleted record of id ".$record->getId());
 
     $record->delete();
 
-    $this->redirect('/backend.php/membersdatabase');
+    $this->redirect('/plan/membersdatabase');
   }
 
   public function executeValidate(sfWebRequest $request)
@@ -78,23 +78,24 @@ class membersdatabaseActions extends sfActions
     $this->forward404Unless($record = Doctrine_Core::getTable('MembersDatabase')->find(array($request->getParameter('id'))), sprintf('Object record does not exist (%s).', $request->getParameter('id')));
 
     $audit = new Audit();
-    $audit->saveAudit("", "validate MembersDatabase number " . $record->getMembersNo());
+    $audit->saveAudit("", "validate MembersDatabase number ".$record->getMembersNo());
 
     $record->setValidate(null)->save();
 
-    $this->redirect('/backend.php/membersdatabase');
+    $this->redirect('/plan/membersdatabase');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    if ($form->isValid()) {
+    if ($form->isValid())
+    {
       $record = $form->save();
 
       $audit = new Audit();
-      $audit->saveAudit("", "<a href=\"/backend.php/membersdatabase/edit?id=" . $record->getId() . "&language=en\">updated a user association validation record (MembersDatabase)</a>");
+      $audit->saveAudit("", "<a href=\"/plan/membersdatabase/edit?id=".$record->getId()."&language=en\">updated a user association validation record (MembersDatabase)</a>");
 
-      $this->redirect('/backend.php/membersdatabase');
+      $this->redirect('/plan/membersdatabase');
     }
   }
 }

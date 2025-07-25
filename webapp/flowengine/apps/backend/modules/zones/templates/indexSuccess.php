@@ -13,12 +13,12 @@ if($sf_user->mfHasCredential("managefees"))
 
 
         <div class="panel-heading text-right">
-            <a class="btn btn-warning"  id="update_zone" href="<?php echo url_for('/backend.php/zones/updatezones') ?>" ><?php echo __('Update Zones'); ?></a>
+            <a class="btn btn-warning"  id="update_zone" href="<?php echo url_for('/plan/zones/updatezones') ?>" ><?php echo __('Update Zones'); ?></a>
 			<script>
 			$(document).ready(function(){
 				$('#update_zone').click(function(e){
 					$.ajax({
-						url: "<?php echo url_for('/backend.php/zones/updatezones') ?>",
+						url: "<?php echo url_for('/plan/zones/updatezones') ?>",
 						type: "GET",
 						dataType: "json",
 					}).done(function(resp){
@@ -39,7 +39,7 @@ if($sf_user->mfHasCredential("managefees"))
 				});
 			});
 			</script>
-            <a class="btn btn-primary" id="newpage" href="/backend.php/zones/new" ><?php echo __('+ Add Fee Zone'); ?></a>
+            <a class="btn btn-primary" id="newpage" href="/plan/zones/new" ><?php echo __('+ Add Fee Zone'); ?></a>
         </div>
 
         <div class="panel-body">
@@ -62,8 +62,8 @@ if($sf_user->mfHasCredential("managefees"))
                         <td><?php echo $zone->getName(); ?></td>
                         <td><?php echo $zone->getSubCounty();  ?></td>
                         <td align="center">
-                            <a id="zoneedit<?php echo $zone->getId(); ?>" href="/backend.php/zones/edit/id/<?php echo $zone->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="zonedelete<?php echo $zone->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/zones/delete/id/<?php echo $zone->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="zoneedit<?php echo $zone->getId(); ?>" href="/plan/zones/edit/id/<?php echo $zone->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="zonedelete<?php echo $zone->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/zones/delete/id/<?php echo $zone->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

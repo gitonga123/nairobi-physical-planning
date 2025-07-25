@@ -128,7 +128,7 @@ class audit
 		}
 		catch(Exception $ex)
 		{
-			error_log("Audit Error: ".$ex);
+			error_log("Audit Error: ".$ex->getMessage());
 		}
 	}
 

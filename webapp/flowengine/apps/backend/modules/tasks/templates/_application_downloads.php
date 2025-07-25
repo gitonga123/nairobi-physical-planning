@@ -55,7 +55,7 @@
                         <td><?php echo $permit->getDateOfIssue()?></td>
                         <td><?php echo $permit->getDateOfExpiry()?></td>
                         <td>
-                            <a target="_blank" class="btn btn-xs btn-success" onClick="window.location = '/backend.php/permits/view/id/<?php echo $permit->getId(); ?>';"><span class="fa fa-print"></span></a>
+                            <a target="_blank" class="btn btn-xs btn-success" onClick="window.location = '/plan/permits/view/id/<?php echo $permit->getId(); ?>';"><span class="fa fa-print"></span></a>
                         </td>
                         </tr>
                     <?php

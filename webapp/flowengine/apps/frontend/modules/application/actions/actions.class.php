@@ -121,6 +121,8 @@ class applicationActions extends sfActions
         $this->revisions = $q->execute();
         //Set layout
         //$this->setLayout("layoutdash");
+
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Application Details");
         $this->setLayout("layoutmentordash");
     }
 
@@ -134,17 +136,17 @@ class applicationActions extends sfActions
     public function executeViewentrypdf(sfWebRequest $request)
     {
         $prefix_folder = dirname(__FILE__) . "/../../../../../lib/vendor/form_builder/";
-        require ($prefix_folder . 'includes/init.php');
+        require($prefix_folder . 'includes/init.php');
 
-        require ($prefix_folder . '../../../config/form_builder_config.php');
-        require ($prefix_folder . 'includes/db-core.php');
-        require ($prefix_folder . 'includes/helper-functions.php');
-        require ($prefix_folder . 'includes/check-session.php');
+        require($prefix_folder . '../../../config/form_builder_config.php');
+        require($prefix_folder . 'includes/db-core.php');
+        require($prefix_folder . 'includes/helper-functions.php');
+        require($prefix_folder . 'includes/check-session.php');
 
-        require ($prefix_folder . 'includes/language.php');
-        require ($prefix_folder . 'includes/entry-functions.php');
-        require ($prefix_folder . 'includes/post-functions.php');
-        require ($prefix_folder . 'includes/users-functions.php');
+        require($prefix_folder . 'includes/language.php');
+        require($prefix_folder . 'includes/entry-functions.php');
+        require($prefix_folder . 'includes/post-functions.php');
+        require($prefix_folder . 'includes/users-functions.php');
         //require($prefix_folder.'lib/dompdf/dompdf_config.inc.php');
 
         $q = Doctrine_Query::create()
@@ -314,6 +316,8 @@ class applicationActions extends sfActions
 
         //If page does not exist then redirect to 404
         if (empty($this->application)) {
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Application Not Found");
+
             return $this->redirect("/plan/errors/notfound");
         }
 
@@ -345,6 +349,8 @@ class applicationActions extends sfActions
             ->limit(2);
         $this->transferring_applications = $q->execute();
 
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Edit Application" . $this->application->getApplicationId());
+
         $this->setLayout("layoutmentordash");
     }
 
@@ -364,6 +370,9 @@ class applicationActions extends sfActions
 
         if ($savedpermit) {
             $application = $savedpermit->getApplication();
+
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Permit " . $savedpermit->getPermitId());
+
 
             #require_once(dirname(__FILE__)."/../../../../../lib/vendor/dompdf/dompdf_config.inc.php");
 

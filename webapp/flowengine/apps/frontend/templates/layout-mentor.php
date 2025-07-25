@@ -1,3 +1,21 @@
+<?php
+/**
+ * Frontend Layout.
+ *
+ * Main layout for the frontend
+ *
+ * @package		Frontend
+ * @theme		eCitizen
+ * @author		Webmasters Africa (info@webmastersafrica.com)
+ */
+use_helper("I18N");
+
+//Logout backend users so they don't clash with frontend security & set language
+include_component('index', 'checksession');
+
+$site_settings = Functions::site_settings();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +23,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Uasin Gishu County: Physical Planning Portal</title>
+    <title><?php echo isset($sf_response) ? $sf_response->getTitle() : $site_settings->getOrganisationName(); ?></title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
@@ -180,10 +198,12 @@
                             <!-- Footer Widget -->
                             <div class="footer-widget footer-about">
                                 <div class="footer-logo">
-                                    <img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="Uasin Gishu County">
+                                    <img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
+                                        alt="Uasin Gishu County">
                                 </div>
                                 <div class="footer-about-content">
-                                    <p class="footer-sub-text">Uasin Gishu County Physical Planning portal - Access County services
+                                    <p class="footer-sub-text">Uasin Gishu County Physical Planning portal - Access
+                                        County services
                                         now from the comfort of your desk!</p>
 
                                 </div>
@@ -258,7 +278,8 @@
                             </div>
                             <div class="col-md-6 ">
                                 <div class="copyright-text">
-                                    <p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County Physical Planning. All
+                                    <p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County Physical Planning.
+                                        All
                                         rights
                                         reserved.</p>
                                 </div>

@@ -3,7 +3,7 @@
 ?>
 
 
-                <form method="post" action="/backend.php/login/updatephone" autocomplete="off">
+                <form method="post" action="/plan/login/updatephone" autocomplete="off">
                     <p class="account-subtitle"><?php echo __('Verify your Phone Number'); ?></p>
                         <?php
                             if($twofactor_error)

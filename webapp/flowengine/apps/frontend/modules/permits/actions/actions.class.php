@@ -32,6 +32,7 @@ class permitsActions extends sfActions
     $this->pager->setQuery($q);
     $this->pager->setPage($request->getParameter('page', 1));
     $this->pager->init();
+    $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Permits");
 
     $this->setLayout("layoutmentordash");
   }
@@ -86,6 +87,9 @@ class permitsActions extends sfActions
     $this->application = $this->permit->getFormEntry();
 
     $this->done = $request->getParameter("done", 0);
+
+
+    $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Permit - ".$this->permit->getPermitId());
 
     $this->setLayout("layoutmentordash");
   }

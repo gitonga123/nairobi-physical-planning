@@ -19,7 +19,7 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
     <div class="breadcrumb-wrapper" style="margin-top: 10px;">
       <span class="label"><?php echo __('You are here'); ?>:</span>
       <ol class="breadcrumb">
-        <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
+        <li><a href="/plan"><?php echo __('Home'); ?></a></li>
         <li class="active"><?php echo __('Reviewers'); ?></li>
       </ol>
     </div>
@@ -61,14 +61,14 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
           if ($department_filter) {
         ?>
 
-            <a href="/backend.php/users/edituser" class="btn btn-primary tooltips table-btn" data-original-title="New Reviewer" data-toggle="tooltip"> <span class="hidden-xs">+ <?php echo __('Add Reviewer'); ?></span></a>
+            <a href="/plan/users/edituser" class="btn btn-primary tooltips table-btn" data-original-title="New Reviewer" data-toggle="tooltip"> <span class="hidden-xs">+ <?php echo __('Add Reviewer'); ?></span></a>
 
 
           <?php
           } else {
           ?>
 
-            <a href="/backend.php/department/new" class="btn btn-primary tooltips table-btn" data-original-title="New Department" data-toggle="tooltip"> <span class="hidden-xs">+ <?php echo __('Add Department'); ?></span></a>
+            <a href="/plan/department/new" class="btn btn-primary tooltips table-btn" data-original-title="New Department" data-toggle="tooltip"> <span class="hidden-xs">+ <?php echo __('Add Department'); ?></span></a>
 
 
         <?php
@@ -91,7 +91,7 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                 </th>
 
                 <th class="b-b-0 radius-tr">
-                  <select size="1" name="filter_status" aria-controls="table2" class="select2 form-control" onChange="window.location='/backend.php/users/index<?php if ($department_filter) {
+                  <select size="1" name="filter_status" aria-controls="table2" class="select2 form-control" onChange="window.location='/plan/users/index<?php if ($department_filter) {
                                                                                                                                                                   echo "/department_filter/" . $department_filter;
                                                                                                                                                                 } ?>/filterstatus/' + this.value;">
                     <option value="1"><?php echo __('Select Status'); ?></option>
@@ -145,8 +145,8 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                       <?php
                       if ($sf_user->mfHasCredential("access_reviewers")) {
                       ?>
-                        <a title="View Reviewer" href="/backend.php/users/index/department_filter/<?php echo $department->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
-                        <a title="Edit Reviewer" href="/backend.php/department/edit/id/<?php echo $department->getId(); ?>"><span class="label label-primary"><i class="fa fa-edit"></i></span></a>
+                        <a title="View Reviewer" href="/plan/users/index/department_filter/<?php echo $department->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+                        <a title="Edit Reviewer" href="/plan/department/edit/id/<?php echo $department->getId(); ?>"><span class="label label-primary"><i class="fa fa-edit"></i></span></a>
                       <?php
                       }
                       ?>
@@ -223,20 +223,20 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                     <td><span class="label label-primary"><?php echo $stats; ?></span></td>
 
                     <td class="text-right">
-                      <a title="View Reviewer" href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+                      <a title="View Reviewer" href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
                       <?php
                       if ($sf_user->mfHasCredential("access_reviewers")) {
                         if ($reviewer->getBdeleted() == 1) {
                       ?>
-                          <a title="Activate Reviewer" onclick="if(confirm('Are you sure you want to restore this user?')){ return true; }else{ return false; }" href="/backend.php/users/restore/id/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-check-circle"></i></span></a>
+                          <a title="Activate Reviewer" onclick="if(confirm('Are you sure you want to restore this user?')){ return true; }else{ return false; }" href="/plan/users/restore/id/<?php echo $reviewer->getNid(); ?>"><span class="label label-primary"><i class="fa fa-check-circle"></i></span></a>
                         <?php
                         } else {
                         ?>
-                          <a title="Deactivate Reviewer" onclick="if(confirm('Are you sure you want to deactivate this user?')){ return true; }else{ return false; }" href="/backend.php/users/delete/id/<?php echo $reviewer->getNid(); ?>"><span class="label label-danger"><i class="fa fa-times" aria-hidden="true"></i></span></a>
+                          <a title="Deactivate Reviewer" onclick="if(confirm('Are you sure you want to deactivate this user?')){ return true; }else{ return false; }" href="/plan/users/delete/id/<?php echo $reviewer->getNid(); ?>"><span class="label label-danger"><i class="fa fa-times" aria-hidden="true"></i></span></a>
                           <?php
                           if ($sf_user->mfHasCredential("managereviewers_delete") && $department) {?>
                           
-                            <a title="Complete Deletion" onclick="if(confirm('Are you sure you want to delete this user?')){ return true; }else{ return false; }" href="/backend.php/users/deletecompletely/id/<?php echo $reviewer->getNid(); ?>/department/<?php echo $department->getId(); ?>"><span class="label label-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></span></a>
+                            <a title="Complete Deletion" onclick="if(confirm('Are you sure you want to delete this user?')){ return true; }else{ return false; }" href="/plan/users/deletecompletely/id/<?php echo $reviewer->getNid(); ?>/department/<?php echo $department->getId(); ?>"><span class="label label-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></span></a>
                       <?php
                           }
                         }
@@ -262,7 +262,7 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                     ?>
                     <?php if ($pager->haveToPaginate()) : ?>
                       <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                        <li><a href="/backend.php/users/index/page/1<?php if ($filter) {
+                        <li><a href="/plan/users/index/page/1<?php if ($filter) {
                                                                       echo "/filter/" . $filter;
                                                                     } ?><?php if ($department_filter) {
                                                                           echo "/department_filter/" . $department_filter;
@@ -282,7 +282,7 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                             ?>
                           </a></li>
 
-                        <li><a href="/backend.php/users/index/page/<?php echo $pager->getPreviousPage() ?><?php if ($department_filter) {
+                        <li><a href="/plan/users/index/page/<?php echo $pager->getPreviousPage() ?><?php if ($department_filter) {
                                                                                                             echo "/department_filter/" . $department_filter;
                                                                                                           } ?><?php if ($filter) {
                                                                                                                 echo "/filter/" . $filter;
@@ -306,7 +306,7 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                           <?php if ($page == $pager->getPage()) : ?>
                             <li class="active"><a href=""><?php echo $page ?></li></a>
                           <?php else : ?>
-                            <li><a href="/backend.php/users/index/page/<?php echo $page ?><?php if ($department_filter) {
+                            <li><a href="/plan/users/index/page/<?php echo $page ?><?php if ($department_filter) {
                                                                                             echo "/department_filter/" . $department_filter;
                                                                                           } ?><?php if ($filter) {
                                                                                                 echo "/filter/" . $filter;
@@ -316,7 +316,7 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                           <?php endif; ?>
                         <?php endforeach; ?>
 
-                        <li><a href="/backend.php/users/index/page/<?php echo $pager->getNextPage() ?><?php if ($department_filter) {
+                        <li><a href="/plan/users/index/page/<?php echo $pager->getNextPage() ?><?php if ($department_filter) {
                                                                                                         echo "/department_filter/" . $department_filter;
                                                                                                       } ?><?php if ($filter) {
                                                                                                             echo "/filter/" . $filter;
@@ -336,7 +336,7 @@ if ($sf_user->mfHasCredential("access_reviewers") || $sf_user->mfHasCredential("
                             ?>
                           </a></li>
 
-                        <li><a href="/backend.php/users/index/page/<?php echo $pager->getLastPage() ?><?php if ($department_filter) {
+                        <li><a href="/plan/users/index/page/<?php echo $pager->getLastPage() ?><?php if ($department_filter) {
                                                                                                         echo "/department_filter/" . $department_filter;
                                                                                                       } ?><?php if ($filter) {
                                                                                                             echo "/filter/" . $filter;

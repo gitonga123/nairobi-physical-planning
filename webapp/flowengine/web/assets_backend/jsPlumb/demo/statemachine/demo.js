@@ -28,7 +28,7 @@ jsPlumb.ready(function() {
 	// happening.
 	instance.bind("click", function(c) {
 		instance.detach(c);
-        $.post('/backend.php/wizard/unbindaction', { from: c.sourceId, to: c.targetId });
+        $.post('/plan/wizard/unbindaction', { from: c.sourceId, to: c.targetId });
 	});
 
 	// bind a connection listener. note that the parameter passed to this function contains more than
@@ -37,7 +37,7 @@ jsPlumb.ready(function() {
 	// id as the label overlay's text.
     instance.bind("connection", function(info) {
 		info.connection.getOverlay("label").setLabel(info.connection.id);
-        $.post('/backend.php/wizard/bindaction', { from: info.sourceId, to: info.targetId });
+        $.post('/plan/wizard/bindaction', { from: info.sourceId, to: info.targetId });
     });
 
 

@@ -14,7 +14,7 @@ $application_manager = new ApplicationManager();
 if($application->getEntryId() == 0 || $application->getEntryId() == "")
 {
     ?>
-    <form method="get" action="/backend.php/applications/view?id=<?php echo $application->getId(); ?>">
+    <form method="get" action="/plan/applications/view?id=<?php echo $application->getId(); ?>">
         <div class="panel-body padding-0" style="border-top:none;">
             <div class="form-group">
                 <label class="col-sm-8"><?php echo __('This application had an issue during submission. Please enter bill reference to recover application details or contact system administrator for assistance'); ?></label>
@@ -123,7 +123,7 @@ EOT;
 <script>
 $(function(){
 	$('.ifc-button').click(function(e){
-		$('#modal-content').load("<?php echo url_for('/backend.php/applications/viewifc') ?>",{application: $(this).data('application')});
+		$('#modal-content').load("<?php echo url_for('/plan/applications/viewifc') ?>",{application: $(this).data('application')});
 	});
 });
 </script>

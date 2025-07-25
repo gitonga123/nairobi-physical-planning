@@ -141,8 +141,8 @@ class ZiziGateway {
 
         if($backend)
         {
-            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/backend.php/forms/view?id='.$application->getFormId().'&entryid='.$application->getEntryId().'&done=1&invoiceid='.$invoice->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
-            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/backend.php/forms/invalidpayment';
+            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan/forms/view?id='.$application->getFormId().'&entryid='.$application->getEntryId().'&done=1&invoiceid='.$invoice->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
+            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan/forms/invalidpayment';
         }
         else
         {
@@ -278,8 +278,8 @@ EOT;
 
         if($backend)
         {
-            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/backend.php/profile/create?id='.$user_profile->getFormId().'&entryid='.$user_profile->getEntryId().'&done=1&profile='.$user_profile->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
-            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/backend.php/forms/invalidpayment';
+            $callBackURLOnSuccess = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan/profile/create?id='.$user_profile->getFormId().'&entryid='.$user_profile->getEntryId().'&done=1&profile='.$user_profile->getId().'&status=201'; //redirect url, the page that will handle the response from pesaflow.
+            $callBackURLOnFail = 'http'.$this->suffix.'://'.$_SERVER['HTTP_HOST'].'/plan/forms/invalidpayment';
         }
         else
         {

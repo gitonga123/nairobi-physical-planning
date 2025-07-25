@@ -47,7 +47,7 @@
                             $is_signed = $permit->isSigned();
                             $is_signable = $permit->isSignable();
                             $can_sign_this_permit = $sf_user->mfHasCredential('can-sign-permit-' . $permit->getTypeId());
-                            $redirect_to = "/backend.php/applications/view/id/" . $application->getId();
+                            $redirect_to = "/plan/applications/view/id/" . $application->getId();
                             $signer = ($signer = $permit->getSignedBy()) ? (($signer = Doctrine_Core::getTable('CfUser')->findOneBy('nid', $signer)) ? $signer->getStrfirstname() . ' ' . $signer->getStrlastname() : '-') : '-';
                             ?>
                             <tr>
@@ -58,18 +58,18 @@
                                 <td><?php echo $signer ?></td>
                                 <td>
                                     <a target="_blank" class="btn btn-xs"
-                                       href="/backend.php/permits/view/id/<?php echo $permit->getId(); ?>">
+                                       href="/plan/permits/view/id/<?php echo $permit->getId(); ?>">
                                         <i class="fa fa-eye"></i>
                                     </a>
 
                                     <?php if ($can_sign_this_permit and !$is_signed): ?>
                                         <?php if (Functions::isDocumentInSigningSession($permit->getUnSignedFilePath())): ?>
                                             <a class="btn btn-danger"
-                                               href="/backend.php/signingsessions/remove?document=<?php echo $permit->getUnSignedFilePath(); ?>&redirect_to=<?php echo $redirect_to ?>">
+                                               href="/plan/signingsessions/remove?document=<?php echo $permit->getUnSignedFilePath(); ?>&redirect_to=<?php echo $redirect_to ?>">
                                                 <i class="fa fa-minus"></i> Remove from Signing list
                                             </a>
                                         <?php else: ?>
-                                            <a href="/backend.php/signingsessions/add?document=<?php echo $permit->getUnSignedFilePath(); ?>&id=<?php echo $permit->getId() ?>&type=SavedPermit&slug=<?php echo $permit->getTaskSlug(); ?>&name=<?php echo $permit->getTemplate()->getTitle(); ?>&application_id=<?php echo $permit->getApplicationId(); ?>&redirect_to=<?php echo $redirect_to ?>"
+                                            <a href="/plan/signingsessions/add?document=<?php echo $permit->getUnSignedFilePath(); ?>&id=<?php echo $permit->getId() ?>&type=SavedPermit&slug=<?php echo $permit->getTaskSlug(); ?>&name=<?php echo $permit->getTemplate()->getTitle(); ?>&application_id=<?php echo $permit->getApplicationId(); ?>&redirect_to=<?php echo $redirect_to ?>"
                                                class="btn btn-info">
                                                 <i class="fa fa-plus"></i> Add to Signing list
                                             </a>

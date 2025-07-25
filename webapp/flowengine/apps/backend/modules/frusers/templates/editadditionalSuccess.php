@@ -146,10 +146,10 @@ $profile = $q->fetchOne();
 
 <ol class="breadcrumb">
 <li>
-<a href="/backend.php">Home</a>
+<a href="/plan">Home</a>
 </li>
 <li>
-<a href="/backend.php/applications/list/get/your">Applications</a>
+<a href="/plan/applications/list/get/your">Applications</a>
 </li>
 <li class="active">Stages</li>
 </ol>

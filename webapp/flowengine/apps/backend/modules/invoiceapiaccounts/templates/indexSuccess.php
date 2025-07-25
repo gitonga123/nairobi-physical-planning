@@ -13,7 +13,7 @@ if($sf_user->mfHasCredential("manageinvoices"))
 
 
         <div class="panel-heading text-right">
-            <a class="btn btn-primary" id="newpage" href="/backend.php/invoiceapiaccounts/new" ><?php echo __('New Account'); ?></a>
+            <a class="btn btn-primary" id="newpage" href="/plan/invoiceapiaccounts/new" ><?php echo __('New Account'); ?></a>
         </div>
         <div class="panel-body">
 
@@ -34,8 +34,8 @@ if($sf_user->mfHasCredential("manageinvoices"))
                         <td><?php echo $account->getMdaName();  ?></td>
                         <td><?php echo $account->getMdaBranch();  ?></td>
                         <td align="center">
-                            <a id="editpage<?php echo $account->getId(); ?>" href="/backend.php/invoiceapiaccounts/edit/id/<?php echo $account->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $account->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/invoiceapiaccounts/delete/id/<?php echo $account->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $account->getId(); ?>" href="/plan/invoiceapiaccounts/edit/id/<?php echo $account->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $account->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/invoiceapiaccounts/delete/id/<?php echo $account->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

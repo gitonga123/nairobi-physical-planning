@@ -32,14 +32,14 @@ $site_settings = Functions::site_settings();
 
       <a class="menutoggle"><i class="fa fa-bars"></i></a>
 
-      <form class="searchform" action="/backend.php/applications/search" method="post">
+      <form class="searchform" action="/plan/applications/search" method="post">
         <input type="text" name="applicationid" class="form-control"
           placeholder="<?php echo __('Enter Application Number to Search'); ?>" onfocus="this.placeholder = ''"
           onblur="this.placeholder = '<?php echo __('Search'); ?>'" />
       </form>
 
-      <form class="searchform" action="/backend.php/applications/search" method="post">
-        <a href="/backend.php/applications/search?search=adv"
+      <form class="searchform" action="/plan/applications/search" method="post">
+        <a href="/plan/applications/search?search=adv"
           class="btn btn-default btn-advanced m-t-8 pull-left"><?php echo __('More Filters'); ?></a>
       </form>
       <div class="header-right">
@@ -61,7 +61,7 @@ $site_settings = Functions::site_settings();
                     }
                     ?>
                     <li class="<?php echo $selected; ?>"><a
-                        href="/backend.php/languages/setlocale/code/<?php echo $locale->getLocaleIdentifier(); ?>"><i
+                        href="/plan/languages/setlocale/code/<?php echo $locale->getLocaleIdentifier(); ?>"><i
                           class="glyphicon glyphicon-cog"></i> <?php echo $locale->getLocalTitle(); ?></a></li>
                     <?php
                   }
@@ -90,10 +90,10 @@ $site_settings = Functions::site_settings();
                 ?>
               </button>
               <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                <li><a href="/backend.php/dashboard/profile"><i class="glyphicon glyphicon-cog"></i>
+                <li><a href="/plan/dashboard/profile"><i class="glyphicon glyphicon-cog"></i>
                     <?php echo $logged_reviewer->getStrfirstname() . " " . $logged_reviewer->getStrlastname(); ?></a>
                 </li>
-                <li><a href="/backend.php/login/logout"><i class="glyphicon glyphicon-log-out"></i>
+                <li><a href="/plan/login/logout"><i class="glyphicon glyphicon-log-out"></i>
                     <?php echo __('Log Out'); ?></a></li>
               </ul>
             </div>

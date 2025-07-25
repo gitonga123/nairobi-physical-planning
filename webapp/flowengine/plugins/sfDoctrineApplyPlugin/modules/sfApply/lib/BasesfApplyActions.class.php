@@ -75,7 +75,7 @@ class BasesfApplyActions extends sfActions
           $user->setIsSuperAdmin(1);
           $user->save();
           //$this->getUser()->setAttribute('new_user_id',$user->getId());
-          $this->redirect('/backend.php/frusers/show/id/' . $user->getId());
+          $this->redirect('/plan/frusers/show/id/' . $user->getId());
           exit;
         } catch (Exception $e) {
           error_log($e);
@@ -89,7 +89,7 @@ class BasesfApplyActions extends sfActions
             $error .= $e->__toString() . ". ";
           }
           $this->getUser()->setFlash("notice", "Could not save the user. Try again." . html_entity_decode($error));
-          $this->redirect('/backend.php/frusers/new');
+          $this->redirect('/plan/frusers/new');
           //$user->delete();
           // You could re-throw $e here if you want to
           // make it available for debugging purposes

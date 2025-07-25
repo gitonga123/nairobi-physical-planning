@@ -35,71 +35,81 @@ Doctrine_Manager::getInstance()->bindComponent('ApplicationReference', 'doctrine
  */
 abstract class BaseApplicationReference extends sfDoctrineRecord
 {
-    public function setTableDefinition()
-    {
-        $this->setTableName('application_reference');
-        $this->hasColumn('id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => true,
-             'autoincrement' => true,
-             'length' => 4,
-             ));
-        $this->hasColumn('stage_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('application_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('approved_by', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('start_date', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('end_date', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-    }
+     public function setTableDefinition()
+     {
+          $this->setTableName('application_reference');
+          $this->hasColumn('id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => true,
+               'autoincrement' => true,
+               'length' => 4,
+          ));
+          $this->hasColumn('stage_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('application_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('approved_by', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('start_date', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('end_date', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('is_sms_sent', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+     }
 
-    public function setUp()
-    {
-        parent::setUp();
+     public function setUp()
+     {
+          parent::setUp();
 
-        $this->hasOne('FormEntry', array(
-             'local' => 'application_id',
-             'foreign' => 'id'));
-        
-    }
+          $this->hasOne('FormEntry', array(
+               'local' => 'application_id',
+               'foreign' => 'id'
+          ));
+
+     }
 }

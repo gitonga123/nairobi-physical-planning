@@ -86,257 +86,272 @@ Doctrine_Manager::getInstance()->bindComponent('FormEntry', 'doctrine');
  */
 abstract class BaseFormEntry extends sfDoctrineRecord
 {
-    public function setTableDefinition()
-    {
-        $this->setTableName('form_entry');
-        $this->hasColumn('id', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => true,
-             'autoincrement' => true,
-             'length' => 8,
-             ));
-        $this->hasColumn('service_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('form_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('entry_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('business_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('user_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('circulation_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('approved', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('application_id', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 255,
-             ));
-        $this->hasColumn('declined', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('deleted_status', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('previous_submission', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'default' => 0,
-             'length' => 8,
-             ));
-        $this->hasColumn('parent_submission', 'integer', 8, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'default' => 0,
-             'length' => 8,
-             ));
-        $this->hasColumn('date_of_submission', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 250,
-             ));
-        $this->hasColumn('date_of_response', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'default' => '',
-             'length' => 250,
-             ));
-        $this->hasColumn('date_of_issue', 'string', 250, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'default' => '',
-             'length' => 250,
-             ));
-        $this->hasColumn('observation', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'default' => '',
-             'length' => '',
-             ));
-        $this->hasColumn('assessment_inprogress', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'default' => 0,
-             'length' => 4,
-             ));
-        $this->hasColumn('pdf_path', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'default' => '',
-             'length' => 255,
-             ));
-        $this->hasColumn('form_data', 'json', null, array(
-             'type' => 'json',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'default' => '',
-             ));
-        $this->hasColumn('merchant_identifier', 'string', 255, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'default' => '',
-             'length' => 255,
-             ));
-    }
+     public function setTableDefinition()
+     {
+          $this->setTableName('form_entry');
+          $this->hasColumn('id', 'integer', 8, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => true,
+               'autoincrement' => true,
+               'length' => 8,
+          ));
+          $this->hasColumn('service_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('form_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('entry_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('business_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('user_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('circulation_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('approved', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('application_id', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
+          $this->hasColumn('declined', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('deleted_status', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('previous_submission', 'integer', 8, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'default' => 0,
+               'length' => 8,
+          ));
+          $this->hasColumn('parent_submission', 'integer', 8, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'default' => 0,
+               'length' => 8,
+          ));
+          $this->hasColumn('date_of_submission', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 250,
+          ));
+          $this->hasColumn('date_of_response', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'default' => '',
+               'length' => 250,
+          ));
+          $this->hasColumn('date_of_issue', 'string', 250, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'default' => '',
+               'length' => 250,
+          ));
+          $this->hasColumn('observation', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => true,
+               'autoincrement' => false,
+               'default' => '',
+               'length' => '',
+          ));
+          $this->hasColumn('assessment_inprogress', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'default' => 0,
+               'length' => 4,
+          ));
+          $this->hasColumn('pdf_path', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'default' => '',
+               'length' => 255,
+          ));
+          $this->hasColumn('form_data', 'json', null, array(
+               'type' => 'json',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'default' => '',
+          ));
+          $this->hasColumn('merchant_identifier', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'default' => '',
+               'length' => 255,
+          ));
+     }
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->hasOne('ApForms as Form', array(
-             'local' => 'form_id',
-             'foreign' => 'form_id'));
+     public function setUp()
+     {
+          parent::setUp();
+          $this->hasOne('ApForms as Form', array(
+               'local' => 'form_id',
+               'foreign' => 'form_id'
+          ));
 
-        $this->hasMany('ApprovalCondition', array(
-             'local' => 'id',
-             'foreign' => 'entry_id'));
+          $this->hasMany('ApprovalCondition', array(
+               'local' => 'id',
+               'foreign' => 'entry_id'
+          ));
 
-        $this->hasMany('EntryDecline', array(
-             'local' => 'id',
-             'foreign' => 'entry_id'));
+          $this->hasMany('EntryDecline', array(
+               'local' => 'id',
+               'foreign' => 'entry_id'
+          ));
 
-        $this->hasMany('MfInvoice', array(
-             'local' => 'id',
-             'foreign' => 'app_id'));
+          $this->hasMany('MfInvoice', array(
+               'local' => 'id',
+               'foreign' => 'app_id'
+          ));
 
-        $this->hasMany('Task', array(
-             'local' => 'id',
-             'foreign' => 'application_id'));
+          $this->hasMany('Task', array(
+               'local' => 'id',
+               'foreign' => 'application_id'
+          ));
 
-        $this->hasMany('SavedPermit', array(
-             'local' => 'id',
-             'foreign' => 'application_id'));
+          $this->hasMany('SavedPermit as SavedPermits', array(
+               'local' => 'id',
+               'foreign' => 'application_id'
+          ));
 
-        $this->hasOne('SfGuardUser', array(
-             'local' => 'user_id',
-             'foreign' => 'id'));
+          $this->hasOne('SfGuardUser', array(
+               'local' => 'user_id',
+               'foreign' => 'id'
+          ));
 
-        $this->hasOne('SfGuardUserProfile', array(
-             'local' => 'user_id',
-             'foreign' => 'id'));
+          $this->hasOne('SfGuardUserProfile', array(
+               'local' => 'user_id',
+               'foreign' => 'id'
+          ));
 
-        $this->hasOne('MfUserProfile', array(
-             'local' => 'business_id',
-             'foreign' => 'id'));
+          $this->hasOne('MfUserProfile', array(
+               'local' => 'business_id',
+               'foreign' => 'id'
+          ));
 
-        $this->hasOne('SubMenus as Stage', array(
-             'local' => 'approved',
-             'foreign' => 'id'));
+          $this->hasOne('SubMenus as Stage', array(
+               'local' => 'approved',
+               'foreign' => 'id'
+          ));
 
-        $this->hasMany('Inspections as Inspections', array(
-             'local' => 'id',
-             'foreign' => 'application_id'));
-    }
+          $this->hasMany('Inspections as Inspections', array(
+               'local' => 'id',
+               'foreign' => 'application_id'
+          ));
+          $this->hasOne('SubMenus', array(
+               'local' => 'approved',
+               'foreign' => 'id'
+          ));
+     }
 }

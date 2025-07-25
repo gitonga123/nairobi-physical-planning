@@ -9,7 +9,7 @@ $audit->saveAudit("", "Accessed Workflow Category");
     <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __("You are here"); ?>:</span>
         <ol class="breadcrumb">
-            <li><a href="<?php echo public_path("/backend.php/dashboard"); ?>"><?php echo __("Home"); ?></a></li>
+            <li><a href="<?php echo public_path("/plan/dashboard"); ?>"><?php echo __("Home"); ?></a></li>
             <li class="active"><?php echo __("Workflow Category"); ?></li>
         </ol>
     </div>
@@ -22,7 +22,7 @@ $audit->saveAudit("", "Accessed Workflow Category");
 						<h4 class="panel-title"><?php echo __("Service Category Creation"); ?></h4>
 					</div>
 					<div class="panel-body panel-body-nopadding">
-						<form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("backend.php/workflow/postCategory/id/".$form->getObject()->getId()); ?>">
+						<form class="form-horizontal form-bordered" method="post" action="<?php echo public_path("plan/workflow/postCategory/id/".$form->getObject()->getId()); ?>">
 							<div>
 							<?php echo $form->renderGlobalErrors() ?>
 							</div>
@@ -55,7 +55,7 @@ $audit->saveAudit("", "Accessed Workflow Category");
 							</div>
 							<?php echo $form->renderHiddenFields() ?>
 							<div class="panel-footer">
-								<a href="<?php echo url_for('/backend.php/workflow/indexCategory') ?>" class="btn btn-warning"><?php echo __('Back'); ?></a>
+								<a href="<?php echo url_for('/plan/workflow/indexCategory') ?>" class="btn btn-warning"><?php echo __('Back'); ?></a>
 								<input type="submit" class="btn btn-success pull-right" value="<?php echo __("Submit"); ?>" />
 							</div>
 						</form>

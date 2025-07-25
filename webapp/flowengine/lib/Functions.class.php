@@ -1,19 +1,25 @@
-<?php 
+<?php
 
-class Functions {
+class Functions
+{
 
     //Format numbers for statistics nicely by rounding off
-    public static function bd_nice_number($n) {
+    public static function bd_nice_number($n)
+    {
         // first strip any formatting;
-        $n = (0+str_replace(",","",$n));
+        $n = (0 + str_replace(",", "", $n));
 
         // is this a number?
-        if(!is_numeric($n)) return false;
+        if (!is_numeric($n))
+            return false;
 
         // now filter it;
-        if($n>1000000000000) return round(($n/1000000000000),1).' T';
-        else if($n>1000000000) return round(($n/1000000000),1).' B';
-        else if($n>1000000) return round(($n/1000000),1).' M';
+        if ($n > 1000000000000)
+            return round(($n / 1000000000000), 1) . ' T';
+        else if ($n > 1000000000)
+            return round(($n / 1000000000), 1) . ' B';
+        else if ($n > 1000000)
+            return round(($n / 1000000), 1) . ' M';
 
         return number_format($n);
     }
@@ -36,7 +42,8 @@ class Functions {
     }
 
     //Get number of days since a given date
-    public static function get_days_since($sStartDate, $sEndDate){
+    public static function get_days_since($sStartDate, $sEndDate)
+    {
         $start_ts = new DateTime($sStartDate);
         $end_ts = new DateTime($sEndDate);
         $diff = $start_ts->diff($end_ts)->d;
@@ -44,7 +51,8 @@ class Functions {
     }
 
     //Get number of months since a given date
-    public static function get_months_since($sStartDate, $sEndDate){
+    public static function get_months_since($sStartDate, $sEndDate)
+    {
         $start_ts = new DateTime($sStartDate);
         $end_ts = new DateTime($sEndDate);
         $diff = $start_ts->diff($end_ts)->m;
@@ -54,21 +62,19 @@ class Functions {
     //Get all services that current user is allowed to access
     public static function get_allowed_services()
     {
-		//OTB ADD Agency
-		$agency=new AgencyManager();
-		$menus=$agency->getAllowedServices(sfContext::getInstance()->getUser()->getAttribute('userid'));
+        //OTB ADD Agency
+        $agency = new AgencyManager();
+        $menus = $agency->getAllowedServices(sfContext::getInstance()->getUser()->getAttribute('userid'));
         $allowed_services = array();
 
         $q = Doctrine_Query::create()
             ->from('Menus a')
-			->whereIn('a.id',$menus)
+            ->whereIn('a.id', $menus)
             ->orderBy('a.order_no ASC');
         $services = $q->execute();
-        foreach($services as $service)
-        {
-            if(sfContext::getInstance()->getUser()->mfHasCredential('accessmenu'.$service->getId()))
-            {
-               $allowed_services[] = $service;
+        foreach ($services as $service) {
+            if (sfContext::getInstance()->getUser()->mfHasCredential('accessmenu' . $service->getId())) {
+                $allowed_services[] = $service;
             }
         }
 
@@ -77,15 +83,15 @@ class Functions {
     //Get all services from workflow categories
     public static function get_allowed_category_services()
     {
-		//OTB ADD Agency
-		$agency=new AgencyManager();
-		$menus=$agency->getAllowedServices(sfContext::getInstance()->getUser()->getAttribute('userid'));
+        //OTB ADD Agency
+        $agency = new AgencyManager();
+        $menus = $agency->getAllowedServices(sfContext::getInstance()->getUser()->getAttribute('userid'));
         $categories = array();
 
         $q = Doctrine_Query::create()
             ->from('WorkflowCategory c')
-			->leftJoin('c.Menus a')
-			->whereIn('a.id',$menus)
+            ->leftJoin('c.Menus a')
+            ->whereIn('a.id', $menus)
             ->orderBy('a.order_no ASC');
         $categories = $q->execute();
 
@@ -96,22 +102,20 @@ class Functions {
     public static function get_allowed_stage_models($workflow_id)
     {
         $allowed_stages = array();
-		//OTB ADD Agency
-		$agency=new AgencyManager();
-		$agency_stages=$agency->getAllowedStages(sfContext::getInstance()->getUser()->getAttribute('userid'));
+        //OTB ADD Agency
+        $agency = new AgencyManager();
+        $agency_stages = $agency->getAllowedStages(sfContext::getInstance()->getUser()->getAttribute('userid'));
         $q = Doctrine_Query::create()
             ->from('SubMenus a')
             ->where('a.menu_id = ?', $workflow_id)
-			->andWhereIn('a.id',$agency_stages)
+            ->andWhereIn('a.id', $agency_stages)
             ->andWhere('a.deleted = 0')
             ->orderBy('a.order_no ASC');
         $stages = $q->execute();
 
-        foreach($stages as $stage)
-        {
-            if(sfContext::getInstance()->getUser()->mfHasCredential('accesssubmenu'.$stage->getId()))
-            {
-               $allowed_stages[] = $stage;
+        foreach ($stages as $stage) {
+            if (sfContext::getInstance()->getUser()->mfHasCredential('accesssubmenu' . $stage->getId())) {
+                $allowed_stages[] = $stage;
             }
         }
 
@@ -121,21 +125,19 @@ class Functions {
     //Get the first stage of a service
     public static function get_allowed_service_first_stage($service_id)
     {
-		//OTB ADD Agency
-		$agency=new AgencyManager();
-		$agency_stages=$agency->getAllowedStages(sfContext::getInstance()->getUser()->getAttribute('userid'));
+        //OTB ADD Agency
+        $agency = new AgencyManager();
+        $agency_stages = $agency->getAllowedStages(sfContext::getInstance()->getUser()->getAttribute('userid'));
         $q = Doctrine_Query::create()
             ->from('SubMenus a')
             ->where('a.menu_id = ?', $service_id)
-			->andWhereIn('a.id',$agency_stages)
+            ->andWhereIn('a.id', $agency_stages)
             ->andWhere('a.deleted = 0')
             ->orderBy('a.order_no ASC');
         $stages = $q->execute();
-        foreach($stages as $stage)
-        {
-            if(sfContext::getInstance()->getUser()->mfHasCredential('accesssubmenu'.$stage->getId()))
-            {
-               return $stage;
+        foreach ($stages as $stage) {
+            if (sfContext::getInstance()->getUser()->mfHasCredential('accesssubmenu' . $stage->getId())) {
+                return $stage;
             }
         }
 
@@ -146,33 +148,29 @@ class Functions {
     //Get all allowed stages the user is allowed to access
     public static function get_allowed_stages()
     {
-		//OTB ADD Agency
-		$agency=new AgencyManager();
-		$menus=$agency->getAllowedServices(sfContext::getInstance()->getUser()->getAttribute('userid'));
+        //OTB ADD Agency
+        $agency = new AgencyManager();
+        $menus = $agency->getAllowedServices(sfContext::getInstance()->getUser()->getAttribute('userid'));
         $allowed_stages = array();
 
         $q = Doctrine_Query::create()
             ->from('Menus a')
-			->whereIn('a.id',$menus)
+            ->whereIn('a.id', $menus)
             ->orderBy('a.title ASC');
         $services = $q->execute();
-        foreach($services as $service)
-        {
-            if(sfContext::getInstance()->getUser()->mfHasCredential('accessmenu'.$service->getId()))
-            {
-				//OTB ADD Agency
-				$agency_stages=$agency->getAllowedStages(sfContext::getInstance()->getUser()->getAttribute('userid'));
-                 $q = Doctrine_Query::create()
+        foreach ($services as $service) {
+            if (sfContext::getInstance()->getUser()->mfHasCredential('accessmenu' . $service->getId())) {
+                //OTB ADD Agency
+                $agency_stages = $agency->getAllowedStages(sfContext::getInstance()->getUser()->getAttribute('userid'));
+                $q = Doctrine_Query::create()
                     ->from('SubMenus a')
                     ->where('a.menu_id = ?', $service->getId())
-					->andWhereIn('a.id',$agency_stages)
+                    ->andWhereIn('a.id', $agency_stages)
                     ->andWhere('a.deleted = 0')
                     ->orderBy('a.order_no ASC');
                 $stages = $q->execute();
-                foreach($stages as $stage)
-                {
-                    if(sfContext::getInstance()->getUser()->mfHasCredential('accesssubmenu'.$stage->getId()))
-                    {
+                foreach ($stages as $stage) {
+                    if (sfContext::getInstance()->getUser()->mfHasCredential('accesssubmenu' . $stage->getId())) {
                         $allowed_stages[] = $stage->getId();
                     }
                 }
@@ -194,7 +192,7 @@ class Functions {
     //Check if logged in client can create business profiles
     public static function client_can_add_businesses()
     {
-		//OTB needed if SBP
+        //OTB needed if SBP
         /*$user = sfContext::getInstance()->getUser()->getGuardUser();
 
         $q = Doctrine_Query::create()
@@ -204,7 +202,7 @@ class Functions {
 
         if($category && $category->getFormid() == 0)
         {*/
-            return false;
+        return false;
         /*}
         else 
         {
@@ -234,12 +232,9 @@ class Functions {
         $q = Doctrine_Query::create()
             ->from('MfUserProfile a')
             ->where("a.user_id = ?", $user->getId());
-        if($q->count() > 0)
-        {
+        if ($q->count() > 0) {
             return true;
-        }
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -250,12 +245,9 @@ class Functions {
         $q = Doctrine_Query::create()
             ->from('MfUserProfile a')
             ->where("a.id = ?", $id);
-        if($q->count() > 0)
-        {
+        if ($q->count() > 0) {
             return $q->fetchOne();
-        }
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -266,26 +258,20 @@ class Functions {
         $q = Doctrine_Query::create()
             ->from('MfUserProfile a')
             ->where("a.id = ?", sfContext::getInstance()->getUser()->getAttribute("current_profile"));
-        if($q->count() > 0)
-        {
+        if ($q->count() > 0) {
             return $q->fetchOne();
-        }
-        else 
-        {
+        } else {
             return false;
         }
     }
 
     //Find a substring in a string
-    public function find($needle, $haystack)
+    public static function find($needle, $haystack)
     {
         $pos = strpos($haystack, $needle);
-        if($pos === false)
-        {
+        if ($pos === false) {
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
@@ -299,8 +285,7 @@ class Functions {
             ->orderBy('a.group_name ASC');
         $groups = $q->execute();
 
-        foreach($groups as $group)
-        {
+        foreach ($groups as $group) {
             $q = Doctrine_Query::create()
                 ->from('ApForms a')
                 ->where('a.form_group = ?', $group->getGroupId())
@@ -329,12 +314,9 @@ class Functions {
             }
         }
 
-        if($count > 0)
-        {
+        if ($count > 0) {
             return true;
-        }
-        else 
-        {
+        } else {
             return false;
         }
 
@@ -376,7 +358,7 @@ class Functions {
             return $params[$k[0]] = $k[1];
         }, explode('&', $query));
 
-//        form_id=9772&id=32&el=element_11&hash=163635e65838a486bce91b7fb5d5df19
+        //        form_id=9772&id=32&el=element_11&hash=163635e65838a486bce91b7fb5d5df19
         $el = $params['el'];
         $form_id = $params['form_id'];
         $id = $params['id'];
@@ -425,7 +407,7 @@ EOL;
      */
     public static function fields_i_can_sign_for_this_form($form_id)
     {
-        if($me = self::current_user()){
+        if ($me = self::current_user()) {
             $me = $me->getNid();
             $q = <<<EOL
 SELECT element_id, element_title FROM ap_form_elements
@@ -483,12 +465,14 @@ EOL;
                 if (!$is_signed) {
                     # ensure that this task is not a duplicate
                     $slug = $application_id . '-' . $signable_field['element_id'];
-                    if (Doctrine_Query::create()
-                        ->from('Task a')
-                        ->where('a.application_id = ?', $application_id)
-                        ->andWhere('a.type = 10')
-                        ->andWhere('a.task_application_slug = ?', $slug)
-                        ->fetchOne())
+                    if (
+                        Doctrine_Query::create()
+                            ->from('Task a')
+                            ->where('a.application_id = ?', $application_id)
+                            ->andWhere('a.type = 10')
+                            ->andWhere('a.task_application_slug = ?', $slug)
+                            ->fetchOne()
+                    )
                         continue;
 
                     $task = new Task();
@@ -540,7 +524,7 @@ WHERE form_id = $form_id
 EOL;
 
         $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
-        if($result = $conn->fetchAssoc($q)) {
+        if ($result = $conn->fetchAssoc($q)) {
             $field_name_map = [];
             array_map(function ($c) use (&$field_name_map) {
                 return $field_name_map['element_' . $c['element_id']] = $c['element_title'];
@@ -557,7 +541,8 @@ EOL;
                 $f = $files_query[$k];
                 $file_path = $f ? "asset_data/form_$form_id/files/" . $f : null;
                 $signed_path = str_replace('.pdf', '--signed.pdf', $file_path);
-                return ['file_name' => $field_name_map[$k],
+                return [
+                    'file_name' => $field_name_map[$k],
                     'local_file' => $file_path,
                     'local_file_signed' => $signed_path,
                     'is_signed' => file_exists($signed_path),
@@ -566,7 +551,7 @@ EOL;
             }, array_keys($files_query));
 
             return $files;
-        }else{
+        } else {
             return null;
         }
     }
@@ -600,25 +585,28 @@ EOL;
             ->fetchOne()->getTitle();
 
 
-        if ($groups = $conn->fetchAssoc(
-            <<<EOL
+        if (
+            $groups = $conn->fetchAssoc(
+                <<<EOL
 SELECT mgg.id, mgg.name, permissions.description as permission
     FROM mf_guard_group_permission mggp LEFT JOIN mf_guard_group mgg on mggp.group_id = mgg.id
     LEFT JOIN (SELECT id, description FROM mf_guard_permission WHERE name = 'can-sign-permit-$permit_type') permissions on permissions.id = mggp.permission_id
     WHERE mggp.permission_id = permissions.id;
 EOL
-        )) {
+            )
+        ) {
 
             foreach ($groups as $group) {
                 $group = $group['id'];
 
-                if ($task = Doctrine_Query::create()
-                    ->from('Task a')
-                    ->where('a.application_id = ?', $saved_permit->getApplicationId())
-                    ->andWhere("a.task_application_slug = ?", $slug)
-                    ->andWhere('a.type = ?', 10)
-                    ->andWhere('a.group_id = ? and status = ?', [$group, 1])
-                    ->fetchOne()
+                if (
+                    $task = Doctrine_Query::create()
+                        ->from('Task a')
+                        ->where('a.application_id = ?', $saved_permit->getApplicationId())
+                        ->andWhere("a.task_application_slug = ?", $slug)
+                        ->andWhere('a.type = ?', 10)
+                        ->andWhere('a.group_id = ? and status = ?', [$group, 1])
+                        ->fetchOne()
                 ) {
                     error_log('skip creating signing task for group ');
                     continue;
@@ -630,7 +618,7 @@ EOL
 
                 $task = new Task();
                 $task->setType(10);
-//            $task->setCreatorUserId($assigned_by);
+                //            $task->setCreatorUserId($assigned_by);
 //            $task->setOwnerUserId($assigned_to);
                 $task->setGroupId($group);
                 $task->setDuration("0");
@@ -692,14 +680,15 @@ EOL
      * @param null $application
      * @throws Doctrine_Connection_Exception
      */
-    public static function assign_tasks_from_history($application_id, $application = null){
-        if(!$application)
+    public static function assign_tasks_from_history($application_id, $application = null)
+    {
+        if (!$application)
             $application = Doctrine_Core::getTable('FormEntry')->find($application_id);
 
-        if(!$application)
+        if (!$application)
             return;
 
-        if(!$application_id)
+        if (!$application_id)
             $application_id = $application->getId();
 
 
@@ -708,7 +697,7 @@ EOL
 
         $current_stage = $application->getApproved();
         #confirm that this is happening in the 'Building Inspection and Occupation' workflow
-        if(!$conn->fetchOne("SELECT id FROM sub_menus WHERE menu_id = 12 AND id = $current_stage"))
+        if (!$conn->fetchOne("SELECT id FROM sub_menus WHERE menu_id = 12 AND id = $current_stage"))
             return;
 
         # confirm if this application has ever been assigned to a given user
@@ -720,22 +709,22 @@ EOL
         # else:
         #   let it be
 
-        $q= <<<EOL
+        $q = <<<EOL
         SELECT * FROM task WHERE application_id = $application_id AND creator_user_id <> owner_user_id ORDER BY id DESC LIMIT 1    
 EOL;
 
 
-        if($last_task_for_this_application = $conn->fetchAssoc($q)){
+        if ($last_task_for_this_application = $conn->fetchAssoc($q)) {
             $last_task_for_this_application = $last_task_for_this_application[0];
 
             $me = $last_task_for_this_application['owner_user_id'];
 
             # to avoid recreation of the same task on the same stage
-            $task_slug = "reassigned-task-at-stage-".$application->getApproved()."-to-$me";
+            $task_slug = "reassigned-task-at-stage-" . $application->getApproved() . "-to-$me";
 
 
-            if($conn->fetchOne("SELECT id from task WHERE task_application_slug = '$task_slug'")) {
-                error_log('this is already assigned to '.$me);
+            if ($conn->fetchOne("SELECT id from task WHERE task_application_slug = '$task_slug'")) {
+                error_log('this is already assigned to ' . $me);
                 return;
             }
 
@@ -759,7 +748,7 @@ EOL;
             $task->setStatus("1");
             $task->setLastUpdate(date('Y-m-d'));
             $task->setDateCreated(date('Y-m-d'));
-            $task->setRemarks("Task assigned to you relative to previous assignment on task <a href=\"/backend.php/tasks/view/id/".$last_task_for_this_application['id']."\">here</a>");
+            $task->setRemarks("Task assigned to you relative to previous assignment on task <a href=\"/plan/tasks/view/id/" . $last_task_for_this_application['id'] . "\">here</a>");
             $task->setApplicationId($application);
             $task->setTaskApplicationSlug($task_slug);
             $task->save();
@@ -774,10 +763,10 @@ EOL;
             $app_id = $application->getApplicationId();
 
             $audit = new Audit();
-            $audit->saveFullAudit("<a href=\"/backend.php/tasks/view/id/" . $task->getId() . "\">Assigned " . $task->getTypeName() . " task on " . $app_id . " to " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+            $audit->saveFullAudit("<a href=\"/plan/tasks/view/id/" . $task->getId() . "\">Assigned " . $task->getTypeName() . " task on " . $app_id . " to " . $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
 
             $review_name = $reviewer->getStrfirstname() . " " . $reviewer->getStrlastname();
-            $host = $_SERVER['HTTP_HOST'];
+            $host = sfConfig::get('app_sso_backend_jambo_url');
             $task_id = $task->getId();
             $body = <<<EOL
                     Hi $review_name,<br>
@@ -789,13 +778,25 @@ EOL;
                     <br>
                     Click here to view the task: <br>
                     ------- <br>
-                    <a href="http://$host/backend.php/tasks/view/id/$task_id">Link to $app_id task</a><br>
+                    <a href="http://$host/plan/tasks/view/id/$task_id">Link to $app_id task</a><br>
                     ------- <br>
                     <br>
 EOL;
 
             $mailnotifications = new mailnotifications();
             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewer->getStremail(), "New Task", $body);
+            if ($reviewer->getStrphoneMain1() && strlen($reviewer->getStrphoneMain1()) > 5) {
+                $body = <<<EOL
+                    Hi $review_name,
+
+                    You have been assigned a new task on $app_id.
+
+                    Click here to view the task:
+                    https://$host/plan/tasks/view/id/$task_id
+                    EOL;
+
+                $mailnotifications->sendsms($reviewer->getStrphoneMain1(), $body);
+            }
         }
     }
 }

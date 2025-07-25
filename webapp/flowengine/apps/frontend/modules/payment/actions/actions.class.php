@@ -194,7 +194,7 @@ class paymentActions extends sfActions
             break;
         }
 
-        error_log("Jambo Pay PIN Response ---->");
+        error_log("SISIBO Pay PIN Response ---->");
         error_log($processing_response);
 
         return $this->json(['data' => ['success' => true, 'statusCode' => $status_code, 'message' => $message, 'payload' => $response]], $status_code);

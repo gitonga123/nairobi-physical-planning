@@ -79,7 +79,7 @@ use_helper("I18N");
                         </td>
                         <td><?php echo $fee->getMultiplierAmount(); ?></td>
                         <td>
-                            <a href="/backend.php/services/multiplier/id/31/delete/<?php echo $fee->getId(); ?>" class="btn btn-danger">Delete</button>  
+                            <a href="/plan/services/multiplier/id/31/delete/<?php echo $fee->getId(); ?>" class="btn btn-danger">Delete</button>  
                         </td>
                     </tr>
                     <?php 

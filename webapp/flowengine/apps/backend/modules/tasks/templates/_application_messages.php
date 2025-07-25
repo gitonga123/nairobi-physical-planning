@@ -69,7 +69,7 @@ $messages = $q->execute();
 	$(function() {
 		$('#message_form').submit(function(e) {
 			$.ajax({
-				url: "<?php echo url_for('/backend.php/tasks/messaging') ?>",
+				url: "<?php echo url_for('/plan/tasks/messaging') ?>",
 				data: $(this).serialize(),
 				type: "POST",
 				dataType: "json",
@@ -89,7 +89,7 @@ $messages = $q->execute();
 		$("#mark_as_read").click(function(e) {
 			e.preventDefault();
 			$.ajax({
-				url: "<?php echo url_for("/backend.php/tasks/markAsRead/id/{$application->getId()}"); ?>",
+				url: "<?php echo url_for("/plan/tasks/markAsRead/id/{$application->getId()}"); ?>",
 				type: "GET"
 			}).done(function(resp) {
 				alert("All messages marked as read.");

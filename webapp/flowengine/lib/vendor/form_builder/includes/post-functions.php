@@ -3463,12 +3463,14 @@ function mf_process_form($dbh, $input)
 					if (!empty($input['submit_primary']) || !empty($input['submit_primary_x'])) {
 						if (!empty($form_review)) {
 							$process_result['review_id'] = $record_insert_id;
+							$process_result['entry_id'] = $record_insert_id;
 						}
 					} elseif (!empty($input['submit_secondary']) || !empty($input['submit_secondary_x'])) {
 						$process_result['next_page_number'] = $page_number - 1;
 					} else {
 						if (!empty($form_review)) {
 							$process_result['review_id'] = $record_insert_id;
+							$process_result['entry_id'] = $record_insert_id;
 						}
 					}
 				}

@@ -63,7 +63,7 @@ class buttonsActions extends sfActions
     $this->forward404Unless($buttons = Doctrine_Core::getTable('Buttons')->find(array($request->getParameter('id'))), sprintf('Object buttons does not exist (%s).', $request->getParameter('id')));
     $buttons->delete();
 
-    //$this->redirect('/backend.php/settings/workflow?load=actions');
+    //$this->redirect('/plan/settings/workflow?load=actions');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -158,7 +158,7 @@ class buttonsActions extends sfActions
         }
       }
 
-      //$this->redirect('/backend.php/settings/workflow?load=actions');
+      //$this->redirect('/plan/settings/workflow?load=actions');
     }
   }
 }

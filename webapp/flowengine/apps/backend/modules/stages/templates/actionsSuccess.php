@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <script type="text/javascript" src="/assets_backend/js/jquery.bootstrap-duallistbox.js"></script>
 
-    <form id="stageform" class="form-bordered" action="/backend.php/stages/actions/id/<?php echo $stage->getId(); ?>" method="post" autocomplete="off" data-ajax="false">
+    <form id="stageform" class="form-bordered" action="/plan/stages/actions/id/<?php echo $stage->getId(); ?>" method="post" autocomplete="off" data-ajax="false">
 
       <div class="panel-heading">
         <h3 class="panel-title"><?php echo $stage->getTitle().' -&gt; Edit Actions'; ?></h3>
@@ -50,11 +50,11 @@
                 <script language="javascript">
                 jQuery(document).ready(function(){
                   $( "#editaction<?php echo $buttons->getId(); ?>" ).click(function() {
-                      $("#loadinner").load("/backend.php/buttons/edit/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $stage->getId(); ?>");
+                      $("#loadinner").load("/plan/buttons/edit/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $stage->getId(); ?>");
                   });
                   $( "#deleteaction<?php echo $buttons->getId(); ?>" ).click(function() {
                     if(confirm('Are you sure you want to delete this button?')){
-                      $("#loadinner").load("/backend.php/buttons/delete/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $stage->getId(); ?>");
+                      $("#loadinner").load("/plan/buttons/delete/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $stage->getId(); ?>");
                       $("#row_<?php echo $buttons->getId() ?>").remove();
                     }
                     else
@@ -84,7 +84,7 @@
 
 
                 $( "#addnewaction" ).click(function() {
-                    $("#newactions").append("<div class='form-group' class='formgroup'><label class='col-sm-4'><?php echo __('Action'); ?></label><div class='col-sm-8'><input type='text' name='name[]' class='form-control' placeholder='<?php echo __('Action Name'); ?>'> <br> <select name='action[]' class='form-control'><option><?php echo __('Choose action'); ?></option><option value='/backend.php/forms/move?'><?php echo __('Move to another stage'); ?></option><option value='/backend.php/forms/reject?'><?php echo __('Reject'); ?></option><option value='/backend.php/forms/decline?'><?php echo __('Back to Client'); ?></option><option value='/backend.php/forms/approve?'><?php echo __('Approve'); ?></option><?php
+                    $("#newactions").append("<div class='form-group' class='formgroup'><label class='col-sm-4'><?php echo __('Action'); ?></label><div class='col-sm-8'><input type='text' name='name[]' class='form-control' placeholder='<?php echo __('Action Name'); ?>'> <br> <select name='action[]' class='form-control'><option><?php echo __('Choose action'); ?></option><option value='/plan/forms/move?'><?php echo __('Move to another stage'); ?></option><option value='/plan/forms/reject?'><?php echo __('Reject'); ?></option><option value='/plan/forms/decline?'><?php echo __('Back to Client'); ?></option><option value='/plan/forms/approve?'><?php echo __('Approve'); ?></option><?php
 
     ?></select><br><select name='stage[]' class='form-control'><option><?php echo __('Choose next stage'); ?></option><?php
 
@@ -131,7 +131,7 @@
             </div>
       </div>
       <div class="panel-footer">
-           <a class="btn btn-danger mr10" href="/backend.php/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a><button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
+           <a class="btn btn-danger mr10" href="/plan/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a><button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
      </div>
     </form>
   </div>

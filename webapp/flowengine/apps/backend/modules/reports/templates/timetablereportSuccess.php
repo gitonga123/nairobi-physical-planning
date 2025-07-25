@@ -84,7 +84,7 @@
               }
               ?>
               &nbsp; &nbsp;
-              <button type='button' onClick='window.location="/backend.php/reports/timetablereport?tr=1";'>Reset</button>
+              <button type='button' onClick='window.location="/plan/reports/timetablereport?tr=1";'>Reset</button>
             </div>
         </div>
       </div>
@@ -243,7 +243,7 @@
         var date_ev = dateObjNTZ.toISOString().slice(0, 10);
         var time_ev = dateObjNTZ.toISOString().slice(11, 19);
 
-        $.ajax({url:"/backend.php/reports/setdate?applicationid=" + copiedEventObject.title + "&elementid=<?php echo $element_id; ?>&timeelementid=<?php echo $time_element_id; ?>&date=" + date_ev + "&time=" + time_ev,success:function(result){
+        $.ajax({url:"/plan/reports/setdate?applicationid=" + copiedEventObject.title + "&elementid=<?php echo $element_id; ?>&timeelementid=<?php echo $time_element_id; ?>&date=" + date_ev + "&time=" + time_ev,success:function(result){
           //$("#updatediv").html(result);
         }});
 
@@ -265,7 +265,7 @@
         var date_ev = dateObjNTZ.toISOString().slice(0, 10);
         var time_ev = dateObjNTZ.toISOString().slice(11, 19);
 
-        $.ajax({url:"/backend.php/reports/setdate?applicationid=" + event.title + "&elementid=<?php echo $element_id; ?>&timeelementid=<?php echo $time_element_id; ?>&date=" + date_ev + "&time=" + time_ev,success:function(result){
+        $.ajax({url:"/plan/reports/setdate?applicationid=" + event.title + "&elementid=<?php echo $element_id; ?>&timeelementid=<?php echo $time_element_id; ?>&date=" + date_ev + "&time=" + time_ev,success:function(result){
           //$("#updatediv").html(result);
         }});
 
@@ -276,11 +276,11 @@
 
       var formentryid = "";
 
-      $.ajax({url:"/backend.php/reports/getformentryid?applicationid=" + event.title,success:function(result){
+      $.ajax({url:"/plan/reports/getformentryid?applicationid=" + event.title,success:function(result){
         formentryid = result;
         if(formentryid != 0)
         {
-          window.location = "/backend.php/applications/view/id/" + formentryid;
+          window.location = "/plan/applications/view/id/" + formentryid;
         }
       }});
 

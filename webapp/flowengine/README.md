@@ -18,7 +18,7 @@ Permitflow is a workflow management system targetted towards eGovernment service
     4. Open a browser and point to the server e.g. http://localhost/
     5. Use the installation wizard to configure the organisation settings
     6. Enter details for the system administrator account
-    7. Log into the backend to configure the system e.g. http://localhost/backend.php
+    7. Log into the backend to configure the system e.g. http://localhost/plan
 
 * Configuration
     - After installation there are two wizards you can run:

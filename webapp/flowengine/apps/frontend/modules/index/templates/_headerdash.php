@@ -45,13 +45,13 @@
                     <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "feedback"){ ?>active<?php } ?>"><a href="/plan/feedback"><span class="fa fa-plus-circle"></span> <?php echo __("Feedback"); ?></a></li>
                     <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "calculator"){ ?>active<?php } ?>"><a href="/plan/calculator"><span class="fa fa-plus-circle"></span> <?php echo __("Get estimate"); ?></a></li>
                     <li class="hidden-sm hidden-md hidden-lg <?php if($sf_context->getModuleName() == "support"){ ?>active<?php } ?>"><a href="/plan/support/index"><span class="fa fa-question-circle"></span> <?php echo __("Support"); ?><?php if($messages > 0){ echo " <font color='red'>(".$messages.")</font>"; } ?></a></li>
-                    <li class="hidden-sm hidden-md hidden-lg"><a href="/backend.php/settings"><?php echo __("My Profile"); ?></a></li>
+                    <li class="hidden-sm hidden-md hidden-lg"><a href="/plan/settings"><?php echo __("My Profile"); ?></a></li>
                     <li class="hidden-sm hidden-md hidden-lg"><a href="<?php echo url_for('signon/logout') ?>"><?php echo __("Logout"); ?></a></li>
                     <li class="dropdown hidden-xs m-r-30 dropdown-bordered">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-sign-out" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header"><?php echo __("Security"); ?></li>
-                            <li><a href="/backend.php/settings"><?php echo __("Account Settings"); ?></a></li>
+                            <li><a href="/plan/settings"><?php echo __("Account Settings"); ?></a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<?php echo url_for('signon/logout') ?>"><?php echo __("Logout"); ?></a></li>
                         </ul>

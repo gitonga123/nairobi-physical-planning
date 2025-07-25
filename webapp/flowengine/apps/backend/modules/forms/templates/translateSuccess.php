@@ -25,7 +25,7 @@ if($sf_user->mfHasCredential("managelanguages"))
 
 
 
-            <form id="languageform" name="languageform"  action="/backend.php/forms/savetranslate/id/<?php echo $_GET['id']; ?>/service/<?php echo $_GET['filter'] ?>" method="post" enctype="multipart/form-data"  autocomplete="off" data-ajax="false">
+            <form id="languageform" name="languageform"  action="/plan/forms/savetranslate/id/<?php echo $_GET['id']; ?>/service/<?php echo $_GET['filter'] ?>" method="post" enctype="multipart/form-data"  autocomplete="off" data-ajax="false">
                 <input type="hidden" name="filter" value="<?php echo $filter; ?>">
 
                 <div class="panel-heading">
@@ -33,7 +33,7 @@ if($sf_user->mfHasCredential("managelanguages"))
 
                     <div class="pull-right">
                         <button type="submit" class="btn btn-primary-alt settings-margin42"><?php echo __('Save Translations'); ?></button>
-                        <a class="btn btn-primary-alt settings-margin42" href="<?php echo public_path('backend.php/forms/index/filter/'.$_GET['filter'])?>"><?php echo __('Back to Forms'); ?></a>
+                        <a class="btn btn-primary-alt settings-margin42" href="<?php echo public_path('plan/forms/index/filter/'.$_GET['filter'])?>"><?php echo __('Back to Forms'); ?></a>
                     </div>
                 </div>
 

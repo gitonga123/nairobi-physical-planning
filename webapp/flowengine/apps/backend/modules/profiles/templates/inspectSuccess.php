@@ -16,7 +16,7 @@ use_helper("I18N");
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
       <li><a href="/plan"><?php echo __('Home'); ?></a></li>
-      <li><a href="/backend.php/frusers/index"><?php echo __('Users'); ?></a></li>
+      <li><a href="/plan/frusers/index"><?php echo __('Users'); ?></a></li>
     </ol>
   </div>
 </div>
@@ -86,7 +86,7 @@ use_helper("I18N");
                                         }
 
                                         $_SESSION['review_id'] = $submit_result['review_id'];
-                                        header("Location: /backend.php/profiles/confirm?id={$input_array['form_id']}{$page_num_params}");
+                                        header("Location: /plan/profiles/confirm?id={$input_array['form_id']}{$page_num_params}");
                                         exit;
                                     }else if($target_page_id == 'success'){
                                         //redirect to success page
@@ -109,7 +109,7 @@ use_helper("I18N");
                                     }
                                     
                                     $_SESSION['review_id'] = $submit_result['review_id'];
-                                    header("Location: /backend.php/profiles/confirm?id={$input_array['form_id']}{$page_num_params}");
+                                    header("Location: /plan/profiles/confirm?id={$input_array['form_id']}{$page_num_params}");
                                     exit;
                                 }else{
                                     if(!empty($submit_result['next_page_number'])){ //redirect to the next page number
@@ -192,7 +192,7 @@ use_helper("I18N");
                             $userprofileinspection->setDeleted(0);
                             $userprofileinspection->save();
                                 
-                            header("Location: /backend.php/profiles/view/id/".$business->getId());
+                            header("Location: /plan/profiles/view/id/".$business->getId());
                             exit;
                         }else{
                             $form_params = array();

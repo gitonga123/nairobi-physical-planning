@@ -137,7 +137,7 @@ class usercategoriesActions extends sfActions
 
       }
 
-      $this->redirect('/backend.php/usercategories/index');
+      $this->redirect('/plan/usercategories/index');
     }
   }
 
@@ -154,7 +154,7 @@ class usercategoriesActions extends sfActions
 
     $category->delete();
 
-    $this->redirect('/backend.php/usercategories/index');
+    $this->redirect('/plan/usercategories/index');
   }
 //OTB Start - User Membership  Database validation e.g. Boraqs, Engineers Association, Planner's association etc.
 	public function executeChangefield(sfWebRequest $request)

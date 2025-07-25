@@ -2,7 +2,7 @@
 use_helper("I18N");
 ?>
 <form
-    action="/backend.php/logviewer/<?php echo ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''); ?>"
+    action="/plan/logviewer/<?php echo ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''); ?>"
     method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> autocomplete="off"
     data-ajax="false" class="form-bordered bform">
 
@@ -17,7 +17,7 @@ use_helper("I18N");
         </div>
 
         <div class="panel-heading">
-            <a class="btn btn-primary" id="" href="/backend.php/logviewer/index"><?php echo __('Back to List'); ?></a>
+            <a class="btn btn-primary" id="" href="/plan/logviewer/index"><?php echo __('Back to List'); ?></a>
         </div>
 
 

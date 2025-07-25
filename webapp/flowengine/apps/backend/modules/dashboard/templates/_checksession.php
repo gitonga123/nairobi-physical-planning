@@ -12,14 +12,14 @@
 //If no user is authenticated then signout. Backend session and Frontend session mix ups
 if($sf_user->getAttribute("userid") == null || $sf_user->getAttribute("backend") != true)
 {
-  header("Location: /backend.php/logout");
+  header("Location: /plan/logout");
   exit;
 }
 
 $login_manager = new LoginManager();
 if($login_manager->two_factor_pass() == false)
 {
-  header("Location: /backend.php/login/twofactor");
+  header("Location: /plan/login/twofactor");
   exit;
 }
 ?>

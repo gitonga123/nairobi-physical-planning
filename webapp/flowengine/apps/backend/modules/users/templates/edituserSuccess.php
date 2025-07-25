@@ -110,12 +110,6 @@ use_helper("I18N");
 													} ?>
 													value="<?php echo $strEMail; ?>" required="required">
 
-												<input id="strEMail" Name="strEMail" type="text" class="form-control"
-													<?php if ($strEMail) {
-														echo "disabled='disabled'";
-													} ?>
-													value="<?php echo $strEMail; ?>" required="required">
-
 
 											</div>
 
@@ -128,7 +122,7 @@ use_helper("I18N");
 												$('#strEMail').change(function () {
 													$.ajax({
 														type: "POST",
-														url: "/backend.php/users/checkemail",
+														url: "/plan/users/checkemail",
 														data: {
 															'email': $('input:text[name=strEMail]').val()
 														},
@@ -166,7 +160,7 @@ use_helper("I18N");
 												$('#UserName').change(function () {
 													$.ajax({
 														type: "POST",
-														url: "/backend.php/users/checkuser",
+														url: "/plan/users/checkuser",
 														data: {
 															'username': $('input:text[name=UserName]').val()
 														},
@@ -187,12 +181,12 @@ use_helper("I18N");
 
 												<div class="col-sm-8">
 													<button class="btn btn-primary mr20" type="button"
-														onClick="window.location='/backend.php/users/reset/email/<?php echo $strEMail; ?>'">Reset
+														onClick="window.location='/plan/users/reset/email/<?php echo $strEMail; ?>'">Reset
 														Password</button>
 												</div>
 
 											</div>
-											<?php
+										<?php
 										} else {
 											?>
 
@@ -490,368 +484,19 @@ use_helper("I18N");
 							</form>
 						</div>
 
-					</div>
+					</div><!--tabs-2-->
 
-					<div id="emailresult" name="emailresult"></div>
+				</div><!--basicWizard-->
 
-					<script language="javascript">
-						$('document').ready(function () {
-							$('#strEMail').change(function () {
-								$.ajax({
-									type: "POST",
-									url: "/backend.php/users/checkemail",
-									data: {
-										'email': $('input:text[name=strEMail]').val()
-									},
-									dataType: "text",
-									success: function (msg) {
-										//Receiving the result of search here
-										$("#emailresult").html(msg);
-									}
-								});
-							});
-						});
-					</script>
+			</div><!--Panel-body-->
 
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Username'); ?></i></label>
+		</div><!--panel-default-->
 
-						<div class="col-sm-8">
 
-							<input type="text" Name="UserName" id="UserName" class="form-control" <?php if ($strUserId) {
-								echo "disabled='disabled'";
-							} ?> value="<?php echo $strUserId; ?>" required="required">
 
 
-						</div>
 
-					</div>
-
-					<div id="usernameresult" name="usernameresult"></div>
-
-					<script language="javascript">
-						$('document').ready(function () {
-							$('#UserName').change(function () {
-								$.ajax({
-									type: "POST",
-									url: "/backend.php/users/checkuser",
-									data: {
-										'username': $('input:text[name=UserName]').val()
-									},
-									dataType: "text",
-									success: function (msg) {
-										//Receiving the result of search here
-										$("#usernameresult").html(msg);
-									}
-								});
-							});
-						});
-					</script>
-
-					<?php if ($strUserId) { ?>
-						<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-									class="bold-label"><?php echo __('Password'); ?></i></label>
-
-							<div class="col-sm-8">
-								<button class="btn btn-primary mr20" type="button"
-									onClick="window.location='/backend.php/users/reset/email/<?php echo $strEMail; ?>'">Reset
-									Password</button>
-							</div>
-
-						</div>
-					<?php
-					} else {
-						?>
-
-						<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-									class="bold-label"><?php echo __('Password'); ?></i></label>
-
-							<div class="col-sm-8">
-
-								<input type="password" Name="Password1" id="Password1" class="form-control" value=""
-									required="required">
-
-
-							</div>
-
-						</div>
-
-						<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-									class="bold-label"><?php echo __('Confirm Password'); ?></i></label>
-
-							<div class="col-sm-8">
-
-								<input type="password" Name="Password2" id="Password2" class="form-control" value=""
-									required="required">
-
-
-							</div>
-
-						</div>
-
-						<div id="passwordresult" name="passwordresult"></div>
-						<?php
-					}
-					?>
-					<script language="javascript">
-						$('document').ready(function () {
-							$('#Password1').change(function () {
-								if ($('#Password1').val() == $('#Password2').val() && $('#Password1').val() != "") {
-									$('#passwordresult').html('<div class="alert alert-success"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button><strong>Passwords match!</strong></div>');
-								}
-								else {
-									$('#passwordresult').html('<div class="alert alert-danger"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button><strong>Passwords don\'t match!</strong> Try again.</div>');
-								}
-							});
-							$('#Password2').change(function () {
-								if ($('#Password1').val() == $('#Password2').val() && $('#Password1').val() != "") {
-									$('#passwordresult').html('<div class="alert alert-success"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button><strong>Passwords match!</strong></div>');
-								}
-								else {
-									$('#passwordresult').html('<div class="alert alert-danger"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button><strong>Passwords don\'t match!</strong> Try again.</div>');
-								}
-							});
-						});
-					</script>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Department'); ?></i></label>
-
-						<div class="col-sm-8">
-							<select id="IN_department" name="IN_department" required="required">
-								<option value=''><?php echo __('Select Department'); ?>...</option>
-								<?php
-								$q = Doctrine_Query::create()
-									->from('Department a');
-								$departments = $q->execute();
-								foreach ($departments as $this_department) {
-									$selected = "";
-									if ($department == $this_department->getId()) {
-										$selected = "selected";
-									}
-									echo "<option value='" . $this_department->getId() . "' " . $selected . ">" . $this_department->getDepartmentName() . "</option>";
-								}
-								?>
-							</select>
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Groups'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<select id="groups" name="groups[]" multiple class="form-control" required="required">
-								<?php
-								$q = Doctrine_Query::create()
-									->from('MfGuardGroup a')
-									->orderBy('a.name ASC');
-								$groups = $q->execute();
-								foreach ($groups as $group) {
-									$selected = "";
-									$q = Doctrine_Query::create()
-										->from('MfGuardUserGroup a')
-										->where('a.user_id = ?', $userid)
-										->andWhere('a.group_id = ?', $group->getId());
-									$usergroup = $q->execute();
-
-									if (sizeof($usergroup) > 0) {
-										$selected = "selected";
-									}
-
-									?>
-									<option value='<?php echo $group->getId(); ?>' <?php echo $selected; ?>>
-										<?php echo $group->getName(); ?></option>
-									<?php
-								}
-								?>
-							</select>
-
-
-						</div>
-					</div>
-
-					<script language="javascript">
-						jQuery(document).ready(function () {
-
-							var demo1 = $('[id="groups"]').bootstrapDualListbox();
-
-						});
-					</script>
-
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Street'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_street" name="IN_street" class="form-control"
-								value="<?php echo $street ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Zip Code'); ?> </i></label>
-
-						<div class="col-sm-2">
-
-							<input type="text" id="IN_zipcode" name="IN_zipcode" class="form-control"
-								value="<?php echo $zipcode ?>">
-						</div>
-
-						<div class="col-sm-6">
-
-							<input type="text" id="IN_city" name="IN_city" class="form-control"
-								value="<?php echo $city ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Country'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_country" name="IN_country" class="form-control"
-								value="<?php echo $country ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Phone 1'); ?></i></label>
-
-						<div class="col-sm-8">
-							<input type="text" id="IN_phone_main1" name="IN_phone_main1" class="form-control"
-								value="<?php echo $phone_main1 ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Phone 2'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_phone_main2" name="IN_phone_main2" class="form-control"
-								value="<?php echo $phone_main2 ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Mobile Number'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_phone_mobile" name="IN_phone_mobile" class="form-control"
-								value="<?php echo $phone_mobile ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Fax Number'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_fax" name="IN_fax" class="form-control"
-								value="<?php echo $fax ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Organization'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_organisation" name="IN_organisation" class="form-control"
-								value="<?php echo $organisation ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Cost Center'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_cost_center" name="IN_cost_center" class="form-control"
-								value="<?php echo $cost_center ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Designation'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_userdefined1_value" name="IN_userdefined1_value"
-								class="form-control" value="<?php echo $userdefined1_value ?>">
-
-
-						</div>
-
-					</div>
-
-					<div class="form-group"><label class="col-sm-2 control-label" for="text_field"><i
-								class="bold-label"><?php echo __('Man Number'); ?></i></label>
-
-						<div class="col-sm-8">
-
-							<input type="text" id="IN_userdefined2_value" name="IN_userdefined2_value"
-								class="form-control" value="<?php echo $userdefined2_value ?>">
-
-						</div>
-
-					</div>
-				</div>
-				<div class="panel-footer">
-					<button class="btn btn-danger mr20"><?php echo __('Reset'); ?></button><button type="submit"
-						class="btn btn-primary" name="submitbuttonname" id="submitbutton"
-						value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
-					<input type="hidden" value="<?php echo $userid; ?>" id="userid" name="userid">
-				</div>
-				</form>
-			</div>
-
-		</div><!--tabs-2-->
-
-	</div><!--basicWizard-->
-
-</div><!--Panel-body-->
-
-</div><!--panel-default-->
-
-
-
-
-
-</div>
+	</div>
 </div>
 <script language="javascript">
 	jQuery(document).ready(function () {
@@ -871,10 +516,9 @@ use_helper("I18N");
 					submit_form = false;
 				}
 			});
-
 			if (submit_form) {
 				$.ajax({
-					url: '/backend.php/users/writeuser',
+					url: '/plan/users/writeuser',
 					cache: false,
 					type: 'POST',
 					data: $('#reviewerform').serialize(),

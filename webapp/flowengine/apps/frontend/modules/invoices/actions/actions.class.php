@@ -40,6 +40,8 @@ class invoicesActions extends sfActions
         $this->pager->setPage($request->getParameter('page', 1));
         $this->pager->init();
 
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Invoices ");
+
         $this->setLayout("layoutmentordash");
     }
 
@@ -53,6 +55,8 @@ class invoicesActions extends sfActions
     public function executeView(sfWebRequest $request)
     {
 
+        $otb_helper = new OTBHelper();
+
         $this->getUser()->setAttribute("checkout", false);
 
         $q = Doctrine_Query::create()
@@ -60,16 +64,61 @@ class invoicesActions extends sfActions
             ->where('a.id = ?', $request->getParameter("id"));
         $this->invoice = $q->fetchOne();
 
+        if (empty($this->invoice)) {
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Invoice Not Found");
+
+            return $this->redirect("/plan/errors/notfound");
+        }
+
         if ($request->getParameter("confirm") == md5($this->invoice->getId())) {
             $this->invoice->setPaid("15");
             $this->invoice->setUpdatedAt(date("Y-m-d H:i:s"));
             $this->invoice->save();
         }
 
+        error_log("Invoice status is " . $this->invoice->getPaid());
+        if ($this->invoice->getPaid() == 1) {
+            $token = $_SESSION['jambo_backup_token'];
+            // check if invoice is paid;
+            $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
+
+            error_log("Invoice bill reference number --->" . $billing_reference_number);
+            $result = $otb_helper->check_payment_jambo_pay($token, $billing_reference_number);
+
+            error_log('Resulting response from otb check');
+
+            error_log(json_encode($result));
+            if ($result['success']) {
+                $otb_helper->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
+            }
+        }
+
+        $this->list_print_urls = [];
+
+        if ($this->invoice->getPaid() == 2 && !empty($this->invoice->getReceiptNumber())) {
+            $receipt_data = $this->invoice->getReceiptNumber();
+
+            $from_string_ids = trim($receipt_data);
+
+            $receipt_ids = json_decode($from_string_ids, true);
+
+            if (is_array($receipt_ids) && !empty($receipt_ids)) {
+                $api_url = sfConfig::get('app_api_jambo_url');
+
+                foreach ($receipt_ids as $key => $receipt_number) {
+                    $my_string = "{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning";
+                    array_push($this->list_print_urls, $my_string);
+                }
+            }
+
+        }
+
         $q = Doctrine_Query::create()
             ->from('FormEntry a')
             ->where('a.id = ?', $this->invoice->getAppId());
         $this->application = $q->fetchOne();
+
+        $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Invoice " . $this->invoice->getInvoiceNumber());
 
         $this->setLayout("layoutmentordash");
     }

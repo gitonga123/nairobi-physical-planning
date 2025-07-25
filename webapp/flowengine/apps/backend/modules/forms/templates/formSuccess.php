@@ -1725,7 +1725,7 @@ require ($prefix_folder . 'includes/header.php');
 									<span id="element_plot_width_span">
 										<input id="element_plot_width" class="checkbox" value="" type="checkbox">
 										<label class="choice"
-											for="element_plot_width"><?php echo __('Is Plot Width field'); ?></label>
+											for="element_plot_width"><?php echo __('Is Plot LR Number field'); ?></label>
 										<img class="helpmsg" src="/form_builder/images/icons/help2.png"
 											style="vertical-align: top"
 											title="Checking this will identify this field use as plot width field." />

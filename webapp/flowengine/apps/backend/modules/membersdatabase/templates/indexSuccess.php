@@ -28,7 +28,7 @@ $audit->saveAudit("", "Accessed Membership Association Settings");
                 <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                    <a href="<?php echo public_path(); ?>backend.php/membersdatabase/association/filter/<?php echo $association->getId(); ?>" class="collapsed">
+                    <a href="<?php echo public_path(); ?>plan/membersdatabase/association/filter/<?php echo $association->getId(); ?>" class="collapsed">
                         <?php echo $count; ?>:  <?php echo $association->getMemberAssociationName(); ?>
                     </a>
                     </h4>

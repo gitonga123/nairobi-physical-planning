@@ -28,7 +28,7 @@ class SubcountyActions extends sfActions
         foreach ($sub_counties as $sub_county) {
             $q = Doctrine_Query::create()
                 ->from('Subcounty s')
-                ->where('s.name ?', $sub_county['title']);
+                ->where('s.name = ?', $sub_county['title']);
             $found = $q->fetchOne();
 
             if ($found) {
@@ -56,22 +56,31 @@ class SubcountyActions extends sfActions
 
         $stream = new Stream();
 
-        error_log("Sub county list URL --->{$url}");
-
         $query_response = $stream->sendRequest([
             'url' => $url,
             'method' => 'GET',
             'ssl' => 'none',
             'contentType' => 'json',
             'headers' => [
-                "Authorization" => "JWT {$_SESSION['jambo_backup_token']}",
+                "Authorization" => "JWT {$_SESSION['jambo_token_backend']}",
             ]
         ]);
 
-        if ($query_response->status !== 201 || $query_response->status !== 200) {
+        
+
+        if ($query_response->status > 201) {
             return [];
         }
 
-        return $query_response->content->results;
+        $data = $query_response->content;
+
+        return $data['results'];
+    }
+
+    public function executeView(sfWebRequest $request)
+    {
+        $this->forward404Unless($this->subcounty = Doctrine_Core::getTable('Subcounty')->find(array($request->getParameter('id'))), sprintf('Object content does not exist (%s).', $request->getParameter('id')));
+
+        $this->setLayout("layout-settings");
     }
 }

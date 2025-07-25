@@ -32,57 +32,67 @@ Doctrine_Manager::getInstance()->bindComponent('FormGroups', 'doctrine');
  */
 abstract class BaseFormGroups extends sfDoctrineRecord
 {
-    public function setTableDefinition()
-    {
-        $this->setTableName('form_groups');
-        $this->hasColumn('group_id', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => true,
-             'autoincrement' => true,
-             'length' => 4,
-             ));
-        $this->hasColumn('group_parent', 'integer', 4, array(
-             'type' => 'integer',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'default' => '0',
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 4,
-             ));
-        $this->hasColumn('group_name', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-        $this->hasColumn('group_description', 'string', null, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             'length' => '',
-             ));
-    }
+     public function setTableDefinition()
+     {
+          $this->setTableName('form_groups');
+          $this->hasColumn('group_id', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => true,
+               'autoincrement' => true,
+               'length' => 4,
+          ));
+          $this->hasColumn('group_parent', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'default' => '0',
+               'notnull' => true,
+               'autoincrement' => false,
+               'length' => 4,
+          ));
+          $this->hasColumn('group_name', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('group_description', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('ordering', 'integer', 4, array(
+               'type' => 'integer',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => true,
+               'autoincrement' => true,
+               'length' => 4,
+          ));
+     }
 
-    public function setUp()
-    {
-        parent::setUp();
+     public function setUp()
+     {
+          parent::setUp();
 
-        $this->hasMany('ApFormGroups', array(
-             'local' => 'group_id',
-             'foreign' => 'group_id'));
+          $this->hasMany('ApFormGroups', array(
+               'local' => 'group_id',
+               'foreign' => 'group_id'
+          ));
 
-        $this->hasMany('ApForms as Forms', array(
-             'local' => 'group_id',
-             'foreign' => 'form_group'));
-    }
+          $this->hasMany('ApForms as Forms', array(
+               'local' => 'group_id',
+               'foreign' => 'form_group'
+          ));
+     }
 }

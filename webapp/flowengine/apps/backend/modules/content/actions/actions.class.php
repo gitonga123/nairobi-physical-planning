@@ -125,7 +125,7 @@ class contentActions extends sfActions
     {
       $content = $form->save();
 
-      $this->redirect('/backend.php/content/index');
+      $this->redirect('/plan/content/index');
     }
   }
 
@@ -142,7 +142,7 @@ class contentActions extends sfActions
 
     $content->delete();
 
-    $this->redirect('/backend.php/content/index');
+    $this->redirect('/plan/content/index');
   }
 
   /**
@@ -177,7 +177,7 @@ class contentActions extends sfActions
       $previous_content->save();
     }
 
-    return $this->redirect("/backend.php/content/index");
+    return $this->redirect("/plan/content/index");
   }
 
   /**
@@ -212,7 +212,7 @@ class contentActions extends sfActions
       $previous_content->save();
     }
 
-    return $this->redirect("/backend.php/content/index");
+    return $this->redirect("/plan/content/index");
   }
 
 }

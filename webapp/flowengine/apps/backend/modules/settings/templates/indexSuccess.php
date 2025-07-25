@@ -19,7 +19,7 @@ if ($sf_user->mfHasCredential("code_access_rights")): ?>
     <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __('You are here'); ?>:</span>
         <ol class="breadcrumb">
-            <li><a href="<?php echo public_path("backend.php"); ?>"><?php echo __('Home'); ?></a></li>
+            <li><a href="<?php echo public_path("plan"); ?>"><?php echo __('Home'); ?></a></li>
             <li class="active"><?php echo __('Settings'); ?></li>
         </ol>
     </div>

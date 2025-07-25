@@ -130,7 +130,7 @@ class LogViewerActions extends sfActions
 
         $this->cache->remove($this->path_key);
 
-        $this->redirect('/backend.php/logviewer/index');
+        $this->redirect('/plan/logviewer/index');
     }
 
     protected function processForm(sfWebRequest $request, sfForm $form)
@@ -140,7 +140,7 @@ class LogViewerActions extends sfActions
         if ($form->isValid()) {
             $form->save();
             $this->cache->remove($this->path_key);
-            $this->redirect('/backend.php/logviewer/index');
+            $this->redirect('/plan/logviewer/index');
         }
     }
 }

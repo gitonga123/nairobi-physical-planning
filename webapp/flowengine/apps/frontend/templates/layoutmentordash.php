@@ -1,10 +1,28 @@
+<?php
+/**
+ * Frontend Layout.
+ *
+ * Main layout for the frontend
+ *
+ * @package		Frontend
+ * @theme		eCitizen
+ * @author		Webmasters Africa (info@webmastersafrica.com)
+ */
+use_helper("I18N");
+
+//Logout backend users so they don't clash with frontend security & set language
+include_component('index', 'checksession');
+
+$site_settings = Functions::site_settings();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 	<meta charset="utf-8">
-	<title>Uasin Gishu County - Physical Planning Portal</title>
+	<title><?php echo isset($sf_response) ? $sf_response->getTitle() : $site_settings->getOrganisationName(); ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 	<!-- Favicon -->
@@ -129,7 +147,7 @@
 										<p class="text-muted mb-0"><?php echo $sf_user->getProfile()->getEmail(); ?></p>
 									</div>
 								</div>
-								<a class="dropdown-item" href="/backend.php/settings">Account Settings</a>
+								<a class="dropdown-item" href="/plan/settings">Account Settings</a>
 								<a class="dropdown-item text-primary" href="/plan/signon/logout">Logout</a>
 							</div>
 						</li>
@@ -205,7 +223,7 @@
 
 							<div class="custom-sidebar-nav mt-5">
 								<ul>
-									<li><a href="/backend.php/settings"><i class="fas fa-user-cog"></i>Profile <span><i
+									<li><a href="/plan/settings"><i class="fas fa-user-cog"></i>Profile <span><i
 													class="fas fa-chevron-right"></i></span></a></li>
 									<li><a href="/plan/signon/logout"><i class="fas fa-sign-out-alt"></i>Logout
 											<span><i class="fas fa-chevron-right"></i></span></a></li>
@@ -323,7 +341,7 @@
 									</div>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-										Email: lands@info@uasingishu.go.ke
+										Email: lands@uasingishu.go.ke
 									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>

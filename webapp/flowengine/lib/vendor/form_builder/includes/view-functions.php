@@ -4731,12 +4731,12 @@ function mf_display_plinth_area($element)
 	// error_log("this element footprint is >>>>".$element->footprint." And element id ".$element->id) ;
 	//for elements that act as our footprint and also plinth area
 	/*if(!empty($element->footprint))
-		  {
-			 // error_log("this element is used as footprint >>>>".$element->id) ;
-			  $identifier_existing = "footprint_existing" ;
-			  $identifier_new = "footprint_new" ;
-			  
-		  }*/
+				{
+				   // error_log("this element is used as footprint >>>>".$element->id) ;
+					$identifier_existing = "footprint_existing" ;
+					$identifier_new = "footprint_new" ;
+					
+				}*/
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class} {$element->edit_style} class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}"><i class="bold-label">{$element->title} {$span_required}</i> </label>
@@ -6434,37 +6434,37 @@ EOT;
 	//if the form has resume enabled and this is multi page form (single page form doesn't have resume option)
 	/*if(!empty($form->resume_enable) && $form->page_total > 1 && $show_password_form === false && empty($inactive_message)){
 
-					if(!empty($error_elements['element_resume_email'])){
-						$li_resume_email_style = '';
-						$li_resume_error_message = "<p class=\"error\">{$error_elements['element_resume_email']}</p>";
-						$li_resume_class = 'class="error"';
-						$li_resume_checked = 'checked="checked"';
-						$li_resume_button_status = 1;
-					}else{
-						$li_resume_email_style = 'style="display: none"';
-						$li_resume_error_message = '';
-						$li_resume_class = '';
-						$li_resume_checked = '';
-						$li_resume_button_status = 0;
-					}
+						  if(!empty($error_elements['element_resume_email'])){
+							  $li_resume_email_style = '';
+							  $li_resume_error_message = "<p class=\"error\">{$error_elements['element_resume_email']}</p>";
+							  $li_resume_class = 'class="error"';
+							  $li_resume_checked = 'checked="checked"';
+							  $li_resume_button_status = 1;
+						  }else{
+							  $li_resume_email_style = 'style="display: none"';
+							  $li_resume_error_message = '';
+							  $li_resume_class = '';
+							  $li_resume_checked = '';
+							  $li_resume_button_status = 0;
+						  }
 
-					$form_resume_markup = <<<EOT
-					<li id="li_resume_checkbox">
-					<div>
-						<span><input type="checkbox" value="1" class="element form-control checkbox" name="element_resume_checkbox" id="element_resume_checkbox" {$li_resume_checked}>
-							<label for="element_resume_checkbox" class="choice">{$mf_lang['resume_checkbox_title']}</label>
-						</span>
-					</div>
-					</li>
-					<li id="li_resume_email" {$li_resume_class} {$li_resume_email_style} data-resumebutton="{$li_resume_button_status}" data-resumelabel="{$mf_lang['resume_submit_button_text btn-form']}">
-						<label for="element_resume_email" class="description">{$mf_lang['resume_email_input_label']} <span class="required">*</span></label>
-						<div>
-							<input type="text" value="{$populated_values['element_resume_email']}" class="element form-control text medium" name="element_resume_email" id="element_resume_email">
-						</div><p id="guide_resume_email" class="guidelines"><small>{$mf_lang['resume_guideline']}</small></p> {$li_resume_error_message}
-					</li>
-		EOT;
+						  $form_resume_markup = <<<EOT
+						  <li id="li_resume_checkbox">
+						  <div>
+							  <span><input type="checkbox" value="1" class="element form-control checkbox" name="element_resume_checkbox" id="element_resume_checkbox" {$li_resume_checked}>
+								  <label for="element_resume_checkbox" class="choice">{$mf_lang['resume_checkbox_title']}</label>
+							  </span>
+						  </div>
+						  </li>
+						  <li id="li_resume_email" {$li_resume_class} {$li_resume_email_style} data-resumebutton="{$li_resume_button_status}" data-resumelabel="{$mf_lang['resume_submit_button_text btn-form']}">
+							  <label for="element_resume_email" class="description">{$mf_lang['resume_email_input_label']} <span class="required">*</span></label>
+							  <div>
+								  <input type="text" value="{$populated_values['element_resume_email']}" class="element form-control text medium" name="element_resume_email" id="element_resume_email">
+							  </div><p id="guide_resume_email" class="guidelines"><small>{$mf_lang['resume_guideline']}</small></p> {$li_resume_error_message}
+						  </li>
+			  EOT;
 
-				}*/
+					  }*/
 
 	//if the form has enabled merchant support and set the total payment to be displayed
 	if ($form->payment_enable_merchant && $form->payment_onsubmission && !empty($form->payment_show_total)) {
@@ -6622,9 +6622,9 @@ EOT;
 					{$payment_extra_markup}
 				</li>
 EOT;
-	} else {
-		$payment_total_markup = '';
-	}
+		} else {
+			$payment_total_markup = '';
+		}
 
 		if (empty($form->active) || $form_has_maximum_entries || $is_edit_entry) {
 			//if form is not active or this is edit_entry page, don't show the total payment
@@ -6707,7 +6707,8 @@ html{
 
 EOT;
 	} else {
-		$self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
+		$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
+		$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
 		$form_markup = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xml:lang="en" {$html_class_tag} xmlns="http://www.w3.org/1999/xhtml">
@@ -8139,9 +8140,9 @@ EOT;
 						{$payment_extra_markup}
 					</li></ul>
 	EOT;
-			} else {
-				$payment_total_markup = '';
-			}
+		} else {
+			$payment_total_markup = '';
+		}
 
 	}
 
@@ -8170,7 +8171,9 @@ EOT;
 		$has_signature_field = false;
 	}
 
-	$self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
+	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
+	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
+
 	$jquery_url = '/form_builder/js/jquery.min.js';
 
 	if ($integration_method == 'php') {
@@ -8968,7 +8971,8 @@ EOT;
 		}
 	}
 
-	$self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
+	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
+	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
 
 	$country = mf_get_country_list();
 	$country_markup = '<option value="" selected="selected"></option>' . "\n";

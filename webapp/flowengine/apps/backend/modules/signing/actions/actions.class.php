@@ -35,7 +35,7 @@ class signingActions extends sfActions
 
         # authenticate the user
         if ($action == 'signdocument') {
-            $redirect_uri = $this->base_url_ . "/backend.php/signing";
+            $redirect_uri = $this->base_url_ . "/plan/signing";
 
             $data_pass = json_encode(
                 array("permitaction" => "getaccesstoken",
@@ -76,7 +76,7 @@ class signingActions extends sfActions
         }
 
         if ($action == 'download_signed_permit') {
-            $redirect_uri = $this->base_url_ . "/backend.php/signing";
+            $redirect_uri = $this->base_url_ . "/plan/signing";
             $data_pass = json_encode(
                 ["permitaction" => "getaccesstoken",
                     'next_action' => 'download'] + $request->getGetParameters());
@@ -91,7 +91,7 @@ class signingActions extends sfActions
             $this->redirect($login_url);
         }
 
-        $this->redirect('/backend.php/dashboard');
+        $this->redirect('/plan/dashboard');
     }
 
     /**
@@ -260,7 +260,7 @@ class signingActions extends sfActions
         #         Request a Recipient View URL (the Signing Ceremony URL)
         #
 
-        $returnUrl = $this->base_url_ . "/backend.php/signing?"
+        $returnUrl = $this->base_url_ . "/plan/signing?"
             . "&permitaction=download_signed_permit"
             . "&l_redirect=" . $args['l_redirect']
             . "&envelope_id=$envelopeId"

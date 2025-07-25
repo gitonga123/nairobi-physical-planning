@@ -5,7 +5,7 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>Uasin Gishu County: Physical Planning and Urban Development Portal</title>
+	<title><?php echo isset($sf_response) ? $sf_response->getTitle() : $site_settings->getOrganisationName(); ?></title>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="/asset_mentor/assets/img/favicon.ico">
@@ -321,7 +321,7 @@
 
 								</div>
 								<div class="footer-three-contact">
-									<p><span>lands@info@uasingishu.go.ke</span></p>
+									<p><span>lands@uasingishu.go.ke</span></p>
 									<p>
 										<span tel="05320160000">05320160000</span>
 										<br />

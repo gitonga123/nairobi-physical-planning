@@ -65,13 +65,39 @@ use_helper("I18N");
                                 </a>
                             <?php } ?>
 
-                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { ?>
-                                <a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $invoice->getReceiptNumber(); ?>/Physical_Planning/"
-                                    class="btn btn-outline-dark btn-sm"><i class="fas fa-file-download"></i>
-                                    <?php echo __(" Receipt");
+                            <?php
+
+                            $list_print_urls = [];
+
+                            if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
+                                $receipt_data = $invoice->getReceiptNumber();
+
+                                $from_string_ids = trim($receipt_data);
+
+                                $receipt_ids = json_decode($from_string_ids, true);
+
+                                if (is_array($receipt_ids) && !empty($receipt_ids)) {
+                                    $api_url = sfConfig::get('app_api_jambo_url');
+
+                                    foreach ($receipt_ids as $key => $receipt_number) {
+                                        $my_string = "{$api_url}api/v1/print/receipt/{$receipt_number}/Physical_Planning";
+                                        array_push($list_print_urls, $my_string);
+                                    }
+                                }
+
+                            }
+                            if (count($list_print_urls) > 0) {
+                                foreach ($list_print_urls as $key => $receipt_number) {
+                                    $index += 1;
                                     ?>
-                                </a>
-                            <?php } ?>
+                                    <a title="Download Receipt" href="<?php echo $receipt_number ?>" class="btn btn-primary"><i
+                                            class="fas fa-file-download"></i>
+                                        <?php echo __(" Receipt - {$index}");
+                                        ?>
+                                    </a>
+                                    <?php
+                                }
+                            } ?>
                         </td>
                     </tr>
                     <?php

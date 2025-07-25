@@ -307,7 +307,7 @@ if ($sf_context->getModuleName() == "tasks") {
 if (sfConfig::get('app_google_analytics_id')) {
   ?>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XE6F7DLZG"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-76G9WVF63L"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
 

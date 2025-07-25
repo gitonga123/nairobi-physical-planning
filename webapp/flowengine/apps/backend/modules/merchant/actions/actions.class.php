@@ -16,7 +16,7 @@ class merchantActions extends sfActions
 
     if($wizard_manager->is_first_run())
     {
-      $this->redirect("/backend.php/dashboard");
+      $this->redirect("/plan/dashboard");
     }
     $this->merchants = Doctrine_Core::getTable('Merchant')
       ->createQuery('a')
@@ -67,7 +67,7 @@ class merchantActions extends sfActions
     $merchant->delete();
 
    $this->getUser()->setFlash("Success", "Record Deleted Successfuly") ;
-    $this->redirect('/backend.php/merchant/index/');
+    $this->redirect('/plan/merchant/index/');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -79,7 +79,7 @@ class merchantActions extends sfActions
 
       $this->getUser()->setFlash("Success", "Record saved Successfuly") ;
       //
-      $this->redirect('/backend.php/merchant/index/');
+      $this->redirect('/plan/merchant/index/');
     }
   }
 }

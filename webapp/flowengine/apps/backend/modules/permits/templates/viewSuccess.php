@@ -25,8 +25,8 @@ if ($permit || $application) {
         <div class="breadcrumb-wrapper">
             <span class="label">You are here:</span>
             <ol class="breadcrumb">
-                <li><a href="<?php echo public_path('backend.php') ?>">Home</a></li>
-                <li><a href="<?php echo public_path('backend.php/permits/index') ?>">Permits</a></li>
+                <li><a href="<?php echo public_path('plan') ?>">Home</a></li>
+                <li><a href="<?php echo public_path('plan/permits/index') ?>">Permits</a></li>
                 <li class="active"><?php echo $application->getApplicationId(); ?></li>
             </ol>
         </div>
@@ -52,7 +52,7 @@ if ($permit || $application) {
 
                     <div class="panel-heading">
                         <h5 class="bug-key-title">
-                            <a href="/backend.php/applications/view?id=<?php echo $application->getId(); ?>">
+                            <a href="/plan/applications/view?id=<?php echo $application->getId(); ?>">
                                 <?php echo $application->getApplicationId(); ?>
                             </a>
                         </h5>
@@ -77,19 +77,19 @@ if ($permit || $application) {
                             <?php
                             } else {
                             ?>
-                                <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/backend.php/applications/viewpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Download Permit</button>
+                                <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/plan/applications/viewpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Download Permit</button>
                             <?php
                             }
 
                             if ($sf_user->mfHasCredential('cancel_permits') && $permit->getPermitStatus() != "3") {
                             ?>
-                                <button class="btn btn-primary" id="cancelpermit" type="button" onClick="window.location='/backend.php/permits/cancelpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Cancel Permit</button>
+                                <button class="btn btn-primary" id="cancelpermit" type="button" onClick="window.location='/plan/permits/cancelpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Cancel Permit</button>
                             <?php
                             }
 
                             if ($sf_user->mfHasCredential('cancel_permits') && $permit->getPermitStatus() == "3") {
                             ?>
-                                <button class="btn btn-primary" id="cancelpermit" type="button" onClick="window.location='/backend.php/permits/uncancelpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> UnCancel Permit</button>
+                                <button class="btn btn-primary" id="cancelpermit" type="button" onClick="window.location='/plan/permits/uncancelpermit/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> UnCancel Permit</button>
                             <?php
                             }
 
@@ -102,7 +102,7 @@ if ($permit || $application) {
 
                             if ($permit_template && $permit->getExpiryTrigger() != 1) {
                             ?>
-                                <button class="btn btn-primary" id="cancelpermit" type="button" onClick="window.location='/backend.php/permits/updatesingleremote/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Update Remote Database</button>
+                                <button class="btn btn-primary" id="cancelpermit" type="button" onClick="window.location='/plan/permits/updatesingleremote/id/<?php echo $permit->getId(); ?>';"><i class="fa fa-print mr5"></i> Update Remote Database</button>
                             <?php
                             }
                             ?>

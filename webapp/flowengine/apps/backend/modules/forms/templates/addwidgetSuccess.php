@@ -229,7 +229,7 @@
 		$_SESSION['MF_SUCCESS'] = 'A new widget has been added.';
 
 		$ssl_suffix = mf_get_ssl_suffix();						
-		header("Location: /backend.php/forms/managereport?id={$form_id}");
+		header("Location: /plan/forms/managereport?id={$form_id}");
 		exit;
 		
 	}
@@ -258,7 +258,7 @@ EOT;
 				<div class="content_header">
 					<div class="content_header_title">
 						<div style="float: left">
-							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/managereport?id={$form_id}'>Report</a>"; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Add Widget</h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a class=\"breadcrumb\" href='/plan/forms/managereport?id={$form_id}'>Report</a>"; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Add Widget</h2>
 							<br>
                             <p>Add a new widget to report</p>
 						</div>	

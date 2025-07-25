@@ -74,7 +74,7 @@
 		}else{
 			$ssl_suffix = mf_get_ssl_suffix();
 			
-			header("Location: /backend.php/applications/view/id/".$application->getId());
+			header("Location: /plan/applications/view/id/".$application->getId());
 			exit;
 		}
 	}else{

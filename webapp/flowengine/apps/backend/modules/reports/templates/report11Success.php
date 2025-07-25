@@ -43,7 +43,7 @@ $stages = $q->execute();
 ?>
 
 <div class="g12" style="padding-left: 3px;">
-			<form style="margin-bottom: 0px;" method="post" action="/backend.php/reports/printreport11" autocomplete="off" data-ajax="false">
+			<form style="margin-bottom: 0px;" method="post" action="/plan/reports/printreport11" autocomplete="off" data-ajax="false">
 			<label style='height: 30px; margin-top: 0px;'>
 			<div style='float: left; font-size: 20px; font-weight: 700;'>Checksums Reports</div>
             <div style="float: right;">
@@ -205,7 +205,7 @@ $stages = $q->execute();
 						?>
 						</td>
 						<td class="c">
-						<a title='View Application' href='/backend.php/applications/viewreference/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
+						<a title='View Application' href='/plan/applications/viewreference/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
 						</td>
 					</tr>
 				<?php

@@ -57,7 +57,7 @@ $invoice_manager->update_invoices($application->getId());
                         echo $html;
                         ?>
 
-                        <div class="text-end btn-invoice mt-3" style="padding-right: 10px;">
+                        <div id="download-receipt-section" class="text-end btn-invoice mt-3" style="padding-right: 10px;">
                             <?php if ($invoice->getDocumentKey()) { ?>
                                 <button class="btn btn-primary btn-sm" id="printinvoice" type="button"
                                     onClick="window.location='<?php echo $invoice->getDocumentKey(); ?>';">
@@ -68,15 +68,18 @@ $invoice_manager->update_invoices($application->getId());
                                     onClick="window.location='/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>';">
                                     <i class="fa fa-print me-2"></i> <?php echo __('Print Invoice'); ?>
                                 </button>
-                            <?php } ?>
-                            <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { ?>
-                                <a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $invoice->getReceiptNumber(); ?>/Physical_Planning/"
-                                    class="btn btn-primary"><i class="fas fa-file-download"></i>
-                                    <?php echo __(" Receipt");
+                            <?php }
+
+                            foreach ($list_print_urls as $key => $url) {
+                                $index = $key + 1;
+                                ?>
+                                <a title="Download Receipt" href="<?php echo $url ?>" class="btn btn-primary"><i
+                                        class="fas fa-file-download"></i>
+                                    <?php echo __(" Receipt - {$index}");
                                     ?>
                                 </a>
-                            <?php } ?>
-                            <?php
+                            <?php }
+
                             $expired = false;
                             $db_date_event = str_replace('/', '-', $invoice->getExpiresAt());
                             $db_date_event = strtotime($db_date_event);

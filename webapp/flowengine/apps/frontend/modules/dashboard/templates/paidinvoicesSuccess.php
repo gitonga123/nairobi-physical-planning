@@ -23,7 +23,7 @@ use_helper("I18N");
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($all_invoices as $invoice) : ?>
+                        <?php foreach ($all_invoices as $invoice): ?>
                             <tr>
 
                                 <td><?php echo $invoice->getInvoiceNumber() ?></td>
@@ -33,17 +33,23 @@ use_helper("I18N");
                                 <td><?php echo $invoice->getFormEntry()->getApplicationId() ?></td>
                                 <td><?php echo $invoice->getStatus() ?></td>
                                 <td>
-                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>' href='/plan/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?> </a>
+                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>'
+                                        href='/plan/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?>
+                                    </a>
 
                                     <?php if ($invoice->getPaid() == 1 || $invoice->getPaid() == 15) { ?>
-                                        <a href="/plan/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>" class="btn btn-primary btn-sm"><i class="fas fa-money-bill"></i>
+                                        <a href="/plan/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>"
+                                            class="btn btn-primary btn-sm"><i class="fas fa-money-bill"></i>
                                             <?php echo __(" Pay now");
                                             ?>
                                         </a>
                                     <?php } ?>
 
-                                    <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) { ?>
-                                        <a title="Download Receipt" href="<?php echo sfConfig::get('app_api_jambo_url'); ?>api/v1/print/receipt/=<?php echo $invoice->getReceiptNumber(); ?>/Physical_Planning/" class="btn btn-outline-dark btn-sm"><i class="fas fa-file-download"></i>
+                                    <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
+                                        ?>
+                                        <a title="Download Receipt"
+                                            href="<?php echo "/plan/invoices/view/id/{$invoice->getId()}/#download-receipt-section" ?>"
+                                            class="btn btn-outline-dark btn-sm"><i class="fas fa-file-download"></i>
                                             <?php echo __(" Receipt");
                                             ?>
                                         </a>

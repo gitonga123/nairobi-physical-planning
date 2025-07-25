@@ -10,7 +10,7 @@ if($sf_user->mfHasCredential("managefees")):
             <script language="javascript">
             jQuery(document).ready(function(){
               $( "#newrange" ).click(function() {
-                  $("#loadranges").load("<?php echo url_for('/backend.php/fees/feerange/filter/'.$filter) ?>");
+                  $("#loadranges").load("<?php echo url_for('/plan/fees/feerange/filter/'.$filter) ?>");
               });
             });
             </script>
@@ -53,11 +53,11 @@ if($sf_user->mfHasCredential("managefees")):
 								<script language="javascript">
 								jQuery(document).ready(function(){
 								  $( "#editrange<?php echo $fee_range->getId() ?>" ).click(function() {
-									  $("#loadranges").load("<?php echo url_for('/backend.php/fees/feerange/id/'.$fee_range->getId().'/filter/'.$filter) ?>");
+									  $("#loadranges").load("<?php echo url_for('/plan/fees/feerange/id/'.$fee_range->getId().'/filter/'.$filter) ?>");
 								  });
 								  $( "#deleterange<?php echo $fee_range->getId() ?>" ).click(function() {
 									  if(confirm('Are you sure you want to delete this range?')){
-										$("#loadranges").load("<?php echo url_for('/backend.php/fees/deleterange/id/'.$fee_range->getId().'/filter/'.$filter) ?>");
+										$("#loadranges").load("<?php echo url_for('/plan/fees/deleterange/id/'.$fee_range->getId().'/filter/'.$filter) ?>");
 									  }
 									  else
 									  {

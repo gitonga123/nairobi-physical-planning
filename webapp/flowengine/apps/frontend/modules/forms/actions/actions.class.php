@@ -35,6 +35,8 @@ class formsActions extends sfActions
 
             if (empty($this->cache->get($this->key))) {
                   $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2ODgzLCJpc19hY3RpdmUiOnRydWUsInVzZXJuYW1lIjoiMjU0NzEwNTk0Mjk4IiwiZmlyc3RfbmFtZSI6IkRhbmllbCIsImxhc3RfbmFtZSI6Ik1VVFdJUkkiLCJleHAiOjE3MjE3NDIwNDMsInBlcm1pc3Npb25zIjp7ImFjY2Vzc19zZWxmX3NlcnZpY2VfcG9ydGFsIjp0cnVlLCJjcmVhdGVfYmlsbCI6dHJ1ZSwicmVnaXN0ZXJfYnVzaW5lc3MiOnRydWUsInJlcXVlc3RfaW5zcGVjdGlvbiI6dHJ1ZSwicmVxdWVzdF9saWNlbnNlIjp0cnVlLCJsb2dfcGF5bWVudCI6dHJ1ZSwiYWNjZXNzX2FkbWluIjpmYWxzZSwidmlld19kYXNoYm9hcmQiOmZhbHNlfSwicm9sZXMiOlsiY2l0aXplbiJdLCJyZXZlbnVlX3N0cmVhbV9yb2xlcyI6e30sImN1c3RvbWVyIjoiNjUzNGFjN2MtNDViZC00MmU5LTlmOWQtN2RjMTA0MzVhMWQ1IiwiaWRfbm8iOiIzMDExNTgzNSIsInN1Yl9jb3VudGllcyI6W10sImVtYWlsIjoibXV0d2lyaWRhbmllbHNjaUBnbWFpbC5jb20iLCJwaG9uZSI6IjI1NDcxMDU5NDI5OCJ9.DBZ3IgiuUwZRhesRIRfkIojZu6bnnNBCfZTzBEdRa7k";
+
+                  $_SESSION['jambo_backup_token'] = $token;
                   $this->cache->set($this->key, $token, 3600);
             }
 
@@ -51,7 +53,7 @@ class formsActions extends sfActions
       {
             $q = Doctrine_Query::create()
                   ->from('FormGroups a')
-                  ->orderBy('a.group_name ASC');
+                  ->orderBy('a.ordering ASC');
             $this->groups = $q->execute();
 
             if ($request->getParameter("profile")) {
@@ -69,6 +71,8 @@ class formsActions extends sfActions
                   //$this->setLayout("layoutdash");
 
             }
+
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Submit Applications");
 
             $this->setLayout("layoutmentordash");
       }
@@ -106,12 +110,16 @@ class formsActions extends sfActions
       {
             $this->current_profile = $this->getUser()->getAttribute("current_profile");
 
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Submit Application");
+
             if ($this->current_profile) {
                   $this->setLayout("layoutmentordash");
             } else {
                   //$this->setLayout("layoutformbuilder");
                   $this->setLayout("layoutmentordashsubmit");
             }
+
+
       }
 
       /**
@@ -123,6 +131,7 @@ class formsActions extends sfActions
        */
       public function executeConfirm(sfWebRequest $request)
       {
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Confirm Applications");
             if ($this->getUser()->getAttribute("current_profile")) {
                   $this->setLayout("layoutprofile");
             } else {
@@ -156,7 +165,19 @@ class formsActions extends sfActions
 
             $this->invoice = $q->fetchOne();
 
+            if ($this->invoice->getPaid() == 1) {
+                  // check if invoice is paid;
+                  $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
+                  $result = $this->check_payment_jambo_pay($billing_reference_number);
+                  if ($result['success']) {
+                        $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
+                        $this->redirect('/plan/invoices/view/id/' . $this->invoice->getId());
+                  }
+            }
+
             $this->user = Doctrine_Core::getTable('sfGuardUser')->find($this->getUser()->getGuardUser()->getId());
+
+            $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Payment");
 
             if ($this->getUser()->getAttribute("current_profile")) {
                   $this->setLayout("layoutprofile");
@@ -303,12 +324,13 @@ class formsActions extends sfActions
 
             $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
 
+            error_log("Billing reference number ---->{$billing_reference_number}");
 
             if ($transaction) {
                   //Update transaction details
                   $transaction->setStatus(1);
                   $transaction->setPaymentStatus("pending");
-                  $transaction->setPaymentMerchantType('Jambo Pay');
+                  $transaction->setPaymentMerchantType('SISIBOPAY');
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
                   $transaction->setInvoiceId($this->invoice->getId());
                   $transaction->setPaymentCurrency('KES');
@@ -323,7 +345,7 @@ class formsActions extends sfActions
                   $transaction->setPaymentId($billing_reference_number);
                   $transaction->setDateCreated(date("Y-m-d H:i:s"));
                   $transaction->setPaymentAmount($this->invoice->getTotalAmount());
-                  $transaction->setPaymentMerchantType('Jambo Pay');
+                  $transaction->setPaymentMerchantType('SISIBOPAY');
                   $transaction->setPaymentTestMode("0");
                   $transaction->setPaymentDate(date("Y-m-d H:i:s"));
                   $transaction->setInvoiceId($this->invoice->getId());
@@ -345,7 +367,7 @@ class formsActions extends sfActions
             error_log("Sub county name is ----> {$subcounty_name}");
 
             $subcounty = $this->subcountyList($subcounty_name);
-            $this->createBill(
+            $create_bill_action = $this->createBill(
                   [
                         'sub_county' => $subcounty,
                         'bill_number' => $billing_reference_number,
@@ -353,14 +375,26 @@ class formsActions extends sfActions
                   ],
                   $this->invoice->getId()
             );
+
+            error_log("Create bill action reference details --->");
+            error_log(json_encode($create_bill_action));
+
+            if (isset($create_bill_action['bill_ref'])) {
+                  $this->invoice->setDocRefNumber($create_bill_action['bill_ref']);
+                  $this->invoice->save();
+            }
+
             $callback_url = sfConfig::get('app_amkatek_callback_payment');
 
+            error_log("Callback url --->{$callback_url}");
             $payload = [
                   'phone_number' => $request->getPostParameter('phone_number'),
                   'amount' => $this->invoice->getTotalAmount(),
                   'bill_number' => $billing_reference_number,
                   'callback_url' => $callback_url
             ];
+
+            error_log("Url bill sent to ----> {$url}");
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
@@ -373,6 +407,12 @@ class formsActions extends sfActions
                   ]
             ]);
 
+            error_log("Response ---> initite payment");
+
+            error_log($query_response->status);
+
+            error_log(json_encode($query_response->content));
+
             if ($query_response->content['verify_otp']) {
                   $this->cache->set("{$this->key}_jambo_wallet_otp", $query_response->content['otp'], 3600);
             }
@@ -384,7 +424,7 @@ class formsActions extends sfActions
                   $transaction->save();
 
                   $this->invoice->setTransactionId($query_response->content["ref"]);
-                  $this->invoice->save();
+
             }
 
             return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
@@ -409,6 +449,7 @@ class formsActions extends sfActions
 
             $ref = $this->cache->get("{$this->key}_jambo_pay_ref");
 
+            error_log("Verify OTP URL --->{$url}");
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -440,6 +481,7 @@ class formsActions extends sfActions
             $stream = new Stream();
 
             $ref = $this->cache->get("{$this->key}_jambo_pay_ref");
+            error_log("Regenerate OTP URL --->{$url}");
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -471,7 +513,7 @@ class formsActions extends sfActions
                   $q = Doctrine_Query::create()
                         ->from("ApFormPayments a")
                         ->where("a.payment_id = ?", $response['bill_number'])
-                        ->where("a.narration = ?", $response['ref'])
+                        ->orWhere("a.narration = ?", $response['ref'])
                         ->orderBy('a.afp_id desc');
                   $transaction = $q->fetchOne();
 
@@ -492,7 +534,7 @@ class formsActions extends sfActions
 
                         $invoice->setPaid(2);
                         if (array_key_exists('receipt_number', $response)) {
-                              $invoice->setReceiptNumber($response['receipt_number']);
+                              $invoice->setReceiptNumber(json_encode($response['receipt_number']));
                         }
 
                         $invoice->save();
@@ -506,7 +548,7 @@ class formsActions extends sfActions
             }
       }
 
-      public function updateInvoiceToPaid($billing_reference_number, $invoice_id)
+      public function updateInvoiceToPaid($billing_reference_number, $invoice_id, $receipt)
       {
             $q = Doctrine_Query::create()
                   ->from("ApFormPayments a")
@@ -528,6 +570,7 @@ class formsActions extends sfActions
             $invoice = $q->fetchOne();
 
             $invoice->setPaid(2);
+            $invoice->setReceiptNumber(json_encode($receipt));
 
             $invoice->save();
 
@@ -553,19 +596,22 @@ class formsActions extends sfActions
                   return $this->renderText(json_encode(['success' => false, 'status' => 404, 'content' => ['msg' => 'invoice/application not found']]));
             }
 
+            error_log("Invoice is checking if paid ---->{$this->invoice->getPaid()}");
             if ($this->invoice && $this->invoice->getPaid() == 2) {
                   return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
             }
 
             $billing_reference_number = $this->invoice->getFormEntry()->getFormId() . "" . $this->invoice->getFormEntry()->getEntryId() . "" . $this->invoice->getId();
 
+            error_log("Billing Reference Number ---> {$billing_reference_number}");
+
             $result = $this->check_payment_jambo_pay($billing_reference_number);
 
-            if (!$result) {
+            if (!$result['success']) {
                   return $this->renderText(json_encode(['success' => false, 'status' => 404, 'data' => ['msg' => 'Payment Not Found.']]));
             } else {
 
-                  $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id);
+                  $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
                   return $this->renderText(json_encode(['success' => true, 'status' => 200, 'data' => ['msg' => 'Payment Successful.']]));
             }
       }
@@ -575,6 +621,8 @@ class formsActions extends sfActions
             $url = sfConfig::get('app_api_jambo_url') . 'api/v1/bill/status/';
 
             $stream = new Stream();
+
+            error_log("Checkout SISIBO Pay URL --->{$url}");
 
             $query_response = $stream->sendRequest([
                   'url' => $url,
@@ -593,12 +641,16 @@ class formsActions extends sfActions
                   $content = $query_response->content;
                   error_log("Payment confirmation is ---->");
                   error_log(print_r($content, true));
+                  error_log("Paid status ---->");
+
                   if (strtolower($content['status']) == 'paid') {
-                        return true;
+                        return ['success' => true, 'receipt' => $content['receipt_numbers']];
+                  } else {
+                        return ['success' => false, 'message' => 'Invoice still unpaid'];
                   }
-                  return false;
+
             } else {
-                  return false;
+                  return ['success' => false];
             }
       }
 
@@ -619,6 +671,8 @@ class formsActions extends sfActions
                   $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/sub_counties/';
 
                   $stream = new Stream();
+
+                  error_log("Sub county list URL --->{$url}");
 
                   $query_response = $stream->sendRequest([
                         'url' => $url,
@@ -646,6 +700,55 @@ class formsActions extends sfActions
             return '';
       }
 
+      public function wardList()
+      {
+            $api = '/api/v1/county/wards/';
+      }
+
+      public function executeSubcounties()
+      {
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/sub_counties/';
+
+            $stream = new Stream();
+
+            error_log("Sub county list URL --->{$url}");
+
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'GET',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'headers' => [
+                        "Authorization" => "JWT {$this->token}",
+                  ]
+            ]);
+
+            return $this->renderText(json_encode($query_response->content));
+
+      }
+
+      public function executeWards()
+      {
+            $url = sfConfig::get('app_api_jambo_url') . 'api/v1/county/wards/';
+
+            $stream = new Stream();
+
+            error_log("Ward sub county list URL --->{$url}");
+
+            $query_response = $stream->sendRequest([
+                  'url' => $url,
+                  'method' => 'GET',
+                  'ssl' => 'none',
+                  'contentType' => 'json',
+                  'headers' => [
+                        "Authorization" => "JWT {$this->token}",
+                  ]
+            ]);
+
+            return $this->renderText(json_encode($query_response->content));
+
+      }
+
 
 
       public function createBill($data, $invoice)
@@ -668,6 +771,10 @@ class formsActions extends sfActions
             $data['items'] = $items;
 
             $url = sfConfig::get('app_api_jambo_url') . 'api/v1/create_bill/';
+
+            error_log("Create bill URL --->{$url}");
+            error_log(json_encode($data));
+
             $query_response = $stream->sendRequest([
                   'url' => $url,
                   'method' => 'POST',
@@ -679,13 +786,23 @@ class formsActions extends sfActions
                   'data' => $data
             ]);
 
+            error_log("Response ---> Create bill");
+
+            error_log($query_response->status);
+
+            error_log(json_encode($query_response->content));
+
+
             if ($query_response->status == 200 || $query_response->status == 201) {
                   $this->cache->set("{$this->key}_bill_ref", $query_response->content['bill_ref'], 3600);
 
-
                   error_log($query_response->content['bill_ref']);
+
+                  return ['success' => true, 'bill_ref' => $query_response->content['bill_ref']];
             } else {
                   error_log("Unable to create the bill at the moment");
+
+                  return false;
             }
       }
 

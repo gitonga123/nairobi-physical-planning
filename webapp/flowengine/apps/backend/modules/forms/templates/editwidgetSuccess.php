@@ -308,7 +308,7 @@ EOT;
 				<div class="content_header">
 					<div class="content_header_title">
 						<div style="float: left">
-							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <a class="breadcrumb" href="/backend.php/forms/managereport?id=<?php echo $form_id; ?>">Report</a> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo 'Widget #'.$chart_id; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Settings</h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <a class="breadcrumb" href="/plan/forms/managereport?id=<?php echo $form_id; ?>">Report</a> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo 'Widget #'.$chart_id; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Settings</h2>
 							<br>
                             <p>Editing widget #<?php echo "{$chart_id} &#8674; {$chart_type_desc}"; ?></p>
 						</div>	

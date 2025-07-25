@@ -13,12 +13,12 @@ if ($sf_user->mfHasCredential("managefees")) {
 
             <div class="panel-heading text-right">
                 <a class="btn btn-warning" id="update_subcounty"
-                    href="<?php echo url_for('/backend.php/subcounty/updatesubcounties') ?>"><?php echo __('Update Sub Counties'); ?></a>
+                    href="<?php echo url_for('/plan/subcounty/updatesubcounties') ?>"><?php echo __('Update Sub Counties'); ?></a>
                 <script>
                     $(document).ready(function () {
                         $('#update_subcounty').click(function (e) {
                             $.ajax({
-                                url: "<?php echo url_for('/backend.php/subcounty/updatesubcounties') ?>",
+                                url: "<?php echo url_for('/plan/subcounty/updatesubcounties') ?>",
                                 type: "GET",
                                 dataType: "json",
                             }).done(function (resp) {
@@ -47,19 +47,20 @@ if ($sf_user->mfHasCredential("managefees")) {
                         <thead>
                             <tr>
                                 <th class="no-sort">#</th>
-                                <th><?php echo __('id'); ?></th>
                                 <th><?php echo __('UUID'); ?></th>
                                 <th><?php echo __('Sub County'); ?></th>
+                                <th><?php echo __('Action'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($subcounties as $subcounty): ?>
                                 <tr id="row_<?php echo $subcounty->getId() ?>">
+                                    <td><?php echo $subcounty->getId(); ?></td>
                                     <td><?php echo $subcounty->getUuid(); ?></td>
                                     <td><?php echo $subcounty->getName(); ?></td>
                                     <td align="center">
                                         <a id="subcountyedit<?php echo $subcounty->getId(); ?>"
-                                            href="/backend.php/subcountys/view/id/<?php echo $subcounty->getId(); ?>"
+                                            href="/plan/subcounty/view/id/<?php echo $subcounty->getId(); ?>"
                                             title="<?php echo __('View'); ?>"><span class="label label-primary"><i
                                                     class="fa fa-eye"></i></span></a>
                                     </td>

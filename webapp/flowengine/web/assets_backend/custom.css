@@ -57,3 +57,37 @@
     color: #006838;
     box-shadow: none;
 }
+
+@media print {
+    .panel {
+        page-break-inside: avoid;
+        /* Prevents breaking inside panel */
+        border: 2px solid black !important;
+        /* Ensures border on each page */
+        padding: 10px;
+    }
+
+    .panel-heading {
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+
+    .panel-body {
+        page-break-before: auto;
+    }
+
+    .payment-options {
+        page-break-before: always;
+        /* Moves Payment Options to a new page */
+        border: 2px solid black !important;
+        /* Independent border on new page */
+        padding: 10px;
+    }
+
+    table {
+        page-break-inside: avoid;
+        /* Prevents table rows from splitting */
+        width: 100%;
+    }
+}

@@ -10,6 +10,13 @@
  */
 class apiActions extends sfActions
 {
+    public function initialize($context, $moduleName, $actionName)
+    {
+        parent::initialize($context, $moduleName, $actionName);
+        $this->cache = new sfFileCache([
+            'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+        ]);
+    }
     public function executeIndex(sfWebRequest $request)
     {
         return $this->json(['success' => true, 'message' => 'api endpoints']);
@@ -134,9 +141,9 @@ class apiActions extends sfActions
             'success' => true,
             'data' => $app_array,
             "links" => [
-                "first" => "/backend.php/api/plots?" . $f_param_array,
-                "next" => "/backend.php/api/plots?" . $query_param_array,
-                "last" => "/backend.php/api/plots?" . $l_param_array
+                "first" => "/plan/api/plots?" . $f_param_array,
+                "next" => "/plan/api/plots?" . $query_param_array,
+                "last" => "/plan/api/plots?" . $l_param_array
             ],
             "meta" => [
                 "currentPage" => $page,
@@ -182,7 +189,7 @@ class apiActions extends sfActions
 
                 $invoice->setPaid(2);
                 if (array_key_exists('receipt_number', $response)) {
-                    $invoice->setReceiptNumber($response['receipt_number']);
+                    $invoice->setReceiptNumber(json_encode($response['receipt_number']));
                 }
                 $invoice->save();
 
@@ -391,39 +398,151 @@ class apiActions extends sfActions
 
     private function getSubCounties()
     {
+        //Get list of all objects
         $q = Doctrine_Query::create()
-            ->from("Menus a")
-            ->whereNotIn('a.id', [200028, 200018, 11])
-            ->orderBy("a.id ASC");
-        $districts = $q->execute();
+            ->from('Subcounty s')
+            ->orderBy('s.id ASC');
+        $sub_counties = $q->execute();
+        $sub_counties_list = [];
 
-        $districts_list = [];
-
-        foreach ($districts as $district) {
+        foreach ($sub_counties as $subcounty) {
             $temp = [
-                'id' => $district->getId(),
-                'name' => $district->getTitle()
+                'id' => $subcounty->getId(),
+                'name' => $subcounty->getName(),
+                'wards' => $this->getWardListForCounty($subcounty)
             ];
 
-            array_push($districts_list, $temp);
+            array_push($sub_counties_list, $temp);
             $temp = [];
         }
+        return $sub_counties_list;
+    }
 
-        return $districts_list;
+    private function getWardListForCounty($subcounty)
+    {
+        $wards_list = [];
+        foreach ($subcounty->getWard() as $ward) {
+            $wards_list[] = [
+                'id' => $ward->getId(),
+                'name' => $ward->getName()
+            ];
+        }
+
+        return $wards_list;
     }
 
     public function executeSubCounties(sfWebRequest $request)
     {
-        $districts = $this->getSubCounties();
+        $sub_counties = $this->getSubCounties();
         return $this->renderText(json_encode([
             'success' => true,
-            'data' => $districts,
-            'itemCount' => count($districts)
+            'data' => $sub_counties,
+            'itemCount' => count($sub_counties)
         ]));
     }
 
+    public function executeSubCountiesView(sfWebRequest $request)
+    {
+        $id = $request->getParameter('id');
+
+        $subcounty = Doctrine_Core::getTable('Subcounty')->find(array($id));
+
+        if (!$subcounty) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'message' => 'Subcounty not found.'
+            ]));
+        }
+
+        $wards_list = [];
+
+        foreach ($subcounty->getWard() as $ward) {
+            $wards_list[] = [
+                'id' => $ward->getId(),
+                'name' => $ward->getName()
+            ];
+        }
+
+        $response = [
+            'success' => true,
+            'data' => [
+                'id' => $subcounty->getId(),
+                'name' => $subcounty->getName(),
+                'wards' => $wards_list
+            ]
+        ];
+
+        return $this->renderText(json_encode($response));
+    }
+
+    public function executeWards(sfWebRequest $request)
+    {
+        $wards = Doctrine_Query::create()
+            ->from('Ward w')
+            ->leftJoin('w.Subcounty s')
+            ->orderBy('w.id ASC')
+            ->execute();
+
+        $data = [];
+
+        foreach ($wards as $ward) {
+            $data[] = [
+                'id' => $ward->getId(),
+                'name' => $ward->getName(),
+                'subcounty' => $ward->getSubcounty() ? [
+                    'id' => $ward->getSubcounty()->getId(),
+                    'name' => $ward->getSubcounty()->getName()
+                ] : null
+            ];
+        }
+
+        return $this->renderText(json_encode([
+            'success' => true,
+            'data' => $data,
+            'itemCount' => count($data)
+        ]));
+    }
+
+    public function executeWardsView(sfWebRequest $request)
+    {
+        $id = $request->getParameter('id');
+
+        $ward = Doctrine_Query::create()
+            ->from('Ward w')
+            ->leftJoin('w.Subcounty s')
+            ->where('w.id = ?', $id)
+            ->fetchOne();
+
+        if (!$ward) {
+            return $this->renderText(json_encode([
+                'success' => false,
+                'message' => 'Ward not found.'
+            ]));
+        }
+
+        $response = [
+            'success' => true,
+            'data' => [
+                'id' => $ward->getId(),
+                'name' => $ward->getName(),
+                'subcounty' => $ward->getSubcounty()
+                    ? [
+                        'id' => $ward->getSubcounty()->getId(),
+                        'name' => $ward->getSubcounty()->getName()
+                    ]
+                    : null
+            ]
+        ];
+
+        return $this->renderText(json_encode($response));
+    }
+
+
+
     public function executeApplicationsList(sfWebRequest $request)
     {
+
+
         $new_start_date = null;
         $new_end_date = null;
 
@@ -434,6 +553,7 @@ class apiActions extends sfActions
 
         // filter with subcounty and plot_no
         $subcounty = $request->getParameter('subcounty');
+        $ward = $request->getParameter('ward');
         $plot_no = $request->getParameter('plot_no');
 
         $start_date = $request->getParameter('start_date');
@@ -451,52 +571,77 @@ class apiActions extends sfActions
 
         $limit = is_null($limit) ? 10 : intval($limit);
 
+
+
         $form_list = [];
 
         $groups = $this->permitType();
 
+        $forms = $this->get_list_of_forms_settings();
 
-        $q = Doctrine_Query::create()
-            ->from('ApForms a')
-            ->where('a.form_id in ?', array('6', '7', '15', '16', '17'))
-            ->andWhere("a.form_active = 1")
-            ->andWhere("a.form_type = 1")
-            ->orderBy('a.form_name ASC');
-
-        if (!is_null($subcounty)) {
-            $qt = Doctrine_Query::create()
-                ->from("SubMenus a")
-                ->where("a.menu_id = ?", $subcounty);
-            $stages = $qt->execute();
-            $filtered_stages = array();
-
-            foreach ($stages as $stage) {
-                array_push($filtered_stages, $stage->getId());
-            }
-
-            $q->andWhereIn("a.form_stage", $filtered_stages);
-        }
-
-        $forms = $q->execute();
         $form_listing = [];
 
+        $with_filter = false;
+
+
         foreach ($forms as $apform) {
-            $form_groups[$apform->getFormId()] = $groups[$apform->getFormGroup()];
-            if (!is_null($group_filter) && $apform->getFormGroup() == $group_filter) {
+            if (!is_null($group_filter) && $apform->getFormId() == $group_filter) {
                 array_push($form_list, $apform->getFormId());
             } else {
                 array_push($form_listing, $apform->getFormId());
             }
         }
 
+        $filter_on_query = [];
+
         if (!is_null($plot_no)) {
-            $new_form_ = $this->mapping_forms_with_plot_no_id($form_listing);
+            $with_filter = true;
+            $new_form_ = $this->mapping_forms_with_plot_id($form_listing);
             $entries = $this->get_entries_with_plot_no($new_form_, $plot_no);
 
-            $result = $this->get_application_with_entry_id($entries[0], $entries[1], $with_permit, $limit, $page, $new_start_date, $new_end_date, $entries[2]);
+            if (count($entries) > 0) {
+                array_push($filter_on_query, $entries);
+            }
+        }
+
+
+
+        if (!is_null($subcounty)) {
+            $with_filter = true;
+            $new_form_ = $this->mapping_forms_with_subcounty($form_listing);
+            $entries = $this->get_entries_with_options_as_values($new_form_, $subcounty);
+            if (count($entries) > 0) {
+                array_push($filter_on_query, $entries);
+            }
+
+        }
+
+        if (!is_null($ward)) {
+            $with_filter = true;
+            $new_form_ = $this->mapping_forms_with_ward($form_listing);
+            $entries = $this->get_entries_with_options_as_values($new_form_, $ward);
+
+            if (count($entries) > 0) {
+                array_push($filter_on_query, $entries);
+            }
+        }
+
+
+        $search_query = $this->merge_search_query($filter_on_query);
+
+        $total_count = 0;
+
+
+        if (count($search_query) > 0 && $with_filter) {
+            $result = $this->get_application_with_entry_id($with_permit, $limit, $page, $new_start_date, $new_end_date, $search_query);
+
             $app_list = $result[0];
             $total_count = $result[1];
             $page = $result[2];
+        } else if ($with_filter) {
+            $app_list = [];
+            $total_count = 0;
+            $page = 0;
         } else {
 
             $cache_key = 'apps_list_' . md5(json_encode([
@@ -507,8 +652,6 @@ class apiActions extends sfActions
                 'limit' => $limit,
                 'page' => $page
             ]));
-
-            error_log("apps list ----> {$cache_key}");
 
             $cached_result = $this->cache->get($cache_key);
 
@@ -536,7 +679,7 @@ class apiActions extends sfActions
                     ->leftJoin('f.SubMenus s')
                     ->leftJoin('f.MfInvoice m')
                     ->where("f.entry_id IS NOT NULL")
-                    ->andWhere('f.parent_submission = 0')
+                    ->whereIn('f.id', [1919, 1920, 1921, 1927])
                     ->andWhere("f.approved > 0");
 
                 if (!is_null($with_permit) && $with_permit == '0') {
@@ -574,8 +717,6 @@ class apiActions extends sfActions
 
                 $q_app->limit($limit);
 
-                error_log("Page ----> {$page} ----> {$limit}");
-
                 if (!is_null($page)) {
                     $page = intval($page);
                     $offset = ($page - 1) * ($limit ?? 10);
@@ -586,78 +727,20 @@ class apiActions extends sfActions
 
                 $this->cache->set($cache_key, json_encode([$app_list->toArray(true), $total_count]), 300); // 5 min
             }
-            $q_app = Doctrine_Query::create()
-                ->addSelect('f.id')
-                ->addSelect('f.application_id')
-                ->addSelect('f.entry_id')
-                ->addSelect('f.form_id')
-                ->addSelect('s.title')
-                ->addSelect('f.date_of_submission')
-                ->addSelect('p.permit_id')
-                ->from('FormEntry f')
-                ->leftJoin('f.SubMenus s');
-            if (!is_null($with_permit) && $with_permit == '0') {
-                $q_app->leftJoin('f.SavedPermits p')->where('p.id IS NULL');
-            } else if (!is_null($with_permit) && $with_permit == '1') {
-                $q_app->leftJoin('f.SavedPermits p');
-                $q_app->where('f.id = p.application_id')
-                    ->andWhere('f.approved = s.id')
-                    ->andWhere('p.permit_id IS NOT NULL')
-                    ->andWhere("p.permit_id <>''");
-            } else {
-                $q_app->leftJoin('f.SavedPermits p');
-            }
-            // pull data from applications list
-
-            if (count($form_list) > 0) {
-                $q_app->andWhereIn(
-                    'f.form_id',
-                    $form_list
-                );
-            }
-
-            error_log("New Start Date ---->" . $new_start_date);
-            error_log("New End Date ---->" . $new_end_date);
-
-            if (!is_null($new_start_date) && !is_null($new_end_date)) {
-                $q_app->andWhere('f.date_of_submission BETWEEN ? AND ?', array($new_start_date, $new_end_date));
-            }
-            if (!is_null($new_start_date) && is_null($new_end_date)) {
-                $new_start_date = date_create($new_start_date);
-                $q_app->andWhere(
-                    'f.date_of_submission BETWEEN ? AND ?',
-                    array(date_format($new_start_date, "Y-m-d") . " 00:00:00", date_format($new_start_date, "Y-m-d") . " 23:59:59")
-                );
-            }
-            if (is_null($new_start_date) && !is_null($new_end_date)) {
-                $new_end_date = date_create($new_end_date);
-                $q_app->andWhere('f.date_of_submission BETWEEN ? AND ?', array(date_format($new_end_date, "Y-m-d") . " 00:00:00", date_format($new_end_date, "Y-m-d") . " 23:59:59"));
-            }
-
-
-            $q_app->orderBy('f.id DESC');
-            $total_count = $q_app->count();
-
-            $q_app->limit($limit);
-
-            if (!is_null($page)) {
-                $from = $page * is_null($limit) ? 10 : $limit;
-                $q_app->offset($from);
-            }
-            $page = is_null($page) ? 1 : intval($page);
-
-            $app_list = $q_app->execute();
-            $app_array = [];
         }
+
+
         $application_manager = new ApplicationManager();
+
 
         foreach ($app_list as $app) {
             $app_info = [];
-            $sizes = [];
             $entry_details = $application_manager->get_application_details(
                 $app->getFormId(),
                 $app->getEntryId()
             );
+
+            error_log("Application id is ---> {$app->getId()}");
 
             foreach ($entry_details as $data) {
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
@@ -669,77 +752,48 @@ class apiActions extends sfActions
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'ownernames')) {
-                        $app_info['owner'] = trim($data['value']);
-                    }
-
-                    if (stristr($new_label, "owner'sname")) {
-                        $app_info['owner'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, "phonenumber")) {
-                        $app_info['phone_number'] = trim($data['value']);
-                    }
                     if (stristr($new_label, 'plotno')) {
-                        $app_info['plot_no2'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'plotplot_no')) {
-                        $app_info['plot_no2'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'buildingtype')) {
-                        $app_info['building_type'] = trim($data['value']);
+                        $app_info['plot_no'] = trim($data['value']);
                     }
 
-                    if (stristr($new_label, 'buildingcategory')) {
-                        $app_info['building_category'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'buildingcoverage')) {
-                        $app_info['building_coverage'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'spacedesignated')) {
-                        $app_info['space_designated'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'numberofdwellingunits')) {
-                        $app_info['number_of_dwelling_units'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'province')) {
-                        $app_info['province'] = trim($data['value']);
-                    }
                     if (stristr($new_label, 'subcounty')) {
                         $app_info['subcounty'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'sector')) {
-                        $app_info['sector'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'cell')) {
-                        $app_info['cell'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'village')) {
-                        $app_info['village'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'zoning Plan')) {
-                        $app_info['zoning'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, 'plotsize')) {
 
-                        $sizes['plot_size'] = trim($data['value']);
+                    if (stristr($new_label, 'ward')) {
+                        $app_info['ward'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'builtuparea')) {
-                        $sizes['built_up_area'] = trim($data['value']);
+                    if (stristr($new_label, 'plotlatitude')) {
+                        $app_info['latitude'] = floatval(trim($data['value']));
                     }
-                    $app_info['shape_area'] = $sizes;
+                    if (stristr($new_label, 'plotlongitude')) {
+                        $app_info['longitude'] = floatval(trim($data['value']));
+                    }
                 }
             }
             $permits = $app->getSavedPermits() ? $app->getSavedPermits()->getData()[0] : false;
+            $allPaid = true; // assume all are paid unless we find one that's not
+            $invoices = $app->getMfInvoice();
+            if ($invoices) {
+                foreach ($invoices->getData() as $invoice) {
+                    if ($invoice->getPaid() != 2) {
+                        // Found an invoice that is not paid
+                        $allPaid = false;
+                        break;
+                    }
+                }
+            } else {
+                $allPaid = false;
+            }
             $app_info['application_date'] = $app->getDateOfSubmission();
-            $app_info['application_id'] = $app->getId();
+            $app_info['application_id'] = intval($app->getId());
             $app_info['application_number'] = $app->getApplicationId();
-            $app_info['stage'] = $app->getSubMenus() ? $app->getSubMenus()->getTitle() : "";
-            $app_info['permit_number'] = $permits ? $permits->getPermitId() : "";
-            $app_info['permit_issue_date'] = $permits ? $permits->getDateOfIssue() : "";
-            $app_info['permit_type'] = $form_groups[$app->getFormId()];
+            $app_info['current_stage'] = $app->getSubMenus() ? $app->getSubMenus()->getTitle() : "";
+            $app_info['service_type'] = $groups[$app->getFormId()];
+            $app_info['approval_status'] = $permits ? "Approved" : "Pending Approval";
+            $app_info['invoices_paid'] = $allPaid;
             $app_array[] = $app_info;
             $app_info = [];
-            $sizes = [];
         }
 
         $last = ceil($total_count / $limit);
@@ -772,16 +826,16 @@ class apiActions extends sfActions
                 'data' => [],
                 'links' => [],
                 'meta' => [],
-                'message' => "Application with plot_no Not Found "
+                'message' => "Application(s) not found "
             ]));
         }
         return $this->renderText(json_encode([
             'success' => true,
             'data' => $app_array,
             "links" => [
-                "first" => "/bpmis/api/v1.1/applications?" . $f_param_array,
-                "next" => "/bpmis/api/v1.1/applications?" . $query_param_array,
-                "last" => "/bpmis/api/v1.1/applications?" . $l_param_array
+                "first" => "https://usn.malipo.org/backend.php/api/applicationsList?{$f_param_array}",
+                "next" => "https://usn.malipo.org/backend.php/api/applicationsList?$query_param_array",
+                "last" => "https://usn.malipo.org/backend.php/api/applicationsList?$l_param_array"
             ],
             "meta" => [
                 "permit_types" => $groups,
@@ -795,7 +849,40 @@ class apiActions extends sfActions
         sfView::NONE;
     }
 
-    public function get_application_with_entry_id($entry_list, $form_list, $with_permit, $limit, $page, $new_start_date, $new_end_date, $entries = [])
+    public function get_list_of_forms_settings()
+    {
+        $cache_key = "forms_cached_8";
+
+        $forms_cached = $this->cache->get($cache_key);
+
+        $forms = [];
+
+        if ($forms_cached) {
+            // Rehydrate array into Doctrine_Collection manually if needed
+            $forms = new Doctrine_Collection('ApForms');
+            foreach ($forms_cached as $row) {
+                $form = new ApForms();
+                $form->fromArray($row);
+                $forms->add($form);
+            }
+        } else {
+            $q = Doctrine_Query::create()
+                ->from('ApForms a')
+                ->whereIn('a.form_id', array('25952', '47349', '67355', '38732', '46092', '25445', '89966', '88401'))
+                ->andWhere("a.form_active = 1")
+                ->andWhere("a.form_type = 1")
+                ->orderBy('a.form_name ASC');
+
+            $forms = $q->execute();
+
+            // Convert to array before caching
+            $this->cache->set($cache_key, $forms->toArray(true), 3600);
+        }
+
+        return $forms;
+    }
+
+    public function get_application_with_entry_id($with_permit, $limit, $page, $new_start_date, $new_end_date, $entries = [])
     {
 
         $q_app = '';
@@ -809,12 +896,9 @@ class apiActions extends sfActions
             ->addSelect('s.title')
             ->addSelect('f.date_of_submission')
             ->addSelect('p.permit_id')
-            ->from('FormEntry f');
+            ->from('FormEntry f')
+            ->whereIn('f.id', [1919, 1920, 1921, 1927]);
         if (count($entries) > 0) {
-            //$q_app->andWhereIn(
-            // 'f.entry_id',
-            //$entry_list
-            //);
 
             $new_entry_list = '(' . implode(' OR ', $entries) . ')';
             $q_app->where($new_entry_list);
@@ -825,10 +909,6 @@ class apiActions extends sfActions
                 0
             ];
         }
-        // $q_app->andWhereIn(
-        //     'f.form_id',
-        //     $form_list
-        // );
 
         if (!is_null($new_start_date) && !is_null($new_end_date)) {
             $q_app->andWhere('f.date_of_submission BETWEEN ? AND ?', array($new_start_date, $new_end_date));
@@ -1135,12 +1215,15 @@ class apiActions extends sfActions
 
     public function executeApplicationsUpdate(sfWebRequest $request)
     {
-        error_log("Above is get parameters, {$request->getParameter('id')}");
+        error_log(print_r($request->getPostParameters(), true));
+        error_log("Above is get parameters");
         error_log("Latitude ----> {$request->getParameter('latitude')}");
         error_log("Longitude ----> {$request->getParameter('longitude')}");
 
         $rawContent = $request->getContent();
         $data = json_decode($rawContent, true);
+
+
 
         if (empty($data)) {
             $data = [
@@ -1193,14 +1276,10 @@ class apiActions extends sfActions
 
         $updated = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query);
 
-        error_log("Update request --->{$update_query}");
-
 
         $element_id_2 = $this->map_location_with_form_type_longitude()[$application->getFormId()];
 
-
         $update_query_2 = "UPDATE ap_form_{$application->getFormId()} SET element_{$element_id_2} = '{$plot_longitude}' WHERE id = {$application->getEntryId()}";
-        error_log("Update request --->{$update_query_2}");
 
         $updated_2 = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($update_query_2);
         $application_manager = new ApplicationManager();
@@ -1225,17 +1304,6 @@ class apiActions extends sfActions
                     }
                     if (stristr($new_label, 'plotno')) {
                         $app_info['plot_no'] = trim($data['value']);
-                    }
-
-                    if (stristr($new_label, 'ownernames')) {
-                        $app_info['owner'] = trim($data['value']);
-                    }
-
-                    if (stristr($new_label, "owner'sname")) {
-                        $app_info['owner'] = trim($data['value']);
-                    }
-                    if (stristr($new_label, "phonenumber")) {
-                        $app_info['phone_number'] = trim($data['value']);
                     }
 
                     if (stristr($new_label, 'subcounty')) {

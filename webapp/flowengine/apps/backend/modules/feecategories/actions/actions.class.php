@@ -23,7 +23,7 @@ class feecategoriesActions extends sfActions
 
     if($wizard_manager->is_first_run())
     {
-      $this->redirect("/backend.php/dashboard");
+      $this->redirect("/plan/dashboard");
     }
     //Get list of all objects
     $q = Doctrine_Query::create()
@@ -115,7 +115,7 @@ class feecategoriesActions extends sfActions
     {
       $category = $form->save();
 
-      $this->redirect('/backend.php/feecategories/index');
+      $this->redirect('/plan/feecategories/index');
     }
   }
 
@@ -132,7 +132,7 @@ class feecategoriesActions extends sfActions
 
     $category->delete();
 
-    $this->redirect('/backend.php/feecategories/index');
+    $this->redirect('/plan/feecategories/index');
   }
 
 }

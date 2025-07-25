@@ -7,8 +7,8 @@ use_helper("I18N");
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="<?php echo public_path('backend.php') ?>"><?php echo __('Home'); ?></a></li>
-      <li><a href="<?php echo public_path('backend.php/applications/search') ?>"><?php echo __('Search'); ?></a></li>
+      <li><a href="<?php echo public_path('plan') ?>"><?php echo __('Home'); ?></a></li>
+      <li><a href="<?php echo public_path('plan/applications/search') ?>"><?php echo __('Search'); ?></a></li>
     </ol>
   </div>
 </div>
@@ -33,7 +33,7 @@ use_helper("I18N");
 					             <?php echo __('Quick Search'); ?>
                 </div>
               <div class="list-group-item">
-          							<form class="form-bordered" method='post' action="<?php echo public_path('backend.php/applications/search') ?>" autocomplete="off" data-ajax="false">
+          							<form class="form-bordered" method='post' action="<?php echo public_path('plan/applications/search') ?>" autocomplete="off" data-ajax="false">
           							 <div class="form-group">
             							<label class="col-sm-2"><?php echo __('Application No'); ?></label>
             							<div class="col-sm-8">
@@ -120,7 +120,7 @@ use_helper("I18N");
 										?>
 										</td>
 										<td class="c" width="38px">
-										<a title='<?php echo __('View Application'); ?>' href='/backend.php/applications/view/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+										<a title='<?php echo __('View Application'); ?>' href='/plan/applications/view/id/<?php echo $application->getId(); ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
 										</td>
 									</tr>
 								<?php
@@ -146,7 +146,7 @@ use_helper("I18N");
               </div>
               <div class="list-group-item">
               <div class="panel-body">
-							<form class="form-bordered"  method='post' action="<?php echo public_path('backend.php/applications/search') ?>" autocomplete="off" data-ajax="false">
+							<form class="form-bordered"  method='post' action="<?php echo public_path('plan/applications/search') ?>" autocomplete="off" data-ajax="false">
 
 							<label><?php echo __('Type Of Application'); ?></label>
 							<br>
@@ -284,7 +284,7 @@ use_helper("I18N");
 										?>
 										</td>
 										<td class="c" width="38px">
-										<a title='<?php echo __('View Application'); ?>' href='/backend.php/applications/view/id/<?php echo $application['id']; ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+										<a title='<?php echo __('View Application'); ?>' href='/plan/applications/view/id/<?php echo $application['id']; ?>'><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
 										</td>
 										</tr>
 									<?php
@@ -317,7 +317,7 @@ function ajaxSearchform1(formid) {
     else if (window.ActiveXObject) {
         self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    self.xmlHttpReq1.open('POST', '/backend.php/applications/formsearch/formid/' + formid, true);
+    self.xmlHttpReq1.open('POST', '/plan/applications/formsearch/formid/' + formid, true);
     self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     self.xmlHttpReq1.onreadystatechange = function() {
         if (self.xmlHttpReq1.readyState == 4) {

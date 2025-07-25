@@ -6,7 +6,7 @@ use_helper("I18N");
    <div class="breadcrumb-wrapper">
      <span class="label"><?php echo __("You are here"); ?>:</span>
      <ol class="breadcrumb">
-       <li><a href="<?php echo public_path('backend.php') ?>"><?php echo __("Home"); ?></a></li>
+       <li><a href="<?php echo public_path('plan/dashboard') ?>"><?php echo __("Home"); ?></a></li>
        <li class="active"><?php echo __("Applications"); ?></li>
      </ol>
    </div>
@@ -24,7 +24,7 @@ use_helper("I18N");
     <div class="panel-body padding-0">
         <div class="col-md-12">
 
-        <form action="/backend.php/forms/confirmdecline" method="POST"  autocomplete="off" data-ajax="false">
+        <form action="/plan/forms/confirmdecline" method="POST"  autocomplete="off" data-ajax="false">
             <fieldset>
             <input type="hidden" name="id" value="<?php echo $application->getId(); ?>">
             <?php if($moveto){ ?>

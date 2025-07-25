@@ -19,7 +19,7 @@ $entry_details = $application_manager->get_entry_details($inspection->getFormId(
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
       <li><a href="/plan"><?php echo __('Home'); ?></a></li>
-      <li><a href="/backend.php/frusers/index"><?php echo __('Users'); ?></a></li>
+      <li><a href="/plan/frusers/index"><?php echo __('Users'); ?></a></li>
     </ol>
   </div>
 </div>
@@ -33,7 +33,7 @@ $entry_details = $application_manager->get_entry_details($inspection->getFormId(
             <h3 class="panel-title"><?php echo $business->getTitle(); ?></h3>
 
             <div class="pull-right" style="margin-top: -30px;">
-                <a class="btn btn-primary " id="newpage" href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>" ><?php echo __('Back to Profile'); ?></a>
+                <a class="btn btn-primary " id="newpage" href="/plan/profiles/view/id/<?php echo $business->getId(); ?>" ><?php echo __('Back to Profile'); ?></a>
 				
             </div>
         </div>

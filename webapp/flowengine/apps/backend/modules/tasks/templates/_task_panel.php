@@ -17,7 +17,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
     <div class="alert alert-success">
         <strong>Please!</strong> Select a fee(s) from the list to create an invoice.
     </div>
-    <form class="form-bordered" id="feeform" method="post" action="/backend.php/tasks/saveinvoice/id/<?php echo $task->getId(); ?>"
+    <form class="form-bordered" id="feeform" method="post" action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>"
         id="MailContentForm" name="MailContentForm" onSubmit="return validate_editfield();" autocomplete="off"
         data-ajax="false">
         <?php
@@ -69,7 +69,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
                 else if (window.ActiveXObject) {
                     self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
                 }
-                self.xmlHttpReq1.open('POST', '/backend.php/fees/getfee', true);
+                self.xmlHttpReq1.open('POST', '/plan/fees/getfee', true);
                 self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 self.xmlHttpReq1.onreadystatechange = function () {
                     if (self.xmlHttpReq1.readyState == 4) {
@@ -429,54 +429,126 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
             ->from('SubMenuButtons a')
             ->where('a.sub_menu_id = ?', $application->getApproved());
         $submenubuttons = $q->execute();
+        $action_string = "";
         foreach ($submenubuttons as $submenubutton) {
             $q = Doctrine_Query::create()
                 ->from('Buttons a')
                 ->where('a.id = ?', $submenubutton->getButtonId());
             $buttons = $q->execute();
 
-            $action_string = "";
-
             foreach ($buttons as $button) {
                 if ($sf_user->mfHasCredential("accessbutton" . $button->getId())) {
                     $pos = strpos($button->getLink(), "decline");
+
+                    static $colorToggle = 0; // Static variable to track alternating colors
+
+                    if (
+                        strpos($button->getLink(), 'decline') !== false ||
+                        strpos($button->getTitle(), 'delete') !== false ||
+                        strpos($button->getLink(), 'reject') !== false
+                    ) {
+
+                        $panelClass = "panel-danger";
+                    } else {
+                        $panelClass = ($colorToggle % 2 == 0) ? "panel-primary" : "panel-success";
+                        $colorToggle++; 
+                    }
+
                     if ($pos === false) {
                         $pos = strpos($button->getTitle(), "delete");
                         if ($pos === false) {
                             $action_count++;
 
                             if ($pending_assessment == false) {
-                                $action_string .= "<li><a class='btn btn-primary' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                    <a href='" . $button->getLink() . "&id=" . $task->getId() . "' 
+                                    class='panel $panelClass text-center' 
+                                    style='display: block; text-decoration: none; color: inherit;'
+                                    onClick=\"if(confirm('Are you sure?')){ 
+                                        document.getElementById('warning').value = 0; 
+                                    } else { return false; }\">
+                                        <div class='panel-heading'>
+                                            <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                        </div>
+                                    </a>
+                                </div>";
+
                             } else {
-                                $action_string .= "<li><a class='btn btn-primary' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                    <a href='#' class='panel $panelClass text-center' 
+                                    style='display: block; text-decoration: none; color: inherit;'
+                                    onClick=\"alert('Please complete your task first'); return false;\">
+                                        <div class='panel-heading'>
+                                            <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                        </div>
+                                    </a>
+                                </div>";
                             }
                         } else {
                             $action_count++;
 
                             if ($pending_assessment == false) {
-                                $action_string .= "<li><a  class='btn btn-danger'onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                <a href='" . $button->getLink() . "&id=" . $task->getId() . "' 
+                                class='panel $panelClass text-center' 
+                                style='display: block; text-decoration: none; color: inherit;'
+                                onClick=\"if(confirm('Are you sure?')){ 
+                                    document.getElementById('warning').value = 0; 
+                                } else { return false; }\">
+                                    <div class='panel-heading'>
+                                        <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                    </div>
+                                </a>
+                            </div>";
+
                             } else {
-                                $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
+                                $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                    <a href='#' class='panel $panelClass text-center' 
+                                    style='display: block; text-decoration: none; color: inherit;'
+                                    onClick=\"alert('Please complete your task first'); return false;\">
+                                        <div class='panel-heading'>
+                                            <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                        </div>
+                                    </a>
+                                </div>";
                             }
                         }
                     } else {
                         $action_count++;
 
                         if ($pending_assessment == false) {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"if(confirm('Are you sure?')){ document.getElementById('warning').value = 0; window.location='" . $button->getLink() . "&id=" . $task->getId() . "'; }else{ return false; }\">" . $button->getTitle() . "</a></li>";
+                            $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                                <a href='" . $button->getLink() . "&id=" . $task->getId() . "' 
+                                class='panel $panelClass text-center' 
+                                style='display: block; text-decoration: none; color: inherit;'
+                                onClick=\"if(confirm('Are you sure?')){ 
+                                    document.getElementById('warning').value = 0; 
+                                } else { return false; }\">
+                                    <div class='panel-heading'>
+                                        <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                    </div>
+                                </a>
+                            </div>";
                         } else {
-                            $action_string .= "<li><a class='btn btn-danger' onClick=\"alert('Please complete your task first'); return false;\">" . $button->getTitle() . "</a></li>";
+                            $action_string .= "<div class='col-lg-4 col-sm-6' style='margin-bottom: 15px;'>
+                            <a href='#' class='panel $panelClass text-center' 
+                            style='display: block; text-decoration: none; color: inherit;'
+                            onClick=\"alert('Please complete your task first'); return false;\">
+                                <div class='panel-heading'>
+                                    <h3 class='panel-title'>" . htmlspecialchars($button->getTitle()) . "</h3>
+                                </div>
+                            </a>
+                        </div>";
                         }
                     }
                 }
             }
-
-            ?>
-            <ul>
-                <?php echo $action_string; ?>
-            </ul>
-            <?php
         }
+        ?>
+        <div class="row">
+            <?php echo $action_string; ?>
+        </div>
+        <?php
     } else {
         //If task is marked as pending, display form for entering comments
         $q = Doctrine_Query::create()

@@ -338,19 +338,22 @@ class MalipoGateway
 
 	public function jambo_pay_ipn($response)
 	{
+
 		error_log("Bill Number details below ---->");
 
-		error_log($response['bill_number']);
-		error_log($response['reference']);
+		error_log("Bill Number ----->" . $response['bill_number']);
+		error_log("Reference ----->" . $response['reference']);
+
+		$reference = isset($response['reference']) ? $response['reference'] : $response['ref'];
 
 		$q = Doctrine_Query::create()
 			->from("ApFormPayments a")
 			->where("a.payment_id = ?", $response['bill_number'])
-			->where("a.narration = ?", $response['reference'])
+			->orWhere("a.narration = ?", $reference)
 			->orderBy('a.afp_id desc');
 		$transaction = $q->fetchOne();
 
-		if (!$transaction) {
+	if (!$transaction) {
 			return 'transaction_not_found';
 		}
 
@@ -363,7 +366,7 @@ class MalipoGateway
 			return 'invoice_not_found';
 		}
 
-		$transaction->setPaymentMerchantType('Jambo Pay - ' . $response['mode_of_payment']);
+		$transaction->setPaymentMerchantType('SISIBOPay - ' . $response['mode_of_payment']);
 
 		$transaction->setPaymentStatus('paid');
 		$transaction->setPaymentDate(date("Y-m-d H:i:s"));
@@ -375,6 +378,11 @@ class MalipoGateway
 		error_log($transaction);
 
 		$invoice->setPaid(2);
+
+		// update invoice receipt number
+		if (array_key_exists('receipt_number', $response)) {
+			$invoice->setReceiptNumber(json_encode($response['receipt_number']));
+		}
 
 		$invoice->save();
 

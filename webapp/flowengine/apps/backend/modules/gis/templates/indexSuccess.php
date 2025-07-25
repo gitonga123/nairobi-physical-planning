@@ -67,7 +67,6 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
         <div id="status" class="status" style="display: none; margin-bottom: 20px;"></div>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-md-12">
-            <strong>Legend:</strong>
             <span class="label" style="background-color: #28a745; margin-left: 10px;">Invoices Paid</span>
             <span class="label" style="background-color: #dc3545; margin-left: 15px;">Invoices Pending</span>
           </div>

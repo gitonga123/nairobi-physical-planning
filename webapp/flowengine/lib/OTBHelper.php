@@ -311,18 +311,24 @@ class OTBHelper
         $q_form_update->execute();
     }
 
-    public function permitType()
+    public function getPermitTypes($user_id = null)
     {
-        $groups = [
-            25952 => "DEVELOPMENT PERMISSION BUILDING PLAN",
-            47349 => "DEVELOPMENT PERMISSION PERIMETER WALL",
-            67355 => "BUILDING PLANS APPLICATION RENEWAL",
-            38732 => "DEMOLITION APPROVAL",
-            46092 => "OUTDOOR ADVERTISING",
-            25445 => "PLANNING APPLICATION",
-            89966 => "HOARDING APPLICATION",
-            88401 => "RENOVATION WORKS"
-        ];
+        $q_form = Doctrine_Query::create()
+            ->from('ApForms a')
+            ->where('a.form_active = ? AND a.form_type = ? AND a.payment_enable_merchant = ?', [1, 1, 1])
+            ->orderBy('a.form_name ASC');
+        $applicationforms = $q_form->execute();
+        $agency_manager = new AgencyManager();
+        $groups = [];
+        foreach ($applicationforms as $applicationform) {
+            if (!is_null($user_id)) {
+                if ($agency_manager->checkAgencyStageAccess($user_id, $applicationform->getFormStage())) {
+                    $groups[$applicationform->getFormId()] = $applicationform->getFormName();
+                }
+            } else {
+                $groups[$applicationform->getFormId()] = $applicationform->getFormName();
+            }
+        }
 
         return $groups;
     }

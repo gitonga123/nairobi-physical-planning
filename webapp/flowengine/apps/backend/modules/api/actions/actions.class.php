@@ -362,18 +362,9 @@ class apiActions extends sfActions
 
     private function permitType()
     {
-        $groups = [
-            25952 => "DEVELOPMENT PERMISSION BUILDING PLAN",
-            47349 => "DEVELOPMENT PERMISSION PERIMETER WALL",
-            67355 => "BUILDING PLANS APPLICATION RENEWAL",
-            38732 => "DEMOLITION APPROVAL",
-            46092 => "OUTDOOR ADVERTISING",
-            25445 => "PLANNING APPLICATION",
-            89966 => "HOARDING APPLICATION",
-            88401 => "RENOVATION WORKS"
-        ];
+        $otb_helper = new OTBHelper();
 
-        return $groups;
+        return $otb_helper->getPermitTypes();
     }
 
     public function executeApplicationTypes(sfWebRequest $request)
@@ -571,8 +562,6 @@ class apiActions extends sfActions
 
         $limit = is_null($limit) ? 10 : intval($limit);
 
-
-
         $form_list = [];
 
         $groups = $this->permitType();
@@ -719,8 +708,6 @@ class apiActions extends sfActions
 
                 $q_app->limit($limit);
 
-                error_log("Page ----> {$page} ----> {$limit}");
-
                 if (!is_null($page)) {
                     $page = intval($page);
                     $offset = ($page - 1) * ($limit ?? 10);
@@ -744,19 +731,15 @@ class apiActions extends sfActions
                 $app->getEntryId()
             );
 
-            error_log("Application id is ---> {$app->getId()}");
-
             foreach ($entry_details as $data) {
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
 
-                    error_log("New error label ----> {$new_label} 1");
-
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'ownernames')) {
+                    if (stristr($new_label, 'name')) {
                         $app_info['owner'] = trim($data['value']);
                     }
 
@@ -802,7 +785,8 @@ class apiActions extends sfActions
             $app_info['application_date'] = $app->getDateOfSubmission();
             $app_info['application_id'] = intval($app->getId());
             $app_info['application_number'] = $app->getApplicationId();
-            $app_info['current_stage'] = $app->getSubMenus() ? $app->getSubMenus()->getTitle() : "";
+            $app_info['current_stage'] = $app->getSubMenus() ? $app->getSubMenus()->getTitle() : "DRAFT APPLICATION";
+            $app_info['current_stage_id'] = $app->getSubMenus() ? $app->getSubMenus()->getId() : "0";
             $app_info['service_type'] = $groups[$app->getFormId()];
             $app_info['approval_status'] = $permits ? "Approved" : "Pending Approval";
             $app_info['invoices_paid'] = $allPaid;
@@ -1304,14 +1288,10 @@ class apiActions extends sfActions
                 $application->getEntryId()
             );
 
-            error_log("Application id is ---> {$application->getId()}");
-
             foreach ($entry_details as $data) {
                 if ($data['element_type'] == "text" || $data['element_type'] == "select" || $data['element_type'] == "number") {
                     $new_label = str_replace(' ', '', $data['label']);
                     $new_label = strtolower($new_label);
-
-                    error_log("New error label ----> {$new_label} 2");
 
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
@@ -1320,7 +1300,7 @@ class apiActions extends sfActions
                         $app_info['plot_no'] = trim($data['value']);
                     }
 
-                    if (stristr($new_label, 'ownernames')) {
+                    if (stristr($new_label, 'name')) {
                         $app_info['owner'] = trim($data['value']);
                     }
 
@@ -1363,6 +1343,7 @@ class apiActions extends sfActions
                 $app_info['application_id'] = intval($application->getId());
                 $app_info['application_number'] = $application->getApplicationId();
                 $app_info['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "";
+                $app_info['current_stage_id'] = $application->getSubMenus() ? $application->getSubMenus()->getId() : "0";
                 $app_info['service_type'] = $groups[$application->getFormId()];
                 $app_info['approval_status'] = $permits ? "Approved" : "Pending Approval";
                 $app_info['invoices_paid'] = $allPaid;

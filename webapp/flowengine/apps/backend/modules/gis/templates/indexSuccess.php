@@ -65,8 +65,14 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
         </form>
 
         <div id="status" class="status" style="display: none; margin-bottom: 20px;"></div>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-md-12">
+            <strong>Legend:</strong>
+            <span class="label" style="background-color: #28a745; margin-left: 10px;">Paid</span>
+            <span class="label" style="background-color: #dc3545; margin-left: 15px;">Pending</span>
+          </div>
+        </div>
         <div class="table-responsive">
-
           <table class="table table-striped table-bordered table-hover mb0" id="applications-table" width="100%">
             <thead>
               <tr>
@@ -148,18 +154,54 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
               ? `${calculateDistance(userLocation.lat, userLocation.lng, item.latitude, item.longitude).toFixed(2)} km`
               : 'N/A';
             tbody.append(`
-              <tr class="application-row">
+             <tr
+                class="application-row"
+                style="border-left: 6px solid ${item.invoice_status ? '#198754' : '#dc3545'};"
+              >
                 <td>${index + 1}</td>
                 <td><strong>${item.service_type}</strong></td>
-                <td><a href="/plan/applications/view/id/${item.application_id}" target="_blank">${item.application_number}</a></td>
-                <td><a href="/plan/dashboard/index/current/available/filter/${item.current_stage_id}" target="_blank">${item.current_stage}</a></td>
+                <td>
+                  <a href="/plan/applications/view/id/${item.application_id}" target="_blank">
+                    ${item.application_number}
+                  </a>
+                </td>
+                <td>
+                  <a href="/plan/dashboard/index/current/available/filter/${item.current_stage_id}" target="_blank">
+                    ${item.current_stage}
+                  </a>
+                </td>
                 <td>${item.owner ?? "-"}</td>
-                <td><small><strong>Block:</strong> ${item.block_number}<br><strong>Plot:</strong> ${item.plot_no}</small></td>
-                <td><small><strong>Subcounty:</strong> ${item.subcounty}<br><strong>Ward:</strong> ${item.ward}</small></td>
-                <td><small><strong>Lat:</strong> ${item.latitude ?? "-"}<br><strong>Long:</strong> ${item.longitude ?? "-"}<br><strong>Distance:</strong> ${distance}</small></td>
+                <td>
+                  <small>
+                    <strong>Block:</strong> ${item.block_number}<br>
+                    <strong>Plot:</strong> ${item.plot_no}
+                  </small>
+                </td>
+                <td>
+                  <small>
+                    <strong>Subcounty:</strong> ${item.subcounty}<br>
+                    <strong>Ward:</strong> ${item.ward}
+                  </small>
+                </td>
+                <td>
+                  <small>
+                    <strong>Lat:</strong> ${item.latitude ?? "-"}<br>
+                    <strong>Long:</strong> ${item.longitude ?? "-"}<br>
+                    <strong>Distance:</strong> ${distance}
+                  </small>
+                </td>
                 <td>${item.approval_status}</td>
-                <td><a class="btn btn-success" target="_blank" href="https://www.google.com/maps/dir/${userLocation?.lat ?? ''},${userLocation?.lng ?? ''}/${item.latitude},${item.longitude}">View On Map</a></td>
+                <td>
+                  <a
+                    class="btn btn-success"
+                    target="_blank"
+                    href="https://www.google.com/maps/dir/${userLocation?.lat ?? ''},${userLocation?.lng ?? ''}/${item.latitude},${item.longitude}"
+                  >
+                    View On Map
+                  </a>
+                </td>
               </tr>
+
             `);
           });
         }

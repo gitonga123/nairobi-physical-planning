@@ -103,6 +103,17 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
     let currentPage = 1;
     let userLocation = null;
 
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Earth's radius in kilometers
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
     async function fetchApplications(page = 1) {
       console.log("Fetching applications --->")
       const subcounty = $('#subcounty').val();
@@ -160,6 +171,8 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
     function renderPagination(meta) {
       const pagination = $('.pagination');
       pagination.empty();
+      console.log(meta);
+      console.dir(meta);
       if (!meta || meta.totalPages <= 1) return;
       for (let i = 1; i <= meta.totalPages; i++) {
         const active = i === meta.currentPage ? 'active' : '';

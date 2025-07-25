@@ -146,6 +146,22 @@ class OTBHelper {
         $q_form_update->execute();
     }
 
+    public function permitType()
+    {
+        $groups = [
+            25952 => "DEVELOPMENT PERMISSION BUILDING PLAN",
+            47349 => "DEVELOPMENT PERMISSION PERIMETER WALL",
+            67355 => "BUILDING PLANS APPLICATION RENEWAL",
+            38732 => "DEMOLITION APPROVAL",
+            46092 => "OUTDOOR ADVERTISING",
+            25445 => "PLANNING APPLICATION",
+            89966 => "HOARDING APPLICATION",
+            88401 => "RENOVATION WORKS"
+        ];
+
+        return $groups;
+    }
+
     /**
      * Get logged reviewer subcounty value - returns county code
      */

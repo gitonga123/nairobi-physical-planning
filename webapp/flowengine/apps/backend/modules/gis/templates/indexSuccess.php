@@ -65,30 +65,32 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
         </form>
 
         <div id="status" class="status" style="display: none; margin-bottom: 20px;"></div>
+        <div class="table-responsive">
 
-        <table class="table table-striped table-bordered table-hover mb0" id="applications-table" width="100%">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th><?php echo __('Service'); ?></th>
-              <th><?php echo __('Application'); ?></th>
-              <th><?php echo __('Current Stage'); ?></th>
-              <th><?php echo __('Applicant'); ?></th>
-              <th><?php echo __('Plot Details.'); ?></th>
-              <th><?php echo __('Plot Location.'); ?></th>
-              <th><?php echo __('Plot Coordinates'); ?></th>
-              <th><?php echo __('Approval Status'); ?></th>
-              <th><?php echo __('Action'); ?></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="application-row" id="loading-row">
-              <td colspan="10" class="text-center">
-                <i class="fa fa-spinner fa-spin"></i> Loading applications...
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table table-striped table-bordered table-hover mb0" id="applications-table" width="100%">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th><?php echo __('Service'); ?></th>
+                <th><?php echo __('Application'); ?></th>
+                <th><?php echo __('Current Stage'); ?></th>
+                <th><?php echo __('Applicant'); ?></th>
+                <th><?php echo __('Plot Details.'); ?></th>
+                <th><?php echo __('Plot Location.'); ?></th>
+                <th><?php echo __('Plot Coordinates'); ?></th>
+                <th><?php echo __('Approval Status'); ?></th>
+                <th><?php echo __('Action'); ?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="application-row" id="loading-row">
+                <td colspan="10" class="text-center">
+                  <i class="fa fa-spinner fa-spin"></i> Loading applications...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <nav>
           <ul class="pagination"></ul>

@@ -18,12 +18,12 @@ if ($translation->IsLeftAligned()) {
 } else {
 	//If language is right aligned
 
-?>
+	?>
 	<!-- <link href="/assets_backend/css3.0/style.default-rtl.css" rel="stylesheet">
 	<link href="/assets_backend/css3.0/bootstrap-override-rtl.css" rel="stylesheet">
 	<link href="/assets_backend/css3.0/bootsrap-rtl.min.css" rel="stylesheet"> -->
 
-<?php
+	<?php
 }
 ?>
 
@@ -40,7 +40,7 @@ if ($translation->IsLeftAligned()) {
 <!-- Admin template for doctrine cruds -->
 <link href="/assets_backend/css3.0/2.5/custom-backend.css?<?php echo md5(date("Y-m-d H:m:s")); ?>" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="<?php echo public_path('assets_unified/js/bootstrap-duallistbox/src/bootstrap-duallistbox.css') ?>">
+<link rel="stylesheet" type="text/css" href="/assets_backend/css/bootstrap-duallistbox.min.css">
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

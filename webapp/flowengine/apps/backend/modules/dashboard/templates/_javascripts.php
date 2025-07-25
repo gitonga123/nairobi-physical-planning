@@ -52,8 +52,7 @@
 <script src="/assets_backend/js/bootstrap-wysihtml5.js"></script>
 <script src="/assets_backend/js/easy-number-separator.js"></script>
 
-<script type="text/javascript"
-  src="<?php echo public_path('assets_unified/js/bootstrap-duallistbox/src/jquery.bootstrap-duallistbox.js') ?>"></script>
+<script type="text/javascript" src="/assets_backend/js/jquery.bootstrap-duallistbox.js"></script>
 
 <?php
 if ($sf_context->getModuleName() == "tasks") {

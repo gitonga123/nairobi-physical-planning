@@ -151,8 +151,8 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
           items.forEach((item, index) => {
             console.log("invoices paid ---->", item.invoices_paid);
             console.log("invoices paid equal true---->", item.invoices_paid == true);
-            console.log("invoices paid to string---->",item.application_id, item.invoices_paid.toString() =='true');
-             console.log("invoices paid field type ---->", typeof item.invoices_paid);
+            console.log("invoices paid to string---->", item.application_id, item.invoices_paid.toString() == 'true');
+            console.log("invoices paid field type ---->", typeof item.invoices_paid);
             const distance = (userLocation && item.latitude && item.longitude)
               ? `${calculateDistance(userLocation.lat, userLocation.lng, item.latitude, item.longitude).toFixed(2)} km`
               : 'N/A';
@@ -173,23 +173,23 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
                     ${item.current_stage}
                   </a>
                 </td>
-                <td>${item.owner ?? "-"}</td>
+                <td>${item.owner ? item.owner : "-"}</td>
                 <td>
                   <small>
-                    <strong>Block:</strong> ${item.block_number}<br>
-                    <strong>Plot:</strong> ${item.plot_no}
+                    <strong>Block:</strong> ${item.block_number ? item.block_number : "-"}<br>
+                    <strong>Plot:</strong> ${item.plot_no ? item.plot_no : "-"}
                   </small>
                 </td>
                 <td>
                   <small>
-                    <strong>Subcounty:</strong> ${item.subcounty}<br>
-                    <strong>Ward:</strong> ${item.ward}
+                    <strong>Subcounty:</strong> ${item.subcounty ? item.subcounty : '-'}<br>
+                    <strong>Ward:</strong> ${item.ward ? item.ward : '-'}
                   </small>
                 </td>
                 <td>
                   <small>
-                    <strong>Lat:</strong> ${item.latitude ?? "-"}<br>
-                    <strong>Long:</strong> ${item.longitude ?? "-"}<br>
+                    <strong>Lat:</strong> ${item.latitude ? item.latitude : "-"}<br>
+                    <strong>Long:</strong> ${item.longitude ? item.longitude : "-"}<br>
                     <strong>Distance:</strong> ${distance}
                   </small>
                 </td>

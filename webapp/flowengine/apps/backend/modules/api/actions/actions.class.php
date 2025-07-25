@@ -633,10 +633,36 @@ class apiActions extends sfActions
             $page = 0;
         } else {
 
-            $cache_key = 'apps_list_' . md5(json_encode([
+            $cache_key_array = [
                 'limit' => $limit,
                 'page' => $page
-            ]));
+            ];
+
+            if (!is_null($group_filter)) {
+                $cache_key_array['group'] = $group_filter;
+            }
+            if (!is_null($with_permit)) {
+                $cache_key_array['with_filter'] = $with_filter;
+            }
+
+            if (!is_null($ward)) {
+                $cache_key_array['ward'] = $ward;
+            }
+
+            if (!is_null($plot_no)) {
+                $cache_key_array['plot_no'] = $plot_no;
+            }
+
+            if (!is_null($start_date)) {
+                $cache_key_array['start_date'] = $start_date;
+            }
+
+            if (!is_null($end_date)) {
+                $cache_key_array['end_date'] = $end_date;
+            }
+
+
+            $cache_key = 'apps_list_' . md5(json_encode($cache_key_array));
 
             $cached_result = $this->cache->get($cache_key);
 

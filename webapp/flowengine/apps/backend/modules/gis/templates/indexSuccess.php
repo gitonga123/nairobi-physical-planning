@@ -162,7 +162,7 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
                 <td style="border-left: 5px solid ${item.invoices_paid ? '#198754' : '#dc3545'};"><strong>${item.service_type}</strong></td>
                 <td>
                   <a href="/plan/applications/view/id/${item.application_id}" target="_blank">
-                    ${item.application_number - item.invoice_status}
+                    ${item.application_number}
                   </a>
                 </td>
                 <td>

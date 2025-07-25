@@ -99,7 +99,7 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
   </div>
 
   <script>
-    const apiBase = '/backend.php/api';
+    const apiBase = '/plan/api';
     let currentPage = 1;
     let userLocation = null;
 

@@ -122,7 +122,6 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
     }
 
     async function fetchApplications(page = 1) {
-      console.log("Fetching applications --->")
       const subcounty = $('#subcounty').val();
       const ward = $('#ward').val();
       const startDate = $('#start_date').val();
@@ -149,10 +148,6 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
           tbody.append(`<tr><td colspan="10" class="text-center text-muted">No applications found.</td></tr>`);
         } else {
           items.forEach((item, index) => {
-            console.log("invoices paid ---->", item.invoices_paid);
-            console.log("invoices paid equal true---->", item.invoices_paid == true);
-            console.log("invoices paid to string---->", item.application_id, item.invoices_paid.toString() == 'true');
-            console.log("invoices paid field type ---->", typeof item.invoices_paid);
             const distance = (userLocation && item.latitude && item.longitude)
               ? `${calculateDistance(userLocation.lat, userLocation.lng, item.latitude, item.longitude).toFixed(2)} km`
               : 'N/A';
@@ -218,8 +213,6 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
     function renderPagination(meta) {
       const pagination = $('.pagination');
       pagination.empty();
-      console.log(meta);
-      console.dir(meta);
       if (!meta || meta.totalPages <= 1) return;
       for (let i = 1; i <= meta.totalPages; i++) {
         const active = i === meta.currentPage ? 'active' : '';

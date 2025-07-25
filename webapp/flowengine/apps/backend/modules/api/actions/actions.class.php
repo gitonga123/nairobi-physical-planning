@@ -765,17 +765,17 @@ class apiActions extends sfActions
                 }
             }
             $permits = $app->getSavedPermits() ? $app->getSavedPermits()->getData()[0] : false;
-            $allPaid = true; // assume all are paid unless we find one that's not
+            $allPaid = 'true';
             $invoices = $app->getMfInvoice();
             if ($invoices) {
                 foreach ($invoices->getData() as $invoice) {
                     if ($invoice->getPaid() != 2) {
-                        $allPaid = false;
+                        $allPaid = 'false';
                         break;
                     }
                 }
             } else {
-                $allPaid = false;
+                $allPaid = 'false';
             }
             $app_info['application_date'] = $app->getDateOfSubmission();
             $app_info['application_id'] = intval($app->getId());
@@ -1326,17 +1326,17 @@ class apiActions extends sfActions
                 }
 
                 $permits = $application->getSavedPermits() ? $application->getSavedPermits()->getData()[0] : false;
-                $allPaid = true;
+                $allPaid = 'true';
                 $invoices = $application->getMfInvoice();
                 if ($invoices) {
                     foreach ($invoices->getData() as $invoice) {
                         if ($invoice->getPaid() != 2) {
-                            $allPaid = false;
+                            $allPaid = 'false';
                             break;
                         }
                     }
                 } else {
-                    $allPaid = false;
+                    $allPaid = "false";
                 }
                 $app_info['application_date'] = $application->getDateOfSubmission();
                 $app_info['application_id'] = intval($application->getId());

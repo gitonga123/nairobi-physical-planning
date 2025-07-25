@@ -152,6 +152,7 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
         }
         renderPagination(response.meta);
       } catch (error) {
+        console.error(error)
         $('#location-alert').text('Failed to load applications.').show();
       }
     }

@@ -68,8 +68,8 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-md-12">
             <strong>Legend:</strong>
-            <span class="label" style="background-color: #28a745; margin-left: 10px;">Paid</span>
-            <span class="label" style="background-color: #dc3545; margin-left: 15px;">Pending</span>
+            <span class="label" style="background-color: #28a745; margin-left: 10px;">Invoices Paid</span>
+            <span class="label" style="background-color: #dc3545; margin-left: 15px;">Invoices Pending</span>
           </div>
         </div>
         <div class="table-responsive">
@@ -156,9 +156,9 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
             tbody.append(`
              <tr
                 class="application-row"
-                style="border-left: 6px solid ${item.invoice_status ? '#198754' : '#dc3545'};"
+                
               >
-                <td>${index + 1}</td>
+                <td style="border-left: 6px solid ${item.invoice_status ? '#198754' : '#dc3545'};">${index + 1}</td>
                 <td><strong>${item.service_type}</strong></td>
                 <td>
                   <a href="/plan/applications/view/id/${item.application_id}" target="_blank">

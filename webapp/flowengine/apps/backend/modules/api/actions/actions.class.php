@@ -831,9 +831,9 @@ class apiActions extends sfActions
             'success' => true,
             'data' => $app_array,
             "links" => [
-                "first" => "https://usn.malipo.org/backend.php/api/applicationsList?{$f_param_array}",
-                "next" => "https://usn.malipo.org/backend.php/api/applicationsList?$query_param_array",
-                "last" => "https://usn.malipo.org/backend.php/api/applicationsList?$l_param_array"
+                "first" => "https://usn.malipo.org/plan/api/applicationsList?{$f_param_array}",
+                "next" => "https://usn.malipo.org/plan/api/applicationsList?$query_param_array",
+                "last" => "https://usn.malipo.org/plan/api/applicationsList?$l_param_array"
             ],
             "meta" => [
                 "permit_types" => $groups,

@@ -21,8 +21,10 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
     <div class="panel panel-bordered radius-all">
       <div class="panel-body panel-body-nopadding">
 
-        <form id="filters" class="form-horizontal" style="margin-bottom: 20px;" width="100%">
+        <!-- Location Alert -->
+        <div id="location-alert" class="alert alert-danger" style="display:none; margin-bottom: 20px;"></div>
 
+        <form id="filters" class="form-horizontal" style="margin-bottom: 20px;" width="100%">
           <select size="1" name="application_type" id="application_type" aria-controls="table2"
             class="select2 form-control" width="100%" style="margin-bottom: 20px;">
             <option value="0">Select Service</option>
@@ -33,12 +35,9 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
             ?>
           </select>
 
-
           <table class="table table-striped table-hover mb0 border-top-0 border-left-0 border-right-0 panel-table"
             width="100%">
-
             <tbody>
-
               <tr>
                 <th class="border-bottom-1">
                   <label for="subcounty">Sub County</label>
@@ -59,11 +58,13 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
                 <th class="border-bottom-1">
                   <label>&nbsp;</label>
                   <button type="submit" class="btn btn-primary btn-block">Filter</button>
-                  </td>
+                </th>
               </tr>
             </tbody>
           </table>
         </form>
+
+        <div id="status" class="status" style="display: none; margin-bottom: 20px;"></div>
 
         <table class="table table-striped table-bordered table-hover mb0" id="applications-table" width="100%">
           <thead>
@@ -82,7 +83,7 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
           </thead>
           <tbody>
             <tr class="application-row" id="loading-row">
-              <td colspan="10" class="text-center application-row" style="height: 100px;">
+              <td colspan="10" class="text-center">
                 <i class="fa fa-spinner fa-spin"></i> Loading applications...
               </td>
             </tr>
@@ -100,93 +101,68 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
   <script>
     const apiBase = '/backend.php/api';
     let currentPage = 1;
+    let userLocation = null;
 
-    function fetchApplications(page = 1) {
+    async function fetchApplications(page = 1) {
+      console.log("Fetching applications --->")
       const subcounty = $('#subcounty').val();
       const ward = $('#ward').val();
       const startDate = $('#start_date').val();
       const endDate = $('#end_date').val();
-      const permitType = $('#application_type').val(); // <-- New line
+      const permitType = $('#application_type').val();
 
       let url = `${apiBase}/applicationsList?page=${page}&limit=10`;
-
       if (subcounty) url += `&subcounty=${subcounty}`;
       if (ward) url += `&ward=${ward}`;
       if (startDate) url += `&start_date=${startDate}`;
       if (endDate) url += `&end_date=${endDate}`;
-      if (permitType && permitType !== '0') url += `&application_type=${permitType}`; // <-- New line
+      if (permitType && permitType !== '0') url += `&application_type=${permitType}`;
 
       const tbody = $('#applications-table tbody');
-      tbody.html(`
-    <tr id="loading-row">
-      <td colspan="10" class="text-center">
-        <i class="fa fa-spinner fa-spin"></i> Loading applications...
-      </td>
-    </tr>
-  `);
+      tbody.html(`<tr><td colspan="10" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading applications...</td></tr>`);
 
-      $.get(url, function (data) {
-        tbody.empty();
-
+      try {
+        const data = await $.get(url);
         let response = JSON.parse(data);
         const items = response.data || [];
+        tbody.empty();
 
         if (items.length === 0) {
-          tbody.append(`
-        <tr>
-          <td colspan="10" class="text-center text-muted">No applications found.</td>
-        </tr>
-      `);
+          tbody.append(`<tr><td colspan="10" class="text-center text-muted">No applications found.</td></tr>`);
         } else {
           items.forEach((item, index) => {
+            const distance = (userLocation && item.latitude && item.longitude)
+              ? `${calculateDistance(userLocation.lat, userLocation.lng, item.latitude, item.longitude).toFixed(2)} km`
+              : 'N/A';
             tbody.append(`
-          <tr class="application-row">
-            <td>${index + 1}</td>
-            <td><strong>${item.service_type}</strong></td>
-            <td><a href="/backend.php/applications/view/id/${item.application_id}" target="_blank">${item.application_number}</a></td>
-            <td><a href="/backend.php/dashboard/index/current/available/filter/${item.current_stage_id}" target="_blank">${item.current_stage}</a></td>
-            <td>${item.owner ?? "-"}</td>
-            <td>
-              <small>
-                <strong>Block:</strong> ${item.block_number}<br>
-                <strong>Plot:</strong> ${item.plot_no}
-              </small>
-            </td>
-            <td>
-              <small>
-                <strong>Subcounty:</strong> ${item.subcounty}<br>
-                <strong>Ward:</strong> ${item.ward}
-              </small>
-            </td>
-            <td>
-              <small>
-                <strong>Lat:</strong> ${item?.latitude ?? "-"}<br>
-                <strong>Long:</strong> ${item?.longitude ?? "-"}
-              </small>
-            </td>
-            <td>${item.approval_status}</td>
-            <td><small>${item.application_date}</small></td>
-          </tr>
-
-        `);
+              <tr class="application-row">
+                <td>${index + 1}</td>
+                <td><strong>${item.service_type}</strong></td>
+                <td><a href="/backend.php/applications/view/id/${item.application_id}" target="_blank">${item.application_number}</a></td>
+                <td><a href="/backend.php/dashboard/index/current/available/filter/${item.current_stage_id}" target="_blank">${item.current_stage}</a></td>
+                <td>${item.owner ?? "-"}</td>
+                <td><small><strong>Block:</strong> ${item.block_number}<br><strong>Plot:</strong> ${item.plot_no}</small></td>
+                <td><small><strong>Subcounty:</strong> ${item.subcounty}<br><strong>Ward:</strong> ${item.ward}</small></td>
+                <td><small><strong>Lat:</strong> ${item.latitude ?? "-"}<br><strong>Long:</strong> ${item.longitude ?? "-"}<br><strong>Distance:</strong> ${distance}</small></td>
+                <td>${item.approval_status}</td>
+                <td><a class="btn btn-success" target="_blank" href="https://www.google.com/maps/dir/${userLocation?.lat ?? ''},${userLocation?.lng ?? ''}/${item.latitude},${item.longitude}">View On Map</a></td>
+              </tr>
+            `);
           });
         }
-
         renderPagination(response.meta);
-      });
+      } catch (error) {
+        $('#location-alert').text('Failed to load applications.').show();
+      }
     }
 
     function renderPagination(meta) {
       const pagination = $('.pagination');
       pagination.empty();
-
       if (!meta || meta.totalPages <= 1) return;
-
       for (let i = 1; i <= meta.totalPages; i++) {
         const active = i === meta.currentPage ? 'active' : '';
-        pagination.append(`
-        <li class="${active}"><a href="#" onclick="gotoPage(${i}); return false;">${i}</a></li>
-      `);
+        pagination.append(`<li class="${active}"><a href="#" onclick="gotoPage(${i}); return false;">${i}</a></li>`);
       }
     }
 
@@ -199,14 +175,9 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
       $.get(`${apiBase}/subCounties`, function (data) {
         const subcountySelect = $('#subcounty');
         subcountySelect.append('<option value="">-- Select Subcounty --</option>');
-
-
         let response_data = JSON.parse(data);
-        console.log(response_data);
-
         let response = response_data.data;
 
-        console.log(response);
         response.forEach(sub => {
           subcountySelect.append(`<option value="${sub.name}">${sub.name}</option>`);
         });
@@ -224,9 +195,54 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
       });
     }
 
+    function getUserLocation() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          $('#location-alert').text('Geolocation is not supported by this browser.').show();
+          return reject();
+        }
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            resolve();
+          },
+          error => {
+            let errorMsg = 'Unable to get your location. ';
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                errorMsg += 'Please allow location access.';
+                break;
+              case error.POSITION_UNAVAILABLE:
+                errorMsg += 'Location unavailable.';
+                break;
+              case error.TIMEOUT:
+                errorMsg += 'Request timed out.';
+                break;
+              default:
+                errorMsg += 'Unknown error occurred.';
+            }
+            $('#location-alert').text(errorMsg).show();
+            reject();
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+        );
+      });
+    }
+
     $(document).ready(function () {
-      fetchSubcounties();
-      fetchApplications();
+      getUserLocation().then(() => {
+        fetchSubcounties();
+        fetchApplications();
+      }).catch((error) => {
+        fetchSubcounties();
+        fetchApplications();
+      });
+
+
+
 
       $('#filters').submit(function (e) {
         e.preventDefault();
@@ -236,16 +252,15 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
       $('#application_type').change(function () {
         fetchApplications(1);
       });
-
     });
   </script>
+
   <style>
     .application-row {
       height: 60px;
       vertical-align: middle;
     }
   </style>
-
 
 <?php else: ?>
   <?php include_partial("settings/accessdenied"); ?>

@@ -16,6 +16,8 @@ class apiActions extends sfActions
         $this->cache = new sfFileCache([
             'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
         ]);
+
+        $this->cache_life_time = 3600;
     }
     public function executeIndex(sfWebRequest $request)
     {
@@ -736,7 +738,7 @@ class apiActions extends sfActions
 
                 $app_list = $q_app->execute();
 
-                $this->cache->set($cache_key, json_encode([$app_list->toArray(true), $total_count]), 300); // 5 min
+                $this->cache->set($cache_key, json_encode([$app_list->toArray(true), $total_count]), 600); // 5 min
             }
         }
 

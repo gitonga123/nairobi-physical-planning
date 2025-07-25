@@ -737,10 +737,12 @@ class apiActions extends sfActions
                     if (stristr($new_label, 'blocknumber')) {
                         $app_info['block_number'] = trim($data['value']);
                     }
-                    if (stristr($new_label, 'name')) {
+                    if (stristr($new_label, 'ownernames')) {
                         $app_info['owner'] = trim($data['value']);
                     }
-
+                    if (stristr($new_label, 'ownername')) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
                     if (stristr($new_label, "owner'sname")) {
                         $app_info['owner'] = trim($data['value']);
                     }
@@ -1298,7 +1300,10 @@ class apiActions extends sfActions
                         $app_info['plot_no'] = trim($data['value']);
                     }
 
-                    if (stristr($new_label, 'name')) {
+                    if (stristr($new_label, 'ownernames')) {
+                        $app_info['owner'] = trim($data['value']);
+                    }
+                    if (stristr($new_label, 'ownername')) {
                         $app_info['owner'] = trim($data['value']);
                     }
 

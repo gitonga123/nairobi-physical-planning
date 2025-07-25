@@ -150,8 +150,9 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
         } else {
           items.forEach((item, index) => {
             console.log("invoices paid ---->", item.invoices_paid);
-            console.log("invoices paid ---->", item.invoices_paid == true);
-            console.log("invoices paid ---->", item.invoices_paid.toString());
+            console.log("invoices paid equal true---->", item.invoices_paid == true);
+            console.log("invoices paid to string---->", item.invoices_paid.toString());
+             console.log("invoices paid field type ---->", typeof item.invoices_paid);
             const distance = (userLocation && item.latitude && item.longitude)
               ? `${calculateDistance(userLocation.lat, userLocation.lng, item.latitude, item.longitude).toFixed(2)} km`
               : 'N/A';

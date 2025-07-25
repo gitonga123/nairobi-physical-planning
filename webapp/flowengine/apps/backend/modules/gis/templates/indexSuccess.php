@@ -127,6 +127,8 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
       const startDate = $('#start_date').val();
       const endDate = $('#end_date').val();
       const permitType = $('#application_type').val();
+      let response = { data: [] };
+      let items = [];
 
       let url = `${apiBase}/applicationsList?page=${page}&limit=10`;
       if (subcounty) url += `&subcounty=${subcounty}`;
@@ -140,8 +142,8 @@ if ($sf_user->mfHasCredential('access_gis_unit')): ?>
 
       try {
         const data = await $.get(url);
-        let response = JSON.parse(data);
-        const items = response.data || [];
+        response = JSON.parse(data);
+        items = response.data || [];
         tbody.empty();
 
         if (items.length === 0) {

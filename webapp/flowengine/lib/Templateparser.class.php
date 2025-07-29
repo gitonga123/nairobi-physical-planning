@@ -2791,7 +2791,10 @@ class Templateparser
         } else {
             $is_http = "http";
         }
-        $invoice_verification_link = "{$is_http}://{$_SERVER['HTTP_HOST']}/plan/permitchecker/invoiceRequest?invoiceref={$invoice->getId()}";
+
+        $url = sfConfig::get('app_sso_jambo_web_url') ? sfConfig::get('app_sso_jambo_web_url') : sfConfig::get('app_sso_jambo_url');
+
+        $invoice_verification_link = "{$url}/plan/permitchecker/invoiceRequest?invoiceref={$invoice->getId()}";
         $qrCode
             ->setText("Amount: " . $invoice->getCurrency() . ' ' . $invoice->getTotalAmount() . "\n" . "STATUS: " . $plain_status . "\n" . "VIEW MORE..." . "\n" . $invoice_verification_link)
             ->setSize(100)
@@ -3062,9 +3065,12 @@ class Templateparser
 
         #require_once dirname(__FILE__).'/../web/barcode/barcode.class.php';
         #$bar	= new BARCODE();
+        $url = sfConfig::get('app_sso_jambo_web_url') ? sfConfig::get('app_sso_jambo_web_url') : sfConfig::get('app_sso_jambo_url');
+
+
         $qrCode = new QrCode();
         $qrCode
-            ->setText("http://" . $_SERVER['HTTP_HOST'] . "/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
+            ->setText("{$url}/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
             ->setSize(200)
             ->setPadding(10)
             ->setErrorCorrection('high')
@@ -3073,12 +3079,11 @@ class Templateparser
             ->setLabel('Scan Qr Code')
             ->setLabelFontSize(15)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
-        #$qr_values[0] 	= "http://".$_SERVER['HTTP_HOST']."/plan/permitchecker/openrequest?permitref=".$saved_permit->getId();
 
         $values['qr_code'] = '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
         $qrCode = new QrCode();
         $qrCode
-            ->setText("http://" . $_SERVER['HTTP_HOST'] . "/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
+            ->setText("{$url}/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
             ->setSize(100)
             ->setPadding(5)
             ->setErrorCorrection('high')
@@ -3272,7 +3277,7 @@ class Templateparser
 
         //Check if migrated
         /*if($migrated){
-            
+
             //if application is migrated 
             switch($application->getFormId()){
                 case 939:
@@ -3330,8 +3335,8 @@ class Templateparser
                                 }
                             }
                         }					
-                        
-                        
+
+
                     }
                 }
             }

@@ -2792,7 +2792,7 @@ class Templateparser
             $is_http = "http";
         }
 
-        $url = sfConfig::get('app_sso_jambo_web_url') ? sfConfig::get('app_sso_jambo_web_url') : sfConfig::get('app_sso_jambo_url');
+        $url = sfConfig::get('app_sso_jambo_client_url');
 
         $invoice_verification_link = "{$url}/plan/permitchecker/invoiceRequest?invoiceref={$invoice->getId()}";
         $qrCode
@@ -3065,7 +3065,7 @@ class Templateparser
 
         #require_once dirname(__FILE__).'/../web/barcode/barcode.class.php';
         #$bar	= new BARCODE();
-        $url = sfConfig::get('app_sso_jambo_web_url') ? sfConfig::get('app_sso_jambo_web_url') : sfConfig::get('app_sso_jambo_url');
+        $url = sfConfig::get('app_sso_jambo_client_url');
 
 
         $qrCode = new QrCode();

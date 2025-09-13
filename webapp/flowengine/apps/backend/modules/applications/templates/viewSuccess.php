@@ -415,7 +415,7 @@ use_helper("I18N");
 											</form>
 										</div>
 									<?php } ?>
-									<?php if ($current_tab == "history") : ?>
+									<?php if ($current_tab == "history" && $sf_user->mfHasCredential("access_application_history")) : ?>
 										<div class="panel panel-default">
 											<div class="panel-heading">
 												<h3 class="panel-title"><?php echo __('Application History'); ?></h3>

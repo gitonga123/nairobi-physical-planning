@@ -325,7 +325,7 @@ use_helper("I18N");
 									<li <?php if ($current_tab == "memo") {
 											echo "class='active'";
 										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=memo"><span class="fa fa-comments-o"></span> <?php echo __('Memo  '); ?><span class="badge"><?php echo $internal_memo; ?></span></a></li>
-									<li <?php if ($current_tab == "history" && $sf_user->mfHasCredential("access_application_history")) {
+									<li <?php if ($sf_user->mfHasCredential("access_application_history") && $current_tab == "history") {
 											echo "class='active'";
 										} ?>><a href="/plan/applications/view?id=<?php echo $application->getId(); ?>&current_tab=history"><span class="fa fa-bars"></span> <?php echo __('Application History'); ?></a></li>
 								</ul>

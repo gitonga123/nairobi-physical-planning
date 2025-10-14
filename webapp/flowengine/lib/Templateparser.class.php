@@ -2980,7 +2980,7 @@ class Templateparser
             $status = '<font color="#00CC00">Paid</font>';
             $payment_date = !empty($payment_row['payment_date'])
                 ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
-                : ($this->returnInvoiceId($invoice->getId())
+                : ($this->returnApplicationId($invoice->getId())
                     ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
                     : '<font color="#D00000">NOT PAID</font>');
         } else if ($invoice->getPaid() == "15") {
@@ -4614,6 +4614,7 @@ class Templateparser
 
     private function returnApplicationId($id)
     {
+        error_log("Check if application id exists ---->{$id}");
         $ids = [
             1488 => true
         ];

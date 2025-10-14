@@ -198,7 +198,7 @@ $site_settings = Functions::site_settings();
             echo 'class="active"';
           } ?>>
             <a href="<?php echo url_for('/plan/reports/revenue?dashboard=13b64e0f-bd24-4d10-bf70-4e5e092061ad') ?>"><i
-                class="fa fa-bar-chart-o"></i><span><?php echo __('Revenue (Paid Bills)') ?></span></a>
+                class="fa fa-bar-chart-o"></i><span><?php echo __('Revenue Dashboard') ?></span></a>
           </li>
 
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "pending" && $sf_user->mfHasCredential("access_reports_m")) {

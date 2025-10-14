@@ -156,7 +156,6 @@ class apiActions extends sfActions
         ]));
     }
 
-
     public function executeProcessPayments(sfWebRequest $request)
     {
         $response = $request->getContent();

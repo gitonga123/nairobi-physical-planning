@@ -184,7 +184,7 @@ $site_settings = Functions::site_settings();
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "managementR" && $sf_user->mfHasCredential("access_reports_m")) {
             echo 'class="active"';
           } ?>>
-            <a href="<?php echo url_for('/plan/reports/managementR?dashboard=788ea657-2af2-4afd-b7a0-1a566dba7373') ?>"><i
+            <a href="<?php echo url_for('/plan/reports/managementR?dashboard=9210cc51-83cf-47be-a771-f387d7c5ad7b') ?>"><i
                 class="fa fa-area-chart"></i> <span><?php echo __('Management Reports'); ?></span></a>
 
           </li>
@@ -192,12 +192,12 @@ $site_settings = Functions::site_settings();
             echo 'class="active"';
           } ?>>
             <a href="<?php echo url_for('/plan/reports/professionals?dashboard=0c8a1850-860b-45c5-87e4-e2f405ed618c') ?>"><i
-                class="fa fa-bar-chart-o"></i><span><?php echo __('Registered Professionals') ?></span></a>
+                class="fa fa-bar-chart-o"></i><span><?php // echo __('Registered Professionals') ?></span></a>
           </li>
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "revenue" && $sf_user->mfHasCredential("access_reports_m")) {
             echo 'class="active"';
           } ?>>
-            <a href="<?php echo url_for('/plan/reports/revenue?dashboard=b6ebd20e-595e-4364-9281-b5e9590b10b4') ?>"><i
+            <a href="<?php echo url_for('/plan/reports/revenue?dashboard=13b64e0f-bd24-4d10-bf70-4e5e092061ad') ?>"><i
                 class="fa fa-bar-chart-o"></i><span><?php echo __('Revenue (Paid Bills)') ?></span></a>
           </li>
 

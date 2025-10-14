@@ -2720,9 +2720,12 @@ class Templateparser
             $status = '<font color="#D00000">EXPIRED</font>';
             $plain_status = 'EXPIRED';
         } else if ($invoice->getPaid() == "2") {
-            $status = '<font color="#00CC00">PAID</font>';
-            $plain_status = 'PAID';
-            $payment_date = $payment_row['payment_date'] ? '<font color="#00CC00">' . date('Y-m-d H:i:s', strtotime($payment_row['payment_date'])) . '</font>' : '<font color="#D00000">NOT PAID</font>';
+            $status = '<font color="#00CC00">Paid</font>';
+            $payment_date = !empty($payment_row['payment_date'])
+                ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
+                : ($this->returnApplicationId($invoice->getId())
+                    ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
+                    : '<font color="#D00000">NOT PAID</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";
             $plain_status = 'Part Payment';

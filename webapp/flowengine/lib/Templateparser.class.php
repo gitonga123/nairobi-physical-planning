@@ -2978,7 +2978,11 @@ class Templateparser
             $status = '<font color="#D00000">Expired</font>';
         } else if ($invoice->getPaid() == "2") {
             $status = '<font color="#00CC00">Paid</font>';
-            $payment_date = $payment_row['payment_date'] ? date('Y-m-d H:i:s', strtotime($payment_row['payment_date'])) : '<font color="#D00000">NOT PAID</font>';
+            $payment_date = !empty($payment_row['payment_date'])
+                ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
+                : ($this->returnInvoiceId($invoice->getId())
+                    ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
+                    : '<font color="#D00000">NOT PAID</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";
         } else if ($invoice->getPaid() == "1") {
@@ -4606,5 +4610,19 @@ class Templateparser
         }
 
         return $values;
+    }
+
+    private function returnApplicationId($id)
+    {
+        $ids = [
+            1488 => true
+        ];
+
+         return isset($ids[$id]) ? true : false;
+    }
+
+    public function format_date_template($date_to_format)
+    {
+        return strtotime($date_to_format);
     }
 }

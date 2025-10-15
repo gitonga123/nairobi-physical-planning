@@ -4620,8 +4620,8 @@ class Templateparser
         error_log("Check if application id exists ---->{$id}");
         $ids = [
             1488 => true,
-            1940 => true,
-            1939 => true,
+            1493 => true,
+            1494 => true,
         ];
 
          return isset($ids[$id]) ? true : false;

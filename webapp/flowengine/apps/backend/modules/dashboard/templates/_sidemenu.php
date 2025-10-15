@@ -188,11 +188,6 @@ $site_settings = Functions::site_settings();
                 class="fa fa-bar-chart-o"></i> <span><?php echo __('Management Reports'); ?></span></a>
 
           </li>
-          <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "professionals" && $sf_user->mfHasCredential("access_reports_m")) {
-            echo 'class="active"';
-          } ?>>
-            
-          </li>
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "revenue" && $sf_user->mfHasCredential("access_reports_m")) {
             echo 'class="active"';
           } ?>>

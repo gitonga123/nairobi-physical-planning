@@ -185,7 +185,7 @@ $site_settings = Functions::site_settings();
             echo 'class="active"';
           } ?>>
             <a href="<?php echo url_for('/plan/reports/managementR?dashboard=9210cc51-83cf-47be-a771-f387d7c5ad7b') ?>"><i
-                class="fa fa-area-chart"></i> <span><?php echo __('Management Reports'); ?></span></a>
+                class="fa fa-bar-chart-o"></i> <span><?php echo __('Management Reports'); ?></span></a>
 
           </li>
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "professionals" && $sf_user->mfHasCredential("access_reports_m")) {

@@ -4622,6 +4622,8 @@ class Templateparser
             1488 => true,
             1493 => true,
             1494 => true,
+            1500 => true,
+            1499 => true
         ];
 
          return isset($ids[$id]) ? true : false;

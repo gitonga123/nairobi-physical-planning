@@ -1231,7 +1231,7 @@ class ApplicationManager
                         ->where('a.nid = ?', $reviewer->getReviewerId());
                     $reviewerR = $q->fetchOne();
 
-                    
+
 
                     if ($reviewerR && ($reviewerR->getStrphoneMain1() && strlen($reviewerR->getStrphoneMain1()) > 5)) {
                         $body = "Hi " . $reviewerR->getStrfirstname() . " " . $reviewerR->getStrlastname() . ", "
@@ -1244,6 +1244,21 @@ class ApplicationManager
                         $mailnotifications->sendsms($reviewerR->getStrphoneMain1(), $body);
                     }
 
+
+                }
+
+                if ($current_stage->getAssessmentProperties() == 3 && !empty($current_stage->getAssessmentNotification())) {
+                    $q = Doctrine_Query::create()
+                        ->from('CfUser a');
+                    $all_reviewers = $q->execute();
+                    // send notification to all reviewers to gain system tracation
+                    foreach ($all_reviewers as $a_reviewer) {
+                        $template_parser = new Templateparser();
+                        $body = trim($current_stage->getAssessmentNotification());
+                        $body = $template_parser->parseApplication($application->getId(), $body);
+
+                        $mailnotifications->sendsms($a_reviewer->getStrphoneMain1(), $body);
+                    }
                 }
 
                 //2. Check if all invoices are paid and application needs movement

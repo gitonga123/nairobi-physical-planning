@@ -2006,7 +2006,7 @@ class Templateparser
             $values['in_total'] = $currency . ' ' . $total;
         }
 
-
+        $values['current_stage'] = $application->getSubMenus() ? $application->getSubMenus()->getTitle() : "DRAFT APPLICATION";
         //}
 
         return $values;

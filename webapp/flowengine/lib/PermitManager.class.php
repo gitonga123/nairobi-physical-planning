@@ -700,8 +700,7 @@ class PermitManager {
             ->andWhere("a.applicationform = ?", $submission->getFormId());
         $permit_templates = $q->execute();
 
-        if($q->count())
-        {
+        if($q->count()) {
 			//OTB ADD
 			$invoice_manager=new InvoiceManager();
 			$unpaid_invoice=$invoice_manager->has_unpaid_invoice($application_id);
@@ -730,15 +729,14 @@ class PermitManager {
                   ->andWhere("a.permit_status <> 3");
               //$saved_permits = $q->execute();
 			  //OTB ADD Check if migrated & no pending
-              if (($q->count() == 0 && !$unpaid_invoice && !$migrated) || ($q->count() == 0 && !$unpaid_invoice && $migrated && !$unpaid_invoice_migrated)) {
+              if (($q->count() == 0 && !$unpaid_invoice)) {
                   //No permits found so we need to generate a permit
                   return true;
               }
           }
 
           return false;
-        }
-        else {
+        } else {
             //return true coz there is no need generate a permit on stage that doesn't require a permit
             return false;
         }

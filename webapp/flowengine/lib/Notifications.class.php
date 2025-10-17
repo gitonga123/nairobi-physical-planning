@@ -400,8 +400,6 @@ class mailnotifications
 
 		error_log("Message sent to ---->{$body}");
 
-		return;
-
 		try {
 			// Remove all non-digit characters
 			$receiver = preg_replace('/\D+/', '', $receiver);

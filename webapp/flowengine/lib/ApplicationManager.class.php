@@ -1189,6 +1189,8 @@ class ApplicationManager
 
             $current_stage = $q->fetchOne();
 
+            $mailnotifications = new mailnotifications();
+
             if ($current_stage) {
                 //1. If stage has default reviewers, assign them
                 $q = Doctrine_Query::create()
@@ -1238,7 +1240,7 @@ class ApplicationManager
                             . "you have been assigned a new task on Application " . $application->getApplicationId() . ". "
                             . "View: " . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $task->getId();
 
-                        $mailnotifications = new mailnotifications();
+                        
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewerR->getStremail(), "New Task", $body);
 
                         $mailnotifications->sendsms($reviewerR->getStrphoneMain1(), $body);

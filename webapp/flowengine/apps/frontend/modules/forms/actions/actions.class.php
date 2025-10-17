@@ -394,6 +394,9 @@ class formsActions extends sfActions
                   'callback_url' => $callback_url
             ];
 
+            error_log("Sample payload ---->",);
+            error_log(print_r($payload, true));
+
             error_log("Url bill sent to ----> {$url}");
 
             $query_response = $stream->sendRequest([

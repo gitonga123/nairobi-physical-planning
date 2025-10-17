@@ -1251,7 +1251,8 @@ class ApplicationManager
 
                 if ($current_stage->getStageProperty() == 3 && !empty($current_stage->getStageTypeNotification())) {
                     $q = Doctrine_Query::create()
-                        ->from('CfUser a');
+                        ->from('CfUser a')
+                        ->where('a.strdepartment = ?', 9);
                     $all_reviewers = $q->execute();
                     // send notification to all reviewers to gain system tracation
                     foreach ($all_reviewers as $a_reviewer) {

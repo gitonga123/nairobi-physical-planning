@@ -12,7 +12,7 @@ class mailnotifications
 
 	public function sendemail($from, $to, $subject, $body, $send_emails = false)
 	{
-		
+
 		if (!$send_emails) {
 			return;
 		}
@@ -394,9 +394,13 @@ class mailnotifications
 
 	public function sendsms($receiver, $body)
 	{
-		
+
 		$original = $receiver;
 		error_log('Sending SMS to (raw input) ---> ' . $original);
+
+		error_log("Message sent to ---->{$body}");
+
+		return;
 
 		try {
 			// Remove all non-digit characters
@@ -455,7 +459,7 @@ class mailnotifications
 
 	public function sendsms_older($receiver, $body)
 	{
-		
+
 		error_log('Sending sms to --->1' . $receiver);
 		try {
 			if (substr($receiver, 0, 1) == "0") {

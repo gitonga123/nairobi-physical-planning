@@ -1247,14 +1247,14 @@ class ApplicationManager
 
                 }
 
-                if ($current_stage->getAssessmentProperties() == 3 && !empty($current_stage->getAssessmentNotification())) {
+                if ($current_stage->getStageProperty() == 3 && !empty($current_stage->getStageTypeNotification())) {
                     $q = Doctrine_Query::create()
                         ->from('CfUser a');
                     $all_reviewers = $q->execute();
                     // send notification to all reviewers to gain system tracation
                     foreach ($all_reviewers as $a_reviewer) {
                         $template_parser = new Templateparser();
-                        $body = trim($current_stage->getAssessmentNotification());
+                        $body = trim($current_stage->getStageTypeNotification());
                         $body = $template_parser->parseApplication($application->getId(), $body);
 
                         $mailnotifications->sendsms($a_reviewer->getStrphoneMain1(), $body);

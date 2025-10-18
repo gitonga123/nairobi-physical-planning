@@ -183,7 +183,6 @@ class paymentActions extends sfActions
       $invoice->setPaid(2);
 
       $invoice->setUpdatedAt($new_date);
-      $invoice->skipUpdateDate(true);
       $invoice->save();
 
       return $this->json(['data' => ['success' => true, 'statusCode' => 200, 'message' => 'invoice updated']], 201);

@@ -178,6 +178,8 @@ class paymentActions extends sfActions
       // $new_date = strtotime("+{$randomMinutes} seconds", strtotime(date('Y-m-d H:i:s')));
       $new_date = strtotime("+{$randomMinutes} minutes", strtotime($invoice->getCreatedAt()));
 
+      error_log("Set date is ---->{$new_date}");
+
       $invoice->setUpdatedAt($new_date);
 
       $invoice->save();

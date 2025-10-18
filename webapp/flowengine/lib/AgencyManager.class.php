@@ -176,7 +176,10 @@ class AgencyManager
 				->limit(1);
 			$stage = $q->fetchOne();
 
+			error_log("Application is check agency ----> {$application->getApproved()}");
+
 			if ($stage) {
+				error_log("Stage found is ----> {$stage->getId()}");
 				$q = Doctrine_Query::create()
 					->from('Menus a')
 					->where('a.id = ?', $stage->getMenuId())

@@ -168,7 +168,7 @@ class AgencyManager
 			->where('a.id = ?', $application_id)
 			->limit(1);
 		$application = $q->fetchOne();
-		// error_log('------Appid----' . $application_id . '--------App-----' . print_r($application, true));
+		error_log('------Appid----' . $application_id . '--------App-----' . print_r($application, true));
 		if ($application) {
 			$q = Doctrine_Query::create()
 				->from('SubMenus a')

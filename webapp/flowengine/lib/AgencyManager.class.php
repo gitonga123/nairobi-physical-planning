@@ -152,9 +152,9 @@ class AgencyManager
 				->limit(1);
 			$service = $q->fetchOne();
 
-			error_log(message: "line 144: -----> {$stage->getMenuId()} -------------> user -id ----> {$user_id}");
+			error_log( "line 144: -----> {$stage->getMenuId()} -------------> user -id ----> {$user_id}");
 			if ($service) {
-				error_log(message: "line 146: -----> {$service->getId()} -------------> user -id ----> {$user_id}");
+				error_log( "line 146: -----> {$service->getId()} -------------> user -id ----> {$user_id}");
 				return $this->checkAgencyServiceAccess($user_id, $service->getId());
 			}
 		}

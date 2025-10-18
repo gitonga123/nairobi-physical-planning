@@ -152,9 +152,9 @@ class AgencyManager
 				->limit(1);
 			$service = $q->fetchOne();
 
-			error_log( "line 144: -----> {$stage->getMenuId()} -------------> user -id ----> {$user_id}");
+			error_log("line 144: -----> {$stage->getMenuId()} -------------> user -id ----> {$user_id}");
 			if ($service) {
-				error_log( "line 146: -----> {$service->getId()} -------------> user -id ----> {$user_id}");
+				error_log("line 146: -----> {$service->getId()} -------------> user -id ----> {$user_id}");
 				return $this->checkAgencyServiceAccess($user_id, $service->getId());
 			}
 		}
@@ -168,7 +168,7 @@ class AgencyManager
 			->where('a.id = ?', $application_id)
 			->limit(1);
 		$application = $q->fetchOne();
-		//error_log('------Appid----'.$application_id.'--------App-----'.print_r($application,true));
+		// error_log('------Appid----' . $application_id . '--------App-----' . print_r($application, true));
 		if ($application) {
 			$q = Doctrine_Query::create()
 				->from('SubMenus a')
@@ -182,8 +182,10 @@ class AgencyManager
 					->where('a.id = ?', $stage->getMenuId())
 					->limit(1);
 				$service = $q->fetchOne();
+				error_log("line 185: -----> {$stage->getMenuId()} -------------> user -id ----> {$user_id}");
 
 				if ($service) {
+					error_log("line 188: -----> {$service->getId()} -------------> user -id ----> {$user_id}");
 					return $this->checkAgencyServiceAccess($user_id, $service->getId());
 				}
 			}

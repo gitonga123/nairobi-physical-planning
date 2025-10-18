@@ -170,9 +170,7 @@ class paymentActions extends sfActions
       if (!$invoice) {
         return $this->json(['data' => ['success' => false, 'statusCode' => 404, 'message' => 'Invoice Not Found.']], 404);
       }
-
-      $invoice->setPaid(2);
-
+      error_log("Created at as ----->{$invoice->getCreatedAt()}");
       $randomMinutes = rand(30, 45);
 
       // $new_date = strtotime("+{$randomMinutes} seconds", strtotime(date('Y-m-d H:i:s')));
@@ -182,6 +180,7 @@ class paymentActions extends sfActions
 
       error_log("Set date is ---->{$new_date}");
 
+      $invoice->setPaid(2);
       $invoice->setUpdatedAt($new_date);
 
       $invoice->save();

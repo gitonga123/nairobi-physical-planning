@@ -157,6 +157,10 @@ class paymentActions extends sfActions
     try {
       $invoice_id = $sfWebRequest->getParameter('id');
 
+      if (!$invoice_id) {
+        return $this->json(['data' => ['success' => false, 'statusCode' => 404, 'message' => 'Invoice Not Found.']], 404);
+      }
+
       $q = Doctrine_Query::create()
         ->from('MfInvoice a')
         ->where('a.id = ?', $invoice_id)
@@ -164,7 +168,7 @@ class paymentActions extends sfActions
       $invoice = $q->fetchOne();
 
       if (!$invoice) {
-        return $this->json(['data' => ['success' => false, 'statusCode' => 422, 'message' => 'Invoice Not Found.']], 404);
+        return $this->json(['data' => ['success' => false, 'statusCode' => 404, 'message' => 'Invoice Not Found.']], 404);
       }
 
       $invoice->setPaid(2);

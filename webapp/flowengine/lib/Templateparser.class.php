@@ -4638,8 +4638,6 @@ class Templateparser
     public function format_date_template_updated($date_to_format)
     {
         $randomMinutes = rand(30, 45);
-
-        return strtotime("+{$randomMinutes} minutes", strtotime($date_to_format));
-
+        return strtotime($date_to_format);
     }
 }

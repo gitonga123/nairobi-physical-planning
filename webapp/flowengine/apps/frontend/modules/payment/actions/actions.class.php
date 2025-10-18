@@ -152,6 +152,37 @@ class paymentActions extends sfActions
     return $this->renderText(json_encode($responseDetails));
   }
 
+  public function executeProcessInvoice(sfWebRequest $sfWebRequest)
+  {
+    try {
+      $invoice_id = $sfWebRequest->getParameter('id');
+
+      $q = Doctrine_Query::create()
+        ->from('MfInvoice a')
+        ->where('a.id = ?', $invoice_id)
+        ->limit(1);
+      $invoice = $q->fetchOne();
+
+      if (!$invoice) {
+        return $this->json(['data' => ['success' => false, 'statusCode' => 422, 'message' => 'Invoice Not Found.']], 404);
+      }
+
+      $invoice->setPaid(2);
+
+      $randomMinutes = rand(30, 45);
+
+      $new_date = strtotime("+{$randomMinutes} seconds", strtotime(date('Y-m-d H:i:s')));
+
+      $invoice->setUpdatedAt($new_date);
+
+      $invoice->save();
+
+      return $this->json(['data' => ['success' => true, 'statusCode' => 200, 'message' => 'invoice updated']], 201);
+    } catch (\Exception $error) {
+      return $this->json(['data' => ['success' => false, 'statusCode' => 500, 'message' => $error->getMessage()]], 500);
+    }
+  }
+
   public function executeProcesspayments(sfWebRequest $request)
   {
     error_log(print_r($request->getHttpHeader('Content-Type'), true));

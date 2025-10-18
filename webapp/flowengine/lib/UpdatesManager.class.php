@@ -531,6 +531,7 @@ class UpdatesManager
   //Pushing updates to a remote database. This occurs during permit generation. The results are stored locally.
   public function push_update($permit_id)
   {
+    return true;
     try {
       $templateparser = new TemplateParser();
 

@@ -345,7 +345,7 @@
 				success: function (response) {
 					const data = JSON.parse(response);
 					if (data?.content?.errors) {
-						showAlert('response_area_id', 'danger', data.content.errors);
+						// showAlert('response_area_id', 'danger', data.content.errors);
 						setButtonLoading('initiate_payment_loader', false);
 						return;
 					}

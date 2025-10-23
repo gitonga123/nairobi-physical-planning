@@ -34,7 +34,6 @@ use_helper("I18N");
                         <th><?php echo __("Date Of Issue"); ?></th>
                         <th><?php echo __("Amount"); ?></th>
                         <th><?php echo __("Bill reference"); ?></th>
-                        <th><?php echo __("Transaction ID"); ?></th>
                         <th><?php echo __("Status"); ?></th>
                         <th></th>
                     </tr>
@@ -75,8 +74,8 @@ use_helper("I18N");
                         } else {
                             echo "KES";
                         } ?>. <?php echo number_format($invoice->getTotalAmount()); ?></td>
-                        <td><?php echo $invoice->getInvoiceNumber(); ?></td>
-                        <td><?php echo $invoice->getTransactionId(); ?></td>
+                        <td><?php echo $invoice->getDocRefNumber() || $invoice->getInvoiceNumber(); ?></td>
+                        <!-- <td><?php echo $invoice->getTransactionId(); ?></td> -->
                         <td><?php echo $invoice->getStatus(); ?></td>
                         <td>
                             <a class="btn btn-success btn-xs" id="printinvoice"

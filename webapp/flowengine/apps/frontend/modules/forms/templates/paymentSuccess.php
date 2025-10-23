@@ -345,7 +345,7 @@
 				success: function (response) {
 					const data = JSON.parse(response);
 					if (data?.content?.errors) {
-						// showAlert('response_area_id', 'danger', data.content.errors);
+						showAlert('response_area_id', 'success', "Please check your phone for an M-PESA payment prompt.<br> Enter your PIN to complete the transaction.");
 						setButtonLoading('initiate_payment_loader', false);
 						return;
 					}

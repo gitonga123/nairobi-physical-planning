@@ -74,7 +74,7 @@ use_helper("I18N");
                         } else {
                             echo "KES";
                         } ?>. <?php echo number_format($invoice->getTotalAmount()); ?></td>
-                        <td><?php echo $invoice->getDocRefNumber() || $invoice->getInvoiceNumber(); ?></td>
+                        <td><?php echo $invoice->getDocRefNumber() ?? $invoice->getInvoiceNumber(); ?></td>
                         <!-- <td><?php echo $invoice->getTransactionId(); ?></td> -->
                         <td><?php echo $invoice->getStatus(); ?></td>
                         <td>

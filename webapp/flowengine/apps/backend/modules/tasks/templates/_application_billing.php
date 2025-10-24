@@ -86,7 +86,7 @@ use_helper("I18N");
                             $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                             $sf_user->setAttribute('resume_url', $url);
 
-                            if ($sf_user->mfHasCredential('code_access_rights')) {
+                            if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('code_access_rights')) {
                                 ?>
                                 <!-- <a class="btn btn-success btn-xs" href="/plan/applications/paynow/id/<?php echo $invoice->getId();
                                 ?>" id="printinvoice" type="button"><i class="fa fa-check mr5"></i>

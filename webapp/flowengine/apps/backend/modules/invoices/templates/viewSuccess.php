@@ -62,7 +62,7 @@ $application = $invoice->getFormEntry();
                             <?php
                         }
 
-                        if ($sf_user->mfHasCredential('code_access_rights')) {
+                        if ($invoice->getPaid() == 1 && $sf_user->mfHasCredential('code_access_rights')) {
                             ?>
                             <a class="btn btn-success" id="makepayment"
                                 href="/plan/invoices/checkpaymentstatus/id/<?php echo $invoice->getId(); ?>/bill_ref/<?php echo $invoice->getFormEntry()->getFormId() . "" . $invoice->getFormEntry()->getEntryId() . "" . $invoice->getId() ?>"><i

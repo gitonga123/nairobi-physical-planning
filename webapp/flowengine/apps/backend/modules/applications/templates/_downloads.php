@@ -24,7 +24,8 @@
                         ->from("SavedPermit a")
                         ->where("a.application_id = ?", $application->getId())
                         ->andWhere("a.permit_status <> 3")
-                        ->andWhere('a.expiry_trigger <> 1');
+                        ->andWhere('a.expiry_trigger <> 1')
+                        ->andWhereNotIn('a.id', [31, 32]);
                     $permits = $q->execute();
 
                     if ($q->count()) {

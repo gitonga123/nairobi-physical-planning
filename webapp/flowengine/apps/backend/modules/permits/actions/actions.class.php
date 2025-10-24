@@ -98,7 +98,7 @@ class permitsActions extends sfActions
         // Pad the edges of the barcode
         $code_length = 20;
         for ($i = 1; $i <= strlen($code_string); $i++)
-            $code_length = $code_length + (int)(substr($code_string, ($i - 1), 1));
+            $code_length = $code_length + (int) (substr($code_string, ($i - 1), 1));
         if (strtolower($orientation) == "horizontal") {
             $img_width = $code_length;
             $img_height = $size;
@@ -294,7 +294,7 @@ class permitsActions extends sfActions
             ->from('SavedPermit a')
             ->where('a.id = ?', $request->getParameter('id'));
         $this->permit = $q->fetchOne();
-        
+
         if ($this->permit) {
             $q = Doctrine_Query::create()
                 ->from('FormEntry a')
@@ -386,11 +386,13 @@ class permitsActions extends sfActions
         if ($filter) {
             $q->andWhere("f.form_id = ?", $filter);
         }
-        if (null === $cols) return $q;
+        if (null === $cols)
+            return $q;
 
         $search = $request->getParameter('search')['value'];
 
-        if ("" === $search) return $q;
+        if ("" === $search)
+            return $q;
         $sql = [];
         $params = [];
 
@@ -403,6 +405,7 @@ class permitsActions extends sfActions
         //error_log('-------------PARAMS---------');
         //error_log(print_r($params,true));
         //error_log('-------SQL------'.$q->getSqlQuery());
+        $q->andWhereNotIn('a.id', [31, 32]);
 
         $q->addWhere("(" . implode(" OR ", $sql) . ")", $params);
         return $q;
@@ -646,7 +649,10 @@ class permitsActions extends sfActions
 
         # The signer object
         $signer = new DocuSign\eSign\Model\Signer([
-            'email' => $signerEmail, 'name' => $signerName, 'recipient_id' => "1", 'routing_order' => "1",
+            'email' => $signerEmail,
+            'name' => $signerName,
+            'recipient_id' => "1",
+            'routing_order' => "1",
             'client_user_id' => $clientUserId # Setting the client_user_id marks the signer as embedded
         ]);
 
@@ -769,7 +775,7 @@ class permitsActions extends sfActions
                 # END logging signing session
             }
         } catch (Exception $e) {
-            print($e->getMessage());
+            print ($e->getMessage());
         }
     }
 

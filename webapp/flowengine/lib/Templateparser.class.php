@@ -4617,7 +4617,6 @@ class Templateparser
 
     private function returnApplicationId($id)
     {
-        error_log("Check if application id exists ---->{$id}");
         return true;
     }
 

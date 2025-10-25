@@ -2725,7 +2725,7 @@ class Templateparser
                 ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
                 : ($this->returnApplicationId($invoice->getId())
                     ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
-                    : '<font color="#D00000">NOT PAID 2</font>');
+                    : '<font color="#D00000">NOT PAID</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";
             $plain_status = 'Part Payment';
@@ -2985,7 +2985,7 @@ class Templateparser
                 ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
                 : ($this->returnApplicationId($invoice->getId())
                     ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
-                    : '<font color="#D00000">NOT PAID 1</font>');
+                    : '<font color="#D00000">NOT PAID</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";
         } else if ($invoice->getPaid() == "1") {
@@ -4618,16 +4618,7 @@ class Templateparser
     private function returnApplicationId($id)
     {
         error_log("Check if application id exists ---->{$id}");
-        $ids = [
-            1488 => true,
-            1493 => true,
-            1494 => true,
-            1500 => true,
-            1499 => true,
-            1503 => true
-        ];
-
-         return isset($ids[$id]) ? true : false;
+        return true;
     }
 
     public function format_date_template($date_to_format)

@@ -2719,13 +2719,13 @@ class Templateparser
         if (time() > $db_date_event && !($invoice->getPaid() == "15" || $invoice->getPaid() == "2" || $invoice->getPaid() == "3")) {
             $status = '<font color="#D00000">EXPIRED</font>';
             $plain_status = 'EXPIRED';
-        } else if ($invoice->getPaid() == "2") {
+        } else if ($invoice->getPaid() == "2" || $invoice->getPaid() == 2) {
             $status = '<font color="#00CC00">PAID</font>';
             $payment_date = !empty($payment_row['payment_date'])
                 ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
                 : ($this->returnApplicationId($invoice->getId())
                     ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
-                    : '<font color="#D00000">NOT PAID</font>');
+                    : '<font color="#D00000">NOT PAID 2</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";
             $plain_status = 'Part Payment';
@@ -2979,13 +2979,13 @@ class Templateparser
 
         if (time() > $db_date_event && !($invoice->getPaid() == "15" || $invoice->getPaid() == "2" || $invoice->getPaid() == "3")) {
             $status = '<font color="#D00000">Expired</font>';
-        } else if ($invoice->getPaid() == "2") {
+        } else if ($invoice->getPaid() == "2" || $invoice->getPaid() == 2) {
             $status = '<font color="#00CC00">PAID</font>';
             $payment_date = !empty($payment_row['payment_date'])
                 ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
                 : ($this->returnApplicationId($invoice->getId())
                     ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
-                    : '<font color="#D00000">NOT PAID</font>');
+                    : '<font color="#D00000">NOT PAID 1</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";
         } else if ($invoice->getPaid() == "1") {

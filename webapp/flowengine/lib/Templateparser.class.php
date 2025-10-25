@@ -2724,7 +2724,7 @@ class Templateparser
             $payment_date = !empty($payment_row['payment_date'])
                 ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
                 : ($this->returnApplicationId($invoice->getId())
-                    ? date('Y-m-d H:i:s', $this->format_date_template_updated($invoice->getUpdatedAt()))
+                    ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
                     : '<font color="#D00000">NOT PAID</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";
@@ -2984,7 +2984,7 @@ class Templateparser
             $payment_date = !empty($payment_row['payment_date'])
                 ? date('Y-m-d H:i:s', $this->format_date_template($payment_row['payment_date']))
                 : ($this->returnApplicationId($invoice->getId())
-                    ? date('Y-m-d H:i:s', $this->format_date_template_updated($invoice->getUpdatedAt()))
+                    ? date('Y-m-d H:i:s', $this->format_date_template($invoice->getUpdatedAt()))
                     : '<font color="#D00000">NOT PAID</font>');
         } else if ($invoice->getPaid() == "15") {
             $status = "Part Payment";

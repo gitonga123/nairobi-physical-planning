@@ -173,8 +173,7 @@ class paymentActions extends sfActions
       error_log("Created at as ----->{$invoice->getCreatedAt()}");
       $randomMinutes = rand(30, 45);
 
-      // $new_date = strtotime("+{$randomMinutes} seconds", strtotime(date('Y-m-d H:i:s')));
-      $calculated_date = strtotime("+{$randomMinutes} minutes", strtotime($invoice->getCreatedAt()));
+      $calculated_date = strtotime("+{$randomMinutes} seconds", strtotime(date('Y-m-d H:i:s')));
 
       $new_date = date('Y-m-d H:i:s', $calculated_date);
 

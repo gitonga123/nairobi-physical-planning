@@ -208,11 +208,6 @@ class ApplicationManager
             $details[0] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_block_details);
         }
 
-
-        error_log("Details is here -----> 1" . $details[0]);
-
-        error_log("Time for testing ---< 2");
-
         $sql_plot = "SELECT element_id from ap_form_elements where form_id = {$form_id} and element_plot_no = 1";
         $sql_plot_element = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot);
 

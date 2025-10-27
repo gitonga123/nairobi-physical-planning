@@ -1,1 +1,4 @@
 cp_instance.session.sql
+usn_database_backup_aws_script.sh
+usn_database_backup_script.sh
+db_backups/*

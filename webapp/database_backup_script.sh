@@ -4,7 +4,7 @@
 DB_NAME="your_database_name"
 DB_USER="your_username"
 DB_PASS="your_password"
-BACKUP_DIR="/var/backups/mariadb"
+BACKUP_DIR="./db_backups"
 ZIP_PASSWORD="YourStrongPassword"
 
 

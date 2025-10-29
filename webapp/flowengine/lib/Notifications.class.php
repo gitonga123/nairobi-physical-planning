@@ -400,6 +400,8 @@ class mailnotifications
 
 		error_log("Message sent to ---->{$body}");
 
+		return true;
+
 		try {
 			// Remove all non-digit characters
 			$receiver = preg_replace('/\D+/', '', $receiver);
@@ -459,6 +461,8 @@ class mailnotifications
 	{
 
 		error_log('Sending sms to --->1' . $receiver);
+
+		return true;
 		try {
 			if (substr($receiver, 0, 1) == "0") {
 				//ADD COUNTRY CODE

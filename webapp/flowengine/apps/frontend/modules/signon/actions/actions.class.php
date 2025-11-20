@@ -136,9 +136,9 @@ class signonActions extends sfActions
                 error_log("Profile exists yes or no");
                 error_log($user_share);
                 if ($user_share) {
-                    $user_share->setFullname($fullname);
-                    $user_share->setEmail($email);
-                    $user_share->setMobile($username);
+                    // /**$user_share->setFullname($fullname);
+                    //$user_share->setEmail($email);
+                    //$user_share->setMobile($username);**/
                     $user_share->setRegisteras(6);
                     $user_share->save();
                 } else {

@@ -99,7 +99,7 @@ use_helper("I18N");
 
                             if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('generate_bill_reference_number')) {
                                 ?>
-                                <a title="generate bill reference number?" class="btn btn-success btn-xs"
+                                <a title="generate bill reference number?" class="btn btn-primary btn-xs"
                                     href="/plan/invoices/generatebillreferencenumber/id/<?php echo $invoice->getId(); ?>"
                                     id="check_invoice_is_paid" type="button"><i class="fa fa-check mr5"></i>
                                     <?php echo __("Generate Bill Reference");

@@ -72,7 +72,7 @@ $application = $invoice->getFormEntry();
 
                         if ($invoice->getPaid() == 1 && $sf_user->mfHasCredential('generate_bill_reference_number')) {
                             ?>
-                            <a class="btn btn-success" id="generate_payment_reference"
+                            <a class="btn btn-primary" id="generate_payment_reference"
                                 href="/plan/invoices/generatebillreferencenumber/id/<?php echo $invoice->getId(); ?>"><i
                                     class="fa fa-check mr5"></i> <?php echo __('Generate Bill Reference'); ?></a>
                             <?php

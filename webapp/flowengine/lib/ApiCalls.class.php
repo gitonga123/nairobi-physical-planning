@@ -228,11 +228,11 @@ class ApiCalls
 
 
         if ($query_response->status == 200 || $query_response->status == 201) {
-            return ['success' => true, 'bill_ref' => $query_response->content['bill_ref']];
+            return ['success' => true, 'bill_ref' => $query_response->content['bill_ref'], 'msg' => 'Bill reference generated'];
         }
         error_log("Unable to create the bill at the moment");
 
-        return ['success' => false, 'bill_ref'=>''];
+        return ['success' => false, 'msg' => $query_response->content['msg']];
     }
 
 

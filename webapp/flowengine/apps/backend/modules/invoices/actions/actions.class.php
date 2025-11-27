@@ -1394,7 +1394,7 @@ class invoicesActions extends sfActions
             return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
         }
 
-        $this->getUser()->setFlash('notice', 'Bill reference generation failed.');
+        $this->getUser()->setFlash('notice', $query_response['msg']);
 
         return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
 

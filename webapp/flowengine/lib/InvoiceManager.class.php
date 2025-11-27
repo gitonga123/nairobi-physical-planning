@@ -791,8 +791,10 @@ class InvoiceManager
             //check if merchant enabled
             if ($submission->getForm() && $submission->getForm()->getPaymentEnableMerchant()) {
                 //Post invoice
+
+                error_log("Lets check if the merchant is enabled --->");
                 $api = new ApiCalls();
-                $api->postInvoice($submission, $invoice, true);
+                $api->postInvoiceToJamboPay($submission, $invoice);
             }
             return $invoice;
         }

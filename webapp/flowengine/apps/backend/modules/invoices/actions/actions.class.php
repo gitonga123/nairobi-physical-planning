@@ -1350,4 +1350,53 @@ class invoicesActions extends sfActions
             return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
         }
     }
+
+    public function executeGeneratebillreferencenumber(sfWebRequest $request)
+    {
+        $api = new ApiCalls();
+
+        $invoice_id = $request->getParameter('id');
+
+
+        if (!$invoice_id) {
+            $this->getUser()->setFlash('notice', 'Invoice not found');
+            return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+        }
+
+        $q = Doctrine_Query::create()
+            ->from("MfInvoice a")
+            ->where("a.id = ?", $request->getParameter("id"));
+        $invoice = $q->fetchOne();
+
+        if (!$invoice) {
+            $this->getUser()->setFlash('notice', 'Invoice not found');
+            return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+        }
+
+
+        $q = Doctrine_Query::create()
+            ->from("FormEntry a")
+            ->where("a.id = ?", $invoice->getAppId());
+        $application = $q->fetchOne();
+
+         if (!$application) {
+            $this->getUser()->setFlash('notice', 'Application not found');
+            return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+        }
+
+        error_log("Generating bill refrence number for invoice --->{$invoice_id}");
+
+        $query_response = $api->postInvoiceToJamboPay($application, $invoice);
+
+        if ($query_response['success']) {
+            $this->getUser()->setFlash('notice', 'Bill reference generated');
+
+            return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+        }
+
+        $this->getUser()->setFlash('notice', 'Bill reference generation failed.');
+
+        return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+
+    }
 }

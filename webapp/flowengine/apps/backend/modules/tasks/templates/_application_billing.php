@@ -86,16 +86,23 @@ use_helper("I18N");
                             $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                             $sf_user->setAttribute('resume_url', $url);
 
-                            if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('code_access_rights')) {
+                            if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('check_payment_status')) {
                                 ?>
-                                <!-- <a class="btn btn-success btn-xs" href="/plan/applications/paynow/id/<?php echo $invoice->getId();
-                                ?>" id="printinvoice" type="button"><i class="fa fa-check mr5"></i>
-                                    <?php //echo __("Pay Now");
-                                            ?></a> -->
                                 <a title="Check if invoice is paid?" class="btn btn-success btn-xs"
                                     href="/plan/invoices/checkpaymentstatus/id/<?php echo $invoice->getId(); ?>/bill_ref/<?php echo $invoice->getFormEntry()->getFormId() . "" . $invoice->getFormEntry()->getEntryId() . "" . $invoice->getId() ?>"
                                     id="check_invoice_is_paid" type="button"><i class="fa fa-check mr5"></i>
                                     <?php echo __("Check Payment Status");
+                                    ?></a>
+                                <?php
+
+                            }
+
+                            if ($invoice->getPaid() == "1" && $sf_user->mfHasCredential('generate_bill_reference_number')) {
+                                ?>
+                                <a title="generate bill reference number?" class="btn btn-success btn-xs"
+                                    href="/plan/invoices/generatebillreferencenumber/id/<?php echo $invoice->getId(); ?>"
+                                    id="check_invoice_is_paid" type="button"><i class="fa fa-check mr5"></i>
+                                    <?php echo __("Generate Bill Reference");
                                     ?></a>
                                 <?php
 

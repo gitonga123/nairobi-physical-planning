@@ -379,7 +379,7 @@ class formsActions extends sfActions
             error_log("Create bill action reference details --->");
             error_log(json_encode($create_bill_action));
 
-            if (isset($create_bill_action['bill_ref'])) {
+            if ($create_bill_action['success'] && isset($create_bill_action['bill_ref'])) {
                   $this->invoice->setDocRefNumber($create_bill_action['bill_ref']);
                   $this->invoice->save();
             }
@@ -394,7 +394,7 @@ class formsActions extends sfActions
                   'callback_url' => $callback_url
             ];
 
-            error_log("Sample payload ---->",);
+            error_log("Sample payload ---->", );
             error_log(print_r($payload, true));
 
             error_log("Url bill sent to ----> {$url}");
@@ -805,7 +805,7 @@ class formsActions extends sfActions
             } else {
                   error_log("Unable to create the bill at the moment");
 
-                  return false;
+                  return ['success' => false, 'bill_ref' => ''];
             }
       }
 

@@ -2074,6 +2074,8 @@ class Templateparser
 
             $application_data = json_decode($application_json, true);
 
+            var_dump($application_data);die;
+
             foreach ($application_data as $row) {
                 $values['fm_element_' . $row['element_id']] = $row['value'];
             }

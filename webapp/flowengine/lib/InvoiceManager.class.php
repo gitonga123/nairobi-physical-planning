@@ -1238,7 +1238,7 @@ class InvoiceManager
         if ($payment_enable_merchant) {
             //Post invoice
             $api = new ApiCalls();
-            $api->postInvoice($submission, $invoice);
+            $api->postInvoiceToJamboPay($submission, $invoice);
         }
 
         return $invoice;

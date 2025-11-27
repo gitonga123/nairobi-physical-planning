@@ -100,7 +100,7 @@ class apicontentActions extends sfActions
     $api_call = new ApiCalls();
     $submission = Doctrine_Query::create()->from('FormEntry e')->where('e.id = ?', $request->getParameter('id'))->fetchOne();
     $invoice = Doctrine_Query::create()->from('MfInvoice i')->where('i.id = ?', $request->getParameter('invoice_id'))->fetchOne();
-    $api_call->postInvoice($submission, $invoice);
+    $api_call->postInvoiceToJamboPay($submission, $invoice);
     exit();
   }
 }

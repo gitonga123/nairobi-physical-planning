@@ -794,7 +794,7 @@ class InvoiceManager
 
                 error_log("Lets check if the merchant is enabled --->");
                 $api = new ApiCalls();
-                $api->postInvoiceToJamboPay($submission, $invoice);
+                $api->postInvoice($submission, $invoice);
             }
             return $invoice;
         }
@@ -1238,7 +1238,7 @@ class InvoiceManager
         if ($payment_enable_merchant) {
             //Post invoice
             $api = new ApiCalls();
-            $api->postInvoiceToJamboPay($submission, $invoice);
+            $api->postInvoice($submission, $invoice);
         }
 
         return $invoice;

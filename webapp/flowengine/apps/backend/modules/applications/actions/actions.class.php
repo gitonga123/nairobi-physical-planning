@@ -388,7 +388,7 @@ class applicationsActions extends sfActions
 			$invoice->save();
 			//Post invoice
 			$api = new ApiCalls();
-			$api->postInvoiceToJamboPay($invoice->getFormEntry(), $invoice);
+			$api->postInvoice($invoice->getFormEntry(), $invoice);
 			//Audit 
 			Audit::audit($invoice->getAppId(), "Uncancelled invoice #" . $invoice->getId());
 

@@ -1334,7 +1334,8 @@ class invoicesActions extends sfActions
                 error_log("Processing payment -----> {$processing_response}");
 
                 if ($processing_response == 'transaction_not_found' || $processing_response == 'invoice_not_found') {
-                    throw new sfException('Something Went Wrong. Please try again later.', 500);
+                    $this->getUser()->setFlash('notice', ucwords(str_replace('_', ' ', $processing_response)));
+                    return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
                 }
                 $this->getUser()->setFlash('notice', 'Invoice Paid');
                 return $this->redirect('/plan/invoices/view/id/' . $invoice_id);

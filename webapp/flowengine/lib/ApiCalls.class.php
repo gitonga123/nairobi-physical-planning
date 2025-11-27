@@ -177,9 +177,11 @@ class ApiCalls
         error_log("Create bill action reference details --->");
         error_log(json_encode($create_bill_action));
 
-        if (isset($create_bill_action['bill_ref'])) {
-            $invoice->setDocRefNumber($create_bill_action['bill_ref']);
-            $invoice->save();
+        if ($create_bill_action['success']) {
+            if (isset($create_bill_action['bill_ref'])) {
+                $invoice->setDocRefNumber($create_bill_action['bill_ref']);
+                $invoice->save();
+            }
         }
 
         return $create_bill_action;

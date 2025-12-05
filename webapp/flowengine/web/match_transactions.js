@@ -23,6 +23,7 @@ let mf_invoice = [
   { id: "1,585", total_amount: "20,200", doc_ref_number: "" },
   { id: "1,586", total_amount: "41,500", doc_ref_number: "" },
   { id: "1,589", total_amount: "18,400", doc_ref_number: "" },
+  { id: "1591", total_amount: "22,703", doc_ref_number: "" },
 ];
 
 let transactions = [

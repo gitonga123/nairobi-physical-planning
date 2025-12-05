@@ -182,7 +182,7 @@ class paymentActions extends sfActions
       $invoice->setPaid(2);
 
       $invoice->setUpdatedAt($new_date);
-      $invoice->>setProcessedM(1);
+      $invoice->setProcessedM(1);
       $invoice->save();
 
       return $this->json(['data' => ['success' => true, 'statusCode' => 200, 'message' => 'invoice updated']], 201);

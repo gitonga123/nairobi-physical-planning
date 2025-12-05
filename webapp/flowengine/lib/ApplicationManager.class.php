@@ -1187,6 +1187,19 @@ class ApplicationManager
             $mailnotifications = new mailnotifications();
 
             if ($current_stage) {
+
+                //cancel any task that is pending on this stage to remove queued
+                $q = Doctrine_Query::create()
+                    ->from("Task t")
+                    ->where("a.application_id = ?", $application->getId())
+                    ->andWhere("a.status = 1");
+                $pending_tasks = $q->execute();
+
+                foreach ($pending_tasks as $task) {
+                    $task->setStatus(55);
+                    $task->save();
+                }
+
                 //1. If stage has default reviewers, assign them
                 $q = Doctrine_Query::create()
                     ->from("WorkflowReviewers a")
@@ -1235,13 +1248,11 @@ class ApplicationManager
                             . "you have been assigned a new task on Application " . $application->getApplicationId() . ". "
                             . "View: " . sfConfig::get('app_sso_backend_jambo_url') . "plan/tasks/view/id/" . $task->getId();
 
-                        
+
                         $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $reviewerR->getStremail(), "New Task", $body);
 
                         $mailnotifications->sendsms($reviewerR->getStrphoneMain1(), $body);
                     }
-
-
                 }
 
                 if ($current_stage->getStageProperty() == 3 && !empty($current_stage->getStageTypeNotification())) {
@@ -1270,11 +1281,11 @@ class ApplicationManager
                             // UASIN GISHU FIX, hard coded only.
                             // if application form is building plan sending to technical committee
                             // otherwise send to director
-                             $next_stage = $current_stage->getStageTypeMovement();
+                            $next_stage = $current_stage->getStageTypeMovement();
                             if ($application->getFormId() === 25952) {
                                 $next_stage = 22;
                             }
-                           
+
                             $application->setApproved($next_stage);
                             //$application->save();
                         }
@@ -1670,7 +1681,7 @@ class ApplicationManager
                             Doctrine_Manager::getInstance()->getCurrentConnection()->execute("Insert into application_number_history (form_entry_id,application_number) Values ('" . $application->getId() . "','" . $application->getApplicationId() . "')");
                         }
                         $application->setApplicationId($new_app_id);
-                        //$application->save();
+                    //$application->save();
                     endif;
                 }
                 //OTB End - Add trigger for changing application number

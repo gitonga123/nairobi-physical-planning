@@ -2809,6 +2809,7 @@ class Templateparser
             ->setLabelFontSize(10)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
         $values['qr_code_small'] = '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
+        error_log("It should show qr code for both paid and pending invoices 1234567890");
 
         $barcode = new BarcodeGenerator();
         $barcode->setText($invoice->getCurrency() . ' ' . $invoice->getTotalAmount());
@@ -3100,6 +3101,8 @@ class Templateparser
             ->setLabelFontSize(10)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
         $values['qr_code_small'] = '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
+
+        error_log("It should show qr code for both paid and pending invoices 1234567890");
 
         $barcode = new BarcodeGenerator();
         $barcode->setText($saved_permit->getFormEntry()->getApplicationId());

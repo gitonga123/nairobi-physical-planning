@@ -1219,7 +1219,9 @@ class invoicesActions extends sfActions
             ->from("ApFormPayments a")
             ->leftJoin('a.ApForms f')
             ->leftJoin('a.MfInvoice i')
-            ->leftJoin('i.FormEntry e');
+            ->leftJoin('i.FormEntry e')
+            ->where('i.processed_m = ?', 0);
+
 
         $q->where("a.status = ?", $filter_status); //OTB code refactoring
         if ($fromdate && $todate) {

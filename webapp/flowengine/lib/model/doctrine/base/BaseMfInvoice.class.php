@@ -294,6 +294,15 @@ abstract class BaseMfInvoice extends sfDoctrineRecord
                'autoincrement' => false,
                'length' => 255,
           ));
+          $this->hasColumn('processed_m', 'string', 255, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => 255,
+          ));
      }
 
      public function setUp()

@@ -79,3 +79,5 @@ CREATE TABLE system_logs (
     ip_address VARCHAR(50) NULL,
     username VARCHAR(100) NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+ALTER TABLE mf_invoice ADD COLUMN processed_m int(8) default 0;

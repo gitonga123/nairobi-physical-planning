@@ -1266,7 +1266,15 @@ class ApplicationManager
                     if ($current_stage->getStageType() == 3) {
                         if ($current_stage->getStageProperty() == 2) {
                             //Move application to another stage
-                            $next_stage = $current_stage->getStageTypeMovement();
+                            // decide the stage based on the form
+                            // UASIN GISHU FIX, hard coded only.
+                            // if application form is building plan sending to technical committee
+                            // otherwise send to director
+                             $next_stage = $current_stage->getStageTypeMovement();
+                            if ($application->getFormId() === 25952) {
+                                $next_stage = 22;
+                            }
+                           
                             $application->setApproved($next_stage);
                             //$application->save();
                         }

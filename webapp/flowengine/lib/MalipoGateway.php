@@ -353,11 +353,28 @@ class MalipoGateway
 			->orderBy('a.afp_id desc');
 		$transaction = $q->fetchOne();
 
-		$q_in = Doctrine_Query::create()
-			->from('MfInvoice m')
-			->where('m.id = ?', $invoice_id);
-		$invoice = $q_in->fetchOne();
+		$invoice = null;
 
+
+		if ($invoice_id) {
+			$q_in = Doctrine_Query::create()
+				->from('MfInvoice m')
+				->where('m.id = ?', $invoice_id);
+			$invoice = $q_in->fetchOne();
+		}
+
+		if ($transaction) {
+			$q_in = Doctrine_Query::create()
+				->from('MfInvoice m')
+				->where('m.id = ?', $transaction->getInvoiceId());
+			$invoice = $q_in->fetchOne();
+		}
+
+
+		if (!$invoice) {
+			return 'invoice_not_found';
+		}
+		
 		$billing_reference_number = $invoice->getFormEntry()->getFormId() . "" . $invoice->getFormEntry()->getEntryId() . "" . $invoice->getId();
 
 		if (!$transaction) {
@@ -377,10 +394,8 @@ class MalipoGateway
 			$transaction->save();
 		}
 
-		
-		if (!$invoice) {
-			return 'invoice_not_found';
-		}
+
+
 
 		if (!$transaction) {
 			return 'transaction_not_found';

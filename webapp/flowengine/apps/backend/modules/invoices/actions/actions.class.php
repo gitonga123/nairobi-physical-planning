@@ -1332,7 +1332,7 @@ class invoicesActions extends sfActions
 
             if (strtolower($content['status']) == 'paid') {
                 $ipn = new MalipoGateway();
-                $processing_response = $ipn->jambo_pay_ipn($content);
+                $processing_response = $ipn->jambo_pay_ipn($content, $invoice_id);
                 error_log("Processing payment -----> {$processing_response}");
 
                 if ($processing_response == 'transaction_not_found' || $processing_response == 'invoice_not_found') {

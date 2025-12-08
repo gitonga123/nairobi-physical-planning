@@ -1188,17 +1188,7 @@ class ApplicationManager
 
             if ($current_stage) {
 
-                //cancel any task that is pending on this stage to remove queued
-                $q = Doctrine_Query::create()
-                    ->from("Task t")
-                    ->where("t.application_id = ?", $application->getId())
-                    ->andWhere("t.status = 1");
-                $pending_tasks = $q->execute();
-
-                foreach ($pending_tasks as $task) {
-                    $task->setStatus(55);
-                    $task->save();
-                }
+            
 
                 //1. If stage has default reviewers, assign them
                 $q = Doctrine_Query::create()

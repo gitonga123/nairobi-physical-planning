@@ -353,15 +353,31 @@ class MalipoGateway
 			->orderBy('a.afp_id desc');
 		$transaction = $q->fetchOne();
 
-	if (!$transaction) {
-			return 'transaction_not_found';
-		}
-
 		$q_in = Doctrine_Query::create()
 			->from('MfInvoice m')
 			->where('m.id = ?', $transaction->getInvoiceId());
 		$invoice = $q_in->fetchOne();
 
+		$billing_reference_number = $invoice->getFormEntry()->getFormId() . "" . $invoice->getFormEntry()->getEntryId() . "" . $invoice->getId();
+
+		if (!$transaction) {
+			$transaction = new ApFormPayments();
+			$transaction->setFormId($invoice->getFormEntry()->getFormId());
+			$transaction->setRecordId($invoice->getFormEntry()->getEntryId());
+			$transaction->setPaymentId($billing_reference_number);
+			$transaction->setDateCreated(date("Y-m-d H:i:s"));
+			$transaction->setPaymentAmount($invoice->getTotalAmount());
+			$transaction->setPaymentMerchantType('SISIBOPAY');
+			$transaction->setPaymentTestMode("0");
+			$transaction->setPaymentDate(date("Y-m-d H:i:s"));
+			$transaction->setInvoiceId($invoice->getId());
+			$transaction->setStatus(1);
+			$transaction->setPaymentStatus("pending");
+			$transaction->setPaymentCurrency('KES');
+			$transaction->save();
+		}
+
+		
 		if (!$invoice) {
 			return 'invoice_not_found';
 		}

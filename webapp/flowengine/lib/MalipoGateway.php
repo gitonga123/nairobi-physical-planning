@@ -336,7 +336,7 @@ class MalipoGateway
 	}
 
 
-	public function jambo_pay_ipn($response)
+	public function jambo_pay_ipn($response, $invoice_id)
 	{
 
 		error_log("Bill Number details below ---->");
@@ -355,7 +355,7 @@ class MalipoGateway
 
 		$q_in = Doctrine_Query::create()
 			->from('MfInvoice m')
-			->where('m.id = ?', $transaction->getInvoiceId());
+			->where('m.id = ?', $invoice_id);
 		$invoice = $q_in->fetchOne();
 
 		$billing_reference_number = $invoice->getFormEntry()->getFormId() . "" . $invoice->getFormEntry()->getEntryId() . "" . $invoice->getId();
@@ -380,6 +380,10 @@ class MalipoGateway
 		
 		if (!$invoice) {
 			return 'invoice_not_found';
+		}
+
+		if (!$transaction) {
+			return 'transaction_not_found';
 		}
 
 		$transaction->setPaymentMerchantType('SISIBOPay - ' . $response['mode_of_payment']);

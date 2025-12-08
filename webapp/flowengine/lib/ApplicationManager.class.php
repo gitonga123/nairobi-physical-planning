@@ -1191,8 +1191,8 @@ class ApplicationManager
                 //cancel any task that is pending on this stage to remove queued
                 $q = Doctrine_Query::create()
                     ->from("Task t")
-                    ->where("a.application_id = ?", $application->getId())
-                    ->andWhere("a.status = 1");
+                    ->where("t.application_id = ?", $application->getId())
+                    ->andWhere("t.status = 1");
                 $pending_tasks = $q->execute();
 
                 foreach ($pending_tasks as $task) {

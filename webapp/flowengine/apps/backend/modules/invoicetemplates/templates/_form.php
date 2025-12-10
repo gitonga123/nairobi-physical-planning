@@ -463,6 +463,8 @@ use_helper("I18N");
         // CKEditor
         jQuery('#invoicetemplates_content').ckeditor();
         jQuery('#invoicetemplates_qr_content').ckeditor();
+        jQuery('#invoicetemplates_receipt_content').ckeditor();
+        jQuery('#invoicetemplates_receipt_content_qr_code').ckeditor();
 
       });
     </script>

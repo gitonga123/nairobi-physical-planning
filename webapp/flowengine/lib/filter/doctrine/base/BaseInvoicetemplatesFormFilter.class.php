@@ -23,6 +23,8 @@ abstract class BaseInvoicetemplatesFormFilter extends BaseFormFilterDoctrine
       'expiration_type'  => new sfWidgetFormFilterInput(),
       'payment_type'     => new sfWidgetFormFilterInput(),
       'qr_content'          => new sfWidgetFormFilterInput(),
+      'receipt_content'          => new sfWidgetFormFilterInput(),
+      'receipt_content_qr_code'          => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -36,6 +38,8 @@ abstract class BaseInvoicetemplatesFormFilter extends BaseFormFilterDoctrine
       'expiration_type'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'payment_type'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'qr_content'          => new sfValidatorPass(array('required' => false)),
+      'receipt_content'          => new sfValidatorPass(array('required' => false)),
+      'receipt_content_qr_code'          => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('invoicetemplates_filters[%s]');
@@ -66,6 +70,8 @@ abstract class BaseInvoicetemplatesFormFilter extends BaseFormFilterDoctrine
       'expiration_type'  => 'Number',
       'payment_type'     => 'Number',
       'qr_content'       => 'Text',
+      'receipt_content'       => 'Text',
+      'receipt_content_qr_code'       => 'Text',
     );
   }
 }

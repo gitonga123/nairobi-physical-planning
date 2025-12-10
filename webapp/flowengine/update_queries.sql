@@ -81,3 +81,5 @@ CREATE TABLE system_logs (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 ALTER TABLE mf_invoice ADD COLUMN processed_m int(8) default 0;
+ALTER TABLE invoicetemplates ADD COLUMN receipt_content_qr_code TEXT NULL;
+ALTER TABLE invoicetemplates ADD COLUMN receipt_content TEXT NULL;

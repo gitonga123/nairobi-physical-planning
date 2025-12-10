@@ -151,6 +151,33 @@ abstract class BaseInvoicetemplates extends sfDoctrineRecord
                'autoincrement' => false,
                'length' => '',
           ));
+          $this->hasColumn('qr_content', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('receipt_content', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
+          $this->hasColumn('receipt_content_qr_code', 'string', null, array(
+               'type' => 'string',
+               'fixed' => 0,
+               'unsigned' => false,
+               'primary' => false,
+               'notnull' => false,
+               'autoincrement' => false,
+               'length' => '',
+          ));
      }
 
      public function setUp()

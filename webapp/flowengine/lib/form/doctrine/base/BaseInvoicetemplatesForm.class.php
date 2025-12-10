@@ -50,6 +50,8 @@ abstract class BaseInvoicetemplatesForm extends BaseFormDoctrine
                     )
                 ),
                 'qr_content'          => new sfWidgetFormTextarea(),
+                'receipt_content'          => new sfWidgetFormTextarea(),
+                'receipt_content_qr_code'          => new sfWidgetFormTextarea(),
             ));
         } else {
             $this->setWidgets(array(
@@ -87,6 +89,8 @@ abstract class BaseInvoicetemplatesForm extends BaseFormDoctrine
                     )
                 ),
                 'qr_content'          => new sfWidgetFormTextarea(),
+                'receipt_content'          => new sfWidgetFormTextarea(),
+                'receipt_content_qr_code'          => new sfWidgetFormTextarea(),
             ));
         }
 
@@ -102,6 +106,8 @@ abstract class BaseInvoicetemplatesForm extends BaseFormDoctrine
             'expiration_type'  => new sfValidatorInteger(array('required' => false)),
             'payment_type'     => new sfValidatorInteger(array('required' => false)),
             'qr_content'  => new sfValidatorString(array('required' => false)),
+            'receipt_content'  => new sfValidatorString(array('required' => false)),
+            'receipt_content_qr_code'  => new sfValidatorString(array('required' => false)),
         ));
 
         $this->widgetSchema->setNameFormat('invoicetemplates[%s]');

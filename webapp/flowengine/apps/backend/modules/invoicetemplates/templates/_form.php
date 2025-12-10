@@ -86,6 +86,20 @@ use_helper("I18N");
         </div>
       </div>
       <div class="form-group">
+        <label class="col-sm-4 control-label"><?php echo __('Receipt'); ?></label><br>
+        <div class="col-sm-12">
+          <?php echo $form['receipt_content']->renderError() ?>
+          <?php echo $form['receipt_content'] ?>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label"><?php echo __('Receipt QR Code'); ?></label><br>
+        <div class="col-sm-12">
+          <?php echo $form['receipt_content_qr_code']->renderError() ?>
+          <?php echo $form['receipt_content_qr_code'] ?>
+        </div>
+      </div>
+      <div class="form-group">
         <div class="col-sm-12">
           <button type="button" class="btn btn-primary pull-right" data-target="#fieldsModal" data-toggle="modal">View available user/form fields</button>
         </div>

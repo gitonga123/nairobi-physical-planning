@@ -2678,7 +2678,7 @@ class Templateparser
                 }
             }
             if ($inv_detail->getDescription() == "Attached Invoice") {
-                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
             } else {
                 if ($inv_detail->getDescription() == "Choose Fee" || $inv_detail->getAmount() == "0") {
                     //Dont display
@@ -2687,9 +2687,9 @@ class Templateparser
                     if (sizeof($pieces) > 1) {
                         $description = $pieces[1];
 
-                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
                     } else {
-                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
                     }
                     $grand_total += $inv_detail->getAmount();
                 }
@@ -2913,7 +2913,7 @@ class Templateparser
         $total_found = false;
         foreach ($inv_details as $inv_detail) {
             if ($inv_detail->getDescription() == "Attached Invoice") {
-                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
             } else {
                 if ($inv_detail->getDescription() == "Fee" && $inv_detail->getAmount() == "0") {
                     //Dont display
@@ -2932,9 +2932,9 @@ class Templateparser
                             $description = $apform->getFormName();
                         }
 
-                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
                     } else {
-                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
                     }
                     $grand_total += $inv_detail->getAmount();
                 }
@@ -4196,7 +4196,7 @@ class Templateparser
         foreach ($inv_details as $inv_detail) {
             if ($inv_detail->getDescription() == "Attached Invoice") {
                 $url = html_entity_decode($detail->getAmount());
-                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
             } else {
                 if ($inv_detail->getAmount() == "0") {
                     //Dont display
@@ -4205,9 +4205,9 @@ class Templateparser
                     if (sizeof($pieces) > 1) {
                         $description = $pieces[1];
 
-                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<tr><td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $description . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
                     } else {
-                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $inv_detail->getAmount() . '</td></tr>';
+                        $inv_fees = $inv_fees . '<td align="left" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;">' . $inv_detail->getDescription() . '</td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($inv_detail->getAmount()) . '</td></tr>';
                     }
                     $grand_total += $inv_detail->getAmount();
                 }
@@ -4219,7 +4219,7 @@ class Templateparser
         }
 
         if ($total_found == false) {
-            $inv_fees = $inv_fees . '<tr><td align="right" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"><b>Total (' . $currency . ')</b></td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . $grand_total . '</td></tr>';
+            $inv_fees = $inv_fees . '<tr><td align="right" width="80%" style="border-right: 1px solid #d2d2d2; padding:5px 12px; border-top: 1px solid #d2d2d2;"><b>Total (' . $currency . ')</b></td><td align="left" style="border-top: 1px solid #d2d2d2; padding:5px 12px;">' . number_format($grand_total) . '</td></tr>';
         }
 
         $inv_fees = $inv_fees . "</tbody>

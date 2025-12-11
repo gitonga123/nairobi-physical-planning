@@ -299,10 +299,7 @@ class formsActions extends sfActions
             $invoice_id = $request->getParameter('invoice');
 
             $applicationManager = new ApplicationManager();
-
-
-            return $this->renderText(json_encode(['status' => 500, 'content' => "Something Went Wrong. Please try again later."]));
-
+            
             $q = Doctrine_Query::create()
                   ->from('FormEntry a')
                   ->where('a.id = ?', $request->getParameter("application"))

@@ -133,7 +133,7 @@ class signonActions extends sfActions
                 $profile->save();
             } else {
 
-                if ($this->sfGuardUser->id == 2584 || $this->sfGuardUser->id == 2503) {
+                if ($this->sfGuardUser->id == 2584) {
                     throw new sfException('Access Denied. Please get in touch with the county.', 403);
                 }
                 $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findOneByUserId($this->sfGuardUser->id);

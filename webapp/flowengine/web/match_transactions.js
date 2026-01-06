@@ -1,5 +1,5 @@
 let mf_invoice = [
-  { id: "1610", total_amount: "59,000", doc_ref_number: "" },
+  { id: "1615", total_amount: "28,500", doc_ref_number: "" },
 ];
 
 let transactions = [

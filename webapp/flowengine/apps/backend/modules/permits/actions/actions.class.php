@@ -313,7 +313,7 @@ class permitsActions extends sfActions
         $permits->setPermitStatus(3);
         $permits->save();
 
-        $this->redirect('/plan/applications/view/id/' . $permits->getFormEntry()->getId());
+        $this->redirect('/backend.php/applications/view/id/' . $permits->getFormEntry()->getId());
     }
 
     public function executeUpdatepermit(sfWebRequest $request)
@@ -329,7 +329,7 @@ class permitsActions extends sfActions
         $permit->setPdfPath($filename);
         $permit->save();
 
-        $this->redirect('/plan/permits/view/id/' . $permit->getId());
+        $this->redirect('/backend.php/permits/view/id/' . $permit->getId());
     }
 
     public function executeUncancelpermit(sfWebRequest $request)
@@ -341,7 +341,7 @@ class permitsActions extends sfActions
         $permits->setPermitStatus(1);
         $permits->save();
 
-        $this->redirect('/plan/permits/view/id/' . $permits->getId());
+        $this->redirect('/backend.php/permits/view/id/' . $permits->getId());
     }
 
 
@@ -356,7 +356,7 @@ class permitsActions extends sfActions
             try {
                 $permit->save();
 
-                $this->redirect("/plan/permits/view/id/" . $permit->getId());
+                $this->redirect("/backend.php/permits/view/id/" . $permit->getId());
             } catch (Exception $ex) {
                 error_log("Updates Managert: Remote update error: " . $ex);
                 echo "Remote Update Error Debug-v: " . $error;
@@ -424,7 +424,7 @@ class permitsActions extends sfActions
         # authenticate the user
         if ($action == 'signdocument') {
             # login to docusign
-            $redirect_uri = $this->base_url_ . "/plan/permits/signing";
+            $redirect_uri = $this->base_url_ . "/backend.php/permits/signing";
             $data_pass = json_encode(
                 array(
                     "id" => $permit_ids,
@@ -467,7 +467,7 @@ class permitsActions extends sfActions
         }
 
         if ($action == 'download_signed_permit') {
-            $redirect_uri = $this->base_url_ . "/plan/permits/signing";
+            $redirect_uri = $this->base_url_ . "/backend.php/permits/signing";
             $data_pass = json_encode(
                 array(
                     "id" => $permit_ids,
@@ -488,7 +488,7 @@ class permitsActions extends sfActions
         if (isset($args) && ($redirect_to = $args['l_redirect'])) {
             $this->redirect($redirect_to);
         }
-        $this->redirect("/plan/permits/view/id/$permit_ids");
+        $this->redirect("/backend.php/permits/view/id/$permit_ids");
     }
 
     /**
@@ -677,7 +677,7 @@ class permitsActions extends sfActions
         #         Request a Recipient View URL (the Signing Ceremony URL)
         #
 
-        $returnUrl = $this->base_url_ . "/plan/permits/signing?"
+        $returnUrl = $this->base_url_ . "/backend.php/permits/signing?"
             . "id=" . implode(',', $permit_ids)
             . "&permitaction=download_signed_permit"
             . "&l_redirect=" . $args['l_redirect']
@@ -791,7 +791,7 @@ class permitsActions extends sfActions
             readfile($file_name);
             exit();
         } else
-            return $this->redirect('/plan/applications/view/id/' . $permit->getApplicationId());
+            return $this->redirect('/backend.php/applications/view/id/' . $permit->getApplicationId());
     }
 
     public function executeDownloadpermit(sfWebRequest $request)
@@ -876,7 +876,7 @@ class permitsActions extends sfActions
                     $row_markup = "";
                     $row_markup .= "<tr {$row_style}>\n";
                     $row_markup .= "<td><strong>{$row['label']}</strong></td>\n";
-                    $row_markup .= "<td><a href='/plan/applications/closeOfBusiness/target_application/" . $row['value'] . "/application_id/" . $application->getId() . "' target='_blank'>" . nl2br($row['value']) . "</a></td>\n";
+                    $row_markup .= "<td><a href='/backend.php/applications/closeOfBusiness/target_application/" . $row['value'] . "/application_id/" . $application->getId() . "' target='_blank'>" . nl2br($row['value']) . "</a></td>\n";
                     $row_markup .= "</tr>\n";
                 } else {
                     $row_markup = "";

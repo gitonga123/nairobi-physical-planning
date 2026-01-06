@@ -306,8 +306,8 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 		$matrixPointSize = min(max((int) $_REQUEST['size'], 1), 10);
 	$ssl_suffix = mf_get_ssl_suffix();
 	#$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/".$target_file;
-	//$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
-	// $link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
+	//$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/index.php/forms/download?q=".$_GET['q'];//Show original file with login required
+	// $link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/index.php/forms/download?q=".$_GET['q'];//Show original file with login required
 
 	$saved_permit = $otbhelper->getApplicationLatestPermit($app_details->getId());
 
@@ -316,7 +316,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	$link_qr = 'Approved';
 
 	if ($saved_permit) {
-		$link_qr = "https://sisibopay.uasingishu.go.ke/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId();
+		$link_qr = "https://sisibopay.uasingishu.go.ke/index.php/permitchecker/openrequest?permitref=" . $saved_permit->getId();
 	}
 
 

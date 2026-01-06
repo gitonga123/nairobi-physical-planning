@@ -6,7 +6,7 @@ use_helper("I18N");
   <strong><?php echo __('Well done'); ?>!</strong> <?php echo __('You successfully updated this record'); ?></a>.
 </div>
 
-<form id="conditionform" class="form-bordered" action="<?php echo url_for('/plan/conditionsmng/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>  autocomplete="off" data-ajax="false">
+<form id="conditionform" class="form-bordered" action="<?php echo url_for('/backend.php/conditionsmng/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>  autocomplete="off" data-ajax="false">
 
 <div class="panel panel-dark">
 <div class="panel-heading">
@@ -61,13 +61,13 @@ use_helper("I18N");
  /*jQuery(document).ready(function(){
 	$("#submitbuttonname").click(function() {
 		 $.ajax({
-			url: '<?php echo url_for('/plan/conditionsmng/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId().'&filter='.$filter : '?filter='.$filter)) ?>',
+			url: '<?php echo url_for('/backend.php/conditionsmng/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId().'&filter='.$filter : '?filter='.$filter)) ?>',
 			cache: false,
 			type: 'POST',
 			data : $('#conditionform').serialize(),
 			success: function(json) {
 				$('#alertdiv').attr("style", "display: block;");
-        $("#loadinner").load("<?php url_for('/plan/conditionsmng/index/filter/'.$filter); ?>");
+        $("#loadinner").load("<?php url_for('/backend.php/conditionsmng/index/filter/'.$filter); ?>");
 			}
 		});
 		return false;

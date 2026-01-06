@@ -25,7 +25,7 @@ if($sf_user->mfHasCredential("managelanguages"))
 
 
 
-      <form id="languageform" name="languageform"  action="/plan/languages/savetranslate" method="post" enctype="multipart/form-data"  autocomplete="off" data-ajax="false">
+      <form id="languageform" name="languageform"  action="/backend.php/languages/savetranslate" method="post" enctype="multipart/form-data"  autocomplete="off" data-ajax="false">
         <input type="hidden" name="filter" value="<?php echo $filter; ?>">
         <div class="panel panel-default">
 
@@ -34,12 +34,12 @@ if($sf_user->mfHasCredential("managelanguages"))
         </div>
 
         <div class="panel-heading text-right">
-                   <button type="submit" class="btn btn-primary" id="newlanguage" href="/plan/languages/new"><?php echo __('Save Translations'); ?></button>
-                   <a class="btn btn-primary" id="newlanguage" href="/plan/languages/translate"><?php echo __('Back to Languages'); ?></a>
+                   <button type="submit" class="btn btn-primary" id="newlanguage" href="/backend.php/languages/new"><?php echo __('Save Translations'); ?></button>
+                   <a class="btn btn-primary" id="newlanguage" href="/backend.php/languages/translate"><?php echo __('Back to Languages'); ?></a>
         </div>
 
         <div class="panel-heading text-right">
-          <select size="1" name="filter" aria-controls="table2" class="select2" onChange="window.location='/plan/languages/translate/filter/' + this.value;">
+          <select size="1" name="filter" aria-controls="table2" class="select2" onChange="window.location='/backend.php/languages/translate/filter/' + this.value;">
             <option value="2">Select ...</option>
             <option value="frontend" <?php if(empty($filter) || $filter=="frontend"){ echo "selected"; $filter = "frontend"; } ?>>Frontend</option>
             <option value="backend" <?php if($filter=="backend"){ echo "selected"; } ?>>Backend</option>

@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("managewebpages"))
         </div>
 
         <div class="panel-heading text-right">
-                <a class="btn btn-primary" id="newpage" href="/plan/content/new" > <?php echo __('+ Add WebPage'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/backend.php/content/new" > <?php echo __('+ Add WebPage'); ?></a>
         </div>
         <div class="panel-body">
         <div class="table-responsive">
@@ -32,10 +32,10 @@ if($sf_user->mfHasCredential("managewebpages"))
                         <td><?php echo $content->getId(); ?></td>
                         <td><?php echo $content->getMenuTitle();  ?></td>
                         <td>
-                            <a href="/plan/content/orderup/id/<?php echo $content->getId(); ?>"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
-                            <a href="/plan/content/orderdown/id/<?php echo $content->getId(); ?>"><span class="glyphicon glyphicon-circle-arrow-down"></span></a>
+                            <a href="/backend.php/content/orderup/id/<?php echo $content->getId(); ?>"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
+                            <a href="/backend.php/content/orderdown/id/<?php echo $content->getId(); ?>"><span class="glyphicon glyphicon-circle-arrow-down"></span></a>
                         </td>
-                        <td align="center"><a id="publish<?php echo $content->getId(); ?>" href="<?php echo '/plan/content/index?ptoggle='.$content->getId() ?>">
+                        <td align="center"><a id="publish<?php echo $content->getId(); ?>" href="<?php echo '/backend.php/content/index?ptoggle='.$content->getId() ?>">
                         <?php
                         if($content->getPublished() == "1")
                         {
@@ -49,12 +49,12 @@ if($sf_user->mfHasCredential("managewebpages"))
                         ?>
                         </a></td>
                         <td align="center">
-                            <a id="editpage<?php echo $content->getId(); ?>" href="/plan/content/edit/id/<?php echo $content->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="editpage<?php echo $content->getId(); ?>" href="/backend.php/content/edit/id/<?php echo $content->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
                             <?php
                             if($content->getPublished() == 0)
                             {
                             ?>
-                                <a id="deletepage<?php echo $content->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/content/delete/id/<?php echo $content->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                                <a id="deletepage<?php echo $content->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/content/delete/id/<?php echo $content->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                             <?php
                             }
                             ?>
@@ -91,7 +91,7 @@ if($sf_user->mfHasCredential("managewebpages"))
         else if (window.ActiveXObject) {
             self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        self.xmlHttpReq1.open('POST', '/plan/content/updateorder', true);
+        self.xmlHttpReq1.open('POST', '/backend.php/content/updateorder', true);
         self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         self.xmlHttpReq1.onreadystatechange = function() {
             if (self.xmlHttpReq1.readyState == 4) {

@@ -22,7 +22,7 @@ if ($sf_user->mfHasCredential("manageusers")) {
         <div class="breadcrumb-wrapper">
             <span class="label"><?php echo __('You are here'); ?>:</span>
             <ol class="breadcrumb">
-                <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+                <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
                 <li class="active"><?php echo __('Users'); ?></li>
             </ol>
         </div>
@@ -56,12 +56,12 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                     <?php
                                     if ($sf_user->mfHasCredential("manageusers")) {
                                     ?>
-                                        <a href="/plan/frusers/new" class="btn btn-primary tooltips table-btn" data-original-title="New User" data-toggle="tooltip"><span class="hidden-xs">+ <?php echo __('Add User'); ?></span></a>
+                                        <a href="/backend.php/frusers/new" class="btn btn-primary tooltips table-btn" data-original-title="New User" data-toggle="tooltip"><span class="hidden-xs">+ <?php echo __('Add User'); ?></span></a>
                                     <?php
                                     }
                                     ?>
                                 </th>
-                                <form method="post" action="/plan/frusers/index/filter/<?php echo $filter; ?><?php if ($filterstatus != "") {
+                                <form method="post" action="/backend.php/frusers/index/filter/<?php echo $filter; ?><?php if ($filterstatus != "") {
                                                                                                                         echo "/filterstatus/" . $filterstatus;
                                                                                                                     } ?>">
                                     <th class="b-b-0" style="width:50%;">
@@ -72,7 +72,7 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                     if (!sfConfig::get('app_sso_secret')) {
                                     ?>
                                         <th class="b-b-0 radius-tr">
-                                            <select size="1" name="filter_status" aria-controls="table2" class="select2" onChange="window.location='/plan/frusers/index/filterstatus/' + this.value;">
+                                            <select size="1" name="filter_status" aria-controls="table2" class="select2" onChange="window.location='/backend.php/frusers/index/filterstatus/' + this.value;">
                                                 <option value="1"><?php echo __('Select Status'); ?></option>
                                                 <option value="1" <?php if ($filterstatus == "1") {
                                                                         echo "selected='selected'";
@@ -151,26 +151,26 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                             }
                                             ?>
                                             <td class="aligncenter">
-                                                <a title="View User" href="/plan/frusers/show/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+                                                <a title="View User" href="/backend.php/frusers/show/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
                                                 <?php
                                                 if ($sf_user->mfHasCredential("manageusers") && sfConfig::get('app_enable_categories') == "yes") {
                                                     if ($user->getIsActive() != 1) {
                                                 ?>
-                                                        <a title="Activate User" href="/plan/frusers/activate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-check-circle"></i></span></a>
+                                                        <a title="Activate User" href="/backend.php/frusers/activate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-check-circle"></i></span></a>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <a title="Deactivate User" href="/plan/frusers/deactivate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-times-circle-o"></i></span></a>
+                                                        <a title="Deactivate User" href="/backend.php/frusers/deactivate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-times-circle-o"></i></span></a>
                                                     <?php
                                                     }
 
                                                     if ($user->getIsSuperAdmin() != 1) {
                                                     ?>
-                                                        <a title="Validate Email" href="/plan/frusers/validate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-check-circle"></i></span></a>
+                                                        <a title="Validate Email" href="/backend.php/frusers/validate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-check-circle"></i></span></a>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <a title="UnValidate Email" href="/plan/frusers/unvalidate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-times-circle-o"></i></span></a>
+                                                        <a title="UnValidate Email" href="/backend.php/frusers/unvalidate/id/<?php echo $user->getId(); ?>"><span class="label label-primary"><i class="fa fa-times-circle-o"></i></span></a>
                                                 <?php
                                                     }
                                                 }
@@ -194,7 +194,7 @@ if ($sf_user->mfHasCredential("manageusers")) {
 
                                         <?php if ($pager->haveToPaginate()) : ?>
                                             <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                <li><a href="/plan/frusers/index/page/1<?php if ($filter) {
+                                                <li><a href="/backend.php/frusers/index/page/1<?php if ($filter) {
                                                                                                     echo "/filter/" . $filter;
                                                                                                 } ?><?php if ($fromdate) {
                                                                                                         echo "/fromdate/" . $fromdate . "/todate/" . $todate;
@@ -202,7 +202,7 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
-                                                <li><a href="/plan/frusers/index/page/<?php echo $pager->getPreviousPage() ?><?php if ($filter) {
+                                                <li><a href="/backend.php/frusers/index/page/<?php echo $pager->getPreviousPage() ?><?php if ($filter) {
                                                                                                                                         echo "/filter/" . $filter;
                                                                                                                                     } ?><?php if ($fromdate) {
                                                                                                                                             echo "/fromdate/" . $fromdate . "/todate/" . $todate;
@@ -214,7 +214,7 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                                     <?php if ($page == $pager->getPage()) : ?>
                                                         <li class="active"><a href=""><?php echo $page ?></li></a>
                                                     <?php else : ?>
-                                                        <li><a href="/plan/frusers/index/page/<?php echo $page ?><?php if ($filter) {
+                                                        <li><a href="/backend.php/frusers/index/page/<?php echo $page ?><?php if ($filter) {
                                                                                                                             echo "/filter/" . $filter;
                                                                                                                         } ?><?php if ($fromdate) {
                                                                                                                                 echo "/fromdate/" . $fromdate . "/todate/" . $todate;
@@ -222,7 +222,7 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
 
-                                                <li><a href="/plan/frusers/index/page/<?php echo $pager->getNextPage() ?><?php if ($filter) {
+                                                <li><a href="/backend.php/frusers/index/page/<?php echo $pager->getNextPage() ?><?php if ($filter) {
                                                                                                                                     echo "/filter/" . $filter;
                                                                                                                                 } ?><?php if ($fromdate) {
                                                                                                                                         echo "/fromdate/" . $fromdate . "/todate/" . $todate;
@@ -230,7 +230,7 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
 
-                                                <li><a href="/plan/frusers/index/page/<?php echo $pager->getLastPage() ?><?php if ($filter) {
+                                                <li><a href="/backend.php/frusers/index/page/<?php echo $pager->getLastPage() ?><?php if ($filter) {
                                                                                                                                     echo "/filter/" . $filter;
                                                                                                                                 } ?><?php if ($fromdate) {
                                                                                                                                         echo "/fromdate/" . $fromdate . "/todate/" . $todate;

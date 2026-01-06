@@ -33,7 +33,7 @@ use_helper("I18N");
 <!--                            <td>--><?php //echo $e['sample_relation_id'] ? 'YES' : 'NO' ?><!--</td>-->
                             <td>
                                 <a class="btn btn-primary" id="newtemplate"
-                                   href="/plan/forms/addsignableattachment/form/<?php echo $e['form_id'] ?>/element/<?php echo $e['id'] ?>">
+                                   href="/backend.php/forms/addsignableattachment/form/<?php echo $e['form_id'] ?>/element/<?php echo $e['id'] ?>">
                                     <i class="fa fa-pencil"></i> UPDATE
                                 </a>
 

@@ -205,7 +205,7 @@ class frusersActions extends sfActions
     }
 
 
-    $this->redirect('/plan/frusers/index');
+    $this->redirect('/backend.php/frusers/index');
   }
 
 
@@ -398,7 +398,7 @@ class frusersActions extends sfActions
         $user->setIsActive("0");
         $user->save();
         $audit = new Audit();
-        $audit->saveAudit(0, "<a href=\"/plan/frusers/show?id=" . $user->getId() . "&language=en\">deactivated a user</a>");
+        $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show?id=" . $user->getId() . "&language=en\">deactivated a user</a>");
       }
     } else if ($request->getParameter("act") == "1") {
       $q = Doctrine_Query::create()
@@ -408,7 +408,7 @@ class frusersActions extends sfActions
         $user->setIsActive("1");
         $user->save();
         $audit = new Audit();
-        $audit->saveAudit(0, "<a href=\"/plan/frusers/show?id=" . $user->getId() . "&language=en\">activated a user</a>");
+        $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show?id=" . $user->getId() . "&language=en\">activated a user</a>");
       }
     }
 
@@ -431,7 +431,7 @@ class frusersActions extends sfActions
         }
 
         $audit = new Audit();
-        $audit->saveAudit(0, "<a href=\"/plan/frusers/show?id=" . $content->getId() . "&language=en\">deactivated a user</a>");
+        $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show?id=" . $content->getId() . "&language=en\">deactivated a user</a>");
       } else {
         $content->setIsActive("1");
         $to = $content->getProfile()->getEmail();
@@ -445,7 +445,7 @@ class frusersActions extends sfActions
           echo "Could not send mail";
         }
         $audit = new Audit();
-        $audit->saveAudit(0, "<a href=\"/plan/frusers/show?id=" . $content->getId() . "&language=en\">activated a user</a>");
+        $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show?id=" . $content->getId() . "&language=en\">activated a user</a>");
       }
       $content->save();
     }
@@ -456,12 +456,12 @@ class frusersActions extends sfActions
         $content->setIsSuperAdmin("0");
         $content->save();
         $audit = new Audit();
-        $audit->saveAudit(0, "<a href=\"/plan/frusers/show?id=" . $content->getId() . "&language=en\">unvalidated a user account</a>");
+        $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show?id=" . $content->getId() . "&language=en\">unvalidated a user account</a>");
       } else {
         $content->setIsSuperAdmin("1");
         $content->save();
         $audit = new Audit();
-        $audit->saveAudit(0, "<a href=\"/plan/frusers/show?id=" . $content->getId() . "&language=en\">validated a user account</a>");
+        $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show?id=" . $content->getId() . "&language=en\">validated a user account</a>");
       }
     }
 
@@ -727,7 +727,7 @@ class frusersActions extends sfActions
         $user->delete();
       }
     }
-    $this->redirect('/plan/frusers/show/id/' . $sf_guard_user->getId());
+    $this->redirect('/backend.php/frusers/show/id/' . $sf_guard_user->getId());
   }
 
 
@@ -762,7 +762,7 @@ class frusersActions extends sfActions
         //Redirect to additional user details form afterwards
         $user = $profile->getUser();
         $this->getUser()->setAttribute('new_user_id', $user->getId());
-        $this->redirect('/plan/frusers/adddetails?formid=15');
+        $this->redirect('/backend.php/frusers/adddetails?formid=15');
       } catch (Exception $e) {
         //$mailer->disconnect();
         $profile = $this->form->getObject();
@@ -807,7 +807,7 @@ class frusersActions extends sfActions
         //Redirect to additional user details form afterwards
         $user = $profile->getUser();
         $this->getUser()->setAttribute('new_user_id', $user->getId());
-        $this->redirect('/plan/frusers/settingsadddetails?formid=15');
+        $this->redirect('/backend.php/frusers/settingsadddetails?formid=15');
       } catch (Exception $e) {
         //$mailer->disconnect();
         $profile = $this->form->getObject();
@@ -907,7 +907,7 @@ class frusersActions extends sfActions
       $sf_guard_user->save();
 
       $audit = new Audit();
-      $audit->saveAudit(0, "<a href=\"/plan/frusers/show/id/" . $sf_guard_user->getId() . "\">Updated a user account</a>");
+      $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show/id/" . $sf_guard_user->getId() . "\">Updated a user account</a>");
     }
   }
 
@@ -959,9 +959,9 @@ class frusersActions extends sfActions
       $sf_guard_user->save();
 
       $audit = new Audit();
-      $audit->saveAudit(0, "<a href=\"/plan/frusers/show/id/" . $sf_guard_user->getId() . "\">Updated a user account</a>");
+      $audit->saveAudit(0, "<a href=\"/backend.php/frusers/show/id/" . $sf_guard_user->getId() . "\">Updated a user account</a>");
 
-      $this->redirect('/plan/settings/security?load=registeredmembers');
+      $this->redirect('/backend.php/settings/security?load=registeredmembers');
     }
   }
 }

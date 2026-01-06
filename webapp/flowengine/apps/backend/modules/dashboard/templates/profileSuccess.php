@@ -16,7 +16,7 @@
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo __('My Account'); ?></li>
     </ol>
   </div>
@@ -211,11 +211,11 @@
 
                                         <?php if ($current_paginator->haveToPaginate()): ?>
                                             <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                <li><a href="/plan/dashboard/profile/currentpage/1#end">
+                                                <li><a href="/backend.php/dashboard/profile/currentpage/1#end">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
-                                                <li> <a href="/plan/dashboard/profile/currentpage/<?php echo $current_paginator->getPreviousPage() ?>#end">
+                                                <li> <a href="/backend.php/dashboard/profile/currentpage/<?php echo $current_paginator->getPreviousPage() ?>#end">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
@@ -223,15 +223,15 @@
                                                     <?php if ($page == $current_paginator->getPage()): ?>
                                                         <li class="active"><a href=""><?php echo $page ?></a>
                                                     <?php else: ?>
-                                                        <li><a href="/plan/dashboard/profile/currentpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                        <li><a href="/backend.php/dashboard/profile/currentpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
 
-                                                <li> <a href="/plan/dashboard/profile/currentpage/<?php echo $current_paginator->getNextPage() ?>#end">
+                                                <li> <a href="/backend.php/dashboard/profile/currentpage/<?php echo $current_paginator->getNextPage() ?>#end">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
 
-                                                <li> <a href="/plan/dashboard/profile/currentpage/<?php echo $current_paginator->getLastPage() ?>#end">
+                                                <li> <a href="/backend.php/dashboard/profile/currentpage/<?php echo $current_paginator->getLastPage() ?>#end">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
                                             </ul>
@@ -298,11 +298,11 @@
 
                                             <?php if ($completed_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/plan/dashboard/profile/completepage/1#end">
+                                                    <li><a href="/backend.php/dashboard/profile/completepage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/plan/dashboard/profile/completepage/<?php echo $completed_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/completepage/<?php echo $completed_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
@@ -310,15 +310,15 @@
                                                         <?php if ($page == $completed_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
                                                         <?php else: ?>
-                                                            <li><a href="/plan/dashboard/profile/completepage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <li><a href="/backend.php/dashboard/profile/completepage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/plan/dashboard/profile/completepage/<?php echo $completed_paginator->getNextPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/completepage/<?php echo $completed_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/plan/dashboard/profile/completepage/<?php echo $completed_paginator->getLastPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/completepage/<?php echo $completed_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>
@@ -384,11 +384,11 @@
 
                                             <?php if ($cancel_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/plan/dashboard/profile/cancelpage/1#end">
+                                                    <li><a href="/backend.php/dashboard/profile/cancelpage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/plan/dashboard/profile/cancelpage/<?php echo $cancel_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/cancelpage/<?php echo $cancel_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
@@ -396,15 +396,15 @@
                                                         <?php if ($page == $cancel_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
                                                         <?php else: ?>
-                                                            <li><a href="/plan/dashboard/profile/cancelpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <li><a href="/backend.php/dashboard/profile/cancelpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/plan/dashboard/profile/cancelpage/<?php echo $cancel_paginator->getNextPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/cancelpage/<?php echo $cancel_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/plan/dashboard/profile/cancelpage/<?php echo $cancel_paginator->getLastPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/cancelpage/<?php echo $cancel_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>
@@ -444,11 +444,11 @@
 
                                             <?php if ($audit_paginator->haveToPaginate()): ?>
                                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                    <li><a href="/plan/dashboard/profile/auditpage/1#end">
+                                                    <li><a href="/backend.php/dashboard/profile/auditpage/1#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/plan/dashboard/profile/auditpage/<?php echo $audit_paginator->getPreviousPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/auditpage/<?php echo $audit_paginator->getPreviousPage() ?>#end">
                                                             <i class="fa fa-angle-left"></i>
                                                         </a></li>
 
@@ -456,15 +456,15 @@
                                                         <?php if ($page == $audit_paginator->getPage()): ?>
                                                             <li class="active"><a href=""><?php echo $page ?></a>
                                                         <?php else: ?>
-                                                            <li><a href="/plan/dashboard/profile/auditpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
+                                                            <li><a href="/backend.php/dashboard/profile/auditpage/<?php echo $page ?>#end"><?php echo $page ?></a></li>
                                                         <?php endif; ?>
                                                     <?php endforeach; ?>
 
-                                                    <li> <a href="/plan/dashboard/profile/auditpage/<?php echo $audit_paginator->getNextPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/auditpage/<?php echo $audit_paginator->getNextPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
 
-                                                    <li> <a href="/plan/dashboard/profile/auditpage/<?php echo $audit_paginator->getLastPage() ?>#end">
+                                                    <li> <a href="/backend.php/dashboard/profile/auditpage/<?php echo $audit_paginator->getLastPage() ?>#end">
                                                             <i class="fa fa-angle-right"></i>
                                                         </a></li>
                                                 </ul>

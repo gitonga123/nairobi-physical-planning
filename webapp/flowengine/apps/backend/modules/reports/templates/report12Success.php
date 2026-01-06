@@ -40,7 +40,7 @@ function GetDays($sStartDate, $sEndDate){
 			<label style='height: 30px; margin-top: 0px;'>
 			<div style='float: left; font-size: 20px; font-weight: 700;'>Financial Reports</div>
              <div style="float: right;">
-                <a href="/plan/reports/printreport12/form/<?php echo $_POST['application_form']; ?>/startdate/<?php echo $fromdate; ?>/enddate/<?php echo $todate; ?>"><u>Export to Excel</u></a>
+                <a href="/backend.php/reports/printreport12/form/<?php echo $_POST['application_form']; ?>/startdate/<?php echo $fromdate; ?>/enddate/<?php echo $todate; ?>"><u>Export to Excel</u></a>
              </div>
             </label>
 			<fieldset style="margin: 0px;">
@@ -463,7 +463,7 @@ echo "&nbsp; &nbsp;".mysql_num_rows($results)." entries found. <br><br>";
 						?>
 						</td>
 						<td class="c">
-						<a title='View Application' href='/plan/applications/view/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
+						<a title='View Application' href='/backend.php/applications/view/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
 						</td>
 					</tr>
 				<?php
@@ -900,7 +900,7 @@ echo "&nbsp; &nbsp;".$resultsize." entries found. <br><br>";
 						?>
 						</td>
 						<td class="c">
-						<a title='View Application' href='/plan/applications/view/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
+						<a title='View Application' href='/backend.php/applications/view/id/<?php echo $application->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
 						</td>
 					</tr>
 				<?php

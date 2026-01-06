@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("managefaqs"))
         </div>
 
         <div class="panel-heading text-right">
-                <a class="btn btn-primary" id="newpage" href="/plan/announcements/new" ><?php echo __('+ Add Announcement'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/backend.php/announcements/new" ><?php echo __('+ Add Announcement'); ?></a>
         </div>
         <div class="panel-body">
 
@@ -49,8 +49,8 @@ if($sf_user->mfHasCredential("managefaqs"))
                         ?>
                         </td>
                         <td align="center">
-                            <a id="editpage<?php echo $announcement->getId(); ?>" href="/plan/announcements/edit/id/<?php echo $announcement->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $announcement->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/announcements/delete/id/<?php echo $announcement->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $announcement->getId(); ?>" href="/backend.php/announcements/edit/id/<?php echo $announcement->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $announcement->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/announcements/delete/id/<?php echo $announcement->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

@@ -23,7 +23,7 @@ class installActions extends sfActions
     $site_settings = $q->fetchOne();
     if($site_settings)
     {
-        $this->redirect("/plan");
+        $this->redirect("/backend.php");
     }
 
     $this->setLayout("layout-install");
@@ -110,7 +110,7 @@ class installActions extends sfActions
     $cf_user->setStrtemppassword("");
     $cf_user->save();
 
-    $this->redirect("/plan");
+    $this->redirect("/backend.php");
 
     $this->setLayout("layout-login");
   }

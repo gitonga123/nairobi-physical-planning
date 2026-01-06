@@ -85,7 +85,7 @@ class conditionsmngActions extends sfActions
 
     $conditions_of_approval->delete();
 
-    $this->redirect('/plan/conditionsmng/index/filter/'.$conditions_of_approval->getPermitId());
+    $this->redirect('/backend.php/conditionsmng/index/filter/'.$conditions_of_approval->getPermitId());
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -96,9 +96,9 @@ class conditionsmngActions extends sfActions
       $conditions_of_approval = $form->save();
 
       $audit = new Audit();
-      $audit->saveAudit("", "<a href=\"/plan/conditionsmng/edit?id=".$conditions_of_approval->getId()."&language=en\">updated a condition of approval</a>");
+      $audit->saveAudit("", "<a href=\"/backend.php/conditionsmng/edit?id=".$conditions_of_approval->getId()."&language=en\">updated a condition of approval</a>");
 
-      $this->redirect('/plan/conditionsmng/index/filter/'.$conditions_of_approval->getPermitId());
+      $this->redirect('/backend.php/conditionsmng/index/filter/'.$conditions_of_approval->getPermitId());
     }
   }
 }

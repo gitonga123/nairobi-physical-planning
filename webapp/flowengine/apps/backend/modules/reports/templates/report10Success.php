@@ -25,7 +25,7 @@
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan"><?php echo __('Reports'); ?></a></li>
+      <li><a href="/backend.php"><?php echo __('Reports'); ?></a></li>
       <li class="active"><?php echo __('Audit Trail'); ?></li>
     </ol>
   </div>
@@ -63,7 +63,7 @@
 						<tr>
 							<td><?php echo $count; ?></td>
 							<td>
-							<a href='/plan/users/showuser?id=<?php echo $thisuser->getNid(); ?>'>
+							<a href='/backend.php/users/showuser?id=<?php echo $thisuser->getNid(); ?>'>
 							<?php
 							echo $thisuser->getStrlastname()." ".$thisuser->getStrfirstname();
 							?></a>
@@ -78,7 +78,7 @@
 								$application = $q->fetchOne();
 								if($application)
 								{
-									echo "<a href='/plan/applications/view/id/".$application->getId()."'>".$application->getApplicationId()."</a> - ";
+									echo "<a href='/backend.php/applications/view/id/".$application->getId()."'>".$application->getApplicationId()."</a> - ";
 								}
 							}
 
@@ -105,11 +105,11 @@
 
 						<?php if ($pager->haveToPaginate()): ?>
 							<ul class="pagination pagination-sm mb0 mt0 pull-right">
-							<li><a href="/plan/reports/report10/page/1<?php if($reviewer){ echo "/reviewer/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+							<li><a href="/backend.php/reports/report10/page/1<?php if($reviewer){ echo "/reviewer/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
 								<i class="fa fa-angle-left"></i>
 							</a></li>
 
-							<li><a href="/plan/reports/report10/page/<?php echo $pager->getPreviousPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+							<li><a href="/backend.php/reports/report10/page/<?php echo $pager->getPreviousPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
 								<i class="fa fa-angle-left"></i>
 							</a></li>
 
@@ -117,15 +117,15 @@
 								<?php if ($page == $pager->getPage()): ?>
 								<li class="active"><a href=""><?php echo $page ?></li></a>
 								<?php else: ?>
-								<li><a href="/plan/reports/report10/page/<?php echo $page ?><?php if($reviewer){ echo "/reviewer/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>"><?php echo $page ?></a></li>
+								<li><a href="/backend.php/reports/report10/page/<?php echo $page ?><?php if($reviewer){ echo "/reviewer/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>"><?php echo $page ?></a></li>
 								<?php endif; ?>
 							<?php endforeach; ?>
 
-							<li><a href="/plan/reports/report10/page/<?php echo $pager->getNextPage() ?><?php if($reviewer){ echo "/reviewer/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+							<li><a href="/backend.php/reports/report10/page/<?php echo $pager->getNextPage() ?><?php if($reviewer){ echo "/reviewer/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
 								<i class="fa fa-angle-right"></i>
 							</a></li>
 
-							<li><a href="/plan/reports/report10/page/<?php echo $pager->getLastPage() ?><?php if($reviewer){ echo "/reviewr/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
+							<li><a href="/backend.php/reports/report10/page/<?php echo $pager->getLastPage() ?><?php if($reviewer){ echo "/reviewr/".$reviewer; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?>">
 								<i class="fa fa-angle-right"></i>
 							</a>
 							</li>
@@ -141,6 +141,6 @@
 	</div>
 
 	<div align="center">
-		<a class="btn btn-primary" href="/plan/reports/printreport10">Print Report</a>
+		<a class="btn btn-primary" href="/backend.php/reports/printreport10">Print Report</a>
 	</div>
 </div>

@@ -19,7 +19,7 @@ if($sf_user->mfHasCredential("manageusers"))
   <div class="breadcrumb-wrapper" style="margin-top: 10px;">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo $profile_form->getFormName(); ?></li>
     </ol>
   </div>
@@ -43,7 +43,7 @@ if($sf_user->mfHasCredential("manageusers"))
   <table class="table b-b-0">
       <thead class="form-horizontal">
       <tr>
-          <form method="post" action="/plan/profiles/index/filter/<?php echo $filter; ?><?php if($filterstatus != ""){ echo "/filterstatus/".$filterstatus; } ?>">
+          <form method="post" action="/backend.php/profiles/index/filter/<?php echo $filter; ?><?php if($filterstatus != ""){ echo "/filterstatus/".$filterstatus; } ?>">
               <th class="b-b-0" style="width:100%;" colspan="2">
                       <input name="search" value="<?php echo $search; ?>" placeholder="<?php echo __('Search'); ?>" type="text" class="form-control p10">
               </th>
@@ -51,7 +51,7 @@ if($sf_user->mfHasCredential("manageusers"))
           </form>
       </tr>
       <tr>
-          <form method="post" action="/plan/profiles/index/filter/<?php echo $filter; ?><?php if($filterstatus != ""){ echo "/filterstatus/".$filterstatus; } ?>">
+          <form method="post" action="/backend.php/profiles/index/filter/<?php echo $filter; ?><?php if($filterstatus != ""){ echo "/filterstatus/".$filterstatus; } ?>">
               <th class="b-b-0">
                        <?php 
                         $q = Doctrine_Query::create()
@@ -73,7 +73,7 @@ if($sf_user->mfHasCredential("manageusers"))
                         jQuery(document).ready(function(){
                             jQuery("#form_dropdown_fields" ).change(function() {
                                 var selecteditem = this.value;
-                                $.ajax({url:"/plan/profiles/getdropdownvaluefields?formid='.$filter.'&elementid=" + selecteditem,success:function(result){
+                                $.ajax({url:"/backend.php/profiles/getdropdownvaluefields?formid='.$filter.'&elementid=" + selecteditem,success:function(result){
                                     $("#ajaxdropdownvaluefields").html(result);
                                 }});
                             });
@@ -86,7 +86,7 @@ if($sf_user->mfHasCredential("manageusers"))
               <th class="b-b-0 radius-tr">
                 <select size="1" name="filter_status" aria-controls="table2"
                         class="select2 form-control"
-                        onChange="window.location='/plan/profiles/index/filter/<?php echo $filter; ?>/filterstatus/' + this.value;">
+                        onChange="window.location='/backend.php/profiles/index/filter/<?php echo $filter; ?>/filterstatus/' + this.value;">
                     <option value="1"><?php echo __('Select Status'); ?></option>
                     <option value="0" <?php if ($filterstatus == "1") {
                         echo "selected='selected'";
@@ -134,7 +134,7 @@ if($sf_user->mfHasCredential("manageusers"))
         <td><?php echo $business->getCreatedAt() ?></td>
         <td><?php echo ($business->getDeleted())?"<span class='label label-danger'>Not Active</span>":"<span class='label label-success'>Active</span>"; ?></td>
         <td>
-            <a title="<?php echo __('View Business'); ?>" href="/plan/profiles/view/id/<?php echo $business->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+            <a title="<?php echo __('View Business'); ?>" href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
         </td>
       </tr>
       <?php
@@ -153,11 +153,11 @@ if($sf_user->mfHasCredential("manageusers"))
 
           <?php if ($pager->haveToPaginate()): ?>
               <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                  <li><a href="/plan/profiles/index/page/1<?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
+                  <li><a href="/backend.php/profiles/index/page/1<?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
                           <i class="fa fa-angle-left"></i>
                       </a></li>
 
-                  <li><a href="/plan/profiles/index/page/<?php echo $pager->getPreviousPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
+                  <li><a href="/backend.php/profiles/index/page/<?php echo $pager->getPreviousPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
                           <i class="fa fa-angle-left"></i>
                       </a></li>
 
@@ -165,15 +165,15 @@ if($sf_user->mfHasCredential("manageusers"))
                       <?php if ($page == $pager->getPage()): ?>
                           <li class="active"><a href=""><?php echo $page ?></li></a>
                       <?php else: ?>
-                          <li><a href="/plan/profiles/index/page/<?php echo $page ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>"><?php echo $page ?></a></li>
+                          <li><a href="/backend.php/profiles/index/page/<?php echo $page ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>"><?php echo $page ?></a></li>
                       <?php endif; ?>
                   <?php endforeach; ?>
 
-                  <li><a href="/plan/profiles/index/page/<?php echo $pager->getNextPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
+                  <li><a href="/backend.php/profiles/index/page/<?php echo $pager->getNextPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
                           <i class="fa fa-angle-right"></i>
                       </a></li>
 
-                  <li><a href="/plan/profiles/index/page/<?php echo $pager->getLastPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
+                  <li><a href="/backend.php/profiles/index/page/<?php echo $pager->getLastPage() ?><?php if($filter){ echo "/filter/".$filter; } ?><?php if($fromdate){ echo "/fromdate/".$fromdate."/todate/".$todate; } ?><?php if($dropdown){ echo "/dropdown/".$filter_dropdown."/element/".$filter_element; } ?>">
                           <i class="fa fa-angle-right"></i>
                       </a>
                   </li>

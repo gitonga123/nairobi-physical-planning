@@ -288,22 +288,22 @@ if($sf_user->isAuthenticated()){
 									?>
 									</td>
 									<td class="c">
-										<a title='View Task' href='/plan/tasks/view/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
+										<a title='View Task' href='/backend.php/tasks/view/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/create_write.png'></a>
 										<?php
 										/**
 										if($task->getStatus() == "1"){
 										?>
-											<a title='Complete Task' href='/plan/tasks/complete/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/tick.png'> </a>
-											<a title='Transfer Task' href='/plan/tasks/transfer/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/shuffle.png'> </a>
-											<a title='Postpone Task' href='/plan/tasks/postpone/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/timer.png'> </a>
-											<a title='Cancel Task' href='/plan/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/cross.png'> </a>
+											<a title='Complete Task' href='/backend.php/tasks/complete/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/tick.png'> </a>
+											<a title='Transfer Task' href='/backend.php/tasks/transfer/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/shuffle.png'> </a>
+											<a title='Postpone Task' href='/backend.php/tasks/postpone/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/timer.png'> </a>
+											<a title='Cancel Task' href='/backend.php/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/cross.png'> </a>
 										<?php
 										}
 										else if($task->getStatus() == "2")
 										{
 										?>
-											<a title='Confirm Completion' href='/plan/tasks/complete/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/tick.png'> </a>
-											<a title='Return To Reviewer' href='/plan/tasks/return/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/arrow_left.png'> </a>
+											<a title='Confirm Completion' href='/backend.php/tasks/complete/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/tick.png'> </a>
+											<a title='Return To Reviewer' href='/backend.php/tasks/return/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/arrow_left.png'> </a>
 										<?php
 										}
 										else if($task->getStatus() == "25")
@@ -315,8 +315,8 @@ if($sf_user->isAuthenticated()){
 										else if($task->getStatus() == "5")
 										{
 										?>
-											<a title='Confirm Cancellation' href='/plan/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/tick.png'> </a>
-											<a title='Return To Reviewer' href='/plan/tasks/return/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/arrow_left'> </a>
+											<a title='Confirm Cancellation' href='/backend.php/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/tick.png'> </a>
+											<a title='Return To Reviewer' href='/backend.php/tasks/return/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/arrow_left'> </a>
 										<?php
 										}
 										else if($task->getStatus() == "55")
@@ -328,16 +328,16 @@ if($sf_user->isAuthenticated()){
 										else if($task->getStatus() == "3")
 										{
 										?>
-											<a title='Resume Task' href='/plan/tasks/return/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/arrow_left.png'>  </a>
-											<a title='Transfer Task' href='/plan/tasks/transfer/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/shuffle.png'> </a>
-											<a title='Cancel Task' href='/plan/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/cross.png'> </a>
+											<a title='Resume Task' href='/backend.php/tasks/return/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/arrow_left.png'>  </a>
+											<a title='Transfer Task' href='/backend.php/tasks/transfer/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/shuffle.png'> </a>
+											<a title='Cancel Task' href='/backend.php/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/cross.png'> </a>
 										<?php
 										}
 										else if($task->getStatus() == "4")
 										{
 										?>
-											<a title='Confirm Transfer' href='/plan/tasks/transfer/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/shuffle.png'> </a>
-											<a title='Cancel Task' href='/plan/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/cross.png'></a>
+											<a title='Confirm Transfer' href='/backend.php/tasks/transfer/id/<?php echo $task->getId(); ?>'><img src='/assets_backend/images/icons/dark/shuffle.png'> </a>
+											<a title='Cancel Task' href='/backend.php/tasks/cancel/id/<?php echo $task->getId(); ?>'> <img src='/assets_backend/images/icons/dark/cross.png'></a>
 										<?php
 										}
 										else if($task->getStatus() == "45")

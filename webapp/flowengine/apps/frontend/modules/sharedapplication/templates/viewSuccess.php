@@ -442,7 +442,7 @@ EOT;
 					->where('f.form_id = ?', $link->getFormId());
 				$link_form = $q->fetchOne();
 				?>
-				<a href="/plan/sharedapplication/edit?link=<?php echo $link->getId(); ?>"
+				<a href="/index.php/sharedapplication/edit?link=<?php echo $link->getId(); ?>"
 					class="btn btn-primary dropdown-toggle waves-effect"><i
 						class="fa fa-edit"></i><?php echo __('Edit') . ' ' . $link_form->getFormName() ?> </a>
 			<?php endif; ?>
@@ -533,7 +533,7 @@ EOT;
 					$cat_forms = $q->fetchOne();
 					if ($cat_forms) {
 						//
-						echo "<a class=\"btn btn-primary\" href='/plan/forms/view?id=" . $form_link->getFormId() . "&linkto=" . $application->getId() . "'>" . 'Apply for' . " " . $form_link->getFormName() . "</a>";
+						echo "<a class=\"btn btn-primary\" href='/index.php/forms/view?id=" . $form_link->getFormId() . "&linkto=" . $application->getId() . "'>" . 'Apply for' . " " . $form_link->getFormName() . "</a>";
 					}
 
 					$action_count++;
@@ -596,14 +596,14 @@ EOT;
 								if (sizeof($links) > 0) {
 									$link = $q->fetchOne();
 									?>
-									<a href="/plan/forms/edit?id=<?php echo $link->getId(); ?>"
+									<a href="/index.php/forms/edit?id=<?php echo $link->getId(); ?>"
 										class="btn-xs btn-primary panel-edit">Edit Additional Information</a>
 									<?php
 								} else {
 									if ($application->getFormId() == "60" || $application->getFormId() == "47" || $application->getFormId() == "48" || $application->getFormId() == "49") {
 										?>
 										<a <?php echo $disabled; ?>
-											href="/plan/forms/view?id=61&linkto=<?php echo $application->getId(); ?>"
+											href="/index.php/forms/view?id=61&linkto=<?php echo $application->getId(); ?>"
 											class="btn-xs btn-primary panel-edit">Submit Additional Information</a>
 										<?php
 									}
@@ -618,7 +618,7 @@ EOT;
 								if (sizeof($links) > 0) {
 									$link = $q->fetchOne();
 									?>
-									<a href="/plan/forms/edit?id=<?php echo $link->getId(); ?>"
+									<a href="/index.php/forms/edit?id=<?php echo $link->getId(); ?>"
 										class="btn-xs btn-primary panel-edit">Edit Occupancy Permit</a>
 
 									<?php
@@ -636,7 +636,7 @@ EOT;
 										}
 										?>
 										<a <?php echo $disabled; ?>
-											href="/plan/forms/view?id=25&linkto=<?php echo $application->getId(); ?>"
+											href="/index.php/forms/view?id=25&linkto=<?php echo $application->getId(); ?>"
 											class="btn-xs btn-primary panel-edit">Apply for Occupancy Permit</a>
 
 										<?php
@@ -1406,21 +1406,21 @@ EOT;
 															}
 														} ?>
 														<button class="btn btn-white" id="printinvoice" type="button"
-															onClick="window.location='/plan/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>';"><i
+															onClick="window.location='/index.php/invoices/printinvoice/id/<?php echo $invoice->getId(); ?>';"><i
 																class="fa fa-print mr5"></i>
 															<?php echo __('Print Invoice'); ?></button>
 														<?php
 														if ($invoice->getPaid() == 1) {
 															?>
 															<button class="btn btn-white" id="makepayment" type="button"
-																onClick="window.location='/plan/forms/payment?id=<?php echo $application->getFormId(); ?>&entryid=<?php echo $application->getEntryId(); ?>&invoiceid=<?php echo $invoice->getId(); ?>';"><i
+																onClick="window.location='/index.php/forms/payment?id=<?php echo $application->getFormId(); ?>&entryid=<?php echo $application->getEntryId(); ?>&invoiceid=<?php echo $invoice->getId(); ?>';"><i
 																	class="fa fa-print mr5"></i>
 																<?php echo __('Make Payment'); ?></button>
 														<?php }
 														if ($invoice->getPaid() == 15) {
 															?>
 															<button class="btn btn-white" id="makepayment" type="button"
-																onClick="window.location='/plan/forms/payment?id=<?php echo $application->getFormId(); ?>&entryid=<?php echo $application->getEntryId(); ?>&invoiceid=<?php echo $invoice->getId(); ?>';"><i
+																onClick="window.location='/index.php/forms/payment?id=<?php echo $application->getFormId(); ?>&entryid=<?php echo $application->getEntryId(); ?>&invoiceid=<?php echo $invoice->getId(); ?>';"><i
 																	class="fa fa-print mr5"></i>
 																<?php echo __('Add Payment'); ?></button>
 														<?php } ?>
@@ -1436,7 +1436,7 @@ EOT;
 															$count = 0;
 															foreach ($invoice->getUploadReceipt() as $receipt) {
 																$count++;
-																echo "<li><font style='font-weight: 900;'>" . __('Receipt') . " " . $count . "</font><br> <a target='_blank' href='/plan/invoices/viewreceipt?form_id=" . $receipt->getFormId() . "&id=" . $receipt->getEntryId() . "'>(" . __('View Receipt') . "</a></li>";
+																echo "<li><font style='font-weight: 900;'>" . __('Receipt') . " " . $count . "</font><br> <a target='_blank' href='/index.php/invoices/viewreceipt?form_id=" . $receipt->getFormId() . "&id=" . $receipt->getEntryId() . "'>(" . __('View Receipt') . "</a></li>";
 															}
 														}
 														?>
@@ -1515,7 +1515,7 @@ EOT;
 					?>
 
 					<div id="tabs7" class="tab-pane">
-						<form action="/plan/application/view/id/<?php echo $application->getId(); ?>" method="post"
+						<form action="/index.php/application/view/id/<?php echo $application->getId(); ?>" method="post"
 							autocomplete="off" data-ajax="false">
 							<?php
 

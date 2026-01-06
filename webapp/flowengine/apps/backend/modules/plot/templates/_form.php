@@ -6,7 +6,7 @@ use_helper("I18N");
   <strong><?php echo __('Well done'); ?>!</strong> <?php echo __('You successfully updated this record'); ?></a>.
 </div>
 
-<form id="plotform" class="form-bordered" action="<?php echo url_for('/plan/plot/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form id="plotform" class="form-bordered" action="<?php echo url_for('/backend.php/plot/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
 <div class="panel panel-dark">
 <div class="panel-heading">
@@ -91,7 +91,7 @@ use_helper("I18N");
  jQuery(document).ready(function(){
 	$("#submitbuttonname").click(function() {
 		 $.ajax({
-			url: '<?php echo url_for('/plan/plot/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
+			url: '<?php echo url_for('/backend.php/plot/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
 			cache: false,
 			type: 'POST',
 			data : $('#plotform').serialize(),

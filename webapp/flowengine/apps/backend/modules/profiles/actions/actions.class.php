@@ -172,7 +172,7 @@ class profilesActions extends sfActions
       jQuery(document).ready(function(){
           jQuery("#form_dropdown_value_fields" ).change(function() {
               var selecteditem = this.value;
-              window.location = "/plan/profiles/index/filter/'.$request->getParameter('formid').'/dropdown/" + selecteditem + "/element/'.$request->getParameter('elementid').'";
+              window.location = "/backend.php/profiles/index/filter/'.$request->getParameter('formid').'/dropdown/" + selecteditem + "/element/'.$request->getParameter('elementid').'";
           });
       });
     </script>';
@@ -308,7 +308,7 @@ class profilesActions extends sfActions
                 $application->save();
             }
 
-            $this->redirect("/plan/profiles/view/id/".$this->business->getId());
+            $this->redirect("/backend.php/profiles/view/id/".$this->business->getId());
         }
     }
   }
@@ -328,7 +328,7 @@ class profilesActions extends sfActions
     $this->business->setDeleted(0);
     $this->business->save();
 
-    $this->redirect("/plan/profiles/view/id/".$this->business->getId());
+    $this->redirect("/backend.php/profiles/view/id/".$this->business->getId());
   }
 
   /**
@@ -346,7 +346,7 @@ class profilesActions extends sfActions
     $this->business->setDeleted(1);
     $this->business->save();
 
-    $this->redirect("/plan/profiles/view/id/".$this->business->getId());
+    $this->redirect("/backend.php/profiles/view/id/".$this->business->getId());
   }
 
   /**

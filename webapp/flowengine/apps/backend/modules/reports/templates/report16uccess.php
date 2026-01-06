@@ -17,7 +17,7 @@ function GetDays($sStartDate, $sEndDate){
 ?> 
  <div class="g12" style="padding-left: 10px;">
     <p>		
-        <button onClick="window.location = '/plan/reports/report13export/fromdate/<?php echo $fromdate; ?>/todate/<?php echo $todate; ?>';">Export to excel</button>
+        <button onClick="window.location = '/backend.php/reports/report13export/fromdate/<?php echo $fromdate; ?>/todate/<?php echo $todate; ?>';">Export to excel</button>
             <table>
                     <thead>
                             <tr>
@@ -120,7 +120,7 @@ function GetDays($sStartDate, $sEndDate){
                                             <td><?php echo $five; ?></td>
                                             <td><?php echo $six; ?></td>
                                             <td class="c">
-                                                <a title='View Task' href='/plan/application/view/id/<?php echo $application->getId(); ?>'><img src='/asset_styles/images/icons/dark/create_write.png'></a>
+                                                <a title='View Task' href='/backend.php/application/view/id/<?php echo $application->getId(); ?>'><img src='/asset_styles/images/icons/dark/create_write.png'></a>
                                             </td>
                                     </tr>
                                     <?php

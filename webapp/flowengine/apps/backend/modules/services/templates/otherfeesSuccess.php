@@ -5,11 +5,11 @@ use_helper("I18N");
     <div class="panel panel-default">
       <div class="panel-heading">
           <h3 class="panel-title"><?php echo __('Fixed Charges'); ?></h3>
-          <a href="/plan/services" class="btn btn-primary pull-right" style="margin-top: -26px;">Back to Services</a>
+          <a href="/backend.php/services" class="btn btn-primary pull-right" style="margin-top: -26px;">Back to Services</a>
       </div>
 
 
-    <form action="/plan/services/saveotherfees/id/<?php echo $service->getId(); ?>" method="post">
+    <form action="/backend.php/services/saveotherfees/id/<?php echo $service->getId(); ?>" method="post">
 
         <div class="panel-body">
 

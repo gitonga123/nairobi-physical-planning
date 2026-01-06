@@ -107,7 +107,7 @@ class groupsActions extends sfActions
     {
       $mf_guard_group = $form->save();
 
-      $this->redirect('/plan/groups/index');
+      $this->redirect('/backend.php/groups/index');
     }
   }
 
@@ -128,7 +128,7 @@ class groupsActions extends sfActions
 
     $mf_guard_group->delete();
 
-    $this->redirect('/plan/groups/index');
+    $this->redirect('/backend.php/groups/index');
   }
   
   /**
@@ -160,6 +160,6 @@ class groupsActions extends sfActions
             $group_permission->save();
         }
   
-        $this->redirect("/plan/groups/index");
+        $this->redirect("/backend.php/groups/index");
   }
 }

@@ -65,9 +65,9 @@
 							   ->where('b.id = ?', $application->getUserId());
 							$theuser = $q->fetchOne();
 							?>
-                            <a href='/plan/frusers/show?id=<?php echo $theuser->getId(); ?>'><?php echo $theuser->getProfile()->getFullname(); ?></a>
+                            <a href='/backend.php/frusers/show?id=<?php echo $theuser->getId(); ?>'><?php echo $theuser->getProfile()->getFullname(); ?></a>
                             </td>
-                            <td><a href="/plan/forms/viewentry?form_id=<?php echo $application->getFormId(); ?>&id=<?php echo $application->getEntryId(); ?>" class="view-record">View</a></td>
+                            <td><a href="/backend.php/forms/viewentry?form_id=<?php echo $application->getFormId(); ?>&id=<?php echo $application->getEntryId(); ?>" class="view-record">View</a></td>
                         </tr>
                         <?php
 						}

@@ -13,7 +13,7 @@
           {
         ?>
         <p class="account-subtitle mb-2">Enter and confirm your new password in the form below.</p>
-         <form method="post" action="/plan/login/reset/code/<?php echo $token; ?>" autocomplete="off">
+         <form method="post" action="/backend.php/login/reset/code/<?php echo $token; ?>" autocomplete="off">
             <?php if ($form->isCSRFProtected()) : ?>
                 <?php echo $form['_csrf_token']->render(); ?>
             <?php endif; ?>

@@ -25,7 +25,7 @@ if($sf_user->mfHasCredential("managelanguages"))
 
 
 
-            <form id="languageform" name="languageform"  action="/plan/forms/savetranslate/id/<?php echo $_GET['id']; ?>/service/<?php echo $_GET['filter'] ?>" method="post" enctype="multipart/form-data"  autocomplete="off" data-ajax="false">
+            <form id="languageform" name="languageform"  action="/backend.php/forms/savetranslate/id/<?php echo $_GET['id']; ?>/service/<?php echo $_GET['filter'] ?>" method="post" enctype="multipart/form-data"  autocomplete="off" data-ajax="false">
                 <input type="hidden" name="filter" value="<?php echo $filter; ?>">
 
                 <div class="panel-heading">

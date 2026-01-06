@@ -122,7 +122,7 @@ use_helper("I18N");
 												$('#strEMail').change(function () {
 													$.ajax({
 														type: "POST",
-														url: "/plan/users/checkemail",
+														url: "/backend.php/users/checkemail",
 														data: {
 															'email': $('input:text[name=strEMail]').val()
 														},
@@ -160,7 +160,7 @@ use_helper("I18N");
 												$('#UserName').change(function () {
 													$.ajax({
 														type: "POST",
-														url: "/plan/users/checkuser",
+														url: "/backend.php/users/checkuser",
 														data: {
 															'username': $('input:text[name=UserName]').val()
 														},
@@ -181,7 +181,7 @@ use_helper("I18N");
 
 												<div class="col-sm-8">
 													<button class="btn btn-primary mr20" type="button"
-														onClick="window.location='/plan/users/reset/email/<?php echo $strEMail; ?>'">Reset
+														onClick="window.location='/backend.php/users/reset/email/<?php echo $strEMail; ?>'">Reset
 														Password</button>
 												</div>
 
@@ -518,7 +518,7 @@ use_helper("I18N");
 			});
 			if (submit_form) {
 				$.ajax({
-					url: '/plan/users/writeuser',
+					url: '/backend.php/users/writeuser',
 					cache: false,
 					type: 'POST',
 					data: $('#reviewerform').serialize(),

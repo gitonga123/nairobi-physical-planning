@@ -34,11 +34,11 @@ use_helper("I18N");
                                 <td><?php echo $invoice->getStatus() ?></td>
                                 <td>
                                     <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>'
-                                        href='/plan/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?>
+                                        href='/index.php/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?>
                                     </a>
 
                                     <?php if ($invoice->getPaid() == 1 || $invoice->getPaid() == 15) { ?>
-                                        <a href="/plan/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>"
+                                        <a href="/index.php/forms/payment?id=<?php echo $invoice->getFormEntry()->getFormId(); ?>&app_id=<?php echo $invoice->getFormEntry()->getEntryId(); ?>&invoice=<?php echo $invoice->getId(); ?>"
                                             class="btn btn-primary btn-sm"><i class="fas fa-money-bill"></i>
                                             <?php echo __(" Pay now");
                                             ?>
@@ -48,7 +48,7 @@ use_helper("I18N");
                                     <?php if ($invoice->getPaid() == 2 && !empty($invoice->getReceiptNumber())) {
                                         ?>
                                         <a title="Download Receipt"
-                                            href="<?php echo "/plan/invoices/view/id/{$invoice->getId()}/#download-receipt-section" ?>"
+                                            href="<?php echo "/index.php/invoices/view/id/{$invoice->getId()}/#download-receipt-section" ?>"
                                             class="btn btn-outline-dark btn-sm"><i class="fas fa-file-download"></i>
                                             <?php echo __(" Receipt");
                                             ?>

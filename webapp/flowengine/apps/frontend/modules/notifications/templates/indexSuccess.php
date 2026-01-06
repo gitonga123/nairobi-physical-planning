@@ -17,7 +17,7 @@
     <div class="breadcrumb-wrapper">
         <span class="label"><?php echo __('You are here'); ?>:</span>
         <ol class="breadcrumb">
-            <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+            <li><a href="/index.php"><?php echo __('Home'); ?></a></li>
             <li class="active"><?php echo __('Notifications'); ?></li>
         </ol>
     </div>
@@ -100,11 +100,11 @@
 
                                         <?php if ($pager->haveToPaginate()): ?>
                                             <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                                <li><a href="/plan/applications/notifications/page/1">
+                                                <li><a href="/index.php/applications/notifications/page/1">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
-                                                <li><a href="/plan/applications/notifications/page/<?php echo $pager->getPreviousPage() ?>">
+                                                <li><a href="/index.php/applications/notifications/page/<?php echo $pager->getPreviousPage() ?>">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
@@ -112,15 +112,15 @@
                                                     <?php if ($page == $pager->getPage()): ?>
                                                         <li class="active"><a href=""><?php echo $page ?></li></a>
                                                     <?php else: ?>
-                                                        <li><a href="/plan/applications/notifications/page/<?php echo $page ?>"><?php echo $page ?></a></li>
+                                                        <li><a href="/index.php/applications/notifications/page/<?php echo $page ?>"><?php echo $page ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
 
-                                                <li><a href="/plan/applications/notifications/page/<?php echo $pager->getNextPage() ?>">
+                                                <li><a href="/index.php/applications/notifications/page/<?php echo $pager->getNextPage() ?>">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
 
-                                                <li><a href="/plan/applications/notifications/page/<?php echo $pager->getLastPage() ?>">
+                                                <li><a href="/index.php/applications/notifications/page/<?php echo $pager->getLastPage() ?>">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a>
                                                 </li>

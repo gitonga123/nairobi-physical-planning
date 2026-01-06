@@ -109,7 +109,7 @@ class invoiceapiaccountsActions extends sfActions
     {
       $account = $form->save();
 
-      $this->redirect('/plan/invoiceapiaccounts/index');
+      $this->redirect('/backend.php/invoiceapiaccounts/index');
     }
   }
 
@@ -126,7 +126,7 @@ class invoiceapiaccountsActions extends sfActions
 
     $account->delete();
 
-    $this->redirect('/plan/invoiceapiaccounts/index');
+    $this->redirect('/backend.php/invoiceapiaccounts/index');
   }
 
 }

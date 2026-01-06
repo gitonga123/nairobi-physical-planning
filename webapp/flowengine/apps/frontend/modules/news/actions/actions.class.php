@@ -47,7 +47,7 @@ class newsActions extends sfActions
 		//If page does not exist then redirect to 404
 		if(empty($this->news))
 		{
-			return $this->redirect("/plan/errors/notfound");
+			return $this->redirect("/index.php/errors/notfound");
 		}
 	}
 }

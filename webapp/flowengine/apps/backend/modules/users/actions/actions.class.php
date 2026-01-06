@@ -82,7 +82,7 @@ class usersActions extends sfActions
                 Temporary Password: {$random_pass}
                 <br>
                 ---- <br>
-                http://" . $_SERVER['HTTP_HOST'] . "/plan/login/recover/code/{$temp_code} <br>
+                http://" . $_SERVER['HTTP_HOST'] . "/backend.php/login/recover/code/{$temp_code} <br>
                 ---- <br>
                 <br>
                 Thanks,<br>
@@ -91,7 +91,7 @@ class usersActions extends sfActions
 
             error_log("Reset reset url");
 
-            error_log("http://" . $_SERVER['HTTP_HOST'] . "/plan/login/recover/code/{$temp_code}");
+            error_log("http://" . $_SERVER['HTTP_HOST'] . "/backend.php/login/recover/code/{$temp_code}");
 
             $mailnotifications = new mailnotifications();
             $mailnotifications->sendemail(sfConfig::get('app_organisation_email'), $existinguser->getStremail(), "Password Reset", $body);
@@ -250,7 +250,7 @@ class usersActions extends sfActions
             $_SESSION['SESSION_CUTEFLOW_USERID'] = $user->getNid();
             $_SESSION['SESSION_CUTEFLOW_USERNAME'] = $user->getStruserid();
         }
-        $this->redirect("/plan/dashboard");
+        $this->redirect("/backend.php/dashboard");
     }
 
     /**
@@ -544,7 +544,7 @@ class usersActions extends sfActions
         } else {
             echo "STATUS: FAILED";
         }
-        $this->redirect("/plan/users/viewuser/userid/" . $reviewer->getNid());
+        $this->redirect("/backend.php/users/viewuser/userid/" . $reviewer->getNid());
     }
 
 
@@ -580,7 +580,7 @@ class usersActions extends sfActions
             $reviewer->save();
 
             $audit = new Audit();
-            $audit->saveAudit("", "<a href=\"/plan/users/edituser?userid=" . $reviewer->getNid() . "&language=en\">added a new user</a>");
+            $audit->saveAudit("", "<a href=\"/backend.php/users/edituser?userid=" . $reviewer->getNid() . "&language=en\">added a new user</a>");
 
             //update user groups
             if ($_POST['groups']) {
@@ -627,7 +627,7 @@ class usersActions extends sfActions
         } else {
             $this->getUser()->setFlash('error', "Could not change your password");
         }
-        $this->redirect("/plan/users/viewuser/userid/" . $reviewer->getNid());
+        $this->redirect("/backend.php/users/viewuser/userid/" . $reviewer->getNid());
     }
 
 
@@ -769,10 +769,10 @@ class usersActions extends sfActions
             $audit = new Audit();
             $audit->saveAudit("", "Restored a reviewer: " . $user->getStrfirstname() . " " . $user->getStrlastname() . " (" . $user->getStremail() . ")");
 
-            $this->redirect("/plan/users/index");
+            $this->redirect("/backend.php/users/index");
         } else {
             $this->getUser()->setFlash('notice', 'Could not restore the reviewer');
-            $this->redirect("/plan/users/viewuser/userid/" . $request->getParameter('id'));
+            $this->redirect("/backend.php/users/viewuser/userid/" . $request->getParameter('id'));
         }
     }
 
@@ -802,10 +802,10 @@ class usersActions extends sfActions
             $audit = new Audit();
             $audit->saveAudit("", "Delete a reviewer: " . $user->getStrfirstname() . " " . $user->getStrlastname() . " (" . $user->getStremail() . ")");
 
-            $this->redirect("/plan/users/index");
+            $this->redirect("/backend.php/users/index");
         } else {
             $this->getUser()->setFlash('notice', 'Could not delete the reviewer');
-            $this->redirect("/plan/users/viewuser/userid/" . $request->getParameter('id'));
+            $this->redirect("/backend.php/users/viewuser/userid/" . $request->getParameter('id'));
         }
     }
 
@@ -829,14 +829,14 @@ class usersActions extends sfActions
 
                 
                 if ($department) {
-                $this->redirect("/plan/users/index/department_filter/" . $department);
+                $this->redirect("/backend.php/users/index/department_filter/" . $department);
                
             }
-            $this->redirect("/plan/users/index");
+            $this->redirect("/backend.php/users/index");
             }
         } else {
             $this->getUser()->setFlash('notice', 'Could not delete the reviewer');
-            $this->redirect("/plan/users/viewuser/userid/" . $request->getParameter('id'));
+            $this->redirect("/backend.php/users/viewuser/userid/" . $request->getParameter('id'));
         }
     }
 

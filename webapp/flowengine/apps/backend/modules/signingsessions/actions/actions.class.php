@@ -44,7 +44,7 @@ class signingsessionsActions extends sfActions
             }
             $conn->execute($q);
 
-            $this->redirect('/plan/signingsessions/index');
+            $this->redirect('/backend.php/signingsessions/index');
         }
     }
 
@@ -135,7 +135,7 @@ class signingsessionsActions extends sfActions
                 return $document->id;
             }, json_decode($last_session['documents'])));
 
-        $url = "/plan/permits/signing?$ids&permitaction=signdocument&l_redirect=/plan/dashboard";
+        $url = "/backend.php/permits/signing?$ids&permitaction=signdocument&l_redirect=/backend.php/dashboard";
         $this->redirect($url);
     }
 }

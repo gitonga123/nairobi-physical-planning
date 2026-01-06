@@ -162,7 +162,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 						<div id="me_form_title" <?php if(!empty($total_incomplete_entries)){ echo 'style="max-width: 80%"'; } ?>>
-							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
 							<br>
 							<p>Edit and manage your form entries</p>
 						</div>

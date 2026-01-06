@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("managenews"))
         </div>
 
         <div class="panel-heading text-right">
-                <a class="btn btn-primary" id="newpage" href="/plan/news/new" ><?php echo __('+ Add News'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/backend.php/news/new" ><?php echo __('+ Add News'); ?></a>
         </div>
         <div class="panel-body">
 
@@ -45,8 +45,8 @@ if($sf_user->mfHasCredential("managenews"))
                         ?>
                         </td>
                         <td align="center">
-                            <a id="editpage<?php echo $news->getId(); ?>" href="/plan/news/edit/id/<?php echo $news->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $news->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/news/delete/id/<?php echo $news->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $news->getId(); ?>" href="/backend.php/news/edit/id/<?php echo $news->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $news->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/news/delete/id/<?php echo $news->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

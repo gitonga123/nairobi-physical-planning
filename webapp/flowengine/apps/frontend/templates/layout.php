@@ -40,7 +40,7 @@
      <div class="alert alert-error">
           <button class="close" data-dismiss="alert">&times;</button>
           <?php echo __("Sorry! The username or password you entered is incorrect."); ?>
-          <a href="/plan/reset-request">
+          <a href="/index.php/reset-request">
           <?php echo __("Did you forget?"); ?>
            </a>
      </div>

@@ -84,7 +84,7 @@ EOT;
 				<div class="content_header">
 					<div class="content_header_title">
 						<div id="me_form_title" <?php if(!empty($total_incomplete_entries)){ echo 'style="max-width: 80%"'; } ?>>
-							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
 							<br>
 							<p>Edit and manage your form entries</p>
 						</div>
@@ -98,7 +98,7 @@ EOT;
 
 				<div class="content_body">
 
-          <form name="service_form" id="service_form" method="post" action="/plan/forms/update/id/<?php echo $ap_form->getFormId(); ?>">
+          <form name="service_form" id="service_form" method="post" action="/backend.php/forms/update/id/<?php echo $ap_form->getFormId(); ?>">
             <table id="service_form" class="form_table">
               <tfoot>
                   <tr>

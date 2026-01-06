@@ -40,7 +40,7 @@ use_helper("I18N");
                             </td>
                             <td><?php echo date('jS M Y H:i:s', strtotime($application->getDateOfSubmission())) ?></td>
                             <td><a title="<?php echo __('View Application') ?>"
-                                    href="/plan/application/view/id/<?php echo $application->getId() ?>"><span
+                                    href="/index.php/application/view/id/<?php echo $application->getId() ?>"><span
                                         class="badge badge-primary"><i class="fa fa-eye"></i></span></a></td>
                         </tr>
                     <?php endforeach; ?>

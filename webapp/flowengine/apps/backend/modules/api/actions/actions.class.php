@@ -141,9 +141,9 @@ class apiActions extends sfActions
             'success' => true,
             'data' => $app_array,
             "links" => [
-                "first" => "/plan/api/plots?" . $f_param_array,
-                "next" => "/plan/api/plots?" . $query_param_array,
-                "last" => "/plan/api/plots?" . $l_param_array
+                "first" => "/backend.php/api/plots?" . $f_param_array,
+                "next" => "/backend.php/api/plots?" . $query_param_array,
+                "last" => "/backend.php/api/plots?" . $l_param_array
             ],
             "meta" => [
                 "currentPage" => $page,

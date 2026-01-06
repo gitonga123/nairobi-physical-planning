@@ -326,7 +326,7 @@ if($_SESSION['draft_edit'])
                         <p class="m-b-5 font-13"><?php echo $sf_user->getGuardUser()->getProfile()->getEmail(); ?><br>
                             ID: <?php echo $sf_user->getGuardUser()->getUsername(); ?>
                         </p>
-                        <a class="btn btn-primary" href="/plan/signon/logout">Logout</a>
+                        <a class="btn btn-primary" href="/index.php/signon/logout">Logout</a>
                     </div>
                 </div>
             </div>

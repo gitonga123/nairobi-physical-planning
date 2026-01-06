@@ -25,7 +25,7 @@ use_helper("I18N");
 
         <div class="panel-body padding-0">
             <div class="col-md-12">
-                <form action="<?php echo url_for('/plan/forms/confirmreject') ?>" method="POST" autocomplete="off"
+                <form action="<?php echo url_for('/backend.php/forms/confirmreject') ?>" method="POST" autocomplete="off"
                     data-ajax="false">
                     <fieldset>
                         <input type="hidden" name="id" value="<?php echo $application->getId(); ?>">

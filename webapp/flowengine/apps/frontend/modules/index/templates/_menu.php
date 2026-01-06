@@ -27,12 +27,12 @@ $q = Doctrine_Query::create()
 $child_pages_count=$q->count();
 ?>
     <li class="<?php echo $cls ?> <?php $child_pages_count? 'menu-item-has-children': '' ?>">
-        <a href="/plan/?id=<?php echo $page->getId(); ?>" title="<?php echo $page->getMenuTitle(); ?>"><?php echo $page->getMenuTitle() ?></a>
+        <a href="/index.php/?id=<?php echo $page->getId(); ?>" title="<?php echo $page->getMenuTitle(); ?>"><?php echo $page->getMenuTitle() ?></a>
         <?php if($child_pages_count): ?>
         <ul class="sub_menu">
             <?php foreach($q->execute() as $child_page): ?>
             <li class=" menu-item-has-children">
-                <a href="/plan/?id=<?php echo $child_page->getId(); ?>" title="<?php echo $child_page->getMenuTitle(); ?>"><?php echo $child_page->getMenuTitle() ?></a>
+                <a href="/index.php/?id=<?php echo $child_page->getId(); ?>" title="<?php echo $child_page->getMenuTitle(); ?>"><?php echo $child_page->getMenuTitle() ?></a>
             </li>
             <?php endforeach; ?>
         </ul>
@@ -40,17 +40,17 @@ $child_pages_count=$q->count();
     </li>
 <?php 
 } 
-$cls = ($_SERVER['REQUEST_URI'] == "/plan/news/index" || $_SERVER['REQUEST_URI'] == "/plan/new/index") ? 'current': '';
+$cls = ($_SERVER['REQUEST_URI'] == "/index.php/news/index" || $_SERVER['REQUEST_URI'] == "/index.php/new/index") ? 'current': '';
 ?>
-    <li class="<?php echo $cls ?>"><a href="/plan/news/index" title="<?php echo __('News'); ?>"><?php echo __('News'); ?> </a></li>
+    <li class="<?php echo $cls ?>"><a href="/index.php/news/index" title="<?php echo __('News'); ?>"><?php echo __('News'); ?> </a></li>
 <?php
-$cls = ($_SERVER['REQUEST_URI'] == "/plan/help/faq" || $_SERVER['REQUEST_URI'] == "/plan/help/faq") ? 'current': '';
+$cls = ($_SERVER['REQUEST_URI'] == "/index.php/help/faq" || $_SERVER['REQUEST_URI'] == "/index.php/help/faq") ? 'current': '';
 ?>
-    <li class="<?php echo $cls ?>"><a href="/plan/help/faq" title="<?php echo __('FAQs'); ?>"><?php echo __('FAQs'); ?> </a></li>
+    <li class="<?php echo $cls ?>"><a href="/index.php/help/faq" title="<?php echo __('FAQs'); ?>"><?php echo __('FAQs'); ?> </a></li>
 <?php
-$cls = ($_SERVER['REQUEST_URI'] == "/plan/help/contact" || $_SERVER['REQUEST_URI'] == "/plan/help/contact") ? 'current': '';
+$cls = ($_SERVER['REQUEST_URI'] == "/index.php/help/contact" || $_SERVER['REQUEST_URI'] == "/index.php/help/contact") ? 'current': '';
 ?>
-    <li class="<?php echo $cls ?>"><a href="/plan/help/contact" title="<?php echo __('Contact Us'); ?>"><?php echo __('Contact Us'); ?> </a></li>
+    <li class="<?php echo $cls ?>"><a href="/index.php/help/contact" title="<?php echo __('Contact Us'); ?>"><?php echo __('Contact Us'); ?> </a></li>
 
     <li>
         <a href="<?php echo url_for('signon/login') ?>" class="text-center"><span><?php echo __('Log in'); ?></span></a>

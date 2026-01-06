@@ -22,7 +22,7 @@ $application = $invoice->getFormEntry();
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __("You are here"); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan/tasks/list"><?php echo __("Applications"); ?></a></li>
+      <li><a href="/backend.php/tasks/list"><?php echo __("Applications"); ?></a></li>
       <li class="active"><?php echo __("View Details"); ?></li>
     </ol>
   </div>
@@ -66,7 +66,7 @@ $application = $invoice->getFormEntry();
 
         <div class="panel-heading text-right">
           <a class="btn btn-primary btn-sm" id="printinvoice"
-            href="/plan/applications/printinvoice/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-print"></i></a>
+            href="/backend.php/applications/printinvoice/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-print"></i></a>
         </div>
 
         <div class="panel-body padding-0 panel-bordered" style="border-top:0;">

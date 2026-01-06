@@ -53,7 +53,7 @@
 							$_SESSION['mf_form_payment_access'][$input_array['form_id']] = true;
 							$_SESSION['mf_payment_record_id'][$input_array['form_id']] = $submit_result['entry_id'];
 
-							header("Location: /plan/forms/payment?id={$input_array['form_id']}");
+							header("Location: /backend.php/forms/payment?id={$input_array['form_id']}");
 							exit;
 						}else if($form_properties['payment_merchant_type'] == 'paypal_standard'){
 							echo "<script type=\"text/javascript\">top.location.replace('{$submit_result['form_redirect']}')</script>";
@@ -65,7 +65,7 @@
 						}
 
 						$_SESSION['review_id'] = $submit_result['review_id'];
-						header("Location: /plan/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
+						header("Location: /backend.php/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
 						exit;
 					}else if($target_page_id == 'success'){
 						//redirect to success page
@@ -88,7 +88,7 @@
 					}
 					
 					$_SESSION['review_id'] = $submit_result['review_id'];
-					header("Location: /plan/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
+					header("Location: /backend.php/forms/confirm?id={$input_array['form_id']}{$page_num_params}");
 					exit;
 				}else{
 					if(!empty($submit_result['next_page_number'])){ //redirect to the next page number
@@ -163,7 +163,7 @@
 					->where("a.id = ?", $_SESSION['mf_invoice']);
 				$invoice = $q->fetchOne();
 
-				header("Location: /plan/applications/view/id/".$invoice->getAppId());
+				header("Location: /backend.php/applications/view/id/".$invoice->getAppId());
 				exit;
 			}
 			else 
@@ -212,7 +212,7 @@
 				<div class="content_header">
 					<div class="content_header_title">
 						<div id="me_form_title" <?php if(!empty($total_incomplete_entries)){ echo 'style="max-width: 80%"'; } ?>>
-							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Entries</h2>
 							<br>
 							<p>Edit and manage your form entries</p>
 						</div>

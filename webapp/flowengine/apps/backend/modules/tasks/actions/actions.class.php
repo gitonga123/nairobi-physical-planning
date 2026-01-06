@@ -57,7 +57,7 @@ class tasksActions extends sfActions
             //Audit 
             Audit::audit($request->getParameter('id'), "Picked a task");
 
-            $this->redirect("/plan/tasks/view?id=" . $task_id);
+            $this->redirect("/backend.php/tasks/view?id=" . $task_id);
         } else {
             //If there exists a pending task for this user and application then redirect to that task
             $q = Doctrine_Query::create()
@@ -72,10 +72,10 @@ class tasksActions extends sfActions
                 //Audit
                 Audit::audit($request->getParameter('id'), "Picked a task");
 
-                $this->redirect("/plan/tasks/view?id=" . $task->getId());
+                $this->redirect("/backend.php/tasks/view?id=" . $task->getId());
             }
 
-            $this->redirect("/plan/tasks/list");
+            $this->redirect("/backend.php/tasks/list");
         }
     }
 
@@ -131,7 +131,7 @@ class tasksActions extends sfActions
                 $inspection->save();
             }
 
-            $this->redirect("/plan/tasks/view?id=" . $task_id);
+            $this->redirect("/backend.php/tasks/view?id=" . $task_id);
         } else {
             //If there exists a pending task for this user and application then redirect to that task
             $q = Doctrine_Query::create()
@@ -178,10 +178,10 @@ class tasksActions extends sfActions
                     $inspection->save();
                 }
 
-                $this->redirect("/plan/tasks/view?id=" . $task->getId());
+                $this->redirect("/backend.php/tasks/view?id=" . $task->getId());
             }
 
-            $this->redirect("/plan/tasks/list");
+            $this->redirect("/backend.php/tasks/list");
         }
     }
 
@@ -223,11 +223,11 @@ class tasksActions extends sfActions
         }
 
         if (empty($this->task)) {
-            $this->redirect("/plan/dashboard");
+            $this->redirect("/backend.php/dashboard");
         }
 
         //Audit
-        Audit::audit("", "Viewed a task <a href='/plan/tasks/view/id/" . $this->task->getId() . "'></a>");
+        Audit::audit("", "Viewed a task <a href='/backend.php/tasks/view/id/" . $this->task->getId() . "'></a>");
 
 
         //Check JSON. Generate if empty
@@ -356,7 +356,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         } else {
                             $task = new Task();
                             $task->setType($request->getPostParameter("task_type"));
@@ -405,7 +405,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         }
 
 
@@ -486,7 +486,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         } else {
                             $task = new Task();
                             $task->setType($request->getPostParameter("task_type"));
@@ -535,7 +535,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         }
 
                         $q = Doctrine_Query::create()
@@ -617,7 +617,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         } else {
                             $task = new Task();
                             $task->setType($request->getPostParameter("task_type"));
@@ -666,7 +666,7 @@ class tasksActions extends sfActions
                             $treviewer = $q->fetchOne();
 
                             $audit = new Audit();
-                            $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                            $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                         }
                         $q = Doctrine_Query::create()
                             ->from('FormEntry a')
@@ -788,7 +788,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             } else {
                                 $task = new Task();
                                 $task->setType($request->getPostParameter("task_type"));
@@ -837,7 +837,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             }
 
 
@@ -919,7 +919,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             } else {
                                 $task = new Task();
                                 $task->setType($request->getPostParameter("task_type"));
@@ -968,7 +968,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             }
 
                             $q = Doctrine_Query::create()
@@ -1049,7 +1049,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             } else {
                                 $task = new Task();
                                 $task->setType($request->getPostParameter("task_type"));
@@ -1098,7 +1098,7 @@ class tasksActions extends sfActions
                                 $treviewer = $q->fetchOne();
 
                                 $audit = new Audit();
-                                $audit->saveFullAudit("<a href='/plan/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
+                                $audit->saveFullAudit("<a href='/backend.php/tasks/view/id/" . $task->getId() . "'>Assigned " . $task->getTypeName() . " task on " . $fullApplication->getApplicationId() . " to " . $treviewer->getStrfirstname() . " " . $treviewer->getStrlastname() . "</a>", $task->getId(), "task", "", "Pending", $application);
                             }
                             $q = Doctrine_Query::create()
                                 ->from('FormEntry a')
@@ -1307,13 +1307,13 @@ class tasksActions extends sfActions
                         $task->save();
                     }
 
-                    $this->redirect("/plan/tasks/view/id/" . $request->getParameter("redirect"));
+                    $this->redirect("/backend.php/tasks/view/id/" . $request->getParameter("redirect"));
                 } else {
                     $q = Doctrine_Query::create()
                         ->from('CfUser a')
                         ->where('a.nid = ?', $this->getUser()->getAttribute('userid'));
                     $reviewer = $q->fetchOne();
-                    $this->redirect("/plan/applications/view/id/" . $request->getPostParameter("application"));
+                    $this->redirect("/backend.php/applications/view/id/" . $request->getPostParameter("application"));
                 }
             }
         } else {
@@ -1330,13 +1330,13 @@ class tasksActions extends sfActions
                         $task->save();
                     }
 
-                    $this->redirect("/plan/tasks/view/id/" . $request->getParameter("redirect"));
+                    $this->redirect("/backend.php/tasks/view/id/" . $request->getParameter("redirect"));
                 } else {
                     $q = Doctrine_Query::create()
                         ->from('CfUser a')
                         ->where('a.nid = ?', $this->getUser()->getAttribute('userid'));
                     $reviewer = $q->fetchOne();
-                    $this->redirect("/plan/tasks/department/filter/" . $reviewer->getStrdepartment());
+                    $this->redirect("/backend.php/tasks/department/filter/" . $reviewer->getStrdepartment());
                 }
             }
         }
@@ -1436,7 +1436,7 @@ class tasksActions extends sfActions
         if ($request->getPostParameter("submit")) {
             $this->redirect($request->getPostParameter("submit"));
         } else {
-            $this->redirect('/plan/tasks/view/id/' . $this->task->getId());
+            $this->redirect('/backend.php/tasks/view/id/' . $this->task->getId());
         }
     }
 
@@ -1466,9 +1466,9 @@ class tasksActions extends sfActions
             $application->save();
 
             if ($request->getParameter("redirect")) {
-                $this->redirect("/plan/dashboard");
+                $this->redirect("/backend.php/dashboard");
             } else {
-                $this->redirect("/plan/users/viewuser/userid/" . $this->task->getOwnerUserId());
+                $this->redirect("/backend.php/users/viewuser/userid/" . $this->task->getOwnerUserId());
             }
         }
     }

@@ -11,7 +11,7 @@ if ($sf_user->mfHasCredential("signingsessions")) {
             <div class="panel-heading">
                 <h3 class="panel-title"><?php echo __('Signing Sessions Config'); ?>
                     <a class="btn btn-primary pull-right" id="newpage" style="color: white"
-                       href="/plan/signingsessions/create">
+                       href="/backend.php/signingsessions/create">
                         <?php echo __('Add Session Config'); ?>
                     </a>
                 </h3>
@@ -39,7 +39,7 @@ if ($sf_user->mfHasCredential("signingsessions")) {
                                 <td style="text-align: right"><?php echo $config['total_allowed_pa'] - $config['used_signatures'] ?></td>
                                 <td style="text-align: right"><?php echo $config['total_allowed_pa'] ?></td>
                                 <td style="text-align: center">
-                                    <a href="/plan/signingsessions/create/id/<?php echo $config['id']?>">
+                                    <a href="/backend.php/signingsessions/create/id/<?php echo $config['id']?>">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </td>

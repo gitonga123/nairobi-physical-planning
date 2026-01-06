@@ -141,7 +141,7 @@ class agendaActions extends sfActions
     $this->forward404Unless($agenda_columns = Doctrine_Core::getTable('AgendaColumns')->find(array($request->getParameter('id'))), sprintf('Object agenda_columns does not exist (%s).', $request->getParameter('id')));
     $agenda_columns->delete();
 
-    $this->redirect('/plan/agenda/index');
+    $this->redirect('/backend.php/agenda/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -156,7 +156,7 @@ class agendaActions extends sfActions
 		$agenda_columns->setElementId($element_id);
 		$agenda_columns->setEntryColumn($entry_column);
 		$agenda_columns->save();
-      $this->redirect('/plan/agenda/index');
+      $this->redirect('/backend.php/agenda/index');
     }
   }
   public function executeAgendaapparray(sfWebRequest $request)

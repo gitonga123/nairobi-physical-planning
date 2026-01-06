@@ -1,7 +1,7 @@
 <?php
 	use_helper("I18N");
 ?>
-<form  action="/plan/permittemplates/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
+<form  action="/backend.php/permittemplates/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered">
 
   <?php if (!$form->getObject()->isNew()): ?>
   <input type="hidden" name="sf_method" value="put" />
@@ -18,7 +18,7 @@
     </div>
 
 		<div class="panel-heading text-right">
-					<a class="btn btn-primary" id="newpage" href="/plan/permittemplates/index" ><?php echo __('Back to List'); ?></a>
+					<a class="btn btn-primary" id="newpage" href="/backend.php/permittemplates/index" ><?php echo __('Back to List'); ?></a>
 		</div>
 
     <div class="panel-body padding-0">

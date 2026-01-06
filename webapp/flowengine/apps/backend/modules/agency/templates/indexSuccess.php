@@ -16,7 +16,7 @@ if ($sf_user->mfHasCredential("manageagencies")) {
       </div>
       <div class="panel-heading">
         <a class="btn btn-primary settings-margin42" id="newdepartment"
-          href="<?php echo url_for('/plan/agency/new') ?>"><?php echo __('New Agency'); ?></a>
+          href="<?php echo url_for('/backend.php/agency/new') ?>"><?php echo __('New Agency'); ?></a>
       </div>
 
       <div class="panel panel-body panel-body-nopadding ">
@@ -45,7 +45,7 @@ if ($sf_user->mfHasCredential("manageagencies")) {
                   <td><?php echo $agency->getName() ?></td>
                   <td>
                     <a id="editdepartment<?php echo $agency->getId(); ?>"
-                      href="<?php echo url_for('/plan/agency/edit/id/' . $agency->getId()); ?>"
+                      href="<?php echo url_for('/backend.php/agency/edit/id/' . $agency->getId()); ?>"
                       title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i
                           class="fa fa-pencil"></i></span></a>
                     <?php
@@ -56,7 +56,7 @@ if ($sf_user->mfHasCredential("manageagencies")) {
                     ?>
                     <a id="deletedepartment<?php echo $agency->getId(); ?>"
                       onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }"
-                      href="<?php echo url_for('/plan/agency/delete/id/' . $agency->getId()); ?>"
+                      href="<?php echo url_for('/backend.php/agency/delete/id/' . $agency->getId()); ?>"
                       title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i
                           class="fa fa-trash-o"></i></span></a>
 

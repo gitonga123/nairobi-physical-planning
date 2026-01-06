@@ -13,7 +13,7 @@
           {
         ?>
          <p class="account-subtitle"> Enter the temporary password we sent you in the email.</p>
-         <form method="post" action="/plan/login/recover/code/<?php echo $token; ?>" autocomplete="off">
+         <form method="post" action="/backend.php/login/recover/code/<?php echo $token; ?>" autocomplete="off">
             <?php if ($form->isCSRFProtected()) : ?>
                 <?php echo $form['_csrf_token']->render(); ?>
             <?php endif; ?>

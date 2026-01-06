@@ -16,7 +16,7 @@ use_helper("I18N");
 
 <div class="contentpanel">
 <div class="row">
-<form action="<?php echo url_for('/plan/applications/conditionlinkapp') ?>" method="post" class="form-bordered form-horizontal">
+<form action="<?php echo url_for('/backend.php/applications/conditionlinkapp') ?>" method="post" class="form-bordered form-horizontal">
 <?php if($form->hasGlobalErrors()): ?>
 <div class="alert alert-warning" >
 	<?php echo $form->renderGlobalErrors() ?>

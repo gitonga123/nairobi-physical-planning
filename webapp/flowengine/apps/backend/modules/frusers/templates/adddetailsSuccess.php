@@ -40,7 +40,7 @@ if(!empty($_POST['submitbuttonname'])){ //if form submitted
                                 if(empty($submit_result['form_redirect'])){
                                         $ssl_suffix = get_ssl_suffix();						
 
-                                        header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST']."/plan/frusers/index/done/1");
+                                        header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST']."/backend.php/frusers/index/done/1");
                                         exit;
                                 }else{
                                         echo "<script type=\"text/javascript\">top.location.replace('{$submit_result['form_redirect']}')</script>";
@@ -50,7 +50,7 @@ if(!empty($_POST['submitbuttonname'])){ //if form submitted
                                 $ssl_suffix = get_ssl_suffix();	
 
                                 $_SESSION['review_id'] = $submit_result['review_id'];
-                                header("Location: /plan/index/confirm?id={$input_array['form_id']}");
+                                header("Location: /backend.php/index/confirm?id={$input_array['form_id']}");
                                 exit;
                         }
                 }else{

@@ -30,12 +30,12 @@
 
     <a class="menutoggle"><i class="fa fa-bars"></i></a>
 
-    <form class="searchform" action="/plan/applications/search" method="post">
+    <form class="searchform" action="/backend.php/applications/search" method="post">
       <input type="text" class="form-control" name="applicationid" placeholder="<?php echo __('Search'); ?>" />
     </form>
 
-    <form class="searchform" action="/plan/applications/search" method="post">
-      <a href="/plan/applications/search?search=adv" class="btn btn-default pull-left btn-advanced m-t-8"><span class="fa fa-search"></span>  <?php echo __('Advanced Search'); ?></a>
+    <form class="searchform" action="/backend.php/applications/search" method="post">
+      <a href="/backend.php/applications/search?search=adv" class="btn btn-default pull-left btn-advanced m-t-8"><span class="fa fa-search"></span>  <?php echo __('Advanced Search'); ?></a>
     </form>
     <div class="header-right">
       <ul class="headermenu">
@@ -58,7 +58,7 @@
                     $selected = "active";
                   }
                   ?>
-                  <li class="<?php echo $selected; ?>"><a href="/plan/languages/setlocale/code/<?php echo $locale->getLocaleIdentifier(); ?>"><i class="glyphicon glyphicon-cog"></i> <?php echo $locale->getLocalTitle(); ?></a></li>
+                  <li class="<?php echo $selected; ?>"><a href="/backend.php/languages/setlocale/code/<?php echo $locale->getLocaleIdentifier(); ?>"><i class="glyphicon glyphicon-cog"></i> <?php echo $locale->getLocalTitle(); ?></a></li>
                   <?php
               }
               ?>
@@ -87,8 +87,8 @@
               ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-              <li><a href="/plan/dashboard/profile"><i class="glyphicon glyphicon-cog"></i> <?php echo $logged_reviewer->getStrfirstname()." ".$logged_reviewer->getStrlastname(); ?></a></li>
-              <li><a href="/plan/login/logout"><i class="glyphicon glyphicon-log-out"></i> <?php echo __('Log Out'); ?></a></li>
+              <li><a href="/backend.php/dashboard/profile"><i class="glyphicon glyphicon-cog"></i> <?php echo $logged_reviewer->getStrfirstname()." ".$logged_reviewer->getStrlastname(); ?></a></li>
+              <li><a href="/backend.php/login/logout"><i class="glyphicon glyphicon-log-out"></i> <?php echo __('Log Out'); ?></a></li>
             </ul>
           </div>
         </li>

@@ -21,7 +21,7 @@ class servicesActions extends sfActions
     {
         if(!$this->getUser()->mfHasCredential('access_workflow'))
         {	
-            $this->redirect('/plan/errors/notallowed');
+            $this->redirect('/backend.php/errors/notallowed');
         }
 
         $q = Doctrine_Query::create()
@@ -194,7 +194,7 @@ class servicesActions extends sfActions
                 }
             }
 
-            $this->redirect('/plan/services/index');
+            $this->redirect('/backend.php/services/index');
         }
     }
 
@@ -209,7 +209,7 @@ class servicesActions extends sfActions
     {
         if(!$this->getUser()->mfHasCredential('managestages'))
         {
-            $this->redirect('/plan/errors/notallowed');
+            $this->redirect('/backend.php/errors/notallowed');
         }
 
         $q = Doctrine_Query::create()
@@ -232,7 +232,7 @@ class servicesActions extends sfActions
             $service->delete();
         }
 
-        $this->redirect('/plan/services/index');
+        $this->redirect('/backend.php/services/index');
     }
 
     /**
@@ -510,7 +510,7 @@ class servicesActions extends sfActions
         }
 
 
-        $this->redirect("/plan/services/index");
+        $this->redirect("/backend.php/services/index");
     }
 
     /**
@@ -585,7 +585,7 @@ class servicesActions extends sfActions
             }
         }
 
-        $this->redirect("/plan/services/index");
+        $this->redirect("/backend.php/services/index");
     }
 
     /**
@@ -667,7 +667,7 @@ class servicesActions extends sfActions
             $count++;
         }
 
-        $this->redirect("/plan/services/otherfees/id/".$service->getId());
+        $this->redirect("/backend.php/services/otherfees/id/".$service->getId());
     }
 
     /**
@@ -768,7 +768,7 @@ class servicesActions extends sfActions
             }
         }
 
-        $this->redirect("/plan/services/morefees/id/".$service->getId());
+        $this->redirect("/backend.php/services/morefees/id/".$service->getId());
     }
 
     /**
@@ -846,7 +846,7 @@ class servicesActions extends sfActions
             }
         }
 
-        $this->redirect("/plan/services/morefees/id/".$service->getId());
+        $this->redirect("/backend.php/services/morefees/id/".$service->getId());
     }
 
     /**
@@ -890,7 +890,7 @@ class servicesActions extends sfActions
 
         $more_fee->delete();
 
-        $this->redirect("/plan/services/morefees/id/".$service->getId());
+        $this->redirect("/backend.php/services/morefees/id/".$service->getId());
     }
 
     /**

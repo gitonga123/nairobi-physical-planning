@@ -109,7 +109,7 @@ class jsonreportsActions extends sfActions
     {
       $report = $form->save();
 
-      $this->redirect('/plan/jsonreports/index');
+      $this->redirect('/backend.php/jsonreports/index');
     }
   }
 
@@ -126,7 +126,7 @@ class jsonreportsActions extends sfActions
 
     $report->delete();
 
-    $this->redirect('/plan/jsonreports/index');
+    $this->redirect('/backend.php/jsonreports/index');
   }
 
 }

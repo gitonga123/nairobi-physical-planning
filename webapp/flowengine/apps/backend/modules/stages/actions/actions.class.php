@@ -181,7 +181,7 @@ class stagesActions extends sfActions
       $sub_menus->save();
     }
 
-    $this->redirect('/plan/stages/index');
+    $this->redirect('/backend.php/stages/index');
   }
 
   /**
@@ -358,7 +358,7 @@ class stagesActions extends sfActions
   		  }
   	  }*/
 
-      $this->redirect('/plan/stages/index');
+      $this->redirect('/backend.php/stages/index');
     }
   }
 
@@ -395,7 +395,7 @@ class stagesActions extends sfActions
       $previous_menu->save();
     }
 
-    return $this->redirect("/plan/stages/index");
+    return $this->redirect("/backend.php/stages/index");
   }
 
   /**
@@ -430,7 +430,7 @@ class stagesActions extends sfActions
       $previous_menu->save();
     }
 
-    return $this->redirect("/plan/stages/index");
+    return $this->redirect("/backend.php/stages/index");
   }
 
   public function executeActions(sfWebRequest $request)
@@ -490,7 +490,7 @@ class stagesActions extends sfActions
   	  	 $count++;
   	  }
 
-      $this->redirect("/plan/stages/index/filter/".$this->stage->getMenuId());
+      $this->redirect("/backend.php/stages/index/filter/".$this->stage->getMenuId());
     }
 
 	  $this->setLayout("layout-settings");
@@ -604,7 +604,7 @@ class stagesActions extends sfActions
         }
       }
 
-      $this->redirect("/plan/stages/index/filter/".$this->stage->getMenuId());
+      $this->redirect("/backend.php/stages/index/filter/".$this->stage->getMenuId());
     }
 
 	  $this->setLayout("layout-settings");
@@ -635,7 +635,7 @@ class stagesActions extends sfActions
       $submenutask->setTaskId($task);
       $submenutask->save();
 
-      $this->redirect("/plan/stages/index/filter/".$this->stage->getMenuId());
+      $this->redirect("/backend.php/stages/index/filter/".$this->stage->getMenuId());
     }
 
 	  $this->setLayout("layout-settings");

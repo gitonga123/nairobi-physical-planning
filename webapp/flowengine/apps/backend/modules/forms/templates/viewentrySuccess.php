@@ -399,10 +399,10 @@ EOT;
 					<div class="content_header_title">
 						<div style="float: left">
 							<?php if($is_incomplete_entry){ ?>
-								<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a id=\"ve_a_entries\" class=\"breadcrumb\" href='/plan/forms/manageentries?id={$form_id}'>Entries</a>"; ?> <span id="ve_a_next" class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a id=\"ve_a_entries\" class=\"breadcrumb\" href='manage_incomplete_entries.php?id={$form_id}'>Incomplete</a>"; ?> <span id="ve_a_next" class="icon-arrow-right2 breadcrumb_arrow"></span> #<?php echo $entry_id; ?></h2>
+								<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a id=\"ve_a_entries\" class=\"breadcrumb\" href='/backend.php/forms/manageentries?id={$form_id}'>Entries</a>"; ?> <span id="ve_a_next" class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a id=\"ve_a_entries\" class=\"breadcrumb\" href='manage_incomplete_entries.php?id={$form_id}'>Incomplete</a>"; ?> <span id="ve_a_next" class="icon-arrow-right2 breadcrumb_arrow"></span> #<?php echo $entry_id; ?></h2>
 								<p>Displaying incomplete entry #<?php echo $entry_id; ?></p>
 							<?php }else{ ?>
-								<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a id=\"ve_a_entries\" class=\"breadcrumb\" href='/plan/forms/manageentries?id={$form_id}'>Entries</a>"; ?> <span id="ve_a_next" class="icon-arrow-right2 breadcrumb_arrow"></span> #<?php echo $entry_id; ?></h2>
+								<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo "<a id=\"ve_a_entries\" class=\"breadcrumb\" href='/backend.php/forms/manageentries?id={$form_id}'>Entries</a>"; ?> <span id="ve_a_next" class="icon-arrow-right2 breadcrumb_arrow"></span> #<?php echo $entry_id; ?></h2>
 								<p>Displaying entry #<?php echo $entry_id; ?></p>
 							<?php } ?>
 
@@ -635,19 +635,19 @@ EOT;
 					</div>
 					<div id="ve_actions">
 						<div id="ve_entry_navigation">
-							<a href="<?php echo "/plan/forms/viewentry?form_id={$form_id}&entry_id={$entry_id}&nav=prev"; ?>" title="Previous Entry" style="margin-left: 1px"><span class="icon-arrow-left"></span></a>
-							<a href="<?php echo "/plan/forms/viewentry?form_id={$form_id}&entry_id={$entry_id}&nav=next"; ?>" title="Next Entry" style="margin-left: 5px"><span class="icon-arrow-right"></span></a>
+							<a href="<?php echo "/backend.php/forms/viewentry?form_id={$form_id}&entry_id={$entry_id}&nav=prev"; ?>" title="Previous Entry" style="margin-left: 1px"><span class="icon-arrow-left"></span></a>
+							<a href="<?php echo "/backend.php/forms/viewentry?form_id={$form_id}&entry_id={$entry_id}&nav=next"; ?>" title="Next Entry" style="margin-left: 5px"><span class="icon-arrow-right"></span></a>
 						</div>
 						<div id="ve_entry_actions" class="gradient_blue">
 							<ul>
 								
 								<?php if(!empty($_SESSION['mf_user_privileges']['priv_administer']) || !empty($user_perms['edit_entries'])){ ?>
-								<li style="border-bottom: 1px dashed #8EACCF"><a id="ve_action_edit" title="Edit Entry" href="<?php echo "/plan/forms/editentry?form_id={$form_id}&entry_id={$entry_id}"; ?>"><span class="icon-pencil"></span>Edit</a></li>
+								<li style="border-bottom: 1px dashed #8EACCF"><a id="ve_action_edit" title="Edit Entry" href="<?php echo "/backend.php/forms/editentry?form_id={$form_id}&entry_id={$entry_id}"; ?>"><span class="icon-pencil"></span>Edit</a></li>
 								<?php } ?>
 
 								<li style="border-bottom: 1px dashed #8EACCF"><a id="ve_action_email" title="Email Entry" href="#"><span class="icon-envelope-opened"></span>Email</a></li>
 								<li style="border-bottom: 1px dashed #8EACCF"><a id="ve_action_print" title="Print Entry" href="javascript:window.print()"><span class="icon-print"></span>Print</a></li>
-								<li style="border-bottom: 1px dashed #8EACCF"><a id="ve_action_pdf" title="Export to PDF" href="<?php echo "/plan/forms/viewentrypdf?form_id={$form_id}&entry_id={$entry_id}"; ?>"><span class="icon-file-download"></span>PDF</a></li>
+								<li style="border-bottom: 1px dashed #8EACCF"><a id="ve_action_pdf" title="Export to PDF" href="<?php echo "/backend.php/forms/viewentrypdf?form_id={$form_id}&entry_id={$entry_id}"; ?>"><span class="icon-file-download"></span>PDF</a></li>
 								
 								<?php if(!empty($_SESSION['mf_user_privileges']['priv_administer']) || !empty($user_perms['edit_entries'])){ ?>
 									

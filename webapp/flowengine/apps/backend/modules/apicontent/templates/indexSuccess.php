@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("managecurrencies"))
 			<h3 class="panel-title"><?php echo __('API content'); ?></h3>
 </div>
 <div class="panel-heading">
-	<a class="btn btn-primary settings-margin42" id="newfee" href="<?php echo url_for('/plan/apicontent/new') ?>"><?php echo __('New Content'); ?></a>
+	<a class="btn btn-primary settings-margin42" id="newfee" href="<?php echo url_for('/backend.php/apicontent/new') ?>"><?php echo __('New Content'); ?></a>
 </div>
  
 <div class="panel panel-body panel-body-nopadding ">
@@ -45,9 +45,9 @@ if($sf_user->mfHasCredential("managecurrencies"))
       <td><?php echo $c->getMerchant() ?></td>
       <td><?php echo $c->getApiUseDiff() ?></td>
       <td>					
-	      <a id="editmer<?php echo $c->getId() ?>" href="<?php echo url_for('/plan/apicontent/edit?id='.$c->getId()) ?>" alt="Edit" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+	      <a id="editmer<?php echo $c->getId() ?>" href="<?php echo url_for('/backend.php/apicontent/edit?id='.$c->getId()) ?>" alt="Edit" title="<?php echo __('Edit'); ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
      
-        <a id="deletemer<?php echo $c->getId() ?>" href="<?php echo url_for('/plan/apicontent/delete?id='.$c->getId()) ?>" alt="Delete" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>    
+        <a id="deletemer<?php echo $c->getId() ?>" href="<?php echo url_for('/backend.php/apicontent/delete?id='.$c->getId()) ?>" alt="Delete" title="<?php echo __('Delete'); ?>"><span class="badge badge-primary"><i class="fa fa-trash-o"></i></span></a>    
       </td>
     </tr>
     <?php endforeach; ?>

@@ -72,7 +72,7 @@ function GetDaysSince($sStartDate, $sEndDate){
                                   echo __('Unknown');
                                 }
                                 ?></td>
-                            <td> <a href="<?php echo public_path('/plan/application/view/id/'.$app->getId()) ?>"><?php echo $app->getApplicationId(); ?></a></td>
+                            <td> <a href="<?php echo public_path('/index.php/application/view/id/'.$app->getId()) ?>"><?php echo $app->getApplicationId(); ?></a></td>
                             <td><?php echo $app->getDateOfSubmission() ?></td>
                             <td><?php
           $q = Doctrine_Query::create()
@@ -126,7 +126,7 @@ function GetDaysSince($sStartDate, $sEndDate){
                                ?>
                                 </span></td>
                                 <td>
-                                <a  title='<?php echo __('View Application'); ?>' href='<?php echo public_path('/plan/application/view/id/'.$app->getId()) ?>' class="btn"><?php echo __('View') ?></a>
+                                <a  title='<?php echo __('View Application'); ?>' href='<?php echo public_path('/index.php/application/view/id/'.$app->getId()) ?>' class="btn"><?php echo __('View') ?></a>
                                 </td>
                         </tr>
                         <?php endforeach; ?>

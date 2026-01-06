@@ -14,7 +14,7 @@ if($sf_user->mfHasCredential("managegroups"))
 
 
         <div class="panel-heading text-right">
-                <a class="btn btn-primary" id="newpage" href="/plan/groups/new" ><?php echo __('New Group'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/backend.php/groups/new" ><?php echo __('New Group'); ?></a>
         </div>
 
         <div class="panel-body">
@@ -36,8 +36,8 @@ if($sf_user->mfHasCredential("managegroups"))
                         <td><?php echo $group->getName();  ?></td>
                         <td><?php echo $group->getDescription();  ?></td>
                         <td align="center">
-                            <a id="editpage<?php echo $group->getId(); ?>" href="/plan/groups/edit/id/<?php echo $group->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $group->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/groups/delete/id/<?php echo $group->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $group->getId(); ?>" href="/backend.php/groups/edit/id/<?php echo $group->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $group->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/groups/delete/id/<?php echo $group->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

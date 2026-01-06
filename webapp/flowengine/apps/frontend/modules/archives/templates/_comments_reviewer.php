@@ -143,7 +143,7 @@ foreach($departments as $department)
 				$style = "color: #F43535;";
 			}
 			
-			$tasklink = "/plan/tasks/view/id/".$task->getId();
+			$tasklink = "/index.php/tasks/view/id/".$task->getId();
 			?>
              <div class="panel panel-default">
 		<div class="panel-heading panel-heading-noradius">

@@ -41,7 +41,7 @@
 						
 	mf_do_query($query,$params,$dbh);
 
-	$form_resume_url = "/plan/forms/view?id={$form_id}&mf_resume={$form_resume_key}";
+	$form_resume_url = "/backend.php/forms/view?id={$form_id}&mf_resume={$form_resume_key}";
 
 	$response_data = new stdClass();
 	$response_data->status    	= "ok";

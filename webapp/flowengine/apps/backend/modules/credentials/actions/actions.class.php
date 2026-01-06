@@ -107,7 +107,7 @@ class credentialsActions extends sfActions
     {
       $mf_guard_permission = $form->save();
 
-      $this->redirect('/plan/credentials/index');
+      $this->redirect('/backend.php/credentials/index');
     }
   }
 
@@ -127,6 +127,6 @@ class credentialsActions extends sfActions
 
     $mf_guard_permission->delete();
 
-    $this->redirect('/plan/credentials/index');
+    $this->redirect('/backend.php/credentials/index');
   }
 }

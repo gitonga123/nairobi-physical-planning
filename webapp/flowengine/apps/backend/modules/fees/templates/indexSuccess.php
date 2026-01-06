@@ -13,7 +13,7 @@ if($sf_user->mfHasCredential("managefees") && $sf_user->mfHasCredential("code_ac
 
 
         <div class="panel-heading text-right">
-            <a class="btn btn-primary" id="newpage" href="/plan/fees/new" ><?php echo __('+ Add Fee'); ?></a>
+            <a class="btn btn-primary" id="newpage" href="/backend.php/fees/new" ><?php echo __('+ Add Fee'); ?></a>
         </div>
 
         <div class="panel-body">
@@ -39,9 +39,9 @@ if($sf_user->mfHasCredential("managefees") && $sf_user->mfHasCredential("code_ac
                         <td><?php echo $fee->getFeeCode();  ?></td>
                         <td><?php echo $fee->getFeeCategory();  ?></td>
                         <td align="center">
-                            <a id="editpage<?php echo $fee->getId(); ?>" href="/plan/fees/edit/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="editpage<?php echo $fee->getId(); ?>" href="/plan/fees/feedublicate/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Dublicate'); ?>"><span class="label label-warning"><i class="fa fa-files-o" aria-hidden="true"></i></span></a>
-                            <a id="deletepage<?php echo $fee->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/fees/delete/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $fee->getId(); ?>" href="/backend.php/fees/edit/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="editpage<?php echo $fee->getId(); ?>" href="/backend.php/fees/feedublicate/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Dublicate'); ?>"><span class="label label-warning"><i class="fa fa-files-o" aria-hidden="true"></i></span></a>
+                            <a id="deletepage<?php echo $fee->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/fees/delete/id/<?php echo $fee->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

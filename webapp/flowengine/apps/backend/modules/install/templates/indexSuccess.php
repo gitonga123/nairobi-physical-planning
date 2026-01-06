@@ -22,7 +22,7 @@
                     <li><a href="#vtab5" data-toggle="tab"><span>Step 4:</span> System Administrator</a></li>
                 </ul>
 
-                <form class="form" id="firstForm" name="firstForm" action="/plan/install/update" method="post">
+                <form class="form" id="firstForm" name="firstForm" action="/backend.php/install/update" method="post">
                 <div class="tab-content tab-content-nopadding">
 
                     <div class="tab-pane" id="vtab0" style="padding: 20px;">

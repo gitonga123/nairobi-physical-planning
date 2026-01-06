@@ -1,7 +1,7 @@
 <?php
 	use_helper("I18N");
 ?>
-<form  action="/plan/feecode/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered bform">
+<form  action="/backend.php/feecode/<?php echo ($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false" class="form-bordered bform">
 
 <?php echo $form->renderHiddenFields() ?>
 
@@ -12,7 +12,7 @@
     </div>
 
 		<div class="panel-heading">
-          <a class="btn btn-primary" id="newpage" href="/plan/feecode/index" ><?php echo __('Back to List'); ?></a>
+          <a class="btn btn-primary" id="newpage" href="/backend.php/feecode/index" ><?php echo __('Back to List'); ?></a>
     </div>
 
 

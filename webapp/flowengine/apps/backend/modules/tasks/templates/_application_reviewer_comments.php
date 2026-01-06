@@ -30,7 +30,7 @@ foreach($tasks as $task)
         <div class="panel panel-default">
             <div class="panel-heading panel-heading-noradius">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion_inner" href="/plan/tasks/view/id/<?php echo $task->getId(); ?>">
+                <a data-toggle="collapse" data-parent="#accordion_inner" href="/backend.php/tasks/view/id/<?php echo $task->getId(); ?>">
                 <?php echo $reviewer->getStrfirstname()." ".$reviewer->getStrlastname(); ?> - <?php echo $reviewer->getDepartment(); ?><p>(<?php if($task->getEndDate()){ ?>Last updated on <?php echo $task->getEndDate(); }else{ ?>Created on <?php echo $task->getDateCreated(); }?>)</p></a></h4>
 
             </div>
@@ -64,7 +64,7 @@ foreach($tasks as $task)
 		 <div class="panel panel-default">
 			<div class="panel-heading panel-heading-noradius">
 	        	<h4 class="panel-title">
-	            	<a href="/plan/tasks/view/id/<?php echo $task->getId(); ?>">
+	            	<a href="/backend.php/tasks/view/id/<?php echo $task->getId(); ?>">
 	            	<?php echo $reviewer->getStrfirstname()." ".$reviewer->getStrlastname(); ?> - <?php echo $reviewer->getDepartment(); ?><br>
                     <p>(<?php if($task->getEndDate()){ ?>Last updated on <?php echo $task->getEndDate(); }else{ ?>Created on <?php echo $task->getDateCreated(); }?>)</p></a></h4>
 		            <div class="panel-body" style="background-color: #FFF;">

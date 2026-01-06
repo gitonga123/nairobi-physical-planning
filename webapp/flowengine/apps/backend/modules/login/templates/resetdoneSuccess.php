@@ -7,7 +7,7 @@
             </div>
             <br>
             <div class="form-group mb-0">
-                <a href="/plan/login/index" class="btn btn-success btn-block active">Click here to login</a>
+                <a href="/backend.php/login/index" class="btn btn-success btn-block active">Click here to login</a>
             </div>
         </div>
     </div><!-- lockedpanel -->

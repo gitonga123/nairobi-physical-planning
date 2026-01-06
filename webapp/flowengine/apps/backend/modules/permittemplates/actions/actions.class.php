@@ -20,7 +20,7 @@ class permittemplatesActions extends sfActions
 
       if($wizard_manager->is_first_run())
       {
-        $this->redirect("/plan/dashboard");
+        $this->redirect("/backend.php/dashboard");
       }
       
       if($request->getParameter("filter"))
@@ -152,7 +152,7 @@ class permittemplatesActions extends sfActions
     $this->forward404Unless($permit = Doctrine_Core::getTable('Permits')->find(array($request->getParameter('id'))), sprintf('Object permits does not exist (%s).', $request->getParameter('id')));
     $permit->delete();
 
-    $this->redirect('/plan/permittemplates/index');
+    $this->redirect('/backend.php/permittemplates/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -163,7 +163,7 @@ class permittemplatesActions extends sfActions
       $permit = $form->save();
 
       
-      $this->redirect('/plan/permittemplates/index');
+      $this->redirect('/backend.php/permittemplates/index');
     }
 
   }
@@ -204,7 +204,7 @@ class permittemplatesActions extends sfActions
               $new_perm_group->save();
           }
 
-          $this->redirect('/plan/permittemplates/index');
+          $this->redirect('/backend.php/permittemplates/index');
       }
 
 

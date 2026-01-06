@@ -65,11 +65,11 @@ if (sfConfig::get('app_enable_livechat')) {
 			var application_id = [];
 			application_next_array.map(function(item) {
 				item_id = $("#".concat(item.id)).attr("data-id");
-				$.get("/plan/dashboard/checknextaction?id=".concat(item_id), function(data) {
+				$.get("/index.php/dashboard/checknextaction?id=".concat(item_id), function(data) {
 					if (data.length > 2) {
 						data = JSON.parse(data);
 						console.log("#more_action_id_" + data.application);
-						$("#more_action_id_" + data.application).html(`<a title="More Actions" href="/plan/application/view/id/${data.application}"><span class="badge badge-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i></span></a>`);
+						$("#more_action_id_" + data.application).html(`<a title="More Actions" href="/index.php/application/view/id/${data.application}"><span class="badge badge-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i></span></a>`);
 					}
 				});
 			});
@@ -104,9 +104,9 @@ if (sfConfig::get('app_enable_livechat')) {
 				return true;
 			},
 			"rowCallback": function(row, data, index) {
-				var btn = '<a title="<?php echo __('View Application') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/plan/application/view/id/' + data.id + '"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>';
+				var btn = '<a title="<?php echo __('View Application') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/index.php/application/view/id/' + data.id + '"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>';
 				$('td:eq(5)', row).html(btn);
-				var link = '<a title="<?php echo __('View Application') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/plan/application/view/id/' + data.id + '">' + data.application_id + '</a>';
+				var link = '<a title="<?php echo __('View Application') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/index.php/application/view/id/' + data.id + '">' + data.application_id + '</a>';
 				$('td:eq(2)', row).html(link);
 			},
 			columns: [{
@@ -155,9 +155,9 @@ if (sfConfig::get('app_enable_livechat')) {
 				return true;
 			},
 			"rowCallback": function(row, data, index) {
-				var btn = '<a title="<?php echo __('View Invoice') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/plan/invoices/view/id/' + data.id + '"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>';
+				var btn = '<a title="<?php echo __('View Invoice') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/index.php/invoices/view/id/' + data.id + '"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>';
 				$('td:eq(8)', row).html(btn);
-				var link = '<a title="<?php echo __('View Application') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/plan/application/view/id/' + data.app_id + '">' + data.application_id + '</a>';
+				var link = '<a title="<?php echo __('View Application') ?>" href="' + window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/index.php/application/view/id/' + data.app_id + '">' + data.application_id + '</a>';
 				$('td:eq(5)', row).html(link);
 			},
 			columns: [{
@@ -192,7 +192,7 @@ if (sfConfig::get('app_enable_livechat')) {
 
 		$('#message_form').submit(function(e) {
 			$.ajax({
-				url: "<?php echo url_for('/plan/application/messaging') ?>",
+				url: "<?php echo url_for('/index.php/application/messaging') ?>",
 				data: $(this).serialize(),
 				type: "POST",
 				dataType: "json",

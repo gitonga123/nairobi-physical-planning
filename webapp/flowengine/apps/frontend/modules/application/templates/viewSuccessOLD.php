@@ -22,7 +22,7 @@ use_helper("I18N");
 				<?php
 				foreach($forms_link as $form_link):
 				?>
-					<a class="btn btn-primary" style="border: 2px solid red;" href="/plan/forms/view?id=<?php echo $form_link->getFormId() ?>&linkto=<?php echo $application->getId() ?>"><?php echo __('Apply for')." ".$form_link->getFormName() ?></a>
+					<a class="btn btn-primary" style="border: 2px solid red;" href="/index.php/forms/view?id=<?php echo $form_link->getFormId() ?>&linkto=<?php echo $application->getId() ?>"><?php echo __('Apply for')." ".$form_link->getFormName() ?></a>
 				<?php
 				endforeach;
 				?>

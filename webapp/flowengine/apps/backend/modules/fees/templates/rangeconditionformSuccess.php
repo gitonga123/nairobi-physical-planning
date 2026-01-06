@@ -13,7 +13,7 @@ use_helper("I18N");
 <?php if($sf_user->hasFlash('save_notice')): ?>
 	<div><?php echo $sf_user->getFlash('save_notice') ?></div>
 <?php endif; ?>
-<form id="bconditionform" class="form-bordered form-horizontal" action="<?php echo url_for('/plan/fees/'.($form->getObject()->isNew() ? 'newfeerangecondition' : 'updatefeerangecondition').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false">
+<form id="bconditionform" class="form-bordered form-horizontal" action="<?php echo url_for('/backend.php/fees/'.($form->getObject()->isNew() ? 'newfeerangecondition' : 'updatefeerangecondition').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>   autocomplete="off" data-ajax="false">
     <div class="panel-body panel-body-nopadding">
 
           <?php echo $form->renderGlobalErrors() ?>
@@ -56,20 +56,20 @@ use_helper("I18N");
  jQuery(document).ready(function(){
 	$("#submitbuttonname").click(function() {
 		 $.ajax({
-			url: '<?php echo url_for('/plan/fees/'.($form->getObject()->isNew() ? 'newfeerangecondition' : 'updatefeerangecondition').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
+			url: '<?php echo url_for('/backend.php/fees/'.($form->getObject()->isNew() ? 'newfeerangecondition' : 'updatefeerangecondition').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>',
 			cache: false,
 			type: 'POST',
 			data : $('#bconditionform').serialize(),
 			success: function(json) {
 				$('#alertdiv').attr("style", "display: block;");
-		        $("#loadrangeconditions").load("<?php echo url_for('/plan/fees/rangeconditions/filter/'.$filter) ?>");
+		        $("#loadrangeconditions").load("<?php echo url_for('/backend.php/fees/rangeconditions/filter/'.$filter) ?>");
 			}
 		});
 		return false;
 	 });
 
 	  $( "#backbuttonname" ).click(function() {
-		        $("#loadrangeconditions").load("<?php echo url_for('/plan/fees/rangeconditions/filter/'.$filter) ?>");
+		        $("#loadrangeconditions").load("<?php echo url_for('/backend.php/fees/rangeconditions/filter/'.$filter) ?>");
 	  });
 
 	});

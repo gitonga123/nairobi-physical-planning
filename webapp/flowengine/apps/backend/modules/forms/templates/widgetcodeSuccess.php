@@ -81,7 +81,7 @@
 	}
 
 	$ssl_suffix = mf_get_ssl_suffix();
-	$widget_embed_url 	= '/plan/forms/widget?key='.$access_key;
+	$widget_embed_url 	= '/backend.php/forms/widget?key='.$access_key;
 	
 	//construct iframe code
 	$iframe_widget_code = '<iframe height="'.$chart_frame_height.'" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none" src="'.$widget_embed_url.'" title="'.$chart_title.'"><a href="'.$widget_embed_url.'" title="'.$chart_title.'">'.$chart_title.'</a></iframe>';	
@@ -109,7 +109,7 @@
 				<div class="content_header">
 					<div class="content_header_title">
 						<div style="float: left">
-							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <a class="breadcrumb" href="/plan/forms/managereport?id=<?php echo $form_id; ?>">Report</a> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo 'Widget #'.$chart_id; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Code </h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <a class="breadcrumb" href="/backend.php/forms/managereport?id=<?php echo $form_id; ?>">Report</a> <span class="icon-arrow-right2 breadcrumb_arrow"></span> <?php echo 'Widget #'.$chart_id; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Code </h2>
 							<br>
                             <p>Integrate the widget into your website page by using the code provided below</p>
 						</div>	

@@ -11,7 +11,7 @@ $otb_helper = new OTBHelper();
             <script language="javascript">
             jQuery(document).ready(function(){
               $( "#newrangecondition" ).click(function() {
-                  $("#loadrangeconditions").load("<?php echo url_for('/plan/fees/rangeconditionform/filter/'.$filter) ?>");
+                  $("#loadrangeconditions").load("<?php echo url_for('/backend.php/fees/rangeconditionform/filter/'.$filter) ?>");
               });
             });
             </script>
@@ -78,12 +78,12 @@ $otb_helper = new OTBHelper();
 								<script language="javascript">
 								jQuery(document).ready(function(){
 								  $( "#editrangecondition<?php echo $fee_range_condition->getId() ?>" ).click(function() {
-									console.log("the link ### <?php echo url_for('/plan/fees/rangeconditionform/id/'.$fee_range_condition->getId().'/filter/'.$filter) ?>");
-									  $("#loadrangeconditions").load("<?php echo url_for('/plan/fees/rangeconditionform/id/'.$fee_range_condition->getId().'/filter/'.$filter) ?>");
+									console.log("the link ### <?php echo url_for('/backend.php/fees/rangeconditionform/id/'.$fee_range_condition->getId().'/filter/'.$filter) ?>");
+									  $("#loadrangeconditions").load("<?php echo url_for('/backend.php/fees/rangeconditionform/id/'.$fee_range_condition->getId().'/filter/'.$filter) ?>");
 								  });
 								  $( "#deleterangecondition<?php echo $fee_range_condition->getId() ?>" ).click(function() {
 									  if(confirm('Are you sure you want to delete this condition?')){
-										$("#loadrangeconditions").load("<?php echo url_for('/plan/fees/deleterangecondition/id/'.$fee_range_condition->getId().'/filter/'.$filter) ?>");
+										$("#loadrangeconditions").load("<?php echo url_for('/backend.php/fees/deleterangecondition/id/'.$fee_range_condition->getId().'/filter/'.$filter) ?>");
 									  }
 									  else
 									  {

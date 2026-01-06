@@ -45,14 +45,14 @@ use_helper("I18N");
                     <?php
                     if (empty($document_key)) {
                     ?>
-                        <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/plan/permits/print/id/<?php echo $permit->getId(); ?>';">
+                        <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/index.php/permits/print/id/<?php echo $permit->getId(); ?>';">
                             <i class="fa fa-print mr5"></i> <?php echo __("Print Service"); ?>
                         </button>
                     <?php
                     }
                     if (empty($document_key) && $permit_template->getPartType() == 2) {
                     ?>
-                        <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/plan/permits/attach/id/<?php echo $permit->getId(); ?>';">
+                        <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/index.php/permits/attach/id/<?php echo $permit->getId(); ?>';">
                             <i class="fa fa-print mr5"></i> <?php echo __("Attach Signed Copy"); ?>
                         </button>
                         <?php
@@ -61,7 +61,7 @@ use_helper("I18N");
                         //Client should only reattach in a corrections stage
                         if ($application->getDeclined()) {
                         ?>
-                            <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/plan/permits/attach/id/<?php echo $permit->getId(); ?>';">
+                            <button class="btn btn-primary" id="printinvoice" type="button" onClick="window.location='/index.php/permits/attach/id/<?php echo $permit->getId(); ?>';">
                                 <i class="fa fa-print mr5"></i> <?php echo __("Re-attach Signed Copy"); ?>
                             </button>
                         <?php

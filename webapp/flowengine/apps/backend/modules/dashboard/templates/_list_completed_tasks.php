@@ -59,11 +59,11 @@
 
                 <?php if ($current_paginator->haveToPaginate()): ?>
                     <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                        <li><a href="/plan/dashboard/index/current/completed/page/1">
+                        <li><a href="/backend.php/dashboard/index/current/completed/page/1">
                                 <i class="fa fa-angle-left"></i>
                             </a></li>
 
-                        <li> <a href="/plan/dashboard/index/current/completed/page/<?php echo $current_paginator->getPreviousPage() ?>">
+                        <li> <a href="/backend.php/dashboard/index/current/completed/page/<?php echo $current_paginator->getPreviousPage() ?>">
                                 <i class="fa fa-angle-left"></i>
                             </a></li>
 
@@ -71,15 +71,15 @@
                             <?php if ($page == $current_paginator->getPage()): ?>
                                 <li class="active"><a href=""><?php echo $page ?></a>
                             <?php else: ?>
-                                <li><a href="/plan/dashboard/index/current/completed/page/<?php echo $page ?>"><?php echo $page ?></a></li>
+                                <li><a href="/backend.php/dashboard/index/current/completed/page/<?php echo $page ?>"><?php echo $page ?></a></li>
                             <?php endif; ?>
                         <?php endforeach; ?>
 
-                        <li> <a href="/plan/dashboard/index/current/completed/page/<?php echo $current_paginator->getNextPage() ?>">
+                        <li> <a href="/backend.php/dashboard/index/current/completed/page/<?php echo $current_paginator->getNextPage() ?>">
                                 <i class="fa fa-angle-right"></i>
                             </a></li>
 
-                        <li> <a href="/plan/dashboard/index/current/completed/page/<?php echo $current_paginator->getLastPage() ?>">
+                        <li> <a href="/backend.php/dashboard/index/current/completed/page/<?php echo $current_paginator->getLastPage() ?>">
                                 <i class="fa fa-angle-right"></i>
                             </a></li>
                     </ul>

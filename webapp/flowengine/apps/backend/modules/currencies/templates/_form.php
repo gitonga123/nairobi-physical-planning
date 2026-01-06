@@ -4,7 +4,7 @@
 use_helper("I18N");
 ?>
 <div class="contentpanel">
-<form class="form-bordered" action="<?php echo url_for('/plan/currencies/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId()."&filter=".$filter : '?filter='.$filter )) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>  autocomplete="off" data-ajax="false">
+<form class="form-bordered" action="<?php echo url_for('/backend.php/currencies/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId()."&filter=".$filter : '?filter='.$filter )) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>  autocomplete="off" data-ajax="false">
 
 <div class="panel panel-dark">
 <div class="panel-heading">
@@ -48,7 +48,7 @@ use_helper("I18N");
         </div>
       </div>
 	   <div class="panel-footer">
-               <a href="<?php echo url_for('/plan/currencies/index') ?>" <button class="btn btn-danger mr10"><?php echo __('Back to List'); ?></button> </a>
+               <a href="<?php echo url_for('/backend.php/currencies/index') ?>" <button class="btn btn-danger mr10"><?php echo __('Back to List'); ?></button> </a>
                         <button type="submit" class="btn btn-primary" value="submitbuttonvalue"><?php echo __('Save'); ?></button>
 	  </div>
 </form>

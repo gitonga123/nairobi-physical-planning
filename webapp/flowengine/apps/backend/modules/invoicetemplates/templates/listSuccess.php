@@ -12,8 +12,8 @@ if($sf_user->mfHasCredential("manageinvoices"))
 
 
     <div class="panel-heading text-right">
-            <a class="btn btn-primary" id="newtemplate" href="/plan/invoicetemplates/new"><?php echo __('+ Add Invoice'); ?></a>
-            <a class="btn btn-primary m-l-10" id="back" href="/plan/services/index"><?php echo __('Back to Services'); ?></a>
+            <a class="btn btn-primary" id="newtemplate" href="/backend.php/invoicetemplates/new"><?php echo __('+ Add Invoice'); ?></a>
+            <a class="btn btn-primary m-l-10" id="back" href="/backend.php/services/index"><?php echo __('Back to Services'); ?></a>
     </div>
 
 
@@ -60,8 +60,8 @@ if($sf_user->mfHasCredential("manageinvoices"))
               ?>
              </td>
              <td>
-                <a id="edittemplate<?php echo $template->getId(); ?>" href="/plan/invoicetemplates/edit/id/<?php echo $template->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                <a id="deletetemplate<?php echo $template->getId(); ?>" onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/invoicetemplates/delete/id/<?php echo $template->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                <a id="edittemplate<?php echo $template->getId(); ?>" href="/backend.php/invoicetemplates/edit/id/<?php echo $template->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                <a id="deletetemplate<?php echo $template->getId(); ?>" onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/invoicetemplates/delete/id/<?php echo $template->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
               </td>
           </tr>
           <?php endforeach; ?>

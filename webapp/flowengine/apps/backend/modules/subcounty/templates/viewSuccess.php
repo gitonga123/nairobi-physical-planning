@@ -7,7 +7,7 @@ use_helper("I18N");
   </div>
 
   <div class="panel-heading text-right">
-    <a class="btn btn-primary" id="newpage" href="/plan/subcounty/index"><?php echo __('Back to List'); ?></a>
+    <a class="btn btn-primary" id="newpage" href="/backend.php/subcounty/index"><?php echo __('Back to List'); ?></a>
   </div>
 
   <div class="panel-body padding-0">

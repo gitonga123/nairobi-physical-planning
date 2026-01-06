@@ -27,7 +27,7 @@
                 foreach ($stages as $stage) {
                     if ($sf_user->mfHasCredential('accesssubmenu' . $stage->getId())) {
                         ?>
-                        <h4><a href="/plan/tasks/list/service/<?php echo $workflow->getId(); ?>"><i
+                        <h4><a href="/backend.php/tasks/list/service/<?php echo $workflow->getId(); ?>"><i
                                 class="fa fa-caret-right"></i> <?php echo $workflow->getTitle(); ?></a></h4>
                         <?php
                         break;
@@ -47,7 +47,7 @@
                 ->orderBy('a.order_no ASC');
             $workflow = $q->fetchOne();
 
-            echo "<div class='panel-heading'><small> <a href='/plan/tasks/list'>".__("Workflows")."</a> &gt; " . $workflow->getTitle() . "</small></div> ";
+            echo "<div class='panel-heading'><small> <a href='/backend.php/tasks/list'>".__("Workflows")."</a> &gt; " . $workflow->getTitle() . "</small></div> ";
 
             $q = Doctrine_Query::create()
                 ->from('SubMenus a')
@@ -61,7 +61,7 @@
             foreach ($stages as $stage) {
                 if ($sf_user->mfHasCredential('accesssubmenu' . $stage->getId())) {
                     ?>
-                    <div class="panel-heading"><a href="/plan/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>">
+                    <div class="panel-heading"><a href="/backend.php/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>">
                         <?php
                             $q = Doctrine_Query::create()
                                 ->from("FormEntry a")
@@ -92,7 +92,7 @@
                 ->orderBy('a.order_no ASC');
             $stage = $q->fetchOne();
 
-            echo "<h3 class='panel-title'> <a href='/plan/tasks'>".__("Workflows")."</a> &gt; <a href='/plan/tasks/list/service/".$workflow->getId()."'>"  . $workflow->getTitle() . "</a> &gt; " . $stage->getTitle() . "</h3>";
+            echo "<h3 class='panel-title'> <a href='/backend.php/tasks'>".__("Workflows")."</a> &gt; <a href='/backend.php/tasks/list/service/".$workflow->getId()."'>"  . $workflow->getTitle() . "</a> &gt; " . $stage->getTitle() . "</h3>";
 
             //Use application manager to filter logiced applications
             $application_manager = new ApplicationManager();
@@ -113,7 +113,7 @@
             ?>
 
 
-            <form action="/plan/tasks/batchpick" method="post">
+            <form action="/backend.php/tasks/batchpick" method="post">
             <table class="table table-striped table-hover table-special">
                 <thead>
                 <tr>
@@ -129,7 +129,7 @@
                     ?>
                     <tr>
                         <td><input type="checkbox" name="batch_pick[]" id="batch_<?php echo $application->getId(); ?>" value="<?php echo $application->getId(); ?>"></td>
-                        <td><a href="/plan/tasks/pick/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId(); ?></a></td>
+                        <td><a href="/backend.php/tasks/pick/id/<?php echo $application->getId(); ?>"><?php echo $application->getApplicationId(); ?></a></td>
                         <td><?php echo $application->getDateOfSubmission(); ?></td>
                         <td>
                                 <a  title='<?php echo __('Pick Task'); ?>' href='<?php echo public_path("plan/tasks/pick/id/".$application->getId()); ?>'> <span class="label label-primary"><i class="fa fa-eye"></i></span></a>
@@ -148,11 +148,11 @@
 
                         <?php if ($pager->haveToPaginate()): ?>
                             <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                <li><a href="/plan/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/1">
+                                <li><a href="/backend.php/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/1">
                                         <i class="fa fa-angle-left"></i>
                                     </a></li>
 
-                                <li> <a href="/plan/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $pager->getPreviousPage() ?>">
+                                <li> <a href="/backend.php/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $pager->getPreviousPage() ?>">
                                         <i class="fa fa-angle-left"></i>
                                     </a></li>
 
@@ -160,15 +160,15 @@
                                     <?php if ($page == $pager->getPage()): ?>
                                         <li class="active"><a href=""><?php echo $page ?></a>
                                     <?php else: ?>
-                                        <li><a href="/plan/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $page ?>"><?php echo $page ?></a></li>
+                                        <li><a href="/backend.php/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $page ?>"><?php echo $page ?></a></li>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
 
-                                <li> <a href="/plan/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $pager->getNextPage() ?>">
+                                <li> <a href="/backend.php/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $pager->getNextPage() ?>">
                                         <i class="fa fa-angle-right"></i>
                                     </a></li>
 
-                                <li> <a href="/plan/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $pager->getLastPage() ?>">
+                                <li> <a href="/backend.php/tasks/list/service/<?php echo $workflow->getId(); ?>/stage/<?php echo $stage->getId(); ?>/page/<?php echo $pager->getLastPage() ?>">
                                         <i class="fa fa-angle-right"></i>
                                     </a></li>
                             </ul>

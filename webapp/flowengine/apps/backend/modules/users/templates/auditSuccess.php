@@ -16,7 +16,7 @@
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo __('My Account'); ?></li>
     </ol>
   </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="panel-heading text-right">
-        <a href="/plan/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>" class="btn btn-default"><span class="fa fa-arrow-left"></span>  <?php echo __("Back to Profile"); ?></a>
+        <a href="/backend.php/users/viewuser/userid/<?php echo $reviewer->getNid(); ?>" class="btn btn-default"><span class="fa fa-arrow-left"></span>  <?php echo __("Back to Profile"); ?></a>
     </div>
 
     <div class="panel-body">
@@ -91,7 +91,7 @@
                 <h3 class="panel-title">
                   <?php echo __("Audit Log"); ?></h3>
 
-                  <button class="btn btn-primary pull-right" style="margin-top: -26px;" onClick="window.location='/plan/users/audit/id/<?php echo $reviewer->getNid(); ?>'">
+                  <button class="btn btn-primary pull-right" style="margin-top: -26px;" onClick="window.location='/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>'">
                    <?php echo __("Reset"); ?>
                    </button>
                    <button class="btn btn-primary pull-right" style="margin-top: -26px; margin-right: 5px;" data-toggle="modal" data-target="#auditModal">
@@ -120,11 +120,11 @@
                     <?php if ($pager->haveToPaginate()): ?>
                     <div align="center">
                     <ul class="pagination pagination-sm mb0 mt0">
-                        <li><a href="/plan/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/1<?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+                        <li><a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/1<?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
                         <i class="fa fa-angle-left"></i>
                         </a></li>
 
-                        <li> <a href="/plan/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $pager->getPreviousPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+                        <li> <a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $pager->getPreviousPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
                         <i class="fa fa-angle-left"></i>
                         </a></li>
 
@@ -132,15 +132,15 @@
                             <?php if ($page == $pager->getPage()): ?>
                                 <li class="active"><a href=""><?php echo $page ?></a>
                             <?php else: ?>
-                            <li><a href="/plan/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $page ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>"><?php echo $page ?></a></li>
+                            <li><a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $page ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>"><?php echo $page ?></a></li>
                             <?php endif; ?>
                         <?php endforeach; ?>
 
-                        <li> <a href="/plan/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $pager->getNextPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+                        <li> <a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $pager->getNextPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
                             <i class="fa fa-angle-right"></i>
                         </a></li>
 
-                        <li> <a href="/plan/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $pager->getLastPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
+                        <li> <a href="/backend.php/users/audit/id/<?php echo $reviewer->getNid(); ?>/page/<?php echo $pager->getLastPage() ?><?php if($fromdate){ ?>/fromdate/<?php echo $fromdate ?>/todate/<?php echo $todate ?>/fromtime/<?php echo $fromtime ?>/totime/<?php echo $totime ?><?php } ?>">
                             <i class="fa fa-angle-right"></i>
                         </a></li>
                         </ul>

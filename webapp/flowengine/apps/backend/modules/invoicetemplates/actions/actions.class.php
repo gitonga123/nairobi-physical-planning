@@ -20,7 +20,7 @@ class invoicetemplatesActions extends sfActions
 
       if($wizard_manager->is_first_run())
       {
-        $this->redirect("/plan/dashboard");
+        $this->redirect("/backend.php/dashboard");
       }
       
       if($request->getParameter("filter"))
@@ -152,7 +152,7 @@ class invoicetemplatesActions extends sfActions
     $this->forward404Unless($invoicetemplates = Doctrine_Core::getTable('invoicetemplates')->find(array($request->getParameter('id'))), sprintf('Object permits does not exist (%s).', $request->getParameter('id')));
     $invoicetemplates->delete();
 
-    $this->redirect('/plan/invoicetemplates/index');
+    $this->redirect('/backend.php/invoicetemplates/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -163,7 +163,7 @@ class invoicetemplatesActions extends sfActions
       $invoicetemplates = $form->save();
     }
     
-    $this->redirect('/plan/invoicetemplates/index');
+    $this->redirect('/backend.php/invoicetemplates/index');
   }
   public function executeList(sfWebRequest $request)
   {
@@ -174,7 +174,7 @@ class invoicetemplatesActions extends sfActions
 
       if($wizard_manager->is_first_run())
       {
-        $this->redirect("/plan/dashboard");
+        $this->redirect("/backend.php/dashboard");
       }
       
       $q = Doctrine_Query::create()

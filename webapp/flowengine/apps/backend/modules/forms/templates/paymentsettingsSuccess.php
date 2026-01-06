@@ -515,7 +515,7 @@ EOT;
 				<div class="content_header">
 					<div class="content_header_title">
 						<div style="float: left">
-							<h2><?php echo "<a class=\"breadcrumb\" href='/plan/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Payment Settings</h2>
+							<h2><?php echo "<a class=\"breadcrumb\" href='/backend.php/forms/index?id={$form_id}'>".$form_name.'</a>'; ?> <span class="icon-arrow-right2 breadcrumb_arrow"></span> Payment Settings</h2>
 							<br>
 							<p>Configure payment options for your form</p>
 						</div>	

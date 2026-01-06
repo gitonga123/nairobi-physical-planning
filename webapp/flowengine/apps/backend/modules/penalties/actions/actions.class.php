@@ -123,7 +123,7 @@ class penaltiesActions extends sfActions
     $this->forward404Unless($penalties = Doctrine_Core::getTable('PenaltyTemplate')->find(array($request->getParameter('id'))), sprintf('Object permits does not exist (%s).', $request->getParameter('id')));
     $penalties->delete();
 
-    $this->redirect('/plan/penalties/index');
+    $this->redirect('/backend.php/penalties/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -132,7 +132,7 @@ class penaltiesActions extends sfActions
     if ($form->isValid())
     {
       $penalties = $form->save();
-      $this->redirect('/plan/penalties/index');
+      $this->redirect('/backend.php/penalties/index');
     }
   }
 }

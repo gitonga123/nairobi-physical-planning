@@ -64,7 +64,7 @@ class formsActions extends sfActions
                         $this->getUser()->setAttribute("current_profile", $request->getParameter("profile"));
                         $this->setLayout("layoutprofile");
                   } else {
-                        $this->redirect("/plan/profile/view/id/" . $profile->getId());
+                        $this->redirect("/index.php/profile/view/id/" . $profile->getId());
                   }
             } else {
                   $this->getUser()->setAttribute("current_profile", false);
@@ -171,7 +171,7 @@ class formsActions extends sfActions
                   $result = $this->check_payment_jambo_pay($billing_reference_number);
                   if ($result['success']) {
                         $this->updateInvoiceToPaid($billing_reference_number, $this->invoice->id, $result['receipt']);
-                        $this->redirect('/plan/invoices/view/id/' . $this->invoice->getId());
+                        $this->redirect('/index.php/invoices/view/id/' . $this->invoice->getId());
                   }
             }
 

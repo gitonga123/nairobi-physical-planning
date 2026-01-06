@@ -14,7 +14,7 @@ if($sf_user->mfHasCredential("managewebpages"))
         </div>
 
         <div class="panel-heading text-right">
-                <a class="btn btn-primary" id="newpage" href="/plan/banner/new" ><?php echo __('+ Add Banner'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/backend.php/banner/new" ><?php echo __('+ Add Banner'); ?></a>
         </div>
         <div class="panel-body">
 
@@ -35,8 +35,8 @@ if($sf_user->mfHasCredential("managewebpages"))
                         <td><?php echo $banner->getTitle();  ?></td>
                         <td><img src="<?php echo '/'.$site_settings->getUploadDir().'/'.$banner->getImage();  ?>" width="200px"></td>
                         <td align="center">
-                            <a id="editpage<?php echo $banner->getId(); ?>" href="/plan/banner/edit/id/<?php echo $banner->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $banner->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/banner/delete/id/<?php echo $banner->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $banner->getId(); ?>" href="/backend.php/banner/edit/id/<?php echo $banner->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $banner->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/banner/delete/id/<?php echo $banner->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

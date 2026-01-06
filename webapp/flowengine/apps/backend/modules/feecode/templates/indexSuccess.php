@@ -13,7 +13,7 @@ if($sf_user->mfHasCredential("managefees"))
 
 
         <div class="panel-heading text-right">
-            <a class="btn btn-primary" id="newpage" href="/plan/feecode/new" ><?php echo __('+ Add Fee Code'); ?></a>
+            <a class="btn btn-primary" id="newpage" href="/backend.php/feecode/new" ><?php echo __('+ Add Fee Code'); ?></a>
         </div>
 
         <div class="panel-body">
@@ -41,8 +41,8 @@ if($sf_user->mfHasCredential("managefees"))
                         <td><?php echo $feecode->getAmount();  ?></td>
                         <td><?php echo $feecode->getZone();  ?></td>
                         <td align="center">
-                            <a id="feecodeedit<?php echo $feecode->getId(); ?>" href="/plan/feecode/edit/id/<?php echo $feecode->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="feecodedelete<?php echo $feecode->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/feecode/delete/id/<?php echo $feecode->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="feecodeedit<?php echo $feecode->getId(); ?>" href="/backend.php/feecode/edit/id/<?php echo $feecode->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="feecodedelete<?php echo $feecode->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/feecode/delete/id/<?php echo $feecode->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

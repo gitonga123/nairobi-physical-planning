@@ -95,7 +95,7 @@ EOT;
 <script>
 $(function(){
 	$('.ifc-button').click(function(e){
-		$('#modal-content').load("<?php echo url_for('/plan/applications/viewifc') ?>",{application: $(this).data('application')});
+		$('#modal-content').load("<?php echo url_for('/backend.php/applications/viewifc') ?>",{application: $(this).data('application')});
 	});
 });
 </script>

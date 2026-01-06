@@ -32,7 +32,7 @@ use_helper("I18N");
         else
         {
           ?>
-          <form action="/plan/forms/decline" method="POST"  autocomplete="off" data-ajax="false">
+          <form action="/backend.php/forms/decline" method="POST"  autocomplete="off" data-ajax="false">
             <fieldset>
               <input type="hidden" name="entryid" value="<?php echo $entry->getId(); ?>">
               <input type="hidden" name="moveto" value="<?php echo $moveto; ?>">

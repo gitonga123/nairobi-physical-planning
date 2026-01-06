@@ -99,7 +99,7 @@ class plotActions extends sfActions {
     public function executeSave(sfWebRequest $request) {
         // Only ajax posts are allowed
         if ( !$request->isXmlHttpRequest() ) {
-            $this->redirect('/plan/plot/index');
+            $this->redirect('/backend.php/plot/index');
             return sfView::NONE;
         }
 
@@ -175,7 +175,7 @@ class plotActions extends sfActions {
     public function executeDelete(sfWebRequest $request) {
         // Only ajax posts are allowed
         if ( !$request->isXmlHttpRequest() ) {
-            $this->redirect('/plan/plot/index');
+            $this->redirect('/backend.php/plot/index');
             return sfView::NONE;
         }
 
@@ -227,7 +227,7 @@ class plotActions extends sfActions {
     /**
      * Called to validate the plot number
      * 
-     * [host]/plan/plot/validate?q=<plot number>
+     * [host]/backend.php/plot/validate?q=<plot number>
      */
     public function executeValidate(sfWebRequest $request) {
         // If there is a parameter to indicate that we are to work with response

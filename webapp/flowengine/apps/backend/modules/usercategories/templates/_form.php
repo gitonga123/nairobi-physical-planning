@@ -1,7 +1,7 @@
 <?php
 use_helper("I18N");
 ?>
-<form  action="/plan/usercategories/<?php echo ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" '?>   autocomplete="off" data-ajax="false" class="form-bordered">
+<form  action="/backend.php/usercategories/<?php echo ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" '?>   autocomplete="off" data-ajax="false" class="form-bordered">
 
   <?php if (!$form->getObject()->isNew()): ?>
   <input type="hidden" name="sf_method" value="put" />
@@ -17,7 +17,7 @@ use_helper("I18N");
       <?php echo $form->renderGlobalErrors() ?>
 
       <div class="pull-right">
-          <a class="btn btn-primary" id="newpage" href="/plan/usercategories/index" ><?php echo __('Back to List'); ?></a>
+          <a class="btn btn-primary" id="newpage" href="/backend.php/usercategories/index" ><?php echo __('Back to List'); ?></a>
       </div>
     </div>
 
@@ -91,7 +91,7 @@ use_helper("I18N");
 				 $('#sf_guard_user_categories_formid').change(function(){
 					var value = this.value ;
 					 $.ajax({
-						url: '<?php echo url_for('/plan/usercategories/changefield/form_id/'); ?>'+value,
+						url: '<?php echo url_for('/backend.php/usercategories/changefield/form_id/'); ?>'+value,
 						cache: false,
 						type: 'POST',
 						data : $('#bform').serialize(),
@@ -108,7 +108,7 @@ use_helper("I18N");
 					});
 
 					 $.ajax({
-						url: '<?php echo url_for('/plan/usercategories/changefield/form_id/'); ?>'+value+'/email/1',
+						url: '<?php echo url_for('/backend.php/usercategories/changefield/form_id/'); ?>'+value+'/email/1',
 						cache: false,
 						type: 'POST',
 						data : $('#bform').serialize(),
@@ -154,7 +154,7 @@ use_helper("I18N");
 						$('#sf_guard_user_categories_member_database_member_name_field').children().remove();
 					  if(member_form != 0){
 						  $.ajax({
-							  url: "<?php echo url_for('/plan/usercategories/updatememeberfields'); ?>",
+							  url: "<?php echo url_for('/backend.php/usercategories/updatememeberfields'); ?>",
 							  data:{ form: member_form},
 							  type: "POST",
 							  dataType: "json",

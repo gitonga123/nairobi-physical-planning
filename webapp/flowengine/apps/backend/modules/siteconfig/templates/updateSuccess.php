@@ -9,7 +9,7 @@ if($sf_user->mfHasCredential("managewebpages"))
 <div class="panel panel-default">
 <div class="panel-heading">
   <h3 class="panel-title"><?php echo __('Edit Site Configurations'); ?></div>
-<form id="apsettingform" name="apsettingform" class="form-bordered form-horizontal" action="/plan/siteconfig/update" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form id="apsettingform" name="apsettingform" class="form-bordered form-horizontal" action="/backend.php/siteconfig/update" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
 <?php
 if($success == true && $success != null)

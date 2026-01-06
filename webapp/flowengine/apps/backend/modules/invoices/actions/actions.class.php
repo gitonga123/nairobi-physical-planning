@@ -1163,7 +1163,7 @@ class invoicesActions extends sfActions
                 $audit = new Audit();
                 $audit->saveAudit("", "Confirmed payment for invoice #" . $this->invoice->getId());
 
-                $this->redirect("/plan/invoices/view/id/" . $this->invoice->getId());
+                $this->redirect("/backend.php/invoices/view/id/" . $this->invoice->getId());
             }
         }
 
@@ -1183,7 +1183,7 @@ class invoicesActions extends sfActions
                     $audit->saveAudit("", "UnCancel payment for invoice #" . $this->invoice->getId());
                 }
 
-                $this->redirect("/plan/invoices/view/id/" . $this->invoice->getId());
+                $this->redirect("/backend.php/invoices/view/id/" . $this->invoice->getId());
             }
         }
     }
@@ -1337,17 +1337,17 @@ class invoicesActions extends sfActions
                     throw new sfException('Something Went Wrong. Please try again later.', 500);
                 }
                 $this->getUser()->setFlash('notice', 'Invoice Paid');
-                return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+                return $this->redirect('/backend.php/invoices/view/id/' . $invoice_id);
             } else {
                 $this->getUser()->setFlash('notice', 'Invoice Still Unpaid');
 
-                return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+                return $this->redirect('/backend.php/invoices/view/id/' . $invoice_id);
             }
 
         } else {
             $this->getUser()->setFlash('notice', 'Invoice Still Unpaid');
 
-            return $this->redirect('/plan/invoices/view/id/' . $invoice_id);
+            return $this->redirect('/backend.php/invoices/view/id/' . $invoice_id);
         }
     }
 }

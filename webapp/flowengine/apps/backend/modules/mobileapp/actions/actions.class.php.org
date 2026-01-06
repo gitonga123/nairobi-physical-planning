@@ -458,7 +458,7 @@ class mobileappActions extends sfActions
 //		$task->save();
 
 //		$app_json['task_id'] = $task->getId();
-//		$app_json['form_html_action'] =  $_SERVER['HTTP_HOST']."/plan/tasks/view/id/";
+//		$app_json['form_html_action'] =  $_SERVER['HTTP_HOST']."/backend.php/tasks/view/id/";
 		$app_json['field_name_prefix'] = "element_";
 		$app_json['form_elements'] = $element;
 		echo json_encode($app_json);

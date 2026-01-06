@@ -11,7 +11,7 @@ if($sf_user->mfHasCredential("managereports"))
             <h3 class="panel-title"><?php echo __('JSON Reports'); ?></h3>
 
             <div class="pull-right">
-                <a class="btn btn-primary" id="newpage" href="/plan/jsonreports/new" ><?php echo __('New Report'); ?></a>
+                <a class="btn btn-primary" id="newpage" href="/backend.php/jsonreports/new" ><?php echo __('New Report'); ?></a>
             </div>
         </div>
 
@@ -43,8 +43,8 @@ if($sf_user->mfHasCredential("managereports"))
                         ?>
                         </td>
                         <td align="center">
-                            <a id="editpage<?php echo $report->getId(); ?>" href="/plan/jsonreports/edit/id/<?php echo $report->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $report->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/jsonreports/delete/id/<?php echo $report->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $report->getId(); ?>" href="/backend.php/jsonreports/edit/id/<?php echo $report->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $report->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/jsonreports/delete/id/<?php echo $report->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

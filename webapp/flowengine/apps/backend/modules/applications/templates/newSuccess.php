@@ -106,7 +106,7 @@ if(mf_is_form_submitted()){ //if form submitted
 		if (empty($submit_result['form_redirect'])) {
 
 			$_SESSION['review_id'] = $submit_result['review_id'];
-			header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'].'/plan/applications/showentries/form_id/'.$form_id);
+			header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'].'/backend.php/applications/showentries/form_id/'.$form_id);
 
 			exit;
 		} else {

@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-2" style="text-align: right">
             <?php if ($default_signing_agent == 'docusign'): ?>
-                <a href="/plan/signing?permitaction=signdocument"
+                <a href="/backend.php/signing?permitaction=signdocument"
                    class="btn btn-primary">
                     <i class="fa fa-pencil"></i> Proceed to Sign
                 </a>
@@ -17,7 +17,7 @@
                     include_partial('signing/hello_sign_embed');
                 endif; ?>
 
-                <a href="/plan/signing/embeddedsigningrequest?permitaction=signdocument&redirect_to=<?php echo base64_encode("/plan/dashboard?") ?>"
+                <a href="/backend.php/signing/embeddedsigningrequest?permitaction=signdocument&redirect_to=<?php echo base64_encode("/backend.php/dashboard?") ?>"
                    class="btn btn-primary">
                     <i class="fa fa-pencil"></i> Proceed to Sign
                 </a>

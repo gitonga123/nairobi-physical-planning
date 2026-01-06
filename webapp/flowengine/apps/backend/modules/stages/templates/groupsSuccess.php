@@ -3,7 +3,7 @@ use_helper("I18N");
 ?>
 <div class="contentpanel">
 
-  <form id="stageform" class="form-bordered" action="/plan/stages/groups/id/<?php echo $stage->getId(); ?>"
+  <form id="stageform" class="form-bordered" action="/backend.php/stages/groups/id/<?php echo $stage->getId(); ?>"
     method="post" autocomplete="off" data-ajax="false">
     <div class="panel panel-default">
 
@@ -75,7 +75,7 @@ use_helper("I18N");
 
       <div class="panel-footer">
         <a class="btn btn-danger mr10"
-          href="/plan/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a>
+          href="/backend.php/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a>
         <?php if ($sf_user->mfHasCredential('access_security')) {
           ?>
           <button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname"

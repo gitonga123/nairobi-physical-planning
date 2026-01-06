@@ -37,7 +37,7 @@ class reportsActions extends sfActions
       jQuery(document).ready(function(){
           jQuery("#form_dropdown_fields" ).change(function() {
               var selecteditem = this.value;
-              $.ajax({url:"/plan/reports/getdropdownvaluefields?formid=' . $request->getParameter('formid') . '&elementid=" + selecteditem,success:function(result){
+              $.ajax({url:"/backend.php/reports/getdropdownvaluefields?formid=' . $request->getParameter('formid') . '&elementid=" + selecteditem,success:function(result){
                 $("#ajaxdropdownvaluefields").html(result);
               }});
           });
@@ -1880,7 +1880,7 @@ class reportsActions extends sfActions
       }
     }
 
-    $this->redirect("/plan/settings/forms?load=reports");
+    $this->redirect("/backend.php/settings/forms?load=reports");
   }
 
 
@@ -1944,7 +1944,7 @@ class reportsActions extends sfActions
       }
     }
 
-    $this->redirect("/plan/settings/forms?load=reports");
+    $this->redirect("/backend.php/settings/forms?load=reports");
   }
 
 
@@ -1964,7 +1964,7 @@ class reportsActions extends sfActions
 
     $report->delete();
 
-    $this->redirect("/plan/settings/forms?load=reports");
+    $this->redirect("/backend.php/settings/forms?load=reports");
   }
 
 

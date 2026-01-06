@@ -34,11 +34,11 @@ if($sf_user->mfHasCredential("manageactions"))
     <script language="javascript">
     jQuery(document).ready(function(){
       $( "#editaction<?php echo $buttons->getId(); ?>" ).click(function() {
-          $("#loadinner").load("/plan/buttons/edit/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $filter; ?>");
+          $("#loadinner").load("/backend.php/buttons/edit/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $filter; ?>");
       });
       $( "#deleteaction<?php echo $buttons->getId(); ?>" ).click(function() {
         if(confirm('Are you sure you want to delete this button?')){
-          $("#loadinner").load("/plan/buttons/delete/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $filter; ?>");
+          $("#loadinner").load("/backend.php/buttons/delete/id/<?php echo $buttons->getId(); ?>/filter/<?php echo $filter; ?>");
         }
         else
         {

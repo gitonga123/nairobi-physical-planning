@@ -32,7 +32,7 @@ if(sizeof($declines) > 0)
         {
              if($sf_user->mfHasCredential("resolvecomment")) //allow user to resolve it if they have the privilege
              {
-                $resolved =  "<a title='Click to Mark as Resolved' href='javascript:;' onClick=\"ajaxresolve('/plan/tasks/toggledecline/id/".$decline->getId()."/resolved/1','d_".$decline->getId()."');\">";
+                $resolved =  "<a title='Click to Mark as Resolved' href='javascript:;' onClick=\"ajaxresolve('/backend.php/tasks/toggledecline/id/".$decline->getId()."/resolved/1','d_".$decline->getId()."');\">";
              }
 
              $resolved = $resolved."<span class='glyphicon glyphicon-ban-circle'></span> Not Resolved."; 
@@ -46,7 +46,7 @@ if(sizeof($declines) > 0)
         {
              if($sf_user->mfHasCredential("resolvecomment")) //allow user to mark as unresolved if they have the privilege
              {
-                $resolved =  "<a title='Click to Mark as Not Resolved.' href='javascript:;' onClick=\"ajaxunresolve('/plan/tasks/toggledecline/id/".$decline->getId()."/resolved/0','d_".$decline->getId()."');\">";
+                $resolved =  "<a title='Click to Mark as Not Resolved.' href='javascript:;' onClick=\"ajaxunresolve('/backend.php/tasks/toggledecline/id/".$decline->getId()."/resolved/0','d_".$decline->getId()."');\">";
              }
 
              $resolved = $resolved."<span class='glyphicon glyphicon-ok'></span> Resolved."; 

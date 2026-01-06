@@ -24,10 +24,10 @@ class dashboardActions extends sfActions
 
         // //End the current reviewer's session and redirect to the login page
         // if ($login_manager->destroy_session()) {
-        //     $this->redirect("/plan/dashboard");
+        //     $this->redirect("/backend.php/dashboard");
         // } else {
         //     echo "Failed to end your session. Please try again";
-        //     $this->redirect("/plan/dashboard");
+        //     $this->redirect("/backend.php/dashboard");
         //     exit;
         // }
 
@@ -65,7 +65,7 @@ class dashboardActions extends sfActions
 
 
             if ($current_reviewer == null) {
-                $this->redirect("/plan/login/logout");
+                $this->redirect("/backend.php/login/logout");
             }
 
             $this->logged_user = $current_reviewer;
@@ -448,7 +448,7 @@ class dashboardActions extends sfActions
             $user->setUserdefined2Value($params['struserdefined2_value']);
             $user->save();
 
-            $this->redirect('/plan/dashboard');
+            $this->redirect('/backend.php/dashboard');
         }
     }
     private function _entiresQuery($cols = null, $request = null, $app_list = [])

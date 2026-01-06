@@ -21,23 +21,18 @@ class BasesfGuardAuthActions extends sfActions
   {
     $user = $this->getUser();
     $this->setLayout("layoutmentorlogin");
-    if ($user->isAuthenticated())
-    {
+    if ($user->isAuthenticated()) {
       return $this->redirect('@homepage');
-    } else{
-      return $this->redirect(sfConfig::get('app_sso_authorize_url'));
     }
 
-    $class = sfConfig::get('app_sf_guard_plugin_signin_form', 'sfGuardFormSignin'); 
+    $class = sfConfig::get('app_sf_guard_plugin_signin_form', 'sfGuardFormSignin');
     $this->form = new $class();
 
-    if ($request->isMethod('post'))
-    {
+    if ($request->isMethod('post')) {
 
       $this->form->bind($request->getParameter($this->form->getName()));
-      if ($this->form->isValid())
-      {
-        $values = $this->form->getValues(); 
+      if ($this->form->isValid()) {
+        $values = $this->form->getValues();
         $this->getUser()->signin($values['user'], array_key_exists('remember', $values) ? $values['remember'] : false);
 
         // always redirect to a URL set in app.yml
@@ -47,11 +42,8 @@ class BasesfGuardAuthActions extends sfActions
 
         return $this->redirect('' != $signinUrl ? $signinUrl : '@homepage');
       }
-    }
-    else
-    {
-      if ($request->isXmlHttpRequest())
-      {
+    } else {
+      if ($request->isXmlHttpRequest()) {
         $this->getResponse()->setHeaderOnly(true);
         $this->getResponse()->setStatusCode(401);
 
@@ -63,9 +55,8 @@ class BasesfGuardAuthActions extends sfActions
       $user->setReferer($this->getContext()->getActionStack()->getSize() > 1 ? $request->getUri() : $request->getReferer());
 
       $module = sfConfig::get('sf_login_module');
-      if ($this->getModuleName() != $module)
-      {
-        return $this->redirect($module.'/'.sfConfig::get('sf_login_action'));
+      if ($this->getModuleName() != $module) {
+        return $this->redirect($module . '/' . sfConfig::get('sf_login_action'));
       }
     }
   }

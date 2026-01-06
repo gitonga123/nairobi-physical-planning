@@ -12,7 +12,7 @@ $audit->saveAudit("", "Accessed membership form");
                 <h3 class="panel-title"><?php echo $apform[0]['form_name'] ?></h3>
 		</div>
         <div class="panel-heading text-right">
-                        <a class="btn btn-primary settings-margin42" href="<?php echo url_for('/plan/applications/new?form_id='.$apform[0]['form_id']) ?>">New <?php echo ucfirst($apform[0]['form_name']) ?> Entry</a>
+                        <a class="btn btn-primary settings-margin42" href="<?php echo url_for('/backend.php/applications/new?form_id='.$apform[0]['form_id']) ?>">New <?php echo ucfirst($apform[0]['form_name']) ?> Entry</a>
         </div>
 
 		<div class="panel panel-body panel-body-nopadding ">
@@ -44,7 +44,7 @@ $audit->saveAudit("", "Accessed membership form");
 				</td>
 				<?php endforeach; ?>
 			   <td>
-				<a title="<?php echo __('Edit'); ?>" href="<?php echo url_for('/plan/applications/editentries?form_id='.$apform[0]['form_id'].'&id='.$entry['id']) ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+				<a title="<?php echo __('Edit'); ?>" href="<?php echo url_for('/backend.php/applications/editentries?form_id='.$apform[0]['form_id'].'&id='.$entry['id']) ?>"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
 				</td>
 			</tr>
 

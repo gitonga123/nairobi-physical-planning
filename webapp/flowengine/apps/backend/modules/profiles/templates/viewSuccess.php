@@ -28,8 +28,8 @@ try
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
-      <li><a href="/plan/frusers/index"><?php echo __('Users'); ?></a></li>
+      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
+      <li><a href="/backend.php/frusers/index"><?php echo __('Users'); ?></a></li>
     </ol>
   </div>
 </div>
@@ -49,7 +49,7 @@ try
 	if($sf_user->mfHasCredential("can_inspect"))
 	{
     ?>
-            <a class="btn btn-default btn-sm m-r-10" id="newpage" href="/plan/profiles/inspect/id/<?php echo $business->getId(); ?>" >
+            <a class="btn btn-default btn-sm m-r-10" id="newpage" href="/backend.php/profiles/inspect/id/<?php echo $business->getId(); ?>" >
               <span class="fa fa-edit"></span>
               <?php echo __('Inspect Business'); ?>
             </a>
@@ -61,18 +61,18 @@ try
       if($business->getDeleted())
       {
         ?>
-        <a class="btn btn-default btn-sm" href="/plan/profiles/activate/id/<?php echo $business->getId(); ?>"><span class="fa fa-edit"></span>  <?php echo __('Activate Business'); ?></a>
+        <a class="btn btn-default btn-sm" href="/backend.php/profiles/activate/id/<?php echo $business->getId(); ?>"><span class="fa fa-edit"></span>  <?php echo __('Activate Business'); ?></a>
         <?php
       }
       else
       {
         ?>
-        <a class="btn btn-default btn-sm m-r-10" href="/plan/profiles/deactivate/id/<?php echo $business->getId(); ?>"><span class="fa fa-power-off"></span> <?php echo __('Deactivate Business'); ?></a>
+        <a class="btn btn-default btn-sm m-r-10" href="/backend.php/profiles/deactivate/id/<?php echo $business->getId(); ?>"><span class="fa fa-power-off"></span> <?php echo __('Deactivate Business'); ?></a>
         <?php
       }
     ?>
 
-    <a class="btn btn-default btn-sm" href="/plan/profiles/transfer/id/<?php echo $business->getId(); ?>"><span class="fa fa-share"></span> <?php echo __('Transfer Business'); ?></a>
+    <a class="btn btn-default btn-sm" href="/backend.php/profiles/transfer/id/<?php echo $business->getId(); ?>"><span class="fa fa-share"></span> <?php echo __('Transfer Business'); ?></a>
         </div>
 
 		<div class="panel-body p-0">
@@ -108,7 +108,7 @@ try
 					?>
 					<div class="alert alert-success">
 						<h4><?php echo __("Profile Activation Payment"); ?></h4> <?php echo __("Payment Reference"); ?>: <?php echo $business->getFormId()."/".$business->getEntryId()."/".$business->getId(); ?>. <br><br>
-						<a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/confirm/<?php echo md5($business->getFormId()."/".$business->getEntryId()."/".$business->getId()); ?>" class="btn btn-success"><?php echo __("Confirm Payment"); ?></a>
+						<a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/confirm/<?php echo md5($business->getFormId()."/".$business->getEntryId()."/".$business->getId()); ?>" class="btn btn-success"><?php echo __("Confirm Payment"); ?></a>
 					</div>
 					<?php 
 					}
@@ -201,7 +201,7 @@ try
 									<td><?php echo $service->getApplicationId(); ?></td>
 									<td><span class="label label-success"><?php echo $service->getStatusName(); ?></span></td>
 									<td class="text-right">
-										<a class="label label-primary"  title='<?php echo __('View Service'); ?>' href='/plan/applications/view/id/<?php echo $service->getId(); ?>'><span class="fa fa-eye"></span></a>
+										<a class="label label-primary"  title='<?php echo __('View Service'); ?>' href='/backend.php/applications/view/id/<?php echo $service->getId(); ?>'><span class="fa fa-eye"></span></a>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -217,11 +217,11 @@ try
 
 									<?php if ($latest_services->haveToPaginate()): ?>
 										<ul class="pagination pagination-sm mb0 mt0 pull-right">
-											<li><a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/apage/1">
+											<li><a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/apage/1">
 													<i class="fa fa-angle-left"></i>
 												</a></li>
 
-											<li> <a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $latest_services->getPreviousPage() ?>">
+											<li> <a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $latest_services->getPreviousPage() ?>">
 													<i class="fa fa-angle-left"></i>
 												</a></li>
 
@@ -229,15 +229,15 @@ try
 												<?php if ($page == $latest_services->getPage()): ?>
 													<li class="active"><a href=""><?php echo $page ?></a>
 												<?php else: ?>
-													<li><a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $page ?>"><?php echo $page ?></a></li>
+													<li><a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $page ?>"><?php echo $page ?></a></li>
 												<?php endif; ?>
 											<?php endforeach; ?>
 
-											<li> <a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $latest_services->getNextPage() ?>">
+											<li> <a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $latest_services->getNextPage() ?>">
 													<i class="fa fa-angle-right"></i>
 												</a></li>
 
-											<li> <a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $latest_services->getLastPage() ?>">
+											<li> <a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/apage/<?php echo $latest_services->getLastPage() ?>">
 													<i class="fa fa-angle-right"></i>
 												</a></li>
 										</ul>
@@ -277,7 +277,7 @@ try
 									<td><?php echo $invoice->getCurrency()." ".$invoice->getTotalAmount(); ?></td>
 									<td><?php echo $invoice->getCreatedAt(); ?></td>
 									<td class="text-right">
-										<a class="label label-primary"  title='<?php echo __('View Invoice'); ?>' href='/plan/applications/viewinvoice/id/<?php echo $invoice->getId(); ?>'><span class="fa fa-eye"></span></a>
+										<a class="label label-primary"  title='<?php echo __('View Invoice'); ?>' href='/backend.php/applications/viewinvoice/id/<?php echo $invoice->getId(); ?>'><span class="fa fa-eye"></span></a>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -293,11 +293,11 @@ try
 
 									<?php if ($latest_invoices->haveToPaginate()): ?>
 										<ul class="pagination pagination-sm mb0 mt0 pull-right">
-											<li><a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/mpage/1">
+											<li><a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/mpage/1">
 													<i class="fa fa-angle-left"></i>
 												</a></li>
 
-											<li> <a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $latest_invoices->getPreviousPage() ?>">
+											<li> <a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $latest_invoices->getPreviousPage() ?>">
 													<i class="fa fa-angle-left"></i>
 												</a></li>
 
@@ -305,15 +305,15 @@ try
 												<?php if ($page == $latest_invoices->getPage()): ?>
 													<li class="active"><a href=""><?php echo $page ?></a>
 												<?php else: ?>
-													<li><a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $page ?>"><?php echo $page ?></a></li>
+													<li><a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $page ?>"><?php echo $page ?></a></li>
 												<?php endif; ?>
 											<?php endforeach; ?>
 
-											<li> <a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $latest_invoices->getNextPage() ?>">
+											<li> <a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $latest_invoices->getNextPage() ?>">
 													<i class="fa fa-angle-right"></i>
 												</a></li>
 
-											<li> <a href="/plan/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $latest_invoices->getLastPage() ?>">
+											<li> <a href="/backend.php/profiles/view/id/<?php echo $business->getId(); ?>/mpage/<?php echo $latest_invoices->getLastPage() ?>">
 													<i class="fa fa-angle-right"></i>
 												</a></li>
 										</ul>
@@ -347,7 +347,7 @@ try
 									</td>
 									<td><?php echo $inspection->getCreatedAt(); ?></td>
 									<td class="text-right">
-										<a class="label label-primary"  title='<?php echo __('View Service'); ?>' href='/plan/profiles/viewinspection/id/<?php echo $inspection->getId(); ?>'><span class="fa fa-eye"></span></a>
+										<a class="label label-primary"  title='<?php echo __('View Service'); ?>' href='/backend.php/profiles/viewinspection/id/<?php echo $inspection->getId(); ?>'><span class="fa fa-eye"></span></a>
 									</td>
 								</tr>
 								<?php endforeach; ?>

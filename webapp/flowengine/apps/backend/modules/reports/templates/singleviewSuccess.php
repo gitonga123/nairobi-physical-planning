@@ -23,8 +23,8 @@
 			?>
 </div>
 <div style="float: right;">
-    <button onclick="window.location='/plan/reports/printsingleview/applicationid/<?php echo $application->getId(); ?>/reportid/<?php echo $report->getId(); ?>'">Print Report</button>
-	<button OnClick="window.location='/plan/applications/view/id/<?php echo $application->getId(); ?>';">View Application</button>
+    <button onclick="window.location='/backend.php/reports/printsingleview/applicationid/<?php echo $application->getId(); ?>/reportid/<?php echo $report->getId(); ?>'">Print Report</button>
+	<button OnClick="window.location='/backend.php/applications/view/id/<?php echo $application->getId(); ?>';">View Application</button>
 </div>
 
 <div class="g12">

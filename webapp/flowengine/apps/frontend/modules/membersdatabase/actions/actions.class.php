@@ -8,7 +8,7 @@ class membersdatabaseActions extends sfActions
 		$member = $membersManager->MembershipIsValidated($this->getUser()->getGuardUser()->getId());
 		$membersManager->sendMemberVerificationMail($member['member_no'], $member['category'],$member['database']);
 		$this->getUser()->setAttribute('boraqs_reset','Member Verification email(s) sent!');
-		$this->redirect('/plan/forms/groups/');
+		$this->redirect('/index.php/forms/groups/');
 	}
 	#OTB End: Resend Boraqs Verification Email
 
@@ -46,7 +46,7 @@ class membersdatabaseActions extends sfActions
 			$this->redirect('@dashboard');
 		}
 	} else {
-		$this->redirect('/plan/dashboard',200);
+		$this->redirect('/index.php/dashboard',200);
 	}
 
 	$this->setLayout("layoutmentordash");

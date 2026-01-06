@@ -16,7 +16,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <?php echo __('Log Files') ?>
-                                    <a href="/plan/logviewer/new" class="btn btn-xs btn-success pull-right">
+                                    <a href="/backend.php/logviewer/new" class="btn btn-xs btn-success pull-right">
                                         <i class="glyphicon glyphicon-plus"></i> <?php echo __('Add') ?>
                                     </a>
                                 </h4>
@@ -26,18 +26,18 @@
                                     <div class="list-group-item">
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <a href="<?php echo "/plan/logviewer/index" . '?id=' . urlencode($log['id']) ?>"
+                                                <a href="<?php echo "/backend.php/logviewer/index" . '?id=' . urlencode($log['id']) ?>"
                                                     class="<?php echo $fileKey == $log['id'] ? 'text-white' : 'text-white' ?>">
                                                     <i class="<?php echo $fileKey == $log['id'] ? ' fa fa-check' : '' ?>">
                                                     </i><?php echo htmlspecialchars($log['title']) ?>
                                                 </a>
                                             </div>
                                             <div class="pull-right">
-                                                <a href="<?php echo '/plan/logviewer/edit?id=' . urlencode($log['id']) ?>"
+                                                <a href="<?php echo '/backend.php/logviewer/edit?id=' . urlencode($log['id']) ?>"
                                                     class="btn btn-xs btn-info" title="<?php echo __('Edit') ?>">
                                                     <i class="glyphicon glyphicon-pencil"></i>
                                                 </a>
-                                                <a href="<?php echo '/plan/logviewer/delete?id=' . urlencode($log['id']) ?>"
+                                                <a href="<?php echo '/backend.php/logviewer/delete?id=' . urlencode($log['id']) ?>"
                                                     class="btn btn-xs btn-danger" title="<?php echo __('Delete') ?>"
                                                     onclick="return confirm('<?php echo __('Are you sure?') ?>')">
                                                     <i class="glyphicon glyphicon-trash"></i>
@@ -70,7 +70,7 @@
                                 <?php if ($selectedLog): ?>
                                     <div class="pull-right">
                                         <form method="get" class="form-inline"
-                                            action="<?php echo '/plan/logviewer/index' ?>">
+                                            action="<?php echo '/backend.php/logviewer/index' ?>">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($fileKey) ?>">
                                             <select name="severity" class="form-control input-sm" onchange="this.form.submit()">
                                                 <option value=""><?php echo __('All Severities') ?></option>
@@ -134,7 +134,7 @@
                             <?php if ($totalPages > 1): ?>
                                 <div class="panel-footer text-center">
                                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                                        <a href="<?php echo ('/plan/logviewer/index') ?>?id=<?php echo urlencode($fileKey) ?>&page=<?php echo $i ?>&severity=<?php echo urlencode($currentSeverity) ?>"
+                                        <a href="<?php echo ('/backend.php/logviewer/index') ?>?id=<?php echo urlencode($fileKey) ?>&page=<?php echo $i ?>&severity=<?php echo urlencode($currentSeverity) ?>"
                                             class="btn btn-xs <?php echo $i === $page ? 'btn-primary' : 'btn-default' ?>">
                                             <?php echo $i ?>
                                         </a>

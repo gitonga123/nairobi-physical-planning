@@ -16,7 +16,7 @@ use_helper("I18N");
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __("You are here"); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan/tasks/list"><?php echo __("Tasks"); ?></a></li>
+      <li><a href="/backend.php/tasks/list"><?php echo __("Tasks"); ?></a></li>
       <li class="active"><?php echo __("View Task"); ?></li>
     </ol>
   </div>
@@ -115,7 +115,7 @@ use_helper("I18N");
 
           <div class="btn-group pull-right" style="margin-top: -38px;">
             <?php if ($application->getStage()->getAllowEdit() && $sf_user->mfHasCredential("accesssubmenu" . $application->getApproved())) { ?>
-              <a href="/plan/applications/edit/id/<?php echo $application->getId(); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> <?php echo __("Edit Application");  ?></a>
+              <a href="/backend.php/applications/edit/id/<?php echo $application->getId(); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> <?php echo __("Edit Application");  ?></a>
             <?php } ?>
           </div>
         </div>
@@ -127,16 +127,16 @@ use_helper("I18N");
               <ul class="nav nav-tabs">
                 <li <?php if ($current_tab == "application") {
                       echo "class='active'";
-                    } ?>><a href="/plan/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=application"><span class="fa fa-bars"></span> <?php echo __('Application Details'); ?></a></li>
+                    } ?>><a href="/backend.php/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=application"><span class="fa fa-bars"></span> <?php echo __('Application Details'); ?></a></li>
                 <li <?php if ($current_tab == "reviews") {
                       echo "class='active'";
-                    } ?>><a href="/plan/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=reviews"><span class="fa fa-eye"></span> <?php echo __('Review History'); ?></a></li>
+                    } ?>><a href="/backend.php/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=reviews"><span class="fa fa-eye"></span> <?php echo __('Review History'); ?></a></li>
                 <li <?php if ($current_tab == "messages") {
                       echo "class='active'";
-                    } ?>><a href="/plan/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=messages"><span class="fa fa-comments"></span> <?php echo __('Messages'); ?></a></li>
+                    } ?>><a href="/backend.php/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=messages"><span class="fa fa-comments"></span> <?php echo __('Messages'); ?></a></li>
                 <li <?php if ($current_tab == "memo") {
                       echo "class='active'";
-                    } ?>><a href="/plan/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=memo"><span class="fa fa-comments-o"></span> <?php echo __('Memo'); ?></a></li>
+                    } ?>><a href="/backend.php/tasks/view?id=<?php echo $task->getId(); ?>&current_tab=memo"><span class="fa fa-comments-o"></span> <?php echo __('Memo'); ?></a></li>
               </ul>
             </div>
             <div class="panel-body p-0">

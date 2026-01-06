@@ -40,7 +40,7 @@
                     ?>
                 </td>
                 <td>
-                    <a title="view message" class="btn btn-sm btn-primary" href="/plan/applications/view/id/<?php echo $message->getApplicationId(); ?>/current_tab/messages">
+                    <a title="view message" class="btn btn-sm btn-primary" href="/backend.php/applications/view/id/<?php echo $message->getApplicationId(); ?>/current_tab/messages">
                         <?php echo __('View'); ?> <span class="fa fa-eye"></span></a>
                     </a>
                 </td>

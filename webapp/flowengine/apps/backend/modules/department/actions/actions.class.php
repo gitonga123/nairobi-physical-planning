@@ -111,7 +111,7 @@ class departmentActions extends sfActions
     {
       $department = $form->save();
 
-      $this->redirect('/plan/users/index');
+      $this->redirect('/backend.php/users/index');
     }
   }
 
@@ -131,7 +131,7 @@ class departmentActions extends sfActions
 
     $department->delete();
 
-    $this->redirect('/plan/users/index');
+    $this->redirect('/backend.php/users/index');
   }
 
 }

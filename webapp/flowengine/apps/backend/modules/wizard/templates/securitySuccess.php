@@ -8,7 +8,7 @@
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan"><?php echo __('Home'); ?></a></li>
+      <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
       <li class="active"><?php echo __('Security'); ?></li>
     </ol>
   </div>
@@ -31,7 +31,7 @@
 <div class="tab-content tab-content-nopadding">
   
   <div class="pt20 tab-pane <?php if($step == 1){ ?>active<?php } ?>" id="ptab1">
-    <form class="form-horizontal form-bordered" method="post" action="/plan/wizard/security">
+    <form class="form-horizontal form-bordered" method="post" action="/backend.php/wizard/security">
     <input type="hidden" name="step" value="1" />
     <div id="groups">
           <?php
@@ -78,7 +78,7 @@
 
   
   <div class="pt20 tab-pane <?php if($step == 2){ ?>active<?php } ?>" id="ptab2">
-    <form class="form-horizontal form-bordered" method="post" action="/plan/wizard/security">
+    <form class="form-horizontal form-bordered" method="post" action="/backend.php/wizard/security">
     <input type="hidden" name="step" value="2" />
       <?php
 	  $q = Doctrine_Query::create()
@@ -138,7 +138,7 @@
     </form>
   </div>
   <div class="pt20 tab-pane <?php if($step == 3){ ?>active<?php } ?>" id="ptab3">
-    <form class="form-horizontal form-bordered" method="post" action="/plan/wizard/security">
+    <form class="form-horizontal form-bordered" method="post" action="/backend.php/wizard/security">
     <input type="hidden" name="step" value="3" />
     <div id="users">
     </div>
@@ -181,7 +181,7 @@
 
    </div>
    <div class='panel-footer'>  
-      <button class="btn btn-primary pull-right" onClick="window.location='/plan';"><?php echo __('Back to Dashboard'); ?></button>
+      <button class="btn btn-primary pull-right" onClick="window.location='/backend.php';"><?php echo __('Back to Dashboard'); ?></button>
    </div>   
   </div>    
   </div>
@@ -224,7 +224,7 @@ function checkgroup(group)
       }
     }
   }
-  xmlhttp.open("POST","/plan/groups/checknamemin",true);
+  xmlhttp.open("POST","/backend.php/groups/checknamemin",true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send("name=" + group);
 }
@@ -255,7 +255,7 @@ function checkuser(username)
       }
     }
   }
-  xmlhttp.open("POST","/plan/users/checkusermin",true);
+  xmlhttp.open("POST","/backend.php/users/checkusermin",true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send("username=" + username);
 }
@@ -286,7 +286,7 @@ function checkemail(email)
       }
     }
   }
-  xmlhttp.open("POST","/plan/users/checkemailmin",true);
+  xmlhttp.open("POST","/backend.php/users/checkemailmin",true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send("email=" + email);
 }

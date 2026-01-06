@@ -23,7 +23,7 @@ class siteconfigActions extends sfActions
 
         if(!$this->getUser()->mfHasCredential('access_settings'))
         {
-            $this->redirect('/plan/errors/notallowed');
+            $this->redirect('/backend.php/errors/notallowed');
         }
 
         $this->forward404Unless($siteconfig = Doctrine_Core::getTable('ApSettings')->find(array(1)), sprintf('Object ap_setting does not exist (%s).', 1));
@@ -49,12 +49,12 @@ class siteconfigActions extends sfActions
              $siteconfig->setFirstRun(0);
              $siteconfig->save();
 
-             $this->redirect("/plan/siteconfig/index");
+             $this->redirect("/backend.php/siteconfig/index");
           }
           else
           {
              $this->success = false;
-             $this->redirect("/plan/siteconfig/index");
+             $this->redirect("/backend.php/siteconfig/index");
           }
       }
     }

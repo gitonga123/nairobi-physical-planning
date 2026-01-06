@@ -1,7 +1,7 @@
 <?php
 use_helper("I18N");
 ?>
-<form action="/plan/fees/<?php echo ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> autocomplete="off" data-ajax="false" class="form-bordered bform">
+<form action="/backend.php/fees/<?php echo ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''); ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?> autocomplete="off" data-ajax="false" class="form-bordered bform">
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -9,7 +9,7 @@ use_helper("I18N");
 			<?php echo $form->renderGlobalErrors() ?>
 		</div>
 		<div class="panel-heading">
-			<a class="btn btn-primary" id="newpage" href="/plan/fees/index"><?php echo __('Back to List'); ?></a>
+			<a class="btn btn-primary" id="newpage" href="/backend.php/fees/index"><?php echo __('Back to List'); ?></a>
 		</div>
 		<div class="panel-body padding-0">
 			<div class="form-group">
@@ -30,7 +30,7 @@ use_helper("I18N");
 						$('#fee_fee_code').addClass('form-control');
 						$('#fee_fee_code').change(function(e) {
 							$.ajax({
-								url: "<?php echo url_for('/plan/fees/getfeecode') ?>",
+								url: "<?php echo url_for('/backend.php/fees/getfeecode') ?>",
 								data: {
 									service_id: $(this).val()
 								},
@@ -141,11 +141,11 @@ use_helper("I18N");
 				?>
 				<script language="javascript">
 					jQuery(document).ready(function() {
-						$("#loadranges").load("<?php echo url_for('/plan/fees/feerangeindex/filter/' . $feeid) ?>");
+						$("#loadranges").load("<?php echo url_for('/backend.php/fees/feerangeindex/filter/' . $feeid) ?>");
 						$('#fee_invoiceid').change(function() {
 							var value = this.value;
 							$.ajax({
-								url: '<?php echo url_for('/plan/fees/changebasefield/invoicetemplate_id/'); ?>' + value,
+								url: '<?php echo url_for('/backend.php/fees/changebasefield/invoicetemplate_id/'); ?>' + value,
 								cache: false,
 								type: 'POST',
 								//data : $('#bform').serialize(),

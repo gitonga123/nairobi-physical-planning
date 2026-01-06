@@ -13,12 +13,12 @@ if ($sf_user->mfHasCredential("managefees")) {
 
             <div class="panel-heading text-right">
                 <a class="btn btn-warning" id="update_ward"
-                    href="<?php echo url_for('/plan/ward/updatewards') ?>"><?php echo __('Update Wards'); ?></a>
+                    href="<?php echo url_for('/backend.php/ward/updatewards') ?>"><?php echo __('Update Wards'); ?></a>
                 <script>
                     $(document).ready(function () {
                         $('#update_ward').click(function (e) {
                             $.ajax({
-                                url: "<?php echo url_for('/plan/ward/updatewards') ?>",
+                                url: "<?php echo url_for('/backend.php/ward/updatewards') ?>",
                                 type: "GET",
                                 dataType: "json",
                             }).done(function (resp) {
@@ -60,7 +60,7 @@ if ($sf_user->mfHasCredential("managefees")) {
                                     <td><?php echo $ward->getName(); ?></td>
                                     <td align="center">
                                         <a id="wardedit<?php echo $ward->getId(); ?>"
-                                            href="/plan/ward/view/id/<?php echo $ward->getId(); ?>"
+                                            href="/backend.php/ward/view/id/<?php echo $ward->getId(); ?>"
                                             title="<?php echo __('View'); ?>"><span class="label label-primary"><i
                                                     class="fa fa-eye"></i></span></a>
                                     </td>

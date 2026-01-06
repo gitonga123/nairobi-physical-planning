@@ -107,7 +107,7 @@ class feecodeActions extends sfActions
     {
       $feecode = $form->save();
 
-      $this->redirect('/plan/feecode/index');
+      $this->redirect('/backend.php/feecode/index');
     }
   }
 
@@ -127,7 +127,7 @@ class feecodeActions extends sfActions
 
     $feecode->delete();
 
-    $this->redirect('/plan/feecode/index');
+    $this->redirect('/backend.php/feecode/index');
   }
 
 

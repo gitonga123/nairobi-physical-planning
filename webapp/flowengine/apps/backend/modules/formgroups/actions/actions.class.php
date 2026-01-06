@@ -23,7 +23,7 @@ class formgroupsActions extends sfActions
 
     if($wizard_manager->is_first_run())
     {
-      $this->redirect("/plan/dashboard");
+      $this->redirect("/backend.php/dashboard");
     }
     //Get list of all objects
     $q = Doctrine_Query::create()
@@ -115,7 +115,7 @@ class formgroupsActions extends sfActions
     {
       $group = $form->save();
 
-      $this->redirect('/plan/formgroups/index');
+      $this->redirect('/backend.php/formgroups/index');
     }
   }
 
@@ -132,6 +132,6 @@ class formgroupsActions extends sfActions
 
     $group->delete();
 
-    $this->redirect('/plan/formgroups/index');
+    $this->redirect('/backend.php/formgroups/index');
   }
 }

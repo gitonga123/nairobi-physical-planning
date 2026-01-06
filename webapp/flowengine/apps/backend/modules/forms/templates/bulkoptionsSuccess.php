@@ -59,7 +59,7 @@ if($sf_user->mfHasCredential("manageforms"))
 
     <div class="panel-body padding-0">
 
-      <select id="dropdown_field" name="dropdown_field" onChange="window.location='/plan/forms/bulkoptions?id=<?php echo $form->getFormId(); ?>&element_id=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
+      <select id="dropdown_field" name="dropdown_field" onChange="window.location='/backend.php/forms/bulkoptions?id=<?php echo $form->getFormId(); ?>&element_id=' + this.value;" class="form-control" style="margin: 20px; width: 95%;">
         <option>Choose A Field...</option>
         <?php
           $q = Doctrine_Query::create()
@@ -227,7 +227,7 @@ function updateOption(form_id, element_id, aeo_id, value) {
         else if (window.ActiveXObject) {
                 self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        self.xmlHttpReq1.open('POST', '/plan/forms/bulkoptionupdate', true);
+        self.xmlHttpReq1.open('POST', '/backend.php/forms/bulkoptionupdate', true);
         self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         self.xmlHttpReq1.onreadystatechange = function() {
           if (self.xmlHttpReq1.readyState == 4) {
@@ -249,7 +249,7 @@ function updatePublishOption(form_id, element_id, aeo_id) {
         else if (window.ActiveXObject) {
                 self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        self.xmlHttpReq1.open('POST', '/plan/forms/bulkoptionpublish', true);
+        self.xmlHttpReq1.open('POST', '/backend.php/forms/bulkoptionpublish', true);
         self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         self.xmlHttpReq1.onreadystatechange = function() {
           if (self.xmlHttpReq1.readyState == 4) {
@@ -271,7 +271,7 @@ function updateUnpublishOption(form_id, element_id, aeo_id) {
         else if (window.ActiveXObject) {
                 self.xmlHttpReq1 = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        self.xmlHttpReq1.open('POST', '/plan/forms/bulkoptionunpublish', true);
+        self.xmlHttpReq1.open('POST', '/backend.php/forms/bulkoptionunpublish', true);
         self.xmlHttpReq1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         self.xmlHttpReq1.onreadystatechange = function() {
           if (self.xmlHttpReq1.readyState == 4) {

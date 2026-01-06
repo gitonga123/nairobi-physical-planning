@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <script type="text/javascript" src="/assets_backend/js/jquery.bootstrap-duallistbox.js"></script>
 
-    <form id="stageform" class="form-bordered" action="/plan/stages/inspections/id/<?php echo $stage->getId(); ?>" method="post" autocomplete="off" data-ajax="false">
+    <form id="stageform" class="form-bordered" action="/backend.php/stages/inspections/id/<?php echo $stage->getId(); ?>" method="post" autocomplete="off" data-ajax="false">
 
       <div class="panel-heading">
         <h3 class="panel-title"><?php echo $stage->getTitle().' -&gt; Edit Inspections'; ?></h3>
@@ -97,7 +97,7 @@
                             }
                           ?>
                           </td>
-                          <td><a target="_blank" href="/plan/forms/editform?id=<?php echo $comment_sheet->getFormId(); ?>">Edit Form</a></td>
+                          <td><a target="_blank" href="/backend.php/forms/editform?id=<?php echo $comment_sheet->getFormId(); ?>">Edit Form</a></td>
                         </tr>
                         <?php
                     }
@@ -109,7 +109,7 @@
          
       </div>
       <div class="panel-footer">
-           <a class="btn btn-danger mr10" href="/plan/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a><button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
+           <a class="btn btn-danger mr10" href="/backend.php/stages/index/filter/<?php echo $stage->getMenuId(); ?>"><?php echo __('Back to Workflow'); ?></a><button type="submit" class="btn btn-primary" name="submitbuttonname" id="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
      </div>
     </form>
   </div>

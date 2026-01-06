@@ -28,7 +28,7 @@ class indexActions extends sfActions
         //If user is logged in then redirect to dashboard
         if($this->getUser()->isAuthenticated())
         {
-            return $this->redirect("/plan/dashboard");
+            return $this->redirect("/index.php/dashboard");
         }
 
         //Fetch page by id or fetch homepage
@@ -37,7 +37,7 @@ class indexActions extends sfActions
         //If page does not exist then redirect to 404
         if(empty($this->page))
         {
-            return $this->redirect("/plan/errors/notfound");
+            return $this->redirect("/index.php/errors/notfound");
         }
 
         $this->getResponse()->setTitle( Functions::site_settings()->getOrganisationName()."| Home");

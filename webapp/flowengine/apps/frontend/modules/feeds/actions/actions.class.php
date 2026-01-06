@@ -49,7 +49,7 @@ class feedsActions extends sfActions
     foreach ($available_forms as $available_form) {
     $data .= '<item>';
     $data .= '<title>'.$available_form->getFormName().'</title>';
-    $data .= '<link>http://'.$_SERVER['HTTP_HOST'].'/plan/forms/view?id='.$available_form->getFormId().'</link>';
+    $data .= '<link>http://'.$_SERVER['HTTP_HOST'].'/index.php/forms/view?id='.$available_form->getFormId().'</link>';
     $data .= '<description>'.$available_form->getFormDescription().'</description>';
     $data .= '</item>';
     }

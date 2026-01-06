@@ -12,7 +12,7 @@ if($sf_user->mfHasCredential("managedepartments"))
         </div>
 
         <div class="panel-heading text-right">
-              <a class="btn btn-primary" id="newpage" href="/plan/department/new" ><?php echo __('+ Add  Department'); ?></a>
+              <a class="btn btn-primary" id="newpage" href="/backend.php/department/new" ><?php echo __('+ Add  Department'); ?></a>
         </div>
         <div class="panel-body">
 
@@ -31,8 +31,8 @@ if($sf_user->mfHasCredential("managedepartments"))
                         <td><?php echo $department->getId(); ?></td>
                         <td><?php echo $department->getDepartmentName();  ?></td>
                         <td align="center">
-                            <a id="editpage<?php echo $department->getId(); ?>" href="/plan/department/edit/id/<?php echo $department->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
-                            <a id="deletepage<?php echo $department->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/plan/department/delete/id/<?php echo $department->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a id="editpage<?php echo $department->getId(); ?>" href="/backend.php/department/edit/id/<?php echo $department->getId(); ?>" title="<?php echo __('Edit'); ?>"><span class="label label-primary"><i class="fa fa-pencil"></i></span></a>
+                            <a id="deletepage<?php echo $department->getId(); ?>"  onClick="if(confirm('Are you sure you want to delete this item?')){ return true; }else{ return false; }" href="/backend.php/department/delete/id/<?php echo $department->getId(); ?>" title="<?php echo __('Delete'); ?>"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

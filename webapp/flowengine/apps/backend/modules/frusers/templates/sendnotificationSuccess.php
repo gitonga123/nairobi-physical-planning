@@ -10,7 +10,7 @@
  */
 ?>
 <div class="g12" style="margin-top: -5px;">
-        <form action='/plan/frusers/notificationmail' method='post' >
+        <form action='/backend.php/frusers/notificationmail' method='post' >
          <fieldset>
          <label>Send Notification</label>
          <section>

@@ -80,11 +80,11 @@
 
                 <?php if ($current_paginator->haveToPaginate()): ?>
                     <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                        <li><a href="/plan/dashboard/index/current/inspections/page/1<?php echo $filter; ?>">
+                        <li><a href="/backend.php/dashboard/index/current/inspections/page/1<?php echo $filter; ?>">
                                 <i class="fa fa-angle-left"></i>
                             </a></li>
 
-                        <li> <a href="/plan/dashboard/index/current/inspections/page/<?php echo $current_paginator->getPreviousPage().$filter; ?>">
+                        <li> <a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $current_paginator->getPreviousPage().$filter; ?>">
                                 <i class="fa fa-angle-left"></i>
                             </a></li>
 
@@ -92,15 +92,15 @@
                             <?php if ($page == $current_paginator->getPage()): ?>
                                 <li class="active"><a href=""><?php echo $page ?></a>
                             <?php else: ?>
-                                <li><a href="/plan/dashboard/index/current/inspections/page/<?php echo $page.$filter ?>"><?php echo $page; ?></a></li>
+                                <li><a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $page.$filter ?>"><?php echo $page; ?></a></li>
                             <?php endif; ?>
                         <?php endforeach; ?>
 
-                        <li> <a href="/plan/dashboard/index/current/inspections/page/<?php echo $current_paginator->getNextPage().$filter; ?>">
+                        <li> <a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $current_paginator->getNextPage().$filter; ?>">
                                 <i class="fa fa-angle-right"></i>
                             </a></li>
 
-                        <li> <a href="/plan/dashboard/index/current/inspections/page/<?php echo $current_paginator->getLastPage().$filter; ?>">
+                        <li> <a href="/backend.php/dashboard/index/current/inspections/page/<?php echo $current_paginator->getLastPage().$filter; ?>">
                                 <i class="fa fa-angle-right"></i>
                             </a></li>
                     </ul>

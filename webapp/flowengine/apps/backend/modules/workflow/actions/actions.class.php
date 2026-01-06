@@ -41,7 +41,7 @@ class workflowActions extends sfActions
 		Doctrine_Core::getTable('Menus')->find($menu['id'])->setCategoryId(0)->save();
 	}
 	$this->getUser()->setAttribute('delete_cat_notice','Category id '.$work_cat_id.' has been deleted!');
-    $this->redirect('/plan/workflow/indexCategory');
+    $this->redirect('/backend.php/workflow/indexCategory');
   }
   public function executePostCategory(sfWebRequest $request)
   {
@@ -65,7 +65,7 @@ class workflowActions extends sfActions
 			Doctrine_Core::getTable('Menus')->find($service)->setCategoryId($category->getId())->save();
 		}
 		$this->getUser()->setAttribute('delete_cat_notice','Category '.$category->getTitle().' has been '.$msg.'!');
-		$this->redirect('/plan/workflow/indexCategory');
+		$this->redirect('/backend.php/workflow/indexCategory');
 	}
 	$this->setTemplate('newCategory');
 		$this->setLayout('layout-settings');

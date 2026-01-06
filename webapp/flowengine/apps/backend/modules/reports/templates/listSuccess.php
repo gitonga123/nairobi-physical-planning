@@ -158,7 +158,7 @@ if($sf_user->mfHasCredential("access_reports"))
   <div class="breadcrumb-wrapper">
     <span class="label"><?php echo __('You are here'); ?>:</span>
     <ol class="breadcrumb">
-      <li><a href="/plan/dashboard"><?php echo __('Home'); ?></a></li>
+      <li><a href="/backend.php/dashboard"><?php echo __('Home'); ?></a></li>
       <li><?php echo __('Reports'); ?></li>
     </ol>
   </div>
@@ -180,7 +180,7 @@ if($sf_user->mfHasCredential("access_reports"))
 			<div id="collapse3t" class="panel-collapse collapse">
 			<div class="panel-body padding-0" id="report1_div">
 
-				<form id="report1_form" name="report1_form" class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/timetablereport?tr=1" autocomplete="off" data-ajax="false">
+				<form id="report1_form" name="report1_form" class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/timetablereport?tr=1" autocomplete="off" data-ajax="false">
 					<div class="panel-heading-inline panel-heading-inline-gray">
 					<h3 class="panel-title"><?php echo __('Report that uses the date and time fields in an application form to create a schedule for submitted applications'); ?></h3>
 					</div>
@@ -240,7 +240,7 @@ if($sf_user->mfHasCredential("access_reports"))
 	</div>
 	<div id="collapseFilter" class="panel-collapse collapse">
 	<div class="panel-body padding-0">
-	<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/reportfilter" autocomplete="off" data-ajax="false">
+	<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/reportfilter" autocomplete="off" data-ajax="false">
 		<div class="panel-heading-inline panel-heading-inline-gray">
 			<h3 class="panel-title"><?php echo __('Report of all applications within a time period filtered by a dropdown'); ?></h3>
 			</div>
@@ -311,7 +311,7 @@ if($sf_user->mfHasCredential("access_reports"))
               <div id="collapse3" class="panel-collapse collapse">
               <div class="panel-body padding-0" id="report1_div">
 
-			<form id="report1_form" name="report1_form" class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report1" autocomplete="off" data-ajax="false">
+			<form id="report1_form" name="report1_form" class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report1" autocomplete="off" data-ajax="false">
             <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all applications that have been submitted within a specified time period and their status'); ?></h3>
             </div>
@@ -366,7 +366,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse4" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-		<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report2" autocomplete="off" data-ajax="false">
+		<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report2" autocomplete="off" data-ajax="false">
         <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all applications that have been approved within a specific time period and their status'); ?></h3>
             </div>
@@ -420,7 +420,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse5" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-		<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report3" autocomplete="off" data-ajax="false">
+		<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report3" autocomplete="off" data-ajax="false">
          <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all applications that are pending at a particular stage of the workflow'); ?></h3>
             </div>
@@ -432,7 +432,7 @@ if($sf_user->mfHasCredential("access_reports"))
                   </div>
 				<div class="panel-footer">
 					<button type="reset" class="btn btn-danger mr5"><?php echo __('Reset'); ?></button>
-					<button onclick="if(atLeastOneCheckbox()){ return true; }else{ alert('Please choose one or more options first.'); window.location = '/plan/reports/list'; return false; }" type="submit "class="btn btn-primary" name="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
+					<button onclick="if(atLeastOneCheckbox()){ return true; }else{ alert('Please choose one or more options first.'); window.location = '/backend.php/reports/list'; return false; }" type="submit "class="btn btn-primary" name="submitbuttonname" value="submitbuttonvalue"><?php echo __('Submit'); ?></button>
 				</div>
 			</form>
          </div>
@@ -449,7 +449,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse6" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-		<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report4" autocomplete="off" data-ajax="false">
+		<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report4" autocomplete="off" data-ajax="false">
          <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all applications that have exceeded their designated time limit within the various workflow stages'); ?></h3>
             </div>
@@ -479,7 +479,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse7" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-		<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report5" autocomplete="off" data-ajax="false">
+		<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report5" autocomplete="off" data-ajax="false">
         <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all applications pending action from the client e.g. declined applications that need to be resubmitted or invoices that need payment'); ?></h3>
             </div>
@@ -509,7 +509,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse8" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-		<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report6" autocomplete="off" data-ajax="false">
+		<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report6" autocomplete="off" data-ajax="false">
         <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all applications sent to a particular stage and the name of the person that sent it there'); ?></h3>
             </div>
@@ -538,7 +538,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse9" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-		<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report7" autocomplete="off" data-ajax="false">
+		<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report7" autocomplete="off" data-ajax="false">
         <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all notifications for an application that have been sent'); ?></h3>
             </div>
@@ -569,7 +569,7 @@ if($sf_user->mfHasCredential("access_reports"))
 
 			<div id="collapse12" class="panel-collapse collapse">
 			<div class="panel-body padding-0">
-			<form class="form-horizontal fh-special form-bordered" method="post" action="/plan/reports/report10" autocomplete="off" data-ajax="false">
+			<form class="form-horizontal fh-special form-bordered" method="post" action="/backend.php/reports/report10" autocomplete="off" data-ajax="false">
             <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of all activities with a certain period of time'); ?></h3>
             </div>
@@ -636,7 +636,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse14" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-			<form class="form-horizontal form-bordered fh-special" method="post" action="/plan/invoices/index/export/1" autocomplete="off" data-ajax="false">
+			<form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/invoices/index/export/1" autocomplete="off" data-ajax="false">
             <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of the income from confirmed payments per form'); ?></h3>
             </div>
@@ -688,7 +688,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse14a" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-			<form class="form-horizontal form-bordered fh-special" method="post" action="/plan/invoices/report/filter/service" autocomplete="off" data-ajax="false">
+			<form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/invoices/report/filter/service" autocomplete="off" data-ajax="false">
             <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of the income from confirmed payments per service/workflow'); ?></h3>
             </div>
@@ -773,7 +773,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse<?php echo $profile->getId(); ?>prof" class="panel-collapse collapse">
 				<div class="panel-body padding-0">
-				<form class="form-horizontal form-bordered fh-special" method="post" action="/plan/profiles/report/filter/service" autocomplete="off" data-ajax="false">
+				<form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/profiles/report/filter/service" autocomplete="off" data-ajax="false">
 					<input type="hidden" name="profile_id" value="<?php echo $profile->getId(); ?>">
 					<div class="panel-heading-inline panel-heading-inline-gray">
 					<h3 class="panel-title" style="padding-left: 15px;"><?php echo __('Report of renewed services'); ?></h3>
@@ -817,7 +817,7 @@ if($sf_user->mfHasCredential("access_reports"))
 			</div>
 			<div id="collapse<?php echo $profile->getId(); ?>finance" class="panel-collapse collapse">
 				<div class="panel-body padding-0">
-					<form class="form-horizontal form-bordered fh-special" method="post" action="/plan/profiles/finance/filter/service" autocomplete="off" data-ajax="false">
+					<form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/profiles/finance/filter/service" autocomplete="off" data-ajax="false">
 						<input type="hidden" name="profile_id" value="<?php echo $profile->getId(); ?>">
 
 						<?php 
@@ -971,7 +971,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse19" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-			<form class="form-horizontal form-bordered fh-special" method="post" action="/plan/invoices/convenience" autocomplete="off" data-ajax="false">
+			<form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/invoices/convenience" autocomplete="off" data-ajax="false">
             <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('Report of the income from confirmed payments'); ?></h3>
             </div>
@@ -1023,7 +1023,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse17" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-			<form class="form-horizontal form-bordered fh-special" method="post" action="/plan/reports/report17" autocomplete="off" data-ajax="false">
+			<form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/reports/report17" autocomplete="off" data-ajax="false">
             <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('This report gives details per transaction processed by PSPs. The users should be able to query the report based on the following criteria'); ?></h3>
             </div>
@@ -1095,7 +1095,7 @@ if($sf_user->mfHasCredential("access_reports"))
               </div>
               <div id="collapse18" class="panel-collapse collapse">
               <div class="panel-body padding-0">
-			<form class="form-horizontal form-bordered fh-special" method="post" action="/plan/reports/report18" autocomplete="off" data-ajax="false">
+			<form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/reports/report18" autocomplete="off" data-ajax="false">
             <div class="panel-heading-inline panel-heading-inline-gray">
             <h3 class="panel-title"><?php echo __('The report will be used for remittances to MDA banks. It should aggregate all transactions per service code. The users should be able to query the report based on the following criteria'); ?></h3>
             </div>
@@ -1178,7 +1178,7 @@ if($sf_user->mfHasCredential("access_reports"))
                   </div>
                   <div id="collapsecj<?php echo $report->getId(); ?>" class="panel-collapse collapse">
                   <div class="panel-body padding-0">
-                    <form class="form-horizontal form-bordered fh-special" method="post" action="/plan/jsonreports/view?id=<?php echo $report->getId(); ?>&page=1" autocomplete="off" data-ajax="false">
+                    <form class="form-horizontal form-bordered fh-special" method="post" action="/backend.php/jsonreports/view?id=<?php echo $report->getId(); ?>&page=1" autocomplete="off" data-ajax="false">
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label"><?php echo __('From Date'); ?></label>
@@ -1253,10 +1253,10 @@ function atLeastOneCheckbox() {
 	jQuery(document).ready(function(){
 			jQuery("#application_form_timetable" ).change(function() {
 					var selecteditem = this.value;
-					$.ajax({url:"/plan/reports/getdatefields?formid=" + selecteditem,success:function(result){
+					$.ajax({url:"/backend.php/reports/getdatefields?formid=" + selecteditem,success:function(result){
 					$("#ajaxdatefields").html(result);
 					}});
-					$.ajax({url:"/plan/reports/gettimefields?formid=" + selecteditem,success:function(result){
+					$.ajax({url:"/backend.php/reports/gettimefields?formid=" + selecteditem,success:function(result){
 						$("#ajaxtimefields").html(result);
 					}});
 			});
@@ -1267,14 +1267,14 @@ function atLeastOneCheckbox() {
 	jQuery(document).ready(function(){
 			jQuery("#application_form_filter" ).change(function() {
 					var selecteditem = this.value;
-					$.ajax({url:"/plan/reports/getdropdownfields?formid=" + selecteditem,success:function(result){
+					$.ajax({url:"/backend.php/reports/getdropdownfields?formid=" + selecteditem,success:function(result){
 						$("#ajaxdropdownfields").html(result);
 					}});
 			});
 
 			jQuery("#form_dropdown_fields" ).change(function() {
 					var selecteditem = this.value;
-					$.ajax({url:"/plan/reports/getdropdownvaluefields?elementid=" + selecteditem,success:function(result){
+					$.ajax({url:"/backend.php/reports/getdropdownvaluefields?elementid=" + selecteditem,success:function(result){
 						$("#ajaxdropdownvaluefields").html(result);
 					}});
 			});
@@ -1290,7 +1290,7 @@ function atLeastOneCheckbox() {
                 document.getElementById("li_" + link_id + "_filter").innerHTML = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "/plan/reports/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
+        xhttp.open("GET", "/backend.php/reports/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
         xhttp.send();
     }
 </script>

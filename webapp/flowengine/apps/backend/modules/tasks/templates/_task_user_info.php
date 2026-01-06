@@ -41,13 +41,13 @@ use_helper("I18N");
       else{
 		  if(strlen($user_profile->getProfilePic())){
 		?>
-          <a href="<?php echo url_for('/plan/frusers/show/id/'.$user_profile->getUserId()); ?>">
+          <a href="<?php echo url_for('/backend.php/frusers/show/id/'.$user_profile->getUserId()); ?>">
           <img src="/assets_frontend/images/<?php echo $user_profile->getProfilePic(); ?>" class="thumbnail" alt="Profile pic" />
           </a>
 		<?php
 		  }else{
 		?>
-          <a href="<?php echo url_for('/plan/frusers/show/id/'.$user_profile->getUserId()); ?>">
+          <a href="<?php echo url_for('/backend.php/frusers/show/id/'.$user_profile->getUserId()); ?>">
           <img src="/assets_frontend/images/avatar.png" class="thumbnail" alt="Profile pic" />
           </a>
 		<?php
@@ -61,7 +61,7 @@ use_helper("I18N");
           <div class="panel-heading">
             <h3 class="panel-title">
               <?php echo __("User Details"); ?>
-              <a href="/plan/applications/transfer/id/<?php echo $application->getId(); ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -8px; color: #FFF;"><?php echo __("Transfer Application"); ?></a>
+              <a href="/backend.php/applications/transfer/id/<?php echo $application->getId(); ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -8px; color: #FFF;"><?php echo __("Transfer Application"); ?></a>
             </h3>
           </div>
           <div class="panel-body padding-0">
@@ -77,7 +77,7 @@ use_helper("I18N");
                 <tbody>
                   <tr>
                     <?php if($sf_user->mfHasCredential("access_members")){ ?>
-                    <td><a href="/plan/frusers/show/id/<?php echo $user_profile->getUserId(); ?>"><?php echo $user_profile->getFullname(); ?></a></td>
+                    <td><a href="/backend.php/frusers/show/id/<?php echo $user_profile->getUserId(); ?>"><?php echo $user_profile->getFullname(); ?></a></td>
                     <?php }else{ ?>
                     <td><?php echo $user_profile->getFullname(); ?></td>
                     <?php } ?>

@@ -9,8 +9,8 @@ use_helper("I18N");
         </div>
 
         <div class="panel-heading text-right">
-              <a class="btn btn-primary" id="export" href="/plan/profiles/printreport" ><?php echo __('Export'); ?></a>
-              <a class="btn btn-primary" id="newpage" href="/plan/reports/list" ><?php echo __('Back to Reports'); ?></a>
+              <a class="btn btn-primary" id="export" href="/backend.php/profiles/printreport" ><?php echo __('Export'); ?></a>
+              <a class="btn btn-primary" id="newpage" href="/backend.php/reports/list" ><?php echo __('Back to Reports'); ?></a>
         </div>
         <div class="panel-body">
 
@@ -58,7 +58,7 @@ use_helper("I18N");
                             ?>
                             </td>
                             <td>
-                                <a title="<?php echo __('View Service'); ?>" href="/plan/applications/view/id/<?php echo $application->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+                                <a title="<?php echo __('View Service'); ?>" href="/backend.php/applications/view/id/<?php echo $application->getId(); ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
                             </td>
                             <?php
                             echo "</tr>";
@@ -77,11 +77,11 @@ use_helper("I18N");
 
                             <?php if ($pager->haveToPaginate()): ?>
                                 <ul class="pagination pagination-sm mb0 mt0 pull-right">
-                                    <li><a href="/plan/profiles/report/filter/service/page/1">
+                                    <li><a href="/backend.php/profiles/report/filter/service/page/1">
                                             <i class="fa fa-angle-left"></i>
                                         </a></li>
 
-                                    <li><a href="/plan/profiles/report/filter/service/page/<?php echo $pager->getPreviousPage() ?>">
+                                    <li><a href="/backend.php/profiles/report/filter/service/page/<?php echo $pager->getPreviousPage() ?>">
                                             <i class="fa fa-angle-left"></i>
                                         </a></li>
 
@@ -89,15 +89,15 @@ use_helper("I18N");
                                         <?php if ($page == $pager->getPage()): ?>
                                             <li class="active"><a href=""><?php echo $page ?></li></a>
                                         <?php else: ?>
-                                            <li><a href="/plan/profiles/report/filter/service/page/<?php echo $page ?>"><?php echo $page ?></a></li>
+                                            <li><a href="/backend.php/profiles/report/filter/service/page/<?php echo $page ?>"><?php echo $page ?></a></li>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
 
-                                    <li><a href="/plan/profiles/report/filter/service/page/<?php echo $pager->getNextPage() ?>">
+                                    <li><a href="/backend.php/profiles/report/filter/service/page/<?php echo $pager->getNextPage() ?>">
                                             <i class="fa fa-angle-right"></i>
                                         </a></li>
 
-                                    <li><a href="/plan/profiles/report/filter/service/page/<?php echo $pager->getLastPage() ?>">
+                                    <li><a href="/backend.php/profiles/report/filter/service/page/<?php echo $pager->getLastPage() ?>">
                                             <i class="fa fa-angle-right"></i>
                                         </a>
                                     </li>

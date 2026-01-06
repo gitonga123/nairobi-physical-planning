@@ -106,7 +106,7 @@ if(mf_is_form_submitted()){ //if form submitted
     if($submit_result['status'] === true){
         $_SESSION['MF_SUCCESS'] = 'Entry #'.$input_array['edit_id'].' has been updated.';
 
-        header("Location: /plan/profile/view/id/".$profile->getId());
+        header("Location: /index.php/profile/view/id/".$profile->getId());
         exit;
     }else if($submit_result['status'] === false){ //there are errors, display the form again with the errors
         $old_values 	= $submit_result['old_values'];
@@ -150,7 +150,7 @@ if(mf_is_form_submitted()){ //if form submitted
     <div class="panel-heading">
         <h3 class="panel-title">
             <?php echo __("Edit your profile details"); ?>:
-            <a href="/plan/profile/view/id/<?php echo $profile->getId() ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;"><?php echo __("Back to Profile"); ?></a>
+            <a href="/index.php/profile/view/id/<?php echo $profile->getId() ?>" class="btn btn-primary btn-sm pull-right" style="margin-top: -4px; color: #FFFFFF;"><?php echo __("Back to Profile"); ?></a>
         </h3>
     </div>
     <div class="panel-body">

@@ -13,7 +13,7 @@ $audit->saveAudit("", "Accessed Services Categories");
 
         </div>
 		<div class="pull-heading">
-			<a class="btn btn-primary settings-margin42" id="newpage" href="<?php echo url_for('/plan/workflow/newCategory') ?>" ><?php echo __('New Service Category'); ?></a>
+			<a class="btn btn-primary settings-margin42" id="newpage" href="<?php echo url_for('/backend.php/workflow/newCategory') ?>" ><?php echo __('New Service Category'); ?></a>
 		</div>
         <div class="panel-group panel-group" id="accordion2">
 		<?php $notice=$sf_user->getAttribute('delete_cat_notice',''); 
@@ -41,8 +41,8 @@ $audit->saveAudit("", "Accessed Services Categories");
                 </div>
                 <div id="collapseOne<?php echo $count; ?>" class="panel-collapse collapse">
                     <div class="panel-body" style="padding: 20px;">
-                        <a class="btn btn-primary btn-lg btn-form" style="margin-right: 10px;" href="<?php echo url_for('/plan/workflow/editCategory/id/'.$service->getId()); ?>"><span class="fa fa-edit"></span> Edit</a>
-                        <a onClick="if(confirm('Are you sure?')){ return true; }else{ return false; }" class="btn btn-danger btn-lg btn-outputs pull-right" style="margin-right: 10px;" href="<?php echo url_for('/plan/workflow/deleteCategory/id/'.$service->getId()); ?>"><span class="fa fa-trash-o"></span> Delete</a>
+                        <a class="btn btn-primary btn-lg btn-form" style="margin-right: 10px;" href="<?php echo url_for('/backend.php/workflow/editCategory/id/'.$service->getId()); ?>"><span class="fa fa-edit"></span> Edit</a>
+                        <a onClick="if(confirm('Are you sure?')){ return true; }else{ return false; }" class="btn btn-danger btn-lg btn-outputs pull-right" style="margin-right: 10px;" href="<?php echo url_for('/backend.php/workflow/deleteCategory/id/'.$service->getId()); ?>"><span class="fa fa-trash-o"></span> Delete</a>
                     </div>
                 </div>
                 </div>

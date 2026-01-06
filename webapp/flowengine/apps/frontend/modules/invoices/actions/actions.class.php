@@ -67,7 +67,7 @@ class invoicesActions extends sfActions
         if (empty($this->invoice)) {
             $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Invoice Not Found");
 
-            return $this->redirect("/plan/errors/notfound");
+            return $this->redirect("/index.php/errors/notfound");
         }
 
         if ($request->getParameter("confirm") == md5($this->invoice->getId())) {
@@ -199,7 +199,7 @@ class invoicesActions extends sfActions
         $invoice = $q->fetchOne();
 
         if ($invoice->getPaid() == 2) {
-            $this->redirect("/plan/invoices/view/id/" . $invoice->getId());
+            $this->redirect("/index.php/invoices/view/id/" . $invoice->getId());
         } else {
             $application = $invoice->getFormEntry();
 
@@ -207,7 +207,7 @@ class invoicesActions extends sfActions
             $this->getUser()->setAttribute('entry_id', $application->getEntryId());
             $this->getUser()->setAttribute('invoice_id', $invoice->getId());
 
-            $this->redirect("/plan/forms/payment/invoice/" . $invoice->getId());
+            $this->redirect("/index.php/forms/payment/invoice/" . $invoice->getId());
         }
     }
 }

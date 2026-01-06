@@ -8,7 +8,7 @@
             <h3 class="panel-title"><?php echo __("Application Agenda"); ?></h3>
 		</div>
 		<div class="panel-heading">
-			<a class="btn btn-primary settings-margin42" id="newpage" href="<?php echo url_for('/plan/agenda/new') ?>" ><?php echo __('New Agenda Layout'); ?></a>
+			<a class="btn btn-primary settings-margin42" id="newpage" href="<?php echo url_for('/backend.php/agenda/new') ?>" ><?php echo __('New Agenda Layout'); ?></a>
 		</div>
        <div class="panel-body panel-body-nopadding">
 		<table class="table">
@@ -34,8 +34,8 @@
 								Action <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu pull-right">
-								<li><a href="<?php echo url_for('/plan/agenda/edit?id='.$agenda->getId()) ?>">Edit</a></li>
-								<li><a href="<?php echo url_for('/plan/agenda/delete?id='.$agenda->getId()) ?>" onClick="return window.confirm('Are you sure?');" >Delete</a></li>
+								<li><a href="<?php echo url_for('/backend.php/agenda/edit?id='.$agenda->getId()) ?>">Edit</a></li>
+								<li><a href="<?php echo url_for('/backend.php/agenda/delete?id='.$agenda->getId()) ?>" onClick="return window.confirm('Are you sure?');" >Delete</a></li>
 							</ul>
 						</div>
 					</td>

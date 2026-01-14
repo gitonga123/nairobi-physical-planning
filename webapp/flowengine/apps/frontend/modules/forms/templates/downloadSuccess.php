@@ -1,5 +1,7 @@
 <?php
+
 use setasign\Fpdi\Fpdi;
+
 $prefix_folder = dirname(__FILE__) . "/../../../../../lib/vendor/form_builder/";
 require($prefix_folder . 'includes/init.php');
 
@@ -21,9 +23,9 @@ $id = (int) $params['id'];
 $field_name = str_replace(array("`", "'", ';'), '', $params['el']);
 $file_hash = $params['hash'];
 //OTB ADD
-$element_mark_file_with_qr_code = $params['element_mark_file_with_qr_code'];//OTB Africa Add QR on attachments
-$element_file_qr_all_pages = $params['element_file_qr_all_pages'];//OTB Africa Add QR on attachments
-$element_file_qr_page_position = is_null($params['element_file_qr_page_position']) ? "top_right" : $params['element_file_qr_page_position'];//OTB Africa Add QR on attachments
+$element_mark_file_with_qr_code = $params['element_mark_file_with_qr_code']; //OTB Africa Add QR on attachments
+$element_file_qr_all_pages = $params['element_file_qr_all_pages']; //OTB Africa Add QR on attachments
+$element_file_qr_page_position = is_null($params['element_file_qr_page_position']) ? "top_right" : $params['element_file_qr_page_position']; //OTB Africa Add QR on attachments
 
 error_log(json_encode($params));
 
@@ -283,7 +285,7 @@ header("Content-Transfer-Encoding: binary");
 error_log('----$extension--' . $extension . '-----element_mark_file_with_qr_code---' . $element_mark_file_with_qr_code);
 error_log("Extension type is --->{$extension}");
 error_log("Stage Approved ---->{json_encode($stage_approved)} - Application id {$app_details->getId()}");
-error_log("Check application aproved ----> {$otbhelper->checkApplicationApproved($stage_approved, $app_details->getId())}");
+error_log("Check application aproved ----> {$otbhelper->checkApplicationApproved($stage_approved,$app_details->getId())}");
 
 if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkApplicationApproved($stage_approved, $app_details->getId())) {
 	error_log('-------------QR CODE TO BE MARKED----------');
@@ -365,7 +367,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 			error_log('------------add page-----');
 		}
 		$pdf->useTemplate($tplIdx, 0, 0, null, null, true);
-		if ($element_file_qr_page_position == "top_left") {//Set position of QR code
+		if ($element_file_qr_page_position == "top_left") { //Set position of QR code
 			error_log('-----------top left-------');
 		} else if ($element_file_qr_page_position == "top_right") {
 			error_log('-----------top_right-------');
@@ -388,7 +390,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 		////// check if application already approved
 		//if(){
 		//error_log("Application approved!! Bar code permitted") ;
-		if ($element_file_qr_all_pages != 1) {//If this file field is not set to mark qr on all pages, set pages to first page only
+		if ($element_file_qr_all_pages != 1) { //If this file field is not set to mark qr on all pages, set pages to first page only
 			if ($page_count == 1) {
 				// $pdf->Write(0, "Scan QR code to confirm authenticity");
 				$pdf->Image($qr_code_image, $x_qr_pos, $y_qr_pos);
@@ -416,6 +418,11 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	//remove the element_x-xx- suffix we added to all uploaded files
 	$file_1 = substr($complete_filename, strpos($complete_filename, '-') + 1);
 	$filename_only = substr($file_1, strpos($file_1, '-') + 1);
+
+	if (ob_get_level()) {
+		ob_end_clean();
+	}
+
 	$pdf->Output("D", $filename_only);
 	exit;
 	//OTB Africa - End mark PDF with QR Code
@@ -425,20 +432,25 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	}
 
 	if (file_exists($target_file)) {
-		header("Content-Length: " . filesize($target_file));
 
-		// Send file for download
-		if ($stream = fopen($target_file, 'rb')) {
-			while (!feof($stream) && connection_status() == 0) {
-				//reset time limit for big files
-				@set_time_limit(0);
-				print (fread($stream, 1024 * 8));
-				flush();
-			}
-			fclose($stream);
+		// Clean output buffer **before sending raw file**
+		if (ob_get_level()) {
+			ob_end_clean();
 		}
+
+		header("Content-Length: " . filesize($target_file));
+		// other headers…
+
+		$stream = fopen($target_file, 'rb');
+		while (!feof($stream) && connection_status() == 0) {
+			@set_time_limit(0);
+			echo fread($stream, 1024 * 8);
+			flush();
+		}
+		fclose($stream);
 	} else {
-		echo 'Error. File not found!';
+		header("HTTP/1.1 404 Not Found");
+		exit;
 	}
 } else {
 	$query = "SELECT file_content FROM " . MF_TABLE_PREFIX . "form_{$form_id}_files WHERE file_name = ? or file_name = ?";
@@ -461,4 +473,3 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 }
 
 exit;
-?>

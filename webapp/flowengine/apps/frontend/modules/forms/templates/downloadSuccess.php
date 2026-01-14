@@ -1,7 +1,5 @@
 <?php
-
 use setasign\Fpdi\Fpdi;
-
 $prefix_folder = dirname(__FILE__) . "/../../../../../lib/vendor/form_builder/";
 require($prefix_folder . 'includes/init.php');
 
@@ -22,12 +20,10 @@ $form_id = (int) $params['form_id'];
 $id = (int) $params['id'];
 $field_name = str_replace(array("`", "'", ';'), '', $params['el']);
 $file_hash = $params['hash'];
-
-
 //OTB ADD
-$element_mark_file_with_qr_code = $params['element_mark_file_with_qr_code']; //OTB Africa Add QR on attachments
-$element_file_qr_all_pages = $params['element_file_qr_all_pages']; //OTB Africa Add QR on attachments
-$element_file_qr_page_position = is_null($params['element_file_qr_page_position']) ? "top_right" : $params['element_file_qr_page_position']; //OTB Africa Add QR on attachments
+$element_mark_file_with_qr_code = $params['element_mark_file_with_qr_code'];//OTB Africa Add QR on attachments
+$element_file_qr_all_pages = $params['element_file_qr_all_pages'];//OTB Africa Add QR on attachments
+$element_file_qr_page_position = is_null($params['element_file_qr_page_position']) ? "top_right" : $params['element_file_qr_page_position'];//OTB Africa Add QR on attachments
 
 error_log(json_encode($params));
 
@@ -270,87 +266,6 @@ switch ($extension) {
 		break;
 }
 
-// ---- INLINE PDF VIEWER FOR FORM 96247 ----
-if (
-	$form_id === 96247 &&
-	$extension === 'pdf'
-) {
-
-	// Same base64 q, just control rendering
-	$inlinePdfUrl   = $_SERVER['PHP_SELF'] . '?q=' . urlencode($_GET['q']);
-	$downloadPdfUrl = $_SERVER['PHP_SELF'] . '?q=' . urlencode($_GET['q']) . '&download=1';
-?>
-	<!DOCTYPE html>
-	<html>
-
-	<head>
-		<title>PDF Preview</title>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.1/pdfobject.min.js"
-			integrity="sha512-okdYHqKDXlxPqa15xRbGTv/Dg6TxskmMjtQWlIDMFbblo9/M2uPNowgmBuiDcGMfkE6pWtqPr9PuEWsTPyKWAw=="
-			crossorigin="anonymous"></script>
-
-		<style>
-			html,
-			body {
-				margin: 0;
-				height: 100%;
-				font-family: Arial, sans-serif;
-			}
-
-			.toolbar {
-				padding: 10px;
-				background: #f5f5f5;
-				border-bottom: 1px solid #ddd;
-				display: flex;
-				justify-content: flex-end;
-			}
-
-			.toolbar a {
-				background: #2c7be5;
-				color: #fff;
-				text-decoration: none;
-				padding: 8px 14px;
-				border-radius: 4px;
-				font-size: 14px;
-			}
-
-			.toolbar a:hover {
-				background: #1a68d1;
-			}
-
-			#pdf-viewer {
-				height: calc(100vh - 52px);
-				width: 100%;
-			}
-		</style>
-	</head>
-
-	<body>
-
-		<div id="pdf-viewer"></div>
-
-		<script>
-			PDFObject.embed(
-				"<?php echo htmlspecialchars($inlinePdfUrl, ENT_QUOTES); ?>",
-				"#pdf-viewer", {
-					pdfOpenParams: {
-						view: "FitH",
-						toolbar: 1,
-						navpanes: 0,
-						scrollbar: 1
-					}
-				}
-			);
-		</script>
-
-	</body>
-
-	</html>
-	<?php
-	exit;
-}
-
 // Fix IE bug [0]
 $header_file = (strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) ? preg_replace('/\./', '%2e', $filename_only, substr_count($filename_only, '.') - 1) : $filename_only;
 
@@ -447,7 +362,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 			error_log('------------add page-----');
 		}
 		$pdf->useTemplate($tplIdx, 0, 0, null, null, true);
-		if ($element_file_qr_page_position == "top_left") { //Set position of QR code
+		if ($element_file_qr_page_position == "top_left") {//Set position of QR code
 			error_log('-----------top left-------');
 		} else if ($element_file_qr_page_position == "top_right") {
 			error_log('-----------top_right-------');
@@ -470,7 +385,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 		////// check if application already approved
 		//if(){
 		//error_log("Application approved!! Bar code permitted") ;
-		if ($element_file_qr_all_pages != 1) { //If this file field is not set to mark qr on all pages, set pages to first page only
+		if ($element_file_qr_all_pages != 1) {//If this file field is not set to mark qr on all pages, set pages to first page only
 			if ($page_count == 1) {
 				// $pdf->Write(0, "Scan QR code to confirm authenticity");
 				$pdf->Image($qr_code_image, $x_qr_pos, $y_qr_pos);
@@ -508,101 +423,16 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 
 	if (file_exists($target_file)) {
 		header("Content-Length: " . filesize($target_file));
-		if (
-			$form_id === 96247 &&
-			$extension === 'pdf'
-		) { 
-			$self = $_SERVER['PHP_SELF'];
-			$q = urlencode($_GET['q']);
 
-			$inlinePdfUrl = $self . '?q=' . $q;
-			$downloadPdfUrl = $self . '?q=' . $q . '&download=1';
-			?>
-			<!DOCTYPE html>
-			<html>
-
-			<head>
-				<title>PDF Preview</title>
-
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.1/pdfobject.min.js"
-					crossorigin="anonymous"></script>
-
-				<style>
-					html,
-					body {
-						margin: 0;
-						height: 100%;
-						font-family: Arial, sans-serif;
-					}
-
-					.toolbar {
-						padding: 10px;
-						background: #f5f5f5;
-						border-bottom: 1px solid #ddd;
-						display: flex;
-						justify-content: flex-end;
-					}
-
-					.toolbar a {
-						background: #2c7be5;
-						color: #fff;
-						text-decoration: none;
-						padding: 8px 14px;
-						border-radius: 4px;
-						font-size: 14px;
-					}
-
-					.toolbar a:hover {
-						background: #1a68d1;
-					}
-
-					#pdf-viewer {
-						height: calc(100vh - 52px);
-						width: 100%;
-					}
-				</style>
-			</head>
-
-			<body>
-
-				<div class="toolbar">
-					<a href="<?= htmlspecialchars($downloadPdfUrl, ENT_QUOTES) ?>">⬇ Download PDF</a>
-				</div>
-
-				<div id="pdf-viewer"></div>
-
-				<script>
-					PDFObject.embed(
-						"<?= htmlspecialchars($inlinePdfUrl, ENT_QUOTES) ?>",
-						"#pdf-viewer", {
-							pdfOpenParams: {
-								view: "FitH",
-								toolbar: 1,
-								navpanes: 0,
-								scrollbar: 1
-							}
-						}
-					);
-				</script>
-
-			</body>
-
-			</html>
-<?php
-			exit;
-		} else {
-
-
-			// Send file for download
-			if ($stream = fopen($target_file, 'rb')) {
-				while (!feof($stream) && connection_status() == 0) {
-					//reset time limit for big files
-					@set_time_limit(0);
-					print(fread($stream, 1024 * 8));
-					flush();
-				}
-				fclose($stream);
+		// Send file for download
+		if ($stream = fopen($target_file, 'rb')) {
+			while (!feof($stream) && connection_status() == 0) {
+				//reset time limit for big files
+				@set_time_limit(0);
+				print (fread($stream, 1024 * 8));
+				flush();
 			}
+			fclose($stream);
 		}
 	} else {
 		echo 'Error. File not found!';

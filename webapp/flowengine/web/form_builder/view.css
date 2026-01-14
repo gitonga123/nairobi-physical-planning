@@ -980,7 +980,7 @@
 }
 
 #main_body input.large {
-    width: 98%;
+    width: 100%;
 }
 
 #main_body select.large {
@@ -1261,7 +1261,7 @@
 }
 
 #main_body li.address input.large {
-    width: 98%;
+    width: 100%;
 }
 
 #main_body li.address .right.state_list input.large {

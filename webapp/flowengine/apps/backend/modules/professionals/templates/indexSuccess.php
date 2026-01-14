@@ -35,40 +35,6 @@ if ($sf_user->mfHasCredential("can_verify_professionals_details")) {
         <div class="panel panel-default">
             <div class="panel-body">
                 <?php if (count($entries) > 0) : ?>
-                    <table class="table b-b-0">
-                        <thead>
-                            <tr>
-
-                                <form method="post" action="/backend.php/professionals/index/filter/<?php echo $filter; ?><?php if ($filterstatus != "") {
-                                                                                                                                echo "/filterstatus/" . $filterstatus;
-                                                                                                                            } ?>">
-                                    <th class="b-b-0" style="width:50%;">
-                                        <input name="search" value="<?php echo $filter; ?>" placeholder="<?php echo __('Search'); ?>" type="text" class="form-control p10">
-                                    </th>
-
-                                    <?php
-                                    if (!sfConfig::get('app_sso_secret')) {
-                                    ?>
-                                        <th class="b-b-0 radius-tr">
-                                            <select size="1" name="filter_status" aria-controls="table2" class="select2 form-select" onChange="window.location='/backend.php/professionals/index/filterstatus/' + this.value;">
-                                                <option value="1"><?php echo __('Select Status'); ?></option>
-                                                <option value="1" <?php if ($filterstatus == "1") {
-                                                                        echo "selected='selected'";
-                                                                    } ?>><?php echo __('Active'); ?>
-                                                </option>
-                                                <option value="0" <?php if ($filterstatus == "0") {
-                                                                        echo "selected='selected'";
-                                                                    } ?>><?php echo __('Inactive'); ?>
-                                                </option>
-                                            </select>
-                                        </th>
-                                    <?php
-                                    }
-                                    ?>
-                                </form>
-                            </tr>
-                        </thead>
-                    </table>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover table-special" id="table_professionals">
                             <thead>

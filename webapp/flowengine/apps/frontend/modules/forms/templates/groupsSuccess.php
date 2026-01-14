@@ -2,10 +2,11 @@
 use_helper('I18N');
 
 $membersManager = new MembersManager();
-$membership = $membersManager->MembershipIsValidated($sf_user->getGuardUser()->getId());
+$membership = $membersManager->checkIfUserAccountIsActivated(null, null, $sf_user->getGuardUser()->getId());
 
+$membership_details = $membersManager->getMembersDatabaseDetails(null, null, $sf_user->getGuardUser()->getId());
 $user = $sf_user->getGuarduser();
-if ($membership && $membership['validated'] && $membership['member_no']) :
+if ($membership) :
 ?>
 	<div class="col-md-7 col-lg-8 col-xl-9">
 		<div class="row">
@@ -93,7 +94,21 @@ else :
 				<div class="card">
 					<div class="card-body">
 						<div class="card-header card-title">
-							<h4 class="text-danger"><?php echo __('PLEASE UPDATE YOUR MEMBERSHIP DETAILS'); ?></b></h4>
+							<?php
+							if (!$membership && !$membership_details) {
+								$headingText  = __('PLEASE ADD YOUR PROFESSIONAL MEMBERSHIP DETAILS');
+								$headingClass = 'text-danger';
+							} elseif (!$membership && strlen($membership_details->id)) {
+								$headingText  = __('MEMBERSHIP DETAILS SUBMITTED – AWAITING VERIFICATION');
+								$headingClass = 'text-dark strong';
+							} else {
+								$headingText  = __('ACCOUNT VERIFIED');
+								$headingClass = 'text-success';
+							}
+							?>
+							<h4 class="<?php echo $headingClass; ?>">
+								<?php echo $headingText; ?>
+							</h4>
 						</div>
 						<div class="card-body card-text">
 							<?php
@@ -101,7 +116,7 @@ else :
 								->from('mfUserProfile a')
 								->where('a.user_id = ?', $user->getId());
 							$profile = $q->fetchOne();
-							if ($profile && $profile->getFormId() && $profile->getEntryId()) {
+							if ($membership_details && $profile && $profile->getFormId() && $profile->getEntryId()) {
 							?>
 								<div class="form-row pull-right">
 									<div class="col-sm-12">
@@ -126,21 +141,23 @@ else :
 							?>
 								<div class="form-row pull-right">
 									<div class="col-sm-12">
-										<a class="btn btn-outline-primary" href="/index.php/mfRegister/registerDetails2?id=<?php echo $form_id; ?>"> <?php echo __('Add Additional Details'); ?></a>
+										<?php
+										include_partial('register_details', array('form_id' => $form_id));
+										?>
+										<!-- <a class="btn btn-outline-primary" href="/index.php/mfRegister/registerDetails2?id=<?php //echo $form_id; ?>"> <?php// echo __('Add Additional Details'); ?></a> -->
 									</div>
 								</div>
 							<?php
 							}
 							?>
-							<?php if (strlen($membership['member_no'])) : ?>
-								<p><?php echo __('If you have still not received a verification email in your inbox, kindly click the button below.'); ?></p>
-								<?php if (strlen($sf_user->getAttribute('boraqs_reset', ''))) : ?>
-									<div class="alert alert-warning">
-										<p><?php echo $sf_user->getAttribute('boraqs_reset') ?></p>
+							<?php if (strlen($membership_details->id)) : ?>
+								<div class="alert alert-warning d-flex align-items-center" role="alert">
+									<i class="bi bi-exclamation-triangle-fill me-2"></i>
+									<div>
+										<strong>Account approval pending.</strong>
+										Your membership details have been received and are currently under review. You will be notified once approval is complete.
 									</div>
-								<?php endif; ?>
-								<?php $sf_user->getAttributeHolder()->remove('boraqs_reset'); ?>
-								<p><a href="<?php echo '/index.php/membersdatabase/resendboraq' ?>" class="btn btn-warning"><?php echo __('Resend Verification Email'); ?></a></p>
+								</div>
 							<?php endif; ?>
 						</div>
 					</div>

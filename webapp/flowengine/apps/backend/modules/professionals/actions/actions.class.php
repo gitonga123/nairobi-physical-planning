@@ -74,9 +74,22 @@ class professionalsActions extends sfActions
 			->orderBy('a.id DESC');
 		$membership_database = $q->fetchOne();
 
+		if (!$membership_database) {
+			$this->getUser()->setFlash("error", "Failed! User associated with this record couldn't be found.");
+			$this->redirect('/backend.php/professionals/index/');
+		}
+
 		$membership_database->setValidate('');
 
 		$membership_database->save();
+
+		$user_prof = Doctrine_Core::getTable('SfGuardUserProfile')->findOneByUserId($membership_database->getUserId());
+
+		$message = "Hello {$user_prof['fullname']}, your membership has been approved. You may now log in and submit applications. Thank you.";
+
+		$notification = new mailnotifications();
+
+		$notification->sendsms($user_prof->getMobile(), $message);
 
 		$this->getUser()->setFlash("notice", "User Account Approved.");
 		$this->redirect('/backend.php/professionals/index/');
@@ -110,7 +123,7 @@ class professionalsActions extends sfActions
 		$applicationManager = new ApplicationManager();
 
 		$this->view_data = $applicationManager->get_json_by_form($this->form_id, $this->entry_id);
-		
+
 		$this->application_data = json_decode($this->view_data, true);
 
 		$this->setLayout('layout');

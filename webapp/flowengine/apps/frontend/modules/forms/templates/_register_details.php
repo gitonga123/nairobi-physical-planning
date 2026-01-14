@@ -72,8 +72,6 @@ if (mf_is_form_submitted()) {
                 $profile->save();
             }
 
-            var_dump($profile);
-
             $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
 
             $sql = "SELECT * FROM ap_form_? WHERE id = ?";

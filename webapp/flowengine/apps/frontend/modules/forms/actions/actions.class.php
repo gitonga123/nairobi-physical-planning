@@ -110,6 +110,14 @@ class formsActions extends sfActions
       {
             $this->current_profile = $this->getUser()->getAttribute("current_profile");
 
+            $membersManager = new MembersManager();
+            $membership = $membersManager->checkIfUserAccountIsActivated(null, null, $this->getUser()->getGuardUser()->getId());
+
+            if (!$membership) {
+                  $this->redirect('/index.php/forms/groups/');
+                  return;
+            }
+
             $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Submit Application");
 
             if ($this->current_profile) {
@@ -118,8 +126,6 @@ class formsActions extends sfActions
                   //$this->setLayout("layoutformbuilder");
                   $this->setLayout("layoutmentordashsubmit");
             }
-
-
       }
 
       /**
@@ -424,7 +430,6 @@ class formsActions extends sfActions
                   $transaction->save();
 
                   $this->invoice->setTransactionId($query_response->content["ref"]);
-
             }
 
             return $this->renderText(json_encode(['status' => $query_response->status, 'content' => $query_response->content]));
@@ -648,7 +653,6 @@ class formsActions extends sfActions
                   } else {
                         return ['success' => false, 'message' => 'Invoice still unpaid'];
                   }
-
             } else {
                   return ['success' => false];
             }
@@ -724,7 +728,6 @@ class formsActions extends sfActions
             ]);
 
             return $this->renderText(json_encode($query_response->content));
-
       }
 
       public function executeWards()
@@ -746,7 +749,6 @@ class formsActions extends sfActions
             ]);
 
             return $this->renderText(json_encode($query_response->content));
-
       }
 
 

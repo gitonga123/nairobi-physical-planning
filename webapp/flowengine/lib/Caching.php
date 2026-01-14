@@ -26,7 +26,6 @@ class Caching
             $redis = new Predis\Client();
             $redis->set("hello_world", "Hi from PHP!");
             $value = $redis->get("hello_world");
-            var_dump($value);
         } catch (Exception $e) {
             echo "Couldn't connect to Redis";
             echo $e->getMessage();

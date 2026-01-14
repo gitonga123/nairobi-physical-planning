@@ -33,6 +33,7 @@ class dashboardActions extends sfActions
 
         //If this is the first run after installation then display the wizard, else display the dashboard
         $wizard_manager = new WizardManager();
+        $this->page = 1;
 
         if ($wizard_manager->is_first_run()) {
             $this->first_run = true;

@@ -44,8 +44,8 @@ class MembersManager
 		// --------------------------------------------------
 		// SEND SMS TO USER (Acknowledgement)
 		// --------------------------------------------------
-		$name  = $membership[0]['element_2'] ?? 'User';
-		$phone = $membership[0]['element_6'] ?? null;
+		$name  = $membership[0]['element_5'] ?? 'User';
+		$phone = $membership[0]['element_8'] ?? null;
 
 		if ($phone) {
 			$message = "Hello {$name}, your membership details have been successfully submitted and are currently under verification. You will be notified once the review is complete. Thank you.";

@@ -112,19 +112,20 @@ EOT;
                                 echo $row_markup;
                             } else {
 
-                                // Allowed tags for safety
+                                // Decode entities first
+                                $decoded_value = html_entity_decode($row['value']);
+
+                                // Optional: sanitize to allow only safe HTML tags
                                 $allowed_tags = '<a><b><i><u><strong><em><br><p><ul><ol><li>';
+                                $sanitized_value = strip_tags($decoded_value, $allowed_tags);
 
-                                // Sanitize HTML (removes unsafe tags like <script>)
-                                $sanitized_value = strip_tags($row['value'], $allowed_tags);
-
-                                // Convert line breaks
+                                // Convert newlines to <br>
                                 $sanitized_value = nl2br($sanitized_value);
 
                                 // Build the row
                                 $row_markup = "<tr {$row_style}>\n";
                                 $row_markup .= "<td><strong>" . htmlspecialchars($row['label']) . "</strong></td>\n";
-                                $row_markup .= "<td>{$sanitized_value}</td>\n"; // <-- directly output sanitized HTML
+                                $row_markup .= "<td>{$sanitized_value}</td>\n";
                                 $row_markup .= "</tr>\n";
 
                                 echo $row_markup;

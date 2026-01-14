@@ -897,7 +897,7 @@
     background: none repeat scroll 0 0 #FBFBFB;
     padding: 6px 0 6px 6px;
     color: #666666;
-    height: 36px;
+    height: 50px;
     font-size: 100%;
     margin: 1px 0;
 }
@@ -1091,7 +1091,7 @@
 .form_success {
     clear: both;
     margin: 0;
-    padding: 90px 0pt 100px;
+    padding: 39px 0pt 46px;
     text-align: center;
 }
 

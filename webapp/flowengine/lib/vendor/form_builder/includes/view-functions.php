@@ -280,7 +280,7 @@ function mf_display_text($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class} class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
-		<div class="col-sm-10">
+		<div class="col-sm-12">
 			<input id="element_{$element->id}" name="element_{$element->id}" {$maxlength} class="element form-control text large" type="{$element_type}" value="{$element->default_value}"  {$input_handler} {$element->edit_style} {$attr_placeholder} {$attr_readonly} {$readonly_style}/>
 			{$range_limit_markup}
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
@@ -448,7 +448,7 @@ function mf_display_textarea($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
-		<div class="col-sm-10">
+		<div class="col-sm-12">
 			<textarea id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control textarea large" rows="8" cols="90" {$input_handler} {$element->edit_style}>{$element->default_value}</textarea>
 			{$range_limit_markup}
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
@@ -653,10 +653,7 @@ function mf_display_file($element)
 						</span>
 						</div>
 EOT;
-
 		}
-
-
 	}
 
 
@@ -704,9 +701,6 @@ EOT;
 EOT;
 				}
 			}
-
-
-
 		} else {
 			$file_token = md5(uniqid(rand(), true));
 		}
@@ -753,7 +747,6 @@ EOT;
 					 'fileExt'     : '{$allowed_file_types_joined}',
   					 'fileDesc'    : '{$allowed_file_types_joined}',
 EOT;
-
 			} else if ($element->file_block_or_allow == 'b') { //if this is a block list
 				$blocked_file_types = explode(',', $element->file_type_list);
 				array_walk($blocked_file_types, create_function('&$val', '$val = strtolower(trim($val));'));
@@ -1048,8 +1041,8 @@ function mf_display_url($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class} class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
-		<div class="col-sm-10">
-			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control text {$element->size}" type="text"  value="{$element->default_value}" {$element->edit_style}/>
+		<div class="col-sm-12">
+			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control text {$element->size} large" type="text"  value="{$element->default_value}" {$element->edit_style}/>
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
 EOT;
@@ -1137,8 +1130,8 @@ function mf_display_email($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group">
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
-		<div class="col-sm-10">
-			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control text {$element->size}" type="text" maxlength="255" value="{$element->default_value}" {$element->edit_style}/>
+		<div class="col-sm-12">
+			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control text {$element->size} large" type="text" maxlength="255" value="{$element->default_value}" {$element->edit_style}/>
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
 EOT;
@@ -1326,8 +1319,8 @@ function mf_display_simple_phone($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group">
 		<label for="element_{$element->id}" class="description col-sm-2 control-label">{$element->title} {$span_required}</label>
-		<div class="col-sm-10">
-			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_readonly} class="element form-control text medium" type="text" maxlength="255" value="{$element->default_value}" {$element->edit_style}/>
+		<div class="col-sm-12">
+			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_readonly} class="element form-control text large" type="text" maxlength="255" value="{$element->default_value}" {$element->edit_style}/>
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
 EOT;
@@ -2052,7 +2045,7 @@ function mf_display_radio($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$price_data_tag} {$li_style} {$li_class} {$element->edit_style}>
 		<span class="description col-sm-2 control-label">{$element->title} {$span_required}</span>
-		<div class="col-sm-10" >
+		<div class="col-sm-12" >
 			<fieldset>
 				<legend style="display: none">{$element->title}</legend>
 				{$option_markup}
@@ -2141,10 +2134,10 @@ function mf_display_checkbox($element)
 		if (!$is_populated) {
 			if ($option->is_default && ($element->is_edit_entry !== true)) {
 				$checked = 'checked="checked"';
-				$selected_price_value += (double) $option->price_definition;
+				$selected_price_value += (float) $option->price_definition;
 			} else if (isset($_GET['element_' . $element->id . '_' . $option->id])) {
 				$checked = 'checked="checked"';
-				$selected_price_value += (double) $option->price_definition;
+				$selected_price_value += (float) $option->price_definition;
 			} else {
 				$checked = '';
 			}
@@ -2152,7 +2145,7 @@ function mf_display_checkbox($element)
 
 			if (!empty($element->populated_value['element_' . $element->id . '_' . $option->id]['default_value'])) {
 				$checked = 'checked="checked"';
-				$selected_price_value += (double) $option->price_definition;
+				$selected_price_value += (float) $option->price_definition;
 			} else {
 				$checked = '';
 			}
@@ -2197,14 +2190,14 @@ function mf_display_checkbox($element)
 	}
 
 	if ($has_price_definition === true) {
-		$selected_price_value = (double) $selected_price_value;
+		$selected_price_value = (float) $selected_price_value;
 		$price_data_tag = 'data-pricefield="checkbox" data-pricevalue="' . $selected_price_value . '"';
 	}
 
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$price_data_tag} {$li_style} {$element->edit_style} {$li_class}>
 		<span class="description col-sm-2 control-label">{$element->title} {$span_required}</span>
-		<div class="col-sm-10">
+		<div class="col-sm-12">
 			{$option_markup}
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
@@ -2380,7 +2373,6 @@ function mf_display_select($element)
 				$option_markup .= "<option value='" . $option["id"] . "'>" . $option["application_id"] . "</option>";
 			}
 		}
-
 	}
 
 	$filter_js = "";
@@ -2401,7 +2393,7 @@ function mf_display_select($element)
 	//OTB ADD
 	$element_disabled = '';
 	if ($element->is_readonly == 'disabled') {
-		$element_disabled = "<input type=\"hidden\" name=\"element_{$element->id}\" value=\"{$element->populated_value['element_' . $element->id]['default_value']}\" />";
+		$element_disabled = "<input type=\"hidden\" name=\"element_{$element->id}\" value=\"{$element->populated_value['element_' .$element->id]['default_value']}\" />";
 	}
 
 	$attr_readonly = '';
@@ -2411,8 +2403,8 @@ function mf_display_select($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$price_data_tag} {$li_style} {$li_class}>
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
-		<div id="li_{$element->id}_filter" class="col-sm-10">
-		<select class="form-control element select {$element->size}" id="element_{$element->id}" name="element_{$element->id}" {$filter_js} {$attr_readonly} {$element->edit_style}>
+		<div id="li_{$element->id}_filter" class="col-sm-12">
+		<select class="element {$element->size} large form-select" id="element_{$element->id}" name="element_{$element->id}" {$filter_js} {$attr_readonly} {$element->edit_style}>
 			{$option_markup}
 		</select>
 		{$element_disabled}
@@ -2924,7 +2916,6 @@ function mf_display_time($element)
 			} else {
 				$selected_pm = 'selected';
 			}
-
 		} else { //it's not a valid time, display blank
 			$default_value_1 = '';
 			$default_value_2 = '';
@@ -3076,7 +3067,6 @@ function mf_display_money($element)
 		if ($element->error_message != 'error_no_display') {
 			$error_message = "<p class=\"error\">{$element->error_message}</p>";
 		}
-
 	}
 
 
@@ -3210,7 +3200,7 @@ function mf_display_money($element)
 
 		if (isset($element->price_definition)) {
 			$price_value = $default_value_1 . '.' . $default_value_2;
-			$price_value = (double) $price_value;
+			$price_value = (float) $price_value;
 
 			$price_data_tag = 'data-pricevalue="' . $price_value . '" data-pricefield="money"';
 		}
@@ -3231,7 +3221,6 @@ function mf_display_money($element)
 		<span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
 EOT;
-
 	} else { //for yen, only display one textfield
 		$main_cur = $mf_lang['price_yen'];
 		$cur_symbol = '&#165;';
@@ -3251,7 +3240,7 @@ EOT;
 
 		if (isset($element->price_definition)) {
 			$price_value = $default_value;
-			$price_value = (double) $price_value;
+			$price_value = (float) $price_value;
 
 			$price_data_tag = 'data-pricevalue="' . $price_value . '" data-pricefield="money_simple"';
 		}
@@ -3267,7 +3256,6 @@ EOT;
 		<span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
 EOT;
-
 	}
 
 
@@ -3498,8 +3486,6 @@ function mf_display_number($element)
 		} else {
 			$range_limit_markup = '';
 		}
-
-
 	} else if ($element->range_limit_by == 'v') {
 		if (!empty($element->range_min) && !empty($element->range_max)) {
 			$range_min_max_tag = sprintf($mf_lang['range_number_min_max'], "<var id=\"range_min_{$element->id}\">{$element->range_min}</var>", "<var id=\"range_max_{$element->id}\">{$element->range_max}</var>");
@@ -3603,7 +3589,7 @@ function mf_display_number($element)
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group" {$element->edit_style}>
 		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
-		<div class="col-sm-10">
+		<div class="col-sm-12">
 			<input id="element_{$element->id}" name="element_{$element->id}" class="element form-control text large" {$attr_placeholder} {$attr_readonly} type="number" {$maxlength} {$quantity_link_data_tag} value="{$element->default_value}" {$input_handler}/>
 			{$range_limit_markup}
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
@@ -4308,7 +4294,7 @@ function mf_display_address($element)
 		<li id="li_{$element->id}" {$li_style} {$li_class} {$element->edit_style}>
 		<span class="description col-sm-2 control-label">{$element->title} {$span_required}</span>
 
-		<div class="col-sm-10" >
+		<div class="col-sm-12" >
 			<span id="li_{$element->id}_span_1">
 				<input id="element_{$element->id}_1" name="element_{$element->id}_1" class="element form-control text large" {$attr_readonly} value="{$default_value_1}" type="text" />
 				<label for="element_{$element->id}_1">{$mf_lang['address_street']}</label>
@@ -4412,7 +4398,6 @@ function mf_display_captcha($element)
 <img id="captcha_image" src="/form_builder/captcha.php?t={$timestamp}" width="200" height="60" alt="Please refresh your browser to see this image." /><br />
 <input id="captcha_response_field" name="captcha_response_field" class="element form-control text large" type="text" /><div id="dummy_captcha_internal"></div>
 EOT;
-
 	} else if ($element->captcha_type == 'r') { //if this is recaptcha
 		$captcha_html = recaptcha_get_html(RECAPTCHA_PUBLIC_KEY, $error_code, $use_ssl);
 
@@ -4442,7 +4427,6 @@ EOT;
 				 };
 				</script>
 EOT;
-
 	} else if ($element->captcha_type == 'n') { //if this is reCAPTCHA V2 (No CAPTCHA)
 
 		if (empty($element->recaptcha_site_key) || empty($element->recaptcha_secret_key)) {
@@ -4461,8 +4445,6 @@ EOT;
 			//manually add 130px padding for recaptcha, since google is building the captcha after the dom is loaded
 			$captcha_html .= "\n" . $recaptcha_post_message;
 		}
-
-
 	} else if ($element->captcha_type == 't') { //if this is simple text captcha
 
 		$element->title = $mf_lang['captcha_simple_text_title'];
@@ -5641,7 +5623,6 @@ function mf_display_form($dbh, $form_id, $form_params = [])
 					$element[$j]->date_disable_specific = 1;
 					$element[$j]->date_disabled_list = $current_date_disabled_list_joined;
 				}
-
 			}
 		}
 
@@ -5786,12 +5767,12 @@ function mf_display_form($dbh, $form_id, $form_params = [])
 		}
 		//OTB Start Patch - Edit fields fix
 		$form_entry = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc("select declined, approved from form_entry where form_id=" . $form_id . " and entry_id=" . $edit_id . " limit 1");
-		$stage = $form_entry[0]['approved'];//OTB - check if stage is set, if not (i.e. approved=0), then this is a draft so do not disable fields
+		$stage = $form_entry[0]['approved']; //OTB - check if stage is set, if not (i.e. approved=0), then this is a draft so do not disable fields
 		$populated_elem_values = array();
 		$element_keys = array();
 		//error_log('------------Populate --------');
 		//error_log(print_r($populated_values,true));
-		foreach ($populated_values as $key => $value) {//Get populated values for all field types using regular expression on keys
+		foreach ($populated_values as $key => $value) { //Get populated values for all field types using regular expression on keys
 			//error_log('------------VALUE ARRAY--------');
 			//error_log(print_r($value[default_value],true));
 			if ($key == 'element_' . $element_data->id or preg_match('/element_' . $element_data->id . '_\d/', $key)) {
@@ -5802,7 +5783,7 @@ function mf_display_form($dbh, $form_id, $form_params = [])
 
 		if ($edit_id and $element_data->is_required and !$populated_elem_values) {
 			$element_data->is_readonly = "";
-		} else if ($edit_id and $stage && $form_entry[0]['declined'] && empty(sfContext::getInstance()->getUser()->getAttribute('userid'))) {//only disable fields if being edited and is not a draft
+		} else if ($edit_id and $stage && $form_entry[0]['declined'] && empty(sfContext::getInstance()->getUser()->getAttribute('userid'))) { //only disable fields if being edited and is not a draft
 			$edit_fields = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc("select edit_fields from entry_decline where entry_id in (select id from form_entry where form_id=" . $form_id . " and entry_id=" . $edit_id . ") order by id desc limit 1");
 			$edit_fields = json_decode($edit_fields[0]['edit_fields']);
 			$selectable = in_array($element_data->type, array('select', 'checkbox', 'radio', 'file')) ? true : false;
@@ -5925,7 +5906,6 @@ EOT;
 				$submit_button_markup = '<input class="submit_img_primary" type="image" alt="Submit" id="submit_form" name="submit_form" src="' . $row['form_button_image'] . '" />';
 			}
 		}
-
 	} else { //if the form doesn't have any theme being applied
 		$field_highlight_color = '#FFF7C0';
 
@@ -5959,10 +5939,8 @@ EOT;
 
 	if (!empty($form->password) && empty($_SESSION['user_authenticated'])) { //if form require password and password hasn't set yet
 		$show_password_form = true;
-
 	} elseif (!empty($form->password) && !empty($_SESSION['user_authenticated']) && $_SESSION['user_authenticated'] != $form_id) { //if user authenticated but not for this form
 		$show_password_form = true;
-
 	} else { //user authenticated for this form, or no password required
 		$show_password_form = false;
 	}
@@ -6064,9 +6042,10 @@ EOT;
 		if (!empty($form->name) || !empty($form->description)) {
 			$form->description = nl2br($form->description);
 			$form_desc_div = <<<EOT
-		<div class="card-heading">
+		<div class="card-header mb-1">
 			<h3 class="card-title">{$form->name}</h3>
 		</div>
+		
 EOT;
 		}
 
@@ -6385,7 +6364,6 @@ EOT;
 					{$button_secondary_markup}
 			</li>
 EOT;
-
 			}
 		} else { //if there is edit_id, then this is edit_entry page, display a standard button
 			$button_markup = <<<EOT
@@ -6398,7 +6376,6 @@ EOT;
 			</li>
 EOT;
 		}
-
 	}
 
 	if ($has_advance_uploader) {
@@ -6558,7 +6535,7 @@ EOT;
 		if ($form->payment_price_type == 'variable') {
 			//if this is multipage form, we need to get the total selected price from other pages
 			if ($form->page_total > 1) {
-				$other_page_total_payment = (double) mf_get_payment_total($dbh, $form_id, $session_id, $page_number);
+				$other_page_total_payment = (float) mf_get_payment_total($dbh, $form_id, $session_id, $page_number);
 				$other_page_total_data_tag = 'data-basetotal="' . $other_page_total_payment . '"';
 			} else {
 				$other_page_total_data_tag = 'data-basetotal="0"';
@@ -6690,16 +6667,19 @@ html{
 
 		<form id="form_{$form->id}" class="appnitro 1 {$form->label_alignment}" {$form_enc_type} method="post" data-highlightcolor="{$field_highlight_color}" action="#main_body">
 			{$form_desc_div}
-			<ul {$ul_class}>
+			<div class="card-body">
 			{$pagination_header}
 			{$payment_total_markup_top}
 			{$form->error_message}
 			{$all_element_markup}
 			{$custom_element}
 			{$payment_total_markup_bottom}
+			</div>
+			<div class="card-footer">
 			{$form_resume_markup}
+
 			{$button_markup}
-			</ul>
+			</div>
 		</form>
 
 	</div>
@@ -6709,6 +6689,7 @@ EOT;
 	} else {
 		$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 		$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
+		$self_address = $initial_self_address;
 		$form_markup = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xml:lang="en" {$html_class_tag} xmlns="http://www.w3.org/1999/xhtml">
@@ -6735,30 +6716,47 @@ EOT;
 
 	<div id="form_container" class="{$form_container_class}">
 
-		<form id="form_{$form->id}" class="appnitro {$form->label_alignment}" {$form_enc_type} method="post" data-highlightcolor="{$field_highlight_color}" action="{$self_address}">
-		<div class="card card-default">
-			{$form_desc_div}
-			<ul {$ul_class}>
-			<div class="card-body p-0 form-bordered form-horizontal">
+		<form
+			id="form_{$form->id}"
+			class="appnitro {$form->label_alignment}"
+			{$form_enc_type}
+			method="post"
+			data-highlightcolor="{$field_highlight_color}"
+			action="{$self_address}"
+		>
 
-			{$pagination_header}
+			<div class="card shadow-sm">
 
-			{$payment_total_markup_top}
-			{$form->error_message}
-			{$all_element_markup}
-			{$custom_element}
-			{$payment_total_markup_bottom}
-			{$form_resume_markup}
-			</div>
-			<div class="card-footer">
-			{$button_markup}
+				{$form_desc_div}
+
+				<div class="card-body form-bordered">
+
+					{$pagination_header}
+					{$payment_total_markup_top}
+					{$form->error_message}
+
+					<ul class="list-unstyled m-0">
+
+						{$all_element_markup}
+						{$custom_element}
+
+					</ul>
+
+					{$payment_total_markup_bottom}
+					{$form_resume_markup}
+
+				</div>
+
+				<div class="card-footer text-start">
+					{$button_markup}
+				</div>
+
 			</div>
 
-			</ul>
-			</div>
 		</form>
 
 	</div>
+
 	<script language="javascript">
     function filter_dropdown(form_id, element_id, link_id, value) {
         var xhttp = new XMLHttpRequest();
@@ -6778,7 +6776,6 @@ EOT;
 	}
 
 	return $form_markup;
-
 }
 
 
@@ -7036,11 +7033,11 @@ function mf_display_raw_form($dbh, $form_id)
 		$element[$j]->text_default_random_type = $row['element_text_default_random_type'];
 		$element[$j]->text_default_prefix = $row['element_text_default_prefix'];
 		$element[$j]->text_default_case = $row['element_text_default_case'];
-		$element[$j]->footprint = nl2br($row['element_footprint']);//OTB patch
-		$element[$j]->plotsize = nl2br($row['element_plotsize']);//OTB patch
-		$element[$j]->actualplotratio = nl2br($row['element_actualplotratio']);//OTB patch
-		$element[$j]->permittedgroundcoverage = nl2br($row['element_permittedgroundcoverage']);//OTB patch
-		$element[$j]->zone = nl2br($row['element_zone']);//OTB patch
+		$element[$j]->footprint = nl2br($row['element_footprint']); //OTB patch
+		$element[$j]->plotsize = nl2br($row['element_plotsize']); //OTB patch
+		$element[$j]->actualplotratio = nl2br($row['element_actualplotratio']); //OTB patch
+		$element[$j]->permittedgroundcoverage = nl2br($row['element_permittedgroundcoverage']); //OTB patch
+		$element[$j]->zone = nl2br($row['element_zone']); //OTB patch
 		$element[$j]->projectcost = nl2br($row['element_projectcost']); //OTB patch
 		$element[$j]->grandtotalplintharea = nl2br($row['element_grandtotalplintharea']); //OTB patch
 		$element[$j]->groundcoveragereason = nl2br($row['element_groundcoveragereason']); //OTB patch
@@ -7256,7 +7253,6 @@ EOT;
 
 EOT;
 	return $form_markup;
-
 }
 
 function mf_display_success($dbh, $form_id, $form_params = array())
@@ -7472,9 +7468,6 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 				$form_container_class = $form_shadow_style . ' ' . $form_shadow_size_class . ' ' . $form_shadow_brightness_class;
 			}
 		}
-
-
-
 	} else { //if the form doesn't have any theme being applied
 		$field_highlight_color = '#FFF7C0';
 
@@ -7530,7 +7523,6 @@ html{
 
 </div>
 EOT;
-
 	} else {
 
 		if ($integration_method == 'iframe') {
@@ -7900,7 +7892,6 @@ EOT;
 		} else {
 			$pagination_header = '';
 		}
-
 	}
 
 
@@ -7909,16 +7900,51 @@ EOT;
 
 	//build the button markup (image or text)
 	if (!empty($form_review_use_image)) {
+
 		$button_markup = <<<EOT
-<input id="review_back" class="btn btn-warning submit_img_secondary" type="image" name="review_back" alt="{$form_review_secondary_text}" src="{$form_review_secondary_img}" />
-<input id="review_submit" class="submit_img_primary" type="image" name="review_submit" alt="{$form_review_primary_text}" src="{$form_review_primary_img}" />
+<div class="d-flex justify-content-end gap-2">
+	<button type="submit"
+		name="review_back"
+		class="btn btn-outline-secondary d-flex align-items-center"
+		aria-label="{$form_review_secondary_text}">
+		<img src="{$form_review_secondary_img}"
+			 alt=""
+			 class="me-2"
+			 style="height:20px;">
+		{$form_review_secondary_text}
+	</button>
+
+	<button type="submit"
+		name="review_submit"
+		class="btn btn-success d-flex align-items-center"
+		aria-label="{$form_review_primary_text}">
+		<img src="{$form_review_primary_img}"
+			 alt=""
+			 class="me-2"
+			 style="height:20px;">
+		{$form_review_primary_text}
+	</button>
+</div>
 EOT;
 	} else {
+
 		$button_markup = <<<EOT
-<input id="review_back" class="btn btn-warning" type="submit" name="review_back" value="{$form_review_secondary_text}" />
-<input id="review_submit" class="btn btn-success" type="submit" name="review_submit" value="{$form_review_primary_text}" />
+<div class="d-flex justify-content-end gap-2">
+	<button type="submit"
+		name="review_back"
+		class="btn btn-outline-secondary">
+		{$form_review_secondary_text}
+	</button>
+
+	<button type="submit"
+		name="review_submit"
+		class="btn btn-success">
+		{$form_review_primary_text}
+	</button>
+</div>
 EOT;
 	}
+
 
 	//if this form is using custom theme
 	if (!empty($form_theme_id)) {
@@ -7980,9 +8006,6 @@ EOT;
 				$form_container_class = $form_shadow_style . ' ' . $form_shadow_size_class . ' ' . $form_shadow_brightness_class;
 			}
 		}
-
-
-
 	} else { //if the form doesn't have any theme being applied
 		$field_highlight_color = '#FFF7C0';
 
@@ -8083,7 +8106,7 @@ EOT;
 		$session_id = session_id();
 
 		if ($payment_price_type == 'variable') {
-			$total_payment = (double) mf_get_payment_total($dbh, $form_id, $session_id, 0);
+			$total_payment = (float) mf_get_payment_total($dbh, $form_id, $session_id, 0);
 		} elseif ($payment_price_type == 'fixed') {
 			$total_payment = $payment_price_amount;
 		}
@@ -8143,7 +8166,6 @@ EOT;
 		} else {
 			$payment_total_markup = '';
 		}
-
 	}
 
 	//load custom javascript if enabled
@@ -8172,8 +8194,8 @@ EOT;
 	}
 
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
-	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-
+	// $self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
+	$self_address = $initial_self_address;
 	$jquery_url = '/form_builder/js/jquery.min.js';
 
 	if ($integration_method == 'php') {
@@ -8666,7 +8688,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 		}
 	} elseif ($payment_price_type == 'variable') {
 
-		$total_payment_amount = (double) mf_get_payment_total($dbh, $form_id, $record_id, 0, 'live');
+		$total_payment_amount = (float) mf_get_payment_total($dbh, $form_id, $record_id, 0, 'live');
 		$payment_items = mf_get_payment_items($dbh, $form_id, $record_id, 'live');
 
 
@@ -8758,8 +8780,6 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 			$payment_list_items_markup .= "<li>{$tax_label}</li>";
 		}
-
-
 	}
 
 
@@ -8889,7 +8909,6 @@ EOT;
 		} else {
 			$pagination_header = '';
 		}
-
 	}
 
 
@@ -8958,9 +8977,6 @@ EOT;
 				$form_container_class = $form_shadow_style . ' ' . $form_shadow_size_class . ' ' . $form_shadow_brightness_class;
 			}
 		}
-
-
-
 	} else { //if the form doesn't have any theme being applied
 		$field_highlight_color = '#FFF7C0';
 
@@ -8973,7 +8989,7 @@ EOT;
 
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-
+	$self_address = $initial_self_address;
 	$country = mf_get_country_list();
 	$country_markup = '<option value="" selected="selected"></option>' . "\n";
 
@@ -9008,7 +9024,7 @@ EOT;
 						</span>
 
 						<span id="li_billing_span_5" class="right">
-							<select class="element form-control select large" id="billing_country">
+							<select class="element select large form-select" id="billing_country">
 								{$country_markup}
 							</select>
 						<label for="billing_country">{$mf_lang['address_country']}</label>
@@ -9387,5 +9403,3 @@ EOT;
 
 	return $form_markup;
 }
-
-?>

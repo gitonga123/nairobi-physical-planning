@@ -8,11 +8,54 @@
 
 class MembersManager
 {
-	public $suffix;
 
 	public function __construct()
 	{
 		$this->suffix = empty($_SERVER['HTTPS']) ? "http://" : "https://";
+	}
+
+	// UASIN GISHU FIX
+	// ADD USER TO DATABASE AND AWAIT VERIFICATION
+	public function addMemberToDatabase($user, $form_id, $membership)
+	{
+		$validate = rand(1000000, 9999999);
+
+		$membership_db = new MembersDatabase();
+		$membership_db->setFormId($form_id);
+		$membership_db->setEntryId($membership['entry_id']);
+		$membership_db->setUserId($user->getId());
+		$membership_db->setValidate($validate);
+		$membership_db->save();
+
+		// send sms
+		$message = "Hello {$membership[0]['element_2']}, your membership details have been successfully submitted and are currently under verification. You will be notified once the review is complete. Thank you.";
+
+		$notification = new mailnotifications();
+
+		$notification->sendsms($membership[0]['element_6'], $message);
+
+		// send notification to the admin to verify the account
+		$q = Doctrine_Query::create()
+			->from('MfGuardPermission a')
+			->where('a.name = ?', 'can_verify_professionals_details');
+		$credential = $q->fetchOne();
+
+		if (!$credential) return false;
+
+		$groups = $credential->getGroups();
+
+		foreach ($groups as $group) {
+			$users = $group->getUsers();
+
+			foreach ($users as $cfuser) {
+				$message = "";
+				$phone_number = $cfuser->getStrphoneMain1();
+
+				$message = "New membership verification request submitted by {$membership[0]['element_6']}. Please log in to the system to review and approve.";
+
+				$notification->sendsms($phone_number, $message);
+			}
+		}
 	}
 
 	//Start OTB Patch - Check for Membership
@@ -63,7 +106,7 @@ class MembersManager
 			$message = str_replace("{user_full_name}", $user_prof[0]['fullname'], $message);
 			$message = str_replace("{association}", $usercategory['member_association_name'], $message);
 			$message = str_replace("{membership_no}", $reg_no, $message);
-			$validation_link = "<a href='" . $this->suffix . $_SERVER['HTTP_HOST'] . "/plan/membersdatabase/confirm/validate/" . $v . "'>" . $this->suffix . $_SERVER['HTTP_HOST'] . "/plan/membersdatabase/confirm/validate/" . $v . "</a>";
+			$validation_link = "<a href='" . $this->suffix . $_SERVER['HTTP_HOST'] . "/index.php/membersdatabase/confirm/validate/" . $v . "'>" . $this->suffix . $_SERVER['HTTP_HOST'] . "/index.php/membersdatabase/confirm/validate/" . $v . "</a>";
 			$message = str_replace("{validation_link}", $validation_link, $message);
 
 			//error_log("userid ##".$user_id."   ".$user_prof[0]['fullname'].print_R($usercategory, true)."email message ###".$message);
@@ -142,8 +185,6 @@ class MembersManager
 			$member_no = 6;
 		}
 
-		return array('member_no' => true, 'validated' => true, 'category' => true, 'database' => true);
-
 		if (empty($UserCategory) && !$details_query) {
 			return array('member_no' => '', 'validated' => false, 'category' => '', 'database' => '');
 		}
@@ -154,4 +195,38 @@ class MembersManager
 		}
 	}
 	//End OTB Patch - Check for Membership
+
+	// UASIN GISHU CHECK IF USER IS ACTIVATED
+
+	public function checkIfUserAccountIsActivated($form_id = null, $entry_id = null, $user_id = null)
+	{
+		if ($user_id) {
+			$q = Doctrine_Query::create()
+				->from('MembersDatabase a')
+				->where('a.user_id = ?', $user_id)
+				->orderBy('a.id DESC');
+		} else {
+			$q = Doctrine_Query::create()
+				->from('MembersDatabase a')
+				->where('a.entry_id = ? and a.form_id = ?', [$entry_id, $form_id])
+				->orderBy('a.id DESC');
+		}
+
+		$membership_database = $q->fetchOne();
+
+		// If no record found, consider the account not activated
+		if (!$membership_database) {
+			return false;
+		}
+
+		if (empty($membership_database->getValidate())) {
+			return true;
+		}
+
+		if ($membership_database->getValidate()) {
+			return false;
+		}
+
+		return false;
+	}
 }

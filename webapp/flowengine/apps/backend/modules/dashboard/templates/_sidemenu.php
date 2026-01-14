@@ -66,6 +66,8 @@ $site_settings = Functions::site_settings();
       <?php
     }
 
+
+
     if ($sf_user->mfHasCredential("access_members")) {
       if (Functions::client_can_add_businesses()) {
         //Iterate through any profiles that have been configured
@@ -103,6 +105,24 @@ $site_settings = Functions::site_settings();
           href="/plan/frusers/index"><i class="fa fa-user"></i> <span><?php echo __('Users'); ?></span></a></li>
       <?php
     }
+
+    if ($sf_user->mfHasCredential("can_verify_professionals_details")): ?>
+      <li <?php echo $sf_context->getModuleName() == "professionals" ? "class='active'" : ""; ?>>
+        <a href="/backend.php/professionals">
+          <i class="fa fa-th-large"></i>
+          <span>
+            <?php echo __('Professionals'); ?>
+
+            <?php if ($unverified_professionals > 0): ?>
+              <span class="label label-danger" style="margin-left:6px;">
+                <?php echo $unverified_professionals; ?>
+              </span>
+            <?php endif; ?>
+          </span>
+        </a>
+      </li>
+    <?php endif;
+
 
     if ($sf_user->mfHasCredential("access_billing")) {
       ?>
@@ -202,8 +222,8 @@ $site_settings = Functions::site_settings();
           </li>
 
           <li <?php if ($sf_context->getModuleName() == "reports" && $sf_context->getActionName() == "subcountyReports") {
-            echo 'class="active"';
-          } ?>>
+                echo 'class="active"';
+              } ?>>
             <a href="#"></a>
           </li>
         </ul>

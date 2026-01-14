@@ -328,12 +328,6 @@ if (
 
 	<body>
 
-		<div class="toolbar">
-			<a href="<?php echo htmlspecialchars($downloadPdfUrl, ENT_QUOTES); ?>">
-				⬇ Download PDF
-			</a>
-		</div>
-
 		<div id="pdf-viewer"></div>
 
 		<script>
@@ -353,7 +347,7 @@ if (
 	</body>
 
 	</html>
-<?php
+	<?php
 	exit;
 }
 
@@ -514,16 +508,74 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 
 	if (file_exists($target_file)) {
 		header("Content-Length: " . filesize($target_file));
+		if (
+			$form_id === 96247 &&
+			$extension === 'pdf'
+		) { ?>
+			<!DOCTYPE html>
+			<html>
 
-		// Send file for download
-		if ($stream = fopen($target_file, 'rb')) {
-			while (!feof($stream) && connection_status() == 0) {
-				//reset time limit for big files
-				@set_time_limit(0);
-				print(fread($stream, 1024 * 8));
-				flush();
+			<head>
+				<title>PDF Preview</title>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.1/pdfobject.min.js"
+					crossorigin="anonymous"></script>
+				<style>
+					body {
+						margin: 0;
+						font-family: Arial, sans-serif;
+					}
+
+					.toolbar {
+						padding: 10px;
+						background: #f4f4f4;
+						border-bottom: 1px solid #ddd;
+						display: flex;
+						justify-content: flex-end;
+					}
+
+					.toolbar a {
+						background: #2c7be5;
+						color: #fff;
+						padding: 8px 14px;
+						text-decoration: none;
+						border-radius: 4px;
+						font-size: 14px;
+					}
+
+					#pdf-viewer {
+						height: calc(100vh - 52px);
+					}
+				</style>
+			</head>
+
+			<body>
+
+				<div class="toolbar">
+					<a href="<?= htmlspecialchars($target_file) ?>">⬇ Download PDF</a>
+				</div>
+
+				<div id="pdf-viewer"></div>
+
+				<script>
+					PDFObject.embed("<?= htmlspecialchars($target_file) ?>", "#pdf-viewer");
+				</script>
+
+			</body>
+
+			</html>
+<?php } else {
+
+
+			// Send file for download
+			if ($stream = fopen($target_file, 'rb')) {
+				while (!feof($stream) && connection_status() == 0) {
+					//reset time limit for big files
+					@set_time_limit(0);
+					print(fread($stream, 1024 * 8));
+					flush();
+				}
+				fclose($stream);
 			}
-			fclose($stream);
 		}
 	} else {
 		echo 'Error. File not found!';

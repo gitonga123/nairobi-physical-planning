@@ -18,7 +18,7 @@ class MembersManager
 	// ADD USER TO DATABASE AND AWAIT VERIFICATION
 	public function addMemberToDatabase($user, $form_id, $membership)
 	{
-		
+
 		$validate = rand(1000000, 9999999);
 
 		// 1. Check if membership already exists for this user & form
@@ -40,6 +40,16 @@ class MembersManager
 		$membership_db->setEntryId($membership[0]['id']);
 		$membership_db->setValidate($validate);
 		$membership_db->save();
+
+		$q = Doctrine_Query::create()
+			->from("sfGuardUserProfile a")
+			->where("a.user_id = ?", $user->getId());
+		$sfGuardUser = $q->fetchOne();
+		$category = $this->findUserCategory($membership[0]['element_4']);
+		if ($sfGuardUser) {
+			$sfGuardUser->setRegisteras($category);
+			$sfGuardUser->save();
+		}
 
 		// --------------------------------------------------
 		// SEND SMS TO USER (Acknowledgement)
@@ -277,5 +287,27 @@ class MembersManager
 		$membership_database = $q->fetchOne();
 
 		return $membership_database;
+	}
+
+	private function findUserCategory($element_value)
+	{
+		switch ($element_value) {
+			case 1:
+				return 2;
+				break;
+			case 2:
+				return 5;
+				break;
+			case 3:
+				return 3;
+				break;
+			case 4:
+				return 6;
+				break;
+
+			default:
+				return 6;
+				break;
+		}
 	}
 }

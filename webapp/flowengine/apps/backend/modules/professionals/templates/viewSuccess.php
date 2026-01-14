@@ -112,10 +112,15 @@ EOT;
                                 echo $row_markup;
                             } else {
 
-                                $row_markup = "";
-                                $row_markup .= "<tr {$row_style}>\n";
-                                $row_markup .= "<td><strong>{$row['label']}</strong></td>\n";
-                                $row_markup .= "<td>" . nl2br($row['value']) . "</td>\n";
+                                $allowed_tags = '<b><i><u><strong><em><a><br><p><ul><ol><li>'; // adjust as needed
+
+                                // Sanitize and preserve line breaks
+                                $sanitized_value = nl2br(strip_tags($row['value'], $allowed_tags));
+
+                                // Build the row
+                                $row_markup = "<tr {$row_style}>\n";
+                                $row_markup .= "<td><strong>" . htmlspecialchars($row['label']) . "</strong></td>\n";
+                                $row_markup .= "<td>{$sanitized_value}</td>\n";
                                 $row_markup .= "</tr>\n";
 
                                 echo $row_markup;

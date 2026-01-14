@@ -48,6 +48,7 @@ if ($membership) :
 									->andWhere('a.form_type = 1')
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
+									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
 									->orderBy('a.form_name ASC');
 							}
 							$forms = $q->execute();
@@ -143,7 +144,9 @@ else :
 										<?php
 										include_partial('register_details', array('form_id' => $form_id));
 										?>
-										<!-- <a class="btn btn-outline-primary" href="/index.php/mfRegister/registerDetails2?id=<?php //echo $form_id; ?>"> <?php // echo __('Add Additional Details'); ?></a> -->
+										<!-- <a class="btn btn-outline-primary" href="/index.php/mfRegister/registerDetails2?id=<?php //echo $form_id; 
+																																?>"> <?php // echo __('Add Additional Details'); 
+																																							?></a> -->
 									</div>
 								</div>
 							<?php

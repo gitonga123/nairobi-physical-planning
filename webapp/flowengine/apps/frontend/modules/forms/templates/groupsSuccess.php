@@ -45,6 +45,7 @@ if ($membership) :
 								// Original
 								$q = Doctrine_Query::create()
 									->from('ApForms a')
+									->leftJoin('a.sfGuardUserCategoriesForms s')
 									->andWhere('a.form_type = 1')
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())

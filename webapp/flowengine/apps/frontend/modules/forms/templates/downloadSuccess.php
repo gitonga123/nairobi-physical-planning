@@ -511,23 +511,33 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 		if (
 			$form_id === 96247 &&
 			$extension === 'pdf'
-		) { ?>
+		) { 
+			$self = $_SERVER['PHP_SELF'];
+			$q = urlencode($_GET['q']);
+
+			$inlinePdfUrl = $self . '?q=' . $q;
+			$downloadPdfUrl = $self . '?q=' . $q . '&download=1';
+			?>
 			<!DOCTYPE html>
 			<html>
 
 			<head>
 				<title>PDF Preview</title>
+
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.1/pdfobject.min.js"
 					crossorigin="anonymous"></script>
+
 				<style>
+					html,
 					body {
 						margin: 0;
+						height: 100%;
 						font-family: Arial, sans-serif;
 					}
 
 					.toolbar {
 						padding: 10px;
-						background: #f4f4f4;
+						background: #f5f5f5;
 						border-bottom: 1px solid #ddd;
 						display: flex;
 						justify-content: flex-end;
@@ -536,14 +546,19 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 					.toolbar a {
 						background: #2c7be5;
 						color: #fff;
-						padding: 8px 14px;
 						text-decoration: none;
+						padding: 8px 14px;
 						border-radius: 4px;
 						font-size: 14px;
 					}
 
+					.toolbar a:hover {
+						background: #1a68d1;
+					}
+
 					#pdf-viewer {
 						height: calc(100vh - 52px);
+						width: 100%;
 					}
 				</style>
 			</head>
@@ -551,19 +566,31 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 			<body>
 
 				<div class="toolbar">
-					<a href="<?= htmlspecialchars($target_file) ?>">⬇ Download PDF</a>
+					<a href="<?= htmlspecialchars($downloadPdfUrl, ENT_QUOTES) ?>">⬇ Download PDF</a>
 				</div>
 
 				<div id="pdf-viewer"></div>
 
 				<script>
-					PDFObject.embed("<?= htmlspecialchars($target_file) ?>", "#pdf-viewer");
+					PDFObject.embed(
+						"<?= htmlspecialchars($inlinePdfUrl, ENT_QUOTES) ?>",
+						"#pdf-viewer", {
+							pdfOpenParams: {
+								view: "FitH",
+								toolbar: 1,
+								navpanes: 0,
+								scrollbar: 1
+							}
+						}
+					);
 				</script>
 
 			</body>
 
 			</html>
-<?php } else {
+<?php
+			exit;
+		} else {
 
 
 			// Send file for download

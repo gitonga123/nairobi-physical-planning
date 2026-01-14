@@ -18,45 +18,73 @@ class MembersManager
 	// ADD USER TO DATABASE AND AWAIT VERIFICATION
 	public function addMemberToDatabase($user, $form_id, $membership)
 	{
+		
 		$validate = rand(1000000, 9999999);
 
-		$membership_db = new MembersDatabase();
-		$membership_db->setFormId($form_id);
-		$membership_db->setEntryId($membership['entry_id']);
-		$membership_db->setUserId($user->getId());
+		// 1. Check if membership already exists for this user & form
+		$membership_db = Doctrine_Query::create()
+			->from('MembersDatabase m')
+			->where('m.user_id = ?', $user->getId())
+			->andWhere('m.form_id = ?', $form_id)
+			->orderBy('m.id DESC')
+			->fetchOne();
+
+		// 2. If not exists, create new
+		if (!$membership_db) {
+			$membership_db = new MembersDatabase();
+			$membership_db->setUserId($user->getId());
+			$membership_db->setFormId($form_id);
+		}
+
+		// 3. Update / set common fields
+		$membership_db->setEntryId($membership[0]['id']);
 		$membership_db->setValidate($validate);
 		$membership_db->save();
 
-		// send sms
-		$message = "Hello {$membership[0]['element_2']}, your membership details have been successfully submitted and are currently under verification. You will be notified once the review is complete. Thank you.";
+		// --------------------------------------------------
+		// SEND SMS TO USER (Acknowledgement)
+		// --------------------------------------------------
+		$name  = $membership[0]['element_2'] ?? 'User';
+		$phone = $membership[0]['element_6'] ?? null;
 
-		$notification = new mailnotifications();
+		if ($phone) {
+			$message = "Hello {$name}, your membership details have been successfully submitted and are currently under verification. You will be notified once the review is complete. Thank you.";
 
-		$notification->sendsms($membership[0]['element_6'], $message);
+			$notification = new mailnotifications();
+			$notification->sendsms($phone, $message);
+		}
 
-		// send notification to the admin to verify the account
-		$q = Doctrine_Query::create()
-			->from('MfGuardPermission a')
-			->where('a.name = ?', 'can_verify_professionals_details');
-		$credential = $q->fetchOne();
+		// --------------------------------------------------
+		// NOTIFY ADMINS TO VERIFY
+		// --------------------------------------------------
+		$credential = Doctrine_Query::create()
+			->from('MfGuardPermission p')
+			->where('p.name = ?', 'can_verify_professionals_details')
+			->fetchOne();
 
-		if (!$credential) return false;
+		if (!$credential) {
+			return true; // user saved, no admins to notify
+		}
 
 		$groups = $credential->getGroups();
 
 		foreach ($groups as $group) {
-			$users = $group->getUsers();
+			foreach ($group->getUsers() as $cfuser) {
 
-			foreach ($users as $cfuser) {
-				$message = "";
-				$phone_number = $cfuser->getStrphoneMain1();
+				$adminPhone = $cfuser->getStrphoneMain1();
+				if (!$adminPhone) {
+					continue;
+				}
 
-				$message = "New membership verification request submitted by {$membership[0]['element_6']}. Please log in to the system to review and approve.";
+				$adminMessage = "New membership verification request submitted by {$phone}. Please log in to the system to review and approve.";
 
-				$notification->sendsms($phone_number, $message);
+				$notification->sendsms($adminPhone, $adminMessage);
 			}
 		}
+
+		return true;
 	}
+
 
 	//Start OTB Patch - Check for Membership
 	public function sendMemberVerificationMail($reg_no, $usercategory, $memberships)
@@ -160,6 +188,8 @@ class MembersManager
 		}
 
 		$member_no = '';
+		$non_validated = array();
+		$memberships = array();
 		if ($details_query) {
 			$member_no = trim($details_query[0]['element_' . $UserCategory->getMemberNoElementId()]);
 			$query_member_db = "SELECT ";
@@ -167,7 +197,7 @@ class MembersManager
 			$query_member_db .= " FROM ap_form_" . $UserCategory->getMemberDatabase();
 			$query_member_db .= " WHERE element_" . $UserCategory->getMemberDatabaseMemberNoField() . " = '$member_no'";
 			$memberships = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query_member_db);
-			$non_validated = array();
+
 			foreach ($memberships as $member) {
 				//Check if the entry id exist in table members_database
 				$q = Doctrine_Query::create()
@@ -228,5 +258,24 @@ class MembersManager
 		}
 
 		return false;
+	}
+
+	public function getMembersDatabaseDetails($form_id = null, $entry_id = null, $user_id = null)
+	{
+		if ($user_id) {
+			$q = Doctrine_Query::create()
+				->from('MembersDatabase a')
+				->where('a.user_id = ?', $user_id)
+				->orderBy('a.id DESC');
+		} else {
+			$q = Doctrine_Query::create()
+				->from('MembersDatabase a')
+				->where('a.entry_id = ? and a.form_id = ?', [$entry_id, $form_id])
+				->orderBy('a.id DESC');
+		}
+
+		$membership_database = $q->fetchOne();
+
+		return $membership_database;
 	}
 }

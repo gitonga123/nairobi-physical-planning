@@ -30,7 +30,6 @@ if ($membership) :
 					<div role="tabpanel" id="activeservice" class="tab-pane fade show active">
 						<div class="row">
 							<?php
-							var_dump($group->getGroupId(), $sf_user->getGuardUser()->getProfile()->getRegisteras());
 							if (sfConfig::get('app_enable_categories') == "yes") {
 								$q = Doctrine_Query::create()
 									->from('ApForms a')

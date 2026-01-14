@@ -73,7 +73,7 @@ function pre_var_dump($mixed) {
     echo "<pre>";
   }
     
-  var_dump($mixed);
+  //var_dump($mixed);
   
   if ( php_sapi_name() !== "cli" ) {
     echo "</pre>";

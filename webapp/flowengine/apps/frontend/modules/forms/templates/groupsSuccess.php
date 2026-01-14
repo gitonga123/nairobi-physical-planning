@@ -29,6 +29,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 					<div role="tabpanel" id="activeservice" class="tab-pane fade show active">
 						<div class="row">
 							<?php
+							var_dump($group->getGroupId(), $sf_user->getGuardUser()->getProfile()->getRegisteras());
 							if (sfConfig::get('app_enable_categories') == "yes") {
 								$q = Doctrine_Query::create()
 									->from('ApForms a')
@@ -40,7 +41,7 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 									->orderBy('a.ordering ASC');
 							} else {
 
-								// Uasin Gishu ISSUE ONLY
+
 								// Original
 								$q = Doctrine_Query::create()
 									->from('ApForms a')
@@ -48,16 +49,6 @@ if ($membership && $membership['validated'] && $membership['member_no']) :
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
 									->orderBy('a.form_name ASC');
-
-								// Updated, on another platform you can revert
-								// $q = Doctrine_Query::create()
-								// 	->from('ApForms a')
-								// 	->leftJoin('a.sfGuardUserCategoriesForms s')
-								// 	->andWhere('a.form_type = 1')
-								// 	->andWhere('a.form_active = 1')
-								// 	->andWhere('a.form_group = ?', $group->getGroupId())
-								// 	->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-								// 	->orderBy('a.ordering ASC');
 							}
 							$forms = $q->execute();
 							foreach ($forms as $form) {

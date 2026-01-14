@@ -275,1110 +275,1529 @@ abstract class BaseApFormElements extends sfDoctrineRecord
      public function setTableDefinition()
      {
           $this->setTableName('ap_form_elements');
-          $this->hasColumn('form_id', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_id', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_title', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_guidelines', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_size', 'string', 6, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => 'medium',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 6,
-          )
-          );
-          $this->hasColumn('element_is_required', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_is_unique', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_is_readonly', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_is_private', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_enable_placeholder', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_text_default_type', 'string', 6, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 6,
-          )
-          );
-          $this->hasColumn('element_text_default_length', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_text_default_random_type', 'string', 8, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 8,
-          )
-          );
-          $this->hasColumn('element_text_default_prefix', 'string', 50, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 50,
-          )
-          );
-          $this->hasColumn('element_text_default_case', 'string', 1, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 1,
-          )
-          );
-          $this->hasColumn('element_type', 'string', 50, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 50,
-          )
-          );
-          $this->hasColumn('element_position', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_default_value', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_constraint', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_total_child', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_css_class', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_range_min', 'integer', 8, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => true,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 8,
-          )
-          );
-          $this->hasColumn('element_range_max', 'integer', 8, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => true,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 8,
-          )
-          );
-          $this->hasColumn('element_range_limit_by', 'string', 1, array(
-               'type' => 'string',
-               'fixed' => 1,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 1,
-          )
-          );
-          $this->hasColumn('element_status', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '2',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_choice_columns', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '1',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_choice_has_other', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_choice_other_label', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_choice_limit_rule', 'string', 12, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 12,
-          )
-          );
-          $this->hasColumn('element_choice_limit_qty', 'integer', 12, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 12,
-          )
-          );
-          $this->hasColumn('element_choice_limit_range_min', 'integer', 12, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 12,
-          )
-          );
-          $this->hasColumn('element_choice_limit_range_max', 'integer', 12, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 12,
-          )
-          );
-          $this->hasColumn('element_choice_max_entry', 'integer', 12, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 12,
-          )
-          );
-          $this->hasColumn('element_time_showsecond', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_time_24hour', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_address_hideline2', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_address_us_only', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_date_enable_range', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_date_range_min', 'date', 25, array(
-               'type' => 'date',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 25,
-          )
-          );
-          $this->hasColumn('element_date_range_max', 'date', 25, array(
-               'type' => 'date',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 25,
-          )
-          );
-          $this->hasColumn('element_date_enable_selection_limit', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_date_selection_max', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '1',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_date_past_future', 'string', 1, array(
-               'type' => 'string',
-               'fixed' => 1,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => 'p',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 1,
-          )
-          );
-          $this->hasColumn('element_date_disable_past_future', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_date_disable_weekend', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_date_disable_specific', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_date_disabled_list', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_file_enable_type_limit', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '1',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_file_block_or_allow', 'string', 1, array(
-               'type' => 'string',
-               'fixed' => 1,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => 'b',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 1,
-          )
-          );
-          $this->hasColumn('element_file_type_list', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_file_as_attachment', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_file_enable_advance', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_file_auto_upload', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_file_enable_multi_upload', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_file_max_selection', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '5',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_file_enable_size_limit', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_file_size_max', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_matrix_allow_multiselect', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_matrix_parent_id', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_submit_use_image', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_submit_primary_text', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => 'Continue',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_submit_secondary_text', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => 'Previous',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_submit_primary_img', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_submit_secondary_img', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_page_title', 'string', 255, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 255,
-          )
-          );
-          $this->hasColumn('element_page_number', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '1',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_section_display_in_email', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_section_enable_scroll', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_number_enable_quantity', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_number_quantity_link', 'string', 15, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 15,
-          )
-          );
-          $this->hasColumn('element_table_name', 'string', 200, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 200,
-          )
-          );
-          $this->hasColumn('element_field_value', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_field_name', 'string', 200, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 200,
-          )
-          );
-          $this->hasColumn('element_option_query', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_existing_form', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_existing_stage', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-          $this->hasColumn('element_remote_username', 'string', 250, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 250,
-          )
-          );
-          $this->hasColumn('element_remote_password', 'string', 250, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 250,
-          )
-          );
-          $this->hasColumn('element_remote_value', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_price_class', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_remote_server_field', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_jsondef', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_remote_post', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_validator_class', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
-          );
-          $this->hasColumn('element_field_error_message', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
+          $this->hasColumn(
+               'form_id',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_id',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_title',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_guidelines',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_size',
+               'string',
+               6,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => 'medium',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 6,
+               )
+          );
+          $this->hasColumn(
+               'element_is_required',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_is_unique',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_is_readonly',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_is_private',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_enable_placeholder',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_text_default_type',
+               'string',
+               6,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 6,
+               )
+          );
+          $this->hasColumn(
+               'element_text_default_length',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_text_default_random_type',
+               'string',
+               8,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 8,
+               )
+          );
+          $this->hasColumn(
+               'element_text_default_prefix',
+               'string',
+               50,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 50,
+               )
+          );
+          $this->hasColumn(
+               'element_text_default_case',
+               'string',
+               1,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 1,
+               )
+          );
+          $this->hasColumn(
+               'element_type',
+               'string',
+               50,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 50,
+               )
+          );
+          $this->hasColumn(
+               'element_position',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_default_value',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_constraint',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_total_child',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_css_class',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_range_min',
+               'integer',
+               8,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => true,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 8,
+               )
+          );
+          $this->hasColumn(
+               'element_range_max',
+               'integer',
+               8,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => true,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 8,
+               )
+          );
+          $this->hasColumn(
+               'element_range_limit_by',
+               'string',
+               1,
+               array(
+                    'type' => 'string',
+                    'fixed' => 1,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 1,
+               )
+          );
+          $this->hasColumn(
+               'element_status',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '2',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_choice_columns',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '1',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_choice_has_other',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_choice_other_label',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_choice_limit_rule',
+               'string',
+               12,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 12,
+               )
+          );
+          $this->hasColumn(
+               'element_choice_limit_qty',
+               'integer',
+               12,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 12,
+               )
+          );
+          $this->hasColumn(
+               'element_choice_limit_range_min',
+               'integer',
+               12,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 12,
+               )
+          );
+          $this->hasColumn(
+               'element_choice_limit_range_max',
+               'integer',
+               12,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 12,
+               )
+          );
+          $this->hasColumn(
+               'element_choice_max_entry',
+               'integer',
+               12,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 12,
+               )
+          );
+          $this->hasColumn(
+               'element_time_showsecond',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_time_24hour',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_address_hideline2',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_address_us_only',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_date_enable_range',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_date_range_min',
+               'date',
+               25,
+               array(
+                    'type' => 'date',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 25,
+               )
+          );
+          $this->hasColumn(
+               'element_date_range_max',
+               'date',
+               25,
+               array(
+                    'type' => 'date',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 25,
+               )
+          );
+          $this->hasColumn(
+               'element_date_enable_selection_limit',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_date_selection_max',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '1',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_date_past_future',
+               'string',
+               1,
+               array(
+                    'type' => 'string',
+                    'fixed' => 1,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => 'p',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 1,
+               )
+          );
+          $this->hasColumn(
+               'element_date_disable_past_future',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_date_disable_weekend',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_date_disable_specific',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_date_disabled_list',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_file_enable_type_limit',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '1',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_file_block_or_allow',
+               'string',
+               1,
+               array(
+                    'type' => 'string',
+                    'fixed' => 1,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => 'b',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 1,
+               )
+          );
+          $this->hasColumn(
+               'element_file_type_list',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_file_as_attachment',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_file_enable_advance',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_file_auto_upload',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_file_enable_multi_upload',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_file_max_selection',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '5',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_file_enable_size_limit',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_file_size_max',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_matrix_allow_multiselect',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_matrix_parent_id',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_submit_use_image',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_submit_primary_text',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => 'Continue',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_submit_secondary_text',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => 'Previous',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_submit_primary_img',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_submit_secondary_img',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_page_title',
+               'string',
+               255,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 255,
+               )
+          );
+          $this->hasColumn(
+               'element_page_number',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '1',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_section_display_in_email',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_section_enable_scroll',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_number_enable_quantity',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_number_quantity_link',
+               'string',
+               15,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 15,
+               )
+          );
+          $this->hasColumn(
+               'element_table_name',
+               'string',
+               200,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 200,
+               )
+          );
+          $this->hasColumn(
+               'element_field_value',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_field_name',
+               'string',
+               200,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 200,
+               )
+          );
+          $this->hasColumn(
+               'element_option_query',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_existing_form',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_existing_stage',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_remote_username',
+               'string',
+               250,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 250,
+               )
+          );
+          $this->hasColumn(
+               'element_remote_password',
+               'string',
+               250,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 250,
+               )
+          );
+          $this->hasColumn(
+               'element_remote_value',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_price_class',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_remote_server_field',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_jsondef',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_remote_post',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_validator_class',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
+          );
+          $this->hasColumn(
+               'element_field_error_message',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
           );
           //Start OTB Africa - Enable marking of uploaded files with QR code for document validation
-          $this->hasColumn('element_mark_file_with_qr_code', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_mark_file_with_qr_code',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_file_qr_all_pages', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_file_qr_all_pages',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_file_qr_page_position', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
+          $this->hasColumn(
+               'element_file_qr_page_position',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
           );
-          $this->hasColumn('element_file_qr_users', 'string', null, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => '',
-          )
+          $this->hasColumn(
+               'element_file_qr_users',
+               'string',
+               null,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => '',
+               )
           );
           //End OTB Africa - Enable marking of uploaded files with QR code for document validation
           //Start OTB Africa - Copy additional contacts in notifications
-          $this->hasColumn('element_notify_contact', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'default' => '0',
-               'notnull' => true,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_notify_contact',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'default' => '0',
+                    'notnull' => true,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
           //End OTB Africa - Copy additional contacts in notifications
-          $this->hasColumn('element_file_ifc', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_file_ifc',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_ownertype', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_ownertype',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_subcounty', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_subcounty',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_owner_phone', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-
-          $this->hasColumn('element_owner_address', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
-          );
-
-          $this->hasColumn('element_owner_email', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_owner_phone',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
 
-          $this->hasColumn('element_ward', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_owner_address',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
 
-          $this->hasColumn('element_plot_area', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_owner_email',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
 
-          $this->hasColumn('element_plot_length', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_ward',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
 
-          $this->hasColumn('element_plot_width', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_plot_area',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
 
-          $this->hasColumn('element_plotsize', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+          $this->hasColumn(
+               'element_plot_length',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_permittedgroundcoverage', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+
+          $this->hasColumn(
+               'element_plot_width',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_projectcost', 'integer', 4, array(
-               'type' => 'integer',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 4,
-          )
+
+          $this->hasColumn(
+               'element_plotsize',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
           );
-          $this->hasColumn('element_select_options', 'string', 100, array(
-               'type' => 'string',
-               'fixed' => 0,
-               'unsigned' => false,
-               'primary' => false,
-               'notnull' => false,
-               'autoincrement' => false,
-               'length' => 100,
-          )
+          $this->hasColumn(
+               'element_permittedgroundcoverage',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_projectcost',
+               'integer',
+               4,
+               array(
+                    'type' => 'integer',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 4,
+               )
+          );
+          $this->hasColumn(
+               'element_select_options',
+               'string',
+               100,
+               array(
+                    'type' => 'string',
+                    'fixed' => 0,
+                    'unsigned' => false,
+                    'primary' => false,
+                    'notnull' => false,
+                    'autoincrement' => false,
+                    'length' => 100,
+               )
           );
      }
 
      public function setUp()
      {
           parent::setUp();
-
+          $this->hasMany('ApElementOptions as Options', array(
+               'local' => 'element_id',
+               'foreign' => 'element_id'
+          ));
      }
 }

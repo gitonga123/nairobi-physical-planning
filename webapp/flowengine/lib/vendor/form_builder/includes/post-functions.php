@@ -342,7 +342,6 @@ function mf_process_form($dbh, $input)
 							$element_to_get[] = "element_{$mc_element_id}_{$sub_row['option_id']}";
 							$checkbox_childs[$mc_element_id][] = $sub_row['option_id']; //store the child into array for further reference
 						}
-
 					}
 				}
 			} else if ($row['element_type'] == 'matrix' && empty($row['element_matrix_allow_multiselect'])) { //radio button matrix, each row doesn't have childs
@@ -633,7 +632,7 @@ function mf_process_form($dbh, $input)
 				error_log('-------Plot-----');
 				$rules[$element_name]['plot_no'] = true;
 				$target_input['dbh'] = $dbh; //we need to pass the $dbh
-			}//OTB Add
+			} //OTB Add
 			if ($element_info[$element_id]['subcounty']) {
 				error_log('-------Plot-----');
 				$rules[$element_name]['subcounty'] = true;
@@ -652,7 +651,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[$element_name] = $element_data;
-
 		} elseif ('textarea' == $element_type) { //Paragraph
 
 			if ($element_info[$element_id]['is_required']) {
@@ -692,7 +690,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[$element_name] = $element_data;
-
 		} elseif ('signature' == $element_type) { //Signature
 
 			if ($element_info[$element_id]['is_required']) {
@@ -719,7 +716,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[$element_name] = $element_data;
-
 		} elseif ('radio' == $element_type) { //Multiple Choice
 
 			if ($element_info[$element_id]['is_required']) {
@@ -768,7 +764,6 @@ function mf_process_form($dbh, $input)
 			if (empty($table_data[$element_name . '_other'])) {
 				$table_data[$element_name] = $element_data;
 			}
-
 		} elseif ('number' == $element_type) { //Number
 
 			if ($element_info[$element_id]['is_required']) {
@@ -812,7 +807,7 @@ function mf_process_form($dbh, $input)
 
 			$target_input[$element_name] = $element_data;
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -827,7 +822,6 @@ function mf_process_form($dbh, $input)
 			if ($table_data[$element_name] == "") {
 				$table_data[$element_name] = null;
 			}
-
 		} elseif ('url' == $element_type) { //Website
 
 			if ($element_info[$element_id]['is_required']) {
@@ -853,7 +847,7 @@ function mf_process_form($dbh, $input)
 
 			$target_input[$element_name] = $element_data;
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -863,7 +857,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[$element_name] = $element_data;
-
 		} elseif ('email' == $element_type) { //Email
 
 			if ($element_info[$element_id]['is_required']) {
@@ -886,7 +879,7 @@ function mf_process_form($dbh, $input)
 
 			$target_input[$element_name] = $element_data;
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -896,7 +889,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[$element_name] = $element_data;
-
 		} elseif ('simple_name' == $element_type) { //Simple Name
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -923,7 +915,7 @@ function mf_process_form($dbh, $input)
 			$target_input[$element_name_2] = $user_input[$element_name_2];
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -935,7 +927,6 @@ function mf_process_form($dbh, $input)
 			//prepare data for table column
 			$table_data[$element_name] = $user_input[$element_name];
 			$table_data[$element_name_2] = $user_input[$element_name_2];
-
 		} elseif ('simple_name_wmiddle' == $element_type) { //Simple Name with Middle
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -966,7 +957,7 @@ function mf_process_form($dbh, $input)
 			$target_input[$element_name_3] = $user_input[$element_name_3];
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -980,7 +971,6 @@ function mf_process_form($dbh, $input)
 			$table_data[$element_name] = $user_input[$element_name];
 			$table_data[$element_name_2] = $user_input[$element_name_2];
 			$table_data[$element_name_3] = $user_input[$element_name_3];
-
 		} elseif ('name' == $element_type) { //Name -  Extended
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1016,7 +1006,7 @@ function mf_process_form($dbh, $input)
 
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1032,7 +1022,6 @@ function mf_process_form($dbh, $input)
 			$table_data[$element_name_2] = $user_input[$element_name_2];
 			$table_data[$element_name_3] = $user_input[$element_name_3];
 			$table_data[$element_name_4] = $user_input[$element_name_4];
-
 		} elseif ('name_wmiddle' == $element_type) { //Name -  Extended, with Middle
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1071,7 +1060,7 @@ function mf_process_form($dbh, $input)
 
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1089,7 +1078,6 @@ function mf_process_form($dbh, $input)
 			$table_data[$element_name_3] = $user_input[$element_name_3];
 			$table_data[$element_name_4] = $user_input[$element_name_4];
 			$table_data[$element_name_5] = $user_input[$element_name_5];
-
 		} elseif ('time' == $element_type) { //Time
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1145,7 +1133,7 @@ function mf_process_form($dbh, $input)
 
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1164,7 +1152,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[substr($element_name, 0, -2)] = @$target_input['element_time_no_meridiem'];
-
 		} elseif ('address' == $element_type) { //Address
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1190,7 +1177,6 @@ function mf_process_form($dbh, $input)
 				$rules[$element_name_4]['required'] = true;
 				$rules[$element_name_5]['required'] = true;
 				$rules[$element_name_6]['required'] = true;
-
 			}
 
 			if ($element_info[$element_id]['is_hidden']) {
@@ -1212,7 +1198,7 @@ function mf_process_form($dbh, $input)
 
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1232,7 +1218,6 @@ function mf_process_form($dbh, $input)
 			$table_data[$element_name_4] = $user_input[$element_name_4];
 			$table_data[$element_name_5] = $user_input[$element_name_5];
 			$table_data[$element_name_6] = $user_input[$element_name_6];
-
 		} elseif ('money' == $element_type) { //Price
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1320,17 +1305,15 @@ function mf_process_form($dbh, $input)
 				if ($table_data[$element_name] == "") {
 					$table_data[$element_name] = null;
 				}
-
 			}
 
 
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
-
 		} elseif ('checkbox' == $element_type) { //Checkboxes
 			error_log('---------CHECKBOX-------');
 			$all_checkbox_value = '';
@@ -1381,14 +1364,13 @@ function mf_process_form($dbh, $input)
 
 					//prepare data for table column
 					$table_data[$base_element_name . $i] = $user_input[$base_element_name . $i];
-
 				}
 
 				$rules[$base_element_name]['required'] = true;
 				error_log('--------------all_checkbox_value--------' . $all_checkbox_value);
 				$target_input[$base_element_name] = $all_checkbox_value;
 				$validation_result = mf_validate_element($target_input, $rules);
-				
+
 				error_log('------------VALIDATION------' . $validation_result);
 				if ($validation_result !== true) {
 					if ($is_matrix_field && !empty($matrix_childs_array[$element_id])) {
@@ -1411,7 +1393,6 @@ function mf_process_form($dbh, $input)
 					}
 				}
 				error_log('---------------Error element-------' . $error_elements[$element_id]);
-
 			} else { //if not required, we only need to capture all data
 				error_log('----------NOT REQUIRED---------');
 				foreach ($all_child_array as $i) {
@@ -1428,7 +1409,6 @@ function mf_process_form($dbh, $input)
 					//prepare data for table column
 					$table_data[$base_element_name . $i] = $user_input[$base_element_name . $i];
 				}
-
 			}
 		} elseif ('select' == $element_type) { //Drop Down
 
@@ -1445,7 +1425,7 @@ function mf_process_form($dbh, $input)
 			error_log(var_export($element_data, true));
 			$target_input[$element_name] = $element_data;
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			error_log('---------VALIDATION----------');
 			error_log(var_export($validation_result, true));
 			if ($validation_result !== true) {
@@ -1458,7 +1438,6 @@ function mf_process_form($dbh, $input)
 			//prepare data for table column
 			$table_data[$element_name] = $user_input[$element_name];
 			error_log('---------table_data----' . $table_data[$element_name]);
-
 		} elseif ('date' == $element_type || 'europe_date' == $element_type) { //Date
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1590,7 +1569,7 @@ function mf_process_form($dbh, $input)
 			}
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1599,7 +1578,6 @@ function mf_process_form($dbh, $input)
 			$form_data[$element_name]['default_value'] = htmlspecialchars($user_input[$element_name]);
 			$form_data[$element_name_2]['default_value'] = htmlspecialchars($user_input[$element_name_2]);
 			$form_data[$element_name_3]['default_value'] = htmlspecialchars($user_input[$element_name_3]);
-
 		} elseif ('simple_phone' == $element_type) { //Simple Phone
 
 			if ($element_info[$element_id]['is_required']) {
@@ -1624,7 +1602,7 @@ function mf_process_form($dbh, $input)
 			$target_input[$element_name] = $user_input[$element_name];
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1634,7 +1612,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[$element_name] = $user_input[$element_name];
-
 		} elseif ('phone' == $element_type) { //Phone - US format
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1677,7 +1654,7 @@ function mf_process_form($dbh, $input)
 			$target_input['element_phone'] = $user_input[$element_name] . $user_input[$element_name_2] . $user_input[$element_name_3];
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1689,7 +1666,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[substr($element_name, 0, -2)] = $user_input[$element_name] . $user_input[$element_name_2] . $user_input[$element_name_3];
-
 		} elseif ('email' == $element_type) { //Email
 
 			if ($element_info[$element_id]['is_required']) {
@@ -1711,7 +1687,7 @@ function mf_process_form($dbh, $input)
 
 			$target_input[$element_name] = $element_data;
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1721,7 +1697,6 @@ function mf_process_form($dbh, $input)
 
 			//prepare data for table column
 			$table_data[$element_name] = $user_input[$element_name];
-
 		} elseif ('file' == $element_type) { //File
 			$listfile_name = $input['machform_data_path'] . $mf_settings['upload_dir'] . "/form_{$form_id}/files/listfile_{$input[$element_name . '_token']}.php";
 			if (!file_exists($listfile_name)) {
@@ -1764,7 +1739,7 @@ function mf_process_form($dbh, $input)
 
 				$target_input[$element_name] = $element_name; //special for file, only need to pass input name
 				$validation_result = mf_validate_element($target_input, $rules);
-				
+
 				if ($validation_result !== true) {
 					$error_elements[$element_id] = $validation_result;
 				} else {
@@ -1784,10 +1759,7 @@ function mf_process_form($dbh, $input)
 				$uploaded_files_advance[$element_id]['listfile_content'] = $current_element_uploaded_files_advance;
 				//save old token into array, for form redisplay in case errors occured
 				$form_data[$element_name]['file_token'] = $input[$element_name . '_token'];
-
 			}
-
-
 		} elseif ('plinth_area' == $element_type) { // OTB patch - Plinth Area
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1815,7 +1787,7 @@ function mf_process_form($dbh, $input)
 			$target_input[$element_name_2] = $user_input[$element_name_2];
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1827,7 +1799,6 @@ function mf_process_form($dbh, $input)
 			//prepare data for table column
 			$table_data[$element_name] = $user_input[$element_name];
 			$table_data[$element_name_2] = $user_input[$element_name_2];
-
 		} elseif ('total_plinth_area' == $element_type) { // OTB patch - total plinth area
 
 			if (!empty($processed_elements) && is_array($processed_elements) && in_array($element_name, $processed_elements)) {
@@ -1854,7 +1825,7 @@ function mf_process_form($dbh, $input)
 			$target_input[$element_name_2] = $user_input[$element_name_2];
 
 			$validation_result = mf_validate_element($target_input, $rules);
-			
+
 			if ($validation_result !== true) {
 				$error_elements[$element_id] = $validation_result;
 			}
@@ -1866,9 +1837,7 @@ function mf_process_form($dbh, $input)
 			//prepare data for table column
 			$table_data[$element_name] = $user_input[$element_name];
 			$table_data[$element_name_2] = $user_input[$element_name_2];
-
 		}
-
 	}
 
 	//get form redirect info, if any
@@ -2068,7 +2037,6 @@ function mf_process_form($dbh, $input)
 		if ($current_ip_entries_count >= $form_unique_ip_maxcount) {
 			$process_result['custom_error'] = $mf_lang['form_limited'];
 		}
-
 	}
 
 	//if this is edit_entry page, submission limit should be bypassed
@@ -2128,7 +2096,7 @@ function mf_process_form($dbh, $input)
 
 		if ($form_page_total == 1 || ($form_page_total == $page_number)) {
 
-			if ($form_captcha_type == 'i') {//if simple image captcha is being used
+			if ($form_captcha_type == 'i') { //if simple image captcha is being used
 
 				if (!empty($_POST['captcha_response_field'])) {
 
@@ -2146,8 +2114,7 @@ function mf_process_form($dbh, $input)
 					$error_elements['element_captcha'] = 'el-required';
 					$process_result['error_elements'] = $error_elements;
 				}
-
-			} else if ($form_captcha_type == 't') {//if simple text captcha is being used
+			} else if ($form_captcha_type == 't') { //if simple text captcha is being used
 
 				if (!empty($_POST['captcha_response_field'])) {
 
@@ -2168,7 +2135,6 @@ function mf_process_form($dbh, $input)
 					$error_elements['element_captcha'] = 'el-text-required';
 					$process_result['error_elements'] = $error_elements;
 				}
-
 			} else if ($form_captcha_type == 'r') { //if reCaptcha is being used
 				if (!empty($_POST['recaptcha_response_field'])) {
 					$recaptcha_response = recaptcha_check_answer(
@@ -2211,14 +2177,12 @@ function mf_process_form($dbh, $input)
 							$_SESSION['captcha_passed'][$form_id] = true;
 						}
 					}
-
 				} else { //user not entered the words at all
 					$error_elements['element_captcha'] = 'el-required';
 					$process_result['error_elements'] = $error_elements;
 				}
 			}
 		}
-
 	}
 
 	//if the 'previous' button being clicked, we need to discard any validation errors
@@ -2447,10 +2411,8 @@ function mf_process_form($dbh, $input)
 
 									$process_result['entry_id'] = $record_insert_id;
 									$_SESSION['mf_form_completed'][$form_id] = true;
-
 								}
 							}
-
 						}
 					} else {
 						error_log('-----------form_page_total--<1---' . $form_page_total);
@@ -2487,7 +2449,6 @@ function mf_process_form($dbh, $input)
 												  	  		`id`=:id;";
 
 							mf_do_query($query, $params_update, $dbh);
-
 						}
 					}
 				} else {
@@ -2513,7 +2474,6 @@ function mf_process_form($dbh, $input)
 		if (!empty($edit_id) && $_SESSION['mf_logged_in'] === true) {
 			//if this ie edit_entry page, always write to permanent file
 			$write_to_permanent_file = true;
-
 		} else {
 
 			if ($form_page_total <= 1) { //if this is single page form
@@ -2522,8 +2482,7 @@ function mf_process_form($dbh, $input)
 				} else { //if this single form has review enabled
 					$write_to_temporary_file = true;
 				}
-
-			} else {//if this is multipage form
+			} else { //if this is multipage form
 				if ($input['page_number'] == $form_page_total && (!empty($input['submit_primary']) || !empty($input['submit_primary_x'])) && $is_committed) {
 					$write_to_permanent_file = true;
 				} else {
@@ -2645,7 +2604,6 @@ function mf_process_form($dbh, $input)
 						}
 
 						$file_list_joined[$element_id] = implode('|', $merged_files_array);
-
 					} else { //replace the old data with the new file
 						$file_list_joined[$element_id] = implode('|', $file_list_array);
 					}
@@ -2670,7 +2628,6 @@ function mf_process_form($dbh, $input)
 			$query = "update " . MF_TABLE_PREFIX . "form_{$form_id} set {$update_values} where id=:id";
 
 			mf_do_query($query, $params_update, $dbh);
-
 		}
 		//END writing into permanent file ------------------------
 	} else if ($write_to_temporary_file === true) {
@@ -2757,7 +2714,6 @@ function mf_process_form($dbh, $input)
 
 			$query = "update " . MF_TABLE_PREFIX . "form_{$form_id}_review set {$update_values} where id=:id";
 			mf_do_query($query, $params_update, $dbh);
-
 		}
 
 
@@ -2802,7 +2758,7 @@ function mf_process_form($dbh, $input)
 				if (!empty($multi_upload_info[$element_name])) { //if multi upload enabled, merge the data
 					$merged_files_array = array_merge($new_files_array, $old_files_array);
 					$merged_files_array = array_unique($merged_files_array);
-				} else {//otherwise, just use the new one
+				} else { //otherwise, just use the new one
 					$merged_files_array = $old_files_array;
 
 					//delete the old files as well, if the files aren't the same with the new one
@@ -2831,7 +2787,6 @@ function mf_process_form($dbh, $input)
 			$params = array($record_insert_id);
 
 			mf_do_query($query, $params, $dbh);
-
 		}
 		//END writing into temporary file ------------------------
 	}
@@ -3000,8 +2955,6 @@ function mf_process_form($dbh, $input)
 
 						break;
 					}
-
-
 				} //end foreach page_logic_array
 			}
 		}
@@ -3079,7 +3032,6 @@ function mf_process_form($dbh, $input)
 		$admin_email_param['machform_base_path'] = $input['machform_base_path'];
 		$admin_email_param['check_hook_file'] = true;
 		mf_send_notification($dbh, $form_id, $record_insert_id, $form_email, $admin_email_param);
-
 	}
 	//end emailing notifications to admin ----------------------------------------------
 
@@ -3218,60 +3170,66 @@ function mf_process_form($dbh, $input)
 		//error_log(print_r($usercategory,true));
 	}
 
-	if ($usercategory && $usercategory['member_no_element_id']) {
-		$member_no = trim($input['element_' . $usercategory['member_no_element_id']]);
-		$memberships = array();
-		if (strlen($member_no)) {
-			//$memberships=Doctrine_Core::getTable('MembersDatabase')->findByMembersNoAndUserCategoryId($member_no, $usercategory['id']);
-			//Get Memebership database
-			$query_member_db = "SELECT ";
-			$query_member_db .= "id,element_" . $usercategory['member_database_member_no_field'] . " , element_" . $usercategory['member_database_member_email_field'];
-			$query_member_db .= " FROM ap_form_" . $usercategory['member_database'];
-			$query_member_db .= " WHERE element_" . $usercategory['member_database_member_no_field'] . " = '$member_no'";
-			$query_member_db .= isset($usercategory['member_database_member_one_single_use']) ? " AND element_" . $usercategory['member_database_member_one_single_use'] . "_1 = 0" : "";
-			//error_log('------>'.$query.'<--------');
-			$memberships = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query_member_db);
-			//error_log(print_r($memberships,true));
-			error_log("member_no is this --- # " . $member_no . " and memberships ---# " . count($memberships));
-		}
-		if (count($memberships) == 0) {
-			$prev_err = $error_elements[$usercategory['member_no_element_id']];
-			$error_elements[$usercategory['member_no_element_id']] = $prev_err . ' ' . $usercategory['member_association_name'] . " membership number doesn't exist.";
-			$process_result['error_elements'] = $error_elements;
-			//error_log(print_r($error_elements,true));
-		} else {
-			//Check if member number matches member email
-			$member_email = array();
-			foreach ($memberships as $member) {
-				$member_email[] = trim($member["element_" . $usercategory['member_database_member_email_field']]);
+	// UASIN GISHU FIX ONLY
+
+	if ('uasin_gishu' === 'true') {
+		if ($usercategory && $usercategory['member_no_element_id']) {
+			$member_no = trim($input['element_' . $usercategory['member_no_element_id']]);
+			$memberships = array();
+			if (strlen($member_no)) {
+				//$memberships=Doctrine_Core::getTable('MembersDatabase')->findByMembersNoAndUserCategoryId($member_no, $usercategory['id']);
+				//Get Memebership database
+				$query_member_db = "SELECT ";
+				$query_member_db .= "id,element_" . $usercategory['member_database_member_no_field'] . " , element_" . $usercategory['member_database_member_email_field'];
+				$query_member_db .= " FROM ap_form_" . $usercategory['member_database'];
+				$query_member_db .= " WHERE element_" . $usercategory['member_database_member_no_field'] . " = '$member_no'";
+				//error_log('------>'.$query.'<--------');
+				$memberships = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query_member_db);
+				//error_log(print_r($memberships,true));
+				error_log("member_no is this --- # " . $member_no . " and memberships ---# " . count($memberships));
 			}
-			//Check comparison 
-			if (!$member_email or count($member_email) == 0) {
-				$prev_err = $error_elements[$usercategory['validation_email_element_id']];
-				$error_elements[$usercategory['validation_email_element_id']] = $prev_err . " There is no email present for this " . $usercategory['member_association_name'] . " membership in the " . $usercategory['member_association_name'] . " database. Kindly contact " . sfConfig::get('app_organisation_name') . " so that your " . $usercategory['member_association_name'] . " membership can be verified.";
+
+			// custom implementation for uasin gishu
+
+			if (count($memberships) == 0) {
+				$prev_err = $error_elements[$usercategory['member_no_element_id']];
+				$error_elements[$usercategory['member_no_element_id']] = $prev_err . ' ' . $usercategory['member_association_name'] . " membership number doesn't exist.";
 				$process_result['error_elements'] = $error_elements;
+				//error_log(print_r($error_elements,true));
 			} else {
-				if ($usercategory['membership_email_match'] == 1) {
-					//Check if any of the result match what the user has input
-					$found = false;
-					foreach ($member_email as $email) {
-						//case insensitive check
-						error_log('---Email--' . $email . '----Validate email--' . $input['element_' . $usercategory['validation_email_element_id']]);
-						//if(strcasecmp($email,$input['element_'.$usercategory['validation_email_element_id']]) == 0){
-						//$found=true;
-						//}
-						if (strtolower($email) == strtolower(trim($input['element_' . $usercategory['validation_email_element_id']]))) {
-							$found = true;
+				//Check if member number matches member email
+				$member_email = array();
+				foreach ($memberships as $member) {
+					$member_email[] = trim($member["element_" . $usercategory['member_database_member_email_field']]);
+				}
+				//Check comparison 
+				if (!$member_email or count($member_email) == 0) {
+					$prev_err = $error_elements[$usercategory['validation_email_element_id']];
+					$error_elements[$usercategory['validation_email_element_id']] = $prev_err . " There is no email present for this " . $usercategory['member_association_name'] . " membership in the " . $usercategory['member_association_name'] . " database. Kindly contact " . sfConfig::get('app_organisation_name') . " so that your " . $usercategory['member_association_name'] . " membership can be verified.";
+					$process_result['error_elements'] = $error_elements;
+				} else {
+					if ($usercategory['membership_email_match'] == 1) {
+						//Check if any of the result match what the user has input
+						$found = false;
+						foreach ($member_email as $email) {
+							//case insensitive check
+							error_log('---Email--' . $email . '----Validate email--' . $input['element_' . $usercategory['validation_email_element_id']]);
+							//if(strcasecmp($email,$input['element_'.$usercategory['validation_email_element_id']]) == 0){
+							//$found=true;
+							//}
+							if (strtolower($email) == strtolower(trim($input['element_' . $usercategory['validation_email_element_id']]))) {
+								$found = true;
+							}
 						}
-					}
-					if (!$found) {
-						$prev_err = $error_elements[$usercategory['validation_email_element_id']];
-						$error_elements[$usercategory['validation_email_element_id']] = $prev_err . " " . $usercategory['member_association_name'] . " membership email for " . $member_no . " doesn't match the email given here.";
-						$process_result['error_elements'] = $error_elements;
-					} else {
-						if ($usercategory['send_verification_email'] == 1) {
-							$membersManager = new MembersManager();
-							$membersManager->sendMemberVerificationMail($member_no, $usercategory, $memberships);
+						if (!$found) {
+							$prev_err = $error_elements[$usercategory['validation_email_element_id']];
+							$error_elements[$usercategory['validation_email_element_id']] = $prev_err . " " . $usercategory['member_association_name'] . " membership email for " . $member_no . " doesn't match the email given here.";
+							$process_result['error_elements'] = $error_elements;
+						} else {
+							if ($usercategory['send_verification_email'] == 1) {
+								$membersManager = new MembersManager();
+								$membersManager->sendMemberVerificationMail($member_no, $usercategory, $memberships);
+							}
 						}
 					}
 				}
@@ -3444,7 +3402,6 @@ function mf_process_form($dbh, $input)
 					$_SESSION['mf_form_resume_loaded'][$form_id] = false;
 					unset($_SESSION['mf_form_resume_loaded'][$form_id]);
 				}
-
 			} else {
 				error_log('----------is_saving_form_resume--false---' . $is_saving_form_resume);
 				//get the next page number and send it
@@ -3475,7 +3432,7 @@ function mf_process_form($dbh, $input)
 					}
 				}
 			}
-		} else {//if this is single page form
+		} else { //if this is single page form
 			error_log('----------Single page----------');
 			//if 'form review' enabled, send review_id
 			if (!empty($form_review)) {
@@ -3511,7 +3468,7 @@ function mf_process_form($dbh, $input)
 			}
 
 			if ($payment_price_type == 'variable') {
-				$payment_amount = (double) mf_get_payment_total($dbh, $form_id, $edit_id, 0, 'live');
+				$payment_amount = (float) mf_get_payment_total($dbh, $form_id, $edit_id, 0, 'live');
 			} else if ($payment_price_type == 'fixed') {
 				$payment_amount = $payment_price_amount;
 			}
@@ -3910,7 +3867,6 @@ function mf_commit_form_review($dbh, $form_id, $record_id, $options = array())
 		$admin_email_param['check_hook_file'] = true;
 
 		mf_send_notification($dbh, $form_id, $new_record_id, $form_email, $admin_email_param);
-
 	}
 	//end emailing notifications to admin ----------------------------------------------
 
@@ -4501,7 +4457,7 @@ function mf_get_merchant_redirect_url($dbh, $form_id, $entry_id)
 							$paypal_params['item_name'] .= " (+{$mf_lang['tax']} {$payment_tax_rate}%)";
 						}
 					}
-				}//end of variable-recurring payment
+				} //end of variable-recurring payment
 
 				//trial periods
 				if (!empty($payment_enable_trial)) {
@@ -4562,7 +4518,6 @@ function mf_get_merchant_redirect_url($dbh, $form_id, $entry_id)
 
 							$paypal_params['tax_cart'] = $payment_tax_amount;
 						}
-
 					}
 				} else if ($payment_price_type == 'variable') { //this is variable amount payment
 
@@ -4715,11 +4670,10 @@ function mf_get_merchant_redirect_url($dbh, $form_id, $entry_id)
 								$paypal_params['quantity_' . $i] = $quantity;
 								$i++;
 							}
-
 						}
 					}
 
-					$payment_price_amount = (double) mf_get_payment_total($dbh, $form_id, $entry_id, 0, 'live');
+					$payment_price_amount = (float) mf_get_payment_total($dbh, $form_id, $entry_id, 0, 'live');
 
 					//calculate discount if applicable
 					if ($is_discount_applicable) {
@@ -4753,15 +4707,12 @@ function mf_get_merchant_redirect_url($dbh, $form_id, $entry_id)
 
 						$paypal_params['tax_cart'] = $payment_tax_amount;
 					}
-
-
-				}//end of non-recurring variable payment
-			}//end of non-recurring payment
+				} //end of non-recurring variable payment
+			} //end of non-recurring payment
 
 
 			$merchant_redirect_url = 'https://' . $paypal_url . '/cgi-bin/webscr?' . http_build_query($paypal_params, '', '&');
-
-		}//end paypal standard		
+		} //end paypal standard		
 	}
 
 	if ($payment_has_value) {
@@ -4769,7 +4720,6 @@ function mf_get_merchant_redirect_url($dbh, $form_id, $entry_id)
 	} else {
 		return ''; //if total amount is zero, don't redirect to PayPal
 	}
-
 }
 
 //return true if a payment-enabled form is being submitted and has value (not zero)
@@ -4819,9 +4769,9 @@ function mf_is_payment_has_value($dbh, $form_id, $entry_id)
 		}
 
 		if ($form_properties['payment_price_type'] == 'variable') {
-			$total_payment_amount = (double) mf_get_payment_total($dbh, $form_id, $entry_id, 0, 'live');
+			$total_payment_amount = (float) mf_get_payment_total($dbh, $form_id, $entry_id, 0, 'live');
 		} else if ($form_properties['payment_price_type'] == 'fixed') {
-			$total_payment_amount = (double) $form_properties['payment_price_amount'];
+			$total_payment_amount = (float) $form_properties['payment_price_amount'];
 		}
 
 		//calculate discount if applicable
@@ -5030,7 +4980,6 @@ function mf_get_payment_total($dbh, $form_id, $record_id, $exclude_page_number, 
 					} else {
 						$total_payment_amount += 0;
 					}
-
 				} elseif ($price_calculator_rows[$column_name]['price_class'] == "dataflow_fixed") {
 					$price_calculator = new PriceCalculator();
 
@@ -5070,7 +5019,6 @@ function mf_get_payment_total($dbh, $form_id, $record_id, $exclude_page_number, 
 				} else {
 					$total_payment_amount += ($row[$column_name] * $quantity);
 				}
-
 			} else if ($price_field_types[$column_name] == 'checkbox') {
 
 				if (!empty($quantity_fields_info['element_' . $element_id . '_' . $option_id])) {
@@ -5238,7 +5186,6 @@ function mf_get_payment_items($dbh, $form_id, $record_id, $target_table = 'revie
 				$price_field_options_lookup[$element_id][$sub_row['option_id']] = htmlspecialchars($sub_row['option']);
 				$i++;
 			}
-
 		}
 	}
 
@@ -5481,7 +5428,6 @@ function mf_get_hidden_elements($dbh, $form_id, $page_number, $user_input, $opti
 			} else {
 				$hidden_elements_status[$element_id] = 1; //the field is hidden
 			}
-
 		} //end foreach required fields	
 	}
 
@@ -5578,4 +5524,3 @@ function mf_get_logic_success_redirect_url($dbh, $form_id, $entry_id)
 
 	return $logic_redirect_url;
 }
-?>

@@ -108,7 +108,7 @@ $site_settings = Functions::site_settings();
 
     if ($sf_user->mfHasCredential("can_verify_professionals_details")): ?>
       <li <?php echo $sf_context->getModuleName() == "professionals" ? "class='active'" : ""; ?>>
-        <a href="/backend.php/professionals">
+        <a href="/plan/professionals">
           <i class="fa fa-th-large"></i>
           <span>
             <?php echo __('Professionals'); ?>

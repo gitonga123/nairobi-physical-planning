@@ -284,10 +284,8 @@ header("Content-Transfer-Encoding: binary");
 //OTB Africa Add QR on attachments
 error_log('----$extension--' . $extension . '-----element_mark_file_with_qr_code---' . $element_mark_file_with_qr_code);
 error_log("Extension type is --->{$extension}");
-error_log("Stage Approved ---->{json_encode($stage_approved)} - Application id {$app_details->getId()}");
-error_log("Check application aproved ----> {$otbhelper->checkApplicationApproved($stage_approved,$app_details->getId())}");
 
-if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkApplicationApproved($stage_approved, $app_details->getId())) {
+if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == '96247' || $otbhelper->checkApplicationApproved($stage_approved, $app_details->getId()))) {
 	error_log('-------------QR CODE TO BE MARKED----------');
 	#$prefix_folder_fpdf = dirname(__FILE__)."/../../../../../lib/vendor/otbafrica/fpdf/";
 	#require_once($prefix_folder_fpdf.'fpdf181/fpdf.php');
@@ -307,12 +305,11 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 	if (isset($_REQUEST['size']))
 		$matrixPointSize = min(max((int) $_REQUEST['size'], 1), 10);
 	$ssl_suffix = mf_get_ssl_suffix();
-	#$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/".$target_file;
-	//$link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
-	// $link = "http".$ssl_suffix."://".$_SERVER[HTTP_HOST]."/plan/forms/download?q=".$_GET['q'];//Show original file with login required
 
-	$saved_permit = $otbhelper->getApplicationLatestPermit($app_details->getId());
-
+	$saved_permit = false;
+	if ($app_details) {
+		$saved_permit = $otbhelper->getApplicationLatestPermit($app_details->getId());
+	}
 	$link = "/index.php/forms/download?q=" . $_GET['q'];
 
 	$link_qr = 'Approved';
@@ -399,20 +396,6 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && $otbhelper->checkA
 			// $pdf->Write(0, "Scan QR code to confirm authenticity");
 			$pdf->Image($qr_code_image, $x_qr_pos, $y_qr_pos);
 		}
-		//}else{
-		//error_log("Application not approved!! No Bar code permitted") ;
-		//}
-
-
-		/*if($element_file_qr_all_pages != 1){//If this file field is not set to mark qr on all pages, set pages to first page only
-															   if($page_count == 1){
-																   $pdf->Write(0,"Scan QR code to confirm authenticity");
-																   $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-															   }
-														   }else{
-															   $pdf->Write(0,"Scan QR code to confirm authenticity");
-															   $pdf->Image($qr_code_image,$x_qr_pos,$y_qr_pos);
-														   }*/
 		$page_count++;
 	}
 	//remove the element_x-xx- suffix we added to all uploaded files

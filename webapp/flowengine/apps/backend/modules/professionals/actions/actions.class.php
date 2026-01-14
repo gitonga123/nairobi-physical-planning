@@ -76,7 +76,7 @@ class professionalsActions extends sfActions
 
 		if (!$membership_database) {
 			$this->getUser()->setFlash("error", "Failed! User associated with this record couldn't be found.");
-			$this->redirect('/backend.php/professionals/index/');
+			$this->redirect('/plan/professionals/index/');
 		}
 
 		$membership_database->setValidate('');
@@ -92,7 +92,7 @@ class professionalsActions extends sfActions
 		$notification->sendsms($user_prof->getMobile(), $message);
 
 		$this->getUser()->setFlash("notice", "User Account Approved.");
-		$this->redirect('/backend.php/professionals/index/');
+		$this->redirect('/plan/professionals/index/');
 	}
 
 	public function executeDeactivate(sfWebRequest $request)
@@ -112,7 +112,7 @@ class professionalsActions extends sfActions
 		$membership_database->save();
 
 		$this->getUser()->setFlash("notice", "User Account has been deactivated.");
-		$this->redirect('/backend.php/professionals/index/');
+		$this->redirect('/plan/professionals/index/');
 	}
 
 	public function executeView(sfWebRequest $request)

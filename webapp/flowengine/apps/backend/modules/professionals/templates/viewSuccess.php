@@ -38,19 +38,19 @@ $membersManager = new MembersManager();
             <?php if (!$isActivated): ?>
                 <a class="btn btn-success"
                     title="Approve User"
-                    href="/backend.php/professionals/approve/form/<?php echo $form_id; ?>/entry/<?php echo $entry_id; ?>">
+                    href="/plan/professionals/approve/form/<?php echo $form_id; ?>/entry/<?php echo $entry_id; ?>">
                     <?php echo __('Approve Account'); ?>
                 </a>
             <?php else: ?>
                 <a class="btn btn-danger"
                     title="Deactivate User"
-                    href="/backend.php/professionals/deactivate/form/<?php echo $form_id; ?>/entry/<?php echo $entry_id; ?>">
+                    href="/plan/professionals/deactivate/form/<?php echo $form_id; ?>/entry/<?php echo $entry_id; ?>">
                     <?php echo __('Deactivate Account'); ?>
                 </a>
             <?php endif; ?>
             <a class="btn btn-primary"
                 title="Back List"
-                href="/backend.php/professionals/index">
+                href="/plan/professionals/index">
                 <?php echo __('Back to list'); ?>
             </a>
         </div>

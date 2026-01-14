@@ -24,7 +24,7 @@ if ($sf_user->mfHasCredential("can_verify_professionals_details")) {
         <div class="breadcrumb-wrapper">
             <span class="label"><?php echo __('You are here'); ?>:</span>
             <ol class="breadcrumb">
-                <li><a href="/backend.php"><?php echo __('Home'); ?></a></li>
+                <li><a href="/plan"><?php echo __('Home'); ?></a></li>
                 <li class="active"><?php echo __('Profressionals'); ?></li>
             </ol>
         </div>
@@ -84,12 +84,12 @@ if ($sf_user->mfHasCredential("can_verify_professionals_details")) {
                                         <td><span class="<?php echo $badgeClass; ?>"><?php echo $badgeText; ?></span></td>
                                         <td class="aligncenter">
                                             <?php if (!$isActivated) { ?>
-                                                <a title="Approve User" href="/backend.php/professionals/approve/form/<?php echo $form_id; ?>/entry/<?php echo $entry['id'] ?>"><span class="label label-success"><i class="fa fa-check-circle-o"></i></span></a>
+                                                <a title="Approve User" href="/plan/professionals/approve/form/<?php echo $form_id; ?>/entry/<?php echo $entry['id'] ?>"><span class="label label-success"><i class="fa fa-check-circle-o"></i></span></a>
                                             <?php } ?>
                                             <?php if ($isActivated) { ?>
-                                                <a title="Deactivate User" href="/backend.php/professionals/deactivate/form/<?php echo $form_id; ?>/entry/<?php echo $entry['id'] ?>"><span class="label label-danger"><i class="fa fa-times"></i></span></a>
+                                                <a title="Deactivate User" href="/plan/professionals/deactivate/form/<?php echo $form_id; ?>/entry/<?php echo $entry['id'] ?>"><span class="label label-danger"><i class="fa fa-times"></i></span></a>
                                             <?php } ?>
-                                            <a title="View User" href="/backend.php/professionals/view/form/<?php echo $form_id; ?>/entry/<?php echo $entry['id'] ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
+                                            <a title="View User" href="/plan/professionals/view/form/<?php echo $form_id; ?>/entry/<?php echo $entry['id'] ?>"><span class="label label-primary"><i class="fa fa-eye"></i></span></a>
                                         </td>
                                     </tr>
                                 <?php

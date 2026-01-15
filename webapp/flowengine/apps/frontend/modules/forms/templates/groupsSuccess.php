@@ -145,16 +145,42 @@ else :
 										<?php
 										include_partial('register_details', array('form_id' => $form_id));
 										?>
-										<!-- <a class="btn btn-outline-primary" href="/index.php/mfRegister/registerDetails2?id=<?php //echo $form_id; 
-																																?>"> <?php // echo __('Add Additional Details'); 
-																																							?></a> -->
 									</div>
 								</div>
 							<?php
 							}
 							?>
-							<?php if (strlen($membership_details->id)) : ?>
+							<!-- <?php // if (strlen($membership_details->id)) : 
+									?>
 								<div class="alert alert-warning d-flex align-items-center" role="alert">
+									<i class="bi bi-exclamation-triangle-fill me-2"></i>
+									<div>
+										<strong>Account approval pending.</strong>
+										Your membership details have been received and are currently under review. You will be notified once approval is complete.
+									</div>
+								</div>
+							<?php // endif; 
+							?> -->
+
+							<?php if ($membership_details && $membership && $userCategory == 6) :
+							?>
+								<div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
+									<i class="bi bi-exclamation-triangle-fill me-2"></i>
+									<div>
+										<strong>Notice — Professional Submission Required</strong>
+										<p class="mb-0">
+											This system only accepts applications submitted by qualified and registered professionals
+											(e.g., architects, engineers, physical planners).
+											As a normal applicant, please either engage a qualified professional or visit the
+											<strong>Uasin Gishu County offices</strong> for guidance on submitting your application.
+										</p>
+									</div>
+								</div>
+							<?php
+							// --- Pending verification alert ---
+							elseif (strlen($membership_details->id)) :
+							?>
+								<div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
 									<i class="bi bi-exclamation-triangle-fill me-2"></i>
 									<div>
 										<strong>Account approval pending.</strong>

@@ -112,14 +112,6 @@ class formsActions extends sfActions
 
             error_log("Execute view application probably for submission ", $this->getUser()->getGuardUser()->getId());
 
-            // $membersManager = new MembersManager();
-            // $membership = $membersManager->checkIfUserAccountIsActivated(null, null, );
-
-            // if (!$membership) {
-            //       $this->redirect('/index.php/forms/groups/');
-            //       return;
-            // }
-
             $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Submit Application");
 
             if ($this->current_profile) {

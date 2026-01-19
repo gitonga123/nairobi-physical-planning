@@ -34,7 +34,7 @@ $ssl_suffix = mf_get_ssl_suffix();
 
 $form_id    = (int) trim($_REQUEST['id']);
 
-var_dump(print_r($_POST));
+var_dump(print_r($_POST, true));
 
 if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if form submitted
 	error_log('-------------review_submit-------------review_submit_x-------');

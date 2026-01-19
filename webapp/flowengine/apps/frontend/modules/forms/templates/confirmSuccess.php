@@ -151,7 +151,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
     header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].mf_get_dirname($_SERVER['PHP_SELF'])."/view?id={$form_id}&mf_page={$origin_page_num}");
     exit;
 }else{
-	error_log('------------- empty review_submit-------------empty review_back_x------- empty review_back-------');
+	error_log('------------- -------------empty review_back_x------- empty review_back-------');
     if(empty($form_id)){
         die('ID required.');
     }

@@ -110,13 +110,15 @@ class formsActions extends sfActions
       {
             $this->current_profile = $this->getUser()->getAttribute("current_profile");
 
-            $membersManager = new MembersManager();
-            $membership = $membersManager->checkIfUserAccountIsActivated(null, null, $this->getUser()->getGuardUser()->getId());
+            error_log("Execute view application probably for submission ", $this->getUser()->getGuardUser()->getId());
 
-            if (!$membership) {
-                  $this->redirect('/index.php/forms/groups/');
-                  return;
-            }
+            // $membersManager = new MembersManager();
+            // $membership = $membersManager->checkIfUserAccountIsActivated(null, null, );
+
+            // if (!$membership) {
+            //       $this->redirect('/index.php/forms/groups/');
+            //       return;
+            // }
 
             $this->getResponse()->setTitle(Functions::site_settings()->getOrganisationName() . "| Submit Application");
 

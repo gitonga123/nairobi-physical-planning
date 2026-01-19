@@ -38,7 +38,7 @@ if ($membership) :
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
 									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-									->orderBy('a.ordering ASC');
+									->orderBy('a.form_name ASC');
 							} else {
 
 
@@ -50,9 +50,11 @@ if ($membership) :
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
 									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-									->orderBy('a.form_name ASC');
+									->orderBy('a.form_name DESC');
 							}
 							$forms = $q->execute();
+
+							var_dump($forms);
 							foreach ($forms as $form) {
 							?>
 								<!-- here -->

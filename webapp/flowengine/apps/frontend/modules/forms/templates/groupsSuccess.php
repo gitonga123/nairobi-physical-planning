@@ -53,8 +53,9 @@ if ($membership) :
 									->orderBy('a.form_name DESC');
 							}
 							$forms = $q->execute();
+
+							var_dump(sfConfig::get('app_enable_categories') == "yes", $group->getGroupId(), $sf_user->getGuardUser()->getProfile()->getRegisteras());
 							foreach ($forms as $form) {
-								var_dump($form->getFormName());
 							?>
 								<!-- here -->
 								<div class="col-12 col-md-6 col-xl-4 d-flex">

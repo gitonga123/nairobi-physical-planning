@@ -30,7 +30,21 @@ if ($membership) :
 					<div role="tabpanel" id="activeservice" class="tab-pane fade show active">
 						<div class="row">
 							<?php
-							if (sfConfig::get('app_enable_categories') == "yes") {
+
+							if ($membership_details && $membership && $userCategory == 6) { ?>
+								<div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
+									<i class="bi bi-exclamation-triangle-fill me-2"></i>
+									<div>
+										<strong>Notice — Professional Submission Required</strong>
+										<p class="mb-0">
+											This system only accepts applications submitted by qualified and registered professionals
+											(e.g., architects, engineers, physical planners).
+											As a normal applicant, please either engage a qualified professional or visit the
+											<strong>Uasin Gishu County offices</strong> for guidance on submitting your application.
+										</p>
+									</div>
+								</div>
+							<?php } else if (sfConfig::get('app_enable_categories') == "yes") {
 								$q = Doctrine_Query::create()
 									->from('ApForms a')
 									->leftJoin('a.sfGuardUserCategoriesForms s')
@@ -53,8 +67,6 @@ if ($membership) :
 									->orderBy('a.form_name DESC');
 							}
 							$forms = $q->execute();
-
-							var_dump(sfConfig::get('app_enable_categories') == "yes", $group->getGroupId(), $sf_user->getGuardUser()->getProfile()->getRegisteras());
 							foreach ($forms as $form) {
 							?>
 								<!-- here -->

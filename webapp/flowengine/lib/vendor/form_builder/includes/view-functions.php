@@ -7485,12 +7485,12 @@ function mf_display_success($dbh, $form_id, $form_params = array())
 		$resume_success_content = sprintf($mf_lang['resume_success_content'], $_SESSION['mf_form_resume_url'][$form_id]);
 
 		$success_markup = <<<EOT
-			<h2>{$resume_success_title}</h2>
-			<h3>{$resume_success_content}</h3>
+			<h2 class="mb-2">{$resume_success_title}</h2>
+			<p>{$resume_success_content}</p>
 EOT;
 		unset($_SESSION['mf_form_resume_url'][$form_id]);
 	} else {
-		$success_markup = "<h2>{$form->success_message}</h2>";
+		$success_markup = "<p>{$form->success_message}</p>";
 	}
 
 	//load custom javascript if enabled

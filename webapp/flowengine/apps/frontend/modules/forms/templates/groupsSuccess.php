@@ -34,22 +34,16 @@ if ($membership) :
 						<div class="row">
 							<?php
 							if ($membership_details && $membership && $user_category == 6) { ?>
-								<div class="card text-dark bg-warning mb-3 w-full">
-									<div class="card-header">
+								<div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
+									<i class="bi bi-exclamation-triangle-fill me-2"></i>
+									<div>
 										<strong>Notice — Professional Submission Required</strong>
-									</div>
-									<div class="card-body">
-										<i class="bi bi-exclamation-triangle-fill me-2"></i>
-
-										<div>
-
-											<p class="mb-0 card-text">
-												This system only accepts applications submitted by qualified and registered professionals
-												(e.g., architects, engineers, physical planners).
-												As a normal applicant, please either engage a qualified professional or visit the
-												<strong>Uasin Gishu County offices</strong> for guidance on submitting your application.
-											</p>
-										</div>
+										<p class="mb-0">
+											This system only accepts applications submitted by qualified and registered professionals
+											(e.g., architects, engineers, physical planners).
+											As a normal applicant, please either engage a qualified professional or visit the
+											<strong>Uasin Gishu County offices</strong> for guidance on submitting your application.
+										</p>
 									</div>
 								</div>
 								<?php } else if (sfConfig::get('app_enable_categories') == "yes") {

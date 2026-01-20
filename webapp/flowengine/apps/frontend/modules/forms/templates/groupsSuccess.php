@@ -7,7 +7,8 @@ $membership = $membersManager->checkIfUserAccountIsActivated(null, null, $sf_use
 $membership_details = $membersManager->getMembersDatabaseDetails(null, null, $sf_user->getGuardUser()->getId());
 $user = $sf_user->getGuarduser();
 
-$user_category = $sf_user->getGuardUser()->getProfile()->getRegisteras();
+// $user_category = $sf_user->getGuardUser()->getProfile()->getRegisteras();
+$user_category = 6;
 if ($membership) :
 ?>
 	<div class="col-md-7 col-lg-8 col-xl-9">

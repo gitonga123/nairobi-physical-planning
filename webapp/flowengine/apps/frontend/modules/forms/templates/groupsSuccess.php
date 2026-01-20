@@ -7,8 +7,8 @@ $membership = $membersManager->checkIfUserAccountIsActivated(null, null, $sf_use
 $membership_details = $membersManager->getMembersDatabaseDetails(null, null, $sf_user->getGuardUser()->getId());
 $user = $sf_user->getGuarduser();
 
-// $user_category = $sf_user->getGuardUser()->getProfile()->getRegisteras();
-$user_category = 6;
+$user_category = $sf_user->getGuardUser()->getProfile()->getRegisteras();
+$show_forms = false;
 if ($membership) :
 ?>
 	<div class="col-md-7 col-lg-8 col-xl-9">
@@ -46,7 +46,7 @@ if ($membership) :
 										</p>
 									</div>
 								</div>
-							<?php } else if (sfConfig::get('app_enable_categories') == "yes") {
+								<?php } else if (sfConfig::get('app_enable_categories') == "yes") {
 								$q = Doctrine_Query::create()
 									->from('ApForms a')
 									->leftJoin('a.sfGuardUserCategoriesForms s')
@@ -55,6 +55,7 @@ if ($membership) :
 									->andWhere('a.form_group = ?', $group->getGroupId())
 									->where('s.categoryid = ?', $user_category)
 									->orderBy('a.form_name ASC');
+								$show_forms = true;
 							} else {
 
 
@@ -67,26 +68,29 @@ if ($membership) :
 									->andWhere('a.form_group = ?', $group->getGroupId())
 									->where('s.categoryid = ?', $user_category)
 									->orderBy('a.form_name DESC');
+								$show_forms = true;
 							}
-							$forms = $q->execute();
-							foreach ($forms as $form) {
-							?>
-								<!-- here -->
-								<div class="col-12 col-md-6 col-xl-4 d-flex">
-									<div class="course-box blog grid-blog">
-										<div class="course-content">
-											<span class="course-title"><?php echo $form->getFormName() ?></span>
-											<p><?php echo $form->getFormDescription() ?></p>
-											<div class="row">
-												<div class="col">
-													<a href="/plan/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-success"><i class="far fa-edit"></i> Apply </a>
+							if ($show_forms) {
+								$forms = $q->execute();
+								foreach ($forms as $form) {
+								?>
+									<!-- here -->
+									<div class="col-12 col-md-6 col-xl-4 d-flex">
+										<div class="course-box blog grid-blog">
+											<div class="course-content">
+												<span class="course-title"><?php echo $form->getFormName() ?></span>
+												<p><?php echo $form->getFormDescription() ?></p>
+												<div class="row">
+													<div class="col">
+														<a href="/plan/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-success"><i class="far fa-edit"></i> Apply </a>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<!-- end here -->
+									<!-- end here -->
 							<?php
+								}
 							}
 							?>
 						</div>

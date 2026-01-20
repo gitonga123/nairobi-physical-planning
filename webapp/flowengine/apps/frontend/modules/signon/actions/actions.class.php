@@ -60,7 +60,7 @@ class signonActions extends sfActions
             $url = sfConfig::get('app_api_jambo_url') . 'api/v1/accounts/login/token/';
 
             error_log("Verification url is ---->{$url}");
-            
+
             $stream_response = $stream->sendRequest([
                 'url' => $url,
                 'method' => 'POST',
@@ -116,14 +116,19 @@ class signonActions extends sfActions
             $this->sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->createQuery('u')->where('username = ?', $username)->orderBy('u.id DESC')->fetchOne();
             $this->cache->set("jambo_token_{$username}", $this->token, 3600);
 
+            $user_share = false;
+
             if (!$this->sfGuardUser) {
                 // create user
                 $this->sfGuardUser = new sfGuardUser();
                 $this->sfGuardUser->username = $username;
                 $this->sfGuardUser->email_address = $email;
                 $this->sfGuardUser->save();
+            }
 
-                // create user profile
+            $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findOneByUserId($this->sfGuardUser->id);
+
+            if (!$user_share) {
                 $profile = new sfGuardUserProfile();
                 $profile->setUserId($this->sfGuardUser->id);
                 $profile->setFullname($fullname);
@@ -131,20 +136,6 @@ class signonActions extends sfActions
                 $profile->setMobile($username);
                 $profile->setRegisteras(6);
                 $profile->save();
-            } else {
-
-                $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findOneByUserId($this->sfGuardUser->id);
-                error_log("Profile exists yes or no");
-                error_log($user_share);
-                if (!$user_share) {
-                    $profile = new sfGuardUserProfile();
-                    $profile->user_id = $this->sfGuardUser->id;
-                    $profile->setFullname($fullname);
-                    $profile->setEmail($email);
-                    $profile->setMobile($username);
-                    $profile->setRegisteras(6);
-                    $profile->save();
-                }
             }
 
             $this->getUser()->signin($this->sfGuardUser, false);
@@ -162,8 +153,6 @@ class signonActions extends sfActions
             } else {
                 return $this->redirect($url);
             }
-
-
         } catch (\Exception $error) {
             throw new sfException($error->getMessage(), 500);
         }

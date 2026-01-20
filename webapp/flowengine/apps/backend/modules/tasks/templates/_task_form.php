@@ -20,7 +20,7 @@ require_once($prefix_folder.'../../../config/form_builder_config.php');
 require_once($prefix_folder.'includes/language.php');
 require_once($prefix_folder.'includes/db-core.php');
 require_once($prefix_folder.'includes/common-validator.php');
-require_once($prefix_folder.'includes/view-functions.php');
+require_once($prefix_folder.'includes/view-functions_backend.php');
 require_once($prefix_folder.'includes/post-functions.php');
 require_once($prefix_folder.'includes/filter-functions.php');
 require_once($prefix_folder.'includes/entry-functions.php');

@@ -181,9 +181,7 @@ class frusersActions extends sfActions
    *
    * @param sfRequest $request A request object
    */
-  public function executeSendnotification(sfWebRequest $request)
-  {
-  }
+  public function executeSendnotification(sfWebRequest $request) {}
 
   /**
    * Executes 'Notificationmail' action
@@ -314,8 +312,8 @@ class frusersActions extends sfActions
     $this->filter = "";
     $this->filterstatus = 1;
 
-    if ($request->getPostParameter("search") || $request->getParameter('filter')) {
-      if ($request->getPostParameter("search")) {
+    if ($request->getPostParameter("search_filter") || $request->getParameter('filter')) {
+      if ($request->getPostParameter("search_filter")) {
         $this->filter = $request->getPostParameter("search");
       } else {
         $this->filter = $request->getParameter("filter");
@@ -473,10 +471,10 @@ class frusersActions extends sfActions
           ->from('sfGuardUser a')
           ->where('a.is_active = ?', 1)
           ->orderBy('a.id DESC');
-        $this->pager = new sfDoctrinePager('ReviewerComments', 10);
-        $this->pager->setQuery($q);
-        $this->pager->setPage($request->getParameter('page', $page));
-        $this->pager->init();
+        $pager = new sfDoctrinePager('ReviewerComments', 10);
+        $pager->setQuery($q);
+        $pager->setPage($request->getParameter('page', $page));
+        $pager->init();
 
         $this->pager = $pager;
       } else {
@@ -484,10 +482,10 @@ class frusersActions extends sfActions
           ->from('sfGuardUser a')
           ->where('a.is_active = ?', 0)
           ->orderBy('a.id DESC');
-        $this->pager = new sfDoctrinePager('ReviewerComments', 10);
-        $this->pager->setQuery($q);
-        $this->pager->setPage($request->getParameter('page', $page));
-        $this->pager->init();
+        $pager = new sfDoctrinePager('ReviewerComments', 10);
+        $pager->setQuery($q);
+        $pager->setPage($request->getParameter('page', $page));
+        $pager->init();
 
         $this->pager = $pager;
       }
@@ -727,7 +725,7 @@ class frusersActions extends sfActions
         $user->delete();
       }
     }
-    $this->redirect('/plan/frusers/show/id/' . $sf_guard_user->getId());
+    $this->redirect('/plan/frusers/show/id/' . $request->getParameter('id'));
   }
 
 
@@ -754,11 +752,11 @@ class frusersActions extends sfActions
       $profile->setRegisteras($request->getPostParameter("registeras"));
       $profile->setEmail($request->getPostParameter("email"));
       $profile->setFullname($request->getPostParameter("full_name"));
-      $proflle->save();
+      $profile->save();
 
       try {
 
-        sendVerificationMail($profile);
+        $this->sendVerificationMail($profile);
         //Redirect to additional user details form afterwards
         $user = $profile->getUser();
         $this->getUser()->setAttribute('new_user_id', $user->getId());
@@ -799,11 +797,11 @@ class frusersActions extends sfActions
       $profile->setEmail($request->getPostParameter("email"));
       $profile->setRegisteras($request->getPostParameter("registeras"));
       $profile->setFullname($request->getPostParameter("full_name"));
-      $proflle->save();
+      $profile->save();
 
       try {
 
-        sendVerificationMail($profile);
+        $this->sendVerificationMail($profile);
         //Redirect to additional user details form afterwards
         $user = $profile->getUser();
         $this->getUser()->setAttribute('new_user_id', $user->getId());
@@ -963,5 +961,29 @@ class frusersActions extends sfActions
 
       $this->redirect('/plan/settings/security?load=registeredmembers');
     }
+  }
+
+  protected function sendVerificationMail($profile)
+  {
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+      $is_http = "https";
+    } else {
+      $is_http = "http";
+    }
+
+    $to = $profile->getEmail();
+    $subject = "Account Verification";
+    $message = "Please verify your account on " . "{$is_http}://" . $this->getRequest()->getHost() . "/plan/sfApply/confirm/validate/" . $profile->getValidate();
+    $headers = "";
+    $headers .= "Reply-To: " . sfConfig::get('app_organisation_name') . " <" . sfConfig::get('app_organisation_email') . ">\r\n";
+    $headers .= "Return-Path: " . sfConfig::get('app_organisation_name') . " <" . sfConfig::get('app_organisation_email') . ">\r\n";
+    $headers .= "From: " . sfConfig::get('app_organisation_name') . " <" . sfConfig::get('app_organisation_email') . ">\r\n";
+    $headers .= "Organization: " . sfConfig::get('app_organisation_name') . "\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+    $headers .= "X-Priority: 3\r\n";
+    $headers .= "X-Mailer: PHP" . phpversion() . "\r\n";
+    $notification = new mailnotifications();
+    $notification->sendemail('', $to, $subject, $message);
   }
 }

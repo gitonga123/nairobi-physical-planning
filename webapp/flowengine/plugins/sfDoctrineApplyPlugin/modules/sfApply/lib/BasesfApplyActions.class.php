@@ -128,17 +128,6 @@ class BasesfApplyActions extends sfActions
 
   protected function sendVerificationMail($profile)
   {
-    /*
-    $this->mail(array('subject' => sfConfig::get('app_sfApplyPlugin_apply_subject',
-        sfContext::getInstance()->getI18N()->__("Please verify your account on %1%", array('%1%' => $this->getRequest()->getHost()))),
-      'fullname' => $profile->getFullname(),
-      'email' => $profile->getEmail(),
-      'parameters' => array('fullname' => $profile->getFullname(), 'validate' => $profile->getValidate()),
-      'text' => 'sfApply/sendValidateNewText',
-      'html' => 'sfApply/sendValidateNew'));
-
-      */
-
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
       $is_http = "https";
     } else {
@@ -159,17 +148,6 @@ class BasesfApplyActions extends sfActions
     $headers .= "X-Mailer: PHP" . phpversion() . "\r\n";
     $notification = new mailnotifications();
     $notification->sendemail('', $to, $subject, $message);
-
-    //mail($to,$subject,$message,$headers);
-
-    //$mail = $this->getMailer()->compose();
-    //$mail->setSubject($subject);
-    //$mail->setTo($to);
-    //$mail->setFrom("info@kcps.gov.rw");
-
-    //$mail->setBody($message, 'text/html');
-
-    //$this->getMailer()->send($mail);
 
   }
 

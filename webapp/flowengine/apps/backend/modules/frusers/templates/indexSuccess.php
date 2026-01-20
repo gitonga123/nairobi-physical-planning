@@ -62,8 +62,8 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                     ?>
                                 </th>
                                 <form method="post" action="/plan/frusers/index/filter/<?php echo $filter; ?><?php if ($filterstatus != "") {
-                                                                                                                        echo "/filterstatus/" . $filterstatus;
-                                                                                                                    } ?>">
+                                                                                                                    echo "/filterstatus/" . $filterstatus;
+                                                                                                                } ?>">
                                     <th class="b-b-0" style="width:50%;">
                                         <input name="search" value="<?php echo $filter; ?>" placeholder="<?php echo __('Search'); ?>" type="text" class="form-control p10">
                                     </th>
@@ -195,18 +195,18 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                         <?php if ($pager->haveToPaginate()) : ?>
                                             <ul class="pagination pagination-sm mb0 mt0 pull-right">
                                                 <li><a href="/plan/frusers/index/page/1<?php if ($filter) {
-                                                                                                    echo "/filter/" . $filter;
-                                                                                                } ?><?php if ($fromdate) {
-                                                                                                        echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                    } ?>">
+                                                                                            echo "/filter/" . $filter;
+                                                                                        } ?><?php if ($fromdate) {
+                                                                                                echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                            } ?>">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
                                                 <li><a href="/plan/frusers/index/page/<?php echo $pager->getPreviousPage() ?><?php if ($filter) {
-                                                                                                                                        echo "/filter/" . $filter;
-                                                                                                                                    } ?><?php if ($fromdate) {
-                                                                                                                                            echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                        } ?>">
+                                                                                                                                    echo "/filter/" . $filter;
+                                                                                                                                } ?><?php if ($fromdate) {
+                                                                                                                                        echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                                                    } ?>">
                                                         <i class="fa fa-angle-left"></i>
                                                     </a></li>
 
@@ -215,26 +215,26 @@ if ($sf_user->mfHasCredential("manageusers")) {
                                                         <li class="active"><a href=""><?php echo $page ?></li></a>
                                                     <?php else : ?>
                                                         <li><a href="/plan/frusers/index/page/<?php echo $page ?><?php if ($filter) {
-                                                                                                                            echo "/filter/" . $filter;
-                                                                                                                        } ?><?php if ($fromdate) {
-                                                                                                                                echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                            } ?>"><?php echo $page ?></a></li>
+                                                                                                                        echo "/filter/" . $filter;
+                                                                                                                    } ?><?php if ($fromdate) {
+                                                                                                                            echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                                        } ?>"><?php echo $page ?></a></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
 
                                                 <li><a href="/plan/frusers/index/page/<?php echo $pager->getNextPage() ?><?php if ($filter) {
-                                                                                                                                    echo "/filter/" . $filter;
-                                                                                                                                } ?><?php if ($fromdate) {
-                                                                                                                                        echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                    } ?>">
+                                                                                                                                echo "/filter/" . $filter;
+                                                                                                                            } ?><?php if ($fromdate) {
+                                                                                                                                    echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                                                } ?>">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a></li>
 
                                                 <li><a href="/plan/frusers/index/page/<?php echo $pager->getLastPage() ?><?php if ($filter) {
-                                                                                                                                    echo "/filter/" . $filter;
-                                                                                                                                } ?><?php if ($fromdate) {
-                                                                                                                                        echo "/fromdate/" . $fromdate . "/todate/" . $todate;
-                                                                                                                                    } ?>">
+                                                                                                                                echo "/filter/" . $filter;
+                                                                                                                            } ?><?php if ($fromdate) {
+                                                                                                                                    echo "/fromdate/" . $fromdate . "/todate/" . $todate;
+                                                                                                                                } ?>">
                                                         <i class="fa fa-angle-right"></i>
                                                     </a>
                                                 </li>

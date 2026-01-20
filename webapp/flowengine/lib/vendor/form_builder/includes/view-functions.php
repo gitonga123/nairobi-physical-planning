@@ -7519,7 +7519,7 @@ html{
 <body id="main_body" class="bg-light">
 	<div id="form_container" class="container d-flex align-items-center justify-content-center min-vh-50">
 		<div class="card shadow-sm border-0 text-center" style="max-width: 520px;">
-			<div class="card-body p-3">
+			<div class="card-body p-4">
 				<div class="mb-4">
 					<div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center"
 						style="width: 80px; height: 80px;">
@@ -7580,7 +7580,7 @@ EOT;
 <body id="main_body" class="bg-light">
 	<div id="form_container" class="container d-flex align-items-center justify-content-center min-vh-50">
 		<div class="card shadow-sm border-0 text-center" style="max-width: 520px;">
-			<div class="card-body p-2">
+			<div class="card-body p-4">
 				<div class="mb-4">
 					<div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center"
 						style="width: 80px; height: 80px;">

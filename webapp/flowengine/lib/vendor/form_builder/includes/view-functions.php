@@ -7517,9 +7517,9 @@ html{
 </style>
 
 <body id="main_body" class="bg-light">
-	<div id="form_container" class="container d-flex align-items-center justify-content-center min-vh-100">
+	<div id="form_container" class="container d-flex align-items-center justify-content-center min-vh-50">
 		<div class="card shadow-sm border-0 text-center" style="max-width: 520px;">
-			<div class="card-body p-5">
+			<div class="card-body p-3">
 				<div class="mb-4">
 					<div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center"
 						style="width: 80px; height: 80px;">
@@ -7533,7 +7533,7 @@ html{
 					{$success_markup}
 				</div>
 
-				<a href="/plan/dashboard" class="btn btn-success px-4">
+				<a href="/plan/dashboard" class="btn btn-dark px-4">
 					Dashboard
 				</a>
 			</div>
@@ -7578,9 +7578,9 @@ EOT;
 {$custom_script_js}
 </head>
 <body id="main_body" class="bg-light">
-	<div id="form_container" class="container d-flex align-items-center justify-content-center min-vh-100">
+	<div id="form_container" class="container d-flex align-items-center justify-content-center min-vh-50">
 		<div class="card shadow-sm border-0 text-center" style="max-width: 520px;">
-			<div class="card-body p-5">
+			<div class="card-body p-2">
 				<div class="mb-4">
 					<div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center"
 						style="width: 80px; height: 80px;">

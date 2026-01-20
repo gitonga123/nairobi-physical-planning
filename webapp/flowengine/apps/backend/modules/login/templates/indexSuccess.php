@@ -1,5 +1,5 @@
 <!-- Form -->
-<form method="post" action="<?php echo url_for('/backend.php/login') ?>">
+<form method="post" action="<?php echo url_for('/plan/login') ?>">
     <?php if ($form->isCSRFProtected()): ?>
         <?php echo $form['_csrf_token']->render(); ?>
     <?php endif; ?>

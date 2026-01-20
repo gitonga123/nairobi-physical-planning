@@ -8222,8 +8222,7 @@ EOT;
 	}
 
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
-	// $self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-	$self_address = $initial_self_address;
+	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
 	$jquery_url = '/form_builder/js/jquery.min.js';
 
 	if ($integration_method == 'php') {

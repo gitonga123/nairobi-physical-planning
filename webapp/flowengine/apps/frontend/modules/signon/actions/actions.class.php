@@ -133,19 +133,10 @@ class signonActions extends sfActions
                 $profile->save();
             } else {
 
-                if ($this->sfGuardUser->id == 2584) {
-                    throw new sfException('Access Denied. Please get in touch with the county.', 403);
-                }
                 $user_share = Doctrine_Core::getTable('sfGuardUserProfile')->findOneByUserId($this->sfGuardUser->id);
                 error_log("Profile exists yes or no");
                 error_log($user_share);
-                if ($user_share) {
-                    // /**$user_share->setFullname($fullname);
-                    //$user_share->setEmail($email);
-                    //$user_share->setMobile($username);**/
-                    $user_share->setRegisteras(6);
-                    $user_share->save();
-                } else {
+                if (!$user_share) {
                     $profile = new sfGuardUserProfile();
                     $profile->user_id = $this->sfGuardUser->id;
                     $profile->setFullname($fullname);

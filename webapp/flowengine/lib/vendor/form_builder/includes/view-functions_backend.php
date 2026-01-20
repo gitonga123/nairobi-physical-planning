@@ -7532,37 +7532,18 @@ EOT;
 <title>{$form->name}</title>
 <link rel="stylesheet" type="text/css" href="/form_builder/{$css_dir}view.css" media="all" />
 <link rel="stylesheet" type="text/css" href="/form_builder/view.mobile.css" media="all" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 {$theme_css_link}
 {$font_css_markup}
 {$auto_height_js}
 {$custom_script_js}
 </head>
-<body id="main_body" class="bg-light">
-	<div id="form_container" class="container d-flex align-items-center justify-content-center min-vh-100">
-		<div class="card shadow-sm border-0 text-center" style="max-width: 520px;">
-			<div class="card-body p-5">
-				<div class="mb-4">
-					<div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center"
-						style="width: 80px; height: 80px;">
-						<i class="bi bi-check-lg text-success fs-1"></i>
-					</div>
-				</div>
-
-				<h2 class="fw-bold text-success mb-3">Success!</h2>
-
-				<div class="text-muted mb-4">
-					{$success_markup}
-				</div>
-
-				<a href="/plan/dashboard" class="btn btn-success px-4">
-					Dashboard
-				</a>
-			</div>
+<body id="main_body">
+	<div id="form_container" class="{$form_container_class}">
+		<div class="form_success">
+			{$success_markup}
 		</div>
 	</div>
 </body>
-
 </html>
 EOT;
 	}

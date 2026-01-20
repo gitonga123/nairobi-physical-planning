@@ -38,6 +38,7 @@ if ($membership) :
 									<i class="bi bi-exclamation-triangle-fill me-2"></i>
 									<div>
 										<strong>Notice — Professional Submission Required</strong>
+										<hr />
 										<p class="mb-0">
 											This system only accepts applications submitted by qualified and registered professionals
 											(e.g., architects, engineers, physical planners).

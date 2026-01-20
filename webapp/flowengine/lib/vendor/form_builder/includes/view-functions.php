@@ -7529,7 +7529,7 @@ html{
 
 				<h2 class="fw-bold text-success mb-3">Success!</h2>
 
-				<div class="text-muted mb-4">
+				<div class="mb-4">
 					{$success_markup}
 				</div>
 
@@ -7590,11 +7590,11 @@ EOT;
 
 				<h2 class="fw-bold text-success mb-3">Success!</h2>
 
-				<div class="text-muted mb-4">
+				<div class="mb-4">
 					{$success_markup}
 				</div>
 
-				<a href="/plan/dashboard" class="btn btn-success px-4">
+				<a href="/plan/dashboard" class="btn btn-dark px-4">
 					Dashboard
 				</a>
 			</div>

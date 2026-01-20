@@ -30,7 +30,7 @@ if ($membership) :
 					<div role="tabpanel" id="activeservice" class="tab-pane fade show active">
 						<div class="row">
 							<?php
-
+							var_dump($membership_details, $membership, $userCategory);
 							if ($membership_details && $membership && $userCategory == 6) { ?>
 								<div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
 									<i class="bi bi-exclamation-triangle-fill me-2"></i>

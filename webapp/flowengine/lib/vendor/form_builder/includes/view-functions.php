@@ -7930,17 +7930,8 @@ EOT;
 
 		$button_markup = <<<EOT
 <div class="d-flex justify-content-end gap-2">
-	<button type="submit"
-		name="review_back"
-		class="btn btn-outline-secondary">
-		{$form_review_secondary_text}
-	</button>
-
-	<button type="submit"
-		name="review_submit"
-		class="btn btn-success">
-		{$form_review_primary_text}
-	</button>
+<input id="review_back" class="btn btn-outline-secondary" type="submit" name="review_back" value="{$form_review_secondary_text}" />
+<input id="review_submit" class="btn btn-success" type="submit" name="review_submit" value="{$form_review_primary_text}" />
 </div>
 EOT;
 	}

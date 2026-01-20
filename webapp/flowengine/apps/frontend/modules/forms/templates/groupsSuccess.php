@@ -6,6 +6,8 @@ $membership = $membersManager->checkIfUserAccountIsActivated(null, null, $sf_use
 
 $membership_details = $membersManager->getMembersDatabaseDetails(null, null, $sf_user->getGuardUser()->getId());
 $user = $sf_user->getGuarduser();
+
+$user_category = $sf_user->getGuardUser()->getProfile()->getRegisteras();
 if ($membership) :
 ?>
 	<div class="col-md-7 col-lg-8 col-xl-9">
@@ -30,8 +32,7 @@ if ($membership) :
 					<div role="tabpanel" id="activeservice" class="tab-pane fade show active">
 						<div class="row">
 							<?php
-							var_dump($membership_details, $membership, $userCategory);
-							if ($membership_details && $membership && $userCategory == 6) { ?>
+							if ($membership_details && $membership && $user_category == 6) { ?>
 								<div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
 									<i class="bi bi-exclamation-triangle-fill me-2"></i>
 									<div>
@@ -51,7 +52,7 @@ if ($membership) :
 									->andWhere('a.form_type = 1')
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
-									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
+									->where('s.categoryid = ?', $user_category)
 									->orderBy('a.form_name ASC');
 							} else {
 
@@ -63,7 +64,7 @@ if ($membership) :
 									->andWhere('a.form_type = 1')
 									->andWhere('a.form_active = 1')
 									->andWhere('a.form_group = ?', $group->getGroupId())
-									->where('s.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
+									->where('s.categoryid = ?', $user_category)
 									->orderBy('a.form_name DESC');
 							}
 							$forms = $q->execute();
@@ -99,7 +100,7 @@ if ($membership) :
 else :
 	$q = Doctrine_Query::create()
 		->from('sfGuardUserCategories a')
-		->where('a.id = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras());
+		->where('a.id = ?', $user_category);
 	$actual_category = $q->fetchOne();
 
 ?>
@@ -144,10 +145,10 @@ else :
 							<?php
 							} else {
 								$form_id = 15;
-								if ($user->getProfile()->getRegisteras()) {
+								if ($user_category) {
 									$q = Doctrine_Query::create()
 										->from("SfGuardUserCategories a")
-										->where("a.id = ?", $user->getProfile()->getRegisteras());
+										->where("a.id = ?", $user_category);
 									$category = $q->fetchOne();
 									if ($category) {
 										$form_id = $category->getFormId();

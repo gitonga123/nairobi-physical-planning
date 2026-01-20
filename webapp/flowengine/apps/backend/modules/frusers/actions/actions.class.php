@@ -311,9 +311,9 @@ class frusersActions extends sfActions
 
     $this->filter = "";
     $this->filterstatus = 1;
-
-    if ($request->getPostParameter("search_filter") || $request->getParameter('filter')) {
-      if ($request->getPostParameter("search_filter")) {
+    
+    if ($request->getPostParameter("search") || $request->getParameter('filter')) {
+      if ($request->getPostParameter("search")) {
         $this->filter = $request->getPostParameter("search");
       } else {
         $this->filter = $request->getParameter("filter");
@@ -325,7 +325,7 @@ class frusersActions extends sfActions
           ->from('sfGuardUser a')
           ->leftJoin('a.Profile b')
           ->where('a.id = b.user_id')
-          ->andWhere('a.username LIKE ? OR b.email  LIKE ?', array('%' . $this->filter . '%', '%' . $this->filter . '%'))
+          ->andWhere('b.fullname LIKE ? OR a.username LIKE ? OR b.email  LIKE ?', array('%' . $this->filter . '%', '%' . $this->filter . '%', '%' . $this->filter . '%'))
           ->andWhere('a.is_active = ?', $request->getParameter('filterstatus'))
           ->orderBy('a.created_at DESC');
         $this->pager = new sfDoctrinePager('sfGuardUser', 10);
@@ -337,7 +337,7 @@ class frusersActions extends sfActions
           ->from('sfGuardUser a')
           ->leftJoin('a.Profile b')
           ->where('a.id = b.user_id')
-          ->andWhere('a.username LIKE ? OR b.email  LIKE ?', array('%' . $this->filter . '%', '%' . $this->filter . '%'))
+          ->andWhere('b.fullname LIKE ? OR a.username LIKE ? OR b.email  LIKE ?', array('%' . $this->filter . '%', '%' . $this->filter . '%', '%' . $this->filter . '%'))
           ->orderBy('b.fullname ASC');
         $this->pager = new sfDoctrinePager('sfGuardUser', 10);
         $this->pager->setQuery($q);

@@ -1,6 +1,6 @@
 let mf_invoice = [
-  { id: "1626", total_amount: "63,750", doc_ref_number: "" },
-  { id: "1625", total_amount: "7,500", doc_ref_number: "" },
+  { id: "1622", total_amount: "7,500", doc_ref_number: "" },
+  { id: "1627", total_amount: "10,500", doc_ref_number: "" },
 ];
 
 let transactions = [

@@ -168,7 +168,7 @@ class UpdatesManager
       curl_setopt($this->curl_request, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
       curl_setopt($this->curl_request, CURLOPT_USERPWD, "$remote_username:$remote_password");
     } else {
-      error_log('Updates Manager -> Pull Info: No HTTP Authentication');
+      error_log('Updates Manager -> Pull Info: No HTTP Authentication 1');
     }
 
     if ($remote_post != "") {
@@ -244,7 +244,7 @@ class UpdatesManager
         curl_setopt($this->curl_request, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
         curl_setopt($this->curl_request, CURLOPT_USERPWD, "$remote_username:$remote_password");
       } else {
-        error_log('Updates Manager -> Pull Info: No HTTP Authentication');
+        error_log('Updates Manager -> Pull Info: No HTTP Authentication 2');
       }
 
       $results = curl_exec($this->curl_request);
@@ -295,7 +295,7 @@ class UpdatesManager
         curl_setopt($this->curl_request, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
         curl_setopt($this->curl_request, CURLOPT_USERPWD, "$remote_username:$remote_password");
       } else {
-        error_log('Updates Manager -> Pull Info: No HTTP Authentication');
+        error_log('Updates Manager -> Pull Info: No HTTP Authentication 3');
       }
 
       $results = curl_exec($this->curl_request);

@@ -1189,7 +1189,6 @@ class ApplicationManager
             if ($current_stage) {
 
             
-
                 //1. If stage has default reviewers, assign them
                 $q = Doctrine_Query::create()
                     ->from("WorkflowReviewers a")
@@ -1200,7 +1199,8 @@ class ApplicationManager
                     //If already assigned then skip
                     $q = Doctrine_Query::create()
                         ->from("Task a")
-                        ->where("a.status = 1")
+                          ->where("a.status != ?", 55)
+                        ->andWhere('a.task_stage = ?', $application->getApproved())
                         ->andWHere("a.owner_user_id = ?", $reviewer->getReviewerId())
                         ->andWhere("a.application_id = ?", $application->getId());
 

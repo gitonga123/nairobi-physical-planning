@@ -2807,7 +2807,7 @@ class Templateparser
 
         $qrText =
             "CUSTOMER: {$plot_details[1]}" . "\n"
-            . "PLOT: {$plot_details[0]}/" . "\n"
+            . "PLOT: {$plot_details[0]}" . "\n"
             . "AMOUNT: " . $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
             . "STATUS: {$invoice->getStatus()}". "\n"
             . "VIEW INVOICE:\n"

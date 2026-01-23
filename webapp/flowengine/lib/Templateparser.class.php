@@ -2808,7 +2808,6 @@ class Templateparser
         $qrText =
             "UASIN GISHU COUNTY GOVERNMENT\n"
             . "-----------------------------\n"
-            . "APPLICATION NO: {ap_application_id}" . "\n"
             . "INVOICE NO: {$values['inv_no']} \n"
             . "BILL NO: {$values['jambo_pay_ref']}". "\n"
             . "CUSTOMER: {$plot_details[1]}" . "\n"
@@ -2820,7 +2819,7 @@ class Templateparser
             . $invoice_verification_link;
         $qrCode
             ->setText($qrText)
-            ->setSize(100)
+            ->setSize(200)
             ->setPadding(5)
             ->setErrorCorrection('high')
             ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))

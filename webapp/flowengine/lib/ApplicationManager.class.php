@@ -216,7 +216,7 @@ class ApplicationManager
             $plot_no = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne($sql_plot_details);
 
             if (!empty($details[0])) {
-                $details[0] = "$details[0] {$plot_no}";
+                $details[0] = "$details[0]/{$plot_no}";
             } else {
                 $details[0] = $plot_no;
             }

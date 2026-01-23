@@ -2808,10 +2808,10 @@ class Templateparser
         $customer_name = strtok((trim($plot_details[1])), ' ');
 
         $payment_status = mb_strtoupper($invoice->getStatus());
-        $qrText = "{$customer_name}\n";
+        $qrText = "C: {$customer_name}\n";
 
         if (!empty(trim($plot_details[0] ?? ''))) {
-            $qrText .= "PLOT: {$plot_details[0]}\n";
+            $qrText .= "P: {$plot_details[0]}\n";
         }
 
         $qrText .=

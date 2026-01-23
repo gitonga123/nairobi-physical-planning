@@ -125,7 +125,7 @@ class UpdatesManager
         }
 
         $remote_results = html_entity_decode($remote_template);
-        error_log("Updates Manager -> Pull Info: Results found: " . $remote_results);
+        error_log("Updates Manager -> Pull Info: Results found 1: " . $remote_results);
         if (!empty($remote_results)) {
           return ['test' => $validation_result, 'error' => $remote_results];
         } else {
@@ -148,7 +148,7 @@ class UpdatesManager
       //error_log('Updates Manager -> Pull Error: No value ($value) found in remote url');
     } else {
       $remote_url = str_replace('$value', curl_escape($this->curl_request, $remote_value), $remote_url);
-      error_log('Updates Manager -> Pull Info: Initiating pull: ' . $remote_url);
+      error_log('Updates Manager -> Pull Info: Initiating pull 1: ' . $remote_url);
     }
 
     $user = sfContext::getInstance()->getUser();
@@ -159,7 +159,7 @@ class UpdatesManager
       $remote_url = $this->appendQueryParam($remote_url, 'username', $username);
     }
     $remote_url = str_replace('$value', curl_escape($this->curl_request, $remote_value), $remote_url);
-    error_log('Updates Manager -> Pull Info: Initiating pull: ' . $remote_url);
+    error_log('Updates Manager -> Pull Info: Initiating pull 2: ' . $remote_url);
     curl_setopt($this->curl_request, CURLOPT_URL, $remote_url);
     curl_setopt($this->curl_request, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($this->curl_request, CURLOPT_FOLLOWLOCATION, true);
@@ -231,7 +231,7 @@ class UpdatesManager
         //error_log('Updates Manager -> Pull Error: No value ($value) found in remote url');
       } else {
         $remote_url = str_replace('$value', curl_escape($this->curl_request, $remote_value), $remote_url);
-        error_log('Updates Manager -> Pull Info: Initiating pull: ' . $remote_url);
+        error_log('Updates Manager -> Pull Info: Initiating pull 3: ' . $remote_url);
       }
 
       curl_setopt($this->curl_request, CURLOPT_URL, $remote_url);
@@ -282,7 +282,7 @@ class UpdatesManager
         //error_log('Updates Manager -> Pull Error: No value ($value) found in remote url');
       } else {
         $remote_url = str_replace('$value', curl_escape($this->curl_request, $remote_value), $remote_url);
-        error_log('Updates Manager -> Pull Info: Initiating pull: -----> ' . $remote_url);
+        error_log('Updates Manager -> Pull Info: Initiating pull 4: -----> ' . $remote_url);
       }
 
       curl_setopt($this->curl_request, CURLOPT_URL, $remote_url);
@@ -362,7 +362,7 @@ class UpdatesManager
           $remote_results = "";
         }
 
-        error_log("Updates Manager -> Pull Info: Results found: " . $remote_results);
+        error_log("Updates Manager -> Pull Info: Results found 2: " . $remote_results);
       } else {
         // error_log("Updates Manager -> Pull Error: " . $error);
       }

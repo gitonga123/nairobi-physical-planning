@@ -106,7 +106,7 @@ function mf_validate_remote_url($value)
 	$updates_manager = new UpdatesManager();
 	$validation_result = $updates_manager->pull_validator($remote_url, $remote_username, $remote_password, $remote_template, $criteria, $result_value, $remote_post);
 
-	error_log($validation_result['error']);
+	error_log("errors that were noted --->" . $validation_result['error']);
 	if (!$validation_result['test'] || $validation_result['test'] == false) {
 		return $validation_result['error'];
 	} else {

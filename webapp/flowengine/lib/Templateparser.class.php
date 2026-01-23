@@ -2817,7 +2817,7 @@ class Templateparser
         $qrText .=
             $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
             . "{$payment_status}\n"
-            . "VIEW INVOICE:\n"
+            . "OPEN:\n"
             . $invoice_verification_link;
 
         $qrCode

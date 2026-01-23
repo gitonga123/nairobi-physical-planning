@@ -2808,13 +2808,18 @@ class Templateparser
         $customer_name = strtok((trim($plot_details[1])), ' ');
 
         $payment_status = mb_strtoupper($invoice->getStatus());
-        $qrText =
-            "CUSTOMER: {$customer_name}" . "\n"
-            . "PLOT: {$plot_details[0]}" . "\n"
-            . $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
-            . "{$payment_status}" . "\n"
+        $qrText = "{$customer_name}\n";
+
+        if (!empty(trim($plot_details[0] ?? ''))) {
+            $qrText .= "PLOT: {$plot_details[0]}\n";
+        }
+
+        $qrText .=
+            $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
+            . "{$payment_status}\n"
             . "VIEW INVOICE:\n"
             . $invoice_verification_link;
+
         $qrCode
             ->setText($qrText)
             ->setSize(100)

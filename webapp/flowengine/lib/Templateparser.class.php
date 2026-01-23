@@ -361,7 +361,7 @@ class Templateparser
                         if ($this->find('{sf_element_' . $element->getElementId() . '}', $content)) {
                             if ($element->getElementType() == "select") {
                                 if ($element->getElementSelectOptions() == "table") {
-                                    $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$profile_form['element_' . $element->getElementId()]} limit 1";
+                                    $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$profile_form['element_' .$element->getElementId()]} limit 1";
                                     $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                                     foreach ($table_rows as $option) {
                                         $content = str_replace('{sf_element_' . $element->getElementId() . '}', $option[$element->getElementFieldName()], $content);
@@ -539,7 +539,7 @@ class Templateparser
                 if ($element->getElementType() == "select") {
                     if ($this->find('{fm_element_' . $element->getElementId() . '}', $content)) {
                         if ($element->getElementSelectOptions() == "table") {
-                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
+                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
                             $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                             foreach ($table_rows as $option) {
                                 $content = str_replace('{fm_element_' . $element->getElementId() . '}', $option[$element->getElementFieldName()], $content);
@@ -571,7 +571,7 @@ class Templateparser
                     if ($this->find('{fm_element_' . $element->getElementId() . '_zone}', $content)) //return zone_id
                     {
                         if ($element->getElementSelectOptions() == "table" && $element->getElementTableName() == "zones") {
-                            $query = "SELECT zone_id FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
+                            $query = "SELECT zone_id FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
                             $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                             foreach ($table_rows as $option) {
                                 $content = str_replace('{fm_element_' . $element->getElementId() . '_zone}', $option['zone_id'], $content);
@@ -1667,7 +1667,7 @@ class Templateparser
                 if ($childs == 0) {
                     if ($element->getElementType() == "select") {
                         if ($element->getElementSelectOptions() == "table") {
-                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$user_profile_details['element_' . $element->getElementId()]} limit 1";
+                            $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$user_profile_details['element_' .$element->getElementId()]} limit 1";
                             $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                             foreach ($table_rows as $option) {
                                 $values['sf_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];
@@ -1945,7 +1945,7 @@ class Templateparser
                     $values['fm' . $prefix . '_element_' . $element->getElementId()] = $date;
                 } elseif ($element->getElementType() == "select") {
                     if ($element->getElementSelectOptions() == "table") {
-                        $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
+                        $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
                         $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                         foreach ($table_rows as $option) {
                             $values['fm' . $prefix . '_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];
@@ -2073,7 +2073,7 @@ class Templateparser
             $application_json = html_entity_decode($application->getFormData());
 
             $application_data = json_decode($application_json, true);
-            
+
             foreach ($application_data as $row) {
                 $values['fm_element_' . $row['element_id']] = $row['value'];
             }
@@ -2611,6 +2611,8 @@ class Templateparser
 
         $invoice_manager = new InvoiceManager();
 
+        $application_manager = new ApplicationManager();
+
         $otb_helper = new OTBHelper();
 
         $invoice = Doctrine_Core::getTable("MfInvoice")->find($invoice_id);
@@ -2737,7 +2739,10 @@ class Templateparser
 
         if ($invoice->getPaid() == "3") {
             $status = '<font color="#D00000">CANCELLED</font>';
+            $plain_status = 'NOT PAID';
         }
+
+        $values['inv_status_plain'] = $plain_status;
 
         $values['inv_status'] = $status;
 
@@ -2785,8 +2790,7 @@ class Templateparser
             ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
             ->setLabel($invoice->getInvoiceNumber())
             ->setLabelFontSize(15)
-            ->setImageType(QrCode::IMAGE_TYPE_PNG);
-        ;
+            ->setImageType(QrCode::IMAGE_TYPE_PNG);;
         $values['qr_code'] = '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
         $qrCode = new QrCode();
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
@@ -2798,8 +2802,24 @@ class Templateparser
         $url = sfConfig::get('app_sso_jambo_client_url');
 
         $invoice_verification_link = "{$url}/plan/permitchecker/invoiceRequest?invoiceref={$invoice->getId()}";
+
+        $plot_details = $application_manager->getExtraApplicationInfo($application->getFormId(), $application->getEntryId());
+
+        $qrText =
+            "UASIN GISHU COUNTY GOVERNMENT\n"
+            . "-----------------------------\n"
+            . "APPLICATION NO: {ap_application_id}" . "\n"
+            . "INVOICE NO: {$values['inv_no']} \n"
+            . "BILL NO: {$values['jambo_pay_ref']}". "\n"
+            . "CUSTOMER: {$plot_details[1]}" . "\n"
+            . "BLOCK/PLOT NO: {$plot_details[0]}/" . "\n"
+            . "TOTAL AMOUNT: " . $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
+            . "PAYMENT STATUS: {$values['inv_status_plain']}". "\n"
+            . "-----------------------------\n\n"
+            . "VERIFY INVOICE:\n"
+            . $invoice_verification_link;
         $qrCode
-            ->setText("Amount: " . $invoice->getCurrency() . ' ' . $invoice->getTotalAmount() . "\n" . "STATUS: " . $plain_status . "\n" . "VIEW MORE..." . "\n" . $invoice_verification_link)
+            ->setText($qrText)
             ->setSize(100)
             ->setPadding(5)
             ->setErrorCorrection('high')
@@ -4568,7 +4588,7 @@ class Templateparser
                             $values['fm_c' . $prefix . '_element_' . $element->getElementId()] = $date;
                         } elseif ($element->getElementType() == "select") {
                             if ($element->getElementSelectOptions() == "table") {
-                                $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' . $element->getElementId()]} limit 1";
+                                $query = "SELECT {$element->getElementFieldValue()}, {$element->getElementFieldName()} FROM {$element->getElementTableName()} WHERE {$element->getElementFieldValue()} = {$apform['element_' .$element->getElementId()]} limit 1";
                                 $table_rows = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchAssoc($query);
                                 foreach ($table_rows as $option) {
                                     $values['fm_c' . $prefix . '_element_' . $element->getElementId()] = $option[$element->getElementFieldName()];

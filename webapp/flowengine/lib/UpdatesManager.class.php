@@ -204,7 +204,7 @@ class UpdatesManager
       }
 
       curl_setopt($this->curl_request, CURLOPT_POSTFIELDS, $post_fields);
-      // error_log('Updates Manager -> Remote Post Found: ' . implode('&', $post_fields));
+      error_log('Updates Manager -> Remote Post Found: ' . implode('&', $post_fields));
     }
 
     $results = curl_exec($this->curl_request);

@@ -2806,8 +2806,7 @@ class Templateparser
         $plot_details = $application_manager->getExtraApplicationInfo($application->getFormId(), $application->getEntryId());
 
         $qrText =
-            "INVOICE: {$values['jambo_pay_ref']}". "\n"
-            . "CUSTOMER: {$plot_details[1]}" . "\n"
+            "CUSTOMER: {$plot_details[1]}" . "\n"
             . "PLOT: {$plot_details[0]}/" . "\n"
             . "AMOUNT: " . $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
             . "STATUS: {$invoice->getStatus()}". "\n"

@@ -2806,20 +2806,17 @@ class Templateparser
         $plot_details = $application_manager->getExtraApplicationInfo($application->getFormId(), $application->getEntryId());
 
         $qrText =
-            "UASIN GISHU COUNTY GOVERNMENT\n"
-            . "-----------------------------\n"
-            . "INVOICE NO: {$values['inv_no']} \n"
-            . "BILL NO: {$values['jambo_pay_ref']}". "\n"
+            " INVOICE: {$values['inv_no']} \n"
+            . "BILL: {$values['jambo_pay_ref']}". "\n"
             . "CUSTOMER: {$plot_details[1]}" . "\n"
-            . "BLOCK/PLOT NO: {$plot_details[0]}/" . "\n"
-            . "TOTAL AMOUNT: " . $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
-            . "PAYMENT STATUS: {$values['inv_status_plain']}". "\n"
-            . "-----------------------------\n\n"
-            . "VERIFY INVOICE:\n"
+            . "PLOT: {$plot_details[0]}/" . "\n"
+            . "AMOUNT: " . $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
+            . "STATUS: {$invoice->getStatus()}". "\n"
+            . "VIEW INVOICE:\n"
             . $invoice_verification_link;
         $qrCode
             ->setText($qrText)
-            ->setSize(200)
+            ->setSize(100)
             ->setPadding(5)
             ->setErrorCorrection('high')
             ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))

@@ -215,6 +215,14 @@ class UpdatesManager
 
     $http_status = curl_getinfo($this->curl_request, CURLINFO_HTTP_CODE);
 
+    error_log("Results found.");
+    error_log($results);
+
+    error_log("Error Found --->");
+    error_log($error);
+
+    error_log("HTTP Status ---->".$http_status);
+
     return [$results, $error, $http_status];
   }
 

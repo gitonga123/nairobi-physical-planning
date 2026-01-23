@@ -2805,11 +2805,9 @@ class Templateparser
 
         $plot_details = $application_manager->getExtraApplicationInfo($application->getFormId(), $application->getEntryId());
 
-        $customer_name = strtok((trim($plot_details[1])), ' ');
-
         $payment_status = mb_strtoupper($invoice->getStatus());
-        $qrText = "C: {$customer_name}\n";
 
+        $qrText = '';
         if (!empty(trim($plot_details[0] ?? ''))) {
             $qrText .= "P: {$plot_details[0]}\n";
         }

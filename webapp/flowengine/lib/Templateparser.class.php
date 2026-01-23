@@ -2803,19 +2803,16 @@ class Templateparser
 
         $invoice_verification_link = "{$url}/plan/pc/ir?ref={$invoice->getId()}";
 
-        $plot_details = $application_manager->getExtraApplicationInfo($application->getFormId(), $application->getEntryId());
+        // $plot_details = $application_manager->getExtraApplicationInfo($application->getFormId(), $application->getEntryId());
 
         $payment_status = mb_strtoupper($invoice->getStatus());
 
         $qrText = '';
-        if (!empty(trim($plot_details[0] ?? ''))) {
-            $qrText .= "P: {$plot_details[0]}\n";
-        }
-
-        $qrText .=
+        
+        $qrText =
             $invoice->getCurrency() . " " . number_format($invoice->getTotalAmount(), 2) . "\n"
             . "{$payment_status}\n"
-            . "OPEN:\n"
+            . "VIEW INVOICE:\n"
             . $invoice_verification_link;
 
         $qrCode

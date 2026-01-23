@@ -313,7 +313,7 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 	$link_qr = 'Approved';
 
 	if ($saved_permit) {
-		$link_qr = "https://sisibopay.uasingishu.go.ke/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId();
+		$link_qr = "https://sisibopay.uasingishu.go.ke/plan/pc/or?ref=" . $saved_permit->getId();
 	}
 
 

@@ -2801,7 +2801,7 @@ class Templateparser
 
         $url = sfConfig::get('app_sso_jambo_client_url');
 
-        $invoice_verification_link = "{$url}/plan/permitchecker/invoiceRequest?invoiceref={$invoice->getId()}";
+        $invoice_verification_link = "{$url}/plan/pc/ir?ref={$invoice->getId()}";
 
         $plot_details = $application_manager->getExtraApplicationInfo($application->getFormId(), $application->getEntryId());
 
@@ -3100,7 +3100,7 @@ class Templateparser
 
         $qrCode = new QrCode();
         $qrCode
-            ->setText("{$url}/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
+            ->setText("{$url}/plan/pc/or?ref=" . $saved_permit->getId())
             ->setSize(200)
             ->setPadding(10)
             ->setErrorCorrection('high')
@@ -3113,7 +3113,7 @@ class Templateparser
         $values['qr_code'] = '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
         $qrCode = new QrCode();
         $qrCode
-            ->setText("{$url}/plan/permitchecker/openrequest?permitref=" . $saved_permit->getId())
+            ->setText("{$url}/plan/pc/or?ref=" . $saved_permit->getId())
             ->setSize(100)
             ->setPadding(5)
             ->setErrorCorrection('high')

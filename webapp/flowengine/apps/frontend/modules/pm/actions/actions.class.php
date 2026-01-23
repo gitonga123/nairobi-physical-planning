@@ -1,6 +1,6 @@
 <?php
 
-class permitCheckerActions extends sfActions
+class pcActions extends sfActions
 {
   /**
    * Executes 'Index' action
@@ -15,15 +15,15 @@ class permitCheckerActions extends sfActions
 
   /**
    *
-   * Execute 'Openrequest' action
+   * Execute 'Open Request' action
    * 
    * Allows external systems to request for a permit without having an account
    *
    **/
-  public function executeOpenrequest(sfWebRequest $request)
+  public function executeOr(sfWebRequest $request)
   {
-    if ($request->getParameter("permitref")) {
-      $permitrefno = $request->getParameter("permitref");
+    if ($request->getParameter("ref")) {
+      $permitrefno = $request->getParameter("ref");
 
       $q = Doctrine_Query::create()
         ->from('SavedPermit a')
@@ -49,15 +49,15 @@ class permitCheckerActions extends sfActions
 
   /**
    *
-   * Execute 'Openrequest' action
+   * Execute 'Invoice Request' action
    * 
    * Allows external systems to request for a permit without having an account
    *
    **/
-  public function executeInvoiceRequest(sfWebRequest $request)
+  public function executeIr(sfWebRequest $request)
   {
-    if ($request->getParameter("invoiceref")) {
-      $invoiceRefno = $request->getParameter("invoiceref");
+    if ($request->getParameter("ref")) {
+      $invoiceRefno = $request->getParameter("ref");
 
       $q = Doctrine_Query::create()
         ->from('MfInvoice a')

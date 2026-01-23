@@ -155,7 +155,7 @@ class permitsActions extends sfActions
 
   /**
    *
-   * Execute 'Openrequest' action
+   * Execute 'Open Request' action
    *
    * Allows external systems to request for a permit without having an account
    *

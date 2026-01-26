@@ -17,9 +17,7 @@ class InvoiceManager
 {
 
     //Public constructor for the invoice manager class
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     //output invoice to html
     public function generate_invoice_template($invoice_id, $pdf = false)
@@ -2632,6 +2630,41 @@ class InvoiceManager
         $invoice->setTotalAmount($grand_amount);
         $invoice->save();
     }
+
+    public function findBestDocRefNumber($total_amount, array $transactions, array &$usedTransactions = []): ?string
+    {
+        // helper to clean number strings like "8,340"
+        $clean = function ($num) {
+            return (float) str_replace(',', '', $num);
+        };
+
+        $invAmount = $clean($total_amount);
+
+        $bestMatch = null;
+        $smallestDiff = PHP_FLOAT_MAX;
+
+        foreach ($transactions as $tx) {
+            if (in_array($tx['doc_ref_number'], $usedTransactions, true)) {
+                continue;
+            }
+
+            $txAmount = $clean($tx['total_amount']);
+            $diff = abs($invAmount - $txAmount);
+
+            if ($diff < $smallestDiff) {
+                $smallestDiff = $diff;
+                $bestMatch = $tx;
+            }
+        }
+
+        if ($bestMatch) {
+            $usedTransactions[] = $bestMatch['doc_ref_number'];
+            return $bestMatch['doc_ref_number'];
+        }
+
+        return null;
+    }
+
 
     //Generate new invoice for business
     public function get_total_payment_amount($application_id)

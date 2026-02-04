@@ -397,7 +397,7 @@ class mailnotifications
 
 		$original = $receiver;
 		error_log('Sending SMS to (raw input) ---> ' . $original);
-		
+		return true;
 		try {
 			// Remove all non-digit characters
 			$receiver = preg_replace('/\D+/', '', $receiver);

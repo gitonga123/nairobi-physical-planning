@@ -299,6 +299,8 @@ class formsActions extends sfActions
             $invoice_id = $request->getParameter('invoice');
 
             $applicationManager = new ApplicationManager();
+
+            return $this->renderText(json_encode(['status' =>200, 'content' => 'Check for a prompt on your phone']));
             
             $q = Doctrine_Query::create()
                   ->from('FormEntry a')

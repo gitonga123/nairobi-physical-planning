@@ -256,7 +256,7 @@ class MembersManager
 
 		// If no record found, consider the account not activated
 		if (!$membership_database) {
-			return false;
+			return true;// to enforce check revert back to false//uasin gishu fix
 		}
 
 		if (empty($membership_database->getValidate())) {
@@ -264,10 +264,10 @@ class MembersManager
 		}
 
 		if ($membership_database->getValidate()) {
-			return false;
+			return true;// to enforce check revert back to false//uasin gishu fix
 		}
 
-		return false;
+		return true;// to enforce check revert back to false//uasin gishu fix
 	}
 
 	public function getMembersDatabaseDetails($form_id = null, $entry_id = null, $user_id = null)

@@ -266,7 +266,7 @@ class formsActions extends sfActions
                   $filter_js = "onChange='filter_dropdown(" . $form_id . ", " . $link_id . ", " . $filter->getLinkId() . ", this.value);'";
             }
 
-            echo "<select class='element select' id='element_" . $link_id . "' name='element_" . $link_id . "' " . $filter_js . ">";
+            echo "<select class='element large form-select' id='element_" . $link_id . "' name='element_" . $link_id . "' " . $filter_js . ">";
             echo "<option></option>";
             foreach ($options as $option) {
                   echo "<option value='" . $option->getOptionId() . "'>" . $option->getOptionText() . "</option>";
@@ -299,7 +299,7 @@ class formsActions extends sfActions
             $invoice_id = $request->getParameter('invoice');
 
             $applicationManager = new ApplicationManager();
-            
+
             $q = Doctrine_Query::create()
                   ->from('FormEntry a')
                   ->where('a.id = ?', $request->getParameter("application"))
@@ -394,7 +394,7 @@ class formsActions extends sfActions
                   'callback_url' => $callback_url
             ];
 
-            error_log("Sample payload ---->", );
+            error_log("Sample payload ---->",);
             error_log(print_r($payload, true));
 
             error_log("Url bill sent to ----> {$url}");

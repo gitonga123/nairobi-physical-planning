@@ -113,7 +113,7 @@
 								<a href="/index.php/dashboard" class="menu-logo">
 									<img src="/asset_mentor/assets/img/Coat_of_Arms_of_Nairobi_Logo.png"
 										class="img-fluid"
-										alt="Nakuru County">
+										alt="Nairobi County">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
 									<i class="fas fa-times"></i>
@@ -228,7 +228,7 @@
 				<div class="section-header text-center aos" data-aos="fade-up">
 					<span>How it Works</span>
 					<p class="sub-title">
-						Access Nakuru County services online in a few simple steps. Register, apply, pay, and receive your official documents seamlessly.
+						Access Nairobi County Physical Planning services online in a few simple steps. Register, apply, pay, and receive your official documents seamlessly.
 					</p>
 				</div>
 
@@ -241,7 +241,7 @@
 								<i class="fas fa-user-plus"></i>
 							</div>
 							<div class="feature-text">Register an Account</div>
-							<p>Create your account on Nakuru eServices to access online applications securely.</p>
+							<p>Create your account on Nairobi eDams to access online applications securely.</p>
 						</div>
 					</div>
 

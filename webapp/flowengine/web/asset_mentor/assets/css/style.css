@@ -2045,7 +2045,7 @@ button.close {
 }
 
 .header-nav .navbar-brand img {
-	max-height: 60px;
+	max-height: 80px;
 	width: auto;
 	object-fit: contain;
 }
@@ -2433,7 +2433,7 @@ button.close {
 .header-four .header-nav {
 	height: 100px;
 	border: 0;
-	padding-top: 30px;
+	padding-top: 10px;
 }
 
 .header-four .main-menu-wrapper {
@@ -2475,17 +2475,17 @@ button.close {
 }
 
 .header-four .main-nav>li.active>a {
-	color: #444DAA;
+	color: #0F47AF;
 	font-weight: 700;
 }
 
 .header-four .header-login-two {
-	color: #444DAA;
+	color: #0F47AF;
 	font-weight: 700;
 }
 
 .header-four .main-nav li .submenu a:hover {
-	color: #444DAA;
+	color: #0F47AF;
 }
 
 .header-five {
@@ -6312,7 +6312,7 @@ html.menu-opened body {
 -----------------------*/
 
 .home-slide-four {
-	background-color: #444DAA0D;
+	background-color: #0F47AF0D;
 	background-image: none;
 	min-height: 700px;
 }
@@ -6323,7 +6323,7 @@ html.menu-opened body {
 }
 
 .home-slide-four .hometwo-slide-text span {
-	color: #444DAA;
+	color: #0F47AF;
 }
 
 .home-slide-four .hometwo-slide-text p {
@@ -6452,7 +6452,7 @@ html.menu-opened body {
 }
 
 .featured-course-design {
-	background: #444DAA;
+	background: #0F47AF;
 	border-radius: 10px;
 	padding: 20px;
 	position: relative;
@@ -6600,7 +6600,7 @@ html.menu-opened body {
 
 .rating-instructor-four .large-team:hover .team-name h4,
 .rating-instructor-four .large-team h4 {
-	color: #444DAA;
+	color: #0F47AF;
 	margin-top: 0;
 }
 
@@ -6647,7 +6647,7 @@ html.menu-opened body {
 }
 
 .expert-student .student-view-four {
-	background: #444DAA;
+	background: #0F47AF;
 	border-radius: 5px;
 	padding: 6px 8px;
 	display: flex;
@@ -6706,7 +6706,7 @@ html.menu-opened body {
 }
 
 .share-knowledge-four .join-two-face .best-course-three h4 {
-	color: #444DAA;
+	color: #0F47AF;
 }
 
 .share-knowledge-four .join-two-face .bg-explore {
@@ -6927,7 +6927,7 @@ html.menu-opened body {
 }
 
 .new-course-four .course-mail .bg-course-subscribe {
-	background: #444DAA;
+	background: #0F47AF;
 	color: #fff;
 	line-height: 2.9;
 	padding: 6px 17px;
@@ -12283,7 +12283,7 @@ html.menu-opened body {
 .statistics-section {
 	position: relative;
 	padding: 60px 0;
-	background-image: url(../img/statistics-bg.png);
+	background-image: url(../img/stats_ag.jpeg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;

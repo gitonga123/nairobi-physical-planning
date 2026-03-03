@@ -29,7 +29,7 @@
 					<div class="account-box">
 						<div class="login-right">
 							<div class="login-header">
-								<h3><span>Uasin Gishu County </span> Account Registration</h3>
+								<h3><span>Nairobi County </span> Account Registration</h3>
 								<p class="text-muted">Create an Account to access and submit applications</p>
 							</div>
 

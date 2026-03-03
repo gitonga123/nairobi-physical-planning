@@ -29,7 +29,7 @@
 					<div class="account-box">
 						<div class="login-right">
 							<div class="login-header">
-								<h3>Welcome to <span>Uasin Gishu County Physical Planning </span></h3>
+								<h3>Welcome to <span>Nairobi County Physical Planning </span></h3>
 								<p class="text-muted">Please Login to your personal account to submit applications..</p>
 							</div>
 							<?php echo $sf_content ?>

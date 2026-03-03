@@ -240,7 +240,7 @@ $site_settings = Functions::site_settings();
 								<h2 class="footer-title">County Information</h2>
 								<ul>
 									<li><a
-											href="https://www.info@uasingishu.go.ke/plan/files/153/Downloads/107/Uasin Gishu-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
+											href="https://www.info@uasingishu.go.ke/plan/files/153/Downloads/107/Nairobi-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
 											Bill</a></li>
 									<li><a
 											href="https://www.info@uasingishu.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
@@ -301,7 +301,7 @@ $site_settings = Functions::site_settings();
 						<div class="row">
 							<div class="col-12 text-center">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php date('Y') ?> Uasin Gishu County eServices. All rights
+									<p class="mb-0">&copy; <?php date('Y') ?> Nairobi County Physical Planning. All rights
 										reserved.</p>
 								</div>
 							</div>

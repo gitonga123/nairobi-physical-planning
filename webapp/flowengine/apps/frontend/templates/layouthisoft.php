@@ -7,7 +7,7 @@
   <meta name="description" content="Hi-soft - IT Solutions and Services Company HTML5 Template" />
   <meta name="author" content="potenzaglobalsolutions.com" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Uasin Gishu County Government - Physical Planning</title>
+  <title>Nairobi County Government - Physical Planning</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="images/favicon.ico" />
@@ -41,7 +41,7 @@
             class="fas fa-align-left"></i></button>
         <a class="navbar-brand" href="index.html">
           <img class="img-fluid" src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
-            alt="Uasin Gishu County Government - Logo">
+            alt="Nairobi County Government - Logo">
         </a>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -463,7 +463,7 @@
                 <p class="mt-3 text-dark">We also know those epic stories</p>
               </div>
               <div class="col-lg-6">
-                <h5 class="text-primary">Uasin Gishu County Government Physical Planning</h5>
+                <h5 class="text-primary">Nairobi County Government Physical Planning</h5>
                 <p class="text-dark"><i class="fab fa-whatsapp me-2 text-primary"></i>
                     <span tel="05320160000">05320160000</span>
                     <br />
@@ -508,7 +508,7 @@
               </div>
             </div>
             <p class="mb-0 text-white mt-5">©Copyright 2024 <a href="#" class="text-primary">County Government of
-                Uasin Gishu</a> All Rights Reserved</p>
+                Nairobi</a> All Rights Reserved</p>
           </div>
         </div>
       </div>

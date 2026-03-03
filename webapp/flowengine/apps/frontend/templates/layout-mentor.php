@@ -71,7 +71,7 @@ $site_settings = Functions::site_settings();
                             <a href="#" class="navbar-brand logo">
                                 <img width="300px" height="200px"
                                     src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
-                                    alt="Uasin Gishu County Government">
+                                    alt="Nairobi County Government">
                             </a>
                         </div>
                         <div class="main-menu-wrapper">
@@ -199,10 +199,10 @@ $site_settings = Functions::site_settings();
                             <div class="footer-widget footer-about">
                                 <div class="footer-logo">
                                     <img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
-                                        alt="Uasin Gishu County">
+                                        alt="Nairobi County">
                                 </div>
                                 <div class="footer-about-content">
-                                    <p class="footer-sub-text">Uasin Gishu County Physical Planning portal - Access
+                                    <p class="footer-sub-text">Nairobi County Physical Planning portal - Access
                                         County services
                                         now from the comfort of your desk!</p>
 
@@ -278,7 +278,7 @@ $site_settings = Functions::site_settings();
                             </div>
                             <div class="col-md-6 ">
                                 <div class="copyright-text">
-                                    <p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County Physical Planning.
+                                    <p class="mb-0">&copy; <?php echo date("Y") ?> Nairobi County Physical Planning.
                                         All
                                         rights
                                         reserved.</p>

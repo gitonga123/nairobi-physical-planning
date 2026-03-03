@@ -163,7 +163,7 @@
 				<div class="container">
 					<div class="banner-wrapper m-auto text-center aos aos-init aos-animate" data-aos="fade-up">
 						<div class="banner-header">
-							<h1 style="margin-bottom: 30px;">Uasin Gishu COUNTY GOVERNMENT </h1>
+							<h1 style="margin-bottom: 30px;">Nairobi COUNTY GOVERNMENT </h1>
 							<p>Physical Planning, Housing and Urban Development</p>
 						</div>
 					</div>
@@ -313,10 +313,10 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="Uasin Gishu County">
+									<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="Nairobi County">
 								</div>
 								<div class="footer-about-content">
-									<p class="footer-sub-text">Uasin Gishu County - Lands, Physical Planning and Urban
+									<p class="footer-sub-text">Nairobi County - Lands, Physical Planning and Urban
 										Development!</p>
 
 								</div>
@@ -404,7 +404,7 @@
 							</div>
 							<div class="col-md-6 ">
 								<div class="copyright-text">
-									<p class="mb-0">&copy; <?php echo date("Y") ?> Uasin Gishu County Physical Planning and
+									<p class="mb-0">&copy; <?php echo date("Y") ?> Nairobi County Physical Planning and
 										Urban Development. All rights
 										reserved.</p>
 								</div>

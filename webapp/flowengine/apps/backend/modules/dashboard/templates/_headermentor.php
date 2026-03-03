@@ -3,10 +3,10 @@
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="/" class="logo">
-						<img src="/asset_mentor/admin/assets/img/logo2.png" alt="Admin Portal - Uasin Gishu County">
+						<img src="/asset_mentor/admin/assets/img/logo2.png" alt="Admin Portal - Nairobi County">
 					</a>
 					<a href="/" class="logo logo-small">
-						<img src="/asset_mentor/admin/assets/img/logo-small.png" alt="Admin Portal - Uasin Gishu County" width="30" height="30">
+						<img src="/asset_mentor/admin/assets/img/logo-small.png" alt="Admin Portal - Nairobi County" width="30" height="30">
 					</a>
                 </div>
 				<!-- /Logo -->

@@ -823,7 +823,7 @@ ApSettings:
     data_dir: /vagrant/web/asset_data
     upload_dir_web: null
     data_dir_web: null
-    organisation_name: Uasin Gishu County Government
+    organisation_name: Nairobi County Government
     organisation_email: info.eservices@uasin.go.ke
     organisation_description: null
     form_manager_max_rows: '10'

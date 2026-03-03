@@ -2466,7 +2466,8 @@ button.close {
 }
 
 .header-four .header-navbar-rht li a.header-login:hover {
-	background: #ed7c52;
+	background: #068930;
+	color: #FCDD07;
 }
 
 .header-four .main-nav li a {

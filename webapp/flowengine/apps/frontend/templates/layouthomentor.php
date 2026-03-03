@@ -106,13 +106,14 @@
 									src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" class="img-fluid"
 									alt="Nairobi County Government">
 							</a>
+
 						</div>
 						<div class="main-menu-wrapper">
 							<div class="menu-header">
-								<a href="#" class="menu-logo">
-									<img width="50px" height="50px"
-										src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" class="img-fluid"
-										alt="Logo">
+								<a href="/index.php/dashboard" class="menu-logo">
+									<img src="/asset_mentor/assets/img/Coat_of_Arms_of_Nairobi_Logo.png"
+										class="img-fluid"
+										alt="Nakuru County">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
 									<i class="fas fa-times"></i>

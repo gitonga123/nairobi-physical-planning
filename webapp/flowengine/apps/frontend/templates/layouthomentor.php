@@ -30,7 +30,58 @@
 
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="/asset_mentor/assets/css/style.css">
+	<style>
+		.feature-icon-circle {
+			width: 70px;
+			height: 70px;
+			margin: 0 auto 15px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			font-size: 26px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+		}
 
+		.feature-text {
+			font-weight: 600;
+			margin-bottom: 10px;
+			font-size: 18px;
+		}
+
+		.governor-quote {
+			border-left: 5px solid #0d6efd;
+			padding: 20px 25px;
+			background: #f8fbff;
+			font-style: italic;
+			font-size: 17px;
+			line-height: 1.6;
+			margin-top: 15px;
+			position: relative;
+		}
+
+		.governor-quote::before {
+			content: "“";
+			font-size: 40px;
+			color: #0d6efd;
+			position: absolute;
+			left: 15px;
+			top: -10px;
+		}
+
+		.governor-quote p {
+			margin: 0;
+			padding-left: 10px;
+		}
+
+		.governor-quote footer {
+			margin-top: 10px;
+			font-style: normal;
+			font-weight: 500;
+			color: #555;
+		}
+	</style>
 </head>
 
 <body class="body-home-one">
@@ -52,15 +103,15 @@
 							</a>
 							<a href="#" class="navbar-brand logo">
 								<img width="300px" height="200px"
-									src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
-									alt="Ki County Government">
+									src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" class="img-fluid"
+									alt="Nairobi County Government">
 							</a>
 						</div>
 						<div class="main-menu-wrapper">
 							<div class="menu-header">
 								<a href="#" class="menu-logo">
 									<img width="50px" height="50px"
-										src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
+										src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" class="img-fluid"
 										alt="Logo">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -158,149 +209,122 @@
 		<!-- /Header -->
 
 		<!-- Home Banner -->
-		<section class="section section-search home-slider-two index-three">
+		<section class="section section-search">
 			<div class="container">
-				<div class="container">
-					<div class="banner-wrapper m-auto text-center aos aos-init aos-animate" data-aos="fade-up">
-						<div class="banner-header">
-							<h1 style="margin-bottom: 30px;">Nairobi COUNTY GOVERNMENT </h1>
-							<p>Physical Planning, Housing and Urban Development</p>
-						</div>
+				<div class="banner-wrapper m-auto text-center aos" data-aos="fade-up">
+					<div class="banner-header">
+						<h1>Nairobi County Land and Physical Planning</h1>
+						<p>Apply for development approvals, and access county services online — fast, secure, and convenient..</p>
 					</div>
 				</div>
 			</div>
-
 		</section>
 		<!-- /Home Banner -->
 
 		<!-- Course Categories -->
-		<section class="most-popular course-categories-three">
+		<section class="section how-it-works">
 			<div class="container">
-				<div class="section-header h-three text-center aos " data-aos="fade-up">
-					<h2>Physical Planning and Urban Development</h2>
-					<p class="sub-title">Submit your proposals/applications to the county for the following services:
+				<div class="section-header text-center aos" data-aos="fade-up">
+					<span>How it Works</span>
+					<p class="sub-title">
+						Access Nakuru County services online in a few simple steps. Register, apply, pay, and receive your official documents seamlessly.
 					</p>
 				</div>
-				<div class="popular-categories aos pt-3" data-aos="fade-up">
-					<div class="row">
-						<div class="col-lg-3 col-md-4">
-							<a href="/plan/dashboard">
-								<div class="sub-categories bg-design align-items-center">
-									<div class="course-bg">
-										<img src="/asset_mentor/assets/img/course-bg.png" alt="">
-									</div>
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-7.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Building Permits</h4>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-4">
-							<a href="/plan/dashboard">
-								<div class="sub-categories bg-design align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-8.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Perimeter Wall</h4>
-									</div>
-								</div>
-							</a>
-						</div>
 
-						<div class="col-lg-3 col-md-4">
-							<a href="#">
-								<div class="sub-categories bg-software align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-9.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Subdivision</h4>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-4">
-							<a href="#">
-								<div class="sub-categories bg-marketing align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-10.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Lease Extension/Renewal</h4>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-4">
-							<a href="#">
-								<div class="sub-categories bg-business align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-11.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Change of User</h4>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-4">
-							<a href="#">
-								<div class="sub-categories bg-business align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-11.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Extension of User</h4>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-4">
-							<a href="#">
-								<div class="sub-categories bg-marketing align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-12.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Outdoor Advertisement</h4>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-4">
-							<a href="#">
-								<div class="sub-categories bg-design align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-13.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Amalgamation</h4>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<a href="#">
-								<div class="sub-categories bg-business align-items-center">
-									<div class="categories-img d-flex justify-content-center align-items-center">
-										<img src="/asset_mentor/assets/img/categories/cate-14.png" alt="">
-									</div>
-									<div class="categories-text text-center">
-										<h4>Renewals/Renovations/Alterations</h4>
-									</div>
-								</div>
-							</a>
+				<div class="row">
+
+					<!-- Step 1 -->
+					<div class="col-12 col-md-6 col-lg-4 mb-3 mb-3">
+						<div class="feature-box text-center aos">
+							<div class="feature-icon-circle bg-primary">
+								<i class="fas fa-user-plus"></i>
+							</div>
+							<div class="feature-text">Register an Account</div>
+							<p>Create your account on Nakuru eServices to access online applications securely.</p>
 						</div>
 					</div>
-				</div>
 
+					<!-- Step 2 -->
+					<div class="col-12 col-md-6 col-lg-4 mb-3">
+						<div class="feature-box text-center aos">
+							<div class="feature-icon-circle bg-success">
+								<i class="fas fa-tasks"></i>
+							</div>
+							<div class="feature-text">Select The Service</div>
+							<p>Choose the service you need, whether building permits, licenses, or other services.</p>
+						</div>
+					</div>
+
+					<!-- Step 3 -->
+					<div class="col-12 col-md-6 col-lg-4 mb-3">
+						<div class="feature-box text-center aos">
+							<div class="feature-icon-circle bg-warning">
+								<i class="fas fa-file-signature"></i>
+							</div>
+							<div class="feature-text">Fill & Submit</div>
+							<p>Provide required details and documents online, then submit your application.</p>
+						</div>
+					</div>
+
+					<!-- Step 4 -->
+					<div class="col-12 col-md-6 col-lg-4 mb-3 mt-4 mt-lg-0">
+						<div class="feature-box text-center aos">
+							<div class="feature-icon-circle bg-danger">
+								<i class="fas fa-credit-card"></i>
+							</div>
+							<div class="feature-text">Pay Online</div>
+							<p>Make secure payments and instantly generate your invoice and receipt.</p>
+						</div>
+					</div>
+
+					<!-- Step 5 -->
+					<div class="col-12 col-md-6 col-lg-4 mb-3 mt-4 mt-lg-0">
+						<div class="feature-box text-center aos">
+							<div class="feature-icon-circle bg-info">
+								<i class="fas fa-file-download"></i>
+							</div>
+							<div class="feature-text">Get Your Document</div>
+							<p>Download your approved permits and licenses instantly once processing is complete.</p>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</section>
 		<!-- /Course Categories -->
+
+		<section class="section statistics-section">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-12 col-md-4">
+						<div class="statistics-list text-center aos" data-aos="fade-up">
+							<span>5,000+</span>
+							<h3>Citizens Served Online</h3>
+							<p class="mb-0 text-light">Residents accessing county services digitally</p>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-4">
+						<div class="statistics-list text-center aos" data-aos="fade-up">
+							<span>12,000+</span>
+							<h3>Applications Processed</h3>
+							<p class="mb-0 text-light">Permits, payments, and approvals issued online</p>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-4">
+						<div class="statistics-list text-center aos" data-aos="fade-up">
+							<span>24/7</span>
+							<h3>Access to Services</h3>
+							<p class="mb-0 text-light">Apply and pay anytime, anywhere</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- /Statistics Section -->
 		<!-- Footer -->
 		<footer class="footer footer-three">
 
@@ -313,7 +337,7 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
-									<img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="Nairobi County">
+									<img src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" alt="Nairobi County">
 								</div>
 								<div class="footer-about-content">
 									<p class="footer-sub-text">Nairobi County - Lands, Physical Planning and Urban
@@ -321,13 +345,13 @@
 
 								</div>
 								<div class="footer-three-contact">
-									<p><span>lands@uasingishu.go.ke</span></p>
+									<p><span>lands@nairobi.go.ke</span></p>
 									<p>
-										<span tel="05320160000">05320160000</span>
+										<span tel="05320160000">0XXXX0000</span>
 										<br />
-										<span tel="05320130148">05320130148</span>
+										<span tel="05320130148">05XXXX8</span>
 										<br />
-										<span tel="+254710646464">+254710 64 64 64</span>
+										<span tel="+254710646464">+254710 60 60 00</span>
 										<br />
 									</p>
 								</div>

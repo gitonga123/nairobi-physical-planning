@@ -7,7 +7,7 @@
 	<title>Nairobi County Physical Planning - Error 500</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/Coat_of_Arms_of_Nairobi_Logo.png">
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="/asset_mentor/admin/assets/css/bootstrap.min.css">

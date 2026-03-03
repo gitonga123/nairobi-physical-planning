@@ -20,7 +20,7 @@
                                 <?php if($site_settings->getAdminImageUrl()): ?>
                                 <img src="<?php echo '/'.$site_settings->getUploadDir().'/'.$site_settings->getAdminImageUrl() ?>" alt="Logo" >
                                 <?php else: ?>
-                                <img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" alt="Logo" >
+                                <img src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" alt="Logo" >
                                 <?php endif; ?>
                                 </a>
                                 <p>

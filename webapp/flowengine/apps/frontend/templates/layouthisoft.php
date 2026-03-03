@@ -40,7 +40,7 @@
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"><i
             class="fas fa-align-left"></i></button>
         <a class="navbar-brand" href="index.html">
-          <img class="img-fluid" src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
+          <img class="img-fluid" src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png"
             alt="Nairobi County Government - Logo">
         </a>
         <div class="navbar-collapse collapse">
@@ -458,7 +458,7 @@
           <div class="p-6">
             <div class="row">
               <div class="col-lg-6">
-                <a href="index.html"><img class="img-fluid" src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
+                <a href="index.html"><img class="img-fluid" src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png"
                     alt="logo"></a>
                 <p class="mt-3 text-dark">We also know those epic stories</p>
               </div>

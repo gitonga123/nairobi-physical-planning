@@ -70,7 +70,7 @@ $site_settings = Functions::site_settings();
                             </a>
                             <a href="#" class="navbar-brand logo">
                                 <img width="300px" height="200px"
-                                    src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
+                                    src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" class="img-fluid"
                                     alt="Nairobi County Government">
                             </a>
                         </div>
@@ -78,7 +78,7 @@ $site_settings = Functions::site_settings();
                             <div class="menu-header">
                                 <a href="#" class="menu-logo">
                                     <img width="50px" height="50px"
-                                        src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg" class="img-fluid"
+                                        src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png" class="img-fluid"
                                         alt="Logo">
                                 </a>
                                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -198,7 +198,7 @@ $site_settings = Functions::site_settings();
                             <!-- Footer Widget -->
                             <div class="footer-widget footer-about">
                                 <div class="footer-logo">
-                                    <img src="/assets_frontend_amkatek/images/award-logo/ug_logo.svg"
+                                    <img src="/assets/img/Coat_of_Arms_of_Nairobi_Logo.png"
                                         alt="Nairobi County">
                                 </div>
                                 <div class="footer-about-content">

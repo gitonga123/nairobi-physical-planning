@@ -4,7 +4,7 @@ Options +FollowSymLinks +ExecCGI
   RewriteEngine On
 
   # Uncomment if needed
-  #RewriteBase /
+  RewriteBase /plan
 
   # Allow direct access to the applicationsUpdate POST endpoint
   RewriteCond %{REQUEST_METHOD} =POST

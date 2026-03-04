@@ -17,16 +17,6 @@ class loginActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    // Ignore accidental routing of static assets to login/index.
-    // This prevents redirect exceptions when error pages request broken asset URLs.
-    $pathInfo = $request->getPathInfo();
-    if (
-      preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/i', $pathInfo) ||
-      strpos($pathInfo, '/asset_mentor/') === 0 ||
-      strpos($pathInfo, '/assets/') === 0
-    ) {
-      $this->forward404();
-    }
 
     $login_manager = new LoginManager();
     $this->loginError = "";
@@ -82,7 +72,7 @@ class loginActions extends sfActions
     ]);
 
     error_log("Stream response is --->");
-    error_log(print_r())
+    error_log(print_r($stream_response, true));
 
     if ($stream_response->status !== 200) {
       throw new sfException($stream_response->content['error'], $stream_response->status);

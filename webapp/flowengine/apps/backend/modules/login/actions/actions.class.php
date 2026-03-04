@@ -59,6 +59,8 @@ class loginActions extends sfActions
 
     error_log("Verification url is ---->{$url}");
 
+    error_log("Code received ---> {$code}");
+
     $stream_response = $stream->sendRequest([
       'url' => $url,
       'method' => 'POST', // GET, POST, PUT, DELETE,

@@ -5,13 +5,15 @@
  *
  * @version   1.2.0
  */
-class Stream {
+class Stream
+{
     private $stream;    // The context that will be used to fetch info from the server
     private $params;    // The parameters that will be used to make the request
     private $multipartBoundary;  // Used when uploading files
 
-    public function __construct() {
-        $this->multipartBoundary = '--------------------------'.microtime(true);
+    public function __construct()
+    {
+        $this->multipartBoundary = '--------------------------' . microtime(true);
     }
 
     /**
@@ -22,11 +24,12 @@ class Stream {
      * @param   timeout
      * @return  stdClass
      */
-    public function ping($host, $port=80, $timeout=5) {
+    public function ping($host, $port = 80, $timeout = 5)
+    {
         $fp = @fsockopen($host, $port, $errno, $errstr, $timeout);
         $success = false;
 
-        if ( is_resource($fp) ) {
+        if (is_resource($fp)) {
             $success = true;
             fclose($fp);
         }
@@ -72,7 +75,8 @@ class Stream {
      * 
      * @return  stdClass
      */
-    public function sendRequest($params) {
+    public function sendRequest($params)
+    {
         // Initialise the session with the various parameters
         $this->initSession($params);
 
@@ -86,7 +90,8 @@ class Stream {
     /**
      * Initialise the parameters that will be used in the request
      */
-    private function initSession($params) {
+    private function initSession($params)
+    {
         $this->params = array_replace_recursive(array(
             'url'         => '',
             'method'      => 'GET',
@@ -100,22 +105,22 @@ class Stream {
         $this->params['url'] = preg_replace('/[^\w\/\.\-:]/S', '', $this->params['url']);
 
         $m = strtoupper($this->params['method']);
-        $this->params['method'] = ($m=='POST' || $m=='GET' || $m=='PUT' || $m=='DELETE') ? $m: 'GET';
+        $this->params['method'] = ($m == 'POST' || $m == 'GET' || $m == 'PUT' || $m == 'DELETE') ? $m : 'GET';
 
-        if ( !is_array($this->params['data']) ) $this->params['data'] = array();
-        if ( !is_array($this->params['headers']) ) $this->params['headers'] = array();
+        if (!is_array($this->params['data'])) $this->params['data'] = array();
+        if (!is_array($this->params['headers'])) $this->params['headers'] = array();
 
         $this->params['headers']['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36';
         $this->params['headers']['Referer'] = 'https://demo.jambopay.co.ke/dashboard/dashboard/';
         $this->params['headers']['Origin'] = 'https://demo.jambopay.co.ke/';
-
+        $this->params['headers']['Accept'] = "*";
         // Set the content type to use
-        if ( 'text' === $this->params['contentType'] )
+        if ('text' === $this->params['contentType'])
             $this->params['headers']['Content-Type'] = 'text/html; charset=UTF-8';
-        else if ( 'json' === $this->params['contentType'] )
+        else if ('json' === $this->params['contentType'])
             $this->params['headers']['Content-Type'] = 'application/json; charset=UTF-8';
-        else if ( 'multipart' === $this->params['contentType'] )
-            $this->params['headers']['Content-Type'] = 'multipart/form-data; boundary='.$this->multipartBoundary;
+        else if ('multipart' === $this->params['contentType'])
+            $this->params['headers']['Content-Type'] = 'multipart/form-data; boundary=' . $this->multipartBoundary;
         else
             $this->params['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
     }
@@ -123,17 +128,18 @@ class Stream {
     /**
      * Configure the stream session with the parameters that have been supplied
      */
-    private function createContextStream() {
+    private function createContextStream()
+    {
         $headers = array();
-        foreach ( $this->params['headers'] as $key=>$value ) $headers[] = "$key: $value";
-        if ( is_string($this->params['cookie']) && !empty($this->params['cookie']) ) 
-            $headers[] = "Cookie: ".$this->params['cookie'];
+        foreach ($this->params['headers'] as $key => $value) $headers[] = "$key: $value";
+        if (is_string($this->params['cookie']) && !empty($this->params['cookie']))
+            $headers[] = "Cookie: " . $this->params['cookie'];
 
-        if ( 'GET' === $this->params['method'] && count($this->params['data']) > 0 )
+        if ('GET' === $this->params['method'] && count($this->params['data']) > 0)
             $this->params['url'] .= "?" . http_build_query($this->params['data']);
 
         $ssl = $this->params['ssl'];
-        if ( !is_array($ssl) ) {
+        if (!is_array($ssl)) {
             $ssl = array(
                 'verify_peer'       => 'none' !== $ssl,
                 'verify_peer_name'  => 'none' !== $ssl,
@@ -143,7 +149,9 @@ class Stream {
 
         // The stream context
         $this->stream = fopen(
-            $this->params['url'], 'r', false, 
+            $this->params['url'],
+            'r',
+            false,
             stream_context_create(array(
                 'ssl'  => $ssl,
                 'http' => [
@@ -164,26 +172,25 @@ class Stream {
      * 
      * https://stackoverflow.com/a/4247082
      */
-    private function getContent() {
-        if ( count($this->params['data']) === 0 || 'GET' === $this->params['method'] ) return '';
-        else if ( 'text' === $this->params['contentType'] ) return $this->params['data'];
-        else if ( 'json' === $this->params['contentType'] ) return json_encode($this->params['data']);
-        else if ( 'multipart' !== $this->params['contentType'] ) return http_build_query($this->params['data']);
+    private function getContent()
+    {
+        if (count($this->params['data']) === 0 || 'GET' === $this->params['method']) return '';
+        else if ('text' === $this->params['contentType']) return $this->params['data'];
+        else if ('json' === $this->params['contentType']) return json_encode($this->params['data']);
+        else if ('multipart' !== $this->params['contentType']) return http_build_query($this->params['data']);
 
         $content = "";
-        foreach ( $this->params['data'] as $name=>$value ) {
+        foreach ($this->params['data'] as $name => $value) {
             $content .= "--" . $this->multipartBoundary . "\r\n";
 
-            if ( is_array($value) ) {
-                if ( 'raw' === $value['type'] ) {
-                    $content .= "Content-Disposition: form-data; name=\"$name\"\r\n\r\n".file_get_contents($value['name'])."\r\n";
+            if (is_array($value)) {
+                if ('raw' === $value['type']) {
+                    $content .= "Content-Disposition: form-data; name=\"$name\"\r\n\r\n" . file_get_contents($value['name']) . "\r\n";
+                } else {
+                    $content .= "Content-Disposition: form-data; name=\"$name\"; filename=\"" . basename($value['name']) . "\"\r\n";
+                    $content .= "Content-Type: " . $value['type'] . "\r\n\r\n" . file_get_contents($value['name']) . "\r\n";
                 }
-                else {
-                    $content .= "Content-Disposition: form-data; name=\"$name\"; filename=\"".basename($value['name'])."\"\r\n";
-                    $content .= "Content-Type: ".$value['type']."\r\n\r\n".file_get_contents($value['name'])."\r\n";
-                }
-            }
-            else {
+            } else {
                 $content .= "Content-Disposition: form-data; name=\"$name\"\r\n\r\n$value\r\n";
             }
         }
@@ -194,8 +201,9 @@ class Stream {
     /**
      * Get the response from the server
      */
-    private function parseResponse() {
-        if ( !is_resource($this->stream) ) {
+    private function parseResponse()
+    {
+        if (!is_resource($this->stream)) {
             return (object)array(
                 'meta'    => null,
                 'status'  => null,
@@ -211,31 +219,31 @@ class Stream {
         $headers = array();
         $content = null;
 
-        foreach ( $meta['wrapper_data'] as $header ) {
-            if ( false !== strpos($header, "HTTP/1.") ) {
+        foreach ($meta['wrapper_data'] as $header) {
+            if (false !== strpos($header, "HTTP/1.")) {
                 $status = (int)preg_replace(
-                    ['/(HTTP\/1\.1)/', '/(HTTP\/1\.0)/', '/[^\d]+/'], 
-                    ['', '', ''], 
+                    ['/(HTTP\/1\.1)/', '/(HTTP\/1\.0)/', '/[^\d]+/'],
+                    ['', '', ''],
                     $header
                 );
                 continue;
             }
 
             $split = strpos($header, ":");
-            if ( false === $split ) continue;
+            if (false === $split) continue;
 
             $key = trim(substr($header, 0, $split));
-            $value = trim(substr($header, $split+1));
+            $value = trim(substr($header, $split + 1));
 
-            if ( 'Set-Cookie' === $key ) $cookie[] = $value;
+            if ('Set-Cookie' === $key) $cookie[] = $value;
             else $headers[$key] = $value;
         }
 
         $cookie = implode('  ', $cookie);
-        if ( 302 !== $status ) {
+        if (302 !== $status) {
             $content = stream_get_contents($this->stream);
             $json = json_decode($content, true);
-            if ( null !== $json ) $content = $json;
+            if (null !== $json) $content = $json;
         }
 
         unset($meta['wrapper_data']);

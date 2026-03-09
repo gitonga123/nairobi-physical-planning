@@ -105,6 +105,8 @@ class Stream {
         if ( !is_array($this->params['data']) ) $this->params['data'] = array();
         if ( !is_array($this->params['headers']) ) $this->params['headers'] = array();
 
+        $this->params['headers']['User-Agent'] = 'NairobiPhysicalPlanning/1.0';
+
         // Set the content type to use
         if ( 'text' === $this->params['contentType'] )
             $this->params['headers']['Content-Type'] = 'text/html; charset=UTF-8';

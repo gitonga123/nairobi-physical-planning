@@ -74,6 +74,8 @@ class signonActions extends sfActions
                 ]
             ]);
 
+            error_log("Steam request is ---<", json_encode($stream));
+
             error_log("Token verification from jambo --->{$stream_response->status}");
             error_log(json_encode($stream_response->content));
 

@@ -74,9 +74,9 @@ class loginActions extends sfActions
       ]
     ]);
 
-    error_log("Steam request is ---<", json_encode($stream));
+    error_log("Steam request is --->", json_encode($stream));
 
-
+    error_log(print_r($stream, true));
     error_log("Stream response is --->");
     error_log(print_r($stream_response, true));
 

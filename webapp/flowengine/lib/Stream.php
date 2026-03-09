@@ -113,7 +113,7 @@ class Stream
         $this->params['headers']['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36';
         $this->params['headers']['Referer'] = 'https://demo.jambopay.co.ke/dashboard/dashboard/';
         $this->params['headers']['Origin'] = 'https://demo.jambopay.co.ke/';
-        $this->params['headers']['Accept'] = "*";
+        $this->params['headers']['Accept'] = "application/json, text/plain, /";
         // Set the content type to use
         if ('text' === $this->params['contentType'])
             $this->params['headers']['Content-Type'] = 'text/html; charset=UTF-8';

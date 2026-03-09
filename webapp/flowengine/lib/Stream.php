@@ -105,7 +105,9 @@ class Stream {
         if ( !is_array($this->params['data']) ) $this->params['data'] = array();
         if ( !is_array($this->params['headers']) ) $this->params['headers'] = array();
 
-        $this->params['headers']['User-Agent'] = 'NairobiPhysicalPlanning/1.0';
+        $this->params['headers']['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36';
+        $this->params['headers']['Referer'] = 'https://demo.jambopay.co.ke/dashboard/dashboard/';
+        $this->params['headers']['Origin'] = 'https://demo.jambopay.co.ke/';
 
         // Set the content type to use
         if ( 'text' === $this->params['contentType'] )

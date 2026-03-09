@@ -87,56 +87,56 @@ $site_settings = Functions::site_settings();
                             </div>
                             <ul class="main-nav">
                                 <li class="active has-submenu">
-                                    <a href="/plan/dashboard">Getting Started</a>
+                                    <a href="/index.php/dashboard">Getting Started</a>
                                 </li>
                                 <li class="has-submenu">
                                     <a href="">Development<i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
                                         <li class="has-submenu">
-                                            <a href="/plan/dashboard">Construction Permit</a>
+                                            <a href="/index.php/dashboard">Construction Permit</a>
                                             <ul class="submenu">
-                                                <li><a href="/plan/dashboard">Requirements</a></li>
-                                                <li><a href="/plan/dashboard">Apply</a></li>
-                                                <li><a href="add-/plan/dashboard">Report an Issue</a></li>
-                                                <li><a href="edit-/plan/dashboard">Learn</a></li>
+                                                <li><a href="/index.php/dashboard">Requirements</a></li>
+                                                <li><a href="/index.php/dashboard">Apply</a></li>
+                                                <li><a href="/index.php/dashboard">Report an Issue</a></li>
+                                                <li><a href="edit-/index.php/dashboard">Learn</a></li>
                                             </ul>
                                         </li>
                                         <li class="has-submenu">
-                                            <a href="/plan/dashboard">Land rates Clearance</a>
+                                            <a href="/index.php/dashboard">Land rates Clearance</a>
                                             <ul class="submenu">
-                                                <li><a href="/plan/dashboard">Requirements</a></li>
-                                                <li><a href="/plan/dashboard">Apply</a></li>
-                                                <li><a href="add-/plan/dashboard">Report an Issue</a></li>
-                                                <li><a href="edit-/plan/dashboard">Learn</a></li>
+                                                <li><a href="/index.php/dashboard">Requirements</a></li>
+                                                <li><a href="/index.php/dashboard">Apply</a></li>
+                                                <li><a href="/index.php/dashboard">Report an Issue</a></li>
+                                                <li><a href="edit-/index.php/dashboard">Learn</a></li>
                                             </ul>
                                         </li>
                                         <li class="has-submenu">
-                                            <a href="/plan/dashboard">Change of User</a>
+                                            <a href="/index.php/dashboard">Change of User</a>
                                             <ul class="submenu">
-                                                <li><a href="/plan/dashboard">Requirements</a></li>
-                                                <li><a href="/plan/dashboard">Apply</a></li>
-                                                <li><a href="add-/plan/dashboard">Report an Issue</a></li>
-                                                <li><a href="edit-/plan/dashboard">Learn</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="has-submenu">
-                                            <a href="/plan/dashboard">Subdivision</a>
-                                            <ul class="submenu">
-                                                <li><a href="/plan/dashboard">Requirements</a></li>
-                                                <li><a href="/plan/dashboard">Apply</a></li>
-                                                <li><a href="add-/plan/dashboard">Report an Issue</a></li>
-                                                <li><a href="edit-/plan/dashboard">Learn</a></li>
+                                                <li><a href="/index.php/dashboard">Requirements</a></li>
+                                                <li><a href="/index.php/dashboard">Apply</a></li>
+                                                <li><a href="/index.php/dashboard">Report an Issue</a></li>
+                                                <li><a href="edit-/index.php/dashboard">Learn</a></li>
                                             </ul>
                                         </li>
 
                                         <li class="has-submenu">
-                                            <a href="/plan/dashboard">Amalgamation</a>
+                                            <a href="/index.php/dashboard">Subdivision</a>
                                             <ul class="submenu">
-                                                <li><a href="/plan/dashboard">Requirements</a></li>
-                                                <li><a href="/plan/dashboard">Apply</a></li>
-                                                <li><a href="add-/plan/dashboard">Report an Issue</a></li>
-                                                <li><a href="edit-/plan/dashboard">Learn</a></li>
+                                                <li><a href="/index.php/dashboard">Requirements</a></li>
+                                                <li><a href="/index.php/dashboard">Apply</a></li>
+                                                <li><a href="/index.php/dashboard">Report an Issue</a></li>
+                                                <li><a href="edit-/index.php/dashboard">Learn</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="has-submenu">
+                                            <a href="/index.php/dashboard">Amalgamation</a>
+                                            <ul class="submenu">
+                                                <li><a href="/index.php/dashboard">Requirements</a></li>
+                                                <li><a href="/index.php/dashboard">Apply</a></li>
+                                                <li><a href="/index.php/dashboard">Report an Issue</a></li>
+                                                <li><a href="edit-/index.php/dashboard">Learn</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -147,8 +147,8 @@ $site_settings = Functions::site_settings();
                                         <li class="has-submenu">
                                             <a href="#">Outdoor Advertising</a>
                                             <ul class="submenu">
-                                                <li><a href="/plan/dashboard">Apply</a></li>
-                                                <li><a href="/plan/dashboard">Learn</a></li>
+                                                <li><a href="/index.php/dashboard">Apply</a></li>
+                                                <li><a href="/index.php/dashboard">Learn</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -157,23 +157,23 @@ $site_settings = Functions::site_settings();
                                 <li class="has-submenu">
                                     <a href="">Help<i class="fas fa-chevron-down"></i></a>
                                     <ul class="submenu">
-                                        <li><a href="/plan/dashboard">About</a></li>
-                                        <li><a href="/plan/help/contact">Contact Support</a></li>
-                                        <li><a href="/plan/help/contact">Report an Issue</a></li>
+                                        <li><a href="/index.php/dashboard">About</a></li>
+                                        <li><a href="/index.php/help/contact">Contact Support</a></li>
+                                        <li><a href="/index.php/help/contact">Report an Issue</a></li>
                                     </ul>
                                 </li>
 
                                 <li class="login-link">
-                                    <a href="/plan/login">Login / Signup</a>
+                                    <a href="/index.php/login">Login / Signup</a>
                                 </li>
                             </ul>
                         </div>
                         <ul class="nav header-navbar-rht">
                             <li class="nav-item">
-                                <a class="nav-link header-login-two" href="/plan/login">Login</a>
+                                <a class="nav-link header-login-two" href="/index.php/login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link header-login" href="/plan/apply">Sign up</a>
+                                <a class="nav-link header-login" href="/index.php/apply">Sign up</a>
                             </li>
                         </ul>
                     </div>
@@ -228,8 +228,8 @@ $site_settings = Functions::site_settings();
                             <div class="footer-widget footer-menu">
                                 <h2 class="footer-title">For Developers</h2>
                                 <ul>
-                                    <li><a href="/plan/login">Construction Permits</a></li>
-                                    <li><a href="/plan/login">Planning</a></li>
+                                    <li><a href="/index.php/login">Construction Permits</a></li>
+                                    <li><a href="/index.php/login">Planning</a></li>
                                 </ul>
                             </div>
                             <!-- /Footer Widget -->
@@ -241,7 +241,7 @@ $site_settings = Functions::site_settings();
                             <div class="footer-widget footer-menu">
                                 <h2 class="footer-title">For Businesses</h2>
                                 <ul>
-                                    <li><a href="/plan/login">Outdoor Advertising</a></li>
+                                    <li><a href="/index.php/login">Outdoor Advertising</a></li>
                                 </ul>
                             </div>
                             <!-- /Footer Widget -->

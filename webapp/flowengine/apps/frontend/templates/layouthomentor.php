@@ -131,7 +131,7 @@
 											<ul class="submenu">
 												<li><a href="/plan/dashboard">Requirements</a></li>
 												<li><a href="/plan/dashboard">Apply</a></li>
-												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
 												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
@@ -140,7 +140,7 @@
 											<ul class="submenu">
 												<li><a href="/plan/dashboard">Requirements</a></li>
 												<li><a href="/plan/dashboard">Apply</a></li>
-												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
 												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
@@ -150,7 +150,7 @@
 											<ul class="submenu">
 												<li><a href="/plan/dashboard">Requirements</a></li>
 												<li><a href="/plan/dashboard">Apply</a></li>
-												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
 												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
@@ -160,7 +160,7 @@
 											<ul class="submenu">
 												<li><a href="/plan/dashboard">Requirements</a></li>
 												<li><a href="/plan/dashboard">Apply</a></li>
-												<li><a href="add-/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
 												<li><a href="edit-/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>

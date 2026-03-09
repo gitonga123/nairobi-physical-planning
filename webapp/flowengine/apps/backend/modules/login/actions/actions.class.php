@@ -68,8 +68,14 @@ class loginActions extends sfActions
       'contentType' => 'json',
       'data' => [
         'code' => $code
+      ],
+      'headers' => [
+        'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'
       ]
     ]);
+
+    error_log("Steam request is ---<", json_encode($stream));
+
 
     error_log("Stream response is --->");
     error_log(print_r($stream_response, true));
@@ -176,7 +182,6 @@ class loginActions extends sfActions
         $department = $otb_helper->findDepartmentByName('physical planning');
 
         $user_account_details['department'] = $department;
-
       }
     }
 
@@ -235,8 +240,6 @@ class loginActions extends sfActions
 
     //$this->setLayout("layout-admin-mentor");
     $this->setLayout("layout-admin-mentor");
-
-
   }
 
   private function loginAdmin($username, $password)

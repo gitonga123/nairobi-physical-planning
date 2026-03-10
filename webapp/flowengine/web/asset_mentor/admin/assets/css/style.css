@@ -1021,8 +1021,8 @@ button.bg-danger:hover {
 .btn-success.active,
 .btn-success:active,
 .open > .dropdown-toggle.btn-success {
-	background-color: #28b77e;
-	border: 1px solid #28b77e;
+	background-color: #068930;
+	border: 1px solid #068930;
 	color: #fff;
 }
 .btn-success.active.focus,
@@ -1034,14 +1034,14 @@ button.bg-danger:hover {
 .open > .dropdown-toggle.btn-success.focus,
 .open > .dropdown-toggle.btn-success:focus,
 .open > .dropdown-toggle.btn-success:hover {
-	background-color: #28b77e;
-	border: 1px solid #28b77e
+	background-color: #068930;
+	border: 1px solid #068930
 }
 .btn-success.active:not(:disabled):not(.disabled),
 .btn-success:active:not(:disabled):not(.disabled),
 .show > .btn-success.dropdown-toggle {
-	background-color: #28b77e;
-	border-color: #28b77e;
+	background-color: #068930;
+	border-color: #068930;
 	color: #fff;
 }
 .btn-success.active:focus:not(:disabled):not(.disabled), 

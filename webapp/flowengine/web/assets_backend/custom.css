@@ -19,10 +19,14 @@
 }
 
 .logopanel .img {
-    margin-left: 5px;
+    /* margin-left: 5px;
     width: 200px;
     height: 28px;
-    object-fit: cover;
+    object-fit: cover; */
+    margin-left: 5px;
+    height: 28px;
+    width: auto;
+    max-width: 100%;
 }
 
 .searchform input.form-control {

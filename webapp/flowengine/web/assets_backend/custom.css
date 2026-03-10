@@ -5,7 +5,7 @@
     -webkit-box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
     box-shadow: -7px 1px 8px rgba(0, 0, 0, .3);
     color: #fff;
-    background: #006838 !important;
+    background: #068930 !important;
 }
 
 .logopanel {
@@ -19,14 +19,10 @@
 }
 
 .logopanel .img {
-    /* margin-left: 5px;
+    margin-left: 5px;
     width: 200px;
     height: 28px;
-    object-fit: cover; */
-    margin-left: 5px;
-    height: 28px;
-    width: auto;
-    max-width: 100%;
+    object-fit: cover;
 }
 
 .searchform input.form-control {
@@ -38,7 +34,7 @@
     -moz-border-radius: 3px;
     border-radius: 3px;
     box-shadow: none;
-    background: #006838;
+    background: #068930;
     color: #fff;
     padding: 7px 67px;
     font-size: 16px;
@@ -58,7 +54,7 @@
 .nav-bracket>li.active>a:hover,
 .nav-bracket>li.active>a:focus {
     background: transparent;
-    color: #006838;
+    color: #068930;
     box-shadow: none;
 }
 

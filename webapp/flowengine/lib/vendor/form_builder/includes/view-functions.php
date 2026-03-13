@@ -9471,7 +9471,7 @@ EOT;
 							$form_markup = $pesaflow->checkout_cart($application->getId(), false);
 						}
 					} else {
-						$form_markup = "<h1>Sorry! We experience an error. Please go back to <a href='/index.php'>dashboard</a> and select your invoice and try again.</h1>";
+						$form_markup = "<h1>Sorry! We experience an error. Please go back to <a href='/plan'>dashboard</a> and select your invoice and try again.</h1>";
 						error_log("Error-Payment-Fatal: Could not find application for: " . $form_id . "/" . $record_id);
 					}
 				}

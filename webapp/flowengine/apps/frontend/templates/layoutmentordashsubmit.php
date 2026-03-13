@@ -264,11 +264,10 @@ $site_settings = Functions::site_settings();
 										Official Contacts
 									</p>
 
-									<div class="footer-address">
-										<p tel="05320160000">050000000</p>
-										<p tel="05320130148">010000000</p>
-										<p tel="+254710646464">+254710 604 604 604</p>
-										<br />
+									<div class="ms-5">
+										<a tel="05320160000" href="tel:05320160000" class="mb-0">050000000</a>
+										<a tel="05320130148" href="tel:05320130148" class="mb-0">010000000</a>
+										<a tel="+254710646464" href="tel:+254710646464" class="mb-0">+254710 604 604 604</a>
 									</div>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>

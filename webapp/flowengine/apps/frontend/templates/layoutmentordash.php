@@ -327,21 +327,20 @@ $site_settings = Functions::site_settings();
 							<div class="footer-widget footer-contact">
 								<h2 class="footer-title">Contact Us</h2>
 								<div class="footer-contact-info">
-									<div class="footer-address">
+									<p class="mb-1">
 										<span><i class="fas fa-map-marker-alt"></i></span>
-										<p>
-											Official Contacts
-										</p>
-										<p>
+										Official Contacts
+									</p>
 
-											<span tel="05320160000">050000000</span>
-											<br />
-											<span tel="05320130148">010000000</span>
-											<br />
-											<span tel="+254710646464">+254710 604 604 604</span>
-											<br />
-										</p>
-									</div>
+									<p class="footer-address">
+
+										<span tel="05320160000">050000000</span>
+										<br />
+										<span tel="05320130148">010000000</span>
+										<br />
+										<span tel="+254710646464">+254710 604 604 604</span>
+										<br />
+									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
 										Email: lands@nairobicc.go.ke

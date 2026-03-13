@@ -1,4 +1,104 @@
 <?php
+
+function renderInvoiceLabel(string $label, array $options = []): string
+{
+	$muted = $options['muted'] ?? false;
+	$class = $muted ? 'text-muted' : '';
+
+	return "<li class='list-group-item {$class}'>{$label}</li>\n";
+}
+
+function renderInvoiceRow(
+	string $label,
+	float $amount,
+	string $currency_symbol,
+	array $options = []
+): string {
+	$isDiscount = $options['discount'] ?? false;
+	$isMuted = $options['muted'] ?? false;
+
+	$line = $options['line'] ?? 16;
+
+	// Styling
+	$amountClass = 'fw-bold text-end';
+	if ($isDiscount) {
+		$amountClass .= ' text-danger';
+	}
+
+	$labelClass = $isMuted ? 'text-muted' : '';
+
+	// Format amount
+	$formattedAmount = $currency_symbol . number_format(abs($amount), 2);
+
+	if ($isDiscount) {
+		$formattedAmount = "-{$formattedAmount}";
+	}
+	$additional_classes = $options['additional_classes'];
+
+	return "<li class='list-group-item d-flex justify-content-between align-items-start'>
+        <div class='flex-grow-1 me-3 {$labelClass} {$additional_classes}'>{$label}</div>
+        <div class='flex-shrink-0 {$amountClass} {$additional_classes}'>{$formattedAmount}</div>
+    </li>\n";
+}
+
+function renderStepper(array $steps, int $activeStep): string
+{
+
+	$html = '<ul><li id="pagination_header" class="li_pagination ms-2 me-2"><ul class="form-stepper">';
+
+	$totalSteps = count($steps);
+
+	foreach ($steps as $index => $title) {
+
+		$stepNumber = $index + 1;
+		$class = '';
+
+		if ($stepNumber < $activeStep) {
+			$class = 'completed';
+		} elseif ($stepNumber === $activeStep) {
+			$class = 'active';
+		}
+
+		$html .= '
+            <li class="form-step mt-3 mb-3 ' . $class . '">
+                <div class="step-circle">' . $stepNumber . '</div>
+                <div class="step-label">' . htmlspecialchars($title) . '</div>
+            </li>
+        ';
+	}
+
+	$html .= '</li></ul></ul>';
+
+	return $html;
+}
+
+function getPaymentCheckoutForm(string $merchantType, array $invoice): string
+{
+	switch ($merchantType) {
+		case 'cash':
+		case 'check':
+			$gateway = new CashGateway();
+			$form_markup = $gateway->checkout($invoice, []);
+			break;
+
+		case 'zizi':
+			$gateway = new ZiziGateway();
+			$form_markup = $gateway->checkout($invoice);
+			break;
+
+		case 'malipo':
+			error_log("------ Debug Malipo Payment Gateway ------");
+			$gateway = new MalipoGateway();
+			$gateway->checkout_malipo_payment_links($invoice);
+			break;
+
+		default:
+			throw new InvalidArgumentException("Unknown payment method: {$merchantType}");
+	}
+
+	return $form_markup;
+}
+
 //Single Line Text
 function mf_display_text($element)
 {
@@ -47,7 +147,7 @@ function mf_display_text($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for constraint
@@ -336,7 +436,7 @@ function mf_display_textarea($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//parse default value for some pre-defined variables
@@ -497,7 +597,7 @@ function mf_display_signature($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for populated value, if exist, use it instead default_value
@@ -616,7 +716,7 @@ function mf_display_file($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 	//check for populated value
 	if (!empty($element->populated_value['element_' . $element->id]['default_value'])) {
@@ -764,7 +864,7 @@ EOT;
 	$(function(){
 		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){
 		 	$('#element_{$element->id}').uploadifive({
-		 		'uploadScript'     : '/plan/forms/upload',
+		 		'uploadScript'     : '/index.php/forms/upload',
 		 		'buttonText'	   : '{$mf_lang['file_select']}',
 		 		'removeCompleted' : false,
 				'dnd' : true,
@@ -839,7 +939,7 @@ EOT;
 		 }else if($.browser.flash == true){
 		      $('#element_{$element->id}').uploadify({
 		        'uploader'   	  : '/form_builder/js/uploadify/uploadify.swf',
-		        'script'     	  : '/plan/forms/upload',
+		        'script'     	  : '/index.php/forms/upload',
 		        'cancelImg'  	  : '/form_builder/images/icons/stop.png',
 		        'removeCompleted' : false,
 		        'displayData' 	  : 'percentage',
@@ -999,7 +1099,7 @@ function mf_display_url($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for placeholder
@@ -1093,7 +1193,7 @@ function mf_display_email($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for placeholder
@@ -1183,7 +1283,7 @@ function mf_display_phone($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check default value
@@ -1294,7 +1394,7 @@ function mf_display_simple_phone($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for GET parameter to populate default value
@@ -1375,7 +1475,7 @@ function mf_display_date($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for default value
@@ -1646,7 +1746,7 @@ function mf_display_europe_date($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for GET parameter to populate default value
@@ -1932,7 +2032,7 @@ function mf_display_radio($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	$option_markup = '';
@@ -2113,7 +2213,7 @@ function mf_display_checkbox($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for populated value first, if any exist, unselect all default value
@@ -2245,7 +2345,7 @@ function mf_display_select($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	$option_markup = '';
@@ -2461,7 +2561,7 @@ function mf_display_simple_name($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for GET parameter to populate default value
@@ -2553,7 +2653,7 @@ function mf_display_simple_name_wmiddle($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for GET parameter to populate default value
@@ -2655,7 +2755,7 @@ function mf_display_name($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for GET parameter to populate default value
@@ -2767,7 +2867,7 @@ function mf_display_name_wmiddle($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for GET parameter to populate default value
@@ -2890,7 +2990,7 @@ function mf_display_time($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for default value
@@ -3082,7 +3182,7 @@ function mf_display_money($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//build the li class
@@ -3270,7 +3370,7 @@ function mf_display_section($element)
 	$li_style = '';
 	$el_class = array();
 
-	$el_class[] = "section_break";
+	$el_class[] = "section_break mb-3";
 
 	if ($element->is_private == 1) {
 		$el_class[] = 'private';
@@ -3412,7 +3512,7 @@ function mf_display_number($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	//check for placeholder
@@ -4157,7 +4257,7 @@ function mf_display_address($element)
 
 	//check for guidelines
 	if (!empty($element->guidelines)) {
-		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+		$guidelines = "<small id=\"guide_{$element->id}\" class=\"form-text text-muted\">{$element->guidelines}</small>";
 	}
 
 	if (!empty($element->default_value)) {
@@ -6156,9 +6256,8 @@ EOT;
 		$signature_pad_init = '';
 	}
 
-	// Nairobi logic, it might be hard coded a bit
-
 	$logic_js = mf_get_logic_javascript_block_plot_verification($dbh, $form_id, $page_number);
+
 
 	//generate conditional logic code, if enabled and not on edit entry page
 	if (!empty($form->logic_field_enable) && empty($edit_id)) {
@@ -6231,50 +6330,28 @@ EOT;
 			$page_titles_markup = '';
 
 			$i = 1;
+
+			$steps = [];
+
+			// normal pages
 			foreach ($page_title_array as $page_title) {
-				if ($i == $page_number) {
-					$ap_tp_num_active = ' ap_tp_num_active';
-					$ap_tp_text_active = ' ap_tp_text_active';
-				} else {
-					$ap_tp_num_active = '';
-					$ap_tp_text_active = '';
-				}
-
-				$page_titles_markup .= '<td align="center"><span id="page_num_' . $i . '" class="ap_tp_num' . $ap_tp_num_active . '">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text' . $ap_tp_text_active . '">' . $page_title . '</span></td><td align="center" class="ap_tp_arrow">&gt;</td>' . "\n";
-				$i++;
+				$steps[] = $page_title;
 			}
 
-			//add the last page title into the pagination header markup
-			if ($i == $page_number) {
-				$ap_tp_num_active = ' ap_tp_num_active';
-				$ap_tp_text_active = ' ap_tp_text_active';
-			} else {
-				$ap_tp_num_active = '';
-				$ap_tp_text_active = '';
-			}
-			$page_titles_markup .= '<td align="center"><span id="page_num_' . $i . '" class="ap_tp_num' . $ap_tp_num_active . '">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text' . $ap_tp_text_active . '">' . $form->lastpage_title . '</span></td>';
+			// last page
+			$steps[] = $form->lastpage_title;
 
-			//if form review enabled, we need to add the pagination header
+			// review page (optional)
 			if (!empty($form->review)) {
-				$i++;
-				$page_titles_markup .= '<td align="center" class="ap_tp_arrow">&gt;</td><td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $form->review_title . '</span></td>';
+				$steps[] = $form->review_title;
 			}
 
-			//if payment enabled, we need to add the pagination header
+			// payment page (optional)
 			if ($form->payment_enable_merchant && $form->payment_onsubmission) {
-				$i++;
-				$page_titles_markup .= '<td align="center" class="ap_tp_arrow">&gt;</td><td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $mf_lang['form_payment_header_title'] . '</span></td>';
+				$steps[] = $mf_lang['form_payment_header_title'];
 			}
 
-			$pagination_header = <<<EOT
-			<li id="pagination_header" class="li_pagination">
-			 <table class="ap_table_pagination" width="100%" border="0" cellspacing="0" cellpadding="0">
-			  <tr>
-			  	{$page_titles_markup}
-			  </tr>
-			</table>
-			</li>
-EOT;
+			$pagination_header = renderStepper($steps, $page_number);
 		} else if ($form->pagination_type == 'percentage') {
 
 			$percent_value = round(($page_number / $page_total) * 100);
@@ -6329,7 +6406,7 @@ EOT;
 			if (empty($page_breaks_data[$page_number]['use_image'])) { //if using text buttons as submit
 
 				if ($page_number > 1) {
-					$button_secondary_markup = '<input class="btn btn-warning" type="submit" id="submit_secondary" name="submit_secondary" value="' . $page_breaks_data[$page_number]['secondary_text'] . '" />';
+					$button_secondary_markup = '<input class="btn btn-secondary" type="submit" id="submit_secondary" name="submit_secondary" value="' . $page_breaks_data[$page_number]['secondary_text'] . '" />';
 					if (!empty($form->resume_enable)) {
 						$button_secondary_markup .= ' <input class="btn btn-warning" type="submit" onClick="document.getElementById(\'save_as_draft\').value = 1;" value="' . $mf_lang['resume_checkbox_title'] . '" /> <input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
 					}
@@ -6348,9 +6425,9 @@ EOT;
 			} else { //if using images as submit
 
 				if ($page_number > 1) {
-					$button_secondary_markup = '<input class="btn btn-warning submit_img_secondary" type="image" alt="Previous" id="submit_secondary" name="submit_secondary" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" />';
+					$button_secondary_markup = '<input class="btn btn-secondary submit_img_secondary" type="image" alt="Previous" id="submit_secondary" name="submit_secondary" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" />';
 					if (!empty($form->resume_enable)) {
-						$button_secondary_markup .= ' <input class="btn btn-warning submit_img_secondary" type="image" alt="Draft" onClick="document.getElementById(\'save_as_draft\').value = 1;" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" /><input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
+						$button_secondary_markup .= ' <input class="btn btn-secondary submit_img_secondary" type="image" alt="Draft" onClick="document.getElementById(\'save_as_draft\').value = 1;" src="' . $page_breaks_data[$page_number]['secondary_img'] . '" /><input type="hidden" name="save_as_draft" id="save_as_draft" value="0">';
 					}
 				}
 
@@ -6409,39 +6486,39 @@ EOT;
 	}
 
 	//if the form has resume enabled and this is multi page form (single page form doesn't have resume option)
-	/*if(!empty($form->resume_enable) && $form->page_total > 1 && $show_password_form === false && empty($inactive_message)){
+	if(!empty($form->resume_enable) && $form->page_total > 1 && $show_password_form === false && empty($inactive_message)){
 
-						  if(!empty($error_elements['element_resume_email'])){
-							  $li_resume_email_style = '';
-							  $li_resume_error_message = "<p class=\"error\">{$error_elements['element_resume_email']}</p>";
-							  $li_resume_class = 'class="error"';
-							  $li_resume_checked = 'checked="checked"';
-							  $li_resume_button_status = 1;
-						  }else{
-							  $li_resume_email_style = 'style="display: none"';
-							  $li_resume_error_message = '';
-							  $li_resume_class = '';
-							  $li_resume_checked = '';
-							  $li_resume_button_status = 0;
-						  }
+		if(!empty($error_elements['element_resume_email'])){
+			$li_resume_email_style = '';
+			$li_resume_error_message = "<p class=\"error\">{$error_elements['element_resume_email']}</p>";
+			$li_resume_class = 'class="error"';
+			$li_resume_checked = 'checked="checked"';
+			$li_resume_button_status = 1;
+		}else{
+			$li_resume_email_style = 'style="display: none"';
+			$li_resume_error_message = '';
+			$li_resume_class = '';
+			$li_resume_checked = '';
+			$li_resume_button_status = 0;
+		}
 
-						  $form_resume_markup = <<<EOT
-						  <li id="li_resume_checkbox">
-						  <div>
-							  <span><input type="checkbox" value="1" class="element form-control checkbox" name="element_resume_checkbox" id="element_resume_checkbox" {$li_resume_checked}>
-								  <label for="element_resume_checkbox" class="choice">{$mf_lang['resume_checkbox_title']}</label>
-							  </span>
-						  </div>
-						  </li>
-						  <li id="li_resume_email" {$li_resume_class} {$li_resume_email_style} data-resumebutton="{$li_resume_button_status}" data-resumelabel="{$mf_lang['resume_submit_button_text btn-form']}">
-							  <label for="element_resume_email" class="description">{$mf_lang['resume_email_input_label']} <span class="required">*</span></label>
-							  <div>
-								  <input type="text" value="{$populated_values['element_resume_email']}" class="element form-control text medium" name="element_resume_email" id="element_resume_email">
-							  </div><p id="guide_resume_email" class="guidelines"><small>{$mf_lang['resume_guideline']}</small></p> {$li_resume_error_message}
-						  </li>
-			  EOT;
+		$form_resume_markup = <<<EOT
+<li id="li_resume_checkbox">
+<div>
+	<span><input type="checkbox" value="1" class="element form-control checkbox" name="element_resume_checkbox" id="element_resume_checkbox" {$li_resume_checked}>
+		<label for="element_resume_checkbox" class="choice">{$mf_lang['resume_checkbox_title']}</label>
+	</span>
+</div>
+</li>
+<li id="li_resume_email" {$li_resume_class} {$li_resume_email_style} data-resumebutton="{$li_resume_button_status}" data-resumelabel="{$mf_lang['resume_submit_button_text btn-form']}">
+	<label for="element_resume_email" class="description">{$mf_lang['resume_email_input_label']} <span class="required">*</span></label>
+	<div>
+		<input type="text" value="{$populated_values['element_resume_email']}" class="element form-control text medium" name="element_resume_email" id="element_resume_email">
+	</div><p id="guide_resume_email" class="guidelines"><small>{$mf_lang['resume_guideline']}</small></p> {$li_resume_error_message}
+</li>
+EOT;
 
-					  }*/
+	}
 
 	//if the form has enabled merchant support and set the total payment to be displayed
 	if ($form->payment_enable_merchant && $form->payment_onsubmission && !empty($form->payment_show_total)) {
@@ -6661,28 +6738,26 @@ html{
 {$signature_pad_init}
 {$logic_js}
 {$custom_script_js}
-<div id="main_body" class="{$container_class}">
-
-	<div id="form_container">
-
-		<form id="form_{$form->id}" class="appnitro 1 {$form->label_alignment}" {$form_enc_type} method="post" data-highlightcolor="{$field_highlight_color}" action="#main_body">
+<div id="main_bodys" class="{$container_class}">
+	<form id="form_{$form->id}" class="appnitro 1 {$form->label_alignment}" {$form_enc_type} method="post" data-highlightcolor="{$field_highlight_color}" action="#main_body">
+		<div id="card">
 			{$form_desc_div}
 			<div class="card-body">
-			{$pagination_header}
-			{$payment_total_markup_top}
-			{$form->error_message}
-			{$all_element_markup}
-			{$custom_element}
-			{$payment_total_markup_bottom}
+				
+				{$pagination_header}
+				{$payment_total_markup_top}
+				{$form->error_message}
+				{$all_element_markup}
+				{$custom_element}
+				{$payment_total_markup_bottom}
 			</div>
 			<div class="card-footer">
 			{$form_resume_markup}
 
 			{$button_markup}
 			</div>
-		</form>
-
-	</div>
+		</div>
+	</form>
 </div>
 
 EOT;
@@ -6765,7 +6840,7 @@ EOT;
                 document.getElementById("li_" + link_id + "_filter").innerHTML = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "/plan/forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
+        xhttp.open("GET", "/index.php/forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
         xhttp.send();
     }
 	</script>
@@ -7108,7 +7183,7 @@ function mf_display_raw_form($dbh, $form_id)
 	if (!empty($form->name) || !empty($form->description)) {
 		$form->description = nl2br($form->description);
 		$form_desc_div = <<<EOT
-		<div id="form_header" class="card-heading">
+		<div id="form_header" class="card-header">
 			<h2 id="form_header_title" class="card-title">{$form->name}</h2>
 			<p id="form_header_desc">{$form->description}</p>
 		</div>
@@ -7231,22 +7306,20 @@ EOT;
 
 	$form_markup = <<<EOT
 
-			<div id="main_body" class="{$container_class}">
-				<div id="form_container">
-					<h1><a>{$form->name}</a></h1>
-					<form id="form_builder_preview" class="form-bordered form-horizontal appnitro {$form->label_alignment}" method="post" action="#main_body">
-					<div class="card card-default">
-						{$form_desc_div}
-						<div class="card-body padding-0">
-						<ul {$ul_class} id="form_builder_sortable" title="Click field to edit. Drag to reorder.">
-						{$pagination_header}
-						{$all_element_markup}
-						{$pagination_footer}
-						</ul>
-						</div>
-
+			<div class="{$container_class} card">
+				<div id="card-body">
+					<div class="card-header">
+						<h2 class="card-title">{$form->name}</h2>
+						<p class="subheading">{$form_desc_div}</p>
 					</div>
-					</form>
+					<div class="card-body">
+						
+						<form id="form_builder_preview" class="form-bordered form-horizontal appnitro {$form->label_alignment}" method="post" action="#main_body">
+							<div class="card-header">{$pagination_header}</div>
+							{$all_element_markup}
+							{$pagination_footer}
+						</form>
+					</body>
 				</div>
 			</div>
 
@@ -7533,7 +7606,7 @@ html{
 					{$success_markup}
 				</div>
 
-				<a href="/plan/dashboard" class="btn btn-dark px-4">
+				<a href="/index.php/dashboard" class="btn btn-dark px-4">
 					Dashboard
 				</a>
 			</div>
@@ -7594,7 +7667,7 @@ EOT;
 					{$success_markup}
 				</div>
 
-				<a href="/plan/dashboard" class="btn btn-dark px-4">
+				<a href="/index.php/dashboard" class="btn btn-dark px-4">
 					Dashboard
 				</a>
 			</div>
@@ -7872,37 +7945,28 @@ EOT;
 
 		if ($form_pagination_type == 'steps') {
 
-			$page_titles_markup = '';
+			$steps = [];
 
-			$i = 1;
+			// normal pages
 			foreach ($page_title_array as $page_title) {
-				$page_titles_markup .= '<td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $page_title . '</span></td><td align="center" class="ap_tp_arrow">&gt;</td>' . "\n";
-				$i++;
+				$steps[] = $page_title;
 			}
 
-			//add the last page title into the pagination header markup
-			$page_titles_markup .= '<td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $form_lastpage_title . '</span></td>';
+			// last page
+			$steps[] = $form_lastpage_title;
 
-			$i++;
-			$page_titles_markup .= '<td align="center" class="ap_tp_arrow">&gt;</td><td align="center"><span id="page_num_' . $i . '" class="ap_tp_num ap_tp_num_active">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text ap_tp_text_active">' . $form_review_title . '</span></td>';
+			// review page (active in this case)
+			$steps[] = $form_review_title;
 
-			//if payment enabled, we need to add the pagination header
+			// optional payment page
 			if (!empty($payment_enable_merchant)) {
-				$i++;
-				$page_titles_markup .= '<td align="center" class="ap_tp_arrow">&gt;</td><td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $mf_lang['form_payment_header_title'] . '</span></td>';
+				$steps[] = $mf_lang['form_payment_header_title'];
 			}
 
-			$pagination_header = <<<EOT
-			<ul>
-			<li id="pagination_header" class="li_pagination">
-			 <table class="ap_table_pagination" width="100%" border="0" cellspacing="0" cellpadding="0">
-			  <tr>
-			  	{$page_titles_markup}
-			  </tr>
-			</table>
-			</li>
-			</ul>
-EOT;
+
+			$total_steps = count($steps);
+			$active_step = $total_steps - (empty($payment_enable_merchant) ? 0 : 1);
+			$pagination_header = renderStepper($steps, $active_step);
 		} else if ($form_pagination_type == 'percentage') {
 
 			if (!empty($payment_enable_merchant)) {
@@ -8313,9 +8377,9 @@ EOT;
 
 		<form id="form_{$form_id}" class="appnitro" method="post" action="{$self_address}">
 		<div class="card card-default">
-		    <div class="card-heading">
-				<h3 class="card-title">{$form_review_title}</h3>
-				{$form_review_description}
+		    <div class="card-header">
+				<h3 class="card-title mb-3">{$form_review_title}</h3>
+				<p class="card-subtitle">{$form_review_description}</p>
 			</div>
 
 			{$pagination_header}
@@ -8394,7 +8458,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 	//check permission to access this page
 	if ($_SESSION['mf_form_payment_access'][$form_id] !== true) {
-		return "Your session has been expired. Please <a href='/plan/forms/view?id={$form_id}'>click here</a> to start again.";
+		return "Your session has been expired. Please <a href='/index.php/forms/view?id={$form_id}'>click here</a> to start again.";
 	}
 
 	$mf_settings = mf_get_settings($dbh);
@@ -8661,26 +8725,46 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 		$details = $invoice->getMfInvoiceDetail();
 		foreach ($details as $detail) {
-			$payment_items[] = array("title" => $detail->getDescription(), "amount" => $detail->getAmount(), "type" => "money");
-			$total_payment_amount = $total_payment_amount + $detail->getAmount();
+			if ($detail->getAmount() > 0) {
+				$payment_items[] = array("title" => $detail->getDescription(), "amount" => $detail->getAmount(), "type" => "money");
+				$total_payment_amount = $total_payment_amount + $detail->getAmount();
+			}
 		}
 
 		$payment_list_items_markup = '';
 		if (!empty($payment_items)) {
 			foreach ($payment_items as $item) {
-				if ($item['quantity'] > 1) {
-					$quantity_tag = ' <span style="font-weight: normal;padding-left:5px">x' . $item['quantity'] . '</span>';
-				} else {
-					$quantity_tag = '';
+				// Build the quantity tag
+				$quantity_tag = ($item['quantity'] > 1)
+					? ' x' . $item['quantity']
+					: '';
+
+				// Determine the label based on type
+				switch ($item['type']) {
+					case 'money':
+						$label = $item['title'] . $quantity_tag;
+						break;
+
+					case 'checkbox':
+						$label = $item['sub_title'] . $quantity_tag;
+						break;
+
+					case 'select':
+					case 'radio':
+						$label = $item['title'] . " <em class='text-muted'>({$item['sub_title']})</em>" . $quantity_tag;
+						break;
+
+					default:
+						$label = $item['title'] . $quantity_tag;
 				}
 
-				if ($item['type'] == 'money') {
-					$payment_list_items_markup .= "<li>{$item['title']} <span>{$currency_symbol}{$item['amount']}{$quantity_tag}</span></li>" . "\n";
-				} else if ($item['type'] == 'checkbox') {
-					$payment_list_items_markup .= "<li>{$item['sub_title']} <span>{$currency_symbol}{$item['amount']}{$quantity_tag}</span></li>" . "\n";
-				} else if ($item['type'] == 'select' || $item['type'] == 'radio') {
-					$payment_list_items_markup .= "<li>{$item['title']} <em>({$item['sub_title']})</em> <span>{$currency_symbol}{$item['amount']}{$quantity_tag}</span></li>" . "\n";
-				}
+				// Render the row
+				$payment_list_items_markup .= renderInvoiceRow(
+					$label,
+					$item['amount'],
+					$currency_symbol,
+					['line' => 8770]
+				);
 			}
 
 			//calculate discount if applicable
@@ -8700,7 +8784,12 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 				$total_payment_amount -= $payment_calculated_discount;
 
-				$payment_list_items_markup .= "<li>{$mf_lang['discount']} {$discount_percentage_label}<span>-{$currency_symbol}{$payment_calculated_discount}</span></li>" . "\n";
+				$payment_list_items_markup .= renderInvoiceRow(
+					$mf_lang['discount'] . ' ' . $discount_percentage_label, // Label
+					$payment_calculated_discount,                             // Amount
+					$currency_symbol,                                         // Currency symbol
+					['discount' => true, 'line' => 8810]                                      // Discount styling
+				);
 			}
 
 			//calculate tax if enabled
@@ -8710,7 +8799,12 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 				$payment_tax_amount = $payment_tax_rate;
 
 				$total_payment_amount += $payment_tax_amount;
-				$payment_list_items_markup .= "<li>Convenience Fee <span>{$currency_symbol}{$payment_tax_rate}</span></li>" . "\n";
+				$payment_list_items_markup .= renderInvoiceRow(
+					'Convenience Fee',
+					$payment_tax_rate,
+					$currency_symbol,
+					['muted' => true, 'line' => 8825]
+				);
 			}
 		}
 	} elseif ($payment_price_type == 'variable') {
@@ -8723,21 +8817,38 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 		$payment_list_items_markup = '';
 		if (!empty($payment_items)) {
 			foreach ($payment_items as $item) {
-				if ($item['quantity'] > 1) {
-					$quantity_tag = ' <span style="font-weight: normal;padding-left:5px">x' . $item['quantity'] . '</span>';
-				} else {
-					$quantity_tag = '';
+				// Build quantity tag
+				$quantity_tag = ($item['quantity'] > 1)
+					? ' <span style="font-weight: normal;padding-left:5px">x' . $item['quantity'] . '</span>'
+					: '';
+
+				// Determine the label based on type
+				switch ($item['type']) {
+					case 'money':
+						$label = $item['title'] . $quantity_tag;
+						break;
+
+					case 'checkbox':
+						$label = $item['sub_title'] . $quantity_tag;
+						break;
+
+					case 'select':
+					case 'radio':
+						$label = $item['title'] . " <em class='text-muted'>({$item['sub_title']})</em>" . $quantity_tag;
+						break;
+
+					default:
+						$label = ($item['title'] ?? 'Item') . $quantity_tag;
 				}
 
-				if ($item['type'] == 'money') {
-					$payment_list_items_markup .= "<li>{$item['title']} <span>{$currency_symbol}{$item['amount']}{$quantity_tag}</span></li>" . "\n";
-				} else if ($item['type'] == 'checkbox') {
-					$payment_list_items_markup .= "<li>{$item['sub_title']} <span>{$currency_symbol}{$item['amount']}{$quantity_tag}</span></li>" . "\n";
-				} else if ($item['type'] == 'select' || $item['type'] == 'radio') {
-					$payment_list_items_markup .= "<li>{$item['title']} <em>({$item['sub_title']})</em> <span>{$currency_symbol}{$item['amount']}{$quantity_tag}</span></li>" . "\n";
-				}
+				// Render the row
+				$payment_list_items_markup .= renderInvoiceRow(
+					$label,
+					$item['amount'],
+					$currency_symbol,
+					['line' => 8868]
+				);
 			}
-
 			//calculate discount if applicable
 			if ($is_discount_applicable) {
 				$payment_calculated_discount = 0;
@@ -8754,8 +8865,12 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 				}
 
 				$total_payment_amount -= $payment_calculated_discount;
-
-				$payment_list_items_markup .= "<li>{$mf_lang['discount']} {$discount_percentage_label}<span>-{$currency_symbol}{$payment_calculated_discount}</span></li>" . "\n";
+				$payment_list_items_markup .= renderInvoiceRow(
+					$mf_lang['discount'] . ' ' . $discount_percentage_label,
+					$payment_calculated_discount,
+					$currency_symbol,
+					['discount' => true]
+				);
 			}
 
 			//calculate tax if enabled
@@ -8765,7 +8880,12 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 				$payment_tax_amount = $payment_tax_rate;
 
 				$total_payment_amount += $payment_tax_amount;
-				$payment_list_items_markup .= "<li>Convenience Fee <span>{$currency_symbol}{$payment_tax_rate}</span></li>" . "\n";
+				$payment_list_items_markup .= renderInvoiceRow(
+					'Convenience Fee',
+					$payment_tax_rate,
+					$currency_symbol,
+					['line' => 8906]
+				);
 			}
 		}
 	} else if ($payment_price_type == 'fixed') {
@@ -8791,7 +8911,10 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 			$total_payment_amount -= $payment_calculated_discount;
 			$discount_label = "-{$mf_lang['discount']} {$discount_amount_label}";
 
-			$payment_list_items_markup .= "<li>{$discount_label}</li>";
+			$payment_list_items_markup .= renderInvoiceLabel(
+				$discount_label,
+				['muted' => true]
+			);
 		}
 
 
@@ -8805,7 +8928,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 			$total_payment_amount += $payment_tax_amount;
 			$tax_label = "+ Convenience Fee {$currency_symbol} {$payment_tax_rate}";
 
-			$payment_list_items_markup .= "<li>{$tax_label}</li>";
+			$payment_list_items_markup .= renderInvoiceLabel($tax_label);
 		}
 	}
 
@@ -8847,7 +8970,12 @@ EOT;
 		//construct setup fee
 		//currently only available for stripe and paypal pro
 		if (!empty($payment_enable_setupfee) && !empty($payment_setupfee_amount) && in_array($payment_merchant_type, array('stripe', 'paypal_rest'))) {
-			$payment_list_items_markup .= "<li>{$mf_lang['setup_fee']} <span>{$currency_symbol}{$payment_setupfee_amount}</span></li>" . "\n";
+			$payment_list_items_markup .= renderInvoiceRow(
+				$mf_lang['setup_fee'],
+				$payment_setupfee_amount,
+				$currency_symbol,
+				['line' => 8996]
+			);
 			$total_payment_amount += $payment_setupfee_amount;
 		}
 	}
@@ -8881,38 +9009,21 @@ EOT;
 		}
 
 		if ($form_pagination_type == 'steps') {
+			$steps = [];
 
-			$page_titles_markup = '';
-
-			$i = 1;
 			foreach ($page_title_array as $page_title) {
-				$page_titles_markup .= '<td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $page_title . '</span></td><td align="center" class="ap_tp_arrow">&gt;</td>' . "\n";
-				$i++;
+				$steps[] = $page_title;
 			}
 
-			//add the last page title into the pagination header markup
-			$page_titles_markup .= '<td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $form_lastpage_title . '</span></td>';
+			$steps[] = $form_lastpage_title;
 
 			if (!empty($form_review)) {
-				$i++;
-				$page_titles_markup .= '<td align="center" class="ap_tp_arrow">&gt;</td><td align="center"><span id="page_num_' . $i . '" class="ap_tp_num">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text">' . $form_review_title . '</span></td>';
+				$steps[] = $form_review_title;
 			}
 
-			$i++;
-			$page_titles_markup .= '<td align="center" class="ap_tp_arrow">&gt;</td><td align="center"><span id="page_num_' . $i . '" class="ap_tp_num ap_tp_num_active">' . $i . '</span><span id="page_title_' . $i . '" class="ap_tp_text ap_tp_text_active">' . $mf_lang['form_payment_header_title'] . '</span></td>';
+			$steps[] = $mf_lang['form_payment_header_title'];
 
-
-			$pagination_header = <<<EOT
-			<ul>
-			<li id="pagination_header" class="li_pagination">
-			 <table class="ap_table_pagination" width="100%" border="0" cellspacing="0" cellpadding="0">
-			  <tr>
-			  	{$page_titles_markup}
-			  </tr>
-			</table>
-			</li>
-			</ul>
-EOT;
+			$pagination_header = renderStepper($steps, count($steps));
 		} else if ($form_pagination_type == 'percentage') {
 
 			$page_total = count($page_title_array) + 2;
@@ -9288,7 +9399,7 @@ html{
 						</span>
 					</div><p id="credit_card_error_message" class="error" style="display: none"></p>
 				</li>
-				<li id="li_2" class="section_break">
+				<li id="li_2" class="section_break mb-3">
 				</li>
 				{$billing_address_markup}
 				{$shipping_address_markup}
@@ -9373,6 +9484,14 @@ EOT;
 			$form_markup = $cash->checkout($_SESSION['mf_invoice']);
 		} else {
 			error_log('------------Not pesaflow_standard---------');
+
+			$payment_totals = renderInvoiceRow(
+				'Total',
+				$total_payment_amount,
+				$currency_symbol,
+				['additional_classes' =>  'fw-bold fs-5', 'line' => 9508]
+			);
+			$invoice_id = $_SESSION['mf_invoice'];
 			$form_markup = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xml:lang="en" {$embed_class} xmlns="http://www.w3.org/1999/xhtml">
@@ -9393,36 +9512,54 @@ EOT;
 </head>
 <body id="main_body" class="no_guidelines" data-machformpath="/form_builder/">
 
-	<div id="form_container" class="{$form_container_class}">
+<div id="form_container card" class="{$form_container_class}">
+    <form id="form_{$form_id}" class="appnitro needs-validation" method="post" action="/index.php/forms/checkoutPageView/invoice/{$invoice_id}" data-highlightcolor="{$field_highlight_color}" novalidate>
+        
+        <!-- Form Header -->
+        <div class="card-header mb-4 text-center">
+            <h2 class="fw-bold card-title mb-3">{$form_payment_title}</h2>
+            <p class="card-subtitle">{$form_payment_description}</p>
+        </div>
 
-		<form id="form_{$form_id}" class="appnitro" method="post" action="javascript:" data-highlightcolor="{$field_highlight_color}">
-		    <div class="form_description">
-				<h2>{$form_payment_title}</h2>
-				<p>{$form_payment_description}</p>
+        <!-- Stepper / Pagination Header -->
+        <div class="card-header">
+            {$pagination_header}
+        </div>
+
+        <!-- Payment Summary Card -->
+        <div class="card-body">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+					{$payment_list_items_markup}
+                </ul>
+
+                <!-- Payment Terms if any -->
+                <div class="mt-3">
+                    {$payment_term_markup}
+                </div>
+            </div>
+			<div class="card-footer">
+					{$payment_totals}
 			</div>
-			{$pagination_header}
-
-			<ul class="payment_summary">
-				
-				<li class="payment_summary_list">
-					<ul class="payment_list_items">
-						{$payment_list_items_markup}
-					</ul>
-				</li>
-				<li class="payment_summary_amount total_payment" data-basetotal="{$total_payment_amount}">
-					<span>
-						<h3>{$currency_symbol}<var>0</var></h3>
-						<h5>{$mf_lang['payment_total']}</h5>
-					</span>
-				</li>
-				{$payment_term_markup}
-			</ul>
-		<form id="form_payment_redirect" method="post" action="{$self_address}">
+        </div>
+		<div class="card-footer">
+			<!-- Submit Button -->
 			<input type="hidden" id="form_id_redirect" name="form_id_redirect" value="{$form_id}" />
-		</form>
-	</div>
+			<input type="hidden" id="invoice_id" name="invoice_id" value="{$invoice_id}" />
+			<input type="hidden" name="merchant_type" value="{$payment_merchant_type}">
+			<input type="hidden" name="self_address" value="{$self_address}">
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary btn-lg" id="proceedPaymentBtn">
+					<i class="fas fa-credit-card"></i> Proceed to Payment
+				</button>
+			</div>
+		</div>
+    </form>
+</div>
 
-	</body>
+<!-- Optional Bootstrap 5 JS (for tooltips, validation, etc.) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
 EOT;
 		}

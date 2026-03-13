@@ -6765,6 +6765,7 @@ EOT;
 		$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 		$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
 		$self_address = $initial_self_address;
+		error_log("Self adress --->1 {$self_address}");
 		$form_markup = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xml:lang="en" {$html_class_tag} xmlns="http://www.w3.org/1999/xhtml">
@@ -8287,6 +8288,7 @@ EOT;
 
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
+	error_log("Self adress ---> 2 {$self_address}");
 	$jquery_url = '/form_builder/js/jquery.min.js';
 
 	if ($integration_method == 'php') {
@@ -9128,6 +9130,7 @@ EOT;
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
 	$self_address = $initial_self_address;
+	error_log("Self adress ---> 3 {$self_address}");
 	$country = mf_get_country_list();
 	$country_markup = '<option value="" selected="selected"></option>' . "\n";
 

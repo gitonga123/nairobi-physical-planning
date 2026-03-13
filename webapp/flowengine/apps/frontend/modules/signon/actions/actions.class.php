@@ -47,6 +47,7 @@ class signonActions extends sfActions
     public function executeSignin(sfWebRequest $request)
     {
         try {
+            error_log("Execute index ---> front end ----> 51");
 
             $code = $request->getParameter('code');
 
@@ -156,6 +157,8 @@ class signonActions extends sfActions
                 return $this->redirect($url);
             }
         } catch (\Exception $error) {
+            error_log("Execute index ---> backend ----> 21");
+            error_log($error->getMessage());
             throw new sfException($error->getMessage(), 500);
         }
     }

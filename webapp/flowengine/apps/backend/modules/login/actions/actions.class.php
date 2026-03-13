@@ -18,6 +18,7 @@ class loginActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
 
+    error_log("Execute index ---> backend ----> 21");
     $login_manager = new LoginManager();
     $this->loginError = "";
 

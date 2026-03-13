@@ -38,15 +38,11 @@ $membership = $membersManager->MembershipIsValidated($sf_user->getGuardUser()->g
 
 				$filtered_forms = [];
 				foreach ($forms as $form) {
-					if (sfConfig::get('app_enable_categories') == "yes") {
-						$q2 = Doctrine_Query::create()
-							->from('sfGuardUserCategoriesForms a')
-							->where('a.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
-							->andWhere('a.formid = ?', $form->getFormId());
-						if ($q2->count() > 0) {
-							$filtered_forms[] = $form;
-						}
-					} else {
+					$q2 = Doctrine_Query::create()
+						->from('sfGuardUserCategoriesForms a')
+						->where('a.categoryid = ?', $sf_user->getGuardUser()->getProfile()->getRegisteras())
+						->andWhere('a.formid = ?', $form->getFormId());
+					if ($q2->count() > 0) {
 						$filtered_forms[] = $form;
 					}
 				}

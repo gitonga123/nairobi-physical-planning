@@ -29,7 +29,7 @@
 
 		<div class="error-box">
 			<h1>500</h1>
-			<h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Something went wrong</h3>
+			<h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Something went wrong 102</h3>
 			<p class="h4 font-weight-normal">Please try again in a few. Contact us if this persists.</p>
 			<a href="/index.php" class="btn btn-warning">Go Back to Home</a>
 		</div>

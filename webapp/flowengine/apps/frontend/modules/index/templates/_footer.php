@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="siteinfo">
-                            Copyright By &COPY;<a href="https://https://info@uasingishu.go.ke"><?php echo $site_settings->getOrganisationName() ?></a> - <?php echo date("Y") ?>
+                            Copyright By &COPY;<a href="https://https://info@nairobicc.go.ke"><?php echo $site_settings->getOrganisationName() ?></a> - <?php echo date("Y") ?>
                         </div>
                     </div>
                 </div>

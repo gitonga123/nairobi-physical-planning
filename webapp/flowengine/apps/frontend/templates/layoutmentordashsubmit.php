@@ -240,12 +240,12 @@ $site_settings = Functions::site_settings();
 								<h2 class="footer-title">County Information</h2>
 								<ul>
 									<li><a
-											href="https://www.info@uasingishu.go.ke/plan/files/153/Downloads/107/Nairobi-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
+											href="https://www.info@nairobicc.go.ke/plan/files/153/Downloads/107/Nairobi-COUNTY-DRAFT-FINANCE--BILL-2023.pdf">Finance
 											Bill</a></li>
 									<li><a
-											href="https://www.info@uasingishu.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
+											href="https://www.info@nairobicc.go.ke/plan/departments/lands-physical-planning-housing-and-urban-development/department-overview-lands">Lands
 											Department</a></li>
-									<li><a href="https://info@uasingishu.go.ke/">County Website</a></li>
+									<li><a href="https://info@nairobicc.go.ke/">County Website</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -262,23 +262,25 @@ $site_settings = Functions::site_settings();
 										<span><i class="fas fa-map-marker-alt"></i></span>
 										<p>
 											Official Contacts
+										</p>
 										<p>
-											<span tel="05320160000">05320160000</span>
+
+											<span tel="05320160000">050000000</span>
 											<br />
-											<span tel="05320130148">05320130148</span>
+											<span tel="05320130148">010000000</span>
 											<br />
-											<span tel="+254710646464">+254710 64 64 64</span>
+											<span tel="+254710646464">+254710 604 604 604</span>
 											<br />
 										</p>
 									</div>
 
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-										Email: lands@uasingishu.go.ke
+										Email: lands@nairobicc.go.ke
 									</p>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
-										P.O. Box 40-30100, Eldoret.
+										P.O. Box 7-0100, Nairobi.
 
 									</p>
 								</div>

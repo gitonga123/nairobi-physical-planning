@@ -472,7 +472,7 @@
                     <span tel="+254710646464">+254710 64 64 64</span>
                     <br />
                 </p>
-                <p class="text-dark"><i class="far fa-envelope me-2 text-primary"></i>info@info@uasingishu.go.ke</p>
+                <p class="text-dark"><i class="far fa-envelope me-2 text-primary"></i>info@info@nairobicc.go.ke</p>
                 <h4 class="text-dark mb-0 fw-bold"><a class="text-dark" href="#">
                   <span tel="05320160000">05320160000</span>
                   <br />

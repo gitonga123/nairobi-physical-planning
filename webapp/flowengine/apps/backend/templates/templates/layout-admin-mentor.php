@@ -42,7 +42,7 @@
 
 
 
-							<div class="text-center dont-have">Don’t have an account? <a href="mailto:lands@uasingishu.go.ke">Contact System Admin - lands@uasingishu.go.ke</a></div>
+							<div class="text-center dont-have">Don’t have an account? <a href="mailto:lands@nairobicc.go.ke">Contact System Admin - lands@nairobicc.go.ke</a></div>
 							<div class="col-md-12 ">
 								<div class="copyright-text">
 									<p class="mb-0">&copy; <?php echo date("Y") ?> Nairobi County Physical Planning. All rights reserved.</p>

@@ -270,6 +270,7 @@ class apiActions extends sfActions
         // $url .= "?plot_number={$plot_number}&block_number={$block_number}";
 
         error_log("URL many years ago ----> {$url}");
+        error_log("{$plot_number} - ${block_number}" );
         $query_response = $stream->sendRequest([
             'url' => $url,
             'method' => 'GET',

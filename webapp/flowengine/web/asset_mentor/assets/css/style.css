@@ -12577,15 +12577,15 @@ html.menu-opened body {
 }
 
 .dash-board-list.blue .dash-widget {
-	background-color: rgba(0, 84, 254, 0.07);
+	background-color: rgba(15, 71, 174, 0.07);
 }
 
 .dash-board-list.yellow .dash-widget {
-	background-color: rgba(249, 206, 35, 0.1);
+	background-color: rgba(252, 221, 7, 0.1);
 }
 
 .dash-board-list.pink .dash-widget {
-	background-color: #FD51811A;
+	background-color: rgba(6, 137, 48, 0.1);
 }
 
 .dash-board-list.blue .icon-col {
@@ -12597,7 +12597,7 @@ html.menu-opened body {
 }
 
 .dash-board-list.pink .icon-col {
-	background-color: #FD51811A;
+	background-color: rgba(6, 137, 48, 0.1);
 }
 
 .pending {

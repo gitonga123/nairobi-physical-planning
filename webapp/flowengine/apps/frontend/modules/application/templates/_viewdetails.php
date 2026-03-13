@@ -16,7 +16,7 @@
 		if ($otbhelper->isSharedStage($application->getApproved())) :
 		?>
 			<!-- OTB Start Patch >> Share Button -->
-			<a title='<?php echo __('Share Application'); ?>' href="<?php echo public_path('index.php/application/share/id/' . $application->getId()) ?>" class="btn btn-primary dropdown-toggle waves-effect"><?php echo __("Share"); ?> </a>
+			<a title='<?php echo __('Share Application'); ?>' href="<?php echo public_path('plan/application/share/id/' . $application->getId()) ?>" class="btn btn-primary dropdown-toggle waves-effect"><?php echo __("Share"); ?> </a>
 			<!-- OTB End Patch >> Share Button -->
 		<?php endif; ?>
 	</div>

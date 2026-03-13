@@ -95,7 +95,7 @@ function DuplicateMySQLRecord($table, $id_field, $id)
         $application->setPreviousSubmission($newentry->getId());
         $application->save();
 
-        //header("Location: ".public_path()."index.php/application/view/id/".$newentry->getId());
+        //header("Location: ".public_path()."plan/application/view/id/".$newentry->getId());
         //exit;
     }
 }*/
@@ -452,7 +452,7 @@ EOT;
 			?>
 			<!-- OTB Start Patch >> Share Button -->
 			<a title='<?php echo __('Share Application'); ?>'
-				href='<?php echo public_path('index.php/application/share/id/' . $application->getId()); ?>'
+				href='<?php echo public_path('plan/application/share/id/' . $application->getId()); ?>'
 				class="btn btn-primary dropdown-toggle waves-effect"><?php echo __("Share"); ?> </a>
 			<!-- OTB End Patch >> Share Button -->
 		<?php endif; ?>
@@ -500,7 +500,7 @@ EOT;
 					foreach ($permits as $permit):
 						?>
 
-						<a href="<?php echo public_path('index.php/permits/view/id/' . $permit->getId()); ?>"
+						<a href="<?php echo public_path('plan/permits/view/id/' . $permit->getId()); ?>"
 							class="btn-xs btn-primary panel-edit">View Permit</a>
 						<?php
 					endforeach;

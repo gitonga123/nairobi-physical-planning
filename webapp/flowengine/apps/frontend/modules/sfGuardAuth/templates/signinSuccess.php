@@ -47,7 +47,7 @@ use_helper('I18N');
 	<span class="span-or">or</span>
 </div>
 <div class="text-center">
-	<a class="btn btn-warning btn-block" href="<?php echo public_path('index.php/resend'); ?>"><?php echo __("Resend Validation Email"); ?></a>
+	<a class="btn btn-warning btn-block" href="<?php echo public_path('plan/resend'); ?>"><?php echo __("Resend Validation Email"); ?></a>
 </div>
 <?php endif;?>
 <!-- end -->

@@ -51,7 +51,7 @@ $stage_type = $stage ? $stage->getStageType() : "-1";
 //OTB Patch - Only allow to edit if stage is a corrections stage, added stage type check for corrections
 if((($submission->getDeclined() != "1" && ($stage_type != "5" || $stage_type != "9")) && $submission->getApproved() != "0"))
 {
-    header("Location: ".public_path()."index.php/application/view/id/".$submission->getId());
+    header("Location: ".public_path()."plan/application/view/id/".$submission->getId());
     exit;
 }*/
 
@@ -186,7 +186,7 @@ if(mf_is_form_submitted()){ //if form submitted
                             $sf_user->setAttribute('entry_id', $submission->getEntryId());
                             $sf_user->setAttribute('invoice_id', $invoice->getId());
 
-                            header("Location: ".public_path()."index.php/forms/payment");
+                            header("Location: ".public_path()."plan/forms/payment");
                             exit;
 
                         }
@@ -198,7 +198,7 @@ if(mf_is_form_submitted()){ //if form submitted
                             $sf_user->setAttribute('entry_id', $submission->getEntryId());
                             $sf_user->setAttribute('invoice_id', $invoice->getId());
 
-                            header("Location: ".public_path()."index.php/forms/payment");
+                            header("Location: ".public_path()."plan/forms/payment");
                             exit;
                         }
                     }
@@ -207,7 +207,7 @@ if(mf_is_form_submitted()){ //if form submitted
                         //If online payment is not enabled then publish the draft to a live workflow
                         $submission = $application_manager->publish_draft($submission->getId());
 
-                        header("Location: ".public_path()."index.php/application/view/id/".$submission->getId());
+                        header("Location: ".public_path()."plan/application/view/id/".$submission->getId());
                         exit;
                     }
 
@@ -217,14 +217,14 @@ if(mf_is_form_submitted()){ //if form submitted
                     //If invoices are already paid then publish the draft to a live workflow
                     $submission = $application_manager->publish_draft($submission->getId());
 
-                    header("Location: ".public_path()."index.php/application/view/id/".$submission->getId());
+                    header("Location: ".public_path()."plan/application/view/id/".$submission->getId());
                     exit;
                 }
             }
             else
             {
                 //If save as draft/resume later has been clicked then don't publish the draft
-                header("Location: ".public_path()."index.php/application/view/id/".$submission->getId());
+                header("Location: ".public_path()."plan/application/view/id/".$submission->getId());
                 exit;
             }
         }
@@ -233,7 +233,7 @@ if(mf_is_form_submitted()){ //if form submitted
             //If the application was declined then attempt to make a resubmission
             $submission = $application_manager->resubmit_application($link->getFormentryid());
 
-            header("Location: ".public_path()."index.php/sharedapplication/view/id/".$link->getFormentryid());
+            header("Location: ".public_path()."plan/sharedapplication/view/id/".$link->getFormentryid());
             exit;
         //}
 

@@ -69,12 +69,12 @@
                                             <div class="media">
                                                 <div class="media-body">
                                                     <span class="media-meta pull-right"><?php echo $notification->getSentOn(); ?></span>
-                                                    <a href="<?php echo public_path("index.php/notifications/viewnotification/id/".$notification->getId()); ?>">
+                                                    <a href="<?php echo public_path("plan/notifications/viewnotification/id/".$notification->getId()); ?>">
                                                         <h4 class="text-primary"><?php echo ($application)?$application->getApplicationId():""; ?></h4>
                                                     </a>
                                                     <small class="text-muted"></small>
                                                     <p class="email-summary">
-                                                        <a href="<?php echo public_path("index.php/notifications/viewnotification/id/".$notification->getId()); ?>">
+                                                        <a href="<?php echo public_path("plan/notifications/viewnotification/id/".$notification->getId()); ?>">
                                                             <?php echo strip_tags(html_entity_decode($notification->getNotification())); ?>
                                                         </a>
                                                     </p>

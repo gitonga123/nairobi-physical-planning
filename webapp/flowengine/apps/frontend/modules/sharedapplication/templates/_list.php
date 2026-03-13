@@ -55,7 +55,7 @@
 				<tr>
 					
 					<td>
-						<a class="table-item-title" title='View Application' href='<?php echo public_path('index.php/sharedapplication/view/id/'.$application->getId()); ?>'>
+						<a class="table-item-title" title='View Application' href='<?php echo public_path('plan/sharedapplication/view/id/'.$application->getId()); ?>'>
 						<?php echo $application->getApplicationId(); ?>
 						</a>
                      </td>
@@ -124,18 +124,18 @@
                    </div-->
 					</td>
 					<td align="center">
-						<a  title='View Application' href='<?php echo public_path('index.php/sharedapplication/view/id/'.$application->getId()); ?>'><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>
+						<a  title='View Application' href='<?php echo public_path('plan/sharedapplication/view/id/'.$application->getId()); ?>'><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>
 <?php
 			if($sf_user->getGuardUser()->getId() == $sharedapplication->getSenderid())
 			{
 			?>
-			<a  title='UnShare Application' href='<?php echo public_path('index.php/sharedapplication/unshare/id/'.$application->getId()); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>
+			<a  title='UnShare Application' href='<?php echo public_path('plan/sharedapplication/unshare/id/'.$application->getId()); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>
 <?php
 			}
 			else
 			{
 			?>
-			<a  title='UnShare Application' href='<?php echo public_path('index.php/sharedapplication/unshareme/id/'.$application->getId()); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>
+			<a  title='UnShare Application' href='<?php echo public_path('plan/sharedapplication/unshareme/id/'.$application->getId()); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>
 <?php
 			}
 			

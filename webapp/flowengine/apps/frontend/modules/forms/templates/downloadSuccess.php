@@ -308,12 +308,12 @@ if ($extension == 'pdf' && $element_mark_file_with_qr_code && ($form_id == 96247
 
 	$saved_permit = $otbhelper->getApplicationLatestPermit($app_details->getId());
 
-	$link = "/index.php/forms/download?q=" . $_GET['q'];
+	$link = "/plan/forms/download?q=" . $_GET['q'];
 
 	$link_qr = 'Approved';
 
 	if ($saved_permit) {
-		$link_qr = "https://sisibopay.nairobicc.go.ke/plan/pc/or?ref=" . $saved_permit->getId();
+		$link_qr = "https:/hrm.jambopay.co.ke/plan/pc/or?ref=" . $saved_permit->getId();
 	}
 
 

@@ -12,7 +12,7 @@
 
             <div class="eleven columns offset-by-five login-signup-page mb40">
 
-            <form method="POST" action="<?php echo public_path('index.php/reset-request') ?>" name="sf_apply_reset_request" id="sf_apply_reset_request" autocomplete="off" data-ajax="false">
+            <form method="POST" action="<?php echo public_path('plan/reset-request') ?>" name="sf_apply_reset_request" id="sf_apply_reset_request" autocomplete="off" data-ajax="false">
             <h4 class="nomargin"><?php echo __('Lost Password Recovery'); ?></h4>
             <p class="mt5 mb20"><?php echo __('If you have forgotten your username or password, you can request to have your username emailed to you and to reset your password. When you fill in your registered email address, you will be sent instructions on how to reset your password.'); ?></p>
 

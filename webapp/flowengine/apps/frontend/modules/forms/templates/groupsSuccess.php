@@ -58,7 +58,7 @@ $membership = $membersManager->MembershipIsValidated($sf_user->getGuardUser()->g
 										data-form-desc="<?php echo strtolower($form->getFormDescription()); ?>">
 										<h5 class="form-title mb-2"><?php echo $form->getFormName(); ?></h5>
 										<p class="form-description mb-3"><?php echo $form->getFormDescription(); ?></p>
-										<a href="/index.php/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-primary">
+										<a href="/plan/forms/view?id=<?php echo $form->getFormId(); ?>" class="btn btn-primary">
 											<i class="far fa-edit"></i> Apply
 										</a>
 									</div>
@@ -83,13 +83,13 @@ $membership = $membersManager->MembershipIsValidated($sf_user->getGuardUser()->g
 						<p><?php echo __('To update your membership details:'); ?></p>
 						<ol>
 							<li><?php echo __('Click your Name at the top right.'); ?></li>
-							<li><?php echo __('Go to'); ?> <a href="/index.php/settings"><?php echo __('Account Settings'); ?></a>.</li>
+							<li><?php echo __('Go to'); ?> <a href="/plan/settings"><?php echo __('Account Settings'); ?></a>.</li>
 							<li><?php echo __('Click "Edit Additional Details".'); ?></li>
 							<li><?php echo __('Add details and submit.'); ?></li>
 						</ol>
 						<?php if (strlen($membership['member_no'])): ?>
 							<p><?php echo __('Did not receive verification email? Click below:'); ?></p>
-							<a href="/index.php/membersdatabase/resendboraq" class="btn btn-warning"><?php echo __('Resend Verification Email'); ?></a>
+							<a href="/plan/membersdatabase/resendboraq" class="btn btn-warning"><?php echo __('Resend Verification Email'); ?></a>
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>

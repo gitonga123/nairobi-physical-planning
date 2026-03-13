@@ -3,7 +3,7 @@
 <?php end_slot() ?>
 
 <!-- Reset Form -->
-<form method="post" name="sf_apply_reset_request" id="sf_apply_reset_request" action="<?php echo public_path('index.php/reset-request') ?>" method="post" enctype="multipart/form-data">
+<form method="post" name="sf_apply_reset_request" id="sf_apply_reset_request" action="<?php echo public_path('plan/reset-request') ?>" method="post" enctype="multipart/form-data">
 					<div class="row">
                   <?php
                     echo $form->renderHiddenFields();

@@ -59,7 +59,7 @@ use_helper('I18N') ;
 				<tr>
 					
 					<td>
-						<a class="table-item-title" title='View Application' href='<?php echo public_path(); ?>index.php/sharedapplication/view/id/<?php echo $application->getId(); ?>'>
+						<a class="table-item-title" title='View Application' href='<?php echo public_path(); ?>plan/sharedapplication/view/id/<?php echo $application->getId(); ?>'>
 						<?php echo $application->getApplicationId(); ?>
 						</a>
                      </td>
@@ -154,12 +154,12 @@ use_helper('I18N') ;
                                             </span>
                                         </td>
 					<td align="center">
-						<a  title='View Application' href='<?php echo public_path(); ?>index.php/sharedapplication/view/id/<?php echo $application->getId(); ?>'><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>
+						<a  title='View Application' href='<?php echo public_path(); ?>plan/sharedapplication/view/id/<?php echo $application->getId(); ?>'><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>
 <?php
 			if($sf_user->getGuardUser()->getId() == $sharedapplication->getSharedBy())
 			{
 			?>
-			<a  title='UnShare Application' href='<?php echo public_path(); ?>index.php/sharedapplication/unshare/id/<?php echo $application->getId(); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>
+			<a  title='UnShare Application' href='<?php echo public_path(); ?>plan/sharedapplication/unshare/id/<?php echo $application->getId(); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>
 			</td>
 <?php
 			}
@@ -167,7 +167,7 @@ use_helper('I18N') ;
 			{
 			?>
 <td  class="aligned">
-			<!-- OTB patch - Allow only user who shared this application <a  title='UnShare Application' href='<?php //echo public_path(); ?>index.php/sharedapplication/unshareme/id/<?php //echo $application->getId(); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>-->
+			<!-- OTB patch - Allow only user who shared this application <a  title='UnShare Application' href='<?php //echo public_path(); ?>plan/sharedapplication/unshareme/id/<?php //echo $application->getId(); ?>'><span class="badge badge-primary"><i class="fa fa-share"></i></span></a>-->
 			</td>
 <?php
 			}

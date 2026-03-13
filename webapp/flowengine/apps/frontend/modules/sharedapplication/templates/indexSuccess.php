@@ -100,8 +100,8 @@ else
 		$filter = "&filter=".$_GET['filter'];
 	}
   ?>
-  <li><?php echo "<a title='First' href='".public_path()."index.php/sharedapplication/index?page=1".$filter."'><i class=\"fa fa-angle-left\"></i></a>"; ?></li>
-  <li><?php echo "<a title='Previous' href='".public_path()."index.php/sharedapplication/index?page=".$pager->getPreviousPage()."".$filter."'><i class=\"fa fa-angle-left\"></i></a>"; ?></li>
+  <li><?php echo "<a title='First' href='".public_path()."plan/sharedapplication/index?page=1".$filter."'><i class=\"fa fa-angle-left\"></i></a>"; ?></li>
+  <li><?php echo "<a title='Previous' href='".public_path()."plan/sharedapplication/index?page=".$pager->getPreviousPage()."".$filter."'><i class=\"fa fa-angle-left\"></i></a>"; ?></li>
   
   <?php foreach ($pager->getLinks() as $page): ?>
     <?php
@@ -114,14 +114,14 @@ else
 	else
 	{
 	?>
-		<li><?php echo "<a title='Page ".$page."' href='".public_path()."index.php/sharedapplication/index?page=".$page."".$filter."'>".$page."</a>"; ?></li>
+		<li><?php echo "<a title='Page ".$page."' href='".public_path()."plan/sharedapplication/index?page=".$page."".$filter."'>".$page."</a>"; ?></li>
 	<?php
 	}
 	?>
   <?php endforeach; ?>
 
- <li> <?php echo "<a title='Next' href='".public_path()."index.php/sharedapplication/index?page=".$pager->getNextPage()."".$filter."'><i class=\"fa fa-angle-right\"></i></a>"; ?></li>
- <li> <?php echo "<a title='Last' href='".public_path()."index.php/sharedapplication/index?page=".$pager->getLastPage()."".$filter."'><i class=\"fa fa-angle-right\"></i></a>"; ?></li>
+ <li> <?php echo "<a title='Next' href='".public_path()."plan/sharedapplication/index?page=".$pager->getNextPage()."".$filter."'><i class=\"fa fa-angle-right\"></i></a>"; ?></li>
+ <li> <?php echo "<a title='Last' href='".public_path()."plan/sharedapplication/index?page=".$pager->getLastPage()."".$filter."'><i class=\"fa fa-angle-right\"></i></a>"; ?></li>
 <?php endif; ?>
 </ul><!-- /.pagination --><?php */?>
 

@@ -97,7 +97,7 @@ if (mf_is_form_submitted()) { //if form submitted
     $submit_result = mf_process_form($dbh, $input_array);
 
     if ($submit_result['status'] === true) {
-        header("Location: " . public_path("index.php/settings"));
+        header("Location: " . public_path("plan/settings"));
         exit;
     } else if ($submit_result['status'] === false) { //there are errors, display the form again with the errors
         $old_values     = $submit_result['old_values'];
@@ -142,7 +142,7 @@ if (mf_is_form_submitted()) { //if form submitted
     <div class="breadcrumb-wrapper">
 
         <ol class="breadcrumb">
-            <li><a href="/index.php/messages/index">Edit Account details</a></li>
+            <li><a href="/plan/messages/index">Edit Account details</a></li>
             <li class="active"><?php echo $form_name; ?></li>
         </ol>
     </div>

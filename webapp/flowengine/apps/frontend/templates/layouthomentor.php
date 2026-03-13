@@ -110,7 +110,7 @@
 						</div>
 						<div class="main-menu-wrapper">
 							<div class="menu-header">
-								<a href="/index.php/dashboard" class="menu-logo">
+								<a href="/plan/dashboard" class="menu-logo">
 									<img src="/asset_mentor/assets/img/Coat_of_Arms_of_Nairobi_Logo.png"
 										class="img-fluid"
 										alt="Nairobi County">
@@ -121,47 +121,47 @@
 							</div>
 							<ul class="main-nav">
 								<li class="active has-submenu">
-									<a href="/index.php/dashboard">Getting Started</a>
+									<a href="/plan/dashboard">Getting Started</a>
 								</li>
 								<li class="has-submenu">
 									<a href="">Development<i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
 										<li class="has-submenu">
-											<a href="/index.php/dashboard">Construction Permit</a>
+											<a href="/plan/dashboard">Construction Permit</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 										<li class="has-submenu">
-											<a href="/index.php/dashboard">Change of User</a>
+											<a href="/plan/dashboard">Change of User</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
-											</ul>
-										</li>
-
-										<li class="has-submenu">
-											<a href="/index.php/dashboard">Subdivision</a>
-											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 
 										<li class="has-submenu">
-											<a href="/index.php/dashboard">Amalgamation</a>
+											<a href="/plan/dashboard">Subdivision</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Requirements</a></li>
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Report an Issue</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Learn</a></li>
+											</ul>
+										</li>
+
+										<li class="has-submenu">
+											<a href="/plan/dashboard">Amalgamation</a>
+											<ul class="submenu">
+												<li><a href="/plan/dashboard">Requirements</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="/plan/dashboard">Report an Issue</a></li>
+												<li><a href="/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 									</ul>
@@ -172,8 +172,8 @@
 										<li class="has-submenu">
 											<a href="#">Outdoor Advertising</a>
 											<ul class="submenu">
-												<li><a href="/index.php/dashboard">Apply</a></li>
-												<li><a href="/index.php/dashboard">Learn</a></li>
+												<li><a href="/plan/dashboard">Apply</a></li>
+												<li><a href="/plan/dashboard">Learn</a></li>
 											</ul>
 										</li>
 									</ul>
@@ -182,9 +182,9 @@
 								<li class="has-submenu">
 									<a href="">Help<i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
-										<li><a href="/index.php/dashboard">About</a></li>
-										<li><a href="/index.php/help/contact">Contact Support</a></li>
-										<li><a href="/index.php/help/contact">Report an Issue</a></li>
+										<li><a href="/plan/dashboard">About</a></li>
+										<li><a href="/plan/help/contact">Contact Support</a></li>
+										<li><a href="/plan/help/contact">Report an Issue</a></li>
 									</ul>
 								</li>
 
@@ -366,7 +366,7 @@
 							<div class="footer-widget footer-menu">
 								<ul>
 									<li>
-										<a href="/index.php/login">Construction Permits
+										<a href="/plan/login">Construction Permits
 
 											<ul>
 												<li>Building Permits</li>
@@ -378,7 +378,7 @@
 										</a>
 									</li>
 
-									<li><a href="/index.php/login">Login</a></li>
+									<li><a href="/plan/login">Login</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -389,10 +389,10 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
 								<ul>
-									<li><a href="/index.php/login">Change of User</a></li>
-									<li><a href="/index.php/login">Subdivision</a></li>
-									<li><a href="/index.php/login">Renewal/Extension of Lease</a></li>
-									<li><a href="/index.php/login">Outdoor Advertising</a></li>
+									<li><a href="/plan/login">Change of User</a></li>
+									<li><a href="/plan/login">Subdivision</a></li>
+									<li><a href="/plan/login">Renewal/Extension of Lease</a></li>
+									<li><a href="/plan/login">Outdoor Advertising</a></li>
 								</ul>
 							</div>
 							<!-- /Footer Widget -->

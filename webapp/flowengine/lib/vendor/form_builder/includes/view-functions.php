@@ -259,7 +259,7 @@ function mf_display_text($element)
 
 			</div> 
 			  ";
-		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_a_actualplotratio' class='btn btn-success'> Update Total </button> ";
+		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_a_actualplotratio' class='btn btn-primary'> Update Total </button> ";
 		// error_log("this element is used as a_actualplotratio >>>>".$element->id) ;
 	} else if (!empty($element->permittedgroundcoverage)) {
 		//set default value 
@@ -270,7 +270,7 @@ function mf_display_text($element)
 			<div id='warning_groundcoverage_exceeded' class='alert alert-danger'> 
 			 Warning! Your Actual Ground Coverge has exceeded permitted ground coverage for selected zone and permitted use. Please check your plinth area and plot size information before submitting or type in reasons below for exceeding    
 			</div> ";
-		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_actualgroundcoverage' class='btn btn-success'> Update Total </button> ";
+		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_actualgroundcoverage' class='btn btn-primary'> Update Total </button> ";
 	} else if (!empty($element->grandtotalplintharea)) {
 		$attribute_disabled = "readonly";
 		$myidentifier = "a_grandtotalplintharea";
@@ -3565,7 +3565,7 @@ function mf_display_number($element)
 			 Warning! Your Actual Plot ratio value has exceeded permitted plot ratio for selected zone and permitted use. Please check your plinth area and plot size information before submitting or type in reasons below for exceeding.    
 			</div> 
 			  ";
-		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_a_actualplotratio' class='btn btn-success'> Update Total </button> ";
+		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_a_actualplotratio' class='btn btn-primary'> Update Total </button> ";
 		//  error_log("this element is used as a_actualplotratio >>>>".$element->id) ;
 	} else if (!empty($element->permittedgroundcoverage)) {
 		//set default value for element 
@@ -3577,7 +3577,7 @@ function mf_display_number($element)
 			<div id='warning_groundcoverage_exceeded' class='alert alert-danger'> 
 			 Warning! Your Actual Ground Coverge has exceeded permitted ground coverage for selected zone and permitted use. Please check your plinth area and plot size information before submitting or type in reasons below for exceeding.    
 			</div> ";
-		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_actualgroundcoverage' class='btn btn-success'> Update Total </button> ";
+		$btn_actualgroundcoverage_or_actualplotratio = "<button id='btn_a_actualgroundcoverage' class='btn btn-primary'> Update Total </button> ";
 	} else if (!empty($element->grandtotalplintharea)) {
 		$attribute_disabled = "readonly";
 		$myidentifier = "a_grandtotalplintharea";
@@ -4815,7 +4815,7 @@ function mf_display_total_plinth_area($element)
 		<div class="total_plinth_area_1  col-sm-4">
 			<input readonly id="element_{$element->id}_1" name="element_{$element->id}_1" type="number" class="form-control  total_plinth_new" maxlength="255" size="8" value="{$default_value_1}" />
 			<label for="element_{$element->id}_1">{$total_plinth_area_new}</label>
-                        <a href="javascript:;" class="btn btn-success" id="btn_new_plinth"> Update Total New </a>
+                        <a href="javascript:;" class="btn btn-primary" id="btn_new_plinth"> Update Total New </a>
 		</div>
 		<div class="total_plinth_area_2 col-sm-4">
 			<input readonly id="element_{$element->id}_2" name="element_{$element->id}_2" type="number" class="form-control total_plinth_existing" maxlength="255" size="14" value="{$default_value_2}" />
@@ -6342,7 +6342,7 @@ EOT;
 				    <input type="hidden" name="submit_form" value="1" />
 				    <input type="hidden" name="page_number" value="{$page_number}" />
 					{$button_secondary_markup}
-					<input class="btn btn-success" type="submit" id="submit_primary" name="submit_primary" value="{$page_breaks_data[$page_number]['primary_text']}" />
+					<input class="btn btn-primary" type="submit" id="submit_primary" name="submit_primary" value="{$page_breaks_data[$page_number]['primary_text']}" />
 			</li>
 EOT;
 			} else { //if using images as submit
@@ -6372,7 +6372,7 @@ EOT;
 				    {$edit_markup}
 				    <input type="hidden" name="submit_form" value="1" />
 				    <input type="hidden" name="page_number" value="{$page_number}" />
-					<input class="btn btn-success" type="submit" id="submit_primary" name="submit_primary" value="Save Changes" />
+					<input class="btn btn-primary" type="submit" id="submit_primary" name="submit_primary" value="Save Changes" />
 			</li>
 EOT;
 		}
@@ -7953,7 +7953,7 @@ EOT;
 
 	<button type="submit"
 		name="review_submit"
-		class="btn btn-success d-flex align-items-center"
+		class="btn btn-primary d-flex align-items-center"
 		aria-label="{$form_review_primary_text}">
 		<img src="{$form_review_primary_img}"
 			 alt=""
@@ -7968,7 +7968,7 @@ EOT;
 		$button_markup = <<<EOT
 <div class="d-flex justify-content-end gap-2">
 <input id="review_back" class="btn btn-outline-secondary" type="submit" name="review_back" value="{$form_review_secondary_text}" />
-<input id="review_submit" class="btn btn-success" type="submit" name="review_submit" value="{$form_review_primary_text}" />
+<input id="review_submit" class="btn btn-primary" type="submit" name="review_submit" value="{$form_review_primary_text}" />
 </div>
 EOT;
 	}
@@ -8941,7 +8941,7 @@ EOT;
 
 	//build the button markup
 	$button_markup = <<<EOT
-<input id="btn_submit_payment" class="btn btn-success" type="submit" data-originallabel="{$mf_lang['payment_submit_button']}" value="{$mf_lang['payment_submit_button']}" />
+<input id="btn_submit_payment" class="btn btn-primary" type="submit" data-originallabel="{$mf_lang['payment_submit_button']}" value="{$mf_lang['payment_submit_button']}" />
 EOT;
 
 	//if this form is using custom theme

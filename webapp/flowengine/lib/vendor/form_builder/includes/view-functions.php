@@ -6764,7 +6764,6 @@ EOT;
 	} else {
 		$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 		$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-		$self_address = $initial_self_address;
 		error_log("Self adress --->1 {$self_address}");
 		$form_markup = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -9129,7 +9128,6 @@ EOT;
 
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-	$self_address = $initial_self_address;
 	error_log("Self adress ---> 3 {$self_address}");
 	$country = mf_get_country_list();
 	$country_markup = '<option value="" selected="selected"></option>' . "\n";

@@ -264,15 +264,12 @@ $site_settings = Functions::site_settings();
 										Official Contacts
 									</p>
 
-									<p class="footer-address">
-
-										<span tel="05320160000">050000000</span>
+									<div class="footer-address">
+										<p tel="05320160000">050000000</p>
+										<p tel="05320130148">010000000</p>
+										<p tel="+254710646464">+254710 604 604 604</p>
 										<br />
-										<span tel="05320130148">010000000</span>
-										<br />
-										<span tel="+254710646464">+254710 604 604 604</span>
-										<br />
-									</p>
+									</div>
 									<p class="mb-0">
 										<i class="fas fa-envelope"></i>
 										Email: lands@nairobicc.go.ke

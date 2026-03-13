@@ -864,7 +864,7 @@ EOT;
 	$(function(){
 		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){
 		 	$('#element_{$element->id}').uploadifive({
-		 		'uploadScript'     : '/index.php/forms/upload',
+		 		'uploadScript'     : '/plan/forms/upload',
 		 		'buttonText'	   : '{$mf_lang['file_select']}',
 		 		'removeCompleted' : false,
 				'dnd' : true,
@@ -939,7 +939,7 @@ EOT;
 		 }else if($.browser.flash == true){
 		      $('#element_{$element->id}').uploadify({
 		        'uploader'   	  : '/form_builder/js/uploadify/uploadify.swf',
-		        'script'     	  : '/index.php/forms/upload',
+		        'script'     	  : '/plan/forms/upload',
 		        'cancelImg'  	  : '/form_builder/images/icons/stop.png',
 		        'removeCompleted' : false,
 		        'displayData' 	  : 'percentage',
@@ -6840,7 +6840,7 @@ EOT;
                 document.getElementById("li_" + link_id + "_filter").innerHTML = xhttp.responseText;
             }
         };
-        xhttp.open("GET", "/index.php/forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
+        xhttp.open("GET", "/plan/forms/filterdropdown?form_id=" + form_id + "&element_id=" + element_id + "&link_id=" + link_id + "&option_id=" + value, true);
         xhttp.send();
     }
 	</script>
@@ -7606,7 +7606,7 @@ html{
 					{$success_markup}
 				</div>
 
-				<a href="/index.php/dashboard" class="btn btn-dark px-4">
+				<a href="/plan/dashboard" class="btn btn-dark px-4">
 					Dashboard
 				</a>
 			</div>
@@ -7667,7 +7667,7 @@ EOT;
 					{$success_markup}
 				</div>
 
-				<a href="/index.php/dashboard" class="btn btn-dark px-4">
+				<a href="/plan/dashboard" class="btn btn-dark px-4">
 					Dashboard
 				</a>
 			</div>
@@ -8458,7 +8458,7 @@ function mf_display_form_payment($dbh, $form_id, $record_id, $form_params = arra
 
 	//check permission to access this page
 	if ($_SESSION['mf_form_payment_access'][$form_id] !== true) {
-		return "Your session has been expired. Please <a href='/index.php/forms/view?id={$form_id}'>click here</a> to start again.";
+		return "Your session has been expired. Please <a href='/plan/forms/view?id={$form_id}'>click here</a> to start again.";
 	}
 
 	$mf_settings = mf_get_settings($dbh);
@@ -9513,7 +9513,7 @@ EOT;
 <body id="main_body" class="no_guidelines" data-machformpath="/form_builder/">
 
 <div id="form_container card" class="{$form_container_class}">
-    <form id="form_{$form_id}" class="appnitro needs-validation" method="post" action="/index.php/forms/checkoutPageView/invoice/{$invoice_id}" data-highlightcolor="{$field_highlight_color}" novalidate>
+    <form id="form_{$form_id}" class="appnitro needs-validation" method="post" action="/plan/forms/checkoutPageView/invoice/{$invoice_id}" data-highlightcolor="{$field_highlight_color}" novalidate>
         
         <!-- Form Header -->
         <div class="card-header mb-4 text-center">

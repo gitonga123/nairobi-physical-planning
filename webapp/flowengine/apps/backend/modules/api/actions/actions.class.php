@@ -328,7 +328,7 @@ class apiActions extends sfActions
 
         $username = $request->getParameter('username');
 
-        error_log("Username is ---> 2{$username}");
+        error_log("Username is ---> 2{$username} -> {$block_number} - {$plot_number}");
 
         $block_number_key = "block_number_{$username}";
         $plot_number_key = "plot_number_{$username}";

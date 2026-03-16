@@ -203,6 +203,124 @@ class apiActions extends sfActions
         }
     }
 
+    public function executeValidatelrnumberdetails(sfWebRequest $request)
+    {
+        $block_number = trim($request->getParameter('lr_number'));
+
+        $username = $request->getParameter('username');
+
+        error_log("Username is --->{$username}");
+
+        $block_number_key = "lr_number_{$username}";
+
+        error_log("\n\n");
+
+        $stream = new Stream();
+        $url = sfConfig::get('app_api_jambo_url') . 'api/v1/land/bill/land_payment_status_details/';
+
+
+        // Initialize cache
+        $cache = new sfFileCache([
+            'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
+        ]);
+        error_log("Query url is this one ---->1 --->{$url}");
+
+        // Store block_number in cache
+        if ($block_number) {
+            $cache->set($block_number_key, $block_number, 3600); // expires in 1 hour
+            error_log("Block number set in cache ---> {$block_number}");
+        }
+
+
+        // Retrieve block_number and plot_number from cache
+        $block_number = $cache->get($block_number_key);
+
+        error_log("Block number from cache --->{$block_number}");
+
+        if (empty($block_number)) {
+            error_log("Block number not set in cache, returning false.");
+            return $this->json(['success' => false, 'value' => false, 'message' => 'Something Went Wrong!. Try Again later.']);
+        }
+
+        $token = $cache->get("jambo_token_{$username}");
+
+        error_log("Token is this --->" . $token);
+
+        error_log("Query url is this one ----> 2" . $url);
+
+        // $url .= "?plot_number={$plot_number}&block_number={$block_number}";
+
+        error_log("URL many years ago ----> {$url}");
+        error_log("Block Number we are requesting for --->{$block_number }" );
+        $query_response = $stream->sendRequest([
+            'url' => $url,
+            'method' => 'GET',
+            'ssl' => 'none',
+            'contentType' => 'json',
+            'headers' => [
+                "Authorization" => "JWT {$token}",
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ],
+            'data' => [
+                'lr_number' => $block_number
+            ]
+        ]);
+
+
+        error_log("Response status code is ----> {$query_response->status}");
+        $content = $query_response->content;
+
+        error_log("Content received is below for review ---->");
+        error_log(json_encode($content));
+
+        if ($query_response->status == 200 || $query_response->status == 201) {
+            error_log("Content received, proceeding...");
+            error_log($content);
+
+            if (isset($content['upto_date']) && $content['upto_date']) {
+                error_log("JSON Encode --->");
+                error_log(json_encode($content['details']['clearance']));
+                if (isset($content['details']['clearance']) && ($content['details']['clearance']['status'] == 'Active')) {
+                    $cache->set("{$username}_{$block_number}", json_encode($content), 3600);
+
+                    return $this->json(['success' => true, 'value' => true, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
+                } else {
+                    return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;"> Please visit the Uasin County Government offices to get a valid Clearance Certificate</p>']);
+                }
+            } else {
+                return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $content['message'] . " Balance: KES" . $content['balance'] . '</p>']);
+            }
+        } else {
+            error_log("Failed response with status code: {$query_response->status}");
+
+            $message = '';
+
+            if (isset($content['errors'])) {
+                $message .= $content['errors'];
+            } else {
+
+                if (isset($content['errors'])) {
+                    $message .= $content['errors'];
+                } else {
+                    $message .= $content['message'];
+                }
+
+                if (isset($content['balance'])) {
+                    $message .= " Balance: KES {$content['balance']}";
+                }
+
+                if (strlen($message) < 2) {
+                    $message = 'Something Went Wrong. Please try again later.';
+                }
+            }
+
+
+            return $this->json(['success' => false, 'value' => false, 'message' => '<p style="font-size:12px; color: #df0000;">' . $message . '</p>']);
+
+        }
+    }
+
     public function executeValidateplotdetails(sfWebRequest $request)
     {
         $block_number = trim($request->getParameter('block_number'));

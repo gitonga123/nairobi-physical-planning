@@ -328,7 +328,7 @@ class apiActions extends sfActions
 
         $username = $request->getParameter('username');
 
-        error_log("Username is --->{$username}");
+        error_log("Username is ---> 2{$username}");
 
         $block_number_key = "block_number_{$username}";
         $plot_number_key = "plot_number_{$username}";
@@ -343,18 +343,18 @@ class apiActions extends sfActions
         $cache = new sfFileCache([
             'cache_dir' => sfConfig::get('sf_cache_dir') . '/data',
         ]);
-        error_log("Query url is this one ---->1 --->{$url}");
+        error_log("Query url is this one ----> 2 --->{$url}");
 
         // Store block_number in cache
         if ($block_number) {
             $cache->set($block_number_key, $block_number, 3600); // expires in 1 hour
-            error_log("Block number set in cache ---> {$block_number}");
+            error_log("Block number set in cache ---> 2 {$block_number}");
         }
 
         // Store plot_number in cache
         if ($plot_number) {
             $cache->set($plot_number_key, $plot_number, 3600); // expires in 1 hour
-            error_log("Plot number set in cache ---> {$plot_number}");
+            error_log("Plot number set in cache --->2 {$plot_number}");
             return $this->json(['success' => true, 'value' => true, 'message' => '']);
             // return $this->renderText(json_encode(['success' => true, 'value' => true, 'message' => '']));
         }
@@ -363,8 +363,8 @@ class apiActions extends sfActions
         $block_number = $cache->get($block_number_key);
         $plot_number = $cache->get($plot_number_key);
 
-        error_log("Block number from cache --->{$block_number}");
-        error_log("Plot number from cache --->{$plot_number}");
+        error_log("Block number from cache ---> 2 {$block_number}");
+        error_log("Plot number from cache --->2 {$plot_number}");
 
         if (empty($block_number)) {
             error_log("Block number not set in cache, returning false.");
@@ -378,9 +378,6 @@ class apiActions extends sfActions
 
         $token = $cache->get("jambo_token_{$username}");
 
-        // $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMTQsImlzX2FjdGl2ZSI6dHJ1ZSwidXNlcm5hbWUiOiIyNTQ3MTA1OTQyOTgiLCJmaXJzdF9uYW1lIjoiREFOSUVMIiwibGFzdF9uYW1lIjoiTVVUV0lSSSIsImV4cCI6MTcyMDU5MzI1MiwicGVybWlzc2lvbnMiOnsiYWNjZXNzX3NlbGZfc2VydmljZV9wb3J0YWwiOnRydWUsImNyZWF0ZV9iaWxsIjp0cnVlLCJyZWdpc3Rlcl9idXNpbmVzcyI6dHJ1ZSwicmVxdWVzdF9pbnNwZWN0aW9uIjp0cnVlLCJyZXF1ZXN0X2xpY2Vuc2UiOnRydWUsImxvZ19wYXltZW50Ijp0cnVlLCJhY2Nlc3NfYWRtaW4iOmZhbHNlLCJ2aWV3X2Rhc2hib2FyZCI6ZmFsc2V9LCJyb2xlcyI6WyJjaXRpemVuIl0sInJldmVudWVfc3RyZWFtX3JvbGVzIjp7fSwiY3VzdG9tZXIiOiI3NWY5NzA5NS00ZTkzLTQ0OGMtOTliZS00YTYwNmFhN2JkNzEiLCJpZF9ubyI6IjMwMTE1ODM1IiwiZW1haWwiOiJtdXR3aXJpZGFuaWVsc2NpQGdtYWlsLmNvbSIsInBob25lIjoiMjU0NzEwNTk0Mjk4In0.j4Y627hV471zcXP6bFl6_LxD2kpEgvQjA6sRvm4QB9U";
-
-
         error_log("Token is this --->" . $token);
 
         error_log("Query url is this one ----> 2" . $url);
@@ -388,7 +385,7 @@ class apiActions extends sfActions
         // $url .= "?plot_number={$plot_number}&block_number={$block_number}";
 
         error_log("URL many years ago ----> {$url}");
-        error_log("{$plot_number} - ${block_number}" );
+        error_log("{$plot_number} - {$block_number}" );
         $query_response = $stream->sendRequest([
             'url' => $url,
             'method' => 'GET',

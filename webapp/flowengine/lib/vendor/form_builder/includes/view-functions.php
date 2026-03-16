@@ -6810,7 +6810,7 @@ EOT;
 					{$payment_total_markup_top}
 					{$form->error_message}
 
-					<ul class="list-unstyled m-0">
+					<ul class="list-unstyled m-0 ps-2 pe-2">
 
 						{$all_element_markup}
 						{$custom_element}

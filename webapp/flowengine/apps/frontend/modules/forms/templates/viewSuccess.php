@@ -137,8 +137,10 @@ if (mf_is_form_submitted()) { //if form submitted
                     } else {
                         error_log('---------next page number--------' . $submit_result['next_page_number']);
                         $_SESSION['mf_form_access'][$input_array['form_id']][$submit_result['next_page_number']] = true;
+                        $next_page_url = "Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}";
 
-                        header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}");
+                        error_log("Next page url --->{$next_page_url}");
+                        header($next_page_url);
                     }
                     exit;
                 } else { //otherwise display success message or redirect to the custom redirect URL or payment page

@@ -51,7 +51,7 @@
 		}
 
 		.governor-quote {
-			border-left: 5px solid #0d6efd;
+			border-left: 5px solid #0F47AF;
 			padding: 20px 25px;
 			background: #f8fbff;
 			font-style: italic;
@@ -64,7 +64,7 @@
 		.governor-quote::before {
 			content: "“";
 			font-size: 40px;
-			color: #0d6efd;
+			color: #0F47AF;
 			position: absolute;
 			left: 15px;
 			top: -10px;

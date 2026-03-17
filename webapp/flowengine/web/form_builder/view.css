@@ -3197,7 +3197,7 @@ div.mf_progress_value span {
 
 /* Active */
 .form-step.active .step-circle {
-    background: #0d6efd;
+    background: #0F47AF;
     color: #fff;
     box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
 }

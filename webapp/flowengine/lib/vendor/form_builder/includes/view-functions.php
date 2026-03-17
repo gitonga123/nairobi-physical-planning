@@ -6486,15 +6486,15 @@ EOT;
 	}
 
 	//if the form has resume enabled and this is multi page form (single page form doesn't have resume option)
-	if(!empty($form->resume_enable) && $form->page_total > 1 && $show_password_form === false && empty($inactive_message)){
+	if (!empty($form->resume_enable) && $form->page_total > 1 && $show_password_form === false && empty($inactive_message)) {
 
-		if(!empty($error_elements['element_resume_email'])){
+		if (!empty($error_elements['element_resume_email'])) {
 			$li_resume_email_style = '';
 			$li_resume_error_message = "<p class=\"error\">{$error_elements['element_resume_email']}</p>";
 			$li_resume_class = 'class="error"';
 			$li_resume_checked = 'checked="checked"';
 			$li_resume_button_status = 1;
-		}else{
+		} else {
 			$li_resume_email_style = 'style="display: none"';
 			$li_resume_error_message = '';
 			$li_resume_class = '';
@@ -6517,7 +6517,6 @@ EOT;
 	</div><p id="guide_resume_email" class="guidelines"><small>{$mf_lang['resume_guideline']}</small></p> {$li_resume_error_message}
 </li>
 EOT;
-
 	}
 
 	//if the form has enabled merchant support and set the total payment to be displayed
@@ -6764,7 +6763,7 @@ EOT;
 	} else {
 		$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 		$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-		error_log("Self adress --->1 {$self_address}");
+		$self_address = $initial_self_address;
 		$form_markup = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xml:lang="en" {$html_class_tag} xmlns="http://www.w3.org/1999/xhtml">
@@ -8287,7 +8286,6 @@ EOT;
 
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-	error_log("Self adress ---> 2 {$self_address}");
 	$jquery_url = '/form_builder/js/jquery.min.js';
 
 	if ($integration_method == 'php') {
@@ -9128,7 +9126,7 @@ EOT;
 
 	$initial_self_address = htmlentities($_SERVER['PHP_SELF']); //prevent XSS
 	$self_address = str_replace(['index.php', 'backend.php'], 'plan', $initial_self_address);
-	error_log("Self adress ---> 3 {$self_address}");
+	$self_address = $initial_self_address;
 	$country = mf_get_country_list();
 	$country_markup = '<option value="" selected="selected"></option>' . "\n";
 
@@ -9514,7 +9512,7 @@ EOT;
 <body id="main_body" class="no_guidelines" data-machformpath="/form_builder/">
 
 <div id="form_container card" class="{$form_container_class}">
-    <form id="form_{$form_id}" class="appnitro needs-validation" method="post" action="/plan/forms/checkoutPageView/invoice/{$invoice_id}" data-highlightcolor="{$field_highlight_color}" novalidate>
+    <form id="form_{$form_id}" class="appnitro needs-validation" method="post" action="/index.php/forms/checkoutPageView/invoice/{$invoice_id}" data-highlightcolor="{$field_highlight_color}" novalidate>
         
         <!-- Form Header -->
         <div class="card-header mb-4 text-center">

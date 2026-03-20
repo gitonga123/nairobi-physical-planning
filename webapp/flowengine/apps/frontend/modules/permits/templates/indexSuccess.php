@@ -53,7 +53,7 @@ $applicationM = new ApplicationManager();
                                 <td><?php echo !empty($permit->getDateOfExpiry()) ? date('jS M Y', strtotime($permit->getDateOfExpiry())) : ""; ?></td>
                                 <td><?php echo  $expired; ?></td>
                                 <td>
-                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Permit'); ?>' href='/plan/permits/view/id/<?php echo $permit->getId(); ?>'><?php echo __("View"); ?> </a>
+                                    <a class="btn btn-outline-primary btn-sm" title='<?php echo __('View Permit'); ?>' href='/plan/permits/view/id/<?php echo $permit->getId(); ?>'><?php echo __("View"); ?> </a>
 
                                     <?php if ($expired == "VALID") { ?>
                                         <button class="btn btn-sm btn-success" id="printinvoice" type="button" onClick="window.location='/plan/permits/print/id/<?php echo $permit->getId(); ?>';">

@@ -120,7 +120,7 @@
                                                
                                             <?php else: ?>
                                                 <a href="/plan/application/view/id/<?php echo $application->getId() ?>"
-                                                class="btn btn-outline-info btn-sm"> View</a>
+                                                class="btn btn-outline-primary btn-sm"> View</a>
                                             <?php endif ?>
                                         </td>
                                     </tr>

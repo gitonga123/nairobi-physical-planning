@@ -49,7 +49,7 @@ $applicationM = new ApplicationManager();
                                 </td>
                                 <td class="text-start">
                                     <a href="/plan/application/view/id/<?php echo $application->getId() ?>"
-                                        class="btn btn-outline-info btn-sm"> View</a>
+                                        class="btn btn-outline-primary btn-sm"> View</a>
                                     <?php if ($application->getDeclined()): ?>
                                        | <a href="/plan/application/edit/id/<?php echo $application->getId() ?>"
                                             class="btn btn-outline-danger btn-sm"> <i class="far fa-edit"></i> Edit &

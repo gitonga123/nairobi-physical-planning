@@ -51,7 +51,7 @@ use_helper("I18N");
                         <td><?php echo $invoice->getCurrency(); ?>. <?php echo $invoice->getTotalAmount(); ?></td>
                         <td><?php echo $invoice->getStatus(); ?></td>
                         <td>
-                            <a class="btn btn-outline-info btn-sm" id="printinvoice"
+                            <a class="btn btn-outline-primary btn-sm" id="printinvoice"
                                 href="/plan/invoices/view/id/<?php echo $invoice->getId(); ?>"><i class="fa fa-eye mr5"></i>
                                 <?php echo __("View Invoice"); ?></a> |
                             <a class="btn btn-dark btn-sm" id="printinvoice"

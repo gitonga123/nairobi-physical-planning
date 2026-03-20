@@ -33,7 +33,7 @@ use_helper("I18N");
                                 <td><?php echo $invoice->getFormEntry()->getApplicationId() ?></td>
                                 <td><?php echo $invoice->getStatus() ?></td>
                                 <td>
-                                    <a class="btn btn-outline-info btn-sm" title='<?php echo __('View Invoice'); ?>'
+                                    <a class="btn btn-outline-primary btn-sm" title='<?php echo __('View Invoice'); ?>'
                                         href='/plan/invoices/view/id/<?php echo $invoice->getId(); ?>'><?php echo __("View"); ?>
                                     </a>
 

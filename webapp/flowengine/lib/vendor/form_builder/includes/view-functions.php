@@ -860,6 +860,7 @@ EOT;
 		$msg_queue_limited = sprintf($mf_lang['file_queue_limited'], $queue_limit);
 		$msg_upload_max = sprintf($mf_lang['file_upload_max'], $element->file_size_max);
 		$uploader_script = <<<EOT
+		<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	$(function(){
 		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){
@@ -1049,7 +1050,7 @@ EOT;
 			<input id="element_{$element->id}" name="element_{$element->id}" class="element form-control file" type="file" {$disabled_tag} />
 			{$file_queue}
 			{$uploader_script}
-		</div>{$file_option} <span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
+		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
 		</li>
 EOT;
 

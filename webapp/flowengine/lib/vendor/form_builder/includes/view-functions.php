@@ -861,6 +861,10 @@ EOT;
 		$msg_upload_max = sprintf($mf_lang['file_upload_max'], $element->file_size_max);
 		$uploader_script = <<<EOT
 		<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="/form_builder/js/uploadify/swfobject.js"></script>
+		<script type="text/javascript" src="/form_builder/js/uploadify/jquery.uploadify.js"></script>
+		<script type="text/javascript" src="/form_builder/js/uploadifive/jquery.uploadifive.js"></script>
+		<script type="text/javascript" src="/form_builder/js/jquery.jqplugin.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		 if(is_support_html5_uploader() && $('#element_{$element->id}').length > 0){

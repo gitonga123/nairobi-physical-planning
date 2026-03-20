@@ -992,6 +992,13 @@ require ($prefix_folder . 'includes/header.php');
 								<?php echo __('Total Plinth Area'); ?></span>
 						</a>
 					</li>
+					<!-- OTB patch - Geo Location Field -->
+					<li id="btn_geo_location" class="box">
+						<a id="a_geo_location" href="#" title="<?php echo __('Geo Location'); ?>">
+							<span class="icon-location icon-font"></span><span class="blabel">
+								<?php echo __('Geo Location'); ?></span>
+						</a>
+					</li>
 
 				</ul>
 

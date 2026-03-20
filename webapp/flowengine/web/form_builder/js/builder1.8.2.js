@@ -3912,6 +3912,10 @@ $(function () {
                 case "btn_total_plinth_area":
                     c = "total_plinth_area";
                     break;
+                //OTB patch - btn_geo_location
+                case "btn_geo_location":
+                    c = "geo_location";
+                    break;
                 default:
                     c = "text";
                     break;

@@ -140,6 +140,7 @@ if (mf_is_form_submitted()) { //if form submitted
                         $next_page_url = "Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}";
 
                         error_log("Next page url --->{$next_page_url}");
+                        error_log("http{$ssl_suffix}:// ----> {$_SERVER['HTTP_HOST']} ---> {$_SERVER['PHP_SELF']}");
                         header($next_page_url);
                     }
                     exit;

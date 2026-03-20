@@ -2593,17 +2593,47 @@ function mf_display_simple_name($element)
 	}
 
 	$element_markup = <<<EOT
-		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group">
-		<span class="description col-sm-2 control-label">{$element->title} {$span_required}</span>
-		<span class="simple_name_1 col-sm-5">
-			<input id="element_{$element->id}_1" name="element_{$element->id}_1" {$attr_readonly} type="text" class="element form-control text" maxlength="255" size="8" value="{$default_value_1}" />
-			<label for="element_{$element->id}_1">{$mf_lang['name_first']}</label>
-		</span>
-		<span class="simple_name_2 col-sm-5">
-			<input id="element_{$element->id}_2" name="element_{$element->id}_2" {$attr_readonly} type="text" class="element form-control text" maxlength="255" size="14" value="{$default_value_2}" />
-			<label for="element_{$element->id}_2">{$mf_lang['name_last']}</label>
-		</span><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
-		</li>
+<li id="li_{$element->id}" {$li_style} class="form-group {$li_class}">
+    
+    <div class="row mb-3">
+        
+        <label class="col-sm-2 col-form-label">
+            {$element->title} {$span_required}
+        </label>
+
+        <div class="col-sm-5">
+            <input 
+                id="element_{$element->id}_1" 
+                name="element_{$element->id}_1" 
+                {$attr_readonly} 
+                type="text" 
+                class="form-control" 
+                maxlength="255" 
+                value="{$default_value_1}" 
+            />
+            <small class="text-muted">{$mf_lang['name_first']}</small>
+        </div>
+
+        <div class="col-sm-5">
+            <input 
+                id="element_{$element->id}_2" 
+                name="element_{$element->id}_2" 
+                {$attr_readonly} 
+                type="text" 
+                class="form-control" 
+                maxlength="255" 
+                value="{$default_value_2}" 
+            />
+            <small class="text-muted">{$mf_lang['name_last']}</small>
+        </div>
+
+        <div class="col-sm-10 offset-sm-2">
+            {$guidelines} {$error_message}
+        </div>
+
+    </div>
+
+</li>
 EOT;
 
 	return $element_markup;

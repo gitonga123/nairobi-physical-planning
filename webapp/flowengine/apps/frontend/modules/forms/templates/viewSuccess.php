@@ -137,7 +137,7 @@ if (mf_is_form_submitted()) { //if form submitted
                     } else {
                         error_log('---------next page number--------' . $submit_result['next_page_number']);
                         $_SESSION['mf_form_access'][$input_array['form_id']][$submit_result['next_page_number']] = true;
-                        $next_page_url = "Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}";
+                        $next_page_url = "Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}";
 
                         error_log("Next page url --->{$next_page_url}");
                         error_log("http{$ssl_suffix}:// ----> {$_SERVER['HTTP_HOST']} ---> {$_SERVER['PHP_SELF']}");

@@ -4465,6 +4465,199 @@ EOT;
 	return $element_markup;
 }
 
+//Geo Location - Map with Longitude and Latitude
+function mf_display_geo_location($element)
+{
+	global $mf_lang;
+
+	//check for error
+	$li_class = '';
+	$li_style = '';
+	$error_message = '';
+	$span_required = '';
+	$attr_readonly = '';
+	$guidelines = '';
+
+	$el_class = array();
+
+	$el_class[] = 'geo_location form-group';
+
+	if ($element->is_private == 1) {
+		$el_class[] = 'private';
+	}
+
+	if ($element->is_private == 2 && !$element->is_design_mode && !$element->is_edit_entry) {
+		$li_style = 'style="display: none"';
+	}
+
+	if (!empty($element->css_class)) {
+		$el_class[] = trim($element->css_class);
+	}
+
+	if (!empty($element->is_error)) {
+		$el_class[] = 'error form-group';
+		if ($element->error_message != 'error_no_display') {
+			$error_message = "<p class=\"error\">{$element->error_message}</p>";
+		}
+	}
+
+	//check for required
+	if ($element->is_required) {
+		$span_required = "<span id=\"required_{$element->id}\" class=\"required\">*</span>";
+	}
+
+	//check for read-only attribute
+	if ($element->is_readonly) {
+		$attr_readonly = 'readonly="readonly"';
+	}
+
+	//check for guidelines
+	if (!empty($element->guidelines)) {
+		$guidelines = "<p class=\"guidelines alert alert-info m-b-0\" id=\"guide_{$element->id}\"><small>{$element->guidelines}</small></p>";
+	}
+
+	//check for GET parameter to populate default value - longitude
+	if (isset($_GET['element_' . $element->id . '_1'])) {
+		$default_value_1 = htmlspecialchars(mf_sanitize($_GET['element_' . $element->id . '_1']), ENT_QUOTES);
+	}
+	//check for GET parameter to populate default value - latitude
+	if (isset($_GET['element_' . $element->id . '_2'])) {
+		$default_value_2 = htmlspecialchars(mf_sanitize($_GET['element_' . $element->id . '_2']), ENT_QUOTES);
+	}
+
+	//check for populated values, if exist override the default value
+	if (
+		!empty($element->populated_value['element_' . $element->id . '_1']['default_value']) ||
+		!empty($element->populated_value['element_' . $element->id . '_2']['default_value'])
+	) {
+		$default_value_1 = '';
+		$default_value_2 = '';
+		$default_value_1 = $element->populated_value['element_' . $element->id . '_1']['default_value'];
+		$default_value_2 = $element->populated_value['element_' . $element->id . '_2']['default_value'];
+	}
+
+	//Initialize default values if not set - default to Nairobi coordinates
+	if (!isset($default_value_1)) {
+		$default_value_1 = '36.8219'; // Default longitude
+	}
+	if (!isset($default_value_2)) {
+		$default_value_2 = '-1.2921'; // Default latitude
+	}
+
+	//build the li class
+	if (!empty($el_class)) {
+		foreach ($el_class as $value) {
+			$li_class .= $value . ' ';
+		}
+
+		$li_class = 'class="' . rtrim($li_class) . '"';
+	}
+
+	$map_id = 'map_' . $element->id;
+	$lat_input_id = 'element_' . $element->id . '_2';
+	$lng_input_id = 'element_' . $element->id . '_1';
+
+	$element_markup = <<<EOT
+		<li id="li_{$element->id}" {$li_style} {$li_class} {$element->edit_style}>
+		<span class="description col-sm-2 control-label">{$element->title} {$span_required}</span>
+
+		<div class="col-sm-12">
+			<div id="{$map_id}" style="height: 400px; width: 100%; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;"></div>
+			
+			<span id="li_{$element->id}_span_1" class="left" style="width: 48%;">
+				<input id="{$lng_input_id}" name="{$lng_input_id}" class="element form-control text large" {$attr_readonly} value="{$default_value_1}" type="text" placeholder="Longitude"/>
+				<label for="{$lng_input_id}">Longitude</label>
+			</span>
+
+			<span id="li_{$element->id}_span_2" class="right" style="width: 48%;">
+				<input id="{$lat_input_id}" name="{$lat_input_id}" class="element form-control text large" {$attr_readonly} value="{$default_value_2}" type="text" placeholder="Latitude"/>
+				<label for="{$lat_input_id}">Latitude</label>
+			</span>
+			
+			<p class="help-block" style="clear: both; padding-top: 10px;">Click on the map to set the location or drag the marker to adjust.</p>
+		</div>
+		
+		<script type="text/javascript">
+		(function() {
+			var latInput = document.getElementById('{$lat_input_id}');
+			var lngInput = document.getElementById('{$lng_input_id}');
+			var mapDiv = document.getElementById('{$map_id}');
+			
+			// Initialize the map with default coordinates
+			var defaultLat = parseFloat('{$default_value_2}') || -1.2921;
+			var defaultLng = parseFloat('{$default_value_1}') || 36.8219;
+			
+			// Check if Leaflet is already loaded
+			if (typeof L === 'undefined') {
+				// Load Leaflet CSS and JS from CDN
+				var linkEl = document.createElement('link');
+				linkEl.rel = 'stylesheet';
+				linkEl.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+				document.head.appendChild(linkEl);
+				
+				var scriptEl = document.createElement('script');
+				scriptEl.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+				scriptEl.onload = function() { initMap(defaultLat, defaultLng); };
+				document.head.appendChild(scriptEl);
+			} else {
+				initMap(defaultLat, defaultLng);
+			}
+			
+			function initMap(lat, lng) {
+				var map = L.map('{$map_id}').setView([lat, lng], 13);
+				
+				// Add OpenStreetMap tile layer
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				}).addTo(map);
+				
+				// Add marker at the default location
+				var marker = L.marker([lat, lng], {draggable: true}).addTo(map);
+				
+				// Update inputs when marker is dragged
+				marker.on('dragend', function(event) {
+					var position = marker.getLatLng();
+					latInput.value = position.lat.toFixed(6);
+					lngInput.value = position.lng.toFixed(6);
+				});
+				
+				// Update marker when inputs change
+				latInput.addEventListener('change', function() {
+					var newLat = parseFloat(latInput.value);
+					var newLng = parseFloat(lngInput.value);
+					if (!isNaN(newLat) && !isNaN(newLng)) {
+						map.setView([newLat, newLng], map.getZoom());
+						marker.setLatLng([newLat, newLng]);
+					}
+				});
+				
+				lngInput.addEventListener('change', function() {
+					var newLat = parseFloat(latInput.value);
+					var newLng = parseFloat(lngInput.value);
+					if (!isNaN(newLat) && !isNaN(newLng)) {
+						map.setView([newLat, newLng], map.getZoom());
+						marker.setLatLng([newLat, newLng]);
+					}
+				});
+				
+				// Click on map to set marker
+				map.on('click', function(event) {
+					marker.setLatLng(event.latlng);
+					latInput.value = event.latlng.lat.toFixed(6);
+					lngInput.value = event.latlng.lng.toFixed(6);
+				});
+			}
+		})();
+		</script>
+		
+		<span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
+		</li>
+EOT;
+
+
+	return $element_markup;
+}
+
 
 //Captcha
 function mf_display_captcha($element)

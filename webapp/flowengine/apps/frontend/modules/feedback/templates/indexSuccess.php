@@ -48,13 +48,13 @@ if (mf_is_form_submitted()) { //if form submitted
             if (!empty($submit_result['form_resume_url'])) { //the user saving a form, display success page with the resume URL
                 $_SESSION['mf_form_resume_url'][$input_array['form_id']] = $submit_result['form_resume_url'];
 
-                header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
+                header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
                 exit;
             } else if ($submit_result['logic_page_enable'] === true) { //the page has skip logic enable and a custom destination page has been set
                 $target_page_id = $submit_result['target_page_id'];
 
                 if (is_numeric($target_page_id)) {
-                    header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&mf_page={$target_page_id}");
+                    header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&mf_page={$target_page_id}");
                     exit;
                 } else if ($target_page_id == 'payment') {
                     //redirect to payment page, based on selected merchant
@@ -82,7 +82,7 @@ if (mf_is_form_submitted()) { //if form submitted
                 } else if ($target_page_id == 'success') {
                     //redirect to success page
                     if (empty($submit_result['form_redirect'])) {
-                        header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
+                        header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
                         exit;
                     } else {
                         echo "<script type=\"text/javascript\">top.location.replace('{$submit_result['form_redirect']}')</script>";
@@ -102,7 +102,7 @@ if (mf_is_form_submitted()) { //if form submitted
                 if (!empty($submit_result['next_page_number'])) { //redirect to the next page number
                     $_SESSION['mf_form_access'][$input_array['form_id']][$submit_result['next_page_number']] = true;
 
-                    header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}");
+                    header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}");
                     exit;
                 } else { //otherwise display success message or redirect to the custom redirect URL or payment page
 
@@ -118,7 +118,7 @@ if (mf_is_form_submitted()) { //if form submitted
                     } else {
                         //redirect to success page
                         if (empty($submit_result['form_redirect'])) {
-                            header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
+                            header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
                             exit;
                         } else {
                             echo "<script type=\"text/javascript\">top.location.replace('{$submit_result['form_redirect']}')</script>";

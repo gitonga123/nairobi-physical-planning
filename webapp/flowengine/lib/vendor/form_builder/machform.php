@@ -148,7 +148,7 @@
 						if(!empty($submit_result['next_page_number'])){ //redirect to the next page number
 							$_SESSION['mf_form_access'][$input_array['form_id']][$submit_result['next_page_number']] = true;
 															
-							echo "<script type=\"text/javascript\">top.location = 'http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}'</script>";
+							echo "<script type=\"text/javascript\">top.location = 'http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']).$_SERVER['PHP_SELF']."?id={$input_array['form_id']}&mf_page={$submit_result['next_page_number']}'</script>";
 							exit;
 						}else{ //otherwise display success message or redirect to the custom redirect URL or payment page
 							if(mf_is_payment_has_value($dbh,$input_array['form_id'],$submit_result['entry_id'])){
@@ -306,7 +306,7 @@
 			$origin_page_num = (int) $_POST['mf_page_from'];
 			$ssl_suffix = mf_get_ssl_suffix();
 			
-			echo "<script type=\"text/javascript\">top.location = 'http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$form_id}&mf_page={$origin_page_num}'</script>";
+			echo "<script type=\"text/javascript\">top.location = 'http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']).$_SERVER['PHP_SELF']."?id={$form_id}&mf_page={$origin_page_num}'</script>";
 			exit;
 		}else if(!empty($_POST['form_id_redirect'])){ //form payment being submitted
 			$paid_form_id = (int) trim($_POST['form_id_redirect']);

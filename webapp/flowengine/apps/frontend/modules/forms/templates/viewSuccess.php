@@ -67,9 +67,9 @@ if (mf_is_form_submitted()) { //if form submitted
                 $_SESSION['mf_form_resume_url'][$input_array['form_id']] = $submit_result['form_resume_url'];
                 error_log('----------save_as_draft-------' . $_SESSION['save_as_draft']);
                 if ($_SESSION['save_as_draft']) {
-                    header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
+                    header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
                 } else {
-                    header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
+                    header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
                 }
                 exit;
             } else if ($submit_result['logic_page_enable'] === true) { //the page has skip logic enable and a custom destination page has been set
@@ -77,7 +77,7 @@ if (mf_is_form_submitted()) { //if form submitted
                 $target_page_id = $submit_result['target_page_id'];
                 error_log('------------target_page_id------' . $target_page_id);
                 if (is_numeric($target_page_id)) {
-                    header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&mf_page={$target_page_id}");
+                    header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&mf_page={$target_page_id}");
                     exit;
                 } else if ($target_page_id == 'payment') {
                     error_log('Target page id is payment');
@@ -110,9 +110,9 @@ if (mf_is_form_submitted()) { //if form submitted
                         exit;
                     } else if (empty($submit_result['form_redirect'])) {
                         if ($_SESSION['save_as_draft']) {
-                            header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
+                            header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
                         } else {
-                            header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
+                            header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
                         }
                         exit;
                     } else {
@@ -133,7 +133,7 @@ if (mf_is_form_submitted()) { //if form submitted
                 if (!empty($submit_result['next_page_number'])) { //redirect to the next page number
                     error_log('------------next_page_number------' . $submit_result['next_page_number']);
                     if ($_SESSION['save_as_draft']) {
-                        header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
+                        header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
                     } else {
                         error_log('---------next page number--------' . $submit_result['next_page_number']);
                         $_SESSION['mf_form_access'][$input_array['form_id']][$submit_result['next_page_number']] = true;
@@ -162,10 +162,10 @@ if (mf_is_form_submitted()) { //if form submitted
                         //redirect to success page
                         if (empty($submit_result['form_redirect'])) {
                             if ($_SESSION['save_as_draft']) {
-                                header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
+                                header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&draft=1&done=1");
                             } else {
                                 error_log('form_redirect is empty');
-                                header("Location: http{$ssl_suffix}://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
+                                header("Location: http{$ssl_suffix}://" . "nairobipay.go.ke" . str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF']) . "?id={$input_array['form_id']}&entryid={$submit_result['entry_id']}&done=1");
                             }
                             exit;
                         } else {

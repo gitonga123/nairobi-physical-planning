@@ -50,7 +50,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
         unset($_SESSION['review_id']);
 
         if(empty($commit_result['form_redirect'])){
-            header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$form_id}&done=1");
+            header("Location: http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF'])."?id={$form_id}&done=1");
             exit;
         }else{
             echo "<script type=\"text/javascript\">top.location.replace('{$commit_result['form_redirect']}')</script>";
@@ -91,7 +91,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
                 //if the amount is zero, display success page instead
                 if(empty($commit_result['form_redirect'])){
                     error_log('--------form_redirect empty----');
-                    header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$form_id}&done=1");
+                    header("Location: http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF'])."?id={$form_id}&done=1");
                     exit;
                 }else{
                     error_log('--------form_redirect mot empty----');
@@ -102,7 +102,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
         }else if($form_properties['payment_merchant_type'] == 'paypal_standard'){
             //error_log('----------paypal_standard-----------');
             if(empty($commit_result['form_redirect'])){
-                header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$form_id}&done=1");
+                header("Location: http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF'])."?id={$form_id}&done=1");
                 exit;
             }else{
                 echo "<script type=\"text/javascript\">top.location.replace('{$commit_result['form_redirect']}')</script>";
@@ -112,7 +112,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
             //error_log('----------check-----------');
             //redirect to either success page or custom redirect URL
             if(empty($commit_result['form_redirect'])){
-                header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$form_id}&done=1");
+                header("Location: http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF'])."?id={$form_id}&done=1");
                 exit;
             }else{
                 echo "<script type=\"text/javascript\">top.location.replace('{$commit_result['form_redirect']}')</script>";
@@ -123,7 +123,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
         else if($form_properties['payment_merchant_type'] == 'malipo'){
             error_log("Debug>>> malipo ------------ We should call the API endpoint that will request Malipo to create payment request for payments items set on the form") ;
             if(empty($commit_result['form_redirect'])){
-                header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$form_id}&done=1");
+                header("Location: http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF'])."?id={$form_id}&done=1");
                 exit;
             }else{
                 echo "<script type=\"text/javascript\">top.location.replace('{$commit_result['form_redirect']}')</script>";
@@ -134,7 +134,7 @@ if(!empty($_POST['review_submit']) || !empty($_POST['review_submit_x'])){ //if f
            error_log('------------UnKNOWN merchant----------');
            error_log($form_properties['payment_merchant_type']);
             if(empty($commit_result['form_redirect'])){
-                header("Location: http{$ssl_suffix}://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id={$form_id}&done=1");
+                header("Location: http{$ssl_suffix}://"."nairobipay.go.ke".str_replace(['index.php', 'backend.php'], 'plan', $_SERVER['PHP_SELF'])."?id={$form_id}&done=1");
                 exit;
             }else{
                 echo "<script type=\"text/javascript\">top.location.replace('{$commit_result['form_redirect']}')</script>";

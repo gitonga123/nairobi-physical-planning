@@ -379,7 +379,7 @@ function mf_display_text($element)
 	$readonly_style = !empty($attr_readonly) ? 'style="background-color: #e9ecef; opacity: 1;"' : '';
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class} class="form-group">
-		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
+		<label class="description col-sm-12 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
 		<div class="col-sm-12">
 			<input id="element_{$element->id}" name="element_{$element->id}" {$maxlength} class="element form-control text large" type="{$element_type}" value="{$element->default_value}"  {$input_handler} {$element->edit_style} {$attr_placeholder} {$attr_readonly} {$readonly_style}/>
 			{$range_limit_markup}
@@ -2597,7 +2597,7 @@ function mf_display_simple_name($element)
     
     <div class="row mb-3">
         
-        <label class="col-sm-12 col-form-label">
+        <label class="col-sm-12 col-form-label" for="element_{$element->id}_1">
             {$element->title} {$span_required}
         </label>
 

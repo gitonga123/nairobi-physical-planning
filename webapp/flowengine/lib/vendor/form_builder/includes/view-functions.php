@@ -2597,11 +2597,11 @@ function mf_display_simple_name($element)
     
     <div class="row mb-3">
         
-        <label class="col-sm-2 col-form-label">
+        <label class="col-sm-12 col-form-label">
             {$element->title} {$span_required}
         </label>
 
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <input 
                 id="element_{$element->id}_1" 
                 name="element_{$element->id}_1" 
@@ -2614,7 +2614,7 @@ function mf_display_simple_name($element)
             <small class="text-muted">{$mf_lang['name_first']}</small>
         </div>
 
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <input 
                 id="element_{$element->id}_2" 
                 name="element_{$element->id}_2" 

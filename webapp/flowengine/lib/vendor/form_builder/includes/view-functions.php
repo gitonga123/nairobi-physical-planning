@@ -547,7 +547,7 @@ function mf_display_textarea($element)
 	}
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group">
-		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
+		<label class="description col-sm-12 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
 		<div class="col-sm-12">
 			<textarea id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control textarea large" rows="8" cols="90" {$input_handler} {$element->edit_style}>{$element->default_value}</textarea>
 			{$range_limit_markup}
@@ -1145,7 +1145,7 @@ function mf_display_url($element)
 
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class} class="form-group">
-		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
+		<label class="description col-sm-12 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
 		<div class="col-sm-12">
 			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control text {$element->size} large" type="text"  value="{$element->default_value}" {$element->edit_style}/>
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>
@@ -1234,7 +1234,7 @@ function mf_display_email($element)
 
 	$element_markup = <<<EOT
 		<li id="li_{$element->id}" {$li_style} {$li_class}  class="form-group">
-		<label class="description col-sm-2 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
+		<label class="description col-sm-12 control-label" for="element_{$element->id}">{$element->title} {$span_required}</label>
 		<div class="col-sm-12">
 			<input id="element_{$element->id}" name="element_{$element->id}" {$attr_placeholder} {$attr_readonly} class="element form-control text {$element->size} large" type="text" maxlength="255" value="{$element->default_value}" {$element->edit_style}/>
 		</div><span class="col-sm-10 col-sm-offset-2">{$guidelines} {$error_message}</span>

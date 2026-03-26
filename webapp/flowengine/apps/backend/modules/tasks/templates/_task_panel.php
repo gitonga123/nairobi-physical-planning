@@ -17,7 +17,7 @@ if ($task->getType() == "3" && $task->getStatus() != 25) {
     <div class="alert alert-success">
         <strong>Please!</strong> Select a fee(s) from the list to create an invoice.
     </div>
-    <form class="form-bordered" id="feeform" method="post" action="/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>"
+    <form class="form-bordered" id="feeform" method="post" action="https://rms.nairobipay.go.ke/plan/tasks/saveinvoice/id/<?php echo $task->getId(); ?>"
         id="MailContentForm" name="MailContentForm" onSubmit="return validate_editfield();" autocomplete="off"
         data-ajax="false">
         <?php

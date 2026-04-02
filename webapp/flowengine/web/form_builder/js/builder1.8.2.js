@@ -1444,7 +1444,7 @@ function load_properties(p) {
                                                                             } else {
                                                                                 u = ""
                                                                             }
-                                                                            k = '<li><input type="' + l + '" ' + u + ' title="Select this choice as the default." class="choices_default" name="choices_default" id="choicedef_' + g + '" /><input type="text" value="' + h.replace(/\"/g, "&quot;") + '" autocomplete="off" class="text" id="choice_' + g + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="choiceadd_' + g + '"><img class="del_choice" title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png" style="vertical-align: middle" id="choicedel_' + g + '"></li>';
+                                                                            k = '<li><input type="' + l + '" ' + u + ' title="Select this choice as the default." class="choices_default" name="choices_default" id="choicedef_' + g + '" /><input type="text" value="' + h.replace(/\"/g, "&quot;") + '" autocomplete="off" class="text" id="choice_' + g + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="choiceadd_' + g + '"><img class="del_choice" title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" style="vertical-align: middle" id="choicedel_' + g + '"></li>';
                                                                             f += k
                                                                         }
                                                                     });
@@ -1523,7 +1523,7 @@ function load_properties(p) {
                                                                                 h = v.options[x].row_title;
                                                                                 o = w;
                                                                                 if (w > 1) {
-                                                                                    m = '<img class="del_choice" title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixrowdel_' + choice_element_id + '">'
+                                                                                    m = '<img class="del_choice" title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixrowdel_' + choice_element_id + '">'
                                                                                 }
                                                                                 k = '<li><input type="text" value="' + h.replace(/\"/g, "&quot;") + '" autocomplete="off" class="text" id="matrixrow_' + choice_element_id + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="matrixrowadd_' + choice_element_id + '">' + m + "</li>";
                                                                                 f += k
@@ -1544,7 +1544,7 @@ function load_properties(p) {
                                                                                 g = x;
                                                                                 h = i[x].column_title;
                                                                                 o = w;
-                                                                                k = '<li><input type="text" value="' + h.replace(/\"/g, "&quot;") + '" autocomplete="off" class="text" id="matrixcol_' + g + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="matrixcoladd_' + g + '"><img class="del_choice" title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixcoldel_' + g + '"></li>';
+                                                                                k = '<li><input type="text" value="' + h.replace(/\"/g, "&quot;") + '" autocomplete="off" class="text" id="matrixcol_' + g + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="matrixcoladd_' + g + '"><img class="del_choice" title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixcoldel_' + g + '"></li>';
                                                                                 f += k
                                                                             }
                                                                         });
@@ -3013,7 +3013,7 @@ function add_matrix_row(d) {
     var g = '<tr id="mr_temp_' + a + '" class="matrix_row_processing"><td colspan="' + i + '"><img src="/form_builder/images/loader_small.gif" style="vertical-align: middle"/> creating new row ...</td></tr>';
     var k = $("#element_matrix_row li").index(d.parent()) + 1;
     $("#" + active_element + " table tr:eq(" + k + ")").after(g);
-    var c = '<li id="li_mr_temp_' + a + '" class="li_mr_temp_holder"><input type="text" disabled="disabled" value="creating new row ..." autocomplete="off" class="text" id="matrixrow_' + a + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="matrixrowadd_' + a + '"><img class="del_choice" title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixrowdel_' + a + '"></li>';
+    var c = '<li id="li_mr_temp_' + a + '" class="li_mr_temp_holder"><input type="text" disabled="disabled" value="creating new row ..." autocomplete="off" class="text" id="matrixrow_' + a + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="matrixrowadd_' + a + '"><img class="del_choice" title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixrowdel_' + a + '"></li>';
     d.parent().after(c);
     $.ajax({
         type: "POST",
@@ -3167,7 +3167,7 @@ function add_matrix_column(a) {
     g = Math.round(g);
     $("#" + active_element + " table th:eq(0)").css("width", e + "%");
     $("#" + active_element + " table th:gt(0)").css("width", g + "%");
-    var f = '<li><input type="text" value="" autocomplete="off" class="text" id="matrixcol_' + l + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="matrixcoladd_' + l + '"><img class="del_choice" title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixcoldel_' + l + '"></li>';
+    var f = '<li><input type="text" value="" autocomplete="off" class="text" id="matrixcol_' + l + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="matrixcoladd_' + l + '"><img class="del_choice" title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" style="vertical-align: middle" id="matrixcoldel_' + l + '"></li>';
     a.parent().after(f);
     $("#matrixcol_" + l).focus();
     var j = q.data("field_properties").options[c].column_data;
@@ -4407,7 +4407,7 @@ $(function () {
                     m = "checkbox"
                 }
             }
-            var c = '<li><input type="' + m + '" title="Select this choice as the default." class="choices_default" name="choices_default" id="choicedef_' + k + '" /><input type="text" value="" autocomplete="off" class="text" id="choice_' + k + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="choiceadd_' + k + '" ><img class="del_choice" title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png" style="vertical-align: middle" id="choicedel_' + k + '" ></li>';
+            var c = '<li><input type="' + m + '" title="Select this choice as the default." class="choices_default" name="choices_default" id="choicedef_' + k + '" /><input type="text" value="" autocomplete="off" class="text" id="choice_' + k + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="choiceadd_' + k + '" ><img class="del_choice" title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" style="vertical-align: middle" id="choicedel_' + k + '" ></li>';
             n.parent().after(c);
             r.data("field_properties").last_option_id = k;
             var o = "";
@@ -4524,7 +4524,7 @@ $(function () {
             }
         }
         var k = parseInt(r.data("field_properties").last_option_id) + 1;
-        var c = '<li><input type="' + m + '" title="Select this choice as the default." class="choices_default" name="choices_default" id="choicedef_' + k + '" /><input type="text" value="" autocomplete="off" class="text" id="choice_' + k + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="choiceadd_' + k + '" ><img class="del_choice" title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png" style="vertical-align: middle" id="choicedel_' + k + '" ></li>';
+        var c = '<li><input type="' + m + '" title="Select this choice as the default." class="choices_default" name="choices_default" id="choicedef_' + k + '" /><input type="text" value="" autocomplete="off" class="text" id="choice_' + k + '" /> <img class="add_choice" title="Add" alt="Add" src="/form_builder/images/icons/add.png" style="vertical-align: middle" id="choiceadd_' + k + '" ><img class="del_choice" title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" style="vertical-align: middle" id="choicedel_' + k + '" ></li>';
         n.parent().after(c);
         r.data("field_properties").last_option_id = k;
         var o = "";

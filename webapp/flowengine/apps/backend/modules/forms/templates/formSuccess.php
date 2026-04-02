@@ -1388,7 +1388,7 @@ require ($prefix_folder . 'includes/header.php');
 												id="choice_1" />
 											<img title="Add" alt="Add" src="/form_builder/images/icons/add.png"
 												style="vertical-align: middle">
-											<img title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png"
+											<img title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png"
 												style="vertical-align: middle">
 										</li>
 									</ul>
@@ -1449,7 +1449,7 @@ require ($prefix_folder . 'includes/header.php');
 												id="matrixrow_1" />
 											<img title="Add" alt="Add" src="/form_builder/images/icons/add.png"
 												style="vertical-align: middle">
-											<img title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png"
+											<img title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png"
 												style="vertical-align: middle">
 										</li>
 									</ul>
@@ -1476,7 +1476,7 @@ require ($prefix_folder . 'includes/header.php');
 												id="matrixcolumn_1" />
 											<img title="Add" alt="Add" src="/form_builder/images/icons/add.png"
 												style="vertical-align: middle">
-											<img title="Delete" alt="Delete" src="/form_builder/images/icons/delete.png"
+											<img title="Delete" alt="Delete" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png"
 												style="vertical-align: middle">
 										</li>
 									</ul>

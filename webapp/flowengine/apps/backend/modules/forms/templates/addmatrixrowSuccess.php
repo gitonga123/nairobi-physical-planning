@@ -175,7 +175,7 @@
 	$prop_markup = <<<EOT
 <li>
 	<input type="text" id="matrixrow_{$element_id}" class="text" autocomplete="off" value=""> 
-	<img id="matrixrowadd_{$element_id}" style="vertical-align: middle;" src="/form_builder/images/icons/add.png" alt="Add" title="Add" class="add_choice"><img id="matrixrowdel_{$element_id}" style="vertical-align: middle;" src="/form_builder/images/icons/delete.png" alt="Delete" title="Delete" class="del_choice">
+	<img id="matrixrowadd_{$element_id}" style="vertical-align: middle;" src="/form_builder/images/icons/add.png" alt="Add" title="Add" class="add_choice"><img id="matrixrowdel_{$element_id}" style="vertical-align: middle;" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png" alt="Delete" title="Delete" class="del_choice">
 </li>
 EOT;
 

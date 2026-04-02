@@ -643,7 +643,7 @@ function mf_display_file($element)
 			$readonly_remove = '';
 			if (!$element->is_readonly) {
 				$readonly_remove = "<div class=\"cancel\">
-					<a href=\"javascript:remove_attachment('{$data['filename']}',{$element->form_id},{$element->id},'{$queue_id}',{$db_live_status},{$data['entry_id']},'{$data['saved_filename']}');\"><img border=\"0\" src=\"https://devnairobi.amkatek.com/form_builder/images/icons/delete.png\"></a>
+					<a href=\"javascript:remove_attachment('{$data['filename']}',{$element->form_id},{$element->id},'{$queue_id}',{$db_live_status},{$data['entry_id']},'{$data['saved_filename']}');\"><img border=\"0\" src=\"https://devnairobi.amkatek.comhttps://devnairobi.amkatek.com/form_builder/images/icons/delete.png\"></a>
 					</div>";
 			}
 			$queue_content .= <<<EOT
@@ -693,7 +693,7 @@ EOT;
 					$queue_content .= <<<EOT
 							<div class="uploadifyQueueItem completed" id="{$queue_id}">
 							<div class="cancel">
-							<a href="javascript:remove_attachment('{$filename_value}',{$element->form_id},{$element->id},'{$queue_id}',0,'{$file_token}');"><img border="0" src="https://devnairobi.amkatek.com/form_builder/images/icons/delete.png"></a>
+							<a href="javascript:remove_attachment('{$filename_value}',{$element->form_id},{$element->id},'{$queue_id}',0,'{$file_token}');"><img border="0" src="https://devnairobi.amkatek.comhttps://devnairobi.amkatek.com/form_builder/images/icons/delete.png"></a>
 						    </div>
 							<span class="fileName">
 							  <img align="absmiddle" src="/form_builder/images/icons/attach.gif" class="file_attached">{$display_filename} {$file_size}
@@ -820,7 +820,7 @@ EOT;
 					var queue_item_id =  file.queueItem.attr('id');
 
 					if(is_valid_response == true && response_json.status == "ok"){
-						var remove_link = "<a class=\"close\" href=\"javascript:remove_attachment('" + response_json.message + "',{$element->form_id},{$element->id},'" + queue_item_id + "',0,'{$file_token}');\"><img border=\"0\" src=\"https://devnairobi.amkatek.com/form_builder/images/icons/delete.png\" /></a>";
+						var remove_link = "<a class=\"close\" href=\"javascript:remove_attachment('" + response_json.message + "',{$element->form_id},{$element->id},'" + queue_item_id + "',0,'{$file_token}');\"><img border=\"0\" src=\"https://devnairobi.amkatek.comhttps://devnairobi.amkatek.com/form_builder/images/icons/delete.png\" /></a>";
 
 						$("#" + queue_item_id + " a.close").replaceWith(remove_link);
 				        $("#" + queue_item_id + ' span.filename').prepend('<img align="absmiddle" class="file_attached" src="/form_builder/images/icons/attach.gif">');
@@ -901,7 +901,7 @@ EOT;
 					}
 
 					if(is_valid_response == true && response_json.status == "ok"){
-						var remove_link = "<a href=\"javascript:remove_attachment('" + response_json.message + "',{$element->form_id},{$element->id},'element_{$element->id}" + ID + "',0,'{$file_token}');\"><img border=\"0\" src=\"https://devnairobi.amkatek.com/form_builder/images/icons/delete.png\" /></a>";
+						var remove_link = "<a href=\"javascript:remove_attachment('" + response_json.message + "',{$element->form_id},{$element->id},'element_{$element->id}" + ID + "',0,'{$file_token}');\"><img border=\"0\" src=\"https://devnairobi.amkatek.comhttps://devnairobi.amkatek.com/form_builder/images/icons/delete.png\" /></a>";
 						$("#element_{$element->id}" + ID + " > div.cancel > a").replaceWith(remove_link);
 				        $("#element_{$element->id}" + ID + " > span.fileName").prepend('<img align="absmiddle" class="file_attached" src="/form_builder/images/icons/attach.gif">');
 			        }else{
